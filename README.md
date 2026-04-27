@@ -1,4 +1,5 @@
 # 🤖 Human-AI Nexus: Documentation-First Framework
+[![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](PANDUAN_CEPAT.md)
 
 Pusat kendali dan dokumentasi terstruktur yang dirancang khusus untuk menjembatani kolaborasi antara **Human Developer** dan **AI Assistant**. Framework ini memastikan setiap tahap pengembangan—mulai dari perencanaan (planning), perancangan algoritma, hingga aspek legal—terdokumentasi dengan ketat sebelum satu baris kode pun ditulis.
 
@@ -7,11 +8,13 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 1.  Membaca `nexus/agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
 2.  Membaca dokumen Role yang relevan di `nexus/agent/` (Web Engineer, UX, atau Security).
 3.  Memeriksa `nexus/algorithms/` dan `nexus/planning/` untuk melihat rencana fitur yang sedang berjalan.
+4.  **Agent Selection**: Memberikan saran kepada User mengenai Agent mana yang paling cocok (misal: `Web Branding` untuk visual, `DevOps Specialist` untuk deployment, `Ethics Specialist` untuk hukum/etika, `QA Tester` untuk pengujian bug, atau `Growth Hacker` untuk strategi pemasaran).
 
 ## 📂 Struktur Folder
 | Folder | Deskripsi |
 | :--- | :--- |
-| `📂 agent/` | Definisi Workflow dan Persona AI (Instruksi Utama). |
+| `📂 agent/` | Definisi Persona AI (Orchestrator, PM, Web3, Branding, Marketing, Copywriter, Security, Chaos, Architect, Memory, Monetization, DevOps, Ethics). |
+| `📂 audit/` | Laporan audit hasil scanning project oleh Agent. |
 | `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
 | `📂 design/` | Aset desain atau spesifikasi UI/UX. |
 | `📂 planning/` | Rencana pengembangan fase demi fase. |
@@ -19,11 +22,16 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 | `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
 | `📂 summary/` | Rangkuman sesi harian. |
 | `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
+| `📂 knowledge/` | Memori jangka panjang (Global Lessons Learned). |
 
 ## 🛠 Prinsip Utama
 - **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `nexus/algorithms/` atau `nexus/planning/`.
+- **Hierarchical Coordination**: Gunakan **Nexus Orchestrator** sebagai pemimpin sesi dan **Project Manager** sebagai perancang rencana.
+- **Recursive Audit Loop**: Setiap tahap eksekusi wajib melalui siklus audit berulang hingga mencapai status **"Zero Flaws"**.
+- **Security War Games**: Simulasi serangan (Red Team) dan pertahanan (Blue Team) di bawah pengawasan **Security Architect**.
 - **Traceability**: Setiap perubahan harus bisa dilacak kembali ke dokumen dokumentasi.
-- **No Approval, No Code**: AI dilarang melakukan perubahan besar tanpa konfirmasi.
+- **Data Integrity**: AI dilarang keras menghapus file proyek atau memori secara otomatis tanpa izin eksplisit User (**No Auto-Delete Policy**).
+- **User Final Authority**: User adalah pengambil keputusan akhir untuk setiap konflik teknis (Tie-Breaker).
 
 ---
 *Dikelola oleh Faisal-Trainer & AI Assistant.*
@@ -33,7 +41,11 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 Cara termudah untuk menginstall framework ini ke proyek Anda adalah menggunakan **npx**:
 
 ```bash
+# Default (ke folder /nexus)
 npx github:Faisal-Trainer/Human-AI-Nexus
+
+# Kustom Folder (misal ke vendor/nexus)
+npx github:Faisal-Trainer/Human-AI-Nexus vendor/nexus
 ```
 
 Atau menggunakan PowerShell (Windows):

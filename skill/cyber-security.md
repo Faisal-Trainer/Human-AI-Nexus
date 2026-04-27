@@ -1,27 +1,21 @@
-# SKILL: CYBER SECURITY STANDARDS (Human-AI Nexus)
+# SKILL: DEFENSIVE SECURITY STANDARDS (Human-AI Nexus)
 
-Dokumen ini berisi standar teknis dan best practices keamanan yang wajib diterapkan dalam kode.
+Dokumen ini berisi standar teknis pertahanan untuk **Blue Team**.
 
-## 1. Validasi & Sanitasi (Input/Output)
-- Semua input user wajib divalidasi menggunakan server-side validation.
-- Gunakan sanitasi untuk output guna mencegah XSS (Cross-Site Scripting).
-- **Laravel Tip:** Gunakan `{{ e($data) }}` atau `@php echo e($data) @endphp`.
+## 1. Input Sanitization & Validation
+- **Principle**: Trust no user input.
+- **Implementation**: Gunakan whitelist validation. Gunakan parameterized queries untuk mencegah SQL Injection.
+- **Escape**: Lakukan escaping pada seluruh output data ke HTML untuk mencegah XSS.
 
-## 2. Autentikasi & Otorisasi
-- Pastikan setiap akses data menggunakan pemeriksaan kepemilikan (`IDOR Check`).
-- Gunakan middleware untuk proteksi route.
-- Verifikasi role/permission di level logic, bukan hanya UI.
+## 2. Security Headers (Hardening)
+- Implementasikan `Content-Security-Policy` (CSP) untuk membatasi sumber skrip.
+- Gunakan `X-Frame-Options: DENY` untuk mencegah Clickjacking.
+- Aktifkan `Strict-Transport-Security` (HSTS) untuk memaksa koneksi HTTPS.
 
-## 3. Keamanan Data & File
-- **Upload:** Cek mime-type, batasi ukuran, dan gunakan disk storage yang aman.
-- **Sensitive Data:** Jangan pernah menyimpan password atau key dalam bentuk teks biasa.
-- **Environment:** Pastikan `.env` tidak pernah terekspos.
-
-## 4. Checklist Keamanan Umum
-- [ ] Proteksi CSRF aktif.
-- [ ] Rate-limiting (Throttling) diterapkan pada endpoint sensitif (login/api).
-- [ ] Error message tidak membocorkan detail server (Stack Trace).
-- [ ] Proteksi terhadap SQL Injection (Gunakan Eloquent/Query Builder).
+## 3. Cryptography Standards
+- **At Rest**: Enkripsi data sensitif menggunakan AES-256 GCM.
+- **In Transit**: Gunakan TLS 1.3 dengan chiper suite yang kuat.
+- **Hashing**: Gunakan Argon2 atau BCrypt (cost factor minimal 12) untuk penyimpanan password.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `docs/agent/cyber-security.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/cyber-security.md`.*

@@ -17,15 +17,15 @@ Expand-Archive -Path $tempZip -DestinationPath $tempDir
 $sourcePath = Get-ChildItem -Path $tempDir -Filter "Human-AI-Nexus-main" | Select-Object -First 1
 
 Write-Host "📂 Menata folder dokumentasi..."
-if (-not (Test-Path "docs")) {
-    New-Item -ItemType Directory -Path "docs" -Force | Out-Null
+if (-not (Test-Path "nexus")) {
+    New-Item -ItemType Directory -Path "nexus" -Force | Out-Null
     
-    # Daftar folder yang akan disalin ke dalam /docs
+    # Daftar folder yang akan disalin ke dalam /nexus
     $folders = @("agent", "algorithms", "design", "planning", "skill", "records", "summary", "legal")
     
     foreach ($folder in $folders) {
         if (Test-Path "$($sourcePath.FullName)\$folder") {
-            Copy-Item -Path "$($sourcePath.FullName)\$folder" -Destination "docs" -Recurse -Force
+            Copy-Item -Path "$($sourcePath.FullName)\$folder" -Destination "nexus" -Recurse -Force
         }
     }
     
@@ -34,9 +34,9 @@ if (-not (Test-Path "docs")) {
         Copy-Item -Path "$($sourcePath.FullName)\ALGORITMA_INTEGRASI.md" -Destination "." -Force
     }
     
-    Write-Host "✅ Instalasi Berhasil! Folder /docs dan ALGORITMA_INTEGRASI.md telah ditambahkan." -ForegroundColor Green
+    Write-Host "✅ Instalasi Berhasil! Folder /nexus dan ALGORITMA_INTEGRASI.md telah ditambahkan." -ForegroundColor Green
 } else {
-    Write-Host "⚠️ Folder /docs sudah ada. Instalasi dibatalkan untuk mencegah penimpaan data." -ForegroundColor Yellow
+    Write-Host "⚠️ Folder /nexus sudah ada. Instalasi dibatalkan untuk mencegah penimpaan data." -ForegroundColor Yellow
 }
 
 # 4. Cleanup

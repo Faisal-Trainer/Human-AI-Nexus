@@ -4,9 +4,9 @@ Pusat kendali dan dokumentasi terstruktur yang dirancang khusus untuk menjembata
 
 ## 🚀 Instruksi Penting untuk AI Assistant
 Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **WAJIB**:
-1.  Membaca `docs/agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
-2.  Membaca dokumen Role yang relevan di `docs/agent/` (Web Engineer, UX, atau Security).
-3.  Memeriksa `docs/algorithms/` dan `docs/planning/` untuk melihat rencana fitur yang sedang berjalan.
+1.  Membaca `nexus/agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
+2.  Membaca dokumen Role yang relevan di `nexus/agent/` (Web Engineer, UX, atau Security).
+3.  Memeriksa `nexus/algorithms/` dan `nexus/planning/` untuk melihat rencana fitur yang sedang berjalan.
 
 ## 📂 Struktur Folder
 | Folder | Deskripsi |
@@ -21,7 +21,7 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 | `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
 
 ## 🛠 Prinsip Utama
-- **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `algorithms/` atau `planning/`.
+- **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `nexus/algorithms/` atau `nexus/planning/`.
 - **Traceability**: Setiap perubahan harus bisa dilacak kembali ke dokumen dokumentasi.
 - **No Approval, No Code**: AI dilarang melakukan perubahan besar tanpa konfirmasi.
 

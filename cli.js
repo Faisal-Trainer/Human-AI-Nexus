@@ -11,15 +11,15 @@ async function install() {
     console.log('\x1b[36m%s\x1b[0m', '🤖 Menginstall Human-AI Nexus Framework via NPX...');
 
     try {
-        // 1. Cek apakah folder docs sudah ada
-        const docsPath = path.join(targetDir, 'docs');
-        if (await fs.pathExists(docsPath)) {
-            console.log('\x1b[33m%s\x1b[0m', '⚠️ Folder /docs sudah ada. Instalasi dibatalkan.');
+        // 1. Cek apakah folder nexus sudah ada
+        const nexusPath = path.join(targetDir, 'nexus');
+        if (await fs.pathExists(nexusPath)) {
+            console.log('\x1b[33m%s\x1b[0m', '⚠️ Folder /nexus sudah ada. Instalasi dibatalkan.');
             process.exit(0);
         }
 
-        // 2. Buat folder docs
-        await fs.ensureDir(docsPath);
+        // 2. Buat folder nexus
+        await fs.ensureDir(nexusPath);
 
         // 3. Daftar folder framework yang akan disalin
         const folders = ['agent', 'algorithms', 'design', 'planning', 'skill', 'records', 'summary', 'legal'];
@@ -28,7 +28,7 @@ async function install() {
         for (const folder of folders) {
             const srcFolder = path.join(sourceDir, folder);
             if (await fs.pathExists(srcFolder)) {
-                await fs.copy(srcFolder, path.join(docsPath, folder));
+                await fs.copy(srcFolder, path.join(nexusPath, folder));
             }
         }
 

@@ -44,4 +44,4 @@ Setiap kali ada tugas baru atau perubahan fitur yang signifikan, AI Assistant **
 
 - AI Assistant dilarang menghapus atau mengubah dokumen di folder `docs/records/` yang sudah ada, kecuali untuk memperbaiki kesalahan tipografi atau menambah detail atas perintah user.
 - **DILARANG KERAS** menghapus file proyek atau file dokumentasi apa pun tanpa izin eksplisit dari User. Jika media penyimpanan penuh, AI wajib memberikan notifikasi dan menunggu instruksi User.
-- Setiap sesi kerja baru harus diawali dengan membaca seluruh isi folder `docs/` untuk memahami konteks terakhir.
+- Setiap sesi kerja baru harus diawali dengan membaca seluruh isi folder `docs/` serta file `nexus/STANDAR_ZERO_FLAWS.md` untuk memahami konteks dan standar kualitas terakhir.

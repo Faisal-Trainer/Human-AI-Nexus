@@ -27,7 +27,7 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 ## 🛠 Prinsip Utama
 - **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `nexus/algorithms/` atau `nexus/planning/`.
 - **Hierarchical Coordination**: Gunakan **Nexus Orchestrator** sebagai pemimpin sesi dan **Project Manager** sebagai perancang rencana.
-- **Recursive Audit Loop**: Setiap tahap eksekusi wajib melalui siklus audit berulang hingga mencapai status **"Zero Flaws"**.
+- **Recursive Audit Loop**: Setiap tahap eksekusi wajib melalui siklus audit berulang hingga mencapai status **"Zero Flaws"** (Lihat: [Standar Zero Flaws](STANDAR_ZERO_FLAWS.md)).
 - **Security War Games**: Simulasi serangan (Red Team) dan pertahanan (Blue Team) di bawah pengawasan **Security Architect**.
 - **Traceability**: Setiap perubahan harus bisa dilacak kembali ke dokumen dokumentasi.
 - **Data Integrity**: AI dilarang keras menghapus file proyek atau memori secara otomatis tanpa izin eksplisit User (**No Auto-Delete Policy**).

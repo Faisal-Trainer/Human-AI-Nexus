@@ -38,7 +38,7 @@ Setiap kali ingin memulai pengembangan atau pemeliharaan, ikuti alur ini:
 1. **No Documentation, No Code**: Jangan biarkan AI menulis kode sebelum ada dokumen rencana yang disetujui.
 2. **Traceability**: Pastikan AI selalu merujuk pada dokumen yang sudah dibuat sebelumnya.
 3. **Daily Summary & Knowledge Update**: Pastikan AI membuat rangkuman dan mengupdate folder `nexus/knowledge/` agar pelajaran berharga tersimpan permanen.
-4. **Zero Flaws Enforcement**: Jangan menghentikan sesi pengembangan sebelum audit menyatakan "Zero Flaws".
+4. **Zero Flaws Enforcement**: Jangan menghentikan sesi pengembangan sebelum audit menyatakan "Zero Flaws" sesuai [Standar Konkret](STANDAR_ZERO_FLAWS.md).
 
 ---
 *Dibuat untuk memfasilitasi kolaborasi Manusia & AI yang aman dan terstruktur.*

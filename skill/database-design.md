@@ -1,4 +1,4 @@
-# SKILL: DATABASE DESIGN & OPTIMIZATION STANDARDS ([PROJECT_NAME])
+# SKILL: DATABASE DESIGN & OPTIMIZATION STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar teknis untuk perancangan dan optimasi database.
 

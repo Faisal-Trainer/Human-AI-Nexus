@@ -1,0 +1,32 @@
+# Human-AI Nexus Installer for Windows
+$repoUrl = "https://github.com/Faisal-Trainer/Human-AI-Nexus/archive/refs/heads/main.zip"
+$tempZip = "$env:TEMP\nexus.zip"
+$tempDir = "$env:TEMP\nexus_extracted"
+
+Write-Host "🤖 Menginstall Human-AI Nexus Framework..." -ForegroundColor Cyan
+
+# 1. Download Repository
+Write-Host "📥 Mendownload file dari GitHub..."
+Invoke-WebRequest -Uri $repoUrl -OutFile $tempZip
+
+# 2. Extract ZIP
+if (Test-Path $tempDir) { Remove-Item -Path $tempDir -Recurse -Force }
+Expand-Archive -Path $tempZip -DestinationPath $tempDir
+
+# 3. Pindahkan folder docs dan algoritma integrasi
+$sourcePath = Get-ChildItem -Path $tempDir -Filter "Human-AI-Nexus-main" | Select-Object -First 1
+
+Write-Host "📂 Menata folder dokumentasi..."
+if (-not (Test-Path "docs")) {
+    Copy-Item -Path "$($sourcePath.FullName)\docs" -Destination "." -Recurse -Force
+    Copy-Item -Path "$($sourcePath.FullName)\ALGORITMA_INTEGRASI.md" -Destination "." -Force
+    Write-Host "✅ Instalasi Berhasil! Folder /docs dan ALGORITMA_INTEGRASI.md telah ditambahkan." -ForegroundColor Green
+} else {
+    Write-Host "⚠️ Folder /docs sudah ada. Instalasi dibatalkan untuk mencegah penimpaan data." -ForegroundColor Yellow
+}
+
+# 4. Cleanup
+Remove-Item $tempZip
+Remove-Item $tempDir -Recurse -Force
+
+Write-Host "🚀 Siap berkolaborasi dengan AI! Silakan baca ALGORITMA_INTEGRASI.md untuk memulai." -ForegroundColor Cyan

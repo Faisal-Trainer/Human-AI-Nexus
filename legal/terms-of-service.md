@@ -1,4 +1,4 @@
-# TERMS OF SERVICE ([PROJECT_NAME])
+# TERMS OF SERVICE (Human-AI Nexus)
 
 Terakhir diperbarui: [DATE]
 

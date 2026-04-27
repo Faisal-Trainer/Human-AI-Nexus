@@ -1,6 +1,6 @@
-# SKILL: WEB ENGINEERING STANDARDS ([PROJECT_NAME])
+# SKILL: WEB ENGINEERING STANDARDS (Human-AI Nexus)
 
-Dokumen ini berisi standar teknis pengembangan web dan best practices untuk proyek **[PROJECT_NAME]**.
+Dokumen ini berisi standar teknis pengembangan web dan best practices untuk proyek **Human-AI Nexus**.
 
 ## 1. Arsitektur & Struktur Folder
 - Ikuti standar struktur folder framework yang digunakan.

@@ -1,4 +1,4 @@
-# SKILL: TESTING & QUALITY STANDARDS ([PROJECT_NAME])
+# SKILL: TESTING & QUALITY STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar teknis untuk pengujian aplikasi dan penjaminan kualitas.
 

@@ -1,4 +1,4 @@
-# PRIVACY POLICY ([PROJECT_NAME])
+# PRIVACY POLICY (Human-AI Nexus)
 
 Terakhir diperbarui: [DATE]
 

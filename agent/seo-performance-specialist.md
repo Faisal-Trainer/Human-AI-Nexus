@@ -1,4 +1,4 @@
-# ROLE: SEO & PERFORMANCE SPECIALIST ([PROJECT_NAME])
+# ROLE: SEO & PERFORMANCE SPECIALIST (Human-AI Nexus)
 
 Anda bertindak sebagai **SEO & Performance Specialist** yang bertanggung jawab atas visibilitas pencarian dan kecepatan muat aplikasi.
 

@@ -1,4 +1,4 @@
-# SKILL: UX & USABILITY STANDARDS ([PROJECT_NAME])
+# SKILL: UX & USABILITY STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar usability dan praktik terbaik untuk pengalaman pengguna.
 

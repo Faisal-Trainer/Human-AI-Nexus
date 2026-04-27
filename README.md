@@ -1,6 +1,6 @@
-# AI-DRIVEN DOCUMENTATION FRAMEWORK
+# 🤖 Human-AI Nexus: Documentation-First Framework
 
-Selamat datang di Framework Dokumentasi Proyek ini. Folder ini dirancang khusus untuk kolaborasi antara **Human Developer** dan **AI Assistant** guna memastikan pengembangan yang terstruktur, aman, dan terdokumentasi dengan baik.
+Pusat kendali dan dokumentasi terstruktur yang dirancang khusus untuk menjembatani kolaborasi antara **Human Developer** dan **AI Assistant**. Framework ini memastikan setiap tahap pengembangan—mulai dari perencanaan (planning), perancangan algoritma, hingga aspek legal—terdokumentasi dengan ketat sebelum satu baris kode pun ditulis.
 
 ## 🚀 Instruksi Penting untuk AI Assistant
 Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **WAJIB**:
@@ -9,14 +9,16 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 3.  Memeriksa `docs/algorithms/` dan `docs/planning/` untuk melihat rencana fitur yang sedang berjalan.
 
 ## 📂 Struktur Folder
-- **agent/**: Definisi Workflow dan Persona AI (Instruksi Utama).
-- **algorithms/**: Logika fitur dan algoritma sebelum diimplementasikan ke kode.
-- **design/**: Aset desain atau spesifikasi UI/UX (jika ada).
-- **planning/**: Rencana pengembangan fase demi fase.
-- **skill/**: Modul spesialisasi teknis AI.
-- **records/**: Laporan penyelesaian fitur (history pengembangan).
-- **summary/**: Rangkuman sesi harian.
-- **legal/**: Dokumen hukum (Privacy Policy & Terms of Service).
+| Folder | Deskripsi |
+| :--- | :--- |
+| `📂 agent/` | Definisi Workflow dan Persona AI (Instruksi Utama). |
+| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
+| `📂 design/` | Aset desain atau spesifikasi UI/UX. |
+| `📂 planning/` | Rencana pengembangan fase demi fase. |
+| `📂 skill/` | Modul spesialisasi teknis AI. |
+| `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
+| `📂 summary/` | Rangkuman sesi harian. |
+| `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
 
 ## 🛠 Prinsip Utama
 - **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `algorithms/` atau `planning/`.
@@ -24,4 +26,5 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 - **No Approval, No Code**: AI dilarang melakukan perubahan besar tanpa konfirmasi.
 
 ---
-*Dikelola oleh [PROJECT_NAME] Team & AI Assistant.*
+*Dikelola oleh Faisal-Trainer & AI Assistant.*
+

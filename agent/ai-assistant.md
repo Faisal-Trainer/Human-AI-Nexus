@@ -1,6 +1,6 @@
-# AI ASSISTANT WORKFLOW ([PROJECT_NAME])
+# AI ASSISTANT WORKFLOW (Human-AI Nexus)
 
-Dokumen ini mendefinisikan prosedur kerja wajib bagi AI Assistant dalam mengelola siklus pengembangan proyek **[PROJECT_NAME]**.
+Dokumen ini mendefinisikan prosedur kerja wajib bagi AI Assistant dalam mengelola siklus pengembangan proyek **Human-AI Nexus**.
 
 ---
 
@@ -22,7 +22,7 @@ Setiap kali ada tugas baru atau perubahan fitur yang signifikan, AI Assistant **
 2. **Wajib** memeriksa apakah fitur baru tersebut memerlukan pembaruan pada **Privacy Policy** atau **Terms of Service** (misal: fitur yang mengambil data user baru, integrasi API pihak ketiga, atau sistem pembayaran). Jika ya, lakukan pembaruan di folder `docs/legal/`.
 3. **Wajib** menuliskan laporan penyelesaian di folder `docs/records/`.
 4. Gunakan format penamaan file: `YYYY-MM-DD_XX_nama_fase_completed.md`.
-5. **Buat Session Summary harian:** Buat file `YYYY-MM-DD_XX_session_summary.md` di folder `docs/summary/` pada akhir hari untuk merangkum seluruh phase yang diselesaikan pada hari tersebut. Jika dalam satu hari terdapat beberapa phase, rangkum semuanya dalam satu dokumen summary harian ini.
+5. **Buat Session Summary harian:** Buat file `YYYY-MM-DD_XX_session_summary.md` di folder `docs/summary/` pada akhir hari untuk merangkum seluruh fase yang diselesaikan pada hari tersebut. Jika dalam satu hari terdapat beberapa fase, rangkum semuanya dalam satu dokumen summary harian ini.
 
 ---
 

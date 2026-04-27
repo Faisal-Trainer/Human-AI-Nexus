@@ -1,6 +1,6 @@
 # VISUAL DESIGN GUIDE (DARK MODE)
 
-Dokumen ini berisi panduan warna, elemen visual, dan aset untuk tema gelap aplikasi **[PROJECT_NAME]**.
+Dokumen ini berisi panduan warna, elemen visual, dan aset untuk tema gelap aplikasi **Human-AI Nexus**.
 
 ## 1. Palet Warna Utama (Dark)
 - **Primary:** `[HEX_CODE]` (Penjelasan penggunaan)

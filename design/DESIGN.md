@@ -1,6 +1,6 @@
 # VISUAL DESIGN GUIDE (LIGHT MODE)
 
-Dokumen ini berisi panduan warna, elemen visual, dan aset untuk tema terang aplikasi **[PROJECT_NAME]**.
+Dokumen ini berisi panduan warna, elemen visual, dan aset untuk tema terang aplikasi **Human-AI Nexus**.
 
 ## 1. Palet Warna Utama
 - **Primary:** `[HEX_CODE]` (Penjelasan penggunaan)

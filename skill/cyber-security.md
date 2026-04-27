@@ -1,4 +1,4 @@
-# SKILL: CYBER SECURITY STANDARDS ([PROJECT_NAME])
+# SKILL: CYBER SECURITY STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar teknis dan best practices keamanan yang wajib diterapkan dalam kode.
 

@@ -1,4 +1,4 @@
-# SKILL: SEO & PERFORMANCE STANDARDS ([PROJECT_NAME])
+# SKILL: SEO & PERFORMANCE STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar teknis untuk optimasi mesin pencari dan performa web.
 

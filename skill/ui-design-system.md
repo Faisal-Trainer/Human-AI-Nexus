@@ -1,4 +1,4 @@
-# SKILL: UI DESIGN SYSTEM & STYLING STANDARDS ([PROJECT_NAME])
+# SKILL: UI DESIGN SYSTEM & STYLING STANDARDS (Human-AI Nexus)
 
 Dokumen ini berisi standar teknis untuk implementasi antarmuka dan sistem desain.
 

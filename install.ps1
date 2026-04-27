@@ -13,13 +13,27 @@ Invoke-WebRequest -Uri $repoUrl -OutFile $tempZip
 if (Test-Path $tempDir) { Remove-Item -Path $tempDir -Recurse -Force }
 Expand-Archive -Path $tempZip -DestinationPath $tempDir
 
-# 3. Pindahkan folder docs dan algoritma integrasi
+# 3. Pindahkan folder framework
 $sourcePath = Get-ChildItem -Path $tempDir -Filter "Human-AI-Nexus-main" | Select-Object -First 1
 
 Write-Host "📂 Menata folder dokumentasi..."
 if (-not (Test-Path "docs")) {
-    Copy-Item -Path "$($sourcePath.FullName)\docs" -Destination "." -Recurse -Force
-    Copy-Item -Path "$($sourcePath.FullName)\ALGORITMA_INTEGRASI.md" -Destination "." -Force
+    New-Item -ItemType Directory -Path "docs" -Force | Out-Null
+    
+    # Daftar folder yang akan disalin ke dalam /docs
+    $folders = @("agent", "algorithms", "design", "planning", "skill", "records", "summary", "legal")
+    
+    foreach ($folder in $folders) {
+        if (Test-Path "$($sourcePath.FullName)\$folder") {
+            Copy-Item -Path "$($sourcePath.FullName)\$folder" -Destination "docs" -Recurse -Force
+        }
+    }
+    
+    # Salin file utama ke root proyek
+    if (Test-Path "$($sourcePath.FullName)\ALGORITMA_INTEGRASI.md") {
+        Copy-Item -Path "$($sourcePath.FullName)\ALGORITMA_INTEGRASI.md" -Destination "." -Force
+    }
+    
     Write-Host "✅ Instalasi Berhasil! Folder /docs dan ALGORITMA_INTEGRASI.md telah ditambahkan." -ForegroundColor Green
 } else {
     Write-Host "⚠️ Folder /docs sudah ada. Instalasi dibatalkan untuk mencegah penimpaan data." -ForegroundColor Yellow

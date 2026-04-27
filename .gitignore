@@ -1,0 +1,44 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+nexus/audit/*
+!nexus/audit/.gitkeep
+nexus/planning/*
+!nexus/planning/.gitkeep
+nexus/records/*
+!nexus/records/.gitkeep
+nexus/summary/*
+!nexus/summary/.gitkeep
+nexus/knowledge/*
+!nexus/knowledge/.gitkeep
+
+# Root Documentation
+audit/*
+!audit/.gitkeep
+planning/*
+!planning/.gitkeep
+records/*
+!records/.gitkeep
+summary/*
+!summary/.gitkeep
+algorithms/*
+!algorithms/.gitkeep
+design/*
+!design/.gitkeep

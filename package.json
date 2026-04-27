@@ -1,0 +1,25 @@
+{
+  "name": "@faisal-trainer/human-ai-nexus",
+  "version": "1.0.0",
+  "description": "Human-AI Nexus Documentation Framework Installer",
+  "main": "cli.js",
+  "bin": {
+    "human-ai-nexus": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faisal-Trainer/Human-AI-Nexus.git"
+  },
+  "keywords": [
+    "ai",
+    "framework",
+    "documentation",
+    "nexus"
+  ],
+  "author": "Faisal-Trainer",
+  "license": "MIT",
+  "dependencies": {
+    "degit": "^2.8.4",
+    "fs-extra": "^11.1.1"
+  }
+}

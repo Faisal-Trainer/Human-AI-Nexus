@@ -30,13 +30,15 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 
 ## ⚡ Quick Start / Installation
 
-Untuk pengguna baru, jalankan perintah berikut di PowerShell untuk menginstal framework ini ke proyek Anda:
+Cara termudah untuk menginstall framework ini ke proyek Anda adalah menggunakan **npx**:
+
+```bash
+npx github:Faisal-Trainer/Human-AI-Nexus
+```
+
+Atau menggunakan PowerShell (Windows):
 
 ```powershell
 iwr -useb https://raw.githubusercontent.com/Faisal-Trainer/Human-AI-Nexus/main/install.ps1 | iex
 ```
-
-Atau jika Anda sudah melakukan clone repository ini:
-1. Buka PowerShell di direktori proyek Anda.
-2. Jalankan `./install.ps1`.
 

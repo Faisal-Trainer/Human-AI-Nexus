@@ -1,6 +1,5 @@
 # 🤖 Human-AI Nexus: Documentation-First Framework
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](PANDUAN_CEPAT.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 ## 📌 Pendahuluan: Mengapa Human-AI Nexus?
 

@@ -22,8 +22,7 @@
     "cli.js",
     "PANDUAN_CEPAT.md",
     "STANDAR_ZERO_FLAWS.md",
-    "README.md",
-    "LICENSE"
+    "README.md"
   ],
   "scripts": {
     "start": "node cli.js run",
@@ -47,7 +46,7 @@
     "agents"
   ],
   "author": "Faisal-Trainer",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "dependencies": {
     "degit": "^2.8.4",
     "fs-extra": "^11.1.1"

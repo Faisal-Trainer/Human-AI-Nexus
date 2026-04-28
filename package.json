@@ -4,8 +4,8 @@
   "description": "A Documentation-First Framework for Structured Human-AI Collaboration and Orchestration",
   "main": "src/index.js",
   "bin": {
-    "human-ai-nexus": "cli.js",
-    "nexus": "src/index.js"
+    "nexus": "src/index.js",
+    "human-ai-nexus": "cli.js"
   },
   "files": [
     "agent/**/*",

@@ -3,6 +3,18 @@ const path = require('path');
 const { AuditReport, ImplementationPlan } = require('./Contract');
 
 /**
+ * Lifecycle States as per system-spec.md
+ */
+const STATES = {
+    INIT: 'INIT',
+    PROCESSING: 'PROCESSING',
+    EXECUTING: 'EXECUTING',
+    LOGGING: 'LOGGING',
+    COMPLETED: 'COMPLETED',
+    FAILED: 'FAILED'
+};
+
+/**
  * NexusError - Custom Error for Production Readiness
  */
 class NexusError extends Error {
@@ -30,6 +42,7 @@ class NexusEngine {
         this.skillRegistry = {};
         this.memory = [];
         this.metrics = {};
+        this.state = STATES.INIT;
         
         this.currentAudit = null; 
         this.currentPlan = null;
@@ -196,9 +209,13 @@ class NexusEngine {
 
     async runCycle(options = {}) {
         const startTime = Date.now();
-        this.log('\n--- Nexus Engine: Starting Deterministic Cycle [PRO] ---', 'info');
+        this.state = STATES.INIT;
+        this.log(`\n--- Nexus Engine: Starting Cycle [STATE: ${this.state}] ---`, 'info');
         
         try {
+            this.state = STATES.PROCESSING;
+            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
+            
             await this.discoverSkills();
             await this.readMemory();
 
@@ -210,23 +227,29 @@ class NexusEngine {
             const plan = await this.plan(report);
             this.metrics.planningDuration = `${Date.now() - p2Start}ms`;
             
-            this.log('\n⚠️ Waiting for Human Approval (Auto-Approved)...', 'warning');
+            this.state = STATES.EXECUTING;
+            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
             
             const p3Start = Date.now();
             await this.execute(plan);
             this.metrics.executionDuration = `${Date.now() - p3Start}ms`;
 
+            this.state = STATES.LOGGING;
+            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
+            
             await this.record();
             
             const totalTime = Date.now() - startTime;
             this.metrics.totalDuration = `${totalTime}ms`;
 
+            this.state = STATES.COMPLETED;
             await this.generateCycleSummary();
             
-            this.log(`\n--- Nexus Engine: Cycle Complete (${totalTime}ms) ---`, 'info');
+            this.log(`\n--- Nexus Engine: Cycle Complete [STATE: ${this.state}] (${totalTime}ms) ---`, 'info');
         } catch (error) {
+            this.state = STATES.FAILED;
             const nexusErr = error instanceof NexusError ? error : new NexusError('RUNTIME', error.message);
-            this.log(`❌ Engine Critical Failure: [${nexusErr.phase}] ${nexusErr.message}`, 'error');
+            this.log(`❌ Engine Critical Failure: [${nexusErr.phase}] ${nexusErr.message} [STATE: ${this.state}]`, 'error');
             await this.logError(nexusErr);
         }
     }
@@ -235,6 +258,7 @@ class NexusEngine {
         const summary = {
             cycleID: `CYCLE-${Date.now()}`,
             timestamp: new Date().toISOString(),
+            finalState: this.state,
             metrics: this.metrics,
             auditRef: this.currentAudit?.id,
             planRef: this.currentPlan?.id,
@@ -256,6 +280,7 @@ class NexusEngine {
             }
             logs.push({
                 phase: err.phase,
+                state: this.state,
                 message: err.message,
                 timestamp: err.timestamp,
                 stack: err.stack

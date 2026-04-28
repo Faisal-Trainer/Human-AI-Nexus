@@ -3,6 +3,18 @@ const path = require('path');
 const { AuditReport, ImplementationPlan } = require('./Contract');
 
 /**
+ * NexusError - Custom Error for Production Readiness
+ */
+class NexusError extends Error {
+    constructor(phase, message) {
+        super(message);
+        this.name = 'NexusError';
+        this.phase = phase;
+        this.timestamp = new Date().toISOString();
+    }
+}
+
+/**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
  */
 class NexusEngine {
@@ -12,19 +24,17 @@ class NexusEngine {
         this.skillPath = path.join(this.rootPath, 'skill');
         this.knowledgePath = path.join(this.rootPath, 'knowledge');
         this.recordsPath = path.join(this.rootPath, 'records');
+        this.summaryPath = path.join(this.rootPath, 'summary');
         
         this.activeAgents = new Set();
         this.skillRegistry = {};
         this.memory = [];
+        this.metrics = {};
         
         this.currentAudit = null; 
         this.currentPlan = null;
     }
 
-    /**
-     * Tier 2: Skill Registry
-     * Scans the skill directory and maps all available specialist modules.
-     */
     async discoverSkills() {
         this.log('📚 Discovering Skill Registry...', 'info');
         const categories = await fs.readdir(this.skillPath, { withFileTypes: true });
@@ -37,10 +47,6 @@ class NexusEngine {
         return this.skillRegistry;
     }
 
-    /**
-     * Tier 2: Memory Integration
-     * Reads past records and knowledge base to provide context for the current session.
-     */
     async readMemory() {
         this.log('🧠 Accessing Long-term Memory...', 'info');
         try {
@@ -91,9 +97,6 @@ class NexusEngine {
         console.log(`${colors[type]}${message}${colors.reset}`);
     }
 
-    /**
-     * Phase 1: Audit (Mandatory Contract)
-     */
     async audit(targetPath = this.rootPath, options = {}) {
         const mode = options.mode || 'learning';
         const allowSensitive = options.allowSensitive || false;
@@ -102,14 +105,11 @@ class NexusEngine {
         const auditID = `AUDIT-${Date.now()}`;
         const findings = [];
 
-        // Invoke specialists for findings (Simulation)
         if (mode === 'learning') {
-            this.log('🎓 Learning Mode: Invoking full specialist team...', 'warning');
             const specialists = ['cyber-security', 'ux-engineer', 'seo-performance-specialist', 'database-architect'];
             for (const agent of specialists) {
                 try {
                     await this.loadAgent(agent);
-                    this.log(`✅ ${agent} joined the audit.`, 'success');
                 } catch (e) {
                     this.log(`⚠️ Agent ${agent} is not available.`, 'error');
                 }
@@ -141,13 +141,10 @@ class NexusEngine {
         return report;
     }
 
-    /**
-     * Phase 2: Planning (Requires Audit Contract)
-     */
     async plan(auditReport) {
         const report = auditReport || this.currentAudit;
         if (!report) {
-            throw new Error('❌ Pipeline Violation: Planning requires a valid Audit Report.');
+            throw new NexusError('PLANNING', 'Pipeline Violation: Planning requires a valid Audit Report.');
         }
 
         this.log(`📅 Phase 2: Planning based on ${report.id}...`, 'info');
@@ -174,13 +171,10 @@ class NexusEngine {
         return plan;
     }
 
-    /**
-     * Phase 3: Execution (Requires Plan Contract)
-     */
     async execute(plan) {
         const activePlan = plan || this.currentPlan;
         if (!activePlan) {
-            throw new Error('❌ Pipeline Violation: Execution requires an approved Plan.');
+            throw new NexusError('EXECUTION', 'Pipeline Violation: Execution requires an approved Plan.');
         }
         
         this.log(`🚀 Phase 3: Executing Plan ${activePlan.id}...`, 'info');
@@ -193,9 +187,6 @@ class NexusEngine {
         this.log('✅ Execution phase completed.', 'success');
     }
 
-    /**
-     * Phase 4: Recording
-     */
     async record() {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
         const recordDir = path.join(this.rootPath, 'records');
@@ -204,23 +195,74 @@ class NexusEngine {
     }
 
     async runCycle(options = {}) {
-        this.log('\n--- Nexus Engine: Starting Deterministic Cycle ---', 'info');
+        const startTime = Date.now();
+        this.log('\n--- Nexus Engine: Starting Deterministic Cycle [PRO] ---', 'info');
+        
         try {
-            // Tier 2: Pre-cycle Intelligence
             await this.discoverSkills();
             await this.readMemory();
 
+            const p1Start = Date.now();
             const report = await this.audit(this.rootPath, options);
+            this.metrics.auditDuration = `${Date.now() - p1Start}ms`;
+
+            const p2Start = Date.now();
             const plan = await this.plan(report);
+            this.metrics.planningDuration = `${Date.now() - p2Start}ms`;
             
-            this.log('\n⚠️ Waiting for Human Approval (Auto-Approved in this version)...', 'warning');
+            this.log('\n⚠️ Waiting for Human Approval (Auto-Approved)...', 'warning');
             
+            const p3Start = Date.now();
             await this.execute(plan);
+            this.metrics.executionDuration = `${Date.now() - p3Start}ms`;
+
             await this.record();
             
-            this.log('--- Nexus Engine: Cycle Complete ---', 'info');
+            const totalTime = Date.now() - startTime;
+            this.metrics.totalDuration = `${totalTime}ms`;
+
+            await this.generateCycleSummary();
+            
+            this.log(`\n--- Nexus Engine: Cycle Complete (${totalTime}ms) ---`, 'info');
         } catch (error) {
-            this.log(`❌ Engine Error: ${error.message}`, 'error');
+            const nexusErr = error instanceof NexusError ? error : new NexusError('RUNTIME', error.message);
+            this.log(`❌ Engine Critical Failure: [${nexusErr.phase}] ${nexusErr.message}`, 'error');
+            await this.logError(nexusErr);
+        }
+    }
+
+    async generateCycleSummary() {
+        const summary = {
+            cycleID: `CYCLE-${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            metrics: this.metrics,
+            auditRef: this.currentAudit?.id,
+            planRef: this.currentPlan?.id,
+            agentsInvolved: Array.from(this.activeAgents)
+        };
+
+        await fs.ensureDir(this.summaryPath);
+        const file = path.join(this.summaryPath, `cycle_summary_${summary.cycleID}.json`);
+        await fs.writeJson(file, summary, { spaces: 2 });
+        this.log(`📊 Session Summary generated: ${path.basename(file)}`, 'success');
+    }
+
+    async logError(err) {
+        const errorLog = path.join(this.summaryPath, 'error_log.json');
+        let logs = [];
+        try {
+            if (await fs.pathExists(errorLog)) {
+                logs = await fs.readJson(errorLog);
+            }
+            logs.push({
+                phase: err.phase,
+                message: err.message,
+                timestamp: err.timestamp,
+                stack: err.stack
+            });
+            await fs.writeJson(errorLog, logs, { spaces: 2 });
+        } catch (e) {
+            this.log(`❌ Failed to log error: ${e.message}`, 'error');
         }
     }
 }

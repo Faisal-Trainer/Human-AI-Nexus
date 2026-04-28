@@ -13,7 +13,7 @@ Dokumen ini berisi standar teknis untuk kepatuhan hukum dan etika.
 - **Keyboard Navigation**: Pastikan seluruh fungsi web bisa dioperasikan hanya menggunakan keyboard.
 
 ## 3. Lisensi Aset (Asset Licensing)
-- **Audit**: Verifikasi setiap aset gambar/font terhadap file `nexus/legal/LICENSE_LOG.md` (jika ada).
+- **Audit**: Verifikasi setiap aset gambar/font terhadap file `legal/LICENSE_LOG.md` (jika ada).
 - **DMCA Safe**: Hindari penggunaan nama brand atau logo pihak ketiga tanpa izin resmi.
 
 ---

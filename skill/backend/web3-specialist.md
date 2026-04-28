@@ -14,7 +14,7 @@ Dokumen ini berisi standar teknis untuk pengembangan blockchain yang aman dan le
 
 ## 3. Kepatuhan Hukum (Legal Compliance)
 - **KYC/AML Alignment**: Jika kontrak melibatkan aset finansial, pastikan ada mekanisme untuk integrasi KYC jika diminta oleh regulasi.
-- **Smart Contract as Legal Agreement**: Pastikan komentar di dalam kode mencerminkan niat hukum yang ada di dokumen `nexus/legal/`.
+- **Smart Contract as Legal Agreement**: Pastikan komentar di dalam kode mencerminkan niat hukum yang ada di dokumen `legal/`.
 
 ## 4. Prosedur Deployment
 - **Jaringan**: Hanya gunakan Testnet (Sepolia, Mumbai, dll.) untuk pengembangan awal.

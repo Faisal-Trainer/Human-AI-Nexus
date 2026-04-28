@@ -29,18 +29,28 @@ nexus/summary/*
 nexus/knowledge/*
 !nexus/knowledge/.gitkeep
 
-# Root Documentation
+# Root Documentation (Keep .md files, ignore others)
 audit/*
 !audit/.gitkeep
+!audit/*.md
+
 planning/*
 !planning/.gitkeep
+!planning/*.md
+
 records/*
 !records/.gitkeep
+!records/*.md
+
 summary/*
 !summary/.gitkeep
+
 algorithms/*
 !algorithms/.gitkeep
+!algorithms/*.md
+
 design/*
 !design/.gitkeep
+!design/*.md
 
 .env

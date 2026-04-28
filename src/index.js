@@ -1,9 +1,6 @@
 const NexusEngine = require('./core/NexusEngine');
-
+const path = require('path');
 const readline = require('readline');
-
-// Create engine instance
-const engine = new NexusEngine();
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -19,19 +16,37 @@ function ask(question) {
  */
 async function main() {
     const args = process.argv.slice(2);
-    const command = args[0] || 'run';
+    
+    // Parse arguments
+    const flags = {
+        mode: args.includes('--mode') ? args[args.indexOf('--mode') + 1] : (args.includes('-m') ? args[args.indexOf('-m') + 1] : null),
+        root: args.includes('--root') ? args[args.indexOf('--root') + 1] : (args.includes('-r') ? args[args.indexOf('-r') + 1] : process.cwd()),
+        yes: args.includes('--yes') || args.includes('-y'),
+        command: args[0] && !args[0].startsWith('-') ? args[0] : 'run'
+    };
 
-    switch (command) {
+    // Initialize engine with specified root
+    const engine = new NexusEngine({ rootPath: path.resolve(flags.root) });
+
+    switch (flags.command) {
         case 'run':
             console.log('\x1b[36m%s\x1b[0m', '🛡️ Nexus Orchestrator: "Selamat datang di Fase Audit."');
-            console.log('1. [Learning Mode] Saya developer baru/ingin belajar dari temuan tiap agent spesialis.');
-            console.log('2. [Efficient Mode] Saya sudah senior/ingin laporan ringkas yang dikonsolidasi PM.');
             
-            const choice = await ask('\nPilih mode audit (1/2): ');
-            const mode = choice === '2' ? 'efficient' : 'learning';
-            
-            const allowSensitiveChoice = await ask('Izinkan scan file sensitif (package.json, composer.json, .env)? (y/n): ');
-            const allowSensitive = allowSensitiveChoice.toLowerCase() === 'y';
+            let mode = flags.mode || 'learning';
+            let allowSensitive = true;
+
+            if (!flags.yes) {
+                console.log('1. [Learning Mode] Saya developer baru/ingin belajar dari temuan tiap agent spesialis.');
+                console.log('2. [Efficient Mode] Saya sudah senior/ingin laporan ringkas yang dikonsolidasi PM.');
+                
+                const choice = await ask('\nPilih mode audit (1/2): ');
+                mode = choice === '2' ? 'efficient' : 'learning';
+                
+                const allowSensitiveChoice = await ask('Izinkan scan file sensitif (package.json, composer.json, .env)? (y/n): ');
+                allowSensitive = allowSensitiveChoice.toLowerCase() === 'y';
+            } else {
+                console.log(`⚡ Mode Otomatis Aktif: Menggunakan mode "${mode}" dan mengizinkan scan file sensitif.`);
+            }
             
             await engine.runCycle({ mode, allowSensitive });
             rl.close();

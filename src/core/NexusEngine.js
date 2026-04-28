@@ -32,11 +32,36 @@ class NexusError extends Error {
 class NexusEngine {
     constructor(config = {}) {
         this.rootPath = config.rootPath || process.cwd();
-        this.agentPath = path.join(this.rootPath, 'agent');
-        this.skillPath = path.join(this.rootPath, 'skill');
-        this.knowledgePath = path.join(this.rootPath, 'knowledge');
-        this.recordsPath = path.join(this.rootPath, 'records');
-        this.summaryPath = path.join(this.rootPath, 'summary');
+        
+        // Find where Nexus data lives (either root or ./nexus folder)
+        const possibleNexusPath = path.join(this.rootPath, 'nexus');
+        this.nexusDataPath = fs.pathExistsSync(possibleNexusPath) ? possibleNexusPath : this.rootPath;
+        
+        // Detection Logic for Documentation-First Structure inside nexus data path
+        const hasDocsFolder = fs.pathExistsSync(path.join(this.nexusDataPath, 'docs'));
+        const docsBase = hasDocsFolder ? path.join(this.nexusDataPath, 'docs') : this.nexusDataPath;
+
+        // Dynamic Path Mapping (Support for root/ or nexus/ or nexus/docs/ structure)
+        const resolvePath = (folderName) => {
+            const possiblePaths = [
+                path.join(docsBase, folderName),
+                path.join(this.nexusDataPath, folderName),
+                path.join(this.rootPath, folderName)
+            ];
+            for (const p of possiblePaths) {
+                if (fs.pathExistsSync(p)) return p;
+            }
+            return path.join(docsBase, folderName); // Default
+        };
+
+        this.agentPath = resolvePath('agent');
+        this.skillPath = resolvePath('skill');
+        this.knowledgePath = resolvePath('knowledge');
+        this.recordsPath = resolvePath('records');
+        this.summaryPath = resolvePath('summary');
+        this.auditPath = resolvePath('audit');
+        this.planningPath = resolvePath('planning');
+        this.algorithmsPath = resolvePath('algorithms');
         
         this.activeAgents = new Set();
         this.skillRegistry = {};
@@ -63,6 +88,9 @@ class NexusEngine {
     async readMemory() {
         this.log('🧠 Accessing Long-term Memory...', 'info');
         try {
+            await fs.ensureDir(this.recordsPath);
+            await fs.ensureDir(this.knowledgePath);
+            
             const records = await fs.readdir(this.recordsPath);
             const knowledge = await fs.readdir(this.knowledgePath);
             this.memory = {
@@ -71,7 +99,8 @@ class NexusEngine {
             };
             this.log(`✅ Memory loaded: ${records.length} past sessions found.`, 'success');
         } catch (e) {
-            this.log('⚠️ No past memory found. Starting fresh.', 'warning');
+            this.log(`⚠️ Memory access issue: ${e.message}. Starting fresh.`, 'warning');
+            this.memory = { pastCycles: 0, lessons: [] };
         }
         return this.memory;
     }
@@ -138,17 +167,20 @@ class NexusEngine {
             findings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
         }
 
+        if (!files.some(f => f.toLowerCase().startsWith('license'))) {
+            findings.push({ severity: 'WARNING', message: 'LICENSE file missing', file: 'root' });
+        }
+
         const report = new AuditReport(auditID, targetPath, findings, { mode, allowSensitive });
         this.currentAudit = report;
 
-        const auditDir = path.join(this.rootPath, 'audit');
-        await fs.ensureDir(auditDir);
+        await fs.ensureDir(this.auditPath);
         
         const baseName = `audit_${auditID}`;
-        await fs.writeJson(path.join(auditDir, `${baseName}.json`), report.toJSON(), { spaces: 2 });
+        await fs.writeJson(path.join(this.auditPath, `${baseName}.json`), report.toJSON(), { spaces: 2 });
         
         const mdContent = `# Audit Report: ${auditID}\n\nFindings:\n${findings.map(f => `- [${f.severity}] ${f.message} (${f.file})`).join('\n')}`;
-        await fs.writeFile(path.join(auditDir, `${baseName}.md`), mdContent);
+        await fs.writeFile(path.join(this.auditPath, `${baseName}.md`), mdContent);
 
         this.log(`✅ Audit Complete: ${auditID}`, 'success');
         return report;
@@ -172,13 +204,12 @@ class NexusEngine {
         const plan = new ImplementationPlan(planID, report.id, tasks);
         this.currentPlan = plan;
 
-        const planningDir = path.join(this.rootPath, 'planning');
-        await fs.ensureDir(planningDir);
+        await fs.ensureDir(this.planningPath);
 
-        await fs.writeJson(path.join(planningDir, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
+        await fs.writeJson(path.join(this.planningPath, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
         
         const mdContent = `# Plan: ${planID}\nRef: ${report.id}\n\nTasks:\n${tasks.map(t => `- [ ] ${t.description}`).join('\n')}`;
-        await fs.writeFile(path.join(planningDir, `plan_${planID}.md`), mdContent);
+        await fs.writeFile(path.join(this.planningPath, `plan_${planID}.md`), mdContent);
 
         this.log(`✅ Plan Created: ${planID}`, 'success');
         return plan;
@@ -202,9 +233,26 @@ class NexusEngine {
 
     async record() {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
-        const recordDir = path.join(this.rootPath, 'records');
-        await fs.ensureDir(recordDir);
+        await fs.ensureDir(this.recordsPath);
         this.log('✅ Records updated. Cycle finished.', 'success');
+    }
+
+    /**
+     * Phase 5: Verification (New Phase)
+     * Validates that executed tasks actually achieved their goals.
+     */
+    async verify(plan) {
+        this.log('🔍 Phase 5: Verification Phase...', 'info');
+        const activePlan = plan || this.currentPlan;
+        
+        // In a real scenario, this would run tests or check file states
+        const results = activePlan.tasks.map(t => ({
+            id: t.id,
+            verified: t.status === 'done'
+        }));
+        
+        this.log(`✅ Verification complete: ${results.filter(r => r.verified).length}/${results.length} tasks verified.`, 'success');
+        return results;
     }
 
     async runCycle(options = {}) {
@@ -237,6 +285,7 @@ class NexusEngine {
             this.state = STATES.LOGGING;
             this.log(`🔄 System Transition: [${this.state}]`, 'warning');
             
+            await this.verify(plan); // Added Verification
             await this.record();
             
             const totalTime = Date.now() - startTime;

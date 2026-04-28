@@ -95,7 +95,7 @@ Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
 > **Tip**: Untuk memperbarui framework yang sudah terinstall tanpa menghapusnya, gunakan flag `--force`:
 > `npx github:Faisal-Trainer/Human-AI-Nexus --force`
 
-### 2. Jalankan Engine
+### 3. Jalankan Engine
 Jalankan perintah berikut di terminal:
 ```bash
 # Via GitHub (Direkomendasikan jika belum publish):
@@ -105,6 +105,13 @@ npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 npx @faisal-trainer/human-ai-nexus nexus run
 ```
 *(Atau `npm start` jika Anda sedang berada di dalam folder source framework)*
+
+### 4. Uninstall (Lepas Engine)
+Jika ingin melepas Nexus Engine dari proyek Anda tanpa menghapus dokumentasi:
+```bash
+npx github:Faisal-Trainer/Human-AI-Nexus dell
+```
+*Perintah ini hanya menghapus folder `agent/` dan `skill/` (otak AI), namun tetap menjaga seluruh folder `audit/`, `planning/`, dan `knowledge/` agar tetap bisa dibaca oleh tim pengembang.*
 
 ### 3. Ikuti Alur Kerja
 1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.

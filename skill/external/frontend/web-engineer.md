@@ -13,9 +13,10 @@ Dokumen ini berisi standar teknis pengembangan web dan best practices untuk proy
 - Gunakan Database Transactions untuk operasi yang melibatkan banyak tabel.
 
 ## 3. Frontend & Interaksi (Livewire/Alpine)
-- Gunakan Loading States untuk memberikan feedback ke user.
-- Terapkan Throttling/Debouncing pada input yang memicu request server.
-- Pastikan UI tetap responsif tanpa reload halaman jika memungkinkan.
+- **Livewire Attributes:** WAJIB gunakan PHP Attributes (`#[Layout('layouts.app')]`) untuk mendefinisikan layout. Dilarang menggunakan method chaining `->layout()` untuk menghindari linting error.
+- **Interaction Security:** Setiap aksi (update/delete) dalam komponen Livewire wajib melewati pengecekan otorisasi (`Gate` atau `$user->can()`).
+- **Feedback:** Gunakan Loading States untuk memberikan feedback ke user.
+- **Responsiveness:** Terapkan Throttling/Debouncing pada input yang memicu request server.
 
 ## 4. Performance & Quality
 - Gunakan Pagination untuk daftar data yang besar.

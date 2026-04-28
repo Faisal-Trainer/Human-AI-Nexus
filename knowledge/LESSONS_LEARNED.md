@@ -16,4 +16,13 @@
 ## 4. Masalah: Update Tidak Terjadi & Folder Sudah Ada
 - **Temuan**: `npm update` tidak memperbarui folder dokumentasi yang sudah di-copy. `cli.js` membatalkan instalasi jika folder sudah ada.
 - **Solusi**: Menambahkan dukungan flag `--force` atau `-f` di `cli.js` untuk mengizinkan penimpaan (overwrite) folder yang sudah ada saat update diperlukan.
-*Dibuat pada: 2026-04-28 | Referensi: Kasus Error NPX Human-AI Nexus*
+19: 
+20: ## 5. Masalah: Bias Klasifikasi Nama File ("Judging by the Cover")
+21: - **Temuan**: Agent cenderung menganggap file dengan nama generik (seperti `New Text Document.md`) sebagai file sampah tanpa memeriksa isinya.
+22: - **Kejadian**: File yang berisi backlog teknis P0 hampir dihapus karena bernama "New Text Document".
+23: - **Solusi**: Tambahkan protokol **Deep Scan** pada persona Agent. Dilarang merekomendasikan penghapusan file sebelum melakukan pembacaan isi secara utuh (Full Context Reading).
+24: ## 6. Kebijakan Memori: Institusionalisasi Folder `golden/`
+- **Temuan**: Folder `golden/` menyimpan "DNA" kesuksesan dari proyek-proyek sebelumnya yang telah divalidasi oleh User.
+- **Kebijakan**: Folder `golden/` bukan hanya arsip pasif, melainkan **Mandatory Checkpoint**.
+- **Protokol**: Setiap siklus kerja (Audit/Plan) **WAJIB** diawali dengan "Golden Audit" untuk memastikan standar terbaru yang diletakkan User di sana (dari project manapun) diadopsi secara instan oleh Engine.
+*Dibuat pada: 2026-04-28 | Referensi: Integrasi Golden Memory*

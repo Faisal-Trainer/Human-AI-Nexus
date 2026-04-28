@@ -8,11 +8,11 @@ Dokumen ini berisi standar teknis untuk optimasi mesin pencari dan performa web.
 - **Structured Data:** Gunakan JSON-LD (Schema.org) untuk Rich Snippets (misal: Article, Breadcrumb, FAQ).
 - **Canonical:** Gunakan tag canonical untuk mencegah konten duplikat.
 
-## 2. Web Performance (Core Web Vitals)
-- **Image Optimization:** Gunakan format WebP/Avif, terapkan Lazy Loading, dan tentukan Width/Height untuk mencegah Layout Shift (CLS).
-- **Font Loading:** Gunakan `font-display: swap` untuk mencegah teks tidak muncul saat loading.
-- **Code Splitting:** Minimalkan ukuran file JS/CSS yang dimuat di awal (Above the fold).
-- **Caching:** Gunakan strategi caching yang tepat (Browser Cache, Server Cache).
+## 2. Web Performance & Media Protocol (Nexus Golden Standard)
+- **Format WebP:** WAJIB konversi seluruh aset visual ke format WebP. Format JPEG/PNG hanya diperbolehkan sebagai fallback jika mutlak diperlukan.
+- **Image Compression:** Gunakan kualitas 80% sebagai standar emas untuk keseimbangan ukuran dan ketajaman.
+- **EXIF Stripping:** WAJIB menghapus seluruh metadata EXIF untuk privasi dan efisiensi bandwidth.
+- **Resizing & Lazy Loading:** Resize gambar ke dimensi maksimum penggunaan (misal: 800px-1200px) dan terapkan `loading="lazy"` pada elemen di bawah lipatan (*below-the-fold*).
 
 ## 3. Checklist Performa
 - [ ] Skor Lighthouse (Mobile/Desktop) > 90.

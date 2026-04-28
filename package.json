@@ -4,25 +4,30 @@
   "description": "A Documentation-First Framework for Structured Human-AI Collaboration and Orchestration",
   "main": "src/index.js",
   "bin": {
-    "nexus": "src/index.js",
+    "nexus": "cli.js",
     "human-ai-nexus": "cli.js"
   },
   "files": [
     "agent/**/*",
     "skill/**/*",
     "src/**/*",
-    "docs/**/*",
+    "algorithms/**/*",
+    "audit/**/*",
+    "design/**/*",
     "knowledge/**/*",
+    "legal/**/*",
+    "planning/**/*",
+    "records/**/*",
+    "summary/**/*",
     "cli.js",
-    "ALGORITMA_INTEGRASI.md",
     "PANDUAN_CEPAT.md",
     "STANDAR_ZERO_FLAWS.md",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "start": "node src/index.js",
-    "nexus": "node src/index.js",
+    "start": "node cli.js run",
+    "nexus": "node cli.js run",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {

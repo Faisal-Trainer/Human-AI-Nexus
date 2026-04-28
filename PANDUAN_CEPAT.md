@@ -20,7 +20,7 @@ Dalam sistem ini, AI tidak bekerja sendirian, mereka memiliki peran masing-masin
 ### Langkah 1: Pasang Framework
 Gunakan perintah otomatis:
 ```bash
-npx human-ai-nexus
+npx @faisal-trainer/human-ai-nexus
 ```
 Atau pastikan folder framework sudah ada di root proyek Anda.
 
@@ -28,7 +28,7 @@ Atau pastikan folder framework sudah ada di root proyek Anda.
 Gunakan perintah otomatis untuk memulai siklus kerja:
 
 ```bash
-npx nexus run
+npx @faisal-trainer/human-ai-nexus nexus run
 ```
 *Atau gunakan `npm start` jika Anda berada di folder source framework.*
 

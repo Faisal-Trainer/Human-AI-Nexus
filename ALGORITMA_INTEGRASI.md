@@ -10,7 +10,7 @@ Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
 
 ```bash
 # Inisialisasi otomatis via Nexus Engine
-npx nexus run
+npx @faisal-trainer/human-ai-nexus nexus run
 ```
 
 ## 📋 2. Algoritma Audit (Dev-Centric Logic)

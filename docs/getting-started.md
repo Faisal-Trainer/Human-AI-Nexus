@@ -8,7 +8,7 @@ Human-AI Nexus is a framework designed to bridge the gap between human intent an
 You can install the framework globally or run it via npx:
 
 ```bash
-npx human-ai-nexus
+npx @faisal-trainer/human-ai-nexus
 ```
 
 ### For Development
@@ -25,7 +25,7 @@ npm install
 To start a standard workflow cycle (Audit -> Plan -> Execute), run:
     
 ```bash
-npx nexus run
+npx @faisal-trainer/human-ai-nexus nexus run
 ```
 
 *Note: You can also use `npm start` if you are working within the framework source directory.*

@@ -84,14 +84,14 @@ graph TD
 ### 1. Instalasi
 Gunakan perintah otomatis via `npx` (direkomendasikan):
 ```bash
-npx human-ai-nexus
+npx @faisal-trainer/human-ai-nexus
 ```
 Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
 
 ### 2. Jalankan Engine
 Jalankan perintah berikut di terminal:
 ```bash
-npx nexus run
+npx @faisal-trainer/human-ai-nexus nexus run
 ```
 *(Atau `npm start` jika Anda sedang berada di dalam folder source framework)*
 

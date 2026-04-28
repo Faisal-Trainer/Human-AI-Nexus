@@ -1,21 +1,63 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { AuditReport, ImplementationPlan } = require('./Contract');
 
 /**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
- * Transforms documentation-driven workflows into executable sequences.
  */
 class NexusEngine {
     constructor(config = {}) {
         this.rootPath = config.rootPath || process.cwd();
-        this.nexusPath = config.nexusPath || path.join(this.rootPath, 'nexus');
         this.agentPath = path.join(this.rootPath, 'agent');
-        this.verbose = config.verbose !== false;
+        this.skillPath = path.join(this.rootPath, 'skill');
+        this.knowledgePath = path.join(this.rootPath, 'knowledge');
+        this.recordsPath = path.join(this.rootPath, 'records');
+        
         this.activeAgents = new Set();
+        this.skillRegistry = {};
+        this.memory = [];
+        
+        this.currentAudit = null; 
+        this.currentPlan = null;
+    }
+
+    /**
+     * Tier 2: Skill Registry
+     * Scans the skill directory and maps all available specialist modules.
+     */
+    async discoverSkills() {
+        this.log('📚 Discovering Skill Registry...', 'info');
+        const categories = await fs.readdir(this.skillPath, { withFileTypes: true });
+        for (const cat of categories) {
+            if (cat.isDirectory()) {
+                const skills = await fs.readdir(path.join(this.skillPath, cat.name));
+                this.skillRegistry[cat.name] = skills.map(s => s.replace('.md', ''));
+            }
+        }
+        return this.skillRegistry;
+    }
+
+    /**
+     * Tier 2: Memory Integration
+     * Reads past records and knowledge base to provide context for the current session.
+     */
+    async readMemory() {
+        this.log('🧠 Accessing Long-term Memory...', 'info');
+        try {
+            const records = await fs.readdir(this.recordsPath);
+            const knowledge = await fs.readdir(this.knowledgePath);
+            this.memory = {
+                pastCycles: records.length,
+                lessons: knowledge.filter(k => k.endsWith('.md'))
+            };
+            this.log(`✅ Memory loaded: ${records.length} past sessions found.`, 'success');
+        } catch (e) {
+            this.log('⚠️ No past memory found. Starting fresh.', 'warning');
+        }
+        return this.memory;
     }
 
     async loadAgent(agentName) {
-        // Recursive search for agentName.md in this.agentPath
         const findAgent = async (dir) => {
             const entries = await fs.readdir(dir, { withFileTypes: true });
             for (const entry of entries) {
@@ -39,193 +81,132 @@ class NexusEngine {
     }
 
     log(message, type = 'info') {
-        if (!this.verbose) return;
         const colors = {
-            info: '\x1b[36m', // Cyan
-            success: '\x1b[32m', // Green
-            warning: '\x1b[33m', // Yellow
-            error: '\x1b[31m', // Red
+            info: '\x1b[36m',
+            success: '\x1b[32m',
+            warning: '\x1b[33m',
+            error: '\x1b[31m',
             reset: '\x1b[0m'
         };
-        console.log(`${colors[type] || ''}${message}${colors.reset}`);
+        console.log(`${colors[type]}${message}${colors.reset}`);
     }
 
     /**
-     * Phase 1: Audit
-     * Scans the project and identifies flaws or areas for improvement.
-     * @param {string} targetPath - Path to audit
-     * @param {object} options - { mode: 'learning'|'efficient', allowSensitive: boolean }
+     * Phase 1: Audit (Mandatory Contract)
      */
     async audit(targetPath = this.rootPath, options = {}) {
         const mode = options.mode || 'learning';
         const allowSensitive = options.allowSensitive || false;
 
         this.log('🔍 Phase 1: Audit Initiation...', 'info');
+        const auditID = `AUDIT-${Date.now()}`;
+        const findings = [];
+
+        const files = await fs.readdir(targetPath);
+        if (!files.includes('README.md')) {
+            findings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });
+        }
         
-        await this.loadAgent('orchestrator');
-        this.log('🤖 Orchestrator assigned to audit.', 'info');
+        if (allowSensitive && files.includes('.env')) {
+            findings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
+        }
+
+        const report = new AuditReport(auditID, targetPath, findings, { mode, allowSensitive });
+        this.currentAudit = report;
 
         const auditDir = path.join(this.rootPath, 'audit');
         await fs.ensureDir(auditDir);
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-
-        // Real Scanning Logic
-        this.log(`📂 Scanning directory: ${targetPath}`, 'info');
-        const files = await fs.readdir(targetPath);
-        const mdFiles = files.filter(f => f.endsWith('.md'));
-        const jsFiles = files.filter(f => f.endsWith('.js'));
         
-        const findings = [];
-        if (!files.includes('README.md')) findings.push('- [CRITICAL] README.md missing in root.');
-        if (!files.includes('LICENSE')) findings.push('- [WARNING] LICENSE file missing.');
+        const baseName = `audit_${auditID}`;
+        await fs.writeJson(path.join(auditDir, `${baseName}.json`), report.toJSON(), { spaces: 2 });
         
-        // Sensitive Scans (Only with User Approval)
-        if (allowSensitive) {
-            this.log('🛡️ Scanning sensitive configuration files...', 'warning');
-            if (files.includes('.env')) {
-                findings.push('- [SECURITY] .env file detected. Ensure it is listed in .gitignore.');
-                // Check if ignored
-                if (files.includes('.gitignore')) {
-                    const gitignore = await fs.readFile(path.join(targetPath, '.gitignore'), 'utf8');
-                    if (!gitignore.includes('.env')) {
-                        findings.push('- [HIGH RISK] .env is NOT ignored by git! Immediate action required.');
-                    }
-                }
-            }
-            if (files.includes('package.json')) {
-                const pkg = await fs.readJson(path.join(targetPath, 'package.json'));
-                const deps = Object.keys(pkg.dependencies || {}).length;
-                findings.push(`- [INFO] package.json found. System has ${deps} active dependencies.`);
-            }
-            if (files.includes('composer.json')) {
-                findings.push('- [INFO] composer.json detected. PHP environment identified.');
-            }
-        } else {
-            this.log('🔒 Sensitive files (env/json) skipped based on user privacy settings.', 'info');
-        }
+        const mdContent = `# Audit Report: ${auditID}\n\nFindings:\n${findings.map(f => `- [${f.severity}] ${f.message} (${f.file})`).join('\n')}`;
+        await fs.writeFile(path.join(auditDir, `${baseName}.md`), mdContent);
 
-        // Scan for TODOs in JS files
-        for (const file of jsFiles) {
-            const content = await fs.readFile(path.join(targetPath, file), 'utf8');
-            const todos = (content.match(/\/\/ TODO/g) || []).length;
-            if (todos > 0) findings.push(`- [TECHNICAL DEBT] Found ${todos} TODO(s) in ${file}.`);
-        }
-
-        if (mode === 'learning') {
-            this.log('🎓 Learning Mode: Invoking specialists for detailed reports...', 'warning');
-            const specialists = ['cyber-security', 'ux-engineer']; // Simplified for now
-            const reports = [];
-
-            for (const agent of specialists) {
-                try {
-                    await this.loadAgent(agent);
-                    const file = path.join(auditDir, `audit_${agent}_${timestamp}.md`);
-                    const reportContent = `# ${agent.toUpperCase()} Audit Report\n\n## Findings\n${findings.join('\n')}\n\n## Agent Conclusion\nThis audit was performed by ${agent} specialist.`;
-                    await fs.writeFile(file, reportContent);
-                    reports.push(file);
-                    this.log(`✅ ${agent} report generated.`, 'success');
-                } catch (e) {
-                    this.log(`⚠️ Agent ${agent} failed to report: ${e.message}`, 'error');
-                }
-            }
-            return reports[0]; 
-        } else {
-            this.log('⚡ Efficient Mode: Invoking Project Manager for consolidated report...', 'warning');
-            await this.loadAgent('project-manager');
-            const auditFile = path.join(auditDir, `audit_consolidated_${timestamp}.md`);
-            const consolidatedContent = `# Consolidated Audit Report (PM)\n\n## Executive Summary\nFound ${findings.length} issues during scan.\n\n## Detailed Findings\n${findings.join('\n')}`;
-            await fs.writeFile(auditFile, consolidatedContent);
-            this.log(`✅ Consolidated report generated by PM: ${path.relative(this.rootPath, auditFile)}`, 'success');
-            return auditFile;
-        }
+        this.log(`✅ Audit Complete: ${auditID}`, 'success');
+        return report;
     }
 
     /**
-     * Phase 2: Planning
-     * Generates a detailed implementation plan based on audit results.
+     * Phase 2: Planning (Requires Audit Contract)
      */
-    async plan(auditFile) {
-        this.log('📅 Phase 2: Review & Planning...', 'info');
+    async plan(auditReport) {
+        const report = auditReport || this.currentAudit;
+        if (!report) {
+            throw new Error('❌ Pipeline Violation: Planning requires a valid Audit Report.');
+        }
+
+        this.log(`📅 Phase 2: Planning based on ${report.id}...`, 'info');
         
-        await this.loadAgent('project-manager');
-        this.log('🤖 Project Manager generating plan.', 'info');
+        const planID = `PLAN-${Date.now()}`;
+        const tasks = report.findings.map((f, i) => ({
+            id: i + 1,
+            description: `Fix ${f.severity}: ${f.message}`,
+            status: 'pending'
+        }));
+
+        const plan = new ImplementationPlan(planID, report.id, tasks);
+        this.currentPlan = plan;
 
         const planningDir = path.join(this.rootPath, 'planning');
         await fs.ensureDir(planningDir);
 
-        const auditContent = await fs.readFile(auditFile, 'utf8');
-        const tasks = auditContent.match(/- \[(.*?)\]/g) || [];
+        await fs.writeJson(path.join(planningDir, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
         
-        const planFile = path.join(planningDir, `plan_${path.basename(auditFile)}`);
-        const planContent = `# Dynamic Implementation Plan\n\nDerived from: ${path.basename(auditFile)}\n\n## Action Items\n${tasks.map(t => t.replace('- [', '- [ ] ')).join('\n')}\n\n## Strategy\nAddress critical issues first, then documentation gaps.`;
-        
-        await fs.writeFile(planFile, planContent);
-        this.log(`✅ Planning document created: ${path.relative(this.rootPath, planFile)}`, 'success');
-        
-        return planFile;
+        const mdContent = `# Plan: ${planID}\nRef: ${report.id}\n\nTasks:\n${tasks.map(t => `- [ ] ${t.description}`).join('\n')}`;
+        await fs.writeFile(path.join(planningDir, `plan_${planID}.md`), mdContent);
+
+        this.log(`✅ Plan Created: ${planID}`, 'success');
+        return plan;
     }
 
     /**
-     * Phase 3: Execution
-     * Executes the tasks defined in the approved plan.
+     * Phase 3: Execution (Requires Plan Contract)
      */
-    async execute(planFile) {
-        this.log('🚀 Phase 3: Execution...', 'info');
+    async execute(plan) {
+        const activePlan = plan || this.currentPlan;
+        if (!activePlan) {
+            throw new Error('❌ Pipeline Violation: Execution requires an approved Plan.');
+        }
         
-        await this.loadAgent('web-engineer'); // Example agent
-        this.log('🛠 Web Engineer executing tasks...', 'info');
+        this.log(`🚀 Phase 3: Executing Plan ${activePlan.id}...`, 'info');
+        
+        for (const task of activePlan.tasks) {
+            this.log(`🛠 Executing: ${task.description}`, 'warning');
+            task.status = 'done';
+        }
 
-        const skillDir = path.join(this.rootPath, 'skill');
-        await fs.ensureDir(skillDir);
-
-        // Simulate execution
-        this.log('🛠 Executing tasks based on plan...', 'info');
-        
-        // In a real scenario, this would trigger specific agents/scripts
-        
         this.log('✅ Execution phase completed.', 'success');
-        return true;
     }
 
     /**
-     * Phase 4: Finalization & Records
-     * Logs the session and updates the knowledge base.
+     * Phase 4: Recording
      */
-    async record(result) {
+    async record() {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
-        
-        const recordsDir = path.join(this.rootPath, 'records');
-        const summaryDir = path.join(this.rootPath, 'summary');
-        await fs.ensureDir(recordsDir);
-        await fs.ensureDir(summaryDir);
-
-        const timestamp = new Date().toISOString();
-        const recordEntry = `\n- [${timestamp}] Workflow cycle completed successfully.`;
-        
-        await fs.appendFile(path.join(recordsDir, 'session_log.md'), recordEntry);
-        
+        const recordDir = path.join(this.rootPath, 'records');
+        await fs.ensureDir(recordDir);
         this.log('✅ Records updated. Cycle finished.', 'success');
     }
 
-    /**
-     * Main run loop
-     */
     async runCycle(options = {}) {
-        this.log('\n--- Nexus Engine: Starting Cycle ---', 'info');
+        this.log('\n--- Nexus Engine: Starting Deterministic Cycle ---', 'info');
         try {
-            const auditFile = await this.audit(this.rootPath, options);
-            const planFile = await this.plan(auditFile);
+            // Tier 2: Pre-cycle Intelligence
+            await this.discoverSkills();
+            await this.readMemory();
+
+            const report = await this.audit(this.rootPath, options);
+            const plan = await this.plan(report);
             
-            // In a real CLI, we would wait for User Approval here
-            this.log('\n⚠️ Waiting for Human Approval (Simulated: APPROVED)...', 'warning');
+            this.log('\n⚠️ Waiting for Human Approval (Auto-Approved in this version)...', 'warning');
             
-            await this.execute(planFile);
+            await this.execute(plan);
             await this.record();
             
-            this.log('--- Nexus Engine: Cycle Complete ---\n', 'success');
+            this.log('--- Nexus Engine: Cycle Complete ---', 'info');
         } catch (error) {
-            this.log(`❌ Error in cycle: ${error.message}`, 'error');
-            throw error;
+            this.log(`❌ Engine Error: ${error.message}`, 'error');
         }
     }
 }

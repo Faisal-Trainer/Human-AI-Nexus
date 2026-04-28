@@ -39,6 +39,14 @@ async function main() {
         case 'audit':
             await engine.audit();
             break;
+        case 'skills':
+            const registry = await engine.discoverSkills();
+            console.log('\n📚 Nexus Skill Registry:');
+            Object.entries(registry).forEach(([cat, skills]) => {
+                console.log(`- \x1b[33m${cat.toUpperCase()}\x1b[0m: ${skills.join(', ')}`);
+            });
+            rl.close();
+            break;
         case 'plan':
             // Logic to plan based on latest audit
             console.log('Planning requires a target audit file.');

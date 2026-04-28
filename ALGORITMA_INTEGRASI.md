@@ -4,7 +4,9 @@ Dokumen ini adalah **Sumber Kebenaran (Source of Truth)** untuk logika orkestras
 
 ## 📋 1. Setup & Inisialisasi
 
-Sistem dapat diinisialisasi melalui CLI untuk mempersiapkan lingkungan kerja:
+Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
+1.  **Skill Discovery**: Engine memetakan seluruh modul di folder `skill/` (Frontend, Backend, Security, dll).
+2.  **Memory Access**: Engine membaca folder `records/` dan `knowledge/` untuk mendapatkan konteks dari sesi sebelumnya.
 
 ```bash
 # Inisialisasi otomatis via Nexus Engine

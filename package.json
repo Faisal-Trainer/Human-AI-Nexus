@@ -1,25 +1,44 @@
 {
   "name": "@faisal-trainer/human-ai-nexus",
   "version": "1.0.0",
-  "description": "Human-AI Nexus Documentation Framework Installer",
+  "description": "A Documentation-First Framework for Structured Human-AI Collaboration and Orchestration",
   "main": "src/index.js",
   "bin": {
     "human-ai-nexus": "cli.js",
     "nexus": "src/index.js"
   },
+  "files": [
+    "agent/**/*",
+    "skill/**/*",
+    "src/**/*",
+    "docs/**/*",
+    "cli.js",
+    "ALGORITMA_INTEGRASI.md",
+    "PANDUAN_CEPAT.md",
+    "STANDAR_ZERO_FLAWS.md",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "node src/index.js",
-    "nexus": "node src/index.js"
+    "nexus": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Faisal-Trainer/Human-AI-Nexus.git"
   },
+  "bugs": {
+    "url": "https://github.com/Faisal-Trainer/Human-AI-Nexus/issues"
+  },
+  "homepage": "https://github.com/Faisal-Trainer/Human-AI-Nexus#readme",
   "keywords": [
     "ai",
     "framework",
     "documentation",
-    "nexus"
+    "orchestration",
+    "nexus",
+    "agents"
   ],
   "author": "Faisal-Trainer",
   "license": "MIT",

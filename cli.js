@@ -4,6 +4,9 @@ const fs = require('fs-extra');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// TODO: Implement multi-platform folder support
+// TODO: Add progress bar for copy operation
+
 async function install() {
     // Ambil argumen target directory jika ada, default ke 'nexus'
     const args = process.argv.slice(2);

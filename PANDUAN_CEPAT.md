@@ -31,10 +31,10 @@ npm start
 nexus run
 ```
 
-### Langkah 3: Pilih Mode Audit
+### Langkah 3: Pilih Mode Audit & Perizinan
 Ikuti instruksi dari **Nexus Orchestrator** di terminal:
-- Pilih **Mode 1 (Learning)** jika Anda ingin belajar dari temuan tiap ahli.
-- Pilih **Mode 2 (Efficient)** jika Anda ingin laporan ringkas dari PM.
+- Pilih **Mode 1 (Learning)** atau **Mode 2 (Efficient)**.
+- Jawab **"y"** jika Anda mengizinkan scan file sensitif (`.env`, `package.json`, `composer.json`) untuk audit keamanan yang lebih mendalam.
 
 ### Langkah 4: Approval & Eksekusi
 Tinjau rencana di folder `planning/`, ketik "OKE" di terminal, dan biarkan AI mengeksekusi tugasnya hingga status **Zero Flaws**.

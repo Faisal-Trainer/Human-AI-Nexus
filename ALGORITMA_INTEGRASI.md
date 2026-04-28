@@ -34,8 +34,9 @@ Fase audit adalah tahap penentu kualitas. Alur kerja ditentukan oleh tingkat pen
 Engine menjalankan siklus berikut secara rekursif:
 
 1.  **Phase: Audit**: Menjalankan algoritma di atas (Learning/Efficient).
+    - **Security Guardrail**: Engine meminta izin eksplisit sebelum menscan `.env`, `package.json`, dan `composer.json`.
 2.  **Phase: Planning**: 
-    - Input: Hasil audit terbaru.
+    - Input: Hasil audit terbaru (termasuk temuan keamanan jika diizinkan).
     - Action: PM menyusun dokumen di `planning/` berisi daftar tugas (TODO list).
 3.  **Phase: Approval**:
     - Engine **WAJIB** berhenti dan menunggu input User (Ketik: "OKE" atau "APPROVE").

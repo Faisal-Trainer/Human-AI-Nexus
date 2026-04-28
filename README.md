@@ -1,41 +1,41 @@
 # 🤖 Human-AI Nexus: Documentation-First Framework
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](PANDUAN_CEPAT.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-Pusat kendali dan dokumentasi terstruktur yang dirancang khusus untuk menjembatani kolaborasi antara **Human Developer** dan **AI Assistant**. Framework ini memastikan setiap tahap pengembangan—mulai dari perencanaan (planning), perancangan algoritma, hingga aspek legal—terdokumentasi dengan ketat sebelum satu baris kode pun ditulis.
+## 📌 Pendahuluan: Mengapa Human-AI Nexus?
 
-## 🚀 Instruksi Penting untuk AI Assistant
-Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **WAJIB**:
-1.  Membaca `agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
-2.  Membaca dokumen Role yang relevan di `agent/` (Web Engineer, UX, atau Security).
-3.  Memeriksa `algorithms/` dan `planning/` untuk melihat rencana fitur yang sedang berjalan.
-4.  **Agent Selection**: Memberikan saran kepada User mengenai Agent mana yang paling cocok (misal: `Web Branding` untuk visual, `DevOps Specialist` untuk deployment, `Ethics Specialist` untuk hukum/etika, `QA Tester` untuk pengujian bug, atau `Growth Hacker` untuk strategi pemasaran).
+Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis kode tanpa rencana, menghasilkan bug yang sulit dilacak, atau mengabaikan aspek keamanan dan hukum.
 
-## 📂 Struktur Folder
-| Folder | Deskripsi |
-| :--- | :--- |
-| `📂 agent/` | Definisi Persona AI (Orchestrator, PM, Web3, Branding, Marketing, Copywriter, Security, Chaos, Architect, Memory, Monetization, DevOps, Ethics). |
-| `📂 audit/` | Laporan audit hasil scanning project oleh Agent. |
-| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
-| `📂 design/` | Aset desain atau spesifikasi UI/UX. |
-| `📂 planning/` | Rencana pengembangan fase demi fase. |
-| `📂 skill/` | Modul spesialisasi teknis AI. |
-| `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
-| `📂 summary/` | Rangkuman sesi harian. |
-| `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
-| `📂 knowledge/` | Memori jangka panjang (Global Lessons Learned). |
+**Human-AI Nexus** hadir untuk mengatasi masalah tersebut. Ini adalah pusat kendali dan dokumentasi terstruktur yang dirancang untuk menjembatani kolaborasi antara **Human Developer** dan **AI Assistant**. Framework ini memastikan setiap tahap pengembangan terdokumentasi dengan ketat melalui prinsip **"Documentation-First"** sebelum satu baris kode pun ditulis.
 
-## 🛠 Prinsip Utama
-- **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `algorithms/` atau `planning/`.
-- **Hierarchical Coordination**: Gunakan **Nexus Orchestrator** sebagai pemimpin sesi dan **Project Manager** sebagai perancang rencana.
-- **Recursive Audit Loop**: Setiap tahap eksekusi wajib melalui siklus audit berulang hingga mencapai status **"Zero Flaws"** (Lihat: [Standar Zero Flaws](STANDAR_ZERO_FLAWS.md)).
-- **Security War Games**: Simulasi serangan (Red Team) dan pertahanan (Blue Team) di bawah pengawasan **Security Architect**.
-- **Traceability**: Setiap perubahan harus bisa dilacak kembali ke dokumen dokumentasi.
-- **Data Integrity**: AI dilarang keras menghapus file proyek atau memori secara otomatis tanpa izin eksplisit User (**No Auto-Delete Policy**).
-- **User Final Authority**: User adalah pengambil keputusan akhir untuk setiap konflik teknis (Tie-Breaker).
+### 🎯 Target Pengguna
+- **Web Developers**: Untuk menjaga kualitas kode dan keamanan arsitektur.
+- **Project Managers**: Untuk memantau progres dan dokumentasi teknis secara otomatis.
+- **AI Enthusiasts**: Untuk bereksperimen dengan orkestrasi agent AI yang kompleks.
+- **Trainers/Mentors**: Sebagai standar pembelajaran pengembangan perangkat lunak yang disiplin.
 
 ---
 
-## 🏗 System Architecture
+## 🗺️ Daftar Isi
+- [🤖 Apa itu Human-AI Nexus?](#-apa-itu-human-ai-nexus)
+- [🏗️ Arsitektur Sistem](#️-arsitektur-sistem)
+- [📂 Struktur Folder (Organized)](#-struktur-folder-organized)
+- [🛠️ Cara Penggunaan](#️-cara-penggunaan)
+- [🌟 Prinsip Utama](#-prinsip-utama)
+- [🤝 Cara Berkontribusi](#-cara-berkontribusi)
+
+---
+
+## 🤖 Apa itu Human-AI Nexus?
+
+Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Executable Framework**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI (Orchestrator, PM, Security Specialist, dll) untuk melakukan audit, perencanaan, hingga eksekusi tugas secara disiplin.
+
+### Visi Utama
+Menciptakan ekosistem pengembangan di mana AI bekerja sebagai **Tim Profesional** yang patuh pada standar kualitas manusia, bukan sekadar chatbot yang menulis kode asal-asalan.
+
+---
+
+## 🏗️ Arsitektur Sistem
 
 ```mermaid
 graph TD
@@ -62,37 +62,58 @@ graph TD
     Record -- Recursive --> Audit
 ```
 
-## 🛠 Executable Engine
+---
 
-Framework ini kini dilengkapi dengan **Nexus Engine** untuk menjalankan alur kerja secara otomatis:
+## 📂 Struktur Folder (Organized)
 
-```bash
-# Jalankan siklus penuh (Audit -> Plan -> Execute)
-npm start
-
-# Atau gunakan CLI nexus (jika terinstall)
-nexus run
-```
+| Folder | Deskripsi |
+| :--- | :--- |
+| `📂 agent/` | Definisi Persona AI (Core, Engineering, Creative, Security, Business). |
+| `📂 skill/` | Modul spesialisasi teknis AI (Frontend, Backend, Devops, Security, dll). |
+| `📂 audit/` | Laporan audit hasil scanning project oleh Agent. |
+| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
+| `📂 planning/` | Rencana pengembangan fase demi fase. |
+| `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
+| `📂 knowledge/` | Memori jangka panjang (Global Lessons Learned). |
+| `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
 
 ---
 
-*Dikelola oleh Faisal-Trainer & AI Assistant.*
+## 🛠️ Cara Penggunaan
 
-## ⚡ Quick Start / Installation
+### 1. Instalasi
+Copy seluruh folder framework ini ke dalam root proyek Anda, atau gunakan installer (jika tersedia).
 
-Cara termudah untuk menginstall framework ini ke proyek Anda adalah menggunakan **npx**:
-
+### 2. Jalankan Engine
+Buka terminal di root proyek dan jalankan:
 ```bash
-# Default (ke folder /nexus)
-npx github:Faisal-Trainer/Human-AI-Nexus
-
-# Kustom Folder (misal ke vendor/nexus)
-npx github:Faisal-Trainer/Human-AI-Nexus vendor/nexus
+npm start
 ```
 
-Atau menggunakan PowerShell (Windows):
+### 3. Ikuti Alur Kerja
+1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.
+2. **Plan**: Setujui rencana yang dibuat oleh Project Manager di folder `planning/`.
+3. **Execute**: Biarkan AI mengeksekusi tugas sesuai rencana.
+4. **Finalize**: Simpan hasil ke dalam `records/` untuk memori jangka panjang.
 
-```powershell
-iwr -useb https://raw.githubusercontent.com/Faisal-Trainer/Human-AI-Nexus/main/install.ps1 | iex
-```
+---
 
+## 🌟 Prinsip Utama
+- **Documentation First**: No plan, no code.
+- **Zero Flaws Enforcement**: Audit berulang hingga mencapai kualitas maksimal.
+- **Security Guardrails**: Izin eksplisit untuk scan file sensitif (.env, dll).
+- **User Final Authority**: Manusia adalah pemegang keputusan tertinggi.
+
+---
+
+## 🤝 Cara Berkontribusi
+
+Kami menyambut kontribusi dari siapa saja!
+1. **Fork** repository ini.
+2. Buat **Branch** baru untuk fitur Anda (`git checkout -b feature/FiturKeren`).
+3. **Commit** perubahan Anda (`git commit -m 'Menambahkan fitur keren'`).
+4. **Push** ke branch tersebut (`git push origin feature/FiturKeren`).
+5. Buat **Pull Request**.
+
+---
+*Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin!*

@@ -42,3 +42,5 @@ algorithms/*
 !algorithms/.gitkeep
 design/*
 !design/.gitkeep
+
+.env

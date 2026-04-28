@@ -4,7 +4,8 @@ The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximu
 
 ## 1. Audit Phase
 The system (or specialized agents) scans the current state of the project.
-- **Input**: Source code, documentation, or user requirements.
+- **Security Guardrails**: The engine will request explicit permission before scanning sensitive files (`.env`, `package.json`, `composer.json`).
+- **Input**: Source code, documentation, and (if permitted) configuration files.
 - **Output**: An Audit Report in `audit/`.
 - **Goal**: Identify gaps, bugs, or opportunities for improvement.
 

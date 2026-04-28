@@ -30,7 +30,10 @@ async function main() {
             const choice = await ask('\nPilih mode audit (1/2): ');
             const mode = choice === '2' ? 'efficient' : 'learning';
             
-            await engine.runCycle(mode);
+            const allowSensitiveChoice = await ask('Izinkan scan file sensitif (package.json, composer.json, .env)? (y/n): ');
+            const allowSensitive = allowSensitiveChoice.toLowerCase() === 'y';
+            
+            await engine.runCycle({ mode, allowSensitive });
             rl.close();
             break;
         case 'audit':

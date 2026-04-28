@@ -23,16 +23,12 @@ npm install
 ## Basic Usage
 
 To start a standard workflow cycle (Audit -> Plan -> Execute), run:
-
+    
 ```bash
-npm start
+npx nexus run
 ```
 
-Or using the CLI command (if linked):
-
-```bash
-nexus run
-```
+*Note: You can also use `npm start` if you are working within the framework source directory.*
 
 ## Core Concepts
 

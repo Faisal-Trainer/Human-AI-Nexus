@@ -18,18 +18,19 @@ Dalam sistem ini, AI tidak bekerja sendirian, mereka memiliki peran masing-masin
 ## 🛠️ 2. Cara Mulai (Otomatis & Cepat!)
 
 ### Langkah 1: Pasang Framework
-Jika Anda berada di root proyek, pastikan framework sudah terinstall.
+Gunakan perintah otomatis:
+```bash
+npx human-ai-nexus
+```
+Atau pastikan folder framework sudah ada di root proyek Anda.
 
 ### Langkah 2: Jalankan Nexus Engine
 Gunakan perintah otomatis untuk memulai siklus kerja:
 
 ```bash
-npm start
+npx nexus run
 ```
-*Atau jika menggunakan CLI:*
-```bash
-nexus run
-```
+*Atau gunakan `npm start` jika Anda berada di folder source framework.*
 
 ### Langkah 3: Pilih Mode Audit & Perizinan
 Ikuti instruksi dari **Nexus Orchestrator** di terminal:

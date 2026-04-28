@@ -82,13 +82,18 @@ graph TD
 ## 🛠️ Cara Penggunaan
 
 ### 1. Instalasi
-Copy seluruh folder framework ini ke dalam root proyek Anda, atau gunakan installer (jika tersedia).
+Gunakan perintah otomatis via `npx` (direkomendasikan):
+```bash
+npx human-ai-nexus
+```
+Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
 
 ### 2. Jalankan Engine
-Buka terminal di root proyek dan jalankan:
+Jalankan perintah berikut di terminal:
 ```bash
-npm start
+npx nexus run
 ```
+*(Atau `npm start` jika Anda sedang berada di dalam folder source framework)*
 
 ### 3. Ikuti Alur Kerja
 1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.

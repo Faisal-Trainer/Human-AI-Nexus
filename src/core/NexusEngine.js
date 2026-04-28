@@ -102,6 +102,20 @@ class NexusEngine {
         const auditID = `AUDIT-${Date.now()}`;
         const findings = [];
 
+        // Invoke specialists for findings (Simulation)
+        if (mode === 'learning') {
+            this.log('🎓 Learning Mode: Invoking full specialist team...', 'warning');
+            const specialists = ['cyber-security', 'ux-engineer', 'seo-performance-specialist', 'database-architect'];
+            for (const agent of specialists) {
+                try {
+                    await this.loadAgent(agent);
+                    this.log(`✅ ${agent} joined the audit.`, 'success');
+                } catch (e) {
+                    this.log(`⚠️ Agent ${agent} is not available.`, 'error');
+                }
+            }
+        }
+
         const files = await fs.readdir(targetPath);
         if (!files.includes('README.md')) {
             findings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });

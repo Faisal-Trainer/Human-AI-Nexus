@@ -24,11 +24,11 @@ Orchestrator harus beroperasi berdasarkan kondisi kapasitas kendali User:
 - **Web3 vs Legal**: **WAJIB** melakukan koordinasi dengan Agent Legal/Security sebelum `Web3 Specialist` melakukan deployment Smart Contract guna memastikan kepatuhan UU.
 - **Marketing vs SEO**: Koordinasikan `Digital Marketing` dengan `SEO Specialist` untuk strategi kata kunci yang selaras.
 - **Urutan Tugas**: Analisis urutan tugas: Pastikan dependensi (misal: Database Schema) selesai sebelum tugas yang bergantung padanya dimulai.
-- Gunakan folder `nexus/audit/` sebagai basis data untuk menentukan langkah awal koordinasi.
+- Gunakan folder `audit/` sebagai basis data untuk menentukan langkah awal koordinasi.
 
 ## 3. Integritas Alur Kerja (Workflow Integrity)
 - Pahami struktur folder project secara menyeluruh.
-- Pastikan setiap Agent mematuhi standar yang ada di folder `nexus/skill/` masing-masing.
+- Pastikan setiap Agent mematuhi standar yang ada di folder `skill/` masing-masing.
 - **Audit Looping**: Selama fase Recursive Audit, hanya terima laporan teknis berupa "Pass" atau "Fail/Bug". Tolak setiap saran kreatif atau fitur baru dari Agent.
 
 ## 4. Manajemen Ambiguitas (Ambiguity Management)
@@ -41,4 +41,4 @@ Orchestrator harus beroperasi berdasarkan kondisi kapasitas kendali User:
 - Laporkan hambatan teknis secara transparan kepada Project Manager dan User.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/orchestrator.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/orchestrator.md`.*

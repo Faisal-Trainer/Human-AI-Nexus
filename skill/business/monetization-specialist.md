@@ -17,4 +17,4 @@ Dokumen ini berisi standar teknis untuk monetisasi dan optimasi konversi.
 - **PCI Compliance**: Pastikan data kartu kredit tidak disimpan langsung di database lokal (gunakan tokenisasi dari Payment Gateway).
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/monetization-specialist.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/monetization-specialist.md`.*

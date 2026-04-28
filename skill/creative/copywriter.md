@@ -17,4 +17,4 @@ Dokumen ini berisi standar penulisan dan strategi konten.
 - Gunakan meta description yang menarik klik (Click-Through Rate optimized).
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/copywriter.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/copywriter.md`.*

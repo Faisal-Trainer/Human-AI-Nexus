@@ -4,7 +4,7 @@ Dokumen ini berisi standar teknis untuk pengelolaan memori dan pengetahuan globa
 
 ## 1. Struktur Pengetahuan (Knowledge Structure)
 - **Lessons Learned**: Format: `Project_Name - Issue - Solution - Prevention`.
-- **Global Config**: Simpan standar yang sering digunakan (misal: Palet warna utama atau Breakpoint khusus) di file `nexus/knowledge/global_standards.json`.
+- **Global Config**: Simpan standar yang sering digunakan (misal: Palet warna utama atau Breakpoint khusus) di file `knowledge/global_standards.json`.
 
 ## 2. Teknik Distilasi (Knowledge Distillation)
 - Jika satu file memori melebihi 100 baris, lakukan ringkasan menjadi poin-poin kunci.
@@ -15,4 +15,4 @@ Dokumen ini berisi standar teknis untuk pengelolaan memori dan pengetahuan globa
 - Pastikan tidak ada duplikasi antara folder `records/` dan `knowledge/`.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/memory-manager.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/memory-manager.md`.*

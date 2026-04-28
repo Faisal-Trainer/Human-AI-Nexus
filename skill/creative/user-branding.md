@@ -20,4 +20,4 @@ Dokumen ini berisi panduan untuk membangun personal branding yang kuat bagi Deve
 - Pastikan ada link terpusat (Linktree, website pribadi) yang menghubungkan semua aset digital user.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/user-branding.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/user-branding.md`.*

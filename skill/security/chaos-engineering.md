@@ -19,4 +19,4 @@ Dokumen ini berisi standar teknis penyerangan dan pengujian ketahanan untuk **Re
   - `Evidence` (Bukti/Screenshot/Log).
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/chaos-engineering.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/chaos-engineering.md`.*

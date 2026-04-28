@@ -17,4 +17,4 @@ Dokumen ini berisi standar teknis untuk kepatuhan hukum dan etika.
 - **DMCA Safe**: Hindari penggunaan nama brand atau logo pihak ketiga tanpa izin resmi.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/ethics-compliance.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/ethics-compliance.md`.*

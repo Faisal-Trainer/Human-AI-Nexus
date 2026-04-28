@@ -18,4 +18,4 @@ Dokumen ini berisi standar teknis pertahanan untuk **Blue Team**.
 - **Hashing**: Gunakan Argon2 atau BCrypt (cost factor minimal 12) untuk penyimpanan password.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/cyber-security.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/cyber-security.md`.*

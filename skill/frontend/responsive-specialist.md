@@ -25,4 +25,4 @@ Dokumen ini berisi standar teknis untuk menciptakan website yang responsif dan a
 - Apakah jarak antar elemen (spacing) tetap konsisten di semua layar?
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/responsive-specialist.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/responsive-specialist.md`.*

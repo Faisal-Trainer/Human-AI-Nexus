@@ -19,4 +19,4 @@ Dokumen ini berisi standar dan teknik pemasaran digital untuk mendukung kesukses
 - Sarankan tools tracking yang aman dan sesuai regulasi privasi.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/digital-marketing.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/digital-marketing.md`.*

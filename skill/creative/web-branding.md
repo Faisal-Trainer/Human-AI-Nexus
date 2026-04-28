@@ -21,4 +21,4 @@ Dokumen ini berisi standar teknis dan estetika untuk menjaga identitas website.
 - Apakah gaya bahasa sudah mencerminkan identitas brand?
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/web-branding.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/web-branding.md`.*

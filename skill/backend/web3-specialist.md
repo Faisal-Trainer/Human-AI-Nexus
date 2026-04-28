@@ -21,4 +21,4 @@ Dokumen ini berisi standar teknis untuk pengembangan blockchain yang aman dan le
 - **Verification**: Kontrak yang sudah dideploy harus diverifikasi source-code nya di Explorer (Etherscan, dll.).
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/web3-specialist.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/web3-specialist.md`.*

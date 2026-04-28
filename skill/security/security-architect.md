@@ -21,4 +21,4 @@ Dokumen ini berisi standar teknis untuk koordinasi keamanan dan simulasi seranga
   - `Resource Exhaustion`: Menghabiskan limit memori/CPU tiruan.
 
 ---
-*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `nexus/agent/security-architect.md`.*
+*Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `agent/security-architect.md`.*

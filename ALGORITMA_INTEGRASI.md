@@ -9,8 +9,8 @@ Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
 2.  **Memory Access**: Engine membaca folder `records/` dan `knowledge/` untuk mendapatkan konteks dari sesi sebelumnya.
 
 ```bash
-# Inisialisasi otomatis via Nexus Engine
-npx @faisal-trainer/human-ai-nexus nexus run
+# Inisialisasi otomatis via Nexus Engine (GitHub Version)
+npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 ```
 
 ## 📋 2. Algoritma Audit (Dev-Centric Logic)

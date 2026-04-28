@@ -84,13 +84,21 @@ graph TD
 ### 1. Instalasi
 Gunakan perintah otomatis via `npx` (direkomendasikan):
 ```bash
+# Jika sudah publish ke npm:
 npx @faisal-trainer/human-ai-nexus
+
+# Atau jalankan langsung dari GitHub (Jika belum publish):
+npx github:Faisal-Trainer/Human-AI-Nexus
 ```
 Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
 
 ### 2. Jalankan Engine
 Jalankan perintah berikut di terminal:
 ```bash
+# Via GitHub (Direkomendasikan jika belum publish):
+npx github:Faisal-Trainer/Human-AI-Nexus nexus run
+
+# Via NPM (Jika sudah publish):
 npx @faisal-trainer/human-ai-nexus nexus run
 ```
 *(Atau `npm start` jika Anda sedang berada di dalam folder source framework)*

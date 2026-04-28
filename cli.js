@@ -12,7 +12,7 @@ async function main() {
     const command = args[0];
 
     // If command is 'run', 'audit', or 'skills', delegate to Nexus Engine
-    const engineCommands = ['run', 'audit', 'skills', 'help'];
+    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'help'];
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
         // Remove 'nexus' if present in args (e.g. npx human-ai-nexus nexus run)

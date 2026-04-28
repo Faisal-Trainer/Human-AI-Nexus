@@ -6,6 +6,7 @@ Dokumen ini berisi standar teknis untuk perancangan dan optimasi database.
 - **Primary Keys:** WAJIB gunakan UUID untuk entitas utama. Implementasikan trait `HasUuids` pada model. Ini adalah standar mutlak untuk kesiapan Web 3.0 dan skalabilitas.
 - **Naming:** Gunakan snake_case untuk kolom dan jamak (plural) untuk nama tabel.
 - **Indexing:** Setiap Foreign Key WAJIB memiliki INDEX eksplisit di file migrasi untuk performa query yang optimal.
+- **Web 2.5 Logic [UPDATE: 2026-04-28]:** Gunakan standar [NEXUS_HYBRID_ORCHESTRATION.md](../../../knowledge/NEXUS_HYBRID_ORCHESTRATION.md). Pastikan sinkronisasi 1:1 antara UUID Database dan On-Chain Asset ID.
 
 ## 2. Keamanan & Integritas (Nexus Golden Standard)
 - **Mass Assignment:** WAJIB gunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` DILARANG KERAS karena melanggar prinsip "Zero Flaws".

@@ -8,6 +8,7 @@ Sebelum mulai membangun UI, Agent wajib menjalankan siklus penalaran:
 - **Style Selection:** Pilih dari 67 gaya (Minimalism, Aurora UI, Bento, Glassmorphism, dll) yang paling relevan dengan target audiens.
 - **Master + Overrides Pattern:** Gunakan file `MASTER.md` untuk desain global dan folder `pages/` untuk deviasi spesifik guna menjaga konsistensi lintas sesi.
 - **Aesthetics:** Gunakan *Rich Aesthetics* dengan transisi halus (150-300ms) dan hindari anti-patterns visual untuk industri profesional.
+- **Nexus Lumina Integration [UPDATE: 2026-04-28]:** Gunakan standar [NEXUS_DESIGN_SYSTEM_GUIDELINES.md](../../../knowledge/NEXUS_DESIGN_SYSTEM_GUIDELINES.md). Utamakan "Institutional Innovation" dengan **Lumina Dark** (Deep Slate/Indigo) untuk kenyamanan membaca maksimal.
 
 ## 2. Accessibility & Quality (WCAG AA)
 - **Contrast:** WAJIB menjaga kontras minimal 4.5:1 untuk teks.

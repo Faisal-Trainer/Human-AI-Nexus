@@ -13,6 +13,7 @@ Dokumen ini berisi standar teknis untuk optimasi mesin pencari dan performa web.
 - **Image Compression:** Gunakan kualitas 80% sebagai standar emas untuk keseimbangan ukuran dan ketajaman.
 - **EXIF Stripping:** WAJIB menghapus seluruh metadata EXIF untuk privasi dan efisiensi bandwidth.
 - **Resizing & Lazy Loading:** Resize gambar ke dimensi maksimum penggunaan (misal: 800px-1200px) dan terapkan `loading="lazy"` pada elemen di bawah lipatan (*below-the-fold*).
+- **Storage Hygiene [UPDATE: 2026-04-28]:** Gunakan standar [NEXUS_MEDIA_HANDLING.md](../../../knowledge/NEXUS_MEDIA_HANDLING.md). Implementasikan skrip pembersihan otomatis untuk aset sementara guna menjaga kebersihan server.
 
 ## 3. Checklist Performa
 - [ ] Skor Lighthouse (Mobile/Desktop) > 90.

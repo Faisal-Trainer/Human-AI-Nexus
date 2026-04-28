@@ -53,6 +53,7 @@ async function main() {
             break;
         case 'audit':
             await engine.audit();
+            rl.close();
             break;
         case 'skills':
             const registry = await engine.discoverSkills();
@@ -62,19 +63,28 @@ async function main() {
             });
             rl.close();
             break;
-        case 'plan':
-            // Logic to plan based on latest audit
-            console.log('Planning requires a target audit file.');
+        case 'harvest':
+            const sourcePath = args[1];
+            if (!sourcePath) {
+                console.log('Error: Path sumber proyek (source path) wajib disertakan.');
+                console.log('Usage: nexus harvest <path_to_project>');
+            } else {
+                await engine.harvest(path.resolve(sourcePath));
+            }
+            rl.close();
             break;
         case 'help':
         default:
             console.log(`
 Human-AI Nexus Core Engine
 Usage:
-  nexus run     - Start a full Audit -> Plan -> Execute cycle
-  nexus audit   - Run only the Audit phase
-  nexus help    - Show this help
+  nexus run           - Start a full Audit -> Plan -> Execute cycle
+  nexus audit         - Run only the Audit phase
+  nexus harvest <dir> - Harvest Nexus docs from another project to Golden HUB
+  nexus skills        - List available agent skills
+  nexus help          - Show this help
             `);
+            rl.close();
             break;
     }
 }

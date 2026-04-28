@@ -167,7 +167,7 @@ class NexusEngine {
         if (mode === 'learning') {
             const specialists = [
                 { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
-                { id: 'ux-design', focus: 'User Experience & Estetika' },
+                { id: 'ux-engineer', focus: 'User Experience & Estetika' },
                 { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
                 { id: 'database-architect', focus: 'Arsitektur Data' }
             ];
@@ -357,6 +357,47 @@ class NexusEngine {
         } catch (e) {
             this.log(`❌ Failed to log error: ${e.message}`, 'error');
         }
+    }
+    /**
+     * Phase 6: Harvesting (New Phase)
+     * Extracts Nexus documentation from another project to enrich the Golden knowledge.
+     */
+    async harvest(sourcePath) {
+        if (!sourcePath) throw new NexusError('HARVESTING', 'Source path is required.');
+        
+        const projectName = path.basename(sourcePath);
+        this.log(`🌾 Phase 6: Harvesting Knowledge from [${projectName}]...`, 'info');
+        
+        const nexusSource = path.join(sourcePath, 'nexus');
+        if (!(await fs.pathExists(nexusSource))) {
+            throw new NexusError('HARVESTING', `Project at ${sourcePath} does not contain a /nexus folder.`);
+        }
+
+        const harvestRoot = path.join(this.rootPath, 'golden', 'harvest', projectName);
+        await fs.ensureDir(harvestRoot);
+
+        const foldersToHarvest = ['audit', 'planning', 'records', 'knowledge'];
+        let filesHarvested = 0;
+
+        for (const folder of foldersToHarvest) {
+            const srcFolder = path.join(nexusSource, folder);
+            if (await fs.pathExists(srcFolder)) {
+                const destFolder = path.join(harvestRoot, folder);
+                await fs.ensureDir(destFolder);
+                
+                const files = await fs.readdir(srcFolder);
+                for (const file of files) {
+                    if (file.endsWith('.md')) {
+                        await fs.copy(path.join(srcFolder, file), path.join(destFolder, file));
+                        filesHarvested++;
+                    }
+                }
+            }
+        }
+
+        this.log(`✅ Harvesting Complete: ${filesHarvested} knowledge artifacts collected from ${projectName}.`, 'success');
+        this.log(`📂 Destination: golden/harvest/${projectName}`, 'info');
+        return filesHarvested;
     }
 }
 

@@ -14,9 +14,10 @@ Protokol ini memastikan efisiensi bandwidth, kecepatan muat (LCP), dan keamanan 
 4. **Encoding**: Konversi ke WebP.
 5. **Storage**: Simpan dengan penamaan berbasis UUID.
 
-## 3. Storage Structure
-- Simpan dalam folder terstruktur: `public/storage/{category}/{uuid}.webp`.
-- Pastikan folder memiliki izin akses yang tepat.
+## 3. Storage Structure & Hygiene
+- **Logical Path**: Simpan dalam folder terstruktur: `public/storage/{category}/{uuid}.webp`.
+- **Automated Cleanup**: Implementasikan skrip pembersihan otomatis untuk menghapus aset sementara (*temporary*) atau aset yang tidak lagi terikat pada record database guna menghemat ruang penyimpanan.
+- **Permission**: Pastikan folder memiliki izin akses yang tepat dan akses publik dibatasi hanya pada aset yang benar-benar diperlukan.
 
 ---
 *Status: Institutional Knowledge (Media Layer).*

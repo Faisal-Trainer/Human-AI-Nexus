@@ -103,6 +103,24 @@ async function install(args) {
             process.exit(0);
         }
 
+        const readline = require('readline');
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+
+        const confirm = await new Promise(resolve => {
+            rl.question(`Apakah Anda ingin memasang Nexus Framework dan membuat folder dokumentasi di ./${relativeNexusPath}? (y/N): `, answer => {
+                rl.close();
+                resolve(answer.toLowerCase() === 'y');
+            });
+        });
+
+        if (!confirm) {
+            console.log('Instalasi dibatalkan oleh pengguna.');
+            process.exit(0);
+        }
+
         await fs.ensureDir(nexusPath);
 
         const folders = ['agent', 'algorithms', 'design', 'planning', 'skill', 'records', 'summary', 'legal', 'audit', 'knowledge'];

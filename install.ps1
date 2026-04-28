@@ -16,17 +16,36 @@ Expand-Archive -Path $tempZip -DestinationPath $tempDir
 # 3. Pindahkan folder framework
 $sourcePath = Get-ChildItem -Path $tempDir -Filter "Human-AI-Nexus-main" | Select-Object -First 1
 
+$confirm = Read-Host "Apakah Anda ingin memasang Nexus Framework dan membuat folder dokumentasi di proyek ini? (y/n)"
+if ($confirm.ToLower() -ne "y") {
+    Write-Host "Instalasi dibatalkan oleh pengguna." -ForegroundColor Red
+    Remove-Item $tempZip
+    Remove-Item $tempDir -Recurse -Force
+    exit
+}
+
 Write-Host "📂 Menata folder dokumentasi..."
 if (-not (Test-Path "nexus")) {
     New-Item -ItemType Directory -Path "nexus" -Force | Out-Null
     
-    # Daftar folder yang akan disalin ke dalam /nexus
-    $folders = @("agent", "algorithms", "design", "planning", "skill", "records", "summary", "legal")
-    
-    foreach ($folder in $folders) {
+    # 1. Salin folder standar
+    $standardFolders = @("algorithms", "design", "planning", "records", "summary", "legal", "knowledge")
+    foreach ($folder in $standardFolders) {
         if (Test-Path "$($sourcePath.FullName)\$folder") {
             Copy-Item -Path "$($sourcePath.FullName)\$folder" -Destination "nexus" -Recurse -Force
         }
+    }
+
+    # 2. Salin hanya Agent Eksternal
+    if (Test-Path "$($sourcePath.FullName)\agent\external") {
+        New-Item -ItemType Directory -Path "nexus\agent" -Force | Out-Null
+        Copy-Item -Path "$($sourcePath.FullName)\agent\external\*" -Destination "nexus\agent" -Recurse -Force
+    }
+
+    # 3. Salin hanya Skill Eksternal
+    if (Test-Path "$($sourcePath.FullName)\skill\external") {
+        New-Item -ItemType Directory -Path "nexus\skill" -Force | Out-Null
+        Copy-Item -Path "$($sourcePath.FullName)\skill\external\*" -Destination "nexus\skill" -Recurse -Force
     }
     
     # Salin file utama ke root proyek

@@ -74,14 +74,23 @@ class NexusEngine {
     }
 
     async discoverSkills() {
-        this.log('📚 Discovering Skill Registry...', 'info');
-        const categories = await fs.readdir(this.skillPath, { withFileTypes: true });
-        for (const cat of categories) {
-            if (cat.isDirectory()) {
-                const skills = await fs.readdir(path.join(this.skillPath, cat.name));
-                this.skillRegistry[cat.name] = skills.map(s => s.replace('.md', ''));
+        this.log('📚 Discovering Skill Registry (Internal & External)...', 'info');
+        
+        const scanDir = async (dir, prefix = '') => {
+            const entries = await fs.readdir(dir, { withFileTypes: true });
+            for (const entry of entries) {
+                const fullPath = path.join(dir, entry.name);
+                if (entry.isDirectory()) {
+                    await scanDir(fullPath, prefix ? `${prefix}/${entry.name}` : entry.name);
+                } else if (entry.name.endsWith('.md')) {
+                    const category = prefix || 'uncategorized';
+                    if (!this.skillRegistry[category]) this.skillRegistry[category] = [];
+                    this.skillRegistry[category].push(entry.name.replace('.md', ''));
+                }
             }
-        }
+        };
+
+        await scanDir(this.skillPath);
         return this.skillRegistry;
     }
 
@@ -143,46 +152,56 @@ class NexusEngine {
         const mode = options.mode || 'learning';
         const allowSensitive = options.allowSensitive || false;
 
-        this.log('🔍 Phase 1: Audit Initiation...', 'info');
+        this.log(`🔍 Phase 1: Audit Initiation [Mode: ${mode}]...`, 'info');
         const auditID = `AUDIT-${Date.now()}`;
-        const findings = [];
+        const consolidatedFindings = [];
+
+        // Common files check
+        const files = await fs.readdir(targetPath);
+        if (!files.includes('README.md')) consolidatedFindings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });
+        if (allowSensitive && files.includes('.env')) consolidatedFindings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
+        if (!files.some(f => f.toLowerCase().startsWith('license'))) consolidatedFindings.push({ severity: 'WARNING', message: 'LICENSE file missing', file: 'root' });
+
+        await fs.ensureDir(this.auditPath);
 
         if (mode === 'learning') {
-            const specialists = ['cyber-security', 'ux-engineer', 'seo-performance-specialist', 'database-architect'];
-            for (const agent of specialists) {
+            const specialists = [
+                { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
+                { id: 'ux-design', focus: 'User Experience & Estetika' },
+                { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
+                { id: 'database-architect', focus: 'Arsitektur Data' }
+            ];
+
+            for (const spec of specialists) {
+                this.log(`🕵️ Agent ${spec.id} is scanning for ${spec.focus}...`, 'warning');
                 try {
-                    await this.loadAgent(agent);
+                    await this.loadAgent(spec.id);
+                    
+                    // Generate individual report
+                    const specFindings = [{ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' }];
+                    const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
+                    
+                    await fs.writeJson(path.join(this.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
+                    const mdSpec = `# Specialist Audit: ${spec.id.toUpperCase()}\n\nFocus: ${spec.focus}\n\nFindings:\n${specFindings.map(f => `- [${f.severity}] ${f.message}`).join('\n')}`;
+                    await fs.writeFile(path.join(this.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec);
+                    
+                    consolidatedFindings.push(...specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` })));
                 } catch (e) {
-                    this.log(`⚠️ Agent ${agent} is not available.`, 'error');
+                    this.log(`⚠️ Agent ${spec.id} is not available for detailed scan.`, 'error');
                 }
             }
         }
 
-        const files = await fs.readdir(targetPath);
-        if (!files.includes('README.md')) {
-            findings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });
-        }
-        
-        if (allowSensitive && files.includes('.env')) {
-            findings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
-        }
-
-        if (!files.some(f => f.toLowerCase().startsWith('license'))) {
-            findings.push({ severity: 'WARNING', message: 'LICENSE file missing', file: 'root' });
-        }
-
-        const report = new AuditReport(auditID, targetPath, findings, { mode, allowSensitive });
+        const report = new AuditReport(auditID, targetPath, consolidatedFindings, { mode, allowSensitive });
         this.currentAudit = report;
 
-        await fs.ensureDir(this.auditPath);
-        
-        const baseName = `audit_${auditID}`;
+        const baseName = `audit_SUMMARY_${auditID}`;
         await fs.writeJson(path.join(this.auditPath, `${baseName}.json`), report.toJSON(), { spaces: 2 });
         
-        const mdContent = `# Audit Report: ${auditID}\n\nFindings:\n${findings.map(f => `- [${f.severity}] ${f.message} (${f.file})`).join('\n')}`;
+        const mdContent = `# Audit Summary: ${auditID}\nMode: ${mode}\n\nConsolidated Findings:\n${consolidatedFindings.map(f => `- [${f.severity}] ${f.message} (${f.file})`).join('\n')}`;
         await fs.writeFile(path.join(this.auditPath, `${baseName}.md`), mdContent);
 
-        this.log(`✅ Audit Complete: ${auditID}`, 'success');
+        this.log(`✅ Audit Complete: ${auditID}. Reports generated in /audit`, 'success');
         return report;
     }
 

@@ -64,17 +64,21 @@ graph TD
 
 ---
 
-## 📂 Struktur Folder (Organized)
+## 📂 Struktur Folder (Evolutionary Design)
 
 | Folder | Deskripsi |
 | :--- | :--- |
-| `📂 agent/` | Definisi Persona AI (Core, Engineering, Creative, Security, Business). |
-| `📂 skill/` | Modul spesialisasi teknis AI (Frontend, Backend, Devops, Security, dll). |
+| `📂 agent/` | Definisi Persona AI. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`└─ internal/` | **Core Management**: Orchestrator, Guru, Crawler, Memory Architect (Internal Nexus). |
+| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | **Dev Tools**: Engineering, Creative, Security, Business (Diinstal untuk pengembang). |
+| `📂 skill/` | Modul spesialisasi teknis AI. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`└─ internal/` | **Nexus Skills**: Pipeline management, pattern recognition, teacher skills. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | **Project Skills**: Frontend, Backend, Devops, QA, Testing Standards (Wise skills). |
+| `📂 knowledge/` | **The HUB**: Memori jangka panjang & standar "Emas" (Single Source of Truth). |
 | `📂 audit/` | Laporan audit hasil scanning project oleh Agent. |
-| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
 | `📂 planning/` | Rencana pengembangan fase demi fase. |
 | `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
-| `📂 knowledge/` | Memori jangka panjang (Global Lessons Learned). |
+| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
 | `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
 
 ---

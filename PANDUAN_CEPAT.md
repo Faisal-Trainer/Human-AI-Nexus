@@ -6,12 +6,19 @@ Halo! Jika Anda baru di sini, jangan bingung. **Human-AI Nexus** adalah sebuah s
 
 ## 🏢 1. Siapa Saja Tim Anda?
 
-Dalam sistem ini, AI tidak bekerja sendirian, mereka memiliki peran masing-masing:
+Dalam sistem ini, AI terbagi menjadi dua tim besar:
 
+### 🛠 Tim Eksternal (Rekan Kerja Anda)
+Ini adalah agent yang membantu langsung di project Anda:
+*   **Specialist Agents**: Ahli Kode (Web), Mobile (Android/iOS), Desain (UX/UI), Keamanan, dan Database.
+*   **Project Manager**: Perancang rencana kerja dan pengawas kualitas.
+
+### 🧠 Tim Internal (Penjaga Nexus)
+Ini adalah agent yang bekerja di balik layar untuk menjaga kecerdasan sistem:
+*   **Nexus Guru**: Pengajar yang memastikan seluruh Agent memiliki keahlian terbaru.
+*   **Golden Crawler**: Pemburu "Emas" yang mencari rahasia koding terbaik.
+*   **Memory Architect**: Pengelola "Ingatan" dan HUB pengetahuan.
 *   **Nexus Orchestrator (Si Bos)**: Pemimpin operasional yang menjalankan **Nexus Engine**.
-*   **Project Manager (Si Perencana)**: Membuat rencana kerja dan mengonsolidasi laporan audit untuk senior.
-*   **Specialist Agents (Para Ahli)**: Ahli Kode, Desain, Keamanan, SEO, dan Database yang memberikan temuan mendalam untuk belajar.
-*   **The Guardians (Tim Keamanan)**: Tim penyerang (Red) dan bertahan (Blue) untuk status **Zero Flaws**.
 
 ---
 

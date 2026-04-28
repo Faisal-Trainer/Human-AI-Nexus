@@ -12,6 +12,7 @@
     "skill/**/*",
     "src/**/*",
     "docs/**/*",
+    "knowledge/**/*",
     "cli.js",
     "ALGORITMA_INTEGRASI.md",
     "PANDUAN_CEPAT.md",

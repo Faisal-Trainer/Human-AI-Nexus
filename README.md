@@ -92,6 +92,9 @@ npx github:Faisal-Trainer/Human-AI-Nexus
 ```
 Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
 
+> **Tip**: Untuk memperbarui framework yang sudah terinstall tanpa menghapusnya, gunakan flag `--force`:
+> `npx github:Faisal-Trainer/Human-AI-Nexus --force`
+
 ### 2. Jalankan Engine
 Jalankan perintah berikut di terminal:
 ```bash

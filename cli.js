@@ -8,9 +8,12 @@ const { execSync } = require('child_process');
 // TODO: Add progress bar for copy operation
 
 async function install() {
-    // Ambil argumen target directory jika ada, default ke 'nexus'
+    // Ambil argumen
     const args = process.argv.slice(2);
-    const relativeNexusPath = args[0] || 'nexus';
+    const isForce = args.includes('--force') || args.includes('-f');
+    // Hilangkan flag dari argumen untuk mengambil path
+    const cleanArgs = args.filter(arg => !arg.startsWith('-'));
+    const relativeNexusPath = cleanArgs[0] || 'nexus';
     
     const targetDir = process.cwd();
     const sourceDir = __dirname;
@@ -20,16 +23,20 @@ async function install() {
 
     try {
         // 1. Cek apakah folder target sudah ada
-        if (await fs.pathExists(nexusPath)) {
-            console.log('\x1b[33m%s\x1b[0m', `⚠️ Folder /${relativeNexusPath} sudah ada. Instalasi dibatalkan.`);
+        if (await fs.pathExists(nexusPath) && !isForce) {
+            console.log('\x1b[33m%s\x1b[0m', `⚠️ Folder /${relativeNexusPath} sudah ada. Gunakan --force untuk menimpa.`);
             process.exit(0);
+        }
+
+        if (isForce) {
+            console.log('\x1b[33m%s\x1b[0m', `⚡ Mode Force: Memperbarui folder /${relativeNexusPath}...`);
         }
 
         // 2. Buat folder nexus
         await fs.ensureDir(nexusPath);
 
         // 3. Daftar folder framework yang akan disalin
-        const folders = ['agent', 'algorithms', 'design', 'planning', 'skill', 'records', 'summary', 'legal', 'audit'];
+        const folders = ['agent', 'algorithms', 'design', 'planning', 'skill', 'records', 'summary', 'legal', 'audit', 'knowledge'];
         
         console.log(`📂 Menata folder dokumentasi di ${relativeNexusPath}...`);
         for (const folder of folders) {

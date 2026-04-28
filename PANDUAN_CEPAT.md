@@ -28,6 +28,9 @@ npx @faisal-trainer/human-ai-nexus
 ```
 Atau pastikan folder framework sudah ada di root proyek Anda.
 
+> **Tips Update**: Gunakan flag `--force` untuk memperbarui folder yang sudah ada:
+> `npx github:Faisal-Trainer/Human-AI-Nexus --force`
+
 ### Langkah 2: Jalankan Nexus Engine
 Gunakan perintah otomatis untuk memulai siklus kerja:
 

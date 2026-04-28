@@ -5,9 +5,9 @@ Pusat kendali dan dokumentasi terstruktur yang dirancang khusus untuk menjembata
 
 ## 🚀 Instruksi Penting untuk AI Assistant
 Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **WAJIB**:
-1.  Membaca `nexus/agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
-2.  Membaca dokumen Role yang relevan di `nexus/agent/` (Web Engineer, UX, atau Security).
-3.  Memeriksa `nexus/algorithms/` dan `nexus/planning/` untuk melihat rencana fitur yang sedang berjalan.
+1.  Membaca `agent/ai-assistant.md` untuk memahami alur kerja (Workflow).
+2.  Membaca dokumen Role yang relevan di `agent/` (Web Engineer, UX, atau Security).
+3.  Memeriksa `algorithms/` dan `planning/` untuk melihat rencana fitur yang sedang berjalan.
 4.  **Agent Selection**: Memberikan saran kepada User mengenai Agent mana yang paling cocok (misal: `Web Branding` untuk visual, `DevOps Specialist` untuk deployment, `Ethics Specialist` untuk hukum/etika, `QA Tester` untuk pengujian bug, atau `Growth Hacker` untuk strategi pemasaran).
 
 ## 📂 Struktur Folder
@@ -25,7 +25,7 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 | `📂 knowledge/` | Memori jangka panjang (Global Lessons Learned). |
 
 ## 🛠 Prinsip Utama
-- **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `nexus/algorithms/` atau `nexus/planning/`.
+- **Documentation First**: Jangan menulis kode sebelum rancangan disetujui di folder `algorithms/` atau `planning/`.
 - **Hierarchical Coordination**: Gunakan **Nexus Orchestrator** sebagai pemimpin sesi dan **Project Manager** sebagai perancang rencana.
 - **Recursive Audit Loop**: Setiap tahap eksekusi wajib melalui siklus audit berulang hingga mencapai status **"Zero Flaws"** (Lihat: [Standar Zero Flaws](STANDAR_ZERO_FLAWS.md)).
 - **Security War Games**: Simulasi serangan (Red Team) dan pertahanan (Blue Team) di bawah pengawasan **Security Architect**.
@@ -34,6 +34,48 @@ Setiap kali Anda memulai sesi baru atau mengerjakan tugas di proyek ini, Anda **
 - **User Final Authority**: User adalah pengambil keputusan akhir untuk setiap konflik teknis (Tie-Breaker).
 
 ---
+
+## 🏗 System Architecture
+
+```mermaid
+graph TD
+    User([User/Human]) -- Approval --> PM[Project Manager Agent]
+    User -- Initial Request --> Orc[Nexus Orchestrator]
+    
+    subgraph "Core Engine (Executable)"
+        Orc -- Trigger --> Audit[Audit Phase]
+        Audit -- Results --> Plan[Planning Phase]
+        Plan -- Tasks --> Exec[Execution Phase]
+        Exec -- Success --> Record[Finalization Phase]
+    end
+    
+    subgraph "Knowledge & Standards"
+        Agent[(Agent Library)]
+        Skill[(Skill/Standards)]
+        Knowledge[(Knowledge Base)]
+    end
+    
+    Audit -.-> Agent
+    Plan -.-> Skill
+    Record -.-> Knowledge
+    
+    Record -- Recursive --> Audit
+```
+
+## 🛠 Executable Engine
+
+Framework ini kini dilengkapi dengan **Nexus Engine** untuk menjalankan alur kerja secara otomatis:
+
+```bash
+# Jalankan siklus penuh (Audit -> Plan -> Execute)
+npm start
+
+# Atau gunakan CLI nexus (jika terinstall)
+nexus run
+```
+
+---
+
 *Dikelola oleh Faisal-Trainer & AI Assistant.*
 
 ## ⚡ Quick Start / Installation

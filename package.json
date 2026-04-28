@@ -2,9 +2,14 @@
   "name": "@faisal-trainer/human-ai-nexus",
   "version": "1.0.0",
   "description": "Human-AI Nexus Documentation Framework Installer",
-  "main": "cli.js",
+  "main": "src/index.js",
   "bin": {
-    "human-ai-nexus": "cli.js"
+    "human-ai-nexus": "cli.js",
+    "nexus": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "nexus": "node src/index.js"
   },
   "repository": {
     "type": "git",

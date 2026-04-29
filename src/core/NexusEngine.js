@@ -431,8 +431,8 @@ class NexusEngine {
      */
     async massRefactor() {
         this.log('⚡ Starting Mass Refactor: Golden ➔ HUB...', 'info');
-        const goldenPath = path.join(this.nexusPath, 'golden');
-        const hubPath = path.join(this.nexusPath, 'knowledge');
+        const goldenPath = path.join(this.nexusDataPath, 'golden');
+        const hubPath = path.join(this.nexusDataPath, 'knowledge');
 
         if (!(await fs.pathExists(goldenPath))) {
             this.log('⚠️ Folder golden/ tidak ditemukan. Mass Refactor dibatalkan.', 'warning');
@@ -469,8 +469,8 @@ class NexusEngine {
      */
     async massUpdateSkills() {
         this.log('⚡ Starting Mass Update: HUB ➔ Skill...', 'info');
-        const hubPath = path.join(this.nexusPath, 'knowledge');
-        const skillPath = path.join(this.nexusPath, 'skill');
+        const hubPath = path.join(this.nexusDataPath, 'knowledge');
+        const skillPath = path.join(this.nexusDataPath, 'skill');
 
         if (!(await fs.pathExists(hubPath))) {
             this.log('⚠️ Folder knowledge/ tidak ditemukan. Mass Update dibatalkan.', 'warning');
@@ -513,7 +513,7 @@ class NexusEngine {
     async globRecursive(dir, pattern) {
         const glob = require('glob');
         return new Promise((resolve, reject) => {
-            glob(path.join(dir, pattern), (err, files) => {
+            glob(path.join(dir, pattern).replace(/\\/g, '/'), (err, files) => {
                 if (err) reject(err);
                 else resolve(files);
             });

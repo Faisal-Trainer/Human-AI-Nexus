@@ -69,17 +69,10 @@ graph TD
 
 | Folder | Deskripsi |
 | :--- | :--- |
-| `📂 agent/` | Definisi Persona AI. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`└─ internal/` | **Core Management**: Orchestrator, Guru, Crawler, Memory Architect (Internal Nexus). |
-| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | **Dev Tools**: Engineering, Creative, Security, Business (Diinstal untuk pengembang). |
-| `📂 skill/` | Modul spesialisasi teknis AI. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`└─ internal/` | **Nexus Skills**: Pipeline management, pattern recognition, teacher skills. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | **Project Skills**: Frontend, Backend, Devops, QA, Testing Standards (Wise skills). |
-| `📂 knowledge/` | **The HUB**: Memori jangka panjang & standar "Emas" (Single Source of Truth). |
-| `📂 audit/` | Laporan audit hasil scanning project oleh Agent. |
-| `📂 planning/` | Rencana pengembangan fase demi fase. |
-| `📂 records/` | Laporan penyelesaian fitur (History pengembangan). |
-| `📂 algorithms/` | Logika fitur dan algoritma sebelum diimplementasikan ke kode. |
+| `📂 nexus/` | **The Brain**: Berisi komponen AI (Agent & Skill). |
+| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | Komponen yang diinstal untuk membantu pengembangan proyek. |
+| `📂 documentation/` | **The Workspace**: Folder output tim (Summary, Audit, Plan, Knowledge, dll). |
+| `📂 algorithms/` | Logika fitur dan algoritma sistem. |
 | `📂 legal/` | Dokumen hukum (Privacy Policy & Terms of Service). |
 
 ---
@@ -116,7 +109,7 @@ Jika ingin melepas Nexus Engine dari proyek Anda tanpa menghapus dokumentasi:
 ```bash
 npx github:Faisal-Trainer/Human-AI-Nexus dell
 ```
-*Perintah ini hanya menghapus folder `agent/` dan `skill/` (otak AI), namun tetap menjaga seluruh folder `audit/`, `planning/`, dan `knowledge/` agar tetap bisa dibaca oleh tim pengembang.*
+*Perintah ini menghapus folder `nexus/` (otak AI), namun tetap menjaga folder `documentation/` agar tetap bisa diakses oleh tim pengembang.*
 
 ### 3. Ikuti Alur Kerja
 1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.

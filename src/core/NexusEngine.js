@@ -41,9 +41,10 @@ class NexusEngine {
         const hasDocsFolder = fs.pathExistsSync(path.join(this.nexusDataPath, 'docs'));
         const docsBase = hasDocsFolder ? path.join(this.nexusDataPath, 'docs') : this.nexusDataPath;
 
-        // Dynamic Path Mapping (Support for root/ or nexus/ or nexus/docs/ structure)
+        // Dynamic Path Mapping (Support for documentation/ root/ nexus/ structure)
         const resolvePath = (folderName) => {
             const possiblePaths = [
+                path.join(this.rootPath, 'documentation', folderName),
                 path.join(docsBase, folderName),
                 path.join(this.nexusDataPath, folderName),
                 path.join(this.rootPath, folderName)
@@ -372,19 +373,29 @@ class NexusEngine {
         const projectName = path.basename(sourcePath);
         this.log(`🌾 Phase 6: Harvesting Knowledge from [${projectName}]...`, 'info');
         
+        // Detection Logic: Support for documentation/ or nexus/ structure
+        const docSource = path.join(sourcePath, 'documentation');
         const nexusSource = path.join(sourcePath, 'nexus');
-        if (!(await fs.pathExists(nexusSource))) {
-            throw new NexusError('HARVESTING', `Project at ${sourcePath} does not contain a /nexus folder.`);
+        
+        let primarySource = null;
+        if (await fs.pathExists(docSource)) {
+            primarySource = docSource;
+        } else if (await fs.pathExists(nexusSource)) {
+            primarySource = nexusSource;
+        } else {
+            throw new NexusError('HARVESTING', `Project at ${sourcePath} does not contain /documentation or /nexus folder.`);
         }
+
+        this.log(`📂 Source detected: ${path.basename(primarySource)}/`, 'info');
 
         const harvestRoot = path.join(this.rootPath, 'golden', 'harvest', projectName);
         await fs.ensureDir(harvestRoot);
 
-        const foldersToHarvest = ['audit', 'planning', 'records', 'knowledge'];
+        const foldersToHarvest = ['audit', 'planning', 'records', 'knowledge', 'summary', 'algorithms'];
         let filesHarvested = 0;
 
         for (const folder of foldersToHarvest) {
-            const srcFolder = path.join(nexusSource, folder);
+            const srcFolder = path.join(primarySource, folder);
             if (await fs.pathExists(srcFolder)) {
                 const destFolder = path.join(harvestRoot, folder);
                 await fs.ensureDir(destFolder);

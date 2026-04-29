@@ -11,10 +11,18 @@
 - **Kejadian**: `cli.js` (Installer) terpanggil terus padahal user ingin menjalankan `src/index.js` (Engine).
 - **Solusi**: Urutan binary di `package.json` harus meletakkan Engine utama (`nexus`) di baris pertama.
 
-## 3. Masalah: Folder Knowledge Terlewat
+## 4. Masalah: Kebocoran Pengetahuan Internal (Brain vs Docs)
 
-- **Temuan**: Folder `knowledge/` tidak ada di root dan tidak terdaftar di `cli.js`, sehingga memori AI tidak tersinkronisasi.
-- **Solusi**: Tambahkan folder `knowledge` ke daftar sinkronisasi di `cli.js` dan pastikan folder tersebut ada di repository.
+- **Temuan**: Instalasi awal menyertakan seluruh folder `knowledge` dan agen internal ke proyek eksternal, yang berisiko membocorkan rahasia dapur ("Golden HUB") dan merusak privasi.
+- **Solusi**: 
+    1. Pisahkan folder **Brain** (`nexus/` - berisi agent & skill) dan folder **Documentation** (`documentation/` - berisi output proyek).
+    2. Batasi instalasi eksternal hanya untuk folder `agent/external` dan `skill/external`.
+    3. Pastikan folder `knowledge/` di proyek target bersih/kosong saat instalasi pertama untuk menjaga privasi HUB pusat.
+
+## 5. Masalah: Pathing Dokumentasi Fleksibel
+
+- **Temuan**: Engine harus bisa beradaptasi jika user meletakkan dokumentasi di folder root atau di dalam subfolder `documentation/`.
+- **Solusi**: Perbarui `NexusEngine.js` dengan logika *Path Mapping* yang memprioritaskan folder `documentation/` namun tetap memiliki fallback ke struktur root untuk *backward compatibility*.
 
 ## 4. Masalah: Update Tidak Terjadi & Folder Sudah Ada
 

@@ -35,9 +35,10 @@ Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan dan pemelih
 
 *   **Trigger**: Kebutuhan integrasi fitur baru (misal: if-else logic baru).
 *   **Algoritma Kerja**:
-    1.  **NexusEngine Adjustment**: Modifikasi kode di `src/core/NexusEngine.js` untuk mendukung fitur baru.
+    1.  **NexusEngine Adjustment**: Modifikasi kode di `src/core/NexusEngine.js` untuk mendukung fitur baru dan pemetaan folder `documentation/`.
     2.  **Internal Brain Tuning**: Memperbarui file `.md` di folder `agent/internal/` (Orchestrator, Guru, dsb).
-    3.  **Zero-Breach Collision Logic**: Fitur baru harus diintegrasikan tanpa merusak fitur lama. Jika ada konflik logika engine, gunakan pendekatan percabangan (Branching) yang setara dengan `IF-ELSE` untuk menjaga Backward Compatibility.
+    3.  **External-Only Enforcement**: Memastikan installer (`cli.js`) hanya mengekspor komponen `external/` guna menjaga privasi IP pusat.
+    4.  **Zero-Breach Collision Logic**: Fitur baru harus diintegrasikan tanpa merusak fitur lama menggunakan pendekatan `IF-ELSE`.
 
 ## ⚡ 4. Protokol: "Ecosystem Synchronization" (README & Public Docs)
 **Deskripsi**: Sinkronisasi seluruh dokumentasi publik agar mencerminkan kemampuan terbaru sistem (Zero-Gap Documentation).

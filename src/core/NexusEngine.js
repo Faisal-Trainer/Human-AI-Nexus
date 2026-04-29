@@ -1,6 +1,19 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { AuditReport, ImplementationPlan } = require('./Contract');
+const Modifier = require('./Modifier');
+const MemoryPipeline = require('./MemoryPipeline');
+const TDDGuard = require('./TDDGuard');
+const AssetEngine = require('./AssetEngine');
+const Validator = require('./Validator');
+const BugHunter = require('./BugHunter');
+const Designer = require('./Designer');
+const AccessibilityScanner = require('./AccessibilityScanner');
+const SchemaGuard = require('./SchemaGuard');
+const QueryOptimizer = require('./QueryOptimizer');
+const WorktreeManager = require('./WorktreeManager');
+const RootCauseAnalyzer = require('./RootCauseAnalyzer');
+const Machinist = require('./Machinist');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -69,6 +82,20 @@ class NexusEngine {
         this.memory = [];
         this.metrics = {};
         this.state = STATES.INIT;
+        
+        this.modifier = new Modifier(this.rootPath);
+        this.memoryPipeline = new MemoryPipeline(this.rootPath, this.knowledgePath);
+        this.tddGuard = new TDDGuard(this.rootPath);
+        this.assetEngine = new AssetEngine(this.rootPath);
+        this.validator = new Validator(this.rootPath);
+        this.bugHunter = new BugHunter();
+        this.designer = new Designer();
+        this.a11yScanner = new AccessibilityScanner(this.rootPath);
+        this.schemaGuard = new SchemaGuard(this.rootPath);
+        this.queryOptimizer = new QueryOptimizer(this.rootPath);
+        this.worktreeManager = new WorktreeManager(this.rootPath);
+        this.rcAnalyzer = new RootCauseAnalyzer();
+        this.machinist = new Machinist(this.rootPath);
         
         this.currentAudit = null; 
         this.currentPlan = null;
@@ -157,8 +184,16 @@ class NexusEngine {
         const auditID = `AUDIT-${Date.now()}`;
         const consolidatedFindings = [];
 
-        // Common files check
+        // Core Structure Scan
         const files = await fs.readdir(targetPath);
+        const coreFolders = ['agent', 'skill', 'knowledge', 'records', 'planning', 'summary'];
+        for (const folder of coreFolders) {
+            const folderPath = path.join(targetPath, folder);
+            if (!(await fs.pathExists(folderPath))) {
+                consolidatedFindings.push({ severity: 'WARNING', message: `Nexus standard folder [${folder}/] is missing.`, file: 'root' });
+            }
+        }
+
         if (!files.includes('README.md')) consolidatedFindings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });
         if (allowSensitive && files.includes('.env')) consolidatedFindings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
         if (!files.some(f => f.toLowerCase().startsWith('license'))) consolidatedFindings.push({ severity: 'WARNING', message: 'LICENSE file missing', file: 'root' });
@@ -170,20 +205,57 @@ class NexusEngine {
                 { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
                 { id: 'ux-engineer', focus: 'User Experience & Estetika' },
                 { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
-                { id: 'database-architect', focus: 'Arsitektur Data' }
+                { id: 'database-architect', focus: 'Arsitektur Data' },
+                { id: 'vcs-architect', focus: 'Version Control & Repository Health' },
+                { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
             ];
 
             for (const spec of specialists) {
                 this.log(`🕵️ Agent ${spec.id} is scanning for ${spec.focus}...`, 'warning');
                 try {
                     await this.loadAgent(spec.id);
-                    
+
+                    const scannerPath = path.join(__dirname, 'scanners', `${spec.id}.js`);
+                    let specFindings = [];
+
+                    if (await fs.pathExists(scannerPath)) {
+                        const scanner = require(scannerPath);
+                        if (scanner.scan) {
+                            specFindings = await scanner.scan(targetPath);
+                            this.log(`   🔍 Deep Scan by ${spec.id}: ${specFindings.length} findings found.`, 'success');
+                        }
+                    }
+
+                    if (specFindings.length === 0) {
+                        specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
+                    }
+
                     // Generate individual report
-                    const specFindings = [{ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' }];
                     const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
                     
                     await fs.writeJson(path.join(this.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
-                    const mdSpec = `# Specialist Audit: ${spec.id.toUpperCase()}\n\nFocus: ${spec.focus}\n\nFindings:\n${specFindings.map(f => `- [${f.severity}] ${f.message}`).join('\n')}`;
+                    
+                    const mdSpec = `
+# 🎓 Specialist Audit: ${spec.id.toUpperCase()}
+**Focus**: ${spec.focus}
+**Agent**: ${spec.id}
+**Standard**: [Educational Audit Protocol](../../skill/internal/educational-audit.md)
+
+---
+
+## 🔍 Findings & Developer Insights
+
+${specFindings.map(f => `
+### [${f.severity}] ${f.message}
+- **File**: \`${f.file}\`
+- **💡 Learning Point**: [Place description of WHY this is a problem and what concept is involved here]
+- **🛡️ Nexus Standard**: [Reference to knowledge/ or skill/]
+- **🛠️ Recommendation**: [Systematic fix instructions]
+`).join('\n')}
+
+---
+*Generated by Nexus Engine | Status: Verified for Learning*
+`;
                     await fs.writeFile(path.join(this.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec);
                     
                     consolidatedFindings.push(...specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` })));
@@ -215,11 +287,29 @@ class NexusEngine {
         this.log(`📅 Phase 2: Planning based on ${report.id}...`, 'info');
         
         const planID = `PLAN-${Date.now()}`;
-        const tasks = report.findings.map((f, i) => ({
-            id: i + 1,
-            description: `Fix ${f.severity}: ${f.message}`,
-            status: 'pending'
-        }));
+        const tasks = report.findings
+            .filter(f => f.severity !== 'INFO' || !f.message.includes('Audit completed'))
+            .map((f, i) => {
+                const task = {
+                    id: i + 1,
+                    description: `${f.severity}: ${f.message}`,
+                    status: 'pending',
+                    rationale: f.rationale || 'Tidak ada keterangan tambahan.',
+                    recommendation: f.recommendation || 'Gunakan praktik terbaik standar industri.'
+                };
+
+                // AUTO-ACTION GENERATION (The Muscles)
+                if (f.message.includes('.env detected')) {
+                    task.action = {
+                        type: 'FILE_APPEND',
+                        target: '.gitignore',
+                        content: '.env'
+                    };
+                    task.description += ' (Auto-fix enabled)';
+                }
+
+                return task;
+            });
 
         const plan = new ImplementationPlan(planID, report.id, tasks);
         this.currentPlan = plan;
@@ -228,8 +318,24 @@ class NexusEngine {
 
         await fs.writeJson(path.join(this.planningPath, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
         
-        const mdContent = `# Plan: ${planID}\nRef: ${report.id}\n\nTasks:\n${tasks.map(t => `- [ ] ${t.description}`).join('\n')}`;
-        await fs.writeFile(path.join(this.planningPath, `plan_${planID}.md`), mdContent);
+        const mdPlan = `
+# 🛠 Implementation Plan: ${planID}
+**Ref Audit**: [${report.id}](../audit/audit_SUMMARY_${report.id}.md)
+**Status**: Ready for Execution
+
+---
+
+## 📋 Task List & Learning Insights
+${tasks.map(t => `
+### [ ] Task ${t.id}: ${t.description}
+- **🧐 Why?**: ${t.rationale}
+- **💡 Action**: ${t.recommendation}
+`).join('\n')}
+
+---
+*Generated by Nexus Orchestrator | Ready for Developer Approval*
+        `;
+        await fs.writeFile(path.join(this.planningPath, `plan_${planID}.md`), mdPlan);
 
         this.log(`✅ Plan Created: ${planID}`, 'success');
         return plan;
@@ -245,15 +351,71 @@ class NexusEngine {
         
         for (const task of activePlan.tasks) {
             this.log(`🛠 Executing: ${task.description}`, 'warning');
+            
+            // ATOMIC EXECUTION (Physical Change)
+            if (task.action) {
+                try {
+                    // TDD Enforcement
+                    if (task.action.type === 'FILE_REPLACE' || task.action.type === 'FILE_APPEND') {
+                        const validation = await this.tddGuard.validate(task.action.target);
+                        if (!validation.allowed) {
+                            this.log(`   🛑 TDD Block: ${validation.reason}`, 'error');
+                            task.status = 'blocked';
+                            continue;
+                        }
+                        this.log(`   🛡️ TDD Verified: ${validation.reason}`, 'success');
+                    }
+
+                    // Asset Optimization
+                    if (task.action.type === 'ASSET_OPTIMIZE') {
+                        await this.assetEngine.process(task.action);
+                        this.log(`   🖼️ Asset optimized via AssetEngine`, 'success');
+                    } else {
+                        const success = await this.modifier.apply(task.action);
+                        if (success) {
+                            this.log(`   ✅ Physical modification applied: ${task.action.type} on ${task.action.target}`, 'success');
+                        }
+                    }
+                } catch (e) {
+                    this.log(`   ❌ Execution Error: ${e.message}`, 'error');
+                    task.status = 'failed';
+                    continue;
+                }
+            }
+
+            // Legacy Support (Static Pattern Checks)
+            if (task.description.startsWith('UPDATE_BACKLOG:')) {
+                const backlogPath = path.join(this.knowledgePath, 'ENGINE_DEBT_BACKLOG.md');
+                if (await fs.pathExists(backlogPath)) {
+                    let content = await fs.readFile(backlogPath, 'utf8');
+                    content += `\n- [x] Resolved via ${activePlan.id}: ${task.description.split(':')[1]}`;
+                    await fs.writeFile(backlogPath, content);
+                    this.log(`   ✅ Physical modification applied to ENGINE_DEBT_BACKLOG.md`, 'success');
+                }
+            }
+
             task.status = 'done';
         }
 
         this.log('✅ Execution phase completed.', 'success');
     }
 
-    async record() {
+    async record(cycleID) {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
         await fs.ensureDir(this.recordsPath);
+        
+        // Update Records
+        const recordsPath = path.join(this.recordsPath, `session_${Date.now()}.json`);
+        await fs.writeJson(recordsPath, {
+            cycle: cycleID,
+            audit: this.currentAudit?.id,
+            plan: this.currentPlan?.id,
+            timestamp: new Date().toISOString()
+        }, { spaces: 2 });
+
+        // RUN MEMORY PIPELINE (Automated Archiving)
+        await this.memoryPipeline.optimize();
+
         this.log('✅ Records updated. Cycle finished.', 'success');
     }
 
@@ -264,14 +426,24 @@ class NexusEngine {
     async verify(plan) {
         this.log('🔍 Phase 5: Verification Phase...', 'info');
         const activePlan = plan || this.currentPlan;
+        const results = [];
+
+        for (const task of activePlan.tasks) {
+            if (task.status === 'done' && task.action) {
+                const verification = await this.validator.verifyAction(task.action);
+                results.push({ id: task.id, ...verification });
+                if (!verification.success) {
+                    this.log(`   ❌ Verification Failed for Task ${task.id}: ${verification.message}`, 'error');
+                    task.status = 'failed_verification';
+                } else {
+                    this.log(`   ✅ Verification Success for Task ${task.id}: ${verification.message}`, 'success');
+                }
+            } else {
+                results.push({ id: task.id, success: task.status === 'done', message: 'Non-physical task.' });
+            }
+        }
         
-        // In a real scenario, this would run tests or check file states
-        const results = activePlan.tasks.map(t => ({
-            id: t.id,
-            verified: t.status === 'done'
-        }));
-        
-        this.log(`✅ Verification complete: ${results.filter(r => r.verified).length}/${results.length} tasks verified.`, 'success');
+        this.log(`✅ Verification complete: ${results.filter(r => r.success).length}/${results.length} tasks verified.`, 'success');
         return results;
     }
 
@@ -302,17 +474,18 @@ class NexusEngine {
             await this.execute(plan);
             this.metrics.executionDuration = `${Date.now() - p3Start}ms`;
 
+            const cycleID = `CYCLE-${Date.now()}`;
             this.state = STATES.LOGGING;
             this.log(`🔄 System Transition: [${this.state}]`, 'warning');
             
-            await this.verify(plan); // Added Verification
-            await this.record();
+            await this.verify(plan); 
+            await this.record(cycleID);
             
             const totalTime = Date.now() - startTime;
             this.metrics.totalDuration = `${totalTime}ms`;
 
             this.state = STATES.COMPLETED;
-            await this.generateCycleSummary();
+            await this.generateCycleSummary(cycleID);
             
             this.log(`\n--- Nexus Engine: Cycle Complete [STATE: ${this.state}] (${totalTime}ms) ---`, 'info');
         } catch (error) {
@@ -323,9 +496,9 @@ class NexusEngine {
         }
     }
 
-    async generateCycleSummary() {
+    async generateCycleSummary(cycleID) {
         const summary = {
-            cycleID: `CYCLE-${Date.now()}`,
+            cycleID: cycleID || `CYCLE-${Date.now()}`,
             timestamp: new Date().toISOString(),
             finalState: this.state,
             metrics: this.metrics,
@@ -359,10 +532,6 @@ class NexusEngine {
             this.log(`❌ Failed to log error: ${e.message}`, 'error');
         }
     }
-    /**
-     * Phase 6: Harvesting (New Phase)
-     * Extracts Nexus documentation from another project to enrich the Golden knowledge.
-     */
     /**
      * Phase 6: Harvesting (New Phase)
      * Extracts Nexus documentation from another project to enrich the Golden knowledge.

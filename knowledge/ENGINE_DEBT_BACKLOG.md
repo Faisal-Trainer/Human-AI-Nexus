@@ -61,10 +61,10 @@ Dokumen ini adalah ringkasan komprehensif mengenai seluruh kegagalan fungsi, ano
 
 ## 🛠 ROADMAP PERBAIKAN (Priority List)
 
-1.  **[P0] PATH FLEXIBILITY**: Implementasikan pemetaan folder yang dinamis (mendukung folder `docs/`).
-2.  **[P0] NON-INTERACTIVE MODE**: Tambahkan flag `-y` untuk eksekusi otomatis.
-3.  **[P1] ATOMIC EXECUTION**: Hubungkan `execute()` dengan engine modifikasi file yang sebenarnya.
-4.  **[P2] VALIDATION ENGINE**: Tambahkan fase `verify()` setelah `execute()` untuk memastikan kontrak terpenuhi.
+1.  **[P0] PATH FLEXIBILITY**: Implementasikan pemetaan folder yang dinamis (mendukung folder `docs/`). [COMPLETED]
+2.  **[P0] NON-INTERACTIVE MODE**: Tambahkan flag `-y` untuk eksekusi otomatis. [COMPLETED]
+3.  **[P1] ATOMIC EXECUTION**: Hubungkan `execute()` dengan engine modifikasi file yang sebenarnya. [COMPLETED]
+4.  **[P2] VALIDATION ENGINE**: Tambahkan fase `verify()` setelah `execute()` untuk memastikan kontrak terpenuhi. [ENHANCED]
 
 ---
 

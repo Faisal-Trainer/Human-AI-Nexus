@@ -29,7 +29,7 @@ class ImplementationPlan {
         this.id = id;
         this.auditRef = auditRef; // Wajib merujuk ke Audit ID
         this.timestamp = new Date().toISOString();
-        this.tasks = tasks; // Array of { id, description, status: 'pending'|'done' }
+        this.tasks = tasks; // Array of { id, description, status: 'pending'|'done', action: { type, target, ... } }
     }
 
     toJSON() {

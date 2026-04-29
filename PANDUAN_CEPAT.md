@@ -42,11 +42,14 @@ Atau pastikan folder framework sudah ada di root proyek Anda.
 Gunakan perintah otomatis untuk memulai siklus kerja:
 
 ```bash
-# Via GitHub:
+# Via GitHub (Tanpa Install):
 npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 
 # Via NPM:
 npx @faisal-trainer/human-ai-nexus nexus run
+
+# Jika sudah terinstall/menggunakan Alias:
+nexus run
 ```
 *Atau gunakan `npm start` jika Anda berada di folder source framework.*
 

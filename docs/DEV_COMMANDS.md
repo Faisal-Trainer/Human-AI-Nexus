@@ -9,30 +9,42 @@ Jika perintah `nexus` global bermasalah (misal: `MODULE_NOT_FOUND`), gunakan eks
 ### 1. Siklus Standar (SDLC)
 ```powershell
 # Menjalankan siklus penuh (Audit -> Plan -> Execute)
-node cli.js run
+nexus run
 
 # Menjalankan Audit saja
-node cli.js audit
+nexus audit
 
 # Menjalankan mode otomatis (tanpa konfirmasi manual)
-node cli.js run --yes
+nexus run --yes
 ```
 
 ### 2. Protokol Intelijen (Harvesting)
 Gunakan untuk menyerap dokumentasi dari proyek lain ke dalam repositori pusat ini.
 ```powershell
 # Harvest dari proyek target (gunakan path absolut)
-node cli.js harvest "C:/xampp/htdocs/NAMA_PROYEK"
+nexus harvest "C:/xampp/htdocs/NAMA_PROYEK"
 ```
 
 ### 3. Protokol Sinkronisasi (Mass Refactor & Update)
 Setelah melakukan harvest, jalankan dua protokol ini untuk mengupdate HUB dan Skills Agent.
 ```powershell
 # Protocol 1: Golden -> HUB (knowledge/)
-node cli.js refactor
+nexus refactor
 
 # Protocol 2: HUB -> Skills (skill/)
-node cli.js update-skills
+nexus update-skills
+```
+
+### 4. Manajemen & Bantuan
+```powershell
+# Melihat daftar seluruh keahlian (Skill) Agent yang tersedia
+nexus skills
+
+# Menampilkan bantuan (Help)
+nexus help
+
+# Melepas (Uninstall) Brain Nexus dari proyek
+nexus dell
 ```
 
 ---
@@ -50,13 +62,13 @@ node cli.js update-skills
 ## 🛠 Workflow Rekomendasi (The Golden Flow)
 
 1.  **Harvest**: Ambil pengetahuan terbaru dari proyek aktif.
-    `node cli.js harvest "C:/path/to/project"`
+    `nexus harvest "C:/path/to/project"`
 2.  **Refactor**: Integrasikan pengetahuan tersebut ke dalam HUB Global.
-    `node cli.js refactor`
+    `nexus refactor`
 3.  **Update**: Sinkronkan instruksi Agent agar mereka "belajar" hal baru.
-    `node cli.js update-skills`
+    `nexus update-skills`
 4.  **Run**: Jalankan audit akhir untuk memastikan status **Zero Flaws**.
-    `node cli.js run --yes`
+    `nexus run --yes`
 
 ---
 *Status: Verified by Nexus Orchestrator | Update: 29 April 2026*

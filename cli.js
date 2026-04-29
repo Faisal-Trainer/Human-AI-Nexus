@@ -157,7 +157,7 @@ async function install(args) {
 
         console.log('\x1b[32m%s\x1b[0m', '\n✅ Instalasi Berhasil!');
         console.log(`🚀 Brain: ./${relativeNexusPath} | Docs: ./${docPathName}`);
-        console.log('🚀 Jalankan "npx nexus run" untuk memulai.');
+        console.log('🚀 Jalankan "nexus run" untuk memulai.');
 
     } catch (err) {
         console.error('\x1b[31m%s\x1b[0m', '❌ Terjadi kesalahan:', err.message);

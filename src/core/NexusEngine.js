@@ -362,6 +362,10 @@ class NexusEngine {
      * Phase 6: Harvesting (New Phase)
      * Extracts Nexus documentation from another project to enrich the Golden knowledge.
      */
+    /**
+     * Phase 6: Harvesting (New Phase)
+     * Extracts Nexus documentation from another project to enrich the Golden knowledge.
+     */
     async harvest(sourcePath) {
         if (!sourcePath) throw new NexusError('HARVESTING', 'Source path is required.');
         
@@ -388,7 +392,18 @@ class NexusEngine {
                 const files = await fs.readdir(srcFolder);
                 for (const file of files) {
                     if (file.endsWith('.md')) {
-                        await fs.copy(path.join(srcFolder, file), path.join(destFolder, file));
+                        const targetPath = path.join(destFolder, file);
+                        
+                        // Apply Collision Logic if file already exists in Golden Harvest
+                        if (await fs.pathExists(targetPath)) {
+                            this.log(`⚠️ Collision detected for ${file}. Applying IF-ELSE logic...`, 'warning');
+                            const oldContent = await fs.readFile(targetPath, 'utf8');
+                            const newContent = await fs.readFile(path.join(srcFolder, file), 'utf8');
+                            const merged = this.wrapAsConditional(oldContent, newContent, `Collision in ${file}`);
+                            await fs.writeFile(targetPath, merged);
+                        } else {
+                            await fs.copy(path.join(srcFolder, file), targetPath);
+                        }
                         filesHarvested++;
                     }
                 }
@@ -398,6 +413,122 @@ class NexusEngine {
         this.log(`✅ Harvesting Complete: ${filesHarvested} knowledge artifacts collected from ${projectName}.`, 'success');
         this.log(`📂 Destination: golden/harvest/${projectName}`, 'info');
         return filesHarvested;
+    }
+
+    /**
+     * Protocol 1: Mass Refactor (Golden -> HUB)
+     */
+    async massRefactor() {
+        this.log('⚡ Starting Mass Refactor: Golden ➔ HUB...', 'info');
+        const goldenPath = path.join(this.nexusPath, 'golden');
+        const hubPath = path.join(this.nexusPath, 'knowledge');
+
+        if (!(await fs.pathExists(goldenPath))) {
+            this.log('⚠️ Folder golden/ tidak ditemukan. Mass Refactor dibatalkan.', 'warning');
+            return;
+        }
+
+        const files = await this.globRecursive(goldenPath, '**/*.md');
+        let processed = 0;
+
+        for (const file of files) {
+            const fileName = path.basename(file);
+            const targetPath = path.join(hubPath, fileName);
+            const content = await fs.readFile(file, 'utf8');
+
+            if (await fs.pathExists(targetPath)) {
+                const oldContent = await fs.readFile(targetPath, 'utf8');
+                if (oldContent.trim() !== content.trim()) {
+                    const merged = this.wrapAsConditional(oldContent, content, `Refactor from Golden: ${fileName}`);
+                    await fs.writeFile(targetPath, merged);
+                    this.log(`🔄 Collision Resolved in HUB: ${fileName}`, 'success');
+                }
+            } else {
+                await fs.copy(file, targetPath);
+                this.log(`📝 Knowledge Added to HUB: ${fileName}`, 'success');
+            }
+            processed++;
+        }
+
+        this.log(`✅ Mass Refactor Complete: ${processed} knowledge artifacts integrated into HUB.`, 'success');
+    }
+
+    /**
+     * Protocol 2: Mass Update Skills (HUB -> Skill)
+     */
+    async massUpdateSkills() {
+        this.log('⚡ Starting Mass Update: HUB ➔ Skill...', 'info');
+        const hubPath = path.join(this.nexusPath, 'knowledge');
+        const skillPath = path.join(this.nexusPath, 'skill');
+
+        if (!(await fs.pathExists(hubPath))) {
+            this.log('⚠️ Folder knowledge/ tidak ditemukan. Mass Update dibatalkan.', 'warning');
+            return;
+        }
+
+        const knowledgeFiles = await this.globRecursive(hubPath, '**/*.md');
+        let updated = 0;
+
+        // Simple mapping logic: Find target skill files based on knowledge keywords
+        // In a real scenario, this would be more complex/AI-driven
+        const skillFiles = await this.globRecursive(skillPath, '**/*.md');
+
+        for (const kFile of knowledgeFiles) {
+            const kName = path.basename(kFile, '.md').toLowerCase();
+            const kContent = await fs.readFile(kFile, 'utf8');
+
+            for (const sFile of skillFiles) {
+                const sName = path.basename(sFile, '.md').toLowerCase();
+                
+                // If knowledge name matches skill name or vice versa (fuzzy match)
+                if (kName.includes(sName) || sName.includes(kName)) {
+                    const sContent = await fs.readFile(sFile, 'utf8');
+                    if (!sContent.includes(kContent.substring(0, 50))) { // Avoid double injection
+                        const merged = this.wrapAsConditional(sContent, kContent, `Update from HUB: ${path.basename(kFile)}`);
+                        await fs.writeFile(sFile, merged);
+                        this.log(`🧠 Skill Synchronized: ${path.basename(sFile)}`, 'success');
+                        updated++;
+                    }
+                }
+            }
+        }
+
+        this.log(`✅ Mass Update Complete: ${updated} skills updated with latest HUB knowledge.`, 'success');
+    }
+
+    /**
+     * Helper to find files recursively
+     */
+    async globRecursive(dir, pattern) {
+        const glob = require('glob');
+        return new Promise((resolve, reject) => {
+            glob(path.join(dir, pattern), (err, files) => {
+                if (err) reject(err);
+                else resolve(files);
+            });
+        });
+    }
+
+    /**
+     * Universal Nexus Collision Logic (IF-ELSE Wrapper)
+     */
+    wrapAsConditional(contentA, contentB, context = 'Nexus Knowledge') {
+        return `
+# 🛠 NEXUS COLLISION RESOLVED: ${context}
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    ${contentA.trim()}
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    ${contentB.trim()}
+}
+
+---
+*Generated by Nexus Engine | Date: ${new Date().toLocaleDateString()}*
+`;
     }
 }
 

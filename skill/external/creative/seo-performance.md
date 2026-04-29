@@ -5,8 +5,19 @@ Dokumen ini berisi standar teknis untuk optimasi mesin pencari dan performa web.
 ## 1. Technical SEO
 - **Semantic HTML:** Gunakan tag `<h1>` hingga `<h6>` secara hierarkis.
 - **Meta Tags:** Pastikan setiap halaman unik memiliki Title Tag (< 60 karakter) dan Meta Description (< 160 karakter).
-- **Structured Data:** Gunakan JSON-LD (Schema.org) untuk Rich Snippets (misal: Article, Breadcrumb, FAQ).
+- **Structured Data:** Gunakan JSON-LD (Schema.org) untuk Rich Snippets.
 - **Canonical:** Gunakan tag canonical untuk mencegah konten duplikat.
+
+/* COLLISION RESOLVED: SEO Strategy Evolution */
+IF {
+    /* Legacy Pattern: Keyword-Focused SEO */
+    // Optimasi berbasis kepadatan kata kunci dan metadata statis.
+} ELSE {
+    /* Advanced HUB: Semantic Search Intent */
+    // 1. Fokus pada pemetaan 'Meaning' daripada sekadar 'String'.
+    // 2. Hubungkan konten dengan entitas ontologi yang relevan.
+    // 3. Pastikan konten menjawab 'User Intent' (Navigational, Informational, Transactional).
+}
 
 ## 2. Web Performance & Media Protocol (Nexus Golden Standard)
 - **Format WebP:** WAJIB konversi seluruh aset visual ke format WebP. Format JPEG/PNG hanya diperbolehkan sebagai fallback jika mutlak diperlukan.
@@ -20,6 +31,8 @@ Dokumen ini berisi standar teknis untuk optimasi mesin pencari dan performa web.
 - [ ] Gambar sudah dikompresi tanpa mengurangi kualitas secara signifikan.
 - [ ] Link internal menggunakan struktur URL yang ramah SEO (Slug-based).
 - [ ] Sitemap.xml dan Robots.txt dikonfigurasi dengan benar.
+- [ ] **SEO-UX Synergy:** Periksa apakah konten kaya kata kunci mengganggu keterbacaan (UX). Jika ya, refactor menjadi lebih ringkas.
+- [ ] **Mobile-First Indexing:** Pastikan versi mobile memiliki konten dan metadata yang setara dengan desktop.
 
 ---
 *Dokumen ini adalah referensi teknis. Untuk aturan perilaku AI, lihat `docs/agent/seo-performance-specialist.md`.*

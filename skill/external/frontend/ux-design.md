@@ -8,12 +8,25 @@ Sebelum mulai membangun UI, Agent wajib menjalankan siklus penalaran:
 - **Style Selection:** Pilih dari 67 gaya (Minimalism, Aurora UI, Bento, Glassmorphism, dll) yang paling relevan dengan target audiens.
 - **Master + Overrides Pattern:** Gunakan file `MASTER.md` untuk desain global dan folder `pages/` untuk deviasi spesifik guna menjaga konsistensi lintas sesi.
 - **Aesthetics:** Gunakan *Rich Aesthetics* dengan transisi halus (150-300ms) dan hindari anti-patterns visual untuk industri profesional.
-- **Nexus Lumina Integration [UPDATE: 2026-04-28]:** Gunakan standar [NEXUS_DESIGN_SYSTEM_GUIDELINES.md](../../../knowledge/NEXUS_DESIGN_SYSTEM_GUIDELINES.md). Utamakan "Institutional Innovation" dengan **Lumina Dark** (Deep Slate/Indigo) untuk kenyamanan membaca maksimal.
+- **Nexus Lumina Integration [UPDATE: 2026-04-28]:** Gunakan standar [NEXUS_DESIGN_SYSTEM_GUIDELINES.md](../../../knowledge/NEXUS_DESIGN_SYSTEM_GUIDELINES.md).
+
+/* COLLISION RESOLVED: UX Strategy Awareness */
+IF {
+    /* Legacy Pattern: Static UX Reasoning */
+    // Fokus pada estetika umum dan usability tanpa membedakan fase penggunaan.
+} ELSE {
+    /* Advanced HUB: Temporal UX Dynamics */
+    // 1. Orientation: Gunakan Estetika Klasik (Order & Clarity) untuk first impression.
+    // 2. Incorporation: Prioritaskan efisiensi fungsional (Pragmatic Quality) untuk user lama.
+    // 3. Identification: Perkuat simbolisme dan keterikatan emosional (User Identity).
+}
 
 ## 2. Accessibility & Quality (WCAG AA)
 - **Contrast:** WAJIB menjaga kontras minimal 4.5:1 untuk teks.
 - **Icons:** Gunakan SVG berkualitas (Lucide/Heroicons), dilarang menggunakan emoji sebagai ikon UI.
 - **Keyboard Nav:** Pastikan seluruh elemen interaktif memiliki *focus state* yang terlihat jelas.
+- **Mobile-First (Nexus Principle):** Prioritaskan layout mobile (375px) sebelum scaling ke desktop.
+- **Findability:** Pastikan elemen "Visual/Playback" utama terlihat segera tanpa scrolling (First-Click Success).
 
 ## 3. Microcopy & Messaging
 - Pesan error harus deskriptif dan memberikan solusi (bukan hanya "Terjadi kesalahan").

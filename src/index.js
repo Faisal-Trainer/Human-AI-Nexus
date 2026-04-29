@@ -73,6 +73,14 @@ async function main() {
             }
             rl.close();
             break;
+        case 'refactor':
+            await engine.massRefactor();
+            rl.close();
+            break;
+        case 'update-skills':
+            await engine.massUpdateSkills();
+            rl.close();
+            break;
         case 'help':
         default:
             console.log(`
@@ -81,6 +89,8 @@ Usage:
   nexus run           - Start a full Audit -> Plan -> Execute cycle
   nexus audit         - Run only the Audit phase
   nexus harvest <dir> - Harvest Nexus docs from another project to Golden HUB
+  nexus refactor      - [Protocol 1] Mass Refactor from Golden to HUB
+  nexus update-skills - [Protocol 2] Mass Update from HUB to Skills
   nexus skills        - List available agent skills
   nexus help          - Show this help
             `);

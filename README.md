@@ -27,7 +27,9 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 
 ## 🤖 Apa itu Human-AI Nexus?
 
-Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Executable Framework**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI (Orchestrator, PM, Security Specialist, dll) untuk melakukan audit, perencanaan, hingga eksekusi tugas secara disiplin.
+Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Self-Evolving Framework**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI (Orchestrator, PM, Security Specialist, dll) untuk melakukan audit, perencanaan, hingga eksekusi tugas.
+
+Sistem ini kini dilengkapi dengan **Universal Collision Logic**, yang memungkinkan AI untuk menyimpan beberapa alternatif solusi (`IF-ELSE`) dalam satu dokumen, memungkinkan pengambilan keputusan (Decision Making) yang lebih cerdas dan kontekstual.
 
 ### Visi Utama
 Menciptakan ekosistem pengembangan di mana AI bekerja sebagai **Tim Profesional** yang patuh pada standar kualitas manusia, bukan sekadar chatbot yang menulis kode asal-asalan.
@@ -126,8 +128,9 @@ npx github:Faisal-Trainer/Human-AI-Nexus dell
 
 ## 🌟 Prinsip Utama
 - **Documentation First**: No plan, no code.
+- **Universal Collision Logic**: Sistem **IF { A } ELSE { B }** otomatis untuk menjaga variasi solusi tanpa menimpa data lama.
 - **Zero Flaws Enforcement**: Audit berulang hingga mencapai kualitas maksimal.
-- **Security Guardrails**: Izin eksplisit untuk scan file sensitif (.env, dll).
+- **Self-Evolving Knowledge**: Alur otomatis Golden ➔ HUB ➔ Skill melalui **Internal Protocols v2.2**.
 - **User Final Authority**: Manusia adalah pemegang keputusan tertinggi.
 
 ---

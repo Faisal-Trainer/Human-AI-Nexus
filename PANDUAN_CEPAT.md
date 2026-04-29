@@ -1,6 +1,6 @@
 # 🚀 Panduan Cepat: Selamat Datang di Human-AI Nexus!
 
-Halo! Jika Anda baru di sini, jangan bingung. **Human-AI Nexus** adalah sebuah sistem yang mengubah AI Anda menjadi sebuah **Tim Profesional Terstruktur** yang kini dilengkapi dengan **Otomatisasi Engine**.
+Halo! Jika Anda baru di sini, jangan bingung. **Human-AI Nexus** adalah sebuah sistem yang mengubah AI Anda menjadi sebuah **Tim Profesional Terstruktur** yang kini dilengkapi dengan **Otomatisasi Engine** dan **Logika Pohon Keputusan (Decision Tree)**.
 
 ---
 
@@ -64,7 +64,8 @@ Tinjau rencana di folder `planning/`, ketik "OKE" di terminal, dan biarkan AI me
 
 1.  **Otomatisasi Penuh**: Tidak perlu lagi manual memanggil agent, Engine yang mengaturnya.
 2.  **Anti Berantakan**: Alur kerja Audit -> Plan -> Execute memastikan kualitas terjaga.
-3.  **Kendali Penuh**: Anda memilih mode audit yang sesuai dengan level pengalaman Anda.
+3.  **Kecerdasan Evolusioner**: Sistem menggunakan **IF-ELSE Collision Logic** untuk menyimpan berbagai alternatif solusi, bukan hanya menimpa data lama.
+4.  **Kendali Penuh**: Anda memilih mode audit yang sesuai dengan level pengalaman Anda.
 
 ---
 

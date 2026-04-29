@@ -1,54 +1,28 @@
 {
-  "name": "@faisal-trainer/human-ai-nexus",
-  "version": "1.0.0",
-  "description": "A Documentation-First Framework for Structured Human-AI Collaboration and Orchestration",
+  "name": "human-ai-nexus",
+  "version": "2.2.0",
+  "description": "Documentation-First Framework for Human-AI Collaborative Development",
   "main": "src/index.js",
   "bin": {
-    "nexus": "cli.js",
-    "human-ai-nexus": "cli.js"
+    "nexus": "./cli.js"
   },
-  "files": [
-    "agent/**/*",
-    "skill/**/*",
-    "src/**/*",
-    "algorithms/**/*",
-    "audit/**/*",
-    "design/**/*",
-    "knowledge/**/*",
-    "legal/**/*",
-    "planning/**/*",
-    "records/**/*",
-    "summary/**/*",
-    "cli.js",
-    "PANDUAN_CEPAT.md",
-    "STANDAR_ZERO_FLAWS.md",
-    "README.md"
-  ],
   "scripts": {
     "start": "node cli.js run",
-    "nexus": "node cli.js run",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "refactor": "node cli.js refactor",
+    "update-skills": "node cli.js update-skills",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Faisal-Trainer/Human-AI-Nexus.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Faisal-Trainer/Human-AI-Nexus/issues"
-  },
-  "homepage": "https://github.com/Faisal-Trainer/Human-AI-Nexus#readme",
   "keywords": [
     "ai",
-    "framework",
-    "documentation",
     "orchestration",
-    "nexus",
-    "agents"
+    "documentation",
+    "framework",
+    "nexus"
   ],
   "author": "Faisal-Trainer",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
-    "degit": "^2.8.4",
-    "fs-extra": "^11.1.1"
+    "fs-extra": "^11.1.0",
+    "glob": "^8.1.0"
   }
 }

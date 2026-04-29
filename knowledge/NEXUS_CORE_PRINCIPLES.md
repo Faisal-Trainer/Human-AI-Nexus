@@ -23,5 +23,10 @@ Dokumentasi bukan sekadar catatan, melainkan **blueprint wajib**.
 - Selalu gunakan UUID untuk identitas data.
 - Pastikan data siap untuk dipetakan ke Web 3.0 / Smart Contract di masa depan.
 
+## 5. User-Centric Evolution (Findability & Temporality)
+- **Findability is Core**: Antarmuka harus sederhana, cepat, dan relevan. Kurangi clics, utamakan visual actionable.
+- **Temporal UX Awareness**: Sadari bahwa kebutuhan user berubah dari **Orientation** (estetika) ke **Incorporation** (fungsionalitas).
+- **Mobile-First Priority**: Desain harus responsif dan memprioritaskan pengalaman mobile sebagai standar utama.
+
 ---
 *Status: Institutional Knowledge (Verified).*

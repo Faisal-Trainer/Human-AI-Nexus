@@ -19,15 +19,25 @@ class TDDGuard {
      */
     async validate(targetFile) {
         // 1. If it's a new file, it might be allowed (Engine is creating it)
-        // However, Iron Law says "Test first". But for bootstrapping, we might allow it.
-        // For now, let's focus on MODIFICATIONS of existing code.
-        
         const fullPath = path.join(this.rootPath, targetFile);
         if (!(await fs.pathExists(fullPath))) {
             return { allowed: true, reason: 'New file creation allowed.' };
         }
 
-        // 2. Identify matching test patterns
+        // 2. Check for TDD_LIST.md or TDD_TASKS.md (The user's "TDD list")
+        const tddListFiles = ['TDD_LIST.md', 'TDD_TASKS.md', 'documentation/planning/TDD_LIST.md'];
+        for (const listFile of tddListFiles) {
+            const listPath = path.join(this.rootPath, listFile);
+            if (await fs.pathExists(listPath)) {
+                const content = await fs.readFile(listPath, 'utf8');
+                // If the target file is mentioned in the TDD list, assume it's part of an active TDD cycle
+                if (content.includes(targetFile) || content.includes(path.basename(targetFile))) {
+                    return { allowed: true, reason: `File found in '${listFile}'. TDD planning verified.` };
+                }
+            }
+        }
+
+        // 3. Identify matching test patterns
         const fileName = path.basename(targetFile, path.extname(targetFile));
         const testPatterns = [
             `**/${fileName}.test.js`,
@@ -54,7 +64,7 @@ class TDDGuard {
 
         return { 
             allowed: false, 
-            reason: `TDD Violation: No test file found for '${targetFile}'. As per NEXUS_TDD_IRON_LAWS, you must write a failing test before modifying production code.` 
+            reason: `TDD Violation: No test file found for '${targetFile}' and not listed in TDD_LIST.md. As per NEXUS_TDD_IRON_LAWS, you must write a failing test or document it in the TDD list before modifying production code.` 
         };
     }
 }

@@ -5,7 +5,8 @@ const targets = [
     'C:\\xampp\\htdocs\\F-Novel',
     'C:\\xampp\\htdocs\\portofolio',
     'C:\\xampp\\htdocs\\talent-umkm-app',
-    'C:\\xampp\\htdocs\\php native'
+    'C:\\xampp\\htdocs\\php native',
+    'C:\\xampp\\htdocs\\public_html'
 ];
 
 const sourceDir = 'C:\\Users\\ACER\\Desktop\\NEXUS AI';

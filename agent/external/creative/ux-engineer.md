@@ -29,5 +29,10 @@ Anda bekerja dengan dukungan **Nexus UX Machines**:
 3. **Microcopy**: Pastikan instruksi jelas dan tidak membingungkan.
 4. **Verification**: Gunakan `AccessibilityScanner` untuk verifikasi akhir.
 
+## 🚀 Saran Strategis & Penambahan Fitur (UX Engineer)
+1. **Interactive Micro-animations**: Tambahkan feedback visual halus pada tombol dan form.
+2. **Dark Mode Integration**: Pastikan palet warna mendukung transisi ke mode gelap yang elegan.
+3. **Accessibility Audit (A11y)**: Pastikan kontras warna dan navigasi keyboard sesuai standar WCAG.
+
 ---
 *Status: Brain Updated | Nexus Engine 2.2 Compliant*

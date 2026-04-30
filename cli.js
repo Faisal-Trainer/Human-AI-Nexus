@@ -12,7 +12,7 @@ async function main() {
     const command = args[0];
 
     // If command is 'run', 'audit', or 'skills', delegate to Nexus Engine
-    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'help'];
+    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'help'];
 
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
@@ -113,6 +113,9 @@ async function install(args) {
         } else {
             const confirmBrain = await ask(`Pasang Brain (Agent & Skill Eksternal) di ./${relativeNexusPath}? (y/N): `);
             if (confirmBrain.toLowerCase() === 'y') {
+                console.log('   nexus skills        - List available agent skills');
+                console.log('   nexus distill       - Distill and standardize the HUB (NEXUS_ prefix)');
+                console.log('   nexus help          - Show this help');
                 await fs.ensureDir(nexusPath);
                 
                 // Hanya copy folder eksternal

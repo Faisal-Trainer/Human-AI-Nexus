@@ -1,0 +1,261 @@
+
+# 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_03_mvp_completion_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_03_mvp_completion_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_03_mvp_completion_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🎯 MVP COMPLETION PLAN: Phase 4 Advanced Interactions
+
+Dokumen ini mendetailkan langkah-alih teknis untuk menyelesaikan tahap MVP proyek F-Novel agar siap rilis dengan standar "Zero Flaws".
+
+---
+
+## 1. Rating System (Like/Dislike)
+**Tujuan**: Implementasi sistem umpan balik pengguna yang reaktif.
+
+### Teknis Backend:
+- **Livewire**: `Public\Interactions\RatingButtons`.
+- **Database**: Tabel `ratings` (UUID: user_id, franchise_id, is_like).
+- **Logic**:
+    - Klik Like: Jika sudah Like -> Hapus. Jika belum atau sedang Dislike -> Update jadi Like.
+    - Klik Dislike: Jika sudah Dislike -> Hapus. Jika belum atau sedang Like -> Update jadi Dislike.
+
+### Teknis UI:
+- Menggunakan palet `Cyber Teal` untuk state aktif Like.
+- Animasi mikro saat ikon diklik untuk memberikan *feedback* instan kepada user.
+
+---
+
+## 2. Library Page (My Bookmarks)
+**Tujuan**: Halaman personal bagi pembaca untuk mengelola koleksi novel mereka.
+
+### Teknis Backend:
+- **Livewire**: `Public\Reader\Library`.
+- **Route**: `/library` (Middleware: `auth`).
+- **Query**: `Franchise::whereHas('bookmarks', fn($q) => $q->where('user_id', Auth::id()))->get()`.
+
+### Teknis UI:
+- Grid Layout (4 kolom pada desktop, 2 kolom pada mobile).
+- Menampilkan Cover WebP, Judul, dan nama Penulis.
+- Tombol "Remove" untuk menghapus dari library tanpa harus pindah halaman.
+
+---
+
+## 3. Reader Experience (UX Polishing)
+**Tujuan**: Kenyamanan maksimal dalam konsumsi konten teks.
+
+### Teknis UI:
+- **Typography**: Mengatur max-width pembaca di 720px (optimal for reading).
+- **Navigation**:
+    - Tombol "Previous" & "Next" Bab.
+    - Tombol "Back to Table of Contents".
+- **Visual**: Background reader sedikit off-white (#F7F9FB) untuk mengurangi kelelahan mata.
+
+---
+
+## 4. Security & Quality Guardrails
+- **Mass Assignment**: Seluruh model interaksi (Bookmark, Rating) dipastikan menggunakan `$fillable`.
+- **Authorization**: Memastikan hanya user yang terautentikasi yang bisa memanggil fungsi `toggle`.
+- **Traceability**: Setiap interaksi mencatat timestamp yang akurat.
+
+---
+*Status: MVP Final Polish Plan (Waiting for Command).*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🎯 MVP COMPLETION PLAN: Phase 4 Advanced Interactions
+
+Dokumen ini mendetailkan langkah-alih teknis untuk menyelesaikan tahap MVP proyek F-Novel agar siap rilis dengan standar "Zero Flaws".
+
+---
+
+## 1. Rating System (Like/Dislike)
+**Tujuan**: Implementasi sistem umpan balik pengguna yang reaktif.
+
+### Teknis Backend:
+- **Livewire**: `Public\Interactions\RatingButtons`.
+- **Database**: Tabel `ratings` (UUID: user_id, franchise_id, is_like).
+- **Logic**:
+    - Klik Like: Jika sudah Like -> Hapus. Jika belum atau sedang Dislike -> Update jadi Like.
+    - Klik Dislike: Jika sudah Dislike -> Hapus. Jika belum atau sedang Like -> Update jadi Dislike.
+
+### Teknis UI:
+- Menggunakan palet `Cyber Teal` untuk state aktif Like.
+- Animasi mikro saat ikon diklik untuk memberikan *feedback* instan kepada user.
+
+---
+
+## 2. Library Page (My Bookmarks)
+**Tujuan**: Halaman personal bagi pembaca untuk mengelola koleksi novel mereka.
+
+### Teknis Backend:
+- **Livewire**: `Public\Reader\Library`.
+- **Route**: `/library` (Middleware: `auth`).
+- **Query**: `Franchise::whereHas('bookmarks', fn($q) => $q->where('user_id', Auth::id()))->get()`.
+
+### Teknis UI:
+- Grid Layout (4 kolom pada desktop, 2 kolom pada mobile).
+- Menampilkan Cover WebP, Judul, dan nama Penulis.
+- Tombol "Remove" untuk menghapus dari library tanpa harus pindah halaman.
+
+---
+
+## 3. Reader Experience (UX Polishing)
+**Tujuan**: Kenyamanan maksimal dalam konsumsi konten teks.
+
+### Teknis UI:
+- **Typography**: Mengatur max-width pembaca di 720px (optimal for reading).
+- **Navigation**:
+    - Tombol "Previous" & "Next" Bab.
+    - Tombol "Back to Table of Contents".
+- **Visual**: Background reader sedikit off-white (#F7F9FB) untuk mengurangi kelelahan mata.
+
+---
+
+## 4. Security & Quality Guardrails
+- **Mass Assignment**: Seluruh model interaksi (Bookmark, Rating) dipastikan menggunakan `$fillable`.
+- **Authorization**: Memastikan hanya user yang terautentikasi yang bisa memanggil fungsi `toggle`.
+- **Traceability**: Setiap interaksi mencatat timestamp yang akurat.
+
+---
+*Status: MVP Final Polish Plan (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🎯 MVP COMPLETION PLAN: Phase 4 Advanced Interactions
+
+Dokumen ini mendetailkan langkah-alih teknis untuk menyelesaikan tahap MVP proyek F-Novel agar siap rilis dengan standar "Zero Flaws".
+
+---
+
+## 1. Rating System (Like/Dislike)
+**Tujuan**: Implementasi sistem umpan balik pengguna yang reaktif.
+
+### Teknis Backend:
+- **Livewire**: `Public\Interactions\RatingButtons`.
+- **Database**: Tabel `ratings` (UUID: user_id, franchise_id, is_like).
+- **Logic**:
+    - Klik Like: Jika sudah Like -> Hapus. Jika belum atau sedang Dislike -> Update jadi Like.
+    - Klik Dislike: Jika sudah Dislike -> Hapus. Jika belum atau sedang Like -> Update jadi Dislike.
+
+### Teknis UI:
+- Menggunakan palet `Cyber Teal` untuk state aktif Like.
+- Animasi mikro saat ikon diklik untuk memberikan *feedback* instan kepada user.
+
+---
+
+## 2. Library Page (My Bookmarks)
+**Tujuan**: Halaman personal bagi pembaca untuk mengelola koleksi novel mereka.
+
+### Teknis Backend:
+- **Livewire**: `Public\Reader\Library`.
+- **Route**: `/library` (Middleware: `auth`).
+- **Query**: `Franchise::whereHas('bookmarks', fn($q) => $q->where('user_id', Auth::id()))->get()`.
+
+### Teknis UI:
+- Grid Layout (4 kolom pada desktop, 2 kolom pada mobile).
+- Menampilkan Cover WebP, Judul, dan nama Penulis.
+- Tombol "Remove" untuk menghapus dari library tanpa harus pindah halaman.
+
+---
+
+## 3. Reader Experience (UX Polishing)
+**Tujuan**: Kenyamanan maksimal dalam konsumsi konten teks.
+
+### Teknis UI:
+- **Typography**: Mengatur max-width pembaca di 720px (optimal for reading).
+- **Navigation**:
+    - Tombol "Previous" & "Next" Bab.
+    - Tombol "Back to Table of Contents".
+- **Visual**: Background reader sedikit off-white (#F7F9FB) untuk mengurangi kelelahan mata.
+
+---
+
+## 4. Security & Quality Guardrails
+- **Mass Assignment**: Seluruh model interaksi (Bookmark, Rating) dipastikan menggunakan `$fillable`.
+- **Authorization**: Memastikan hanya user yang terautentikasi yang bisa memanggil fungsi `toggle`.
+- **Traceability**: Setiap interaksi mencatat timestamp yang akurat.
+
+---
+*Status: MVP Final Polish Plan (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🎯 MVP COMPLETION PLAN: Phase 4 Advanced Interactions
+
+Dokumen ini mendetailkan langkah-alih teknis untuk menyelesaikan tahap MVP proyek F-Novel agar siap rilis dengan standar "Zero Flaws".
+
+---
+
+## 1. Rating System (Like/Dislike)
+**Tujuan**: Implementasi sistem umpan balik pengguna yang reaktif.
+
+### Teknis Backend:
+- **Livewire**: `Public\Interactions\RatingButtons`.
+- **Database**: Tabel `ratings` (UUID: user_id, franchise_id, is_like).
+- **Logic**:
+    - Klik Like: Jika sudah Like -> Hapus. Jika belum atau sedang Dislike -> Update jadi Like.
+    - Klik Dislike: Jika sudah Dislike -> Hapus. Jika belum atau sedang Like -> Update jadi Dislike.
+
+### Teknis UI:
+- Menggunakan palet `Cyber Teal` untuk state aktif Like.
+- Animasi mikro saat ikon diklik untuk memberikan *feedback* instan kepada user.
+
+---
+
+## 2. Library Page (My Bookmarks)
+**Tujuan**: Halaman personal bagi pembaca untuk mengelola koleksi novel mereka.
+
+### Teknis Backend:
+- **Livewire**: `Public\Reader\Library`.
+- **Route**: `/library` (Middleware: `auth`).
+- **Query**: `Franchise::whereHas('bookmarks', fn($q) => $q->where('user_id', Auth::id()))->get()`.
+
+### Teknis UI:
+- Grid Layout (4 kolom pada desktop, 2 kolom pada mobile).
+- Menampilkan Cover WebP, Judul, dan nama Penulis.
+- Tombol "Remove" untuk menghapus dari library tanpa harus pindah halaman.
+
+---
+
+## 3. Reader Experience (UX Polishing)
+**Tujuan**: Kenyamanan maksimal dalam konsumsi konten teks.
+
+### Teknis UI:
+- **Typography**: Mengatur max-width pembaca di 720px (optimal for reading).
+- **Navigation**:
+    - Tombol "Previous" & "Next" Bab.
+    - Tombol "Back to Table of Contents".
+- **Visual**: Background reader sedikit off-white (#F7F9FB) untuk mengurangi kelelahan mata.
+
+---
+
+## 4. Security & Quality Guardrails
+- **Mass Assignment**: Seluruh model interaksi (Bookmark, Rating) dipastikan menggunakan `$fillable`.
+- **Authorization**: Memastikan hanya user yang terautentikasi yang bisa memanggil fungsi `toggle`.
+- **Traceability**: Setiap interaksi mencatat timestamp yang akurat.
+
+---
+*Status: MVP Final Polish Plan (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*

@@ -1,4 +1,4 @@
-const NexusEngine = require('./core/NexusEngine');
+const NexusEngine = require('./core/orchestrator/NexusEngine');
 const path = require('path');
 const readline = require('readline');
 
@@ -81,6 +81,10 @@ async function main() {
             await engine.massUpdateSkills();
             rl.close();
             break;
+        case 'distill':
+            await engine.distill();
+            rl.close();
+            break;
         case 'help':
         default:
             console.log(`
@@ -92,6 +96,7 @@ Usage:
   nexus refactor      - [Protocol 1] Mass Refactor from Golden to HUB
   nexus update-skills - [Protocol 2] Mass Update from HUB to Skills
   nexus skills        - List available agent skills
+  nexus distill       - Distill and standardize the HUB (NEXUS_ prefix)
   nexus help          - Show this help
             `);
             rl.close();

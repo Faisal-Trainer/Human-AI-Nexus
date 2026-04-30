@@ -73,11 +73,11 @@ graph TD
 
 | Folder                                 | Deskripsi                                                                    |
 | :------------------------------------- | :--------------------------------------------------------------------------- |
-| `📂 nexus/`                            | **The Brain**: Berisi komponen AI (Agent & Skill).                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;`└─ external/` | Komponen yang diinstal untuk membantu pengembangan proyek.                   |
-| `📂 documentation/`                    | **The Workspace**: Folder output tim (Summary, Audit, Plan, Knowledge, dll). |
-| `📂 algorithms/`                       | Logika fitur dan algoritma sistem.                                           |
-| `📂 legal/`                            | Dokumen hukum (Privacy Policy & Terms of Service).                           |
+| `📂 src/core/orchestrator/`            | **Internal Logic**: Manajemen pipeline, memori, dan orkestrasi sistem.       |
+| `📂 src/core/auditor/`                 | **External Specialists**: Scanner keamanan, UX, database, dan validator.     |
+| `📂 nexus/`                            | **The Brain**: Berisi komponen AI (Agent & Skill) yang terpasang di proyek.  |
+| `📂 documentation/`                    | **The HUB**: Folder output tim (Knowledge Hub, Audit, Planning).             |
+| `📂 golden/`                           | **Central Storage**: Tempat penyimpanan hasil panen (harvest) dari proyek.    |
 
 ---
 
@@ -112,10 +112,12 @@ npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 npx @faisal-trainer/human-ai-nexus nexus run
 
 # Lokal/Alias (Jika sudah terpasang):
-nexus run
-```
-
-_Atau gunakan `npm start` jika Anda sedang berada di dalam folder source framework_
+nexus run           # Menjalankan siklus Audit -> Plan -> Execute
+nexus audit         # Hanya melakukan pemindaian (Audit)
+nexus harvest <dir> # Memanen dokumen Nexus dari proyek lain ke Golden HUB
+nexus distill       # [Pipeline Utama] Ingestion (Harvest) -> HUB Distillation -> Cleanup
+nexus refactor      # Sinkronisasi massal dari Golden ke HUB
+nexus update-skills # Sinkronisasi massal dari HUB ke Agent Skills
 
 ### 4. Uninstall (Lepas Engine)
 
@@ -139,10 +141,10 @@ _Perintah ini menghapus folder `nexus/` (otak AI), namun tetap menjaga folder `d
 ## 🌟 Prinsip Utama
 
 - **Documentation First**: No plan, no code.
-- **Universal Collision Logic**: Sistem **IF { A } ELSE { B }** otomatis untuk menjaga variasi solusi tanpa menimpa data lama.
-- **Zero Flaws Enforcement**: Audit berulang hingga mencapai kualitas maksimal.
-- **Self-Evolving Knowledge**: Alur otomatis Golden ➔ HUB ➔ Skill melalui **Internal Protocols v2.2**.
-- **User Final Authority**: Manusia adalah pemegang keputusan tertinggi.
+- **Stateless Harvest**: Pipeline "Zero-Waste" di mana data sementara dibersihkan setelah masuk HUB.
+- **Universal Collision Logic**: Sistem **IF { A } ELSE { B }** otomatis untuk menjaga variasi solusi.
+- **Deterministic Contracts**: Standar interface data untuk menjamin AI bekerja secara konsisten.
+- **Standardized Knowledge**: Seluruh HUB menggunakan pola `NEXUS_...` untuk kemudahan pengindeksan.
 
 ---
 
@@ -159,3 +161,7 @@ Kami menyambut kontribusi dari siapa saja!
 ---
 
 _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin!_
+
+
+---
+_Terakhir Dioptimasi: 30/04/2026, 14.20.35_

@@ -1,0 +1,297 @@
+
+# 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_04_phase_5_social_discovery_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_04_phase_5_social_discovery_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🛠 NEXUS COLLISION RESOLVED: Collision in 2026-04-28_04_phase_5_social_discovery_plan.md
+> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+
+IF {
+    /* OPTION A: Existing Pattern */
+    # 🌐 PHASE 5 PLANNING: Social & Discovery Engine
+
+Fase ini bertujuan untuk meningkatkan keterlibatan pengguna (*User Engagement*) dan mempermudah penemuan karya berkualitas melalui fitur sosial dan algoritma cerdas.
+
+---
+
+## 1. Author Follow System
+Mekanisme loyalitas antara pembaca dan kreator.
+
+### Database Design:
+- **Table**: `follows`
+- **Fields**:
+    - `id` (UUID, Primary)
+    - `user_id` (UUID, Foreign) -> User yang mengikuti.
+    - `author_id` (UUID, Foreign) -> User yang diikuti.
+    - `timestamps`
+
+### Komponen:
+- **FollowButton (Livewire)**: Terpasang di halaman profil penulis dan detail novel.
+- **Unfollow Logic**: Menghapus record dari tabel `follows`.
+
+---
+
+## 2. Integrated Notification Center
+Sistem pemberitahuan terpusat untuk menjaga retensi pengguna.
+
+### Arsitektur:
+- Menggunakan **Laravel Database Notifications**.
+- **Tabel**: `notifications` (standar Laravel).
+
+### Trigger Event:
+- `NewChapterPublished`: Dikirim ke seluruh follower penulis.
+- `NewCommentReceived`: Dikirim ke penulis Franchise tersebut.
+- `CommentReplied`: Dikirim ke komentator asli.
+
+---
+
+## 3. Advanced Discovery Engine
+Algoritma untuk menyoroti karya populer dan relevan.
+
+### Trending Logic:
+- **Formula**: `(Likes_Count * 1) + (Bookmarks_Count * 2)` dalam rentang waktu 7 hari terakhir.
+- **Implementation**: Scope query pada model `Franchise`.
+
+### Search Enhancements:
+- Filter pencarian berdasarkan **Genre**, **Status** (Ongoing/Completed), dan **Urutan** (Terbaru/Terpopuler).
+
+---
+
+## 4. Public Author Profile
+Halaman khusus untuk membangun *personal branding* penulis.
+
+### Fitur:
+- Tampilan daftar karya dalam grid layout.
+- Statistik publik (Total Reads, Total Likes, Followers).
+- Integrasi tombol Follow.
+
+---
+
+## 5. Security & Performance Guardrails
+- **Database Indexing**: Indexing pada kolom `author_id` dan `user_id` di tabel `follows` untuk performa query cepat.
+- **Notification Cleanup**: Job terjadwal untuk menghapus notifikasi lama (> 30 hari).
+
+---
+*Status: Phase 5 Planning (Waiting for Command).*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🌐 PHASE 5 PLANNING: Social & Discovery Engine
+
+Fase ini bertujuan untuk meningkatkan keterlibatan pengguna (*User Engagement*) dan mempermudah penemuan karya berkualitas melalui fitur sosial dan algoritma cerdas.
+
+---
+
+## 1. Author Follow System
+Mekanisme loyalitas antara pembaca dan kreator.
+
+### Database Design:
+- **Table**: `follows`
+- **Fields**:
+    - `id` (UUID, Primary)
+    - `user_id` (UUID, Foreign) -> User yang mengikuti.
+    - `author_id` (UUID, Foreign) -> User yang diikuti.
+    - `timestamps`
+
+### Komponen:
+- **FollowButton (Livewire)**: Terpasang di halaman profil penulis dan detail novel.
+- **Unfollow Logic**: Menghapus record dari tabel `follows`.
+
+---
+
+## 2. Integrated Notification Center
+Sistem pemberitahuan terpusat untuk menjaga retensi pengguna.
+
+### Arsitektur:
+- Menggunakan **Laravel Database Notifications**.
+- **Tabel**: `notifications` (standar Laravel).
+
+### Trigger Event:
+- `NewChapterPublished`: Dikirim ke seluruh follower penulis.
+- `NewCommentReceived`: Dikirim ke penulis Franchise tersebut.
+- `CommentReplied`: Dikirim ke komentator asli.
+
+---
+
+## 3. Advanced Discovery Engine
+Algoritma untuk menyoroti karya populer dan relevan.
+
+### Trending Logic:
+- **Formula**: `(Likes_Count * 1) + (Bookmarks_Count * 2)` dalam rentang waktu 7 hari terakhir.
+- **Implementation**: Scope query pada model `Franchise`.
+
+### Search Enhancements:
+- Filter pencarian berdasarkan **Genre**, **Status** (Ongoing/Completed), dan **Urutan** (Terbaru/Terpopuler).
+
+---
+
+## 4. Public Author Profile
+Halaman khusus untuk membangun *personal branding* penulis.
+
+### Fitur:
+- Tampilan daftar karya dalam grid layout.
+- Statistik publik (Total Reads, Total Likes, Followers).
+- Integrasi tombol Follow.
+
+---
+
+## 5. Security & Performance Guardrails
+- **Database Indexing**: Indexing pada kolom `author_id` dan `user_id` di tabel `follows` untuk performa query cepat.
+- **Notification Cleanup**: Job terjadwal untuk menghapus notifikasi lama (> 30 hari).
+
+---
+*Status: Phase 5 Planning (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🌐 PHASE 5 PLANNING: Social & Discovery Engine
+
+Fase ini bertujuan untuk meningkatkan keterlibatan pengguna (*User Engagement*) dan mempermudah penemuan karya berkualitas melalui fitur sosial dan algoritma cerdas.
+
+---
+
+## 1. Author Follow System
+Mekanisme loyalitas antara pembaca dan kreator.
+
+### Database Design:
+- **Table**: `follows`
+- **Fields**:
+    - `id` (UUID, Primary)
+    - `user_id` (UUID, Foreign) -> User yang mengikuti.
+    - `author_id` (UUID, Foreign) -> User yang diikuti.
+    - `timestamps`
+
+### Komponen:
+- **FollowButton (Livewire)**: Terpasang di halaman profil penulis dan detail novel.
+- **Unfollow Logic**: Menghapus record dari tabel `follows`.
+
+---
+
+## 2. Integrated Notification Center
+Sistem pemberitahuan terpusat untuk menjaga retensi pengguna.
+
+### Arsitektur:
+- Menggunakan **Laravel Database Notifications**.
+- **Tabel**: `notifications` (standar Laravel).
+
+### Trigger Event:
+- `NewChapterPublished`: Dikirim ke seluruh follower penulis.
+- `NewCommentReceived`: Dikirim ke penulis Franchise tersebut.
+- `CommentReplied`: Dikirim ke komentator asli.
+
+---
+
+## 3. Advanced Discovery Engine
+Algoritma untuk menyoroti karya populer dan relevan.
+
+### Trending Logic:
+- **Formula**: `(Likes_Count * 1) + (Bookmarks_Count * 2)` dalam rentang waktu 7 hari terakhir.
+- **Implementation**: Scope query pada model `Franchise`.
+
+### Search Enhancements:
+- Filter pencarian berdasarkan **Genre**, **Status** (Ongoing/Completed), dan **Urutan** (Terbaru/Terpopuler).
+
+---
+
+## 4. Public Author Profile
+Halaman khusus untuk membangun *personal branding* penulis.
+
+### Fitur:
+- Tampilan daftar karya dalam grid layout.
+- Statistik publik (Total Reads, Total Likes, Followers).
+- Integrasi tombol Follow.
+
+---
+
+## 5. Security & Performance Guardrails
+- **Database Indexing**: Indexing pada kolom `author_id` dan `user_id` di tabel `follows` untuk performa query cepat.
+- **Notification Cleanup**: Job terjadwal untuk menghapus notifikasi lama (> 30 hari).
+
+---
+*Status: Phase 5 Planning (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*
+} 
+ELSE {
+    /* OPTION B: New/Alternative Pattern */
+    # 🌐 PHASE 5 PLANNING: Social & Discovery Engine
+
+Fase ini bertujuan untuk meningkatkan keterlibatan pengguna (*User Engagement*) dan mempermudah penemuan karya berkualitas melalui fitur sosial dan algoritma cerdas.
+
+---
+
+## 1. Author Follow System
+Mekanisme loyalitas antara pembaca dan kreator.
+
+### Database Design:
+- **Table**: `follows`
+- **Fields**:
+    - `id` (UUID, Primary)
+    - `user_id` (UUID, Foreign) -> User yang mengikuti.
+    - `author_id` (UUID, Foreign) -> User yang diikuti.
+    - `timestamps`
+
+### Komponen:
+- **FollowButton (Livewire)**: Terpasang di halaman profil penulis dan detail novel.
+- **Unfollow Logic**: Menghapus record dari tabel `follows`.
+
+---
+
+## 2. Integrated Notification Center
+Sistem pemberitahuan terpusat untuk menjaga retensi pengguna.
+
+### Arsitektur:
+- Menggunakan **Laravel Database Notifications**.
+- **Tabel**: `notifications` (standar Laravel).
+
+### Trigger Event:
+- `NewChapterPublished`: Dikirim ke seluruh follower penulis.
+- `NewCommentReceived`: Dikirim ke penulis Franchise tersebut.
+- `CommentReplied`: Dikirim ke komentator asli.
+
+---
+
+## 3. Advanced Discovery Engine
+Algoritma untuk menyoroti karya populer dan relevan.
+
+### Trending Logic:
+- **Formula**: `(Likes_Count * 1) + (Bookmarks_Count * 2)` dalam rentang waktu 7 hari terakhir.
+- **Implementation**: Scope query pada model `Franchise`.
+
+### Search Enhancements:
+- Filter pencarian berdasarkan **Genre**, **Status** (Ongoing/Completed), dan **Urutan** (Terbaru/Terpopuler).
+
+---
+
+## 4. Public Author Profile
+Halaman khusus untuk membangun *personal branding* penulis.
+
+### Fitur:
+- Tampilan daftar karya dalam grid layout.
+- Statistik publik (Total Reads, Total Likes, Followers).
+- Integrasi tombol Follow.
+
+---
+
+## 5. Security & Performance Guardrails
+- **Database Indexing**: Indexing pada kolom `author_id` dan `user_id` di tabel `follows` untuk performa query cepat.
+- **Notification Cleanup**: Job terjadwal untuk menghapus notifikasi lama (> 30 hari).
+
+---
+*Status: Phase 5 Planning (Waiting for Command).*
+}
+
+---
+*Generated by Nexus Engine | Date: 30/04/2026*

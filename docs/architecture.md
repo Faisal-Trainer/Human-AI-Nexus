@@ -42,3 +42,15 @@ Technical standards and "best practice" snippets in `skill/` that guide the agen
 
 ### 4. Persistence Layer
 Folders for `audit`, `planning`, `records`, and `knowledge` that ensure every step of the process is documented and persisted for long-term project memory.
+
+---
+
+## Ecosystem Integration
+
+Nexus AI is designed to be highly portable and integrable with existing codebases.
+
+- **External Pipeline**: The system intelligently detects and manages project-specific documentation and local AI "brains" inside the project root.
+- **Deep Recaps**: Detailed documentation on how the engine interacts with external environments:
+    - [Internal Pipeline Recap](NEXUS_INTERNAL_PIPELINE_RECAP.md)
+    - [External Pipeline Recap](NEXUS_EXTERNAL_PIPELINE_RECAP.md)
+

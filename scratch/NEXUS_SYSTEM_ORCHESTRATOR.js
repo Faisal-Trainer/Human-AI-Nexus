@@ -83,7 +83,7 @@ async function runSystemOrchestration() {
     console.log('\n📝 Phase 5: Final Status Update (README Timestamp)...');
     try {
         // We use a small script or call engine directly to update status
-        const NexusEngine = require('../src/core/orchestrator/NexusEngine');
+        const NexusEngine = require('../agent/core/NexusEngine');
         const engine = new NexusEngine({ rootPath });
         await engine.updateStatus();
     } catch (e) {

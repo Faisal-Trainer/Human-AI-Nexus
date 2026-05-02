@@ -16,7 +16,7 @@ async function main() {
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
         const cleanArgs = args.filter(a => a !== 'nexus');
-        const enginePath = path.join(__dirname, 'src', 'index.js');
+        const enginePath = path.join(__dirname, 'agent', 'main.js');
         
         const child = spawn('node', [`"${enginePath}"`, ...cleanArgs], {
             stdio: 'inherit',
@@ -49,8 +49,8 @@ async function updateEngine(args) {
 
     try {
         const brainFolders = [
-            { src: 'agent/external', dest: 'nexus/agent/external' },
-            { src: 'skill/external', dest: 'nexus/skill/external' }
+            { src: 'agent/prompts/external', dest: 'nexus/agent/external' },
+            { src: 'agent/workflows/external', dest: 'nexus/skill/external' }
         ];
 
         for (const folder of brainFolders) {
@@ -155,8 +155,8 @@ async function install(args) {
                 await fs.ensureDir(nexusPath);
                 
                 const brainTargets = [
-                    { src: 'agent/external', dest: 'agent/external' },
-                    { src: 'skill/external', dest: 'skill/external' }
+                    { src: 'agent/prompts/external', dest: 'agent/external' },
+                    { src: 'agent/workflows/external', dest: 'skill/external' }
                 ];
 
                 for (const target of brainTargets) {

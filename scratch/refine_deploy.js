@@ -33,7 +33,7 @@ async function deploy() {
                 await fs.ensureDir(path.join(docDir, folder));
             }
 
-            // Move old knowledge/planning if they were in nexus/
+            // Move old memory/long_term/planning if they were in nexus/
             // (Assuming they were just created in the previous step)
             
             console.log(`✅ Success for ${target}`);

@@ -24,3 +24,7 @@ Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan
 
 ---
 *Status: Institutional Knowledge (Design & UI/UX Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]

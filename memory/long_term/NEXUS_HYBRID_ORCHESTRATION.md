@@ -16,3 +16,7 @@ Sistem hibrida bertujuan untuk menjembatani kemudahan penggunaan Web 2.0 dengan 
 
 ---
 *Status: Institutional Knowledge (Architectural Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database]

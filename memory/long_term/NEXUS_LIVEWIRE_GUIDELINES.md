@@ -15,3 +15,7 @@ Panduan ini ditujukan untuk pengembangan UI modern menggunakan stack TALL (Tailw
 
 ---
 *Status: Institutional Knowledge (UI/UX Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux]

@@ -16,6 +16,8 @@ const RootCauseAnalyzer = require('./../tools/RootCauseAnalyzer');
 const Machinist = require('./Machinist');
 const Distiller = require('./Distiller');
 
+const TDDScaffolder = require('./../tools/TDDScaffolder');
+
 /**
  * Lifecycle States as per system-spec.md
  */
@@ -55,10 +57,12 @@ class NexusEngine {
         const hasDocsFolder = fs.pathExistsSync(path.join(this.nexusDataPath, 'docs'));
         const docsBase = hasDocsFolder ? path.join(this.nexusDataPath, 'docs') : this.nexusDataPath;
 
-        // Dynamic Path Mapping (Support for documentation/ root/ nexus/ structure)
-        const resolvePath = (folderName) => {
+        // Dynamic Path Mapping (Support for documentation/ memory/ nexus/ structure)
+        const resolvePath = (folderName, alternative) => {
             const possiblePaths = [
                 path.join(this.rootPath, 'documentation', folderName),
+                path.join(this.rootPath, 'memory', folderName),
+                path.join(this.rootPath, 'memory', alternative || folderName),
                 path.join(docsBase, folderName),
                 path.join(this.nexusDataPath, folderName),
                 path.join(this.rootPath, folderName)
@@ -66,13 +70,13 @@ class NexusEngine {
             for (const p of possiblePaths) {
                 if (fs.pathExistsSync(p)) return p;
             }
-            return path.join(docsBase, folderName); // Default
+            return path.join(this.rootPath, 'memory', folderName); // Default to memory/
         };
 
         this.agentPath = resolvePath('agent');
         this.skillPath = resolvePath('skill');
-        this.knowledgePath = resolvePath('knowledge');
-        this.recordsPath = resolvePath('records');
+        this.knowledgePath = resolvePath('long_term', 'knowledge');
+        this.recordsPath = resolvePath('short_term', 'records');
         this.summaryPath = resolvePath('summary');
         this.auditPath = resolvePath('audit');
         this.planningPath = resolvePath('planning');
@@ -85,8 +89,9 @@ class NexusEngine {
         this.state = STATES.INIT;
         
         this.modifier = new Modifier(this.rootPath);
-        this.memoryPipeline = new MemoryPipeline(this.rootPath, this.knowledgePath);
+        this.memoryPipeline = new MemoryPipeline(this.rootPath, this.knowledgePath, this.auditPath, this.planningPath);
         this.tddGuard = new TDDGuard(this.rootPath);
+        this.tddScaffolder = new TDDScaffolder(this.rootPath);
         this.assetEngine = new AssetEngine(this.rootPath);
         this.validator = new Validator(this.rootPath);
         this.bugHunter = new BugHunter();
@@ -125,23 +130,64 @@ class NexusEngine {
     }
 
     async readMemory() {
-        this.log('🧠 Accessing Long-term Memory...', 'info');
+        this.log('🧠 Accessing Long-term Memory with Semantic Indexing...', 'info');
         try {
             await fs.ensureDir(this.recordsPath);
             await fs.ensureDir(this.knowledgePath);
             
             const records = await fs.readdir(this.recordsPath);
-            const knowledge = await fs.readdir(this.knowledgePath);
+            const knowledgeFiles = await fs.readdir(this.knowledgePath);
+            
+            const lessons = knowledgeFiles.filter(k => k.endsWith('.md'));
+            const semanticIndex = {};
+
+            // Build Semantic Index
+            for (const file of lessons) {
+                const tags = await this.getSemanticTags(path.join(this.knowledgePath, file));
+                tags.forEach(tag => {
+                    if (!semanticIndex[tag]) semanticIndex[tag] = [];
+                    semanticIndex[tag].push(file);
+                });
+            }
+
             this.memory = {
                 pastCycles: records.length,
-                lessons: knowledge.filter(k => k.endsWith('.md'))
+                lessons: lessons,
+                semanticIndex: semanticIndex
             };
-            this.log(`✅ Memory loaded: ${records.length} past sessions found.`, 'success');
+            this.log(`✅ Memory loaded: ${lessons.length} lessons indexed across ${Object.keys(semanticIndex).length} semantic domains.`, 'success');
         } catch (e) {
             this.log(`⚠️ Memory access issue: ${e.message}. Starting fresh.`, 'warning');
-            this.memory = { pastCycles: 0, lessons: [] };
+            this.memory = { pastCycles: 0, lessons: [], semanticIndex: {} };
         }
         return this.memory;
+    }
+
+    /**
+     * Extracts semantic tags from a file's metadata block.
+     */
+    async getSemanticTags(filePath) {
+        try {
+            const content = await fs.readFile(filePath, 'utf8');
+            const match = content.match(/> \*\*METADATA \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*?)\]/);
+            if (match) {
+                return match[1].split(',').map(t => t.trim());
+            }
+        } catch (e) {}
+        return [];
+    }
+
+    /**
+     * Search knowledge HUB based on semantic tags.
+     * @param {string} tag - The semantic domain (e.g., 'security', 'ui-ux')
+     */
+    async searchKnowledge(tag) {
+        if (!this.memory.semanticIndex) await this.readMemory();
+        const results = this.memory.semanticIndex[tag.toLowerCase()] || [];
+        if (results.length > 0) {
+            this.log(`🔎 Semantic Search [${tag}]: Found ${results.length} relevant documents.`, 'success');
+        }
+        return results;
     }
 
     async loadAgent(agentName) {
@@ -219,19 +265,20 @@ class NexusEngine {
                 { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
             ];
 
-            for (const spec of specialists) {
-                this.log(`🕵️ Agent ${spec.id} is scanning for ${spec.focus}...`, 'warning');
+            this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');
+            
+            const auditPromises = specialists.map(async (spec) => {
                 try {
                     await this.loadAgent(spec.id);
 
-                    const scannerPath = path.join(__dirname, '..', 'auditor', 'scanners', `${spec.id}.js`);
+                    const scannerPath = path.join(__dirname, '..', 'tools', 'scanners', `${spec.id}.js`);
                     let specFindings = [];
 
                     if (await fs.pathExists(scannerPath)) {
                         const scanner = require(scannerPath);
                         if (scanner.scan) {
                             specFindings = await scanner.scan(targetPath);
-                            this.log(`   🔍 Deep Scan by ${spec.id}: ${specFindings.length} findings found.`, 'success');
+                            this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
                         }
                     }
 
@@ -257,7 +304,7 @@ class NexusEngine {
 ${specFindings.map(f => `
 ### [${f.severity}] ${f.message}
 - **File**: \`${f.file}\`
-- **💡 Learning Point**: ${f.rationale || '[Place description of WHY this is a problem and what concept is involved here]'}
+- **🧐 Why?**: ${f.rationale || '[Place description of WHY this is a problem and what concept is involved here]'}
 - **🛡️ Nexus Standard**: [Reference to memory/long_term/ or skill/]
 - **🛠️ Recommendation**: ${f.recommendation || '[Systematic fix instructions]'}
 `).join('\n')}
@@ -276,11 +323,15 @@ ${specFindings.map(f => `
 `;
                     await fs.writeFile(path.join(this.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec);
                     
-                    consolidatedFindings.push(...specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` })));
+                    return specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` }));
                 } catch (e) {
-                    this.log(`⚠️ Agent ${spec.id} is not available for detailed scan.`, 'error');
+                    this.log(`⚠️ Agent ${spec.id} skipped: ${e.message}`, 'error');
+                    return [];
                 }
-            }
+            });
+
+            const allSpecFindings = await Promise.all(auditPromises);
+            allSpecFindings.forEach(findings => consolidatedFindings.push(...findings));
         }
 
         const report = new AuditReport(auditID, targetPath, consolidatedFindings, { mode, allowSensitive });
@@ -373,15 +424,21 @@ ${tasks.map(t => `
             // ATOMIC EXECUTION (Physical Change)
             if (task.action) {
                 try {
-                    // TDD Enforcement
+                    // TDD Enforcement & Scaffolding (Phase 4)
                     if (task.action.type === 'FILE_REPLACE' || task.action.type === 'FILE_APPEND') {
                         const validation = await this.tddGuard.validate(task.action.target);
                         if (!validation.allowed) {
                             this.log(`   🛑 TDD Block: ${validation.reason}`, 'error');
-                            task.status = 'blocked';
-                            continue;
+                            this.log(`   🏗️ [Phase 4] Autonomous Intelligence: Generating test scaffold...`, 'info');
+                            const scaffold = await this.tddScaffolder.generate(task.action.target);
+                            if (scaffold.success) {
+                                this.log(`   ✅ Scaffold created at ${scaffold.path}. Proceeding with action.`, 'success');
+                            } else {
+                                this.log(`   ⚠️ Scaffolding skipped: ${scaffold.reason}`, 'warning');
+                            }
+                        } else {
+                            this.log(`   🛡️ TDD Verified: ${validation.reason}`, 'success');
                         }
-                        this.log(`   🛡️ TDD Verified: ${validation.reason}`, 'success');
                     }
 
                     // Asset Optimization
@@ -392,6 +449,11 @@ ${tasks.map(t => `
                         const success = await this.modifier.apply(task.action);
                         if (success) {
                             this.log(`   ✅ Physical modification applied: ${task.action.type} on ${task.action.target}`, 'success');
+                            
+                            // Self-Healing Documentation (Phase 4)
+                            if (task.action.type === 'RESOLVE_OPTIONS') {
+                                await this.updateRecapStatus(`Resolved Multi-Option collision in ${task.action.target}`);
+                            }
                         }
                     }
                 } catch (e) {
@@ -416,6 +478,26 @@ ${tasks.map(t => `
         }
 
         this.log('✅ Execution phase completed.', 'success');
+    }
+
+    /**
+     * Self-Healing Documentation Update (Phase 4)
+     */
+    async updateRecapStatus(updateMessage) {
+        const recapPath = path.join(this.rootPath, 'documentation', 'docs', 'NEXUS_INTERNAL_PIPELINE_RECAP.md');
+        if (await fs.pathExists(recapPath)) {
+            let content = await fs.readFile(recapPath, 'utf8');
+            const timestamp = new Date().toLocaleString();
+            const logEntry = `\n- [${timestamp}] **Self-Healing**: ${updateMessage}`;
+            
+            if (content.includes('## 🧐 Analisis & Rekomendasi Penyempurnaan')) {
+                content = content.replace('## 🧐 Analisis & Rekomendasi Penyempurnaan', `## 🧠 Self-Healing Logs${logEntry}\n\n## 🧐 Analisis & Rekomendasi Penyempurnaan`);
+            } else {
+                content += logEntry;
+            }
+            await fs.writeFile(recapPath, content);
+            this.log(`   📝 Self-Healing: RECAP documentation updated.`, 'success');
+        }
     }
 
     async record(cycleID) {
@@ -740,24 +822,25 @@ ${tasks.map(t => `
     }
 
     /**
-     * Universal Nexus Collision Logic (IF-ELSE Wrapper)
+     * Universal Nexus Collision Logic (Multi-Option Wrapper)
      */
     wrapAsConditional(contentA, contentB, context = 'Nexus Knowledge') {
         return `
 # 🛠 NEXUS COLLISION RESOLVED: ${context}
-> Logika ini dihasilkan secara otomatis karena adanya kemiripan antara dua sumber pengetahuan.
+> Logika ini dihasilkan secara otomatis karena adanya alternatif antara dua sumber pengetahuan.
 
-IF {
-    /* OPTION A: Existing Pattern */
-    ${contentA.trim()}
-} 
-ELSE {
-    /* OPTION B: New/Alternative Pattern */
-    ${contentB.trim()}
-}
+### 🧩 Pilihan Opsi Tak Terbatas:
+
+#### Opsi A: Pola Eksisting (Existing Pattern)
+${contentA.trim()}
 
 ---
-*Generated by Nexus Engine | Date: ${new Date().toLocaleDateString()}*
+
+#### Opsi B: Pola Baru/Alternatif (New/Alternative Pattern)
+${contentB.trim()}
+
+---
+*Generated by Nexus Engine | Protokol: Multi-Option | Date: ${new Date().toLocaleDateString()}*
 `;
     }
 }

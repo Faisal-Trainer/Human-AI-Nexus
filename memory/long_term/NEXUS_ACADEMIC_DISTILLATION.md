@@ -270,3 +270,7 @@ CULTURE & HISTORY
 
 An interface – in a merely technological perspective – is a site where incoherent modes of communication are rendered coherent1 and where signals are translated and combined,2 a simple gateway between databases, code modules and other forms of machine based communication. An interface is also a site where technological and human preconditions meet in structured moments of sense-making and interaction.3 Furthermore, an interface is a form of relation and at the same time a form of differentiation and distinction,4 of transition and mediation5 and of inclusion and exclusion.6 An interface therefore is not just a surface or a passive gateway or threshold, not only a mode or a site of interaction or communication, but a deeply historical artifact: a structured set of codes, complex processes and protocols, engineered, developed and designed, a space of power where social, political, economic, aesthetic, philosophical and tec...
 
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs]

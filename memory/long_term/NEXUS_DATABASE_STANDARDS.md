@@ -20,3 +20,7 @@ Standar ini wajib diikuti untuk memastikan integritas data dan kesiapan skalabil
 
 ---
 *Status: Institutional Knowledge (Database Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]

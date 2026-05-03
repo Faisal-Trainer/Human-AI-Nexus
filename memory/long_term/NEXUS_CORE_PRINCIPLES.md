@@ -30,3 +30,7 @@ Dokumentasi bukan sekadar catatan, melainkan **blueprint wajib**.
 
 ---
 *Status: Institutional Knowledge (Verified).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd]

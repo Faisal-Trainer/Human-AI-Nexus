@@ -6,9 +6,11 @@ const path = require('path');
  * Implements Phase 4 (Compression) of the Memory Optimization Protocol.
  */
 class MemoryPipeline {
-    constructor(rootPath, knowledgePath) {
+    constructor(rootPath, knowledgePath, auditPath, planningPath) {
         this.rootPath = rootPath;
         this.knowledgePath = knowledgePath;
+        this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'short_term', 'audit');
+        this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'short_term', 'planning');
         this.archiveFile = path.join(this.knowledgePath, 'SESSION_HISTORY_ARCHIVE.md');
     }
 
@@ -53,7 +55,7 @@ class MemoryPipeline {
     }
 
     async archiveAuditReports() {
-        const auditDir = path.join(this.rootPath, 'audit');
+        const auditDir = this.auditPath;
         if (!(await fs.pathExists(auditDir))) return;
 
         const files = await fs.readdir(auditDir);
@@ -84,7 +86,7 @@ class MemoryPipeline {
     }
 
     async archiveImplementationPlans() {
-        const planningDir = path.join(this.rootPath, 'planning');
+        const planningDir = this.planningPath;
         if (!(await fs.pathExists(planningDir))) return;
 
         const files = await fs.readdir(planningDir);

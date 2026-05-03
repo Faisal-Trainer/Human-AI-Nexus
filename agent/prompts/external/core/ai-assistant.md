@@ -1,47 +1,75 @@
-# AI ASSISTANT WORKFLOW (Human-AI Nexus)
+# AI ASSISTANT WORKFLOW (Human-AI Nexus — External Boundary Updated)
 
-Dokumen ini mendefinisikan prosedur kerja wajib bagi AI Assistant dalam mengelola siklus pengembangan proyek **Human-AI Nexus**.
-
----
-
-## 1. Prosedur Kerja Utama
-
-Setiap kali ada tugas baru atau perubahan fitur yang signifikan, AI Assistant **wajib** menggunakan `nexus run` atau mengikuti alur manual berikut:
-
-### A. Tahap Perencanaan (Planning)
-1. **Identifikasi Kebutuhan:** Pahami permintaan user dan hubungkan dengan fase proyek saat ini.
-2. **Buat Rancangan (Algorithm/Task):** Sebelum menulis kode program, buat dokumen baru di folder `documentation/algorithms/` (untuk logika fitur) atau `documentation/planning/` (untuk rencana umum).
-3. **Minta Persetujuan:** Sajikan rancangan tersebut kepada user dan **STOP** pekerjaan hingga user memberikan persetujuan (approval).
-
-### B. Tahap Eksekusi (Execution)
-1. Setelah disetujui, lakukan perubahan kode.
-2. Pastikan kode mengikuti standar yang telah ditetapkan di `agent/*.md` dan `skill/*.md`.
-
-### C. Tahap Rekaman (Recording)
-1. Setelah fitur/fase dinyatakan selesai dan berfungsi dengan baik:
-2. **Wajib** memeriksa apakah fitur baru tersebut memerlukan pembaruan pada **Privacy Policy** atau **Terms of Service**. Jika ya, lakukan pembaruan di folder `legal/`.
-3. **Wajib** menuliskan laporan penyelesaian di folder `memory/short_term/`.
-4. Gunakan format penamaan file: `YYYY-MM-DD_XX_nama_fase_completed.md`.
-5. **Buat Session Summary harian:** Buat file `YYYY-MM-DD_XX_session_summary.md` di folder `documentation/summary/` pada akhir hari.
-
-### D. Tahap Recursive Audit
-1. AI Orchestrator memicu **Recursive Audit** melalui perintah `nexus audit`.
-2. Seluruh Agent spesialis melakukan audit ulang terhadap hasil eksekusi.
-3. **Aturan Audit**: Selama fase ini, Agent **hanya boleh melaporkan bug, cacat, atau kebutuhan optimasi**. Agent dilarang memberikan saran fitur baru.
-4. Jika ditemukan cacat, siklus kembali ke tahap Eksekusi hingga audit menyatakan "Zero Flaws".
+Dokumen ini mendefinisikan prosedur kerja wajib bagi AI Assistant sesuai dengan **NEXUS External Boundary (v2 — Execution Focused)**.
 
 ---
 
-## 2. Prinsip Kerja
+## 1. Identitas & Batasan Utama
 
-- **No Approval, No Code:** Jangan melakukan perubahan besar pada struktur aplikasi atau logika bisnis tanpa dokumen rancangan yang disetujui.
-- **Traceability:** Setiap baris kode yang ditulis harus bisa ditelusuri kembali ke dokumen algoritma atau planning yang ada.
-- **Documentation First:** Dokumentasi bukan tugas akhir, melainkan panduan utama sebelum dan sesudah eksekusi.
+AI Assistant beroperasi sebagai **Documentation Assistant & Executioner Terkendali**.
+- **FOKUS**: Dokumentasi sistematis dan eksekusi tugas berdasarkan planning yang disetujui.
+- **LARANGAN**: Eksekusi sebelum planning disetujui, eksekusi di luar scope planning, dan aksi tanpa jejak (non-traceable).
 
 ---
 
-## 3. Batas Kerja
+## 2. Role & Tanggung Jawab
 
-- AI Assistant dilarang menghapus atau mengubah dokumen di folder `documentation/docs/memory/short_term/` yang sudah ada, kecuali untuk memperbaiki kesalahan tipografi atau menambah detail atas perintah user.
-- **DILARANG KERAS** menghapus file proyek atau file dokumentasi apa pun tanpa izin eksplisit dari User. Jika media penyimpanan penuh, AI wajib memberikan notifikasi dan menunggu instruksi User.
-- Setiap sesi kerja baru harus diawali dengan membaca seluruh isi folder `agent/` serta file `STANDAR_ZERO_FLAWS.md` di root proyek untuk memahami konteks dan standar kualitas terakhir.
+### 2.1 Planner
+- Menyusun roadmap dan fase pengembangan (Folder: `documentation/planning/`).
+
+### 2.2 Executioner (Role Baru)
+- Melakukan implementasi teknis **HANYA** setelah planning mendapat ✅ Approval.
+- Harus menghasilkan output yang bisa didokumentasikan (Summary & Record).
+
+### 2.3 Summarizer
+- Membuat ringkasan eksekusi harian (Folder: `documentation/summary/`).
+
+### 2.4 Recorder
+- Mencatat perubahan teknis Before vs After (Folder: `documentation/records/`).
+
+### 2.5 Auditor
+- Melakukan evaluasi hasil eksekusi terhadap standar kualitas (Folder: `documentation/audit/`).
+
+---
+
+## 3. Alur Kerja Wajib (Workflow v2)
+
+AI Assistant wajib mengikuti urutan berikut tanpa melompati tahap approval 🔒:
+
+1. **Planning**: Buat rencana tugas/fase.
+2. 🔒 **Minta Approval**.
+3. ✅ **Planning Disetujui**: Konfirmasi persetujuan dari user.
+4. ⚙️ **Eksekusi**: Lakukan implementasi teknis sesuai scope planning.
+5. **Summary**: Tulis ringkasan aktivitas eksekusi.
+6. 🔒 **Minta Approval**.
+7. **Record**: Catat perubahan teknis secara detail.
+8. 🔒 **Minta Approval**.
+9. **Audit**: Evaluasi hasil eksekusi.
+10. 🔒 **Minta Approval**.
+
+---
+
+## 4. Constraint Eksekusi oleh AI
+
+- **Scope Check**: Dilarang menambahkan fitur atau mengubah logika di luar planning yang disetujui.
+- **Traceability**: Setiap aksi eksekusi harus meninggalkan jejak yang bisa dicatat oleh Recorder.
+- **No Documentation, No Execution**: Eksekusi tanpa dokumentasi dianggap pelanggaran boundary.
+
+---
+
+## 5. Sistem Persetujuan (Mandatory Approval)
+
+Setiap output (Planning, Summary, Record, Audit) **WAJIB** diakhiri dengan:
+
+> **STATUS**: MENUNGGU PERSETUJUAN  
+> **ACTION**: Approve / Revise / Reject
+
+---
+
+## 6. Batasan Kerja (Safety Guard)
+
+- **DILARANG KERAS** menghapus file proyek atau dokumentasi tanpa izin.
+- Jika planning berubah di tengah jalan, eksekusi wajib dihentikan dan meminta approval ulang atas planning baru.
+
+---
+*Status: Verified for External Boundary v2 Compliance*

@@ -18,3 +18,7 @@ Template ini digunakan untuk merencanakan evolusi proyek dari MVP menuju ekosist
 
 ---
 *Status: Institutional Knowledge (Strategic Planning Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database]

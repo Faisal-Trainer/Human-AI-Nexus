@@ -647,26 +647,50 @@ ${tasks.map(t => `
         const nexusSource = path.join(sourcePath, 'nexus');
         
         let primarySource = null;
-        if (await fs.pathExists(docSource)) {
-            primarySource = docSource;
-        } else if (await fs.pathExists(nexusSource)) {
+        if (await fs.pathExists(nexusSource)) {
             primarySource = nexusSource;
+        } else if (await fs.pathExists(docSource)) {
+            primarySource = docSource;
         } else {
-            throw new NexusError('HARVESTING', `Project at ${sourcePath} does not contain /documentation or /nexus folder.`);
+            primarySource = sourcePath; // Fallback to root
         }
 
-        this.log(`📂 Source detected: ${path.basename(primarySource)}/`, 'info');
+        this.log(`📂 Source base detected: ${path.basename(primarySource)}/`, 'info');
 
         const harvestRoot = path.join(this.rootPath, 'golden', 'harvest', projectName);
         await fs.ensureDir(harvestRoot);
 
-        const foldersToHarvest = ['audit', 'planning', 'records', 'knowledge', 'summary', 'algorithms'];
+        // Helper to find folder in multiple possible locations in the remote project
+        const findRemoteFolder = async (folderName, altName) => {
+            const potentials = [
+                path.join(primarySource, folderName),
+                path.join(primarySource, 'memory', folderName),
+                path.join(primarySource, 'memory', altName || folderName),
+                path.join(primarySource, 'documentation', folderName),
+                path.join(sourcePath, 'documentation', folderName),
+                path.join(sourcePath, 'memory', folderName)
+            ];
+            for (const p of potentials) {
+                if (await fs.pathExists(p)) return p;
+            }
+            return null;
+        };
+
+        const foldersToHarvest = [
+            { id: 'audit' },
+            { id: 'planning' },
+            { id: 'summary' },
+            { id: 'algorithms' },
+            { id: 'records', alt: 'short_term' },
+            { id: 'knowledge', alt: 'long_term' }
+        ];
+
         let filesHarvested = 0;
 
         for (const folder of foldersToHarvest) {
-            const srcFolder = path.join(primarySource, folder);
-            if (await fs.pathExists(srcFolder)) {
-                const destFolder = path.join(harvestRoot, folder);
+            const srcFolder = await findRemoteFolder(folder.id, folder.alt);
+            if (srcFolder) {
+                const destFolder = path.join(harvestRoot, folder.id);
                 await fs.ensureDir(destFolder);
                 
                 const files = await fs.readdir(srcFolder);
@@ -679,7 +703,7 @@ ${tasks.map(t => `
                             this.log(`⚠️ Collision detected for ${file}. Applying IF-ELSE logic...`, 'warning');
                             const oldContent = await fs.readFile(targetPath, 'utf8');
                             const newContent = await fs.readFile(path.join(srcFolder, file), 'utf8');
-                            const merged = this.wrapAsConditional(oldContent, newContent, `Collision in ${file}`);
+                            const merged = this.wrapAsConditional(oldContent, newContent, `Collision in ${file} during harvest from ${projectName}`);
                             await fs.writeFile(targetPath, merged);
                         } else {
                             await fs.copy(path.join(srcFolder, file), targetPath);

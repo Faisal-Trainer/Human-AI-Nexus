@@ -44,27 +44,26 @@ async function main() {
 async function updateEngine(args) {
     const targetFlag = args.includes('--target') ? args[args.indexOf('--target') + 1] : (args.includes('-t') ? args[args.indexOf('-t') + 1] : null);
     const targetDir = targetFlag ? path.resolve(process.cwd(), targetFlag) : process.cwd();
+    const nexusPath = path.join(targetDir, 'nexus');
     
-    console.log(chalk.cyan(`🔄 Updating Nexus Engine in ${targetDir}...`));
+    console.log(chalk.cyan(`🔄 Updating Nexus Brain (External) in ${nexusPath}...`));
 
     try {
         const components = [
-            { src: 'agent/prompts/external', dest: 'agent/prompts/external' },
-            { src: 'agent/workflows/external', dest: 'agent/workflows/external' },
-            { src: 'agent/core', dest: 'agent/core' },
-            { src: 'agent/tools', dest: 'agent/tools' }
+            { src: 'agent/prompts/external', dest: 'agent/prompts' },
+            { src: 'agent/workflows/external', dest: 'agent/workflows' }
         ];
 
         for (const item of components) {
             const src = path.join(__dirname, item.src);
-            const dest = path.join(targetDir, item.dest);
+            const dest = path.join(nexusPath, item.dest);
             if (await fs.pathExists(src)) {
                 await fs.copy(src, dest, { overwrite: true });
                 console.log(chalk.green(`   ✅ Updated: ${item.dest}`));
             }
         }
 
-        console.log(chalk.bold.green('\n✨ Update Complete! Nexus Engine components are now in sync.'));
+        console.log(chalk.bold.green('\n✨ Update Complete! External prompts and workflows are in sync.'));
     } catch (err) {
         console.error(chalk.red('❌ Update failed:'), err.message);
     }
@@ -80,8 +79,9 @@ async function uninstall(args) {
     const isYes = args.includes('--yes') || args.includes('-y');
     const targetFlag = args.includes('--target') ? args[args.indexOf('--target') + 1] : (args.includes('-t') ? args[args.indexOf('-t') + 1] : null);
     const targetDir = targetFlag ? path.resolve(process.cwd(), targetFlag) : process.cwd();
+    const nexusPath = path.join(targetDir, 'nexus');
 
-    console.log(chalk.red.bold(`⚠️ PERINGATAN: Anda akan menghapus folder 'agent/' dari ${targetDir}`));
+    console.log(chalk.red.bold(`⚠️ PERINGATAN: Anda akan menghapus folder 'nexus/' dari ${targetDir}`));
     
     const confirm = isYes ? true : await new Promise(resolve => {
         rl.question('Apakah Anda yakin ingin melanjutkan? (y/N): ', answer => {
@@ -97,13 +97,12 @@ async function uninstall(args) {
     }
 
     try {
-        const agentPath = path.join(targetDir, 'agent');
-        if (await fs.pathExists(agentPath)) {
-            await fs.remove(agentPath);
-            console.log(chalk.green(`   ✅ Folder 'agent/' telah dihapus.`));
+        if (await fs.pathExists(nexusPath)) {
+            await fs.remove(nexusPath);
+            console.log(chalk.green(`   ✅ Folder 'nexus/' telah dihapus.`));
         }
 
-        console.log(chalk.green.bold('Nexus Engine (Brain) berhasil dilepas.'));
+        console.log(chalk.green.bold('Nexus components berhasil dilepas.'));
     } catch (err) {
         console.error(chalk.red('❌ Gagal melepas Nexus:'), err.message);
     }
@@ -115,12 +114,15 @@ async function install(args) {
     const targetFlag = args.includes('--target') ? args[args.indexOf('--target') + 1] : (args.includes('-t') ? args[args.indexOf('-t') + 1] : null);
     const targetDir = targetFlag ? path.resolve(process.cwd(), targetFlag) : process.cwd();
     
+    const nexusBaseName = 'nexus';
+    const nexusPath = path.join(targetDir, nexusBaseName);
     const sourceDir = __dirname;
-    const agentPath = path.join(targetDir, 'agent');
-    const memPath = path.join(targetDir, 'memory');
-    const docPath = path.join(targetDir, 'documentation');
     
-    console.log(chalk.cyan.bold(`🤖 Menginstall Nexus Framework ke: ${targetDir}`));
+    const agentPath = path.join(nexusPath, 'agent');
+    const memPath = path.join(nexusPath, 'memory');
+    const docPath = path.join(nexusPath, 'documentation');
+    
+    console.log(chalk.cyan.bold(`🤖 Menginstall Nexus External Brain ke: ${nexusPath}`));
 
     const readline = require('readline');
     const rl = readline.createInterface({
@@ -131,20 +133,19 @@ async function install(args) {
     const ask = (q) => isYes ? Promise.resolve('y') : new Promise(res => rl.question(q, res));
 
     try {
-        // 1. Brain Installation (agent/)
+        await fs.ensureDir(nexusPath);
+
+        // 1. External Brain Installation (agent/)
         if (await fs.pathExists(agentPath) && !isForce) {
-            console.log(chalk.yellow(`⚠️ Folder /agent sudah ada. Gunakan "nexus update" untuk sinkronisasi.`));
+            console.log(chalk.yellow(`⚠️ Folder /agent sudah ada di dalam ${nexusBaseName}.`));
         } else {
-            const confirmBrain = await ask(`Pasang Brain (Agent Core & Tools) di ./agent? (y/N): `);
+            const confirmBrain = await ask(`Pasang Brain (External Prompts & Workflows) di ./${nexusBaseName}/agent? (y/N): `);
             if (confirmBrain.toLowerCase() === 'y') {
                 await fs.ensureDir(agentPath);
                 
                 const components = [
-                    { src: 'agent/core', dest: 'core' },
-                    { src: 'agent/tools', dest: 'tools' },
-                    { src: 'agent/prompts/external', dest: 'prompts/external' },
-                    { src: 'agent/workflows/external', dest: 'workflows/external' },
-                    { src: 'agent/main.js', dest: 'main.js' }
+                    { src: 'agent/prompts/external', dest: 'prompts' },
+                    { src: 'agent/workflows/external', dest: 'workflows' }
                 ];
 
                 for (const item of components) {
@@ -152,7 +153,7 @@ async function install(args) {
                     const dest = path.join(agentPath, item.dest);
                     if (await fs.pathExists(src)) {
                         await fs.copy(src, dest);
-                        console.log(chalk.green(`   ✅ Brain Component: ${item.dest} terpasang.`));
+                        console.log(chalk.green(`   ✅ External Brain: ${item.dest} terpasang.`));
                     }
                 }
             }
@@ -160,11 +161,11 @@ async function install(args) {
 
         // 2. Memory Installation (memory/)
         if (!await fs.pathExists(memPath)) {
-            const confirmMem = await ask(`Buat folder /memory untuk penyimpanan pengetahuan? (y/N): `);
+            const confirmMem = await ask(`Buat folder /memory di dalam ${nexusBaseName}? (y/N): `);
             if (confirmMem.toLowerCase() === 'y') {
                 await fs.ensureDir(path.join(memPath, 'long_term'));
                 await fs.ensureDir(path.join(memPath, 'short_term'));
-                console.log(chalk.green(`   ✅ Folder /memory (long_term & short_term) telah dibuat.`));
+                console.log(chalk.green(`   ✅ Folder /memory telah dibuat.`));
             }
         }
 
@@ -175,7 +176,7 @@ async function install(args) {
                 await setupDocFolders(docPath);
             }
         } else {
-            const confirmDoc = await ask(`Buat folder /documentation sebagai HUB utama? (y/N): `);
+            const confirmDoc = await ask(`Buat folder /documentation di dalam ${nexusBaseName}? (y/N): `);
             if (confirmDoc.toLowerCase() === 'y') {
                 await fs.ensureDir(docPath);
                 await setupDocFolders(docPath);
@@ -183,17 +184,17 @@ async function install(args) {
             }
         }
 
-        // 4. Root Files
+        // 4. Root Files (Tetap di root proyek untuk akses cepat)
         const algoFile = 'ALGORITMA_INTEGRASI.md';
         const algoSrc = path.join(sourceDir, 'documentation', 'algorithms', algoFile);
         if (await fs.pathExists(algoSrc)) {
             await fs.copy(algoSrc, path.join(targetDir, algoFile));
-            console.log(chalk.green(`   ✅ File ${algoFile} terpasang di root.`));
+            console.log(chalk.green(`   ✅ File ${algoFile} terpasang di root proyek.`));
         }
 
         console.log(chalk.green.bold('\n✅ Instalasi Berhasil!'));
-        console.log(chalk.cyan(`🚀 Structure: /agent, /memory, /documentation`));
-        console.log('🚀 Jalankan "nexus run" untuk memulai kolaborasi.');
+        console.log(chalk.cyan(`🚀 Seluruh komponen disatukan dalam folder: ./${nexusBaseName}/`));
+        console.log('🚀 Jalankan "nexus run" untuk memulai.');
 
     } catch (err) {
         console.error(chalk.red('❌ Terjadi kesalahan:'), err.message);
@@ -203,11 +204,11 @@ async function install(args) {
 }
 
 async function setupDocFolders(basePath) {
-    const subfolders = ['summary', 'algorithms', 'audit', 'knowledge', 'planning', 'records', 'legal', 'docs'];
+    const subfolders = ['algorithms', 'audit', 'planning', 'records', 'summary'];
     for (const folder of subfolders) {
         await fs.ensureDir(path.join(basePath, folder));
     }
-    console.log(chalk.green(`   ✅ Struktur /documentation telah diperbarui.`));
+    console.log(chalk.green(`   ✅ Struktur /documentation telah diperbarui (Lean Mode).`));
 }
 
 main().catch(err => {

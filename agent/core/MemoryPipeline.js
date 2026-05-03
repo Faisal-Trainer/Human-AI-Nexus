@@ -41,17 +41,28 @@ class MemoryPipeline {
             const projectPath = path.join(harvestPath, project);
             if (!(await fs.lstat(projectPath)).isDirectory()) continue;
 
-            // Move harvested knowledge to HUB (before Distiller cleans it up)
-            const knowledgeSrc = path.join(projectPath, 'knowledge');
-            if (await fs.pathExists(knowledgeSrc)) {
-                await fs.copy(knowledgeSrc, this.knowledgePath, { overwrite: false });
-                console.log(`   📦 Harvested knowledge from ${project} moved to HUB.`);
+            const folders = await fs.readdir(projectPath);
+            for (const folder of folders) {
+                const src = path.join(projectPath, folder);
+                let dest = null;
+
+                // Mapping harvest folders to project folders
+                if (folder === 'knowledge' || folder === 'algorithms') {
+                    dest = this.knowledgePath;
+                } else if (folder === 'records' || folder === 'summary' || folder === 'audit' || folder === 'planning') {
+                    dest = this.recordsPath; // Move to records for further distillation or archival
+                }
+
+                if (dest && await fs.pathExists(src)) {
+                    await fs.copy(src, dest, { overwrite: false });
+                    console.log(`   📦 Harvested [${folder}] from ${project} moved to ${path.basename(dest)}.`);
+                }
             }
         }
 
         // Cleanup: Empty the harvest folder
         await fs.emptyDir(harvestPath);
-        console.log('   🧹 Harvest folder cleared to optimize memory.');
+        console.log('   🧹 Harvest folder recycled (cleared).');
     }
 
     async archiveAuditReports() {

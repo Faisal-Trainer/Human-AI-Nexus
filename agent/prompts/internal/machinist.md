@@ -34,3 +34,8 @@
 
 ---
 *Status: Active | State: Self-Aware Evolution Engine*
+
+
+---
+## Knowledge Access
+Anda wajib merujuk pada `memory/long_term/` untuk instruksi spesifik mengenai standardisasi file.

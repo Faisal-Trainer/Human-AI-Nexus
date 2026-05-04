@@ -51,7 +51,8 @@ async function updateEngine(args) {
     try {
         const components = [
             { src: 'agent/prompts/external', dest: 'agent/prompts' },
-            { src: 'agent/workflows/external', dest: 'agent/workflows' }
+            { src: 'agent/workflows/external', dest: 'agent/workflows' },
+            { src: 'workflow', dest: 'workflow' }
         ];
 
         for (const item of components) {
@@ -155,6 +156,21 @@ async function install(args) {
                         await fs.copy(src, dest);
                         console.log(chalk.green(`   ✅ External Brain: ${item.dest} terpasang.`));
                     }
+                }
+            }
+        }
+
+        // 1.1 Workflow/Skill Installation
+        const workflowDest = path.join(nexusPath, 'workflow');
+        if (await fs.pathExists(workflowDest) && !isForce) {
+            console.log(chalk.yellow(`⚠️ Folder /workflow sudah ada.`));
+        } else {
+            const confirmSkill = await ask(`Pasang Workflow/Skillset (Wisdom HUB) di ./${nexusBaseName}/workflow? (y/N): `);
+            if (confirmSkill.toLowerCase() === 'y') {
+                const src = path.join(sourceDir, 'workflow');
+                if (await fs.pathExists(src)) {
+                    await fs.copy(src, workflowDest);
+                    console.log(chalk.green(`   ✅ Workflow/Skillset: Berhasil dipasang.`));
                 }
             }
         }

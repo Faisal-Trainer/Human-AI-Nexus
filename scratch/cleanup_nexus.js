@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const targets = [
-    'C:\\xampp\\htdocs\\F-Novel',
+    'C:\\xampp\\htdocs\\NEXUS-LORE',
     'C:\\xampp\\htdocs\\portofolio',
     'C:\\xampp\\htdocs\\talent-umkm-app',
     'C:\\xampp\\htdocs\\php native',

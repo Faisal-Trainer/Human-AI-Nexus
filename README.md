@@ -56,12 +56,12 @@ graph TD
 
     subgraph "Knowledge & Standards"
         Agent[(Agent Library)]
-        Skill[(Skill/Standards)]
+        Workflow[(Workflow/Skills)]
         Knowledge[(Knowledge Base)]
     end
 
     Audit -.-> Agent
-    Plan -.-> Skill
+    Plan -.-> Workflow
     Record -.-> Knowledge
 
     Record -- Recursive --> Audit
@@ -75,14 +75,13 @@ graph TD
 | :--------------------- | :------------------------------------------------------------------------ |
 | `📂 agent/core/`       | **Core Logic**: NexusEngine, Orchestrator, dan logika utama orkestrasi.   |
 | `📂 agent/tools/`      | **Tools & Specialists**: Auditor, TDDGuard, Machinist, dan scanner teknis.|
-| `📂 agent/prompts/`    | **The Brain**: Library Agent MD (Internal & External) dan template sistem.|
-| `📂 agent/workflows/`  | **Workflows**: Skill Pipelines dan lifecycle pengembangan otomatis.       |
-| `📂 memory/long_term/` | **Knowledge Base**: HUB Knowledge, Golden Data, dan memori permanen.     |
-| `📂 memory/short_term/`| **Short-term Memory**: Session records dan log audit sementara.           |
-| `📂 documentation/`    | **The HUB**: Dokumentasi terpadu (Audit, Planning, Summary, & Legal).     |
-| `📂 api/cli/`          | **Interface**: Entry point CLI dan interface komunikasi sistem.           |
-| `📂 config/`           | **Configuration**: Pengaturan lingkungan dan environment variables.      |
-| `📂 tests/`            | **TDD Lab**: Area eksperimen pengujian dan unit testing.                  |
+| `📂 agent/prompts/`    | **The Brain**: Library Agent MD (Internal & External) dengan **Deep Wisdom Injection**. |
+| `📂 workflow/`         | **Skill Rack**: Kumpulan aturan main (Workflows) yang dibaca langsung oleh Engine.      |
+| `📂 memory/long_term/` | **Knowledge Base**: HUB Knowledge (Distilled) dan memori permanen.                      |
+| `📂 memory/short_term/`| **Short-term Memory**: Session records dan log audit sementara.                         |
+| `📂 documentation/`    | **The HUB**: Dokumentasi terpadu (Audit, Planning, Summary).                            |
+| `📂 documentation/nexus_rules/` | **Governance**: "Rak Aturan" permanen untuk instruksi operasional manusia.    |
+| `📂 tests/`            | **TDD Lab**: Area eksperimen pengujian dan unit testing.                                |
 
 ---
 
@@ -146,9 +145,8 @@ _Perintah ini menghapus folder `agent/` (otak AI), namun tetap menjaga folder `d
 
 ## 🌟 Prinsip Utama
 
-- **Documentation First**: No plan, no code.
-- **Stateless Harvest**: Pipeline "Zero-Waste" di mana data sementara dibersihkan setelah masuk HUB.
-- **Universal Collision Logic**: Sistem **Opsi Tak Terbatas (Multi-Option)** otomatis untuk menjaga variasi solusi (Opsi A maupun Opsi B).
+- **Deep Wisdom Injection**: Setiap Agent membawa "Buku Saku" workflow mereka sendiri di dalam sistem prompt.
+- **Knowledge Portability**: Skill dan pengetahuan institusional ikut terinstal ke proyek eksternal via folder `workflow/`.
 - **Deterministic Contracts**: Standar interface data untuk menjamin AI bekerja secara konsisten.
 - **Standardized Knowledge**: Seluruh HUB menggunakan pola `NEXUS_...` untuk kemudahan pengindeksan.
 
@@ -170,4 +168,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 
 ---
-_Terakhir Dioptimasi: 01/05/2026_
+_Terakhir Dioptimasi: 04/05/2026_

@@ -33,7 +33,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan for potentially missing indexes (look for foreign key patterns in migrations/models)
-    const dbFiles = glob.sync('**/*.{sql,php,js}', { cwd: targetPath, ignore: ['node_modules/**'] });
+    const dbFiles = glob.sync('**/*.{sql,php,js}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**'] });
     const fkRegex = /unsignedBigInteger\(['"]([^'"]+)_id['"]\)|foreign\(['"]([^'"]+)_id['"]\)/gi;
     const indexRegex = /index\(/i;
 

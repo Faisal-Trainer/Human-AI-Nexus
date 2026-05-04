@@ -74,7 +74,7 @@ class NexusEngine {
         };
 
         this.agentPath = resolvePath('agent');
-        this.skillPath = resolvePath('skill');
+        this.skillPath = resolvePath('workflow', 'skill');
         this.knowledgePath = resolvePath('long_term', 'knowledge');
         this.recordsPath = resolvePath('short_term', 'records');
         this.summaryPath = resolvePath('summary');

@@ -1,8 +1,8 @@
 {
   "name": "human-ai-nexus",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Documentation-First Framework for Human-AI Collaborative Development",
-  "main": "src/index.js",
+  "main": "cli.js",
   "type": "commonjs",
   "bin": {
     "nexus": "./cli.js"
@@ -14,7 +14,7 @@
     "start": "node cli.js run",
     "refactor": "node cli.js refactor",
     "update-skills": "node cli.js update-skills",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/TDD/runner.js"
   },
   "keywords": [
     "ai",

@@ -94,18 +94,29 @@ class NexusEngine {
         this.tddScaffolder = new TDDScaffolder(this.rootPath);
         this.assetEngine = new AssetEngine(this.rootPath);
         this.validator = new Validator(this.rootPath);
-        this.bugHunter = new BugHunter();
+        this.bugHunter = new BugHunter(this.rootPath);
         this.designer = new Designer();
         this.a11yScanner = new AccessibilityScanner(this.rootPath);
         this.schemaGuard = new SchemaGuard(this.rootPath);
         this.queryOptimizer = new QueryOptimizer(this.rootPath);
         this.worktreeManager = new WorktreeManager(this.rootPath);
         this.rcAnalyzer = new RootCauseAnalyzer();
-        this.machinist = new Machinist(this.rootPath);
+        this.machinist = new Machinist(this.rootPath, this.tddScaffolder);
         this.distiller = new Distiller(this.knowledgePath);
         
         this.currentAudit = null; 
         this.currentPlan = null;
+        this.activeRack = null;
+    }
+
+    /**
+     * Focus engine on a specific knowledge rack (sub-folder)
+     */
+    setRack(rackName) {
+        if (rackName) {
+            this.activeRack = rackName;
+            this.log(`🎯 Engine Focus Shifted to Rack: ${rackName}`, 'info');
+        }
     }
 
     async discoverSkills() {
@@ -750,7 +761,9 @@ ${tasks.map(t => `
             { id: 'summary' },
             { id: 'algorithms' },
             { id: 'records', alt: 'short_term' },
-            { id: 'knowledge', alt: 'long_term' }
+            { id: 'knowledge', alt: 'long_term' },
+            { id: 'nexus_rules' },
+            { id: 'legal' }
         ];
 
         let filesHarvested = 0;
@@ -829,8 +842,9 @@ ${tasks.map(t => `
      * Protocol 2: Mass Update Skills (HUB -> Skill)
      */
     async massUpdateSkills() {
-        this.log('⚡ Starting Semantic Mass Update: HUB ➔ Skill...', 'info');
-        const hubPath = this.knowledgePath;
+        const rackSuffix = this.activeRack ? ` [Rack: ${this.activeRack}]` : '';
+        this.log(`⚡ Starting Semantic Mass Update: HUB ➔ Skill${rackSuffix}...`, 'info');
+        const hubPath = this.activeRack ? path.join(this.knowledgePath, this.activeRack) : this.knowledgePath;
         const skillPath = this.skillPath;
 
         if (!(await fs.pathExists(hubPath))) {

@@ -82,7 +82,20 @@ async function main() {
             rl.close();
             break;
         case 'distill':
+            const rack = args.includes('--rack') ? args[args.indexOf('--rack') + 1] : null;
+            if (rack) engine.setRack(rack);
             await engine.distill();
+            rl.close();
+            break;
+        case 'forge':
+            const machineName = args[1];
+            const wisdomPath = args[2];
+            if (!machineName || !wisdomPath) {
+                console.log('Error: Machine name and wisdom path are required.');
+                console.log('Usage: nexus forge <MachineName> </path/to/wisdom.md>');
+            } else {
+                await engine.machinist.forge(machineName, path.resolve(wisdomPath));
+            }
             rl.close();
             break;
         case 'help':
@@ -97,6 +110,7 @@ Usage:
   nexus update-skills - [Protocol 2] Mass Update from HUB to Skills
   nexus skills        - List available agent skills
   nexus distill       - Distill and standardize the HUB (NEXUS_ prefix)
+  nexus forge <name> <file> - Forge a new machine from wisdom file
   nexus help          - Show this help
             `);
             rl.close();

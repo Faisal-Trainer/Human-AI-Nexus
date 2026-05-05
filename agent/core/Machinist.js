@@ -6,9 +6,10 @@ const path = require('path');
  * Handles the physical registration and integration of new core machines.
  */
 class Machinist {
-    constructor(rootPath) {
+    constructor(rootPath, tddScaffolder) {
         this.rootPath = rootPath;
         this.enginePath = path.join(this.rootPath, 'agent/core/NexusEngine.js');
+        this.tddScaffolder = tddScaffolder;
     }
 
     /**
@@ -78,35 +79,80 @@ class Machinist {
         // 2. Integrate into Engine (Auditor flow)
         // Note: For scanners, integration happens dynamically in the engine, 
         // but we can register it as a named tool if needed.
+        
+        // 3. Auto-TDD Generation
+        if (this.tddScaffolder) {
+            const relScannerPath = path.relative(this.rootPath, scannerPath);
+            await this.tddScaffolder.generate(relScannerPath);
+            console.log(`   🧪 Auto-TDD: Test scaffolded for ${name}.`);
+        }
+
         console.log(`✅ Machinist Forge: '${name}' is now alive.`);
     }
 
     /**
-     * Scanner Template Generator
+     * Scanner Template Generator with Post-Forge Injection logic.
      */
     getScannerTemplate(name, rules, source) {
+        // Heuristic: Extract keywords from rules for real-world checking
+        const checkPoints = rules.map(r => {
+            const words = r.split(' ').filter(w => w.length > 3);
+            return words.slice(0, 2).join(' ').replace(/[^a-zA-Z0-9 ]/g, '').trim();
+        }).filter(cp => cp.length > 2);
+
         return `const fs = require('fs-extra');
 const path = require('path');
+const glob = require('glob');
 
 /**
  * ${name} - Automatically Forged by Nexus Machinist
  * Source Wisdom: ${source}
+ * Built At: ${new Date().toLocaleString()}
  */
 async function scan(targetPath) {
     const findings = [];
-    const rules = ${JSON.stringify(rules, null, 4)};
+    const checkPoints = ${JSON.stringify(checkPoints, null, 4)};
 
-    // Forged Logic Execution
-    // This machine was built to monitor:
-    // ${rules.join('\n    // ')}
+    console.log(\`🔍 Forged Machine '${name}' scanning for wisdom adherence...\`);
+    
+    try {
+        // Find relevant files
+        const files = glob.sync('**/*.{js,php,html,css,md,json}', { 
+            cwd: targetPath, 
+            ignore: ['node_modules/**', 'vendor/**', 'nexus/**', 'memory/**', 'documentation/**'],
+            nodir: true 
+        });
+        
+        let matchCount = 0;
+        for (const file of files) {
+            const fullPath = path.join(targetPath, file);
+            const content = await fs.readFile(fullPath, 'utf8').catch(() => '');
+            
+            for (const cp of checkPoints) {
+                if (content.toLowerCase().includes(cp.toLowerCase())) {
+                    findings.push({
+                        severity: 'INFO',
+                        message: \`Adherence identified: Wisdom point '\${cp}' mentioned/implemented in \${file}\`,
+                        file: file
+                    });
+                    matchCount++;
+                }
+            }
+        }
 
-    // Generic implementation for forged machines
-    // In a real scenario, the AI would generate specific regex/checks here.
-    findings.push({
-        severity: 'INFO',
-        message: \`Machine '${name}' activated. Wisdom Source: ${source}\`,
-        file: 'system'
-    });
+        findings.push({
+            severity: matchCount > 0 ? 'SUCCESS' : 'WARNING',
+            message: \`Machine '${name}' completed. Wisdom coverage: \${matchCount} matches found.\`,
+            file: 'system'
+        });
+
+    } catch (err) {
+        findings.push({
+            severity: 'ERROR',
+            message: \`Forged Machine Error: \${err.message}\`,
+            file: 'system'
+        });
+    }
 
     return findings;
 }

@@ -12,7 +12,7 @@ async function main() {
     const command = args[0];
 
     // If command is 'run', 'audit', or 'skills', delegate to Nexus Engine
-    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'help'];
+    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'forge', 'help'];
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
         const cleanArgs = args.filter(a => a !== 'nexus');

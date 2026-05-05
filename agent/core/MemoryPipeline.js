@@ -54,9 +54,12 @@ class MemoryPipeline {
                 let dest = null;
 
                 // Mapping harvest folders to project folders
-                if (folder === 'knowledge' || folder === 'algorithms' || folder === 'journal') {
+                const knowledgeFolders = ['knowledge', 'algorithms', 'journal', 'nexus_rules', 'legal'];
+                const recordsFolders = ['records', 'summary', 'audit', 'planning'];
+
+                if (knowledgeFolders.includes(folder)) {
                     dest = this.knowledgePath;
-                } else if (folder === 'records' || folder === 'summary' || folder === 'audit' || folder === 'planning') {
+                } else if (recordsFolders.includes(folder)) {
                     dest = this.recordsPath; 
                 }
 
@@ -130,9 +133,8 @@ class MemoryPipeline {
         }
 
         if (count > 0) {
-            await fs.ensureFile(this.archiveFile);
-            await fs.appendFile(this.archiveFile, archiveContent);
-            console.log(`   📦 Archived ${count} audit reports to SESSION_HISTORY_ARCHIVE.md`);
+            await this.appendToArchive(archiveContent);
+            console.log(`   📦 Archived ${count} audit reports to ${path.basename(await this.getArchiveFile())}`);
         }
     }
 
@@ -161,10 +163,47 @@ class MemoryPipeline {
         }
 
         if (count > 0) {
-            await fs.ensureFile(this.archiveFile);
-            await fs.appendFile(this.archiveFile, archiveContent);
-            console.log(`   📦 Archived ${count} implementation plans to SESSION_HISTORY_ARCHIVE.md`);
+            await this.appendToArchive(archiveContent);
+            console.log(`   📦 Archived ${count} implementation plans to ${path.basename(await this.getArchiveFile())}`);
         }
+    }
+
+    /**
+     * Appends content to the current archive file, rotating if it exceeds 100KB.
+     */
+    async appendToArchive(content) {
+        const archiveFile = await this.getArchiveFile();
+        await fs.ensureFile(archiveFile);
+        await fs.appendFile(archiveFile, content);
+    }
+
+    /**
+     * Determines the current archive file based on size and index.
+     */
+    async getArchiveFile() {
+        const indexPath = path.join(this.rootPath, 'memory', 'short_term', 'archive_index.json');
+        let indexData = { current_archive: 'SESSION_HISTORY_ARCHIVE.md', index: 1 };
+        
+        if (await fs.pathExists(indexPath)) {
+            indexData = await fs.readJson(indexPath);
+        } else {
+            await fs.ensureDir(path.dirname(indexPath));
+            await fs.writeJson(indexPath, indexData, { spaces: 2 });
+        }
+
+        const archivePath = path.join(this.knowledgePath, indexData.current_archive);
+        
+        if (await fs.pathExists(archivePath)) {
+            const stats = await fs.stat(archivePath);
+            if (stats.size > 100 * 1024) { // 100 KB threshold
+                indexData.index++;
+                indexData.current_archive = `SESSION_HISTORY_ARCHIVE_${indexData.index}.md`;
+                await fs.writeJson(indexPath, indexData, { spaces: 2 });
+                return path.join(this.knowledgePath, indexData.current_archive);
+            }
+        }
+        
+        return archivePath;
     }
 }
 

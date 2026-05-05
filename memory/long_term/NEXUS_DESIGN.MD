@@ -172,3 +172,7 @@ The reader component must be stripped of all non-essential UI. It uses a centere
 ### Investor Dashboard
 
 Data visualizations and "Invest" buttons utilize the Cyber Teal and Amber Gold accents to highlight growth and opportunity areas within a structured Inter-based grid.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, tdd, vcs, psychology]

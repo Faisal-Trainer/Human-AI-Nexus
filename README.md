@@ -28,11 +28,21 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 
 ---
 
-## 🤖 Apa itu Human-AI Nexus?
+Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Autonomous Governance Engine**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI serta mengoperasikan **8 Mesin Otonom** untuk melakukan audit, perencanaan, hingga eksekusi tugas secara fisik.
 
-Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Self-Evolving Framework**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI (Orchestrator, PM, Security Specialist, dll) untuk melakukan audit, perencanaan, hingga eksekusi tugas.
+### ⚙️ 8 Mesin Otonom (The Core Machines)
 
-Sistem ini kini dilengkapi dengan **Universal Collision Logic**, yang memungkinkan AI untuk menyimpan beberapa alternatif solusi (**Opsi A maupun Opsi B**) dalam satu dokumen, memungkinkan pengambilan keputusan (Decision Making) yang lebih cerdas dan kontekstual.
+Sistem ini kini ditenagai oleh 8 modul spesialis yang bekerja secara independen:
+1.  **Validator.js**: Verifikasi bukti fisik keberhasilan tugas.
+2.  **BugHunter.js**: Penegak "Aturan 3 Perbaikan" untuk mencegah loop halusinasi.
+3.  **Designer.js**: Automasi penalaran desain (Warna, Font, Style).
+4.  **AccessibilityScanner.js**: Pemindaian standar WCAG/A11y otomatis.
+5.  **SchemaGuard.js**: Penegak standar database (UUID/Fillable).
+6.  **QueryOptimizer.js**: Deteksi foreign key tanpa index.
+7.  **WorktreeManager.js**: Isolasi workspace otomatis menggunakan Git Worktree.
+8.  **RootCauseAnalyzer.js**: Analisis akar masalah otomatis dari stack trace.
+
+Sistem ini juga dilengkapi dengan **Universal Collision Logic**, yang memungkinkan AI untuk menyimpan beberapa alternatif solusi (**Opsi A maupun Opsi B**) dalam satu dokumen, memungkinkan pengambilan keputusan (Decision Making) yang lebih cerdas dan kontekstual.
 
 ### Visi Utama
 

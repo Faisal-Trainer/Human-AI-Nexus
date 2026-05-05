@@ -34,3 +34,7 @@
 ## 2. Storage Best Practices
 - Use a clear directory structure (e.g., `public/storage/{category}/{uuid}/`).
 - Implement automated cleanup for temporary or abandoned assets.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database]

@@ -58,3 +58,7 @@ Agar lolos review **App Store (Apple)** dan **Play Store (Google)**:
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd]

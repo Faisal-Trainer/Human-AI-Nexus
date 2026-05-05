@@ -139,3 +139,7 @@ Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah men
 
 ---
 *Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]

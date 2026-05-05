@@ -61,7 +61,12 @@ Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan
 - **Backdrop Blur**: Gunakan `backdrop-blur: 12px - 20px` pada elemen navigasi yang melayang (floating).
 
 ---
-*Status: Institutional Knowledge (Design & UI/UX Layer).*
+## 5. Advanced Color Research [UPDATE: 2026-05-05]
+- **Contrast & Inclusivity**: WAJIB menggunakan standar audit otomatis dari `AccessibilityScanner.js` untuk memvalidasi temuan jurnal mengenai kenyamanan visual lintas demografi.
+- **Dynamic Theming**: Palet warna harus mendukung skalabilitas otonom; setiap penambahan kategori baru (misal: kategori jurnal baru) akan mendapatkan kode warna unik yang dihasilkan via `Designer.js`.
+
+---
+*Status: Institutional Knowledge (Design & UI/UX Layer + Advanced Color Research).*
 }
 
 ---

@@ -47,3 +47,7 @@ Pintu masuk (Login & Register) akan dioptimasi dengan pendekatan **UX-First**. F
 
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, psychology]

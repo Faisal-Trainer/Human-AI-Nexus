@@ -34,12 +34,19 @@ class MemoryPipeline {
         const harvestPath = path.join(this.rootPath, 'golden', 'harvest');
         if (!(await fs.pathExists(harvestPath))) return;
 
-        console.log('🌾 Memory Pipeline: Processing data from harvest folder...');
+        console.log('🌾 Memory Pipeline: Processing data from harvest folder with Cleansing Protocol...');
         const projects = await fs.readdir(harvestPath);
         
         for (const project of projects) {
             const projectPath = path.join(harvestPath, project);
             if (!(await fs.lstat(projectPath)).isDirectory()) continue;
+
+            const files = await this.globRecursive(projectPath, '**/*.{md,txt,js,json}');
+            for (const file of files) {
+                let content = await fs.readFile(file, 'utf8');
+                content = this.cleanseContent(content);
+                await fs.writeFile(file, content);
+            }
 
             const folders = await fs.readdir(projectPath);
             for (const folder of folders) {
@@ -47,15 +54,15 @@ class MemoryPipeline {
                 let dest = null;
 
                 // Mapping harvest folders to project folders
-                if (folder === 'knowledge' || folder === 'algorithms') {
+                if (folder === 'knowledge' || folder === 'algorithms' || folder === 'journal') {
                     dest = this.knowledgePath;
                 } else if (folder === 'records' || folder === 'summary' || folder === 'audit' || folder === 'planning') {
-                    dest = this.recordsPath; // Move to records for further distillation or archival
+                    dest = this.recordsPath; 
                 }
 
                 if (dest && await fs.pathExists(src)) {
                     await fs.copy(src, dest, { overwrite: false });
-                    console.log(`   📦 Harvested [${folder}] from ${project} moved to ${path.basename(dest)}.`);
+                    console.log(`   📦 Harvested [${folder}] from ${project} moved to ${path.basename(dest)} (Cleansed).`);
                 }
             }
         }
@@ -63,6 +70,39 @@ class MemoryPipeline {
         // Cleanup: Empty the harvest folder
         await fs.emptyDir(harvestPath);
         console.log('   🧹 Harvest folder recycled (cleared).');
+    }
+
+    /**
+     * Remove sensitive patterns from content
+     */
+    cleanseContent(content) {
+        const patterns = [
+            /(?:key|api|secret|token|pass|password|auth)[\s:=]+['"]?([a-z0-9-_]{16,})['"]?/gi,
+            /(?:https?:\/\/)[a-z0-9]+:[a-z0-9]+@[a-z0-9.]+/gi, // URL with credentials
+            /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g // IPv4
+        ];
+
+        let cleansed = content;
+        for (const p of patterns) {
+            cleansed = cleansed.replace(p, (match, p1) => {
+                if (p1) return match.replace(p1, '[REDACTED_BY_NEXUS]');
+                return '[REDACTED_BY_NEXUS]';
+            });
+        }
+        return cleansed;
+    }
+
+    /**
+     * Helper to find files recursively
+     */
+    async globRecursive(dir, pattern) {
+        const glob = require('glob');
+        return new Promise((resolve, reject) => {
+            glob(path.join(dir, pattern).replace(/\\/g, '/'), (err, files) => {
+                if (err) reject(err);
+                else resolve(files);
+            });
+        });
     }
 
     async archiveAuditReports() {

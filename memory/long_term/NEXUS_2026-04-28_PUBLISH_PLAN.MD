@@ -35,3 +35,7 @@ Successfully publish the `@faisal-trainer/human-ai-nexus` package to the NPM reg
 ## Notes:
 - Increment version using `npm version patch` before each new publish.
 - Always check that `cli.js` has `#!/usr/bin/env node` as the first line.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [tdd, psychology]

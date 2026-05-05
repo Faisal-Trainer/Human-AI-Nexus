@@ -22,3 +22,7 @@ Refactor dilakukan secara otomatis menggunakan script PowerShell pada seluruh fi
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]

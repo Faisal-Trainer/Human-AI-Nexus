@@ -19,6 +19,7 @@ Ini adalah agent yang bekerja di balik layar untuk menjaga kecerdasan sistem:
 *   **Golden Crawler**: Pemburu "Emas" yang mencari rahasia koding terbaik.
 *   **Memory Architect**: Pengelola "Ingatan" dan HUB pengetahuan.
 *   **Nexus Orchestrator (Si Bos)**: Pemimpin operasional yang menjalankan **Nexus Engine**.
+*   **The 8 Machines**: Pasukan robot pemindai teknis (Security, UX, Database, TDD, dll) yang memastikan kualitas kode "Nol Cacat".
 
 ---
 

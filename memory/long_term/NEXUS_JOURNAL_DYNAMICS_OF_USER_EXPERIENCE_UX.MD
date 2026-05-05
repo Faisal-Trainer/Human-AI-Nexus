@@ -1,3 +1,5 @@
+> **METADATA (NEXUS SEMANTIC TAGS)**: [design, color-theory, psychology, ux, academic-research]
+
 
 
 International Journal of Computer Applications (0975 – 8887)

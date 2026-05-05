@@ -34,3 +34,7 @@ User melaporkan tampilan modal "Delete Account" yang terlihat tidak optimal (ren
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux]

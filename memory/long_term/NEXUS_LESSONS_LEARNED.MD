@@ -127,3 +127,7 @@ ELSE {
     2.  Aturan Main harus ditempatkan pada "Rak Khusus" yang tetap terlihat di folder `documentation/nexus_rules/`.
     3.  Wajib mendapatkan persetujuan eksplisit sebelum melakukan restrukturisasi folder dokumentasi yang bersifat permanen.
 *Dibuat pada: 2026-05-04 | Referensi: Kasus Restrukturisasi docs/ Nexus Core*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, tdd, vcs, psychology]

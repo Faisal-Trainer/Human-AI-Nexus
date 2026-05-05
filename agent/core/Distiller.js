@@ -62,42 +62,55 @@ ${oldContent.trim()}
      * Distill academic papers into a single knowledge file
      */
     async distillAcademics() {
-        console.log('📚 Distiller: Distilling academic documents...');
-        const academicKeywords = ['paper', 'optimizing', 'experience', 'ux', 'dba2aea', 'artikel'];
+        console.log('📚 Distiller: Distilling academic documents into Actionable Wisdom...');
+        const academicKeywords = ['paper', 'optimizing', 'experience', 'ux', 'dba2aea', 'artikel', 'journal'];
         const files = await fs.readdir(this.knowledgePath);
         const targetFile = path.join(this.knowledgePath, 'NEXUS_ACADEMIC_DISTILLATION.md');
         
-        let consolidatedKnowledge = `\n\n## 🎓 NEW ACADEMIC INSIGHTS - ${new Date().toLocaleDateString()}\n`;
+        const timestamp = new Date().toLocaleDateString();
+        const version = `v${Date.now().toString().slice(-4)}`;
+        let consolidatedKnowledge = `\n\n## 🎓 WISDOM DISTILLATION [${version}] - ${timestamp}\n`;
+        consolidatedKnowledge += `> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights\n\n`;
+        
         let count = 0;
 
         for (const file of files) {
             const lowerFile = file.toLowerCase();
-            if (academicKeywords.some(kw => lowerFile.includes(kw)) && file !== 'NEXUS_ACADEMIC_DISTILLATION.md') {
+            if (academicKeywords.some(kw => lowerFile.includes(kw)) && file !== 'NEXUS_ACADEMIC_DISTILLATION.md' && !file.startsWith('NEXUS_ACADEMIC')) {
                 const content = await fs.readFile(path.join(this.knowledgePath, file), 'utf8');
                 
                 // Intelligent Extraction: Look for H1/H2 and key sections
                 const headerMatch = content.match(/^#+\s+(.*)$/m);
-                const title = headerMatch ? headerMatch[1] : file;
+                const title = headerMatch ? headerMatch[1] : file.replace(this.prefix, '').replace('.md', '');
                 
                 // Extracting sections (Simulated NLP via Regex patterns)
-                const insights = content.match(/(?:insight|temuan|hasil|conclusion)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
-                const recs = content.match(/(?:recommendation|saran|pembelajaran|lesson)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
+                const insights = content.match(/(?:insight|temuan|hasil|conclusion|key point)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
+                const recs = content.match(/(?:recommendation|saran|pembelajaran|lesson|action)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
                 
                 const body = content.replace(/^#+.*$/gm, '').trim();
 
-                consolidatedKnowledge += `### 📄 Asset: ${title}\n`;
-                consolidatedKnowledge += `> **Source**: \`${file}\` | **Type**: Academic Distillation\n\n`;
+                consolidatedKnowledge += `### 📄 ${title}\n`;
+                consolidatedKnowledge += `> **Origin**: \`${file}\` | **Distilled At**: ${timestamp}\n\n`;
                 
-                if (insights) consolidatedKnowledge += `#### 🧐 Core Insights:\n${insights[0].trim().substring(0, 800)}...\n\n`;
-                if (recs) consolidatedKnowledge += `#### 🛠 Recommendations:\n${recs[0].trim().substring(0, 500)}...\n\n`;
+                if (insights) {
+                    consolidatedKnowledge += `#### 🧐 Core Insights (Distilled):\n${insights[0].trim().substring(0, 1000)}\n\n`;
+                }
+                
+                if (recs) {
+                    consolidatedKnowledge += `#### 🛠 Actionable Steps:\n${recs[0].trim().substring(0, 800)}\n\n`;
+                }
                 
                 if (!insights && !recs) {
-                    consolidatedKnowledge += `#### 💡 Content Summary:\n${body.substring(0, 1000)}...\n\n`;
+                    consolidatedKnowledge += `#### 💡 Content Summary:\n${body.substring(0, 1200)}...\n\n`;
                 }
 
-                consolidatedKnowledge += `#### 🔗 Contextual Anchors:\n- [Lihat Standar Terkait](NEXUS_CORE_PRINCIPLES.md)\n- [Jejak Evolusi](NEXUS_LESSONS_LEARNED.MD)\n\n---\n`;
+                consolidatedKnowledge += `#### 🔗 Traceability:\n- [Source Context](${file})\n- [Related Standards](NEXUS_CORE_PRINCIPLES.md)\n\n---\n`;
                 
-                await fs.remove(path.join(this.knowledgePath, file));
+                // We keep the source file but prefix it to avoid re-distilling
+                const newSourcePath = path.join(this.knowledgePath, file.startsWith(this.prefix) ? file : this.prefix + file);
+                if (path.join(this.knowledgePath, file) !== newSourcePath) {
+                    await fs.move(path.join(this.knowledgePath, file), newSourcePath);
+                }
                 count++;
             }
         }
@@ -105,7 +118,7 @@ ${oldContent.trim()}
         if (count > 0) {
             await fs.ensureFile(targetFile);
             await fs.appendFile(targetFile, consolidatedKnowledge);
-            console.log(`   ✅ Distilled ${count} academic files into NEXUS_ACADEMIC_DISTILLATION.md`);
+            console.log(`   ✅ Distilled ${count} academic files into NEXUS_ACADEMIC_DISTILLATION.md (${version})`);
         }
     }
 
@@ -138,16 +151,18 @@ ${oldContent.trim()}
         console.log('🏷️ Distiller: Applying Semantic Tagging to HUB...');
         const files = await fs.readdir(this.knowledgePath);
         const tagMap = {
-            'security': ['auth', 'encryption', 'vulnerability', 'password', 'secure', 'guard', 'keamanan'],
-            'performance': ['speed', 'caching', 'latency', 'optimize', 'fast', 'parallel', 'performa'],
-            'ui-ux': ['design', 'aesthetic', 'layout', 'user', 'interface', 'frontend', 'estetika'],
-            'database': ['query', 'schema', 'sql', 'migration', 'store', 'data', 'database'],
-            'tdd': ['test', 'unit', 'quality', 'verification', 'mock', 'pengujian'],
-            'vcs': ['git', 'commit', 'branch', 'merge', 'repo', 'repository']
+            'security': ['auth', 'encryption', 'vulnerability', 'password', 'secure', 'guard', 'keamanan', 'hsts', 'cors'],
+            'performance': ['speed', 'caching', 'latency', 'optimize', 'fast', 'parallel', 'performa', 'redis', 'compression'],
+            'ui-ux': ['design', 'aesthetic', 'layout', 'user', 'interface', 'frontend', 'estetika', 'color', 'typography', 'branding'],
+            'database': ['query', 'schema', 'sql', 'migration', 'store', 'data', 'database', 'uuid', 'fillable'],
+            'tdd': ['test', 'unit', 'quality', 'verification', 'mock', 'pengujian', 'tdd', 'assertion'],
+            'vcs': ['git', 'commit', 'branch', 'merge', 'repo', 'repository', 'worktree'],
+            'marketing': ['seo', 'copywriting', 'conversion', 'analytics', 'marketing', 'audience'],
+            'psychology': ['cognitive', 'behavior', 'semiotic', 'psychology', 'human', 'emotion']
         };
 
         for (const file of files) {
-            if (!file.endsWith('.md')) continue;
+            if (!file.toLowerCase().endsWith('.md')) continue;
             const filePath = path.join(this.knowledgePath, file);
             let content = await fs.readFile(filePath, 'utf8');
             
@@ -176,26 +191,30 @@ ${oldContent.trim()}
      * Automatically link technical keywords to related documents in HUB (Phase 4).
      */
     async applySemanticLinking() {
-        console.log('🔗 Distiller: Applying Semantic Cross-Linking to HUB...');
+        console.log('🔗 Distiller: Applying Semantic Cross-Linking to HUB (Optimized)...');
         const files = await fs.readdir(this.knowledgePath);
-        const mdFiles = files.filter(f => f.endsWith('.md'));
+        const mdFiles = files.filter(f => f.toLowerCase().endsWith('.md'));
         
-        const linkMap = {};
+        // Build keyword map: { keyword: targetFile }
+        const linkMap = new Map();
         mdFiles.forEach(f => {
-            const clean = f.replace(this.prefix, '').replace('.md', '');
-            if (clean.length > 3) linkMap[clean.toLowerCase()] = f;
+            const clean = f.replace(this.prefix, '').replace('.md', '').toLowerCase();
+            if (clean.length > 3) linkMap.set(clean, f);
         });
+
+        const keywords = Array.from(linkMap.keys()).sort((a, b) => b.length - a.length); // Longer keywords first to avoid partial matches
 
         for (const file of mdFiles) {
             const filePath = path.join(this.knowledgePath, file);
             let content = await fs.readFile(filePath, 'utf8');
             let modified = false;
 
-            for (const [keyword, targetFile] of Object.entries(linkMap)) {
+            for (const keyword of keywords) {
+                const targetFile = linkMap.get(keyword);
                 if (file === targetFile) continue;
                 
-                // Avoid linking if it's already a link or in a header
-                const regex = new RegExp(`(?<!\\[)\\b${keyword}\\b(?![\\]\\(])`, 'gi');
+                // Optimized Regex: Case-insensitive, avoids already linked text
+                const regex = new RegExp(`(?<!\\[)\\b${this.escapeRegExp(keyword)}\\b(?![\\]\\(])`, 'gi');
                 
                 if (regex.test(content) && !content.includes(`](${targetFile})`)) {
                     content = content.replace(regex, (match) => `[${match}](${targetFile})`);
@@ -208,6 +227,13 @@ ${oldContent.trim()}
                 console.log(`   🔗 Linked concepts in ${file}`);
             }
         }
+    }
+
+    /**
+     * Helper to escape regex special characters
+     */
+    escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
     /**

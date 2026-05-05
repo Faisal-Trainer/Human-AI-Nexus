@@ -21,3 +21,7 @@ Dokumen ini adalah *backlog* strategis untuk meningkatkan nilai jual repository 
 
 ---
 *Rencana ini akan dieksekusi setelah pondasi "Framework Serius" selesai dibangun.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology]

@@ -1,59 +1,56 @@
-# ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v2.2)
+# ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v3.0 — Autonomous Evolution)
 
-Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan dan pemeliharaan sistem Nexus.
-
----
-
-## ⚡ 1. Protokol: "Mass Refactor" (Golden ➔ HUB)
-**Deskripsi**: Proses pembersihan dan integrasi pengetahuan skala besar dari folder `golden/` ke pusat memori (HUB).
-
-*   **Trigger**: Perintah User ("Mass Refactor").
-*   **Aktor**: `Golden Crawler` & `Memory Architect`.
-*   **Algoritma Kerja**:
-    1.  **Deep Batch Scan**: Memindai seluruh file jurnal, riset, dan pola di `golden/` tanpa kecuali.
-    2.  **Universal Collision Logic**: Jika ditemukan kesamaan antara isi Golden dan HUB, wajib menerapkan format:
-        Opsi A: { Hub_Knowledge } 
-        Opsi B: { Golden_New_Insight }
-        (Pilihan Opsi Tak Terbatas)
-    3.  **Integration**: Pembaruan dokumen HUB secara massal untuk mencakup seluruh temuan baru.
+Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemeliharaan sistem, dan evolusi fisik mesin Nexus AI.
 
 ---
 
-## ⚡ 2. Protokol: "Mass Update" (HUB ➔ Skill)
-**Deskripsi**: Proses transformasi seluruh standar dokumentasi di HUB menjadi keahlian teknis (Skills) bagi Agen Spesialis.
+## ⚡ 1. Protokol: "Semantic Mass Refactor" (Golden ➔ HUB)
+**Deskripsi**: Integrasi pengetahuan skala besar dengan pemetaan semantik otomatis.
 
-*   **Trigger**: Perintah User ("Mass Update").
-*   **Aktor**: `Nexus Guru`.
+*   **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
 *   **Algoritma Kerja**:
-    1.  **Full Brain Sync**: Guru memindai seluruh perubahan terbaru di folder `memory/long_term/`.
-    2.  **Actionable Refactor**: Mengubah prinsip abstrak menjadi instruksi operasional di folder `skill/`.
-    3.  **Collision Resolution (Skill-level)**: Jika update Skill bertabrakan dengan pola lama, wajib menggunakan format:
-        Opsi A: { Legacy_Skill } 
-        Opsi B: { New_Hub_Skill }
-        (Pilihan Opsi Tak Terbatas)
+    1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
+    2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
+    3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
 
 ---
 
-## ⚡ 3. Protokol: "Update Engine" (Nexus Maintenance)
-**Deskripsi**: Penyesuaian perangkat lunak inti (Engine) dan instruksi dasar Agen Nexus terhadap fitur atau teknologi baru.
+## ⚡ 2. Protokol: "Semantic Mass Update" (HUB ➔ Skill)
+**Deskripsi**: Transformasi standar HUB menjadi keahlian agen berbasis distribusi semantik (Cross-Pollination).
 
-*   **Trigger**: Kebutuhan integrasi fitur baru (misal: Multi-Option logic baru).
+*   **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
 *   **Algoritma Kerja**:
-    1.  **NexusEngine Adjustment**: Modifikasi kode di `agent/core/NexusEngine.js` untuk mendukung fitur baru dan pemetaan folder `documentation/`.
-    2.  **Internal Brain Tuning**: Memperbarui file `.md` di folder `agent/internal/` (Orchestrator, Guru, dsb).
-    3.  **External-Only Enforcement**: Memastikan installer (`cli.js`) hanya mengekspor komponen `external/` guna menjaga privasi IP pusat.
-    4.  **Zero-Breach Collision Logic**: Fitur baru harus diintegrasikan tanpa merusak fitur lama menggunakan pendekatan **Multi-Option (Opsi A maupun Opsi B)**.
-
-## ⚡ 4. Protokol: "Ecosystem Synchronization" (README & Public Docs)
-**Deskripsi**: Sinkronisasi seluruh dokumentasi publik agar mencerminkan kemampuan terbaru sistem (Zero-Gap Documentation).
-
-*   **Trigger**: Perubahan versi Protokol atau penambahan fitur besar (misal: Multi-Option Logic).
-*   **Aktor**: `Nexus Orchestrator`.
-*   **Algoritma Kerja**:
-    1.  **Documentation Audit**: Memeriksa `README.md`, `PANDUAN_CEPAT.md`, dan file root lainnya untuk mencari informasi yang sudah usang (Outdated).
-    2.  **Alignment Refactor**: Memperbarui deskripsi fitur, diagram alur, dan panduan perintah agar selaras dengan `INTERNAL_WORKFLOW.md` terbaru.
-    3.  **Transparency Injection**: Memastikan User memahami evolusi sistem dengan mencantumkan pembaruan logika (seperti Universal Collision Logic) pada dokumentasi utama.
+    1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
+    2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
+    3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
 
 ---
-*Status: Protokol v2.2 Aktif*
-*Target: Seamless Knowledge-to-Action Evolution*
+
+## ⚡ 3. Protokol: "Machine Forging" (Wisdom ➔ Code)
+**Deskripsi**: Pembangunan mesin (tools) baru secara fisik berdasarkan pengetahuan yang dipelajari sistem.
+
+*   **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
+*   **Aktor**: `Machinist Forge`.
+*   **Algoritma Kerja**:
+    1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
+    2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
+    3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
+
+---
+
+## ⚡ 4. Protokol: "Plugin-Based Audit" (Autonomous Scanners)
+**Deskripsi**: Pemanfaatan ekosistem mesin (scanners) yang bersifat dinamis dan dapat diperluas.
+
+*   **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
+*   **Algoritma Kerja**:
+    1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
+    2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
+
+---
+
+## ⚡ 5. Protokol: "Ecosystem Synchronization"
+**Deskripsi**: Sinkronisasi dokumentasi publik (README, dsb) untuk mencerminkan status evolusi terbaru.
+
+---
+*Status: Protokol v3.0 Aktif (Autonomous Evolution)*
+*Target: Zero Flaws & Physical Self-Evolution*

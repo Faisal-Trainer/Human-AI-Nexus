@@ -22,3 +22,7 @@ Meskipun migrasi awal ke Tailwind v4 telah dilakukan, penggunaan variabel CSS ma
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]

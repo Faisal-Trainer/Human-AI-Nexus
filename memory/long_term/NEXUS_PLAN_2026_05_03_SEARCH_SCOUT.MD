@@ -52,3 +52,7 @@ Meningkatkan *discoverability* konten novel di platform NEXUS LORE dengan menyed
 ---
 **STATUS**: SIAP EKSEKUSI  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]

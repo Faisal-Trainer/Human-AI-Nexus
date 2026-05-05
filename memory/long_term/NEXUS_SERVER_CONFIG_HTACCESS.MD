@@ -65,3 +65,7 @@ Blokir akses publik terhadap file sensitif:
 ---
 
 *Status: Documentation Synchronized | NEXUS LORE Standards*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, vcs]

@@ -168,3 +168,7 @@ The design system utilizes a consistent **12px border radius** across all primar
 - **Progress Bar:** A thin 4px track using #1E293B, with the fill using the Cyber Teal (#06B6D4) gradient.
 - **Chapter Navigation:** Clean lists with Inter Medium (14px) and generous 16px vertical padding for easy tapping on mobile.
 - **Bookmarks:** Amber Gold (#F59E0B) dog-ear or icon indicators to contrast sharply against the deep slate backgrounds.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, marketing]

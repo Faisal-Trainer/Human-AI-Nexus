@@ -14,3 +14,7 @@ Masalah foto profil yang tidak muncul telah diperbaiki dengan menyesuaikan konfi
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]

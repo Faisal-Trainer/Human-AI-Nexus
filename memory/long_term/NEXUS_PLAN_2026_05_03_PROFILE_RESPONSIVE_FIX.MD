@@ -31,3 +31,7 @@ User melaporkan bahwa pada lebar layar 360px (mobile), halaman profile memiliki 
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]

@@ -32,3 +32,7 @@ Dashboard saat ini masih menggunakan template default Jetstream yang tidak mence
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]

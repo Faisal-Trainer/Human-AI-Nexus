@@ -11,3 +11,7 @@ Aplikasi sekarang berada pada puncak standar teknis Tailwind v4. Struktur kode i
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]

@@ -52,3 +52,7 @@
 - **Input Validation**: Never trust user input. Sanitize and validate everything.
 - **Least Privilege**: Users and processes should only have the minimum access necessary.
 - **Traceability**: Every sensitive action must be logged and auditable.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, tdd]

@@ -49,3 +49,7 @@ SEO tidak hanya soal meta tags, tapi juga performa:
 
 ---
 *Status: Documented for Nexus Lore Knowledge Base*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, marketing]

@@ -40,3 +40,7 @@ Documentation is not the byproduct; it is the blueprint. No implementation shoul
 ## 3. Specialist Roles
 - The system operates through **Agents** (Specialists) overseen by an **Orchestrator**.
 - Each agent brings a specific "Lens" (Security, UX, SEO, etc.) to ensure a multi-dimensional perspective on quality.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, marketing, psychology]

@@ -41,3 +41,7 @@ Sistem saat ini sudah memiliki dasar Laravel Scout pada model `Franchise`, namun
 ---
 **STATUS**: MENUNGGU PERSETUJUAN  
 **ACTION**: Approve / Revise / Reject
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd]

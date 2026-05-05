@@ -16,13 +16,13 @@ Data mentah dari Fase 1 tidak boleh langsung dimasukkan ke HUB. Ia harus melalui
 
 ## 🛡️ Fase 3: Hardening (Protocol Update)
 Setelah disaring, aturan baru diinjeksikan ke dalam sistem:
-- **Update Lessons Learned**: Tambahkan poin baru ke `memory/long_term/LESSONS_LEARNED.md`.
+- **Update Lessons Learned**: Tambahkan poin baru ke `memory/long_term/[LESSONS_LEARNED.md](NEXUS_LESSONS_LEARNED.MD)`.
 - **Refactor Skills**: Jalankan perintah `nexus update-skills` agar seluruh Agent segera mematuhi aturan baru tersebut di memori jangka pendek mereka.
 - **Standard Update**: Jika krusial, perbarui file `STANDAR_ZERO_FLAWS.md`.
 
 ## 📉 Fase 4: Compression (Storage Optimization)
 Untuk mencegah *Knowledge Bloat*:
-- **Monthly Archive**: Pindahkan log audit bulanan ke `SESSION_HISTORY_ARCHIVE.md`.
+- **Monthly Archive**: Pindahkan log audit bulanan ke `[SESSION_HISTORY_ARCHIVE.md](NEXUS_SESSION_HISTORY_ARCHIVE.MD)`.
 - **Academic Distillation**: Ubah dokumen teori/jurnal menjadi "Cheat Sheets" operasional.
 - **Duplicate Removal**: Hapus artifact yang sudah tidak relevan atau sudah di-merge.
 

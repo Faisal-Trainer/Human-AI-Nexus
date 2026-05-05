@@ -43,3 +43,7 @@ A strategic framework for building applications that bridge the gap between trad
 - Use traditional databases (SQL) for high-frequency user interactions.
 - Use Blockchain (Smart Contracts) for critical state changes, ownership transfers, and high-value transactions.
 - Maintain a 1:1 mapping between Database UUIDs and On-Chain Asset IDs to ensure traceability.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]

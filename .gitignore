@@ -1,67 +1,70 @@
-# Dependency directories
+# 🛡️ NEXUS AI: GITIGNORE PROTOCOL
+# Standardized for Phase 5 (Knowledge Shelving)
+
+# --- Dependencies ---
 node_modules/
 jspm_packages/
+.pnp*
+.pnp.js
+
+# --- Environment & Sensitive ---
 .env
-.DS_Store
-dist/
-audit/report_*
-audit/plan_*
-planning/plan_*
+.env.*
+*.local
+*.secret
 
-# Debug logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-*.log
-
-# OS metadata
+# --- OS & IDEs ---
 .DS_Store
 Thumbs.db
-
-# IDEs and editors
 .idea/
 .vscode/
 *.swp
 *.swo
+*.tmp
+*.temp
 
-# Project specific
-nexus/audit/*
-!nexus/audit/.gitkeep
-nexus/planning/*
-!nexus/planning/.gitkeep
-nexus/records/*
-!nexus/records/.gitkeep
-nexus/summary/*
-!nexus/summary/.gitkeep
-nexus/knowledge/*
-!nexus/knowledge/.gitkeep
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs/
 
-# Root Documentation (Keep .md files, ignore others)
-audit/*
-!audit/.gitkeep
-!audit/*.md
+# --- Nexus Ingestion & Transit (CLEAN REPO) ---
+# Ignore the harvest area as it is a temporary transit folder
+golden/harvest/*
+!golden/harvest/.gitkeep
 
-planning/*
-!planning/.gitkeep
-!planning/*.md
+# Ignore scratch files and temporary test scripts
+scratch/
+tests/tmp/
+tests/coverage/
 
-records/*
-!records/.gitkeep
-!records/*.md
+# --- Nexus Memory Management ---
+# Short Term Memory (Audit/Planning results that are not yet archived)
+memory/short_term/audit/*
+memory/short_term/planning/*
+memory/short_term/records/*
+memory/short_term/summary/*
+!memory/short_term/**/*.gitkeep
 
-summary/*
-!summary/.gitkeep
+# Keep the Long Term HUB (Knowledge racks)
+# !memory/long_term/
 
-algorithms/*
-!algorithms/.gitkeep
-!algorithms/*.md
+# --- Documentation (Legacy Folders) ---
+# Since we now use the HUB, we only keep .md files if specifically needed
+# but generally we want to keep the documentation folder clean
+documentation/audit/*
+documentation/planning/*
+documentation/records/*
+documentation/summary/*
+documentation/algorithms/*
+documentation/legal/*
+!documentation/**/*.md
+!documentation/**/.gitkeep
 
-design/*
-!design/.gitkeep
-!design/*.md
-
-.env
-
-.env
-.env
-.env
+# --- Build & Output ---
+dist/
+build/
+out/
+bin/

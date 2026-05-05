@@ -57,4 +57,4 @@ Mengubah interaksi statis menjadi dinamis dengan mengimplementasikan sistem WebS
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, nexus_institutionalized]

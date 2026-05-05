@@ -24,4 +24,4 @@ Protokol ini memastikan efisiensi bandwidth, kecepatan muat (LCP), dan keamanan 
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, nexus_institutionalized]

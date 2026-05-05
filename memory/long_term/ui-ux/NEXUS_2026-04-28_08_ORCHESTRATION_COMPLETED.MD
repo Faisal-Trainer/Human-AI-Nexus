@@ -141,4 +141,4 @@ Orkestrasi sistem NEXUS LORE untuk penyelarasan dengan Standar Nexus (Zero Flaws
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs, marketing, nexus_institutionalized]

@@ -61,4 +61,4 @@ Agar lolos review **App Store (Apple)** dan **Play Store (Google)**:
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd, nexus_institutionalized]

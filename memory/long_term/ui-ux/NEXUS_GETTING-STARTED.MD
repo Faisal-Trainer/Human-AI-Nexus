@@ -53,4 +53,4 @@ npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, vcs, psychology, nexus_core, governance, standards]

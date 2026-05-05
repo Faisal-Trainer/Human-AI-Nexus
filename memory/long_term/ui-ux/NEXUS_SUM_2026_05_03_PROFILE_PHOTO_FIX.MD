@@ -17,4 +17,4 @@ Masalah foto profil yang tidak muncul telah diperbaiki dengan menyesuaikan konfi
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, nexus_institutionalized]

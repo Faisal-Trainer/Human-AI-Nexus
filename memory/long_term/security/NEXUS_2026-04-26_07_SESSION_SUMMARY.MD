@@ -236,4 +236,4 @@ Proyek telah berhasil mencapai status **MVP (Minimum Viable Product)** yang fung
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, nexus_institutionalized]

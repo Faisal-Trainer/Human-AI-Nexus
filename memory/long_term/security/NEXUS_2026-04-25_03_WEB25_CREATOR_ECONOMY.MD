@@ -178,4 +178,4 @@ Karena MVP saat ini hanya fokus pada Novel (teks) dan Pembaca, fitur Web 3.0 bel
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, marketing, nexus_institutionalized]

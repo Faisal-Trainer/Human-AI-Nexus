@@ -69,4 +69,4 @@ _Verified by Nexus Orchestrator | Last Update: April 2026_
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [vcs, psychology, nexus_core, governance, standards]

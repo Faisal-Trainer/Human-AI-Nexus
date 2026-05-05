@@ -60,4 +60,4 @@ Nexus AI is designed to be highly portable and integrable with existing codebase
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, psychology, nexus_core, governance, standards]

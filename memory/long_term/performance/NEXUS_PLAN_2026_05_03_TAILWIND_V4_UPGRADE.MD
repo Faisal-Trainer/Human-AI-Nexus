@@ -37,4 +37,4 @@ Proyek saat ini menggunakan campuran Tailwind CSS v3.4.0 dan `@tailwindcss/vite`
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, nexus_institutionalized]

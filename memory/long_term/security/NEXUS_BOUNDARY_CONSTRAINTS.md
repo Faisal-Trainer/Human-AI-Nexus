@@ -30,4 +30,4 @@ Dokumen ini berisi batasan operasional mutlak yang ditetapkan oleh USER untuk pr
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, nexus_institutionalized]

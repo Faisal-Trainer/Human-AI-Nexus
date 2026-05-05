@@ -25,4 +25,4 @@ Gunakan checkpoint manusia pada titik-titik kritis:
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, nexus_institutionalized]

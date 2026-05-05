@@ -50,4 +50,4 @@ Pintu masuk (Login & Register) akan dioptimasi dengan pendekatan **UX-First**. F
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, psychology, nexus_institutionalized]

@@ -175,4 +175,4 @@ Data visualizations and "Invest" buttons utilize the Cyber Teal and Amber Gold a
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, tdd, vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, tdd, vcs, psychology, nexus_institutionalized]

@@ -171,4 +171,4 @@ The design system utilizes a consistent **12px border radius** across all primar
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, marketing, nexus_institutionalized]

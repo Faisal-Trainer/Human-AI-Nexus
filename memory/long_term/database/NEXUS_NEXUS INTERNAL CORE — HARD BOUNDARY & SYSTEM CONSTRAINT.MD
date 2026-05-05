@@ -280,4 +280,4 @@ Internal Core dianggap selesai jika:
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [database, tdd, vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, tdd, vcs, psychology, nexus_core, governance, standards]

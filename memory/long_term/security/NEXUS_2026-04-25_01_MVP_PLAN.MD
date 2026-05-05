@@ -234,4 +234,4 @@ Kita akan membuat struktur tabel untuk fitur utama dan interaksi pengguna:
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, marketing, nexus_institutionalized]

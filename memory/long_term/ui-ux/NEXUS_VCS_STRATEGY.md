@@ -23,4 +23,4 @@ Gunakan **Git Worktree** untuk mengerjakan fitur baru agar workspace tetap bersi
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, nexus_institutionalized]

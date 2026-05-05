@@ -35,4 +35,4 @@ Dashboard saat ini masih menggunakan template default Jetstream yang tidak mence
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]

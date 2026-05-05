@@ -33,4 +33,4 @@ Dokumentasi bukan sekadar catatan, melainkan **blueprint wajib**.
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, nexus_institutionalized]

@@ -23,4 +23,4 @@ User melaporkan bahwa foto profil tidak muncul setelah di-update. Hasil investig
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, nexus_institutionalized]

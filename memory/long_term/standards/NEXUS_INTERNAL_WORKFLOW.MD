@@ -60,4 +60,4 @@ Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemelihara
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database, psychology, nexus_core, governance, standards]

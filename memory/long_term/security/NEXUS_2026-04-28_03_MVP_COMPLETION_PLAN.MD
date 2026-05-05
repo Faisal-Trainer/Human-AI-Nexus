@@ -262,4 +262,4 @@ Dokumen ini mendetailkan langkah-alih teknis untuk menyelesaikan tahap MVP proye
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, tdd, nexus_institutionalized]

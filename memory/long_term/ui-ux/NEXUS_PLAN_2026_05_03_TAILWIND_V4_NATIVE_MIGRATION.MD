@@ -25,4 +25,4 @@ Meskipun migrasi awal ke Tailwind v4 telah dilakukan, penggunaan variabel CSS ma
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, nexus_institutionalized]

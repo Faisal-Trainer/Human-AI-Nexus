@@ -20,4 +20,4 @@ Refactor besar-besaran pada komponen UI dasar Jetstream telah diselesaikan untuk
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, nexus_institutionalized]

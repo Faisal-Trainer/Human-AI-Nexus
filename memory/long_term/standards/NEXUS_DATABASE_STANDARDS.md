@@ -23,4 +23,4 @@ Standar ini wajib diikuti untuk memastikan integritas data dan kesiapan skalabil
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]

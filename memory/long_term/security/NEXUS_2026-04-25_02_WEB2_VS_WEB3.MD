@@ -230,4 +230,4 @@ Mengingat ini adalah tahap MVP, memulai murni dengan Web 3.0 berisiko membunuh p
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, nexus_institutionalized]

@@ -18,4 +18,4 @@ Panduan ini ditujukan untuk pengembangan UI modern menggunakan stack TALL (Tailw
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, nexus_institutionalized]

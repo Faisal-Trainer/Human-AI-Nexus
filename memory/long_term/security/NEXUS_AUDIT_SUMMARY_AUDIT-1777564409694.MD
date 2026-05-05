@@ -81,4 +81,4 @@ Consolidated Findings:
 - [INFO] [documentation-architect] File has over 50 lines but no detected documentation/docstrings. (tests/Feature/UpdatePasswordTest.php)
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, marketing, nexus_institutionalized]

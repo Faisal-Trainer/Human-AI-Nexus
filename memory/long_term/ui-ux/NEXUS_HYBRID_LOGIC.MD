@@ -46,4 +46,4 @@ A strategic framework for building applications that bridge the gap between trad
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, nexus_institutionalized]

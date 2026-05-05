@@ -51,4 +51,4 @@ Berdasarkan rencana strategis `PLAN_2026_05_03_MOBILE_UX.md` yang telah disetuju
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, tdd, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, tdd, marketing, nexus_institutionalized]

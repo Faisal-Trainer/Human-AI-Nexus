@@ -206,4 +206,4 @@ Semua halaman antarmuka pembaca publik (Eksplorasi Katalog, Detail Novel, Membac
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, vcs, nexus_institutionalized]

@@ -18,4 +18,4 @@ Refactor ini berhasil mengubah komponen standar Jetstream menjadi elemen UI yang
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, tdd, nexus_institutionalized]

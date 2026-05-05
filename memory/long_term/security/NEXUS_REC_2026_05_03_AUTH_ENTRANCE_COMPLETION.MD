@@ -27,4 +27,4 @@ Implementasi sistem spasi dan desain tokens pada halaman autentikasi sekunder.
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, psychology, nexus_institutionalized]

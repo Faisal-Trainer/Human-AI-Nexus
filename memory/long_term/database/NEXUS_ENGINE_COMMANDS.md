@@ -31,4 +31,4 @@ Jika muncul error `MODULE_NOT_FOUND` pada path `C:\xampp\nodejs\node_modules\@fa
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs, nexus_institutionalized]

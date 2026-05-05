@@ -37,4 +37,4 @@ User melaporkan tampilan modal "Delete Account" yang terlihat tidak optimal (ren
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, nexus_institutionalized]

@@ -37,4 +37,4 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology, nexus_core, governance, standards]

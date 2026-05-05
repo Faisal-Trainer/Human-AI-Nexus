@@ -111,4 +111,4 @@ graph TD
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, marketing, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, marketing, psychology, nexus_core, governance, standards]

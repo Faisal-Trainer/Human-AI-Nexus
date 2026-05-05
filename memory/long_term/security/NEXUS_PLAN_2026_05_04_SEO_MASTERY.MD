@@ -41,4 +41,4 @@ Dengan akuisisi domain resmi **NEXUSLORE.NET**, proyek ini memasuki fase visibil
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, marketing]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, marketing, nexus_institutionalized]

@@ -295,4 +295,4 @@ Bukan:
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs, nexus_core, governance, standards]

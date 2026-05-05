@@ -25,4 +25,4 @@ Refactor dilakukan secara otomatis menggunakan script PowerShell pada seluruh fi
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, nexus_institutionalized]

@@ -28,4 +28,4 @@ Untuk mencapai performa "Elite" dan skala produksi, aplikasi memerlukan sistem c
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, nexus_institutionalized]

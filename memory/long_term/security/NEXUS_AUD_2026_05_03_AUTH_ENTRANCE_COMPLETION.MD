@@ -19,4 +19,4 @@ Tahap "Pintu Masuk" (Entrance) dari NexusLore secara resmi telah mencapai standa
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, nexus_institutionalized]

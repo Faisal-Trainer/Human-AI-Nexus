@@ -38,4 +38,4 @@ Successfully publish the `@faisal-trainer/human-ai-nexus` package to the NPM reg
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [tdd, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [tdd, psychology, nexus_institutionalized]

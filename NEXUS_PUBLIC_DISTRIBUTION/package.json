@@ -1,0 +1,35 @@
+{
+  "name": "human-ai-nexus",
+  "version": "3.0.0",
+  "description": "Documentation-First Framework for Human-AI Collaborative Development",
+  "main": "cli.js",
+  "type": "commonjs",
+  "bin": {
+    "nexus": "./cli.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "node cli.js run",
+    "refactor": "node cli.js refactor",
+    "update-skills": "node cli.js update-skills",
+    "test": "node tests/TDD/runner.js"
+  },
+  "keywords": [
+    "ai",
+    "orchestration",
+    "documentation",
+    "framework",
+    "nexus",
+    "tdd",
+    "automation"
+  ],
+  "author": "Faisal-Trainer",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "glob": "^8.1.0",
+    "chalk": "^4.1.2"
+  }
+}

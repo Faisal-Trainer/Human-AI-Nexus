@@ -21,4 +21,4 @@ Template ini digunakan untuk merencanakan evolusi proyek dari MVP menuju ekosist
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, nexus_institutionalized]

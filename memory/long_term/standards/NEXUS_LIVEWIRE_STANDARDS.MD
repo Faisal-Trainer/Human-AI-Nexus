@@ -142,4 +142,4 @@ Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah men
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]

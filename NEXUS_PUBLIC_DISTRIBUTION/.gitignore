@@ -1,0 +1,70 @@
+# 🛡️ NEXUS AI: GITIGNORE PROTOCOL
+# Standardized for Phase 5 (Knowledge Shelving)
+
+# --- Dependencies ---
+node_modules/
+jspm_packages/
+.pnp*
+.pnp.js
+
+# --- Environment & Sensitive ---
+.env
+.env.*
+*.local
+*.secret
+
+# --- OS & IDEs ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.temp
+
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs/
+
+# --- Nexus Ingestion & Transit (CLEAN REPO) ---
+# Ignore the harvest area as it is a temporary transit folder
+golden/harvest/*
+!golden/harvest/.gitkeep
+
+# Ignore scratch files and temporary test scripts
+scratch/
+tests/tmp/
+tests/coverage/
+
+# --- Nexus Memory Management ---
+# Short Term Memory (Audit/Planning results that are not yet archived)
+memory/short_term/audit/*
+memory/short_term/planning/*
+memory/short_term/records/*
+memory/short_term/summary/*
+!memory/short_term/**/*.gitkeep
+
+# Keep the Long Term HUB (Knowledge racks)
+# !memory/long_term/
+
+# --- Documentation (Legacy Folders) ---
+# Since we now use the HUB, we only keep .md files if specifically needed
+# but generally we want to keep the documentation folder clean
+documentation/audit/*
+documentation/planning/*
+documentation/records/*
+documentation/summary/*
+documentation/algorithms/*
+documentation/legal/*
+!documentation/**/*.md
+!documentation/**/.gitkeep
+
+# --- Build & Output ---
+dist/
+build/
+out/
+bin/

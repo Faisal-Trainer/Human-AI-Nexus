@@ -19,4 +19,4 @@ Seluruh halaman pendukung autentikasi telah direfactor untuk menggunakan sistem 
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, nexus_institutionalized]

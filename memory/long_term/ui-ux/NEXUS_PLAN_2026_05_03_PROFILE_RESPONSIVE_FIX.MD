@@ -34,4 +34,4 @@ User melaporkan bahwa pada lebar layar 360px (mobile), halaman profile memiliki 
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, nexus_institutionalized]

@@ -226,4 +226,4 @@ Dokumen ini merancang algoritma dan alur fitur yang akan dikerjakan pada **Fase 
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, nexus_institutionalized]

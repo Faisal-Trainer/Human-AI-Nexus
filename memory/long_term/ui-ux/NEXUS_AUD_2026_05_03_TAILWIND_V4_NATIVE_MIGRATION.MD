@@ -14,4 +14,4 @@ Aplikasi sekarang berada pada puncak standar teknis Tailwind v4. Struktur kode i
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, nexus_institutionalized]

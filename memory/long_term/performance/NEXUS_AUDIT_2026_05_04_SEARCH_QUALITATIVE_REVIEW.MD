@@ -38,4 +38,4 @@ Implementasi dinyatakan **LULUS** standar Nexus External Boundary v2. Fitur penc
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd, nexus_institutionalized]

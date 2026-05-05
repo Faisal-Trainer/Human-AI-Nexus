@@ -78,4 +78,4 @@ nexus dell
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [vcs, nexus_core, governance, standards]

@@ -24,4 +24,4 @@ Dokumen ini adalah *backlog* strategis untuk meningkatkan nilai jual repository 
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology, nexus_institutionalized]

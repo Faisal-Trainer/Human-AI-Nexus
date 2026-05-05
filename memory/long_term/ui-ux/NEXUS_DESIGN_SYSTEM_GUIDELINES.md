@@ -27,4 +27,4 @@ Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, nexus_institutionalized]

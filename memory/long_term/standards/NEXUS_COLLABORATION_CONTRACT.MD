@@ -43,4 +43,4 @@ Documentation is not the byproduct; it is the blueprint. No implementation shoul
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, marketing, psychology]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, marketing, psychology, nexus_institutionalized]

@@ -378,4 +378,4 @@ Dokumen ini adalah rencana strategis jangka panjang untuk pengembangan ekosistem
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, vcs, nexus_institutionalized]

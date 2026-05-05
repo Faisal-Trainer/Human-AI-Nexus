@@ -32,4 +32,4 @@ This document serves as a record of UI/UX regressions and technical errors encou
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, vcs, nexus_institutionalized]

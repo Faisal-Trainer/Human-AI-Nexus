@@ -186,4 +186,4 @@ Semua fondasi inti *database* dan *role management* telah dieksekusi dan dipasti
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, database, vcs, nexus_institutionalized]

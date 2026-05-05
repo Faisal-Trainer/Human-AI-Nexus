@@ -1,4 +1,5 @@
 # 🤖 Human-AI Nexus: Knowledge Architect Edition
+
 > **Version**: v3.5.0 (Phase 5: Knowledge Shelving)
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
@@ -34,6 +35,7 @@ Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Autonomous Gove
 ### ⚙️ 8 Mesin Otonom (The Core Machines)
 
 Sistem ini kini ditenagai oleh 8 modul spesialis yang bekerja secara independen:
+
 1.  **Validator.js**: Verifikasi bukti fisik keberhasilan tugas.
 2.  **BugHunter.js**: Penegak "Aturan 3 Perbaikan" untuk mencegah loop halusinasi.
 3.  **Designer.js**: Automasi penalaran desain (Warna, Font, Style).
@@ -82,18 +84,18 @@ graph TD
 
 ## 📂 Struktur Folder (AI Agent System Structure)
 
-| Folder                 | Deskripsi                                                                 |
-| :--------------------- | :------------------------------------------------------------------------ |
-| `📂 agent/core/`       | **Core Logic**: NexusEngine, Orchestrator, dan Smart Shelving Engine.     |
-| `📂 agent/tools/`      | **Tools & Specialists**: Auditor, TDDGuard, Machinist, dan Distiller.     |
-| `📂 agent/prompts/`    | **The Brain**: Library Agent MD (Internal & External).                    |
-| `📂 workflow/`         | **Skill Rack**: Aturan main (Workflows) berbasis kategori.                |
-| `📂 memory/long_term/` | **Smart HUB**: Knowledge yang sudah disusun dalam **Rak Semantik**.        |
-| `📂 memory/long_term/security/` | **Rack**: Keamanan, Auth, dan Protokol Audit.                    |
-| `📂 memory/long_term/performance/` | **Rack**: Optimasi, Caching, dan Speed.                       |
-| `📂 memory/long_term/ui-ux/` | **Rack**: Design, Aesthetics, dan Responsive Standards.            |
-| `📂 documentation/nexus_rules/` | **Governance**: Instruksi operasional permanen untuk Manusia.    |
-| `📂 tests/`            | **TDD Lab**: Pengujian otomatis berbasis Iron Laws.                       |
+| Folder                             | Deskripsi                                                             |
+| :--------------------------------- | :-------------------------------------------------------------------- |
+| `📂 agent/core/`                   | **Core Logic**: NexusEngine, Orchestrator, dan Smart Shelving Engine. |
+| `📂 agent/tools/`                  | **Tools & Specialists**: Auditor, TDDGuard, Machinist, dan Distiller. |
+| `📂 agent/prompts/`                | **The Brain**: Library Agent MD (Internal & External).                |
+| `📂 workflow/`                     | **Skill Rack**: Aturan main (Workflows) berbasis kategori.            |
+| `📂 memory/long_term/`             | **Smart HUB**: Knowledge yang sudah disusun dalam **Rak Semantik**.   |
+| `📂 memory/long_term/security/`    | **Rack**: Keamanan, Auth, dan Protokol Audit.                         |
+| `📂 memory/long_term/performance/` | **Rack**: Optimasi, Caching, dan Speed.                               |
+| `📂 memory/long_term/ui-ux/`       | **Rack**: Design, Aesthetics, dan Responsive Standards.               |
+| `📂 documentation/nexus_rules/`    | **Governance**: Instruksi operasional permanen untuk Manusia.         |
+| `📂 tests/`                        | **TDD Lab**: Pengujian otomatis berbasis Iron Laws.                   |
 
 ---
 
@@ -179,6 +181,6 @@ Kami menyambut kontribusi dari siapa saja!
 
 _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin!_
 
-
 ---
+
 _Terakhir Dioptimasi: 05/05/2026 (Phase 5 - Knowledge Shelving)_

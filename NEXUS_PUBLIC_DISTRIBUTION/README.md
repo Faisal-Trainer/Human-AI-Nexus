@@ -1,57 +1,55 @@
 # 🤖 Human-AI Nexus: Knowledge Architect Edition
 > **Version**: v3.5.0 (Phase 5: Knowledge Shelving)
 
-[![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
+[![Quick Guide](https://img.shields.io/badge/GUIDE-READ%20FIRST-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 
-## 📌 Pendahuluan: Mengapa Human-AI Nexus?
+## 📌 Introduction: Why Human-AI Nexus?
 
-Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis kode tanpa rencana, menghasilkan bug yang sulit dilacak, atau mengabaikan aspek keamanan dan hukum.
+Many developers fall into the trap of chaotic AI workflows: AI writing code without a plan, resulting in hard-to-track bugs, or ignoring security and compliance standards.
 
-**Human-AI Nexus** hadir untuk mengatasi masalah tersebut. Ini adalah pusat kendali dan dokumentasi terstruktur yang dirancang untuk menjembatani kolaborasi antara **Human Developer** dan **AI Assistant**. Framework ini memastikan setiap tahap pengembangan terdokumentasi dengan ketat melalui prinsip **"Documentation-First"** sebelum satu baris kode pun ditulis.
+**Human-AI Nexus** is built to solve this. It is a structured control center and orchestration framework designed to bridge the collaboration between **Human Developers** and **AI Assistants**. This framework ensures every development stage is strictly documented through a **"Documentation-First"** principle before a single line of code is written.
 
-### 🎯 Target Pengguna
+### 🎯 Target Audience
 
-- **Web Developers**: Untuk menjaga kualitas kode dan keamanan arsitektur.
-- **Project Managers**: Untuk memantau progres dan dokumentasi teknis secara otomatis.
-- **AI Enthusiasts**: Untuk bereksperimen dengan orkestrasi agent AI yang kompleks.
-- **Trainers/Mentors**: Sebagai standar pembelajaran pengembangan perangkat lunak yang disiplin.
-
----
-
-## 🗺️ Daftar Isi
-
-- [🤖 Apa itu Human-AI Nexus?](#-apa-itu-human-ai-nexus)
-- [🏗️ Arsitektur Sistem](#️-arsitektur-sistem)
-- [📂 Struktur Folder (Organized)](#-struktur-folder-organized)
-- [🛠️ Cara Penggunaan](#️-cara-penggunaan)
-- [🌟 Prinsip Utama](#-prinsip-utama)
-- [🤝 Cara Berkontribusi](#-cara-berkontribusi)
+- **Web Developers**: Maintain code quality and architectural security.
+- **Project Managers**: Automatically monitor progress and technical documentation.
+- **AI Enthusiasts**: Experiment with complex AI agent orchestration.
+- **Trainers/Mentors**: Establish a disciplined software development standard.
 
 ---
 
-Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Autonomous Governance Engine**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI serta mengoperasikan **8 Mesin Otonom** untuk melakukan audit, perencanaan, hingga eksekusi tugas secara fisik.
+## 🗺️ Table of Contents
 
-### ⚙️ 8 Mesin Otonom (The Core Machines)
-
-Sistem ini kini ditenagai oleh 8 modul spesialis yang bekerja secara independen:
-1.  **Validator.js**: Verifikasi bukti fisik keberhasilan tugas.
-2.  **BugHunter.js**: Penegak "Aturan 3 Perbaikan" untuk mencegah loop halusinasi.
-3.  **Designer.js**: Automasi penalaran desain (Warna, Font, Style).
-4.  **AccessibilityScanner.js**: Pemindaian standar WCAG/A11y otomatis.
-5.  **SchemaGuard.js**: Penegak standar database (UUID/Fillable).
-6.  **QueryOptimizer.js**: Deteksi foreign key tanpa index.
-7.  **WorktreeManager.js**: Isolasi workspace otomatis menggunakan Git Worktree.
-8.  **RootCauseAnalyzer.js**: Analisis akar masalah otomatis dari stack trace.
-
-Sistem ini juga dilengkapi dengan **Universal Collision Logic**, yang memungkinkan AI untuk menyimpan beberapa alternatif solusi (**Opsi A maupun Opsi B**) dalam satu dokumen, memungkinkan pengambilan keputusan (Decision Making) yang lebih cerdas dan kontekstual.
-
-### Visi Utama
-
-Menciptakan ekosistem pengembangan di mana AI bekerja sebagai **Tim Profesional** yang patuh pada standar kualitas manusia, bukan sekadar chatbot yang menulis kode asal-asalan.
+- [🤖 What is Human-AI Nexus?](#-what-is-human-ai-nexus)
+- [🏗️ System Architecture](#-system-architecture)
+- [📂 Folder Structure (Organized)](#-folder-structure-organized)
+- [🛠️ How to Use](#-how-to-use)
+- [🌟 Core Principles](#-core-principles)
+- [🤝 How to Contribute](#-how-to-contribute)
 
 ---
 
-## 🏗️ Arsitektur Sistem
+## 🤖 What is Human-AI Nexus?
+
+Human-AI Nexus is more than just a collection of folders; it is an **Autonomous Governance Engine**. It features the **Nexus Engine**, which automatically coordinates various AI Agents and operates **8 Autonomous Machines** to perform audits, planning, and physical task execution.
+
+### ⚙️ The Core Machines (Autonomous Specialists)
+
+The system is powered by 8 specialized modules working independently:
+1.  **Validator.js**: Verifies physical proof of task success.
+2.  **BugHunter.js**: Enforces the "3-Fix Rule" to prevent hallucination loops.
+3.  **Designer.js**: Automates design reasoning (Colors, Fonts, Styles).
+4.  **AccessibilityScanner.js**: Automated WCAG/A11y compliance scanning.
+5.  **SchemaGuard.js**: Enforces database standards (UUID/Fillable).
+6.  **QueryOptimizer.js**: Detects foreign keys without indexes.
+7.  **WorktreeManager.js**: Automated workspace isolation using Git Worktree.
+8.  **RootCauseAnalyzer.js**: Automated root cause analysis from stack traces.
+
+The system also features **Universal Collision Logic**, allowing the AI to store multiple solution alternatives (**Option A and Option B**) within a single document for smarter, contextual decision-making.
+
+---
+
+## 🏗️ System Architecture
 
 ```mermaid
 graph TD
@@ -80,105 +78,82 @@ graph TD
 
 ---
 
-## 📂 Struktur Folder (AI Agent System Structure)
+## 📂 Folder Structure (AI Agent System Structure)
 
-| Folder                 | Deskripsi                                                                 |
+| Folder                 | Description                                                               |
 | :--------------------- | :------------------------------------------------------------------------ |
-| `📂 agent/core/`       | **Core Logic**: NexusEngine, Orchestrator, dan Smart Shelving Engine.     |
-| `📂 agent/tools/`      | **Tools & Specialists**: Auditor, TDDGuard, Machinist, dan Distiller.     |
-| `📂 agent/prompts/`    | **The Brain**: Library Agent MD (Internal & External).                    |
-| `📂 workflow/`         | **Skill Rack**: Aturan main (Workflows) berbasis kategori.                |
-| `📂 memory/long_term/` | **Smart HUB**: Knowledge yang sudah disusun dalam **Rak Semantik**.        |
-| `📂 memory/long_term/security/` | **Rack**: Keamanan, Auth, dan Protokol Audit.                    |
-| `📂 memory/long_term/performance/` | **Rack**: Optimasi, Caching, dan Speed.                       |
-| `📂 memory/long_term/ui-ux/` | **Rack**: Design, Aesthetics, dan Responsive Standards.            |
-| `📂 documentation/nexus_rules/` | **Governance**: Instruksi operasional permanen untuk Manusia.    |
-| `📂 tests/`            | **TDD Lab**: Pengujian otomatis berbasis Iron Laws.                       |
+| `📂 agent/core/`       | **Core Logic**: NexusEngine, Orchestrator, and Smart Shelving Engine.     |
+| `📂 agent/tools/`      | **Tools & Specialists**: Auditor, TDDGuard, Machinist, and Distiller.     |
+| `📂 agent/prompts/`    | **The Brain**: Agent MD Library (Internal & External) with core DNA.      |
+| `📂 workflow/`         | **Skill Rack**: Categorized set of operational workflows.                 |
+| `📂 memory/long_term/` | **Smart HUB**: Knowledge organized into **Semantic Racks**.               |
+| `📂 memory/long_term/security/` | **Rack**: Security, Auth, and Audit Protocols.                    |
+| `📂 memory/long_term/performance/` | **Rack**: Optimization, Caching, and Speed.                       |
+| `📂 documentation/`    | **The Mirror**: Manual-access knowledge racks.                            |
+| `📂 tests/`            | **TDD Lab**: Automated testing based on the "Iron Laws".                  |
 
 ---
 
-## 🛠️ Cara Penggunaan
+## 🛠️ How to Use
 
-### 1. Instalasi
+### 1. Installation
 
-Gunakan perintah otomatis via `npx` (direkomendasikan):
+Use the automated command via `npx` (Recommended):
 
 ```bash
-# Jika sudah publish ke npm:
-npx @faisal-trainer/human-ai-nexus
-
-# Atau jalankan langsung dari GitHub (Jika belum publish):
+# Direct from GitHub (Public Distribution):
 npx github:Faisal-Trainer/Human-AI-Nexus
 ```
 
-Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
+Alternatively, copy the framework folder into your project root.
 
-> **Tip**: Untuk memperbarui framework yang sudah terinstall tanpa menghapusnya, gunakan flag `--force`:
+> **Tip**: To update an existing installation without deleting data, use the `--force` flag:
 > `npx github:Faisal-Trainer/Human-AI-Nexus --force`
 
-### 3. Jalankan Engine
+### 2. Run the Engine
 
-Jalankan perintah berikut di terminal:
-
-```bash
-# Via GitHub (Direkomendasikan jika belum publish):
-npx github:Faisal-Trainer/Human-AI-Nexus nexus run
-
-# Via NPM (Jika sudah publish):
-npx @faisal-trainer/human-ai-nexus nexus run
-
-# Lokal/Alias (Jika sudah terpasang):
-nexus run           # Menjalankan siklus Audit -> Plan -> Execute
-nexus audit         # Hanya melakukan pemindaian (Audit)
-nexus harvest <dir> # Memanen dokumen dari proyek lain ke Golden HUB
-nexus distill       # [Pipeline Utama] Shelving (Recursive) -> Hub Index -> Neural Map
-nexus distill --rack <name> # Menjalankan distilasi hanya pada rak tertentu (e.g. security)
-nexus refactor      # Sinkronisasi massal dari Golden ke HUB
-nexus update-skills # Sinkronisasi massal dari HUB ke Agent Skills
-```
-
-### 4. Uninstall (Lepas Engine)
-
-Jika ingin melepas Nexus Engine dari proyek Anda tanpa menghapus dokumentasi:
+Execute the following commands in your terminal:
 
 ```bash
-npx github:Faisal-Trainer/Human-AI-Nexus dell
+nexus run           # Standard SDLC (Audit -> Plan -> Execute)
+nexus audit         # Perform system-wide health scan
+nexus harvest <dir> # Ingest documents from other projects to the HUB
+nexus distill       # [Main Pipeline] Recursive Shelving -> Hub Index -> Neural Map
+nexus distill --rack <name> # Run distillation only for a specific rack (e.g., security)
+nexus update-skills # Synchronize HUB knowledge to Agent Skills (Cross-Pollination)
 ```
 
-_Perintah ini menghapus folder `agent/` (otak AI), namun tetap menjaga folder `documentation/` agar tetap bisa diakses oleh tim pengembang._
+### 3. Workflow Lifecycle
 
-### 3. Ikuti Alur Kerja
-
-1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.
-2. **Plan**: Setujui rencana yang dibuat oleh Project Manager di folder `documentation/planning/`.
-3. **Execute**: Biarkan AI mengeksekusi tugas sesuai rencana.
-4. **Finalize**: Simpan hasil ke dalam `memory/short_term/` untuk memori jangka panjang.
+1. **Audit**: Let the AI scan your project's health and compliance.
+2. **Plan**: Approve the implementation plan generated in `documentation/planning/`.
+3. **Execute**: Let the AI execute tasks based on the approved plan.
+4. **Finalize**: Archive session records into long-term memory for future context.
 
 ---
 
-## 🌟 Prinsip Utama
+## 🌟 Core Principles
 
-- **Deep Wisdom Injection**: Setiap Agent membawa "Buku Saku" workflow mereka sendiri di dalam sistem prompt.
-- **Knowledge Portability**: Skill dan pengetahuan institusional ikut terinstal ke proyek eksternal via folder `workflow/`.
-- **Deterministic Contracts**: Standar interface data untuk menjamin AI bekerja secara konsisten.
-- **Standardized Knowledge**: Seluruh HUB menggunakan pola `NEXUS_...` untuk kemudahan pengindeksan.
-
----
-
-## 🤝 Cara Berkontribusi
-
-Kami menyambut kontribusi dari siapa saja!
-
-1. **Fork** repository ini.
-2. Buat **Branch** baru untuk fitur Anda (`git checkout -b feature/FiturKeren`).
-3. **Commit** perubahan Anda (`git commit -m 'Menambahkan fitur keren'`).
-4. **Push** ke branch tersebut (`git push origin feature/FiturKeren`).
-5. Buat **Pull Request**.
+- **Deep Wisdom Injection**: Every agent carries its own "Pocket Handbook" within its core prompt.
+- **Knowledge Portability**: Institutional skills and knowledge are portable via the `workflow/` folder.
+- **Deterministic Contracts**: Standard data interfaces ensure the AI behaves consistently.
+- **Semantic Shelving**: Knowledge is automatically categorized for infinite scalability.
 
 ---
 
-_Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin!_
+## 🤝 Contributing
 
+We welcome contributions from everyone!
+
+1. **Fork** the repository.
+2. Create a new **Branch** (`git checkout -b feature/CoolFeature`).
+3. **Commit** your changes (`git commit -m 'Add some cool feature'`).
+4. **Push** to the branch (`git push origin feature/CoolFeature`).
+5. Open a **Pull Request**.
 
 ---
-_Terakhir Dioptimasi: 05/05/2026 (Phase 5 - Knowledge Shelving)_
+
+_Maintained by Faisal-Trainer & AI Assistant. Let's build a more disciplined future for Human-AI collaboration!_
+
+---
+_Last Optimized: 05/05/2026 (Phase 5 - Knowledge Shelving)_

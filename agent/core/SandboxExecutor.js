@@ -22,6 +22,16 @@ class SandboxExecutor {
             }, timeout);
 
             try {
+                // Permission Validation
+                const manifestPath = path.join(__dirname, '..', 'tools', 'scanners', 'manifest.json');
+                if (require('fs-extra').existsSync(manifestPath)) {
+                    const manifest = require(manifestPath);
+                    const isAllowed = manifest.scanners.some(s => pluginPath.includes(s.entrypoint));
+                    if (!isAllowed) {
+                        throw new Error(`SandboxExecutor: Plugin ${pluginPath} is not registered in manifest.json`);
+                    }
+                }
+
                 // Restrict dangerous globals if this were a true VM sandbox
                 const plugin = require(pluginPath);
                 

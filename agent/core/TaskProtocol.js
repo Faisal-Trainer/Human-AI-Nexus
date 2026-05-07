@@ -8,6 +8,8 @@ class TaskProtocol {
         this.status = 'pending';
         this.timestamp = new Date().toISOString();
         this.timeout_ms = timeout_ms;
+        this.trace_id = `TRACE-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        this.correlation_id = context.correlation_id || this.trace_id;
     }
 
     static validate(data) {
@@ -39,7 +41,9 @@ class TaskProtocol {
             context: this.context,
             status: this.status,
             timestamp: this.timestamp,
-            timeout_ms: this.timeout_ms
+            timeout_ms: this.timeout_ms,
+            trace_id: this.trace_id,
+            correlation_id: this.correlation_id
         };
     }
 }

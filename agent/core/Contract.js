@@ -57,4 +57,15 @@ class ImplementationPlan {
     }
 }
 
-module.exports = { AuditReport, ImplementationPlan };
+class NexusErrorPayload {
+    constructor(type, message, retryable = false, agent = 'unknown') {
+        this.status = 'error';
+        this.type = type;
+        this.message = message;
+        this.retryable = retryable;
+        this.agent = agent;
+        this.timestamp = new Date().toISOString();
+    }
+}
+
+module.exports = { AuditReport, ImplementationPlan, NexusErrorPayload };

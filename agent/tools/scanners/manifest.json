@@ -3,7 +3,9 @@
     {
       "name": "cyber-security",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "cyber-security.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
@@ -11,7 +13,9 @@
     {
       "name": "ux-engineer",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "ux-engineer.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
@@ -19,7 +23,9 @@
     {
       "name": "seo-performance-specialist",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "seo-performance-specialist.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
@@ -27,7 +33,9 @@
     {
       "name": "database-architect",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "database-architect.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
@@ -35,7 +43,9 @@
     {
       "name": "vcs-architect",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "vcs-architect.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
@@ -43,10 +53,16 @@
     {
       "name": "documentation-architect",
       "version": "1.0.0",
-      "permissions": ["read_files"],
+      "permissions": [
+        "read_files"
+      ],
       "entrypoint": "documentation-architect.js",
       "execution_timeout": 30000,
       "output_schema": "findings[]"
+    },
+    {
+      "id": "dummy-scanner",
+      "entrypoint": "dummy-scanner.js"
     }
   ]
 }

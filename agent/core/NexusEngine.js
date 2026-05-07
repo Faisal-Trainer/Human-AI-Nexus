@@ -19,6 +19,7 @@ const TDDScaffolder = require('./../tools/TDDScaffolder');
 const Logger = require('./Logger');
 const MemoryGovernor = require('./MemoryGovernor');
 const EventBus = require('./EventBus');
+const SandboxExecutor = require('./SandboxExecutor');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -77,16 +78,30 @@ class NexusEngine {
 
         this.agentPath = resolvePath('agent');
         this.skillPath = resolvePath('workflow', 'skill');
-        this.knowledgePath = resolvePath('distilled', 'knowledge');
-        this.recordsPath = resolvePath('operational', 'records');
-        this.summaryPath = resolvePath('summary');
-        this.auditPath = resolvePath('audit');
-        this.planningPath = resolvePath('planning');
+        this.nexusPath = path.join(this.rootPath, 'nexus');
+        
+        // Adaptive Path Detection
+        if (fs.existsSync(path.join(this.rootPath, 'agent', 'prompts'))) {
+            this.agentPath = path.join(this.rootPath, 'agent', 'prompts');
+            this.skillPath = path.join(this.rootPath, 'agent', 'workflows');
+        } else {
+            this.agentPath = path.join(this.nexusPath, 'agent', 'prompts');
+            this.skillPath = path.join(this.nexusPath, 'workflow');
+        }
+
+        this.auditPath = path.join(this.rootPath, 'memory', 'raw');
+        this.logPath = path.join(this.rootPath, 'logs');
         this.algorithmsPath = resolvePath('algorithms');
         
         this.activeAgents = new Set();
         this.skillRegistry = {};
         this.memory = [];
+        
+        this.knowledgePath = resolvePath('distilled', 'knowledge');
+        this.recordsPath = resolvePath('operational', 'records');
+        this.summaryPath = resolvePath('summary');
+        this.planningPath = resolvePath('planning');
+        
         this.metrics = {};
         this.state = STATES.INIT;
         
@@ -112,6 +127,9 @@ class NexusEngine {
 
         this.logger = new Logger(this.rootPath);
         this.memoryGovernor = new MemoryGovernor(this.rootPath);
+        this.currentCorrelationId = `CORR-${Date.now()}`;
+        this.sandbox = new SandboxExecutor();
+        this.metrics = {};
     }
 
     /**
@@ -241,7 +259,7 @@ class NexusEngine {
         
         // Log to new observability layer
         const level = type.toUpperCase() === 'SUCCESS' ? 'INFO' : type.toUpperCase();
-        this.logger.log('orchestration', level, 'NexusEngine', 'N/A', 'SYSTEM_LOG', message).catch(() => {});
+        this.logger.log('orchestration', level, 'NexusEngine', 'N/A', 'SYSTEM_LOG', message, 0, {}, this.currentCorrelationId).catch(() => {});
     }
 
     async audit(targetPath = this.rootPath, options = {}) {
@@ -294,13 +312,14 @@ class NexusEngine {
                     const scannerPath = path.join(__dirname, '..', 'tools', 'scanners', `${spec.id}.js`);
                     let specFindings = [];
 
+                    const agentStart = Date.now();
                     if (await fs.pathExists(scannerPath)) {
-                        const scanner = require(scannerPath);
-                        if (scanner.scan) {
-                            specFindings = await scanner.scan(targetPath);
-                            this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
-                        }
+                        specFindings = await this.sandbox.execute(scannerPath, targetPath, { timeout: 15000 });
+                        this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
                     }
+                    const agentDuration = Date.now() - agentStart;
+                    this.metrics[spec.id] = { duration_ms: agentDuration, findings: specFindings.length };
+                    await this.logger.log('agents', 'INFO', spec.id, auditID, 'AGENT_PROFILED', `Completed in ${agentDuration}ms`, agentDuration, {}, this.currentCorrelationId);
 
                     if (specFindings.length === 0) {
                         specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
@@ -385,13 +404,10 @@ ${specFindings.map(f => `
             for (const sFile of forgedScanners) {
                 const sName = path.basename(sFile, '.js');
                 try {
-                    const scanner = require(sFile);
-                    if (typeof scanner.scan === 'function') {
-                        this.log(`   🔥 [${sName}] Deep Scan (Forged) initiated...`, 'info');
-                        const forgedFindings = await scanner.scan(this.rootPath);
-                        if (forgedFindings.length > 0) {
-                            consolidatedFindings.push(...forgedFindings.map(f => ({ ...f, message: `[${sName}] ${f.message}` })));
-                        }
+                    this.log(`   🔥 [${sName}] Deep Scan (Forged) initiated...`, 'info');
+                    const forgedFindings = await this.sandbox.execute(sFile, this.rootPath, { timeout: 15000 });
+                    if (forgedFindings.length > 0) {
+                        consolidatedFindings.push(...forgedFindings.map(f => ({ ...f, message: `[${sName}] ${f.message}` })));
                     }
                 } catch (e) {
                     this.log(`   ⚠️ Skipping scanner ${sName}: ${e.message}`, 'error');

@@ -179,10 +179,26 @@ async function install(args) {
         if (!await fs.pathExists(memPath)) {
             const confirmMem = await ask(`Buat folder /memory di dalam ${nexusBaseName}? (y/N): `);
             if (confirmMem.toLowerCase() === 'y') {
-                await fs.ensureDir(path.join(memPath, 'long_term'));
-                await fs.ensureDir(path.join(memPath, 'short_term'));
-                console.log(chalk.green(`   ✅ Folder /memory telah dibuat.`));
+                await fs.ensureDir(path.join(memPath, 'raw'));
+                await fs.ensureDir(path.join(memPath, 'normalized'));
+                await fs.ensureDir(path.join(memPath, 'semantic'));
+                await fs.ensureDir(path.join(memPath, 'distilled'));
+                await fs.ensureDir(path.join(memPath, 'operational'));
+                await fs.ensureDir(path.join(memPath, 'archived'));
+                console.log(chalk.green(`   ✅ Folder /memory telah dibuat (Multi-Agent Standard).`));
             }
+        }
+
+        // 2.5 Logs Installation (logs/)
+        const logsPath = path.join(nexusPath, 'logs');
+        if (!await fs.pathExists(logsPath)) {
+            await fs.ensureDir(path.join(logsPath, 'agents'));
+            await fs.ensureDir(path.join(logsPath, 'orchestration'));
+            await fs.ensureDir(path.join(logsPath, 'memory'));
+            await fs.ensureDir(path.join(logsPath, 'scanners'));
+            await fs.ensureDir(path.join(logsPath, 'plugins'));
+            await fs.ensureDir(path.join(logsPath, 'errors'));
+            console.log(chalk.green(`   ✅ Folder /logs telah dibuat untuk Observability.`));
         }
 
         // 3. Documentation Folder Creation

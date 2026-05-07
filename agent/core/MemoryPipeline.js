@@ -9,8 +9,8 @@ class MemoryPipeline {
     constructor(rootPath, knowledgePath, auditPath, planningPath) {
         this.rootPath = rootPath;
         this.knowledgePath = knowledgePath;
-        this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'short_term', 'audit');
-        this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'short_term', 'planning');
+        this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'operational', 'audit');
+        this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'operational', 'planning');
         this.archiveFile = path.join(this.knowledgePath, 'SESSION_HISTORY_ARCHIVE.md');
     }
 
@@ -181,7 +181,7 @@ class MemoryPipeline {
      * Determines the current archive file based on size and index.
      */
     async getArchiveFile() {
-        const indexPath = path.join(this.rootPath, 'memory', 'short_term', 'archive_index.json');
+        const indexPath = path.join(this.rootPath, 'memory', 'operational', 'archive_index.json');
         let indexData = { current_archive: 'SESSION_HISTORY_ARCHIVE.md', index: 1 };
         
         if (await fs.pathExists(indexPath)) {

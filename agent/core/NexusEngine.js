@@ -15,8 +15,10 @@ const WorktreeManager = require('./WorktreeManager');
 const RootCauseAnalyzer = require('./../tools/RootCauseAnalyzer');
 const Machinist = require('./Machinist');
 const Distiller = require('./Distiller');
-
 const TDDScaffolder = require('./../tools/TDDScaffolder');
+const Logger = require('./Logger');
+const MemoryGovernor = require('./MemoryGovernor');
+const EventBus = require('./EventBus');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -75,8 +77,8 @@ class NexusEngine {
 
         this.agentPath = resolvePath('agent');
         this.skillPath = resolvePath('workflow', 'skill');
-        this.knowledgePath = resolvePath('long_term', 'knowledge');
-        this.recordsPath = resolvePath('short_term', 'records');
+        this.knowledgePath = resolvePath('distilled', 'knowledge');
+        this.recordsPath = resolvePath('operational', 'records');
         this.summaryPath = resolvePath('summary');
         this.auditPath = resolvePath('audit');
         this.planningPath = resolvePath('planning');
@@ -107,6 +109,9 @@ class NexusEngine {
         this.currentAudit = null; 
         this.currentPlan = null;
         this.activeRack = null;
+
+        this.logger = new Logger(this.rootPath);
+        this.memoryGovernor = new MemoryGovernor(this.rootPath);
     }
 
     /**
@@ -233,6 +238,10 @@ class NexusEngine {
             reset: '\x1b[0m'
         };
         console.log(`${colors[type]}${message}${colors.reset}`);
+        
+        // Log to new observability layer
+        const level = type.toUpperCase() === 'SUCCESS' ? 'INFO' : type.toUpperCase();
+        this.logger.log('orchestration', level, 'NexusEngine', 'N/A', 'SYSTEM_LOG', message).catch(() => {});
     }
 
     async audit(targetPath = this.rootPath, options = {}) {

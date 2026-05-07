@@ -1,4 +1,5 @@
 const NexusEngine = require('./core/NexusEngine');
+const Orchestrator = require('./core/Orchestrator');
 const path = require('path');
 const readline = require('readline');
 
@@ -25,8 +26,9 @@ async function main() {
         command: args[0] && !args[0].startsWith('-') ? args[0] : 'run'
     };
 
-    // Initialize engine with specified root
+    // Initialize engine and orchestrator with specified root
     const engine = new NexusEngine({ rootPath: path.resolve(flags.root) });
+    const orchestrator = new Orchestrator(path.resolve(flags.root));
 
     switch (flags.command) {
         case 'run':
@@ -36,6 +38,7 @@ async function main() {
             let allowSensitive = true;
 
             if (!flags.yes) {
+                console.log('\n--- I/O DASAR NEXUS (CODER-FOCUSED) ---');
                 console.log('1. [Learning Mode] Saya developer baru/ingin belajar dari temuan tiap agent spesialis.');
                 console.log('2. [Efficient Mode] Saya sudah senior/ingin laporan ringkas yang dikonsolidasi PM.');
                 
@@ -48,7 +51,56 @@ async function main() {
                 console.log(`⚡ Mode Otomatis Aktif: Menggunakan mode "${mode}" dan mengizinkan scan file sensitif.`);
             }
             
-            await engine.runCycle({ mode, allowSensitive });
+            // --- CORE I/O LOOP ---
+            console.log('\n🔍 [1/4] Memulai Fase Audit Seluruh Project...');
+            const report = await engine.audit(flags.root, { mode, allowSensitive });
+            
+            let approved = false;
+            let plan;
+            
+            while (!approved) {
+                console.log('\n📅 [2/4] Menyusun Planning Pengembangan...');
+                plan = await engine.plan(report);
+                
+                console.log('\n=========================================');
+                console.log('📑 USULAN PENGEMBANGAN (PLANNING)');
+                console.log('=========================================');
+                plan.tasks.forEach(t => {
+                    console.log(`\n📌 Task ${t.id}: ${t.description}`);
+                    console.log(`   💡 Saran Perbaikan: ${t.recommendation}`);
+                });
+                console.log('=========================================\n');
+                
+                if (flags.yes) {
+                    console.log('⚡ Mode Otomatis Aktif: Planning disetujui oleh sistem.');
+                    approved = true;
+                } else {
+                    const response = await ask('🧑‍💻 DEV APPROVAL: Apakah Anda menyetujui planning pengembangan ini? (y/n): ');
+                    if (response.toLowerCase() === 'y') {
+                        approved = true;
+                        console.log('✅ Planning disetujui. Melanjutkan eksekusi...');
+                    } else {
+                        console.log('❌ Planning ditolak oleh Dev.');
+                        const feedback = await ask('Tolong berikan feedback/alasan penolakan untuk menyesuaikan planning: ');
+                        console.log('🔄 Memproses ulang planning berdasarkan feedback Dev...');
+                        // Inject feedback to influence next planning loop
+                        report.findings.push({ severity: 'INFO', message: `USER FEEDBACK: ${feedback}`, rationale: 'Feedback dari Developer untuk iterasi planning.', recommendation: 'Sesuaikan rencana berdasarkan feedback ini.' });
+                    }
+                }
+            }
+            
+            console.log('\n🚀 [3/4] Memulai Fase Eksekusi Perubahan...');
+            await engine.execute(plan);
+            await engine.verify(plan);
+            
+            console.log('\n📝 [4/4] Memulai Fase Dokumentasi (Laporan untuk Dev)...');
+            const cycleID = `CYCLE-${Date.now()}`;
+            await engine.record(cycleID);
+            await engine.generateCycleSummary(cycleID);
+            
+            console.log('\n✅ SIKLUS SELESAI.');
+            console.log(`Laporan perubahan & dokumentasi telah disimpan di memory/operational. Sangat disarankan untuk membaca file MD terkait.`);
+            
             rl.close();
             break;
         case 'audit':

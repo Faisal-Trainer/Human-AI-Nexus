@@ -56,15 +56,30 @@ if (-not (Test-Path $agentPath)) {
 }
 
 # 2. Pasang Memory (nexus/memory/)
-Write-Host "🧠 Menyiapkan Memory (Recursive Rack Structure)..."
+Write-Host "🧠 Menyiapkan Memory (Multi-Agent Standard)..."
 $memPath = "$nexusBase\memory"
 if (-not (Test-Path $memPath)) {
+    $folders = @("raw", "normalized", "semantic", "distilled", "operational", "archived")
+    foreach ($folder in $folders) {
+        New-Item -ItemType Directory -Path "$memPath\$folder" -Force | Out-Null
+    }
+    # Tambahkan Racks di dalam distilled
     $racks = @("security", "performance", "ui-ux", "standards", "database", "academics", "other")
     foreach ($rack in $racks) {
-        New-Item -ItemType Directory -Path "$memPath\long_term\$rack" -Force | Out-Null
+        New-Item -ItemType Directory -Path "$memPath\distilled\$rack" -Force | Out-Null
     }
-    New-Item -ItemType Directory -Path "$memPath\short_term" -Force | Out-Null
-    Write-Host "   ✅ Folder /$memPath terpasang dengan struktur Rak Pintar." -ForegroundColor Green
+    Write-Host "   ✅ Folder /$memPath terpasang dengan struktur Multi-Agent." -ForegroundColor Green
+}
+
+# 2.5 Pasang Logs (nexus/logs/)
+Write-Host "📊 Menyiapkan Logs Observability..."
+$logsPath = "$nexusBase\logs"
+if (-not (Test-Path $logsPath)) {
+    $logFolders = @("agents", "orchestration", "memory", "scanners", "plugins", "errors")
+    foreach ($folder in $logFolders) {
+        New-Item -ItemType Directory -Path "$logsPath\$folder" -Force | Out-Null
+    }
+    Write-Host "   ✅ Folder /$logsPath terpasang." -ForegroundColor Green
 }
 
 # 3. Pasang Dokumentasi (nexus/documentation/)

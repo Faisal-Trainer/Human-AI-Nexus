@@ -1,0 +1,15 @@
+/vendor/
+.env
+/memory/
+/logs/
+*.lock
+node_modules/
+.DS_Store
+dist/
+
+.env
+.env
+.env
+.env
+.env
+.env

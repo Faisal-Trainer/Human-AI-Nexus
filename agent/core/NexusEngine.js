@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { AuditReport, ImplementationPlan } = require('./Contract');
 const Modifier = require('./Modifier');
+const LaravelArchitect = require('./LaravelArchitect');
 const MemoryPipeline = require('./MemoryPipeline');
 const TDDGuard = require('./../tools/TDDGuard');
 const AssetEngine = require('./../tools/AssetEngine');
@@ -76,22 +77,28 @@ class NexusEngine {
             return path.join(this.rootPath, 'memory', folderName); // Default to memory/
         };
 
-        this.agentPath = resolvePath('agent');
-        this.skillPath = resolvePath('workflow', 'skill');
-        this.nexusPath = path.join(this.rootPath, 'nexus');
+        const engineBase = path.join(__dirname, '..'); // This points to the /agent folder
         
-        // Adaptive Path Detection
-        if (fs.existsSync(path.join(this.rootPath, 'agent', 'prompts'))) {
-            this.agentPath = path.join(this.rootPath, 'agent', 'prompts');
-            this.skillPath = path.join(this.rootPath, 'agent', 'workflows');
-        } else {
+        // 🛡️ INTERNAL RESOURCE PATHS (Must point to core NEXUS installation)
+        this.agentPath = path.join(engineBase, 'prompts');
+        this.skillPath = path.join(engineBase, 'workflows');
+        
+        // If not found in core (standalone installation), fall back to project-local nexus/
+        if (!fs.existsSync(this.agentPath)) {
             this.agentPath = path.join(this.nexusPath, 'agent', 'prompts');
             this.skillPath = path.join(this.nexusPath, 'workflow');
         }
 
+        // 📂 PROJECT DATA PATHS (Target project being audited)
         this.auditPath = path.join(this.rootPath, 'memory', 'raw');
         this.logPath = path.join(this.rootPath, 'logs');
+        this.planningPath = path.join(this.rootPath, 'documentation', 'planning');
+        this.recordsPath = path.join(this.rootPath, 'memory', 'operational', 'records');
+        this.summaryPath = path.join(this.rootPath, 'memory', 'summary');
+        this.knowledgePath = resolvePath('distilled', 'knowledge');
         this.algorithmsPath = resolvePath('algorithms');
+
+        this.architect = new LaravelArchitect(this.rootPath);
         
         this.activeAgents = new Set();
         this.skillRegistry = {};
@@ -882,15 +889,18 @@ ${tasks.map(t => `
         
         let updated = 0;
 
-        // Pre-index skill files by category
+        // Pre-index skill files by category and keywords
         const skillMap = {};
         for (const sFile of skillFiles) {
             const category = path.basename(path.dirname(sFile)).toLowerCase();
             const sName = path.basename(sFile, '.md').toLowerCase();
-            if (!skillMap[category]) skillMap[category] = [];
-            if (!skillMap[sName]) skillMap[sName] = [];
-            skillMap[category].push(sFile);
-            skillMap[sName].push(sFile);
+            const keywords = sName.split(/[-_]/);
+            
+            const keys = new Set([category, sName, ...keywords]);
+            for (const key of keys) {
+                if (!skillMap[key]) skillMap[key] = [];
+                skillMap[key].push(sFile);
+            }
         }
 
         for (const kFile of knowledgeFiles) {
@@ -945,9 +955,9 @@ ${tasks.map(t => `
      */
     async getSemanticTags(filePath) {
         const content = await fs.readFile(filePath, 'utf8');
-        const match = content.match(/> \*\*METADATA \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*)\]/);
+        const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
         if (match) {
-            return match[1].split(',').map(t => t.trim());
+            return match[1].split(',').map(t => t.trim().toLowerCase());
         }
         return [];
     }

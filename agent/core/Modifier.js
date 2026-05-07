@@ -35,6 +35,16 @@ class Modifier {
                 return await this.batchReplace(targetPath, action.replacements);
             case 'RESOLVE_OPTIONS':
                 return await this.resolveOptions(targetPath, action.choice);
+            case 'LARAVEL_INJECT_TRAIT':
+                return await this.injectTrait(targetPath, action.namespace, action.trait);
+            case 'LARAVEL_ADD_COLUMN':
+                return await this.addMigrationColumn(targetPath, action.definition);
+            case 'ENV_ENSURE':
+                return await this.ensureEnv(action.key, action.value);
+            case 'COMMAND_EXEC':
+                const { execSync } = require('child_process');
+                execSync(action.command, { cwd: this.rootPath, stdio: 'ignore' });
+                return true;
             default:
                 throw new Error(`Unknown action type: ${action.type}`);
         }
@@ -129,6 +139,58 @@ class Modifier {
             throw new Error(`Target content not found in file: ${filePath}`);
         }
         throw new Error(`File not found: ${filePath}`);
+    }
+
+    /**
+     * LARAVEL: Inject a Trait into a Model
+     */
+    async injectTrait(filePath, traitNamespace, traitName) {
+        if (!(await fs.pathExists(filePath))) return false;
+        let content = await fs.readFile(filePath, 'utf8');
+        
+        if (!content.includes(traitNamespace)) {
+            content = content.replace(/namespace .*;/g, (match) => `${match}\nuse ${traitNamespace};`);
+        }
+        if (!content.includes(`use ${traitName};`)) {
+            content = content.replace(/class .* {/g, (match) => `${match}\n    use ${traitName};`);
+        }
+
+        await fs.writeFile(filePath, content);
+        return true;
+    }
+
+    /**
+     * LARAVEL: Add a column to a migration
+     */
+    async addMigrationColumn(filePath, columnDefinition) {
+        if (!(await fs.pathExists(filePath))) return false;
+        let content = await fs.readFile(filePath, 'utf8');
+        
+        if (content.includes('$table->timestamps()')) {
+            content = content.replace('$table->timestamps()', `${columnDefinition}\n            $table->timestamps()`);
+        } else {
+            content = content.replace(/}\);/g, `    ${columnDefinition}\n        });`);
+        }
+
+        await fs.writeFile(filePath, content);
+        return true;
+    }
+
+    /**
+     * GENERAL: Ensure environment variable exists
+     */
+    async ensureEnv(filePath, key, value) {
+        const envFile = path.resolve(this.rootPath, '.env');
+        let content = (await fs.pathExists(envFile)) ? await fs.readFile(envFile, 'utf8') : '';
+
+        if (content.includes(`${key}=`)) {
+            content = content.replace(new RegExp(`${key}=.*`, 'g'), `${key}=${value}`);
+        } else {
+            content += `\n${key}=${value}`;
+        }
+
+        await fs.writeFile(envFile, content.trim() + '\n');
+        return true;
     }
 }
 

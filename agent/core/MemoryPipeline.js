@@ -41,32 +41,24 @@ class MemoryPipeline {
             const projectPath = path.join(harvestPath, project);
             if (!(await fs.lstat(projectPath)).isDirectory()) continue;
 
-            const files = await this.globRecursive(projectPath, '**/*.{md,txt,js,json}');
+            console.log(`🌾 Memory Pipeline: Ingesting artifacts from [${project}]...`);
+            
+            // Collect all MD files recursively from this project harvest
+            const files = await this.globRecursive(projectPath, '**/*.md');
             for (const file of files) {
                 let content = await fs.readFile(file, 'utf8');
                 content = this.cleanseContent(content);
-                await fs.writeFile(file, content);
-            }
-
-            const folders = await fs.readdir(projectPath);
-            for (const folder of folders) {
-                const src = path.join(projectPath, folder);
-                let dest = null;
-
-                // Mapping harvest folders to project folders
-                const knowledgeFolders = ['knowledge', 'algorithms', 'journal', 'nexus_rules', 'legal'];
-                const recordsFolders = ['records', 'summary', 'audit', 'planning'];
-
-                if (knowledgeFolders.includes(folder)) {
-                    dest = this.knowledgePath;
-                } else if (recordsFolders.includes(folder)) {
-                    dest = this.recordsPath; 
-                }
-
-                if (dest && await fs.pathExists(src)) {
-                    await fs.copy(src, dest, { overwrite: false });
-                    console.log(`   📦 Harvested [${folder}] from ${project} moved to ${path.basename(dest)} (Cleansed).`);
-                }
+                
+                // Determine destination: standard folders or distilled HUB
+                const relativePath = path.relative(projectPath, file);
+                const isRecords = ['records', 'summary', 'audit', 'planning'].some(k => relativePath.includes(k));
+                
+                const fileName = path.basename(file);
+                const dest = isRecords ? path.join(this.recordsPath, fileName) : path.join(this.knowledgePath, fileName);
+                
+                await fs.ensureDir(path.dirname(dest));
+                await fs.writeFile(dest, content);
+                console.log(`   📦 Harvested: ${fileName} ➔ ${path.basename(path.dirname(dest))}/`);
             }
         }
 
@@ -174,7 +166,17 @@ class MemoryPipeline {
     async appendToArchive(content) {
         const archiveFile = await this.getArchiveFile();
         await fs.ensureFile(archiveFile);
-        await fs.appendFile(archiveFile, content);
+        
+        let existingContent = await fs.readFile(archiveFile, 'utf8');
+        
+        // Inject Tags if missing to ensure cross-pollination
+        const tags = '\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [audit, performance, testing, tdd]\n';
+        if (!existingContent.includes('METADATA')) {
+            await fs.appendFile(archiveFile, content + tags);
+        } else {
+            // Append content before tags if possible, or just append
+            await fs.appendFile(archiveFile, content);
+        }
     }
 
     /**

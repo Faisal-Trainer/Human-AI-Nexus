@@ -1,4 +1,7 @@
-# 🤖 Human-AI Nexus: Knowledge Architect Edition
+# 🤖 Human-AI Nexus:
+
+A modular semantic multi-agent operating framework
+with dynamic capability orchestration.
 
 > **Version**: v3.5.0 (Phase 5: Knowledge Shelving)
 

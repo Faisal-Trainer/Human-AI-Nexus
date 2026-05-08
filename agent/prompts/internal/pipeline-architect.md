@@ -36287,3 +36287,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
+
+Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
+
+1.  **Pipeline Stability**: Hasil audit TDD menunjukkan bahwa kolaborasi multi-agent dalam satu pipeline (Audit -> Plan -> Execute) sudah stabil. Fokuskan pada peningkatan kecepatan transisi antar-fase.
+2.  **Resource Harvesting**: Selalu saring dokumen yang di-harvest dari folder `golden/` untuk memastikan hanya pengetahuan yang relevan (IP-First) yang masuk ke dalam HUB Pusat.
+3.  **Trace ID Enforcement**: Pastikan setiap eksekusi dalam pipeline membawa Trace ID yang konsisten untuk menjaga integritas data log dan memori.

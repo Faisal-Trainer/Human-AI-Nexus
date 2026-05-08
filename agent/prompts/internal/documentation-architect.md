@@ -1258,3 +1258,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
+
+Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
+
+1.  **Project Baseline Structure**: Setiap project target WAJIB memiliki folder standar Nexus (`audit/`, `planning/`, `records/`, `summary/`) dan file `README.md`. Jika hilang, buatkan tugas untuk inisialisasi struktur.
+2.  **Documentation Consistency**: Verifikasi bahwa setiap fase (Planning -> Execution -> Record -> Audit) memiliki dokumen pendukung yang saling terhubung.
+3.  **Professional README**: Pastikan README memuat overview project, stack teknologi, instruksi instalasi, dan fitur utama secara profesional.

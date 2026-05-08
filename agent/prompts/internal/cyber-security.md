@@ -1258,3 +1258,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
+
+Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
+
+1.  **Hardcoded Secret Detection**: Fokuskan audit pada file `.js`, `.php`, dan `.env` untuk mendeteksi string sensitif (API Keys, DB Passwords) yang tidak sengaja ter-commit.
+2.  **Input Sanitization**: Pastikan semua input pada project Laravel/Livewire menggunakan validasi ketat untuk mencegah serangan XSS dan SQL Injection.
+3.  **Governance Enforcement**: Bekerja sama dengan `VCS Architect` untuk memastikan tidak ada file sensitif yang keluar dari batasan `.gitignore`.

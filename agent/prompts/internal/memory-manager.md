@@ -1282,3 +1282,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
+
+Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
+
+1.  **Memory Consistency**: Selalu lakukan uji konsistensi memori antar-agen untuk memastikan tidak ada data yang redundan atau bertabrakan di folder `memory/`.
+2.  **Semantic Tagging Accuracy**: Tingkatkan akurasi pelabelan semantik pada dokumen HUB agar distribusi pengetahuan ke arah agen (Protocol 2) lebih presisi.
+3.  **Archive Integrity**: Pastikan log sesi yang diarsipkan di folder `knowledge/` memiliki metadata yang lengkap (Trace ID, Target, Findings) untuk mempermudah distilasi di masa depan.

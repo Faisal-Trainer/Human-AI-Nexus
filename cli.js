@@ -99,11 +99,22 @@ async function uninstall(args) {
 
     try {
         if (await fs.pathExists(nexusPath)) {
-            await fs.remove(nexusPath);
-            console.log(chalk.green(`   ✅ Folder 'nexus/' telah dihapus.`));
+            console.log(chalk.yellow(`\n🚀 Memulai Safe Uninstall...`));
+            
+            // Safe Uninstall: Delete everything except documentation
+            const items = await fs.readdir(nexusPath);
+            for (const item of items) {
+                if (item !== 'documentation') {
+                    await fs.remove(path.join(nexusPath, item));
+                    console.log(chalk.gray(`   🗑️ Deleted: nexus/${item}`));
+                }
+            }
+            
+            console.log(chalk.green(`   ✅ Nexus Engine & Memory telah dihapus.`));
+            console.log(chalk.cyan(`   ℹ️ Folder 'nexus/documentation/' tetap dipertahankan untuk riwayat audit.`));
         }
 
-        console.log(chalk.green.bold('Nexus components berhasil dilepas.'));
+        console.log(chalk.green.bold('\n✨ Nexus components berhasil dilepas (Dokumentasi Aman).'));
     } catch (err) {
         console.error(chalk.red('❌ Gagal melepas Nexus:'), err.message);
     }
@@ -135,6 +146,16 @@ async function install(args) {
 
     try {
         await fs.ensureDir(nexusPath);
+
+        // Security Hardening: Auto-Gitignore
+        await updateGitignore(targetDir);
+
+        // Security Hardening: Access Protection (.htaccess)
+        const htaccessPath = path.join(nexusPath, '.htaccess');
+        if (!await fs.pathExists(htaccessPath)) {
+            await fs.writeFile(htaccessPath, 'Deny from all');
+            console.log(chalk.green(`   ✅ Security: Access Protection (.htaccess) terpasang.`));
+        }
 
         // 1. External Brain Installation (agent/)
         if (await fs.pathExists(agentPath) && !isForce) {
@@ -216,12 +237,26 @@ async function install(args) {
             }
         }
 
-        // 4. Root Files (Tetap di root proyek untuk akses cepat)
+        // 4. Documentation & Guideline Files
+        const readmeFile = 'README.md';
         const algoFile = 'ALGORITMA_INTEGRASI.md';
+        
+        // Copy to project root (for visibility)
         const algoSrc = path.join(sourceDir, 'documentation', 'algorithms', algoFile);
         if (await fs.pathExists(algoSrc)) {
             await fs.copy(algoSrc, path.join(targetDir, algoFile));
             console.log(chalk.green(`   ✅ File ${algoFile} terpasang di root proyek.`));
+        }
+
+        // Copy to nexus/ folder (for self-contained structure)
+        const readmeSrc = path.join(sourceDir, readmeFile);
+        if (await fs.pathExists(readmeSrc)) {
+            await fs.copy(readmeSrc, path.join(nexusPath, readmeFile));
+            console.log(chalk.green(`   ✅ File ${readmeFile} terpasang di dalam folder nexus.`));
+        }
+        if (await fs.pathExists(algoSrc)) {
+            await fs.copy(algoSrc, path.join(nexusPath, algoFile));
+            console.log(chalk.green(`   ✅ File ${algoFile} terpasang di dalam folder nexus.`));
         }
 
         console.log(chalk.green.bold('\n✅ Instalasi Berhasil!'));
@@ -241,6 +276,26 @@ async function setupDocFolders(basePath) {
         await fs.ensureDir(path.join(basePath, folder));
     }
     console.log(chalk.green(`   ✅ Struktur /documentation telah diperbarui (Lean Mode).`));
+}
+
+async function updateGitignore(targetDir) {
+    const gitignorePath = path.join(targetDir, '.gitignore');
+    const entry = '\n# Human-AI Nexus\nnexus/\n';
+
+    try {
+        if (await fs.pathExists(gitignorePath)) {
+            const content = await fs.readFile(gitignorePath, 'utf8');
+            if (!content.includes('nexus/')) {
+                await fs.appendFile(gitignorePath, entry);
+                console.log(chalk.green('   ✅ Security: "nexus/" telah ditambahkan ke .gitignore.'));
+            }
+        } else {
+            await fs.writeFile(gitignorePath, entry);
+            console.log(chalk.green('   ✅ Security: File .gitignore baru dibuat dengan entri "nexus/".'));
+        }
+    } catch (err) {
+        console.warn(chalk.yellow('   ⚠️ Warning: Gagal memperbarui .gitignore.'));
+    }
 }
 
 main().catch(err => {

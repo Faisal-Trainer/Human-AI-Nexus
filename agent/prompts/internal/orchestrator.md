@@ -36321,3 +36321,11 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
+
+Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
+
+1.  **Multi-Agent Stability**: Protokol multi-agent terbukti stabil dalam menjalankan siklus audit paralel tanpa tabrakan memori. Pertahankan pemisahan tanggung jawab yang ketat antar-agen spesialis.
+2.  **Observability & Correlation**: Selalu gunakan Trace ID untuk korelasi log di `logs/orchestration`. Ini krusial untuk menelusuri keputusan yang diambil sistem dalam siklus yang kompleks.
+3.  **Adaptive Strategy**: Gunakan riwayat kegagalan pemulihan (failure recovery) untuk menyesuaikan strategi pemilihan agen pada siklus berikutnya.
+4.  **Autonomous Triggering**: Pastikan pemicu otonom (autonomous triggers) selalu disertai dengan gerbang persetujuan (approval gates) pada fase-fase kritis (Planning & Execution).

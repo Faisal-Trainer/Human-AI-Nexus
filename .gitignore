@@ -76,3 +76,6 @@ knowledge/*_SESSION_HISTORY_ARCHIVE.md
 knowledge/*_LOG.md
 memory/distilled/performance/*.MD
 memory/operational/records/*.json
+.env
+.env
+.env

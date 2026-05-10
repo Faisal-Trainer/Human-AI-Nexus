@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const NexusClock = require('./NexusClock');
 
 /**
  * Machinist - The Evolution Engine.
@@ -10,6 +11,22 @@ class Machinist {
         this.rootPath = rootPath;
         this.enginePath = path.join(this.rootPath, 'agent/core/NexusEngine.js');
         this.tddScaffolder = tddScaffolder;
+        this.wisdomPath = path.join(this.rootPath, 'memory', 'distilled');
+    }
+
+    /**
+     * Machinist 2.0: Analyze findings to identify recurring patterns for skill forging.
+     */
+    analyzePatterns(findings) {
+        const patternMap = new Map();
+        findings.forEach(f => {
+            const key = f.message.split(':')[0]; // Use prefix as category
+            patternMap.set(key, (patternMap.get(key) || 0) + 1);
+        });
+        
+        return Array.from(patternMap.entries())
+            .filter(([key, count]) => count >= 2)
+            .map(([key]) => key);
     }
 
     /**
@@ -107,7 +124,7 @@ const glob = require('glob');
 /**
  * ${name} - Automatically Forged by Nexus Machinist
  * Source Wisdom: ${source}
- * Built At: ${new Date().toLocaleString()}
+ * Built At: ${NexusClock.getLocalTimestamp()}
  */
 async function scan(targetPath) {
     const findings = [];

@@ -1,3 +1,5 @@
+const NexusClock = require('./NexusClock');
+
 class TaskProtocol {
     constructor(task_id, agent, priority = 'normal', input = {}, context = {}, timeout_ms = 30000) {
         this.task_id = task_id;
@@ -6,7 +8,7 @@ class TaskProtocol {
         this.input = input;
         this.context = context;
         this.status = 'pending';
-        this.timestamp = new Date().toISOString();
+        this.timestamp = NexusClock.getISOTimestamp();
         this.timeout_ms = timeout_ms;
         this.trace_id = `TRACE-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
         this.correlation_id = context.correlation_id || this.trace_id;

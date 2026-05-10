@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const glob = require('glob');
+const crypto = require('crypto');
+const NexusClock = require('./NexusClock');
 
 /**
  * Distiller Engine - Responsibility: Compressing and standardizing Knowledge HUB.
@@ -318,25 +320,44 @@ ${oldContent.trim()}
     async generateHubIndex() {
         console.log('📚 Distiller: Generating HUB Master Index recursively...');
         const files = this.getFiles();
+        const semanticData = [];
         
         let indexContent = `# 🧠 NEXUS KNOWLEDGE HUB: Master Index\n`;
-        indexContent += `> **Generated At**: ${new Date().toLocaleString()} | **Total Knowledge Nodes**: ${files.length}\n\n`;
+        indexContent += `> **Generated At**: ${NexusClock.getLocalTimestamp()} | **Total Knowledge Nodes**: ${files.length}\n\n`;
         indexContent += `| Rack | Knowledge Node | Size (KB) | Last Updated |\n`;
         indexContent += `| :--- | :--- | :--- | :--- |\n`;
 
         for (const file of files) {
             const filePath = path.join(this.knowledgePath, file);
+            const content = await fs.readFile(filePath, 'utf8');
             const stats = await fs.stat(filePath);
             const rack = path.dirname(file) === '.' ? 'root' : path.dirname(file);
             const size = (stats.size / 1024).toFixed(1);
             const updated = stats.mtime.toLocaleDateString();
 
+            // Extract tags for semantic index
+            const tagMatch = content.match(/> \*\*Metadata \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*)\]/i);
+            const tags = tagMatch ? tagMatch[1].split(',').map(t => t.trim()) : [];
+
             indexContent += `| \`${rack}\` | [${path.basename(file)}](${file.replace(/\\/g, '/')}) | ${size} | ${updated} |\n`;
+            
+            semanticData.push({
+                node: path.basename(file),
+                path: file,
+                rack: rack,
+                tags: tags,
+                last_updated: updated,
+                checksum: crypto.createHash('sha256').update(content).digest('hex')
+            });
         }
 
         const indexPath = path.join(this.knowledgePath, 'NEXUS_HUB_INDEX.md');
         await fs.writeFile(indexPath, indexContent);
-        console.log(`   ✅ HUB Master Index generated.`);
+
+        const semanticPath = path.join(this.knowledgePath, 'NEXUS_SEMANTIC_INDEX.json');
+        await fs.writeJson(semanticPath, semanticData, { spaces: 2 });
+
+        console.log(`   ✅ HUB Master Index & Semantic JSON generated.`);
     }
 
     async generateNeuralMap() {
@@ -371,7 +392,7 @@ ${oldContent.trim()}
         }
 
         const mapPath = path.join(this.knowledgePath, 'NEXUS_NEURAL_MAP.md');
-        const finalContent = `# 🧠 NEXUS AI: Neural Knowledge Map\n\n\`\`\`mermaid\n${mermaid}\`\`\`\n\n> **Stats**: ${files.length} Nodes | ${connections} Connections | **Generated**: ${new Date().toLocaleString()}\n`;
+        const finalContent = `# 🧠 NEXUS AI: Neural Knowledge Map\n\n\`\`\`mermaid\n${mermaid}\`\`\`\n\n> **Stats**: ${files.length} Nodes | ${connections} Connections | **Generated**: ${NexusClock.getLocalTimestamp()}\n`;
         
         await fs.writeFile(mapPath, finalContent);
     }

@@ -1,36 +1,14 @@
-# Dependencies (tidak perlu, diinstall ulang di dalam container)
 node_modules
-
-# Git internals
+npm-debug.log
+scratch
 .git
 .gitignore
-
-# CI/CD
-.github
-
-# Runtime artifacts (jangan masuk image, datanya ada di named volume)
-logs
-memory/operational
-memory/short_term
-memory/raw
-
-# Dev & scratch tools
-tests
-scratch
-npm-debug.log*
-
-# Secrets
 .env
-*.env.*
-
-# Windows scripts
-*.ps1
-
-# File tidak relevan
-belajar-docker-dasar-main.zip
-NEXUS_PUBLIC_DISTRIBUTION
-documentation/nexus_rules/PANDUAN_CEPAT.md
-
-# OS artifacts
-.DS_Store
-Thumbs.db
+.htaccess
+documentation/audit/*.md
+documentation/planning/*.md
+memory/operational/*.json
+memory/raw/*.md
+tests/TDD/temp_*
+Dockerfile
+.dockerignore

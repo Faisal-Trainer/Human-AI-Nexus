@@ -1,22 +1,26 @@
 const NexusEngine = require('../../agent/core/NexusEngine');
 const MemoryGovernor = require('../../agent/core/MemoryGovernor');
 
-describe('MemoryGovernor', () => {
-    let engine;
-    let governor;
+/**
+ * 🧪 TDD Test Case: MemoryGovernor health checks
+ */
+async function testMemoryGovernorHealth() {
+    console.log('🧪 Running MemoryGovernor.test.js...');
+    const governor = new MemoryGovernor(process.cwd());
 
-    beforeEach(() => {
-        engine = new NexusEngine({ rootPath: process.cwd() });
-        governor = new MemoryGovernor(process.cwd());
-    });
+    if (governor.rootPath !== process.cwd()) {
+        throw new Error('MemoryGovernor root path mismatch');
+    }
 
-    test('should initialize with root path', () => {
-        expect(governor.rootPath).toBe(process.cwd());
-    });
+    const checksum = governor.generateChecksum('test-content');
+    if (!checksum || checksum.length !== 64) {
+        throw new Error('MemoryGovernor checksum generation failed');
+    }
 
-    test('should validate memory constraints', async () => {
-        // Placeholder for memory validation logic
-        const status = await governor.checkHealth();
-        expect(status).toBeDefined();
-    });
+    console.log('✅ MemoryGovernor Checksum Test Passed!\n');
+}
+
+testMemoryGovernorHealth().catch(err => {
+    console.error('❌ MemoryGovernor Test Failed:', err.message);
+    process.exit(1);
 });

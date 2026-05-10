@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const NexusClock = require('./NexusClock');
 
 class Logger {
     constructor(rootPath) {
@@ -27,11 +28,11 @@ class Logger {
                     if (!validLevels.includes(level)) level = 'INFO';
 
                     const logDir = path.join(this.logPath, category);
-                    const logFile = path.join(logDir, `${new Date().toISOString().split('T')[0]}.json`);
+                    const logFile = path.join(logDir, `${NexusClock.getDateString()}.json`);
 
                     const logEntry = {
                         trace_id: trace_id,
-                        timestamp: new Date().toISOString(),
+                        timestamp: NexusClock.getISOTimestamp(),
                         level: level,
                         agent: agent,
                         task_id: task_id,

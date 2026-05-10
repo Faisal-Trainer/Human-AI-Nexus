@@ -1,8 +1,8 @@
 graph LR
 A [scanning seluruh isi project ini]
-B [tulis planning]
-C [masih ada kekurangan ]
-D [final ouput planning ]
+B [tulis audit]
+C [masih ada kekurangan prroject]
+D [final ouput audit ]
 
 A --> B
 B -- NO --> C

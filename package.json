@@ -1,6 +1,6 @@
 {
   "name": "human-ai-nexus",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Documentation-First Framework for Human-AI Collaborative Development",
   "main": "cli.js",
   "type": "commonjs",

@@ -21,6 +21,8 @@ const Logger = require('./Logger');
 const MemoryGovernor = require('./MemoryGovernor');
 const EventBus = require('./EventBus');
 const SandboxExecutor = require('./SandboxExecutor');
+const NexusClock = require('./NexusClock');
+const ResourceMonitor = require('./ResourceMonitor');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -42,7 +44,7 @@ class NexusError extends Error {
         super(message);
         this.name = 'NexusError';
         this.phase = phase;
-        this.timestamp = new Date().toISOString();
+        this.timestamp = NexusClock.getISOTimestamp();
     }
 }
 
@@ -130,6 +132,7 @@ class NexusEngine {
         this.logger = new Logger(this.rootPath);
         this.memoryGovernor = new MemoryGovernor(this.rootPath);
         this.currentCorrelationId = `CORR-${Date.now()}`;
+        this.resourceMonitor = new ResourceMonitor();
         this.sandbox = new SandboxExecutor();
         this.metrics = {};
     }
@@ -429,7 +432,7 @@ ${specFindings.map(f => `
         const mdContent = `
 # Audit Summary: ${auditID}
 **Mode**: ${mode}
-**Timestamp**: ${new Date().toLocaleString()}
+**Timestamp**: ${NexusClock.getLocalTimestamp()}
 
 ## 📊 Consolidated Findings
 ${consolidatedFindings.map(f => `- [${f.severity}] ${f.message} (\`${f.file}\`)`).join('\n')}
@@ -597,7 +600,7 @@ ${tasks.map(t => `
         const recapPath = path.join(this.rootPath, 'documentation', 'docs', 'NEXUS_INTERNAL_PIPELINE_RECAP.md');
         if (await fs.pathExists(recapPath)) {
             let content = await fs.readFile(recapPath, 'utf8');
-            const timestamp = new Date().toLocaleString();
+            const timestamp = NexusClock.getLocalTimestamp();
             const logEntry = `\n- [${timestamp}] **Self-Healing**: ${updateMessage}`;
             
             if (content.includes('## 🧐 Analisis & Rekomendasi Penyempurnaan')) {
@@ -620,7 +623,7 @@ ${tasks.map(t => `
             cycle: cycleID,
             audit: this.currentAudit?.id,
             plan: this.currentPlan?.id,
-            timestamp: new Date().toISOString()
+            timestamp: NexusClock.getISOTimestamp()
         }, { spaces: 2 });
 
         // RUN MEMORY PIPELINE (Automated Archiving)
@@ -662,6 +665,11 @@ ${tasks.map(t => `
         this.state = STATES.INIT;
         this.log(`\n--- Nexus Engine: Starting Cycle [STATE: ${this.state}] ---`, 'info');
         
+        const stressTest = await this.resourceMonitor.checkStress();
+        if (stressTest.stressed) {
+            this.log(`⚠️ SYSTEM STRESS DETECTED: ${stressTest.metrics.mem_usage_pct}% Memory Usage. Throttling execution...`, 'warning');
+            await new Promise(resolve => setTimeout(resolve, 3000)); // Cool down
+        }
         try {
             this.state = STATES.PROCESSING;
             this.log(`🔄 System Transition: [${this.state}]`, 'warning');
@@ -709,7 +717,7 @@ ${tasks.map(t => `
     async generateCycleSummary(cycleID) {
         const summary = {
             cycleID: cycleID || `CYCLE-${Date.now()}`,
-            timestamp: new Date().toISOString(),
+            timestamp: NexusClock.getISOTimestamp(),
             finalState: this.state,
             metrics: this.metrics,
             auditRef: this.currentAudit?.id,

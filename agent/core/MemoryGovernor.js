@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const crypto = require('crypto');
+const NexusClock = require('./NexusClock');
 
 class MemoryGovernor {
     constructor(rootPath) {
@@ -29,7 +30,7 @@ class MemoryGovernor {
             }
             await new Promise(r => setTimeout(r, 100));
         }
-        await fs.writeJson(lockFile, { locked_at: new Date().toISOString() });
+        await fs.writeJson(lockFile, { locked_at: NexusClock.getISOTimestamp() });
     }
 
     async releaseLock(filename) {
@@ -68,7 +69,7 @@ class MemoryGovernor {
                     ...metadata,
                     version: version,
                     checksum: checksum,
-                    timestamp: new Date().toISOString()
+                    timestamp: NexusClock.getISOTimestamp()
                 }
             };
 

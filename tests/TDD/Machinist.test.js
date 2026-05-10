@@ -1,14 +1,24 @@
 const Machinist = require('../../agent/core/Machinist');
 
-describe('Machinist', () => {
-    let machinist;
+/**
+ * 🧪 TDD Test Case: Machinist core validation
+ */
+async function testMachinistBasics() {
+    console.log('🧪 Running Machinist.test.js...');
+    const machinist = new Machinist(process.cwd());
 
-    beforeEach(() => {
-        machinist = new Machinist(process.cwd());
-    });
+    if (!machinist) {
+        throw new Error('Machinist failed to initialize');
+    }
 
-    test('should apply atomic modifications', async () => {
-        // Placeholder for machinist logic
-        expect(machinist).toBeDefined();
-    });
+    if (machinist.rootPath !== process.cwd()) {
+        throw new Error('Machinist root path mismatch');
+    }
+
+    console.log('✅ Machinist Basics Test Passed!\n');
+}
+
+testMachinistBasics().catch(err => {
+    console.error('❌ Machinist Test Failed:', err.message);
+    process.exit(1);
 });

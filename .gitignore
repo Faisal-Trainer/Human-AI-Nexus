@@ -68,3 +68,10 @@ dist/
 build/
 out/
 bin/
+
+# --- Nexus Session Archives & Runtime Artifacts ---
+# Ignore session history archives that are generated during runtime
+knowledge/*_SESSION_HISTORY_ARCHIVE.md
+knowledge/*_LOG.md
+memory/distilled/performance/*.MD
+memory/operational/records/*.json

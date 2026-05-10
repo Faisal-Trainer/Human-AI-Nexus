@@ -85,16 +85,16 @@ class NexusEngine {
         
         // If not found in core (standalone installation), fall back to project-local nexus/
         if (!fs.existsSync(this.agentPath)) {
-            this.agentPath = path.join(this.nexusPath, 'agent', 'prompts');
-            this.skillPath = path.join(this.nexusPath, 'workflow');
+            this.agentPath = path.join(this.nexusDataPath, 'agent', 'prompts');
+            this.skillPath = path.join(this.nexusDataPath, 'workflow');
         }
 
         // 📂 PROJECT DATA PATHS (Target project being audited)
         this.auditPath = path.join(this.rootPath, 'memory', 'raw');
         this.logPath = path.join(this.rootPath, 'logs');
-        this.planningPath = path.join(this.rootPath, 'documentation', 'planning');
-        this.recordsPath = path.join(this.rootPath, 'memory', 'operational', 'records');
-        this.summaryPath = path.join(this.rootPath, 'memory', 'summary');
+        this.planningPath = resolvePath('planning');
+        this.recordsPath = resolvePath('operational', 'records');
+        this.summaryPath = resolvePath('summary');
         this.knowledgePath = resolvePath('distilled', 'knowledge');
         this.algorithmsPath = resolvePath('algorithms');
 
@@ -103,11 +103,6 @@ class NexusEngine {
         this.activeAgents = new Set();
         this.skillRegistry = {};
         this.memory = [];
-        
-        this.knowledgePath = resolvePath('distilled', 'knowledge');
-        this.recordsPath = resolvePath('operational', 'records');
-        this.summaryPath = resolvePath('summary');
-        this.planningPath = resolvePath('planning');
         
         this.metrics = {};
         this.state = STATES.INIT;
@@ -210,9 +205,9 @@ class NexusEngine {
     async getSemanticTags(filePath) {
         try {
             const content = await fs.readFile(filePath, 'utf8');
-            const match = content.match(/> \*\*METADATA \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*?)\]/);
+            const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
             if (match) {
-                return match[1].split(',').map(t => t.trim());
+                return match[1].split(',').map(t => t.trim().toLowerCase());
             }
         } catch (e) {}
         return [];
@@ -451,7 +446,8 @@ ${consolidatedFindings.map(f => `- [${f.severity}] ${f.message} (\`${f.file}\`)`
     async globRecursive(dir, pattern) {
         const glob = require('glob');
         return new Promise((resolve, reject) => {
-            glob(pattern, { cwd: dir, absolute: true }, (err, files) => {
+            const fullPattern = path.join(dir, pattern).replace(/\\/g, '/');
+            glob(fullPattern, (err, files) => {
                 if (err) reject(err);
                 else resolve(files);
             });
@@ -950,17 +946,6 @@ ${tasks.map(t => `
         this.log('✨ HUB Distillation & Optimization Complete.', 'success');
     }
 
-    /**
-     * Extracts semantic tags from a knowledge file
-     */
-    async getSemanticTags(filePath) {
-        const content = await fs.readFile(filePath, 'utf8');
-        const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
-        if (match) {
-            return match[1].split(',').map(t => t.trim().toLowerCase());
-        }
-        return [];
-    }
 
     /**
      * Final Phase: Update System Status in README
@@ -972,18 +957,6 @@ ${tasks.map(t => `
         this.log('✅ System Status Updated.', 'success');
     }
 
-    /**
-     * Helper to find files recursively
-     */
-    async globRecursive(dir, pattern) {
-        const glob = require('glob');
-        return new Promise((resolve, reject) => {
-            glob(path.join(dir, pattern).replace(/\\/g, '/'), (err, files) => {
-                if (err) reject(err);
-                else resolve(files);
-            });
-        });
-    }
 
     /**
      * Universal Nexus Collision Logic (Multi-Option Wrapper)

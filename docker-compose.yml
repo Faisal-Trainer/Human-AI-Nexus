@@ -1,0 +1,32 @@
+services:
+  nexus:
+    build:
+      context: .
+      target: runtime
+    container_name: nexus-ai
+    image: nexus-ai:latest
+
+    # Wajib untuk interaksi approve/reject dari terminal
+    stdin_open: true
+    tty: true
+
+    volumes:
+      # Mount project TALL stack aktif ke /workspace
+      # Ganti dengan path project yang ingin diaudit
+      - ${PROJECT_PATH:-./workspace-default}:/workspace
+
+      # Named volume: memory & logs NEXUS tetap ada walau container restart
+      - nexus-memory:/workspace/memory
+      - nexus-logs:/workspace/logs
+
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+
+    # Default: jalankan full cycle audit
+    command: run
+
+volumes:
+  nexus-memory:
+    name: nexus-memory
+  nexus-logs:
+    name: nexus-logs

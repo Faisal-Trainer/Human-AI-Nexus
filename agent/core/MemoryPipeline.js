@@ -11,6 +11,7 @@ class MemoryPipeline {
         this.knowledgePath = knowledgePath;
         this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'operational', 'audit');
         this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'operational', 'planning');
+        this.recordsPath = path.join(this.rootPath, 'memory', 'operational', 'records');
         this.archiveFile = path.join(this.knowledgePath, 'SESSION_HISTORY_ARCHIVE.md');
     }
 
@@ -114,19 +115,19 @@ class MemoryPipeline {
             const filePath = path.join(auditDir, file);
             const data = await fs.readJson(filePath);
             
-            archiveContent += `- **Audit ID**: ${data.id} | **Target**: ${data.target} | **Findings**: ${data.findings.length}\n`;
+            // archiveContent += `- **Audit ID**: ${data.id} | **Target**: ${data.target} | **Findings**: ${data.findings.length}\n`;
             
-            // Delete the files (JSON and matching MD)
-            await fs.remove(filePath);
-            const mdPath = filePath.replace('.json', '.md');
-            if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
+            // 🔥 Hotfix: DISABLED AUTO-DELETE for Human-AI Nexus v3.2.0 (PBL Compliance)
+            // await fs.remove(filePath);
+            // const mdPath = filePath.replace('.json', '.md');
+            // if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
             
             count++;
         }
 
         if (count > 0) {
-            await this.appendToArchive(archiveContent);
-            console.log(`   📦 Archived ${count} audit reports to ${path.basename(await this.getArchiveFile())}`);
+            // await this.appendToArchive(archiveContent);
+            console.log(`   📦 Log: Found ${count} audit reports. (Auto-Archive Deletion Disabled)`);
         }
     }
 
@@ -144,19 +145,19 @@ class MemoryPipeline {
             const filePath = path.join(planningDir, file);
             const data = await fs.readJson(filePath);
             
-            archiveContent += `- **Plan ID**: ${data.id} | **Audit Ref**: ${data.auditRef} | **Tasks**: ${data.tasks.length}\n`;
+            // archiveContent += `- **Plan ID**: ${data.id} | **Audit Ref**: ${data.auditRef} | **Tasks**: ${data.tasks.length}\n`;
             
-            // Delete the files (JSON and matching MD)
-            await fs.remove(filePath);
-            const mdPath = filePath.replace('.json', '.md');
-            if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
+            // 🔥 Hotfix: DISABLED AUTO-DELETE for Human-AI Nexus v3.2.0 (PBL Compliance)
+            // await fs.remove(filePath);
+            // const mdPath = filePath.replace('.json', '.md');
+            // if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
             
             count++;
         }
 
         if (count > 0) {
-            await this.appendToArchive(archiveContent);
-            console.log(`   📦 Archived ${count} implementation plans to ${path.basename(await this.getArchiveFile())}`);
+            // await this.appendToArchive(archiveContent);
+            console.log(`   📦 Log: Found ${count} implementation plans. (Auto-Archive Deletion Disabled)`);
         }
     }
 

@@ -1275,10 +1275,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **TDD Consistency**: Dalam siklus "Audit -> Fix -> Re-audit", pastikan hasil audit kedua benar-benar memvalidasi apakah perbaikan fisik sudah dilakukan. Jika temuan tetap sama, identifikasi kegagalan pada fase Eksekusi/Auto-Fixer.
-2.  **Evidence-Based Verification**: Jangan menganggap tugas selesai hanya karena perintah eksekusi sudah dijalankan. Selalu lakukan verifikasi fisik (deep scan) pada file untuk memastikan perubahan benar-benar tertulis.
-3.  **Stress Testing**: Gunakan skenario pengujian beban kolaborasi antar-agen untuk mendeteksi potensi tabrakan memori atau inkonsistensi state.

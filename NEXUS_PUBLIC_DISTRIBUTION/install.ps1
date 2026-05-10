@@ -30,6 +30,29 @@ if (-not (Test-Path $nexusBase)) {
     New-Item -ItemType Directory -Path $nexusBase -Force | Out-Null
 }
 
+# 🔒 Security Hardening: Auto-Gitignore
+Write-Host "🛡️ Menyiapkan Keamanan (Gitignore)..."
+$gitignorePath = ".gitignore"
+$entry = "`n# Human-AI Nexus`nnexus/`n"
+if (Test-Path $gitignorePath) {
+    $content = Get-Content $gitignorePath -Raw
+    if (-not $content.Contains("nexus/")) {
+        Add-Content -Path $gitignorePath -Value $entry
+        Write-Host "   ✅ Security: 'nexus/' ditambahkan ke .gitignore." -ForegroundColor Green
+    }
+} else {
+    Set-Content -Path $gitignorePath -Value $entry
+    Write-Host "   ✅ Security: .gitignore baru dibuat dengan entri 'nexus/'." -ForegroundColor Green
+}
+
+# 🔒 Security Hardening: Access Protection (.htaccess)
+Write-Host "🛡️ Menyiapkan Keamanan (Access Protection)..."
+$htaccessPath = "$nexusBase\.htaccess"
+if (-not (Test-Path $htaccessPath)) {
+    Set-Content -Path $htaccessPath -Value "Deny from all"
+    Write-Host "   ✅ Security: Access Protection (.htaccess) terpasang." -ForegroundColor Green
+}
+
 # 1. Pasang Brain (nexus/agent/) - HANYA EKSTERNAL
 Write-Host "🧠 Memasang External Brain (Prompts & Workflows)..."
 $agentPath = "$nexusBase\agent"
@@ -56,15 +79,30 @@ if (-not (Test-Path $agentPath)) {
 }
 
 # 2. Pasang Memory (nexus/memory/)
-Write-Host "🧠 Menyiapkan Memory (Recursive Rack Structure)..."
+Write-Host "🧠 Menyiapkan Memory (Multi-Agent Standard)..."
 $memPath = "$nexusBase\memory"
 if (-not (Test-Path $memPath)) {
+    $folders = @("raw", "normalized", "semantic", "distilled", "operational", "archived")
+    foreach ($folder in $folders) {
+        New-Item -ItemType Directory -Path "$memPath\$folder" -Force | Out-Null
+    }
+    # Tambahkan Racks di dalam distilled
     $racks = @("security", "performance", "ui-ux", "standards", "database", "academics", "other")
     foreach ($rack in $racks) {
-        New-Item -ItemType Directory -Path "$memPath\long_term\$rack" -Force | Out-Null
+        New-Item -ItemType Directory -Path "$memPath\distilled\$rack" -Force | Out-Null
     }
-    New-Item -ItemType Directory -Path "$memPath\short_term" -Force | Out-Null
-    Write-Host "   ✅ Folder /$memPath terpasang dengan struktur Rak Pintar." -ForegroundColor Green
+    Write-Host "   ✅ Folder /$memPath terpasang dengan struktur Multi-Agent." -ForegroundColor Green
+}
+
+# 2.5 Pasang Logs (nexus/logs/)
+Write-Host "📊 Menyiapkan Logs Observability..."
+$logsPath = "$nexusBase\logs"
+if (-not (Test-Path $logsPath)) {
+    $logFolders = @("agents", "orchestration", "memory", "scanners", "plugins", "errors")
+    foreach ($folder in $logFolders) {
+        New-Item -ItemType Directory -Path "$logsPath\$folder" -Force | Out-Null
+    }
+    Write-Host "   ✅ Folder /$logsPath terpasang." -ForegroundColor Green
 }
 
 # 3. Pasang Dokumentasi (nexus/documentation/)
@@ -82,12 +120,26 @@ foreach ($sub in $docSubfolders) {
 }
 Write-Host "   ✅ Struktur /$docPath siap (Mirror Rack Mode)." -ForegroundColor Green
 
-# 4. Salin file utama ke root proyek (Akses Cepat)
+# 4. Salin file utama ke root proyek & folder nexus
 $algoFile = "ALGORITMA_INTEGRASI.md"
+$readmeFile = "README.md"
 $algoSrc = $sourcePath.FullName + "\documentation\algorithms\" + $algoFile
+$readmeSrc = $sourcePath.FullName + "\" + $readmeFile
+
+# Salin ke root (Akses Cepat)
 if (Test-Path $algoSrc) {
     Copy-Item -Path $algoSrc -Destination "." -Force
     Write-Host "   ✅ File $algoFile terpasang di root proyek." -ForegroundColor Green
+}
+
+# Salin ke folder nexus (Mandiri)
+if (Test-Path $algoSrc) {
+    Copy-Item -Path $algoSrc -Destination $nexusBase -Force
+    Write-Host "   ✅ File $algoFile terpasang di dalam /$nexusBase/." -ForegroundColor Green
+}
+if (Test-Path $readmeSrc) {
+    Copy-Item -Path $readmeSrc -Destination $nexusBase -Force
+    Write-Host "   ✅ File $readmeFile terpasang di dalam /$nexusBase/." -ForegroundColor Green
 }
 
 # 5. Cleanup

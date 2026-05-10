@@ -1258,10 +1258,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **LCP Optimization**: Berdasarkan audit sebelumnya, optimasi LCP (Largest Contentful Paint) pada project TALL Stack sering terhambat oleh eksekusi JavaScript yang berat. Rekomendasikan pemuatan aset secara asinkron.
-2.  **Semantic Metadata**: Pastikan setiap halaman memiliki metadata semantik (JSON-LD) yang benar untuk meningkatkan keterbacaan oleh mesin pencari.
-3.  **Audit Consistency**: Hasil audit performa harus dikorelasikan dengan temuan UX Engineer untuk memastikan tidak ada optimasi yang merusak pengalaman pengguna.

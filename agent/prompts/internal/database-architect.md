@@ -1258,11 +1258,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Hardcoded Connection Detection**: Selalu periksa file konfigurasi (seperti `config/database.js` atau `config/database.php`) untuk mencari string koneksi yang di-hardcode. Rekomendasikan pemindahan ke `.env`.
-2.  **Model-Migration Sync**: Inkonsistensi antara struktur tabel di Migration dan properti di Model Laravel adalah temuan kritis. Gunakan `SchemaGuard` untuk verifikasi.
-3.  **UUID Standard**: Untuk project Laravel modern, pastikan model utama menggunakan trait `HasUuids`. Jika tidak ada, catat sebagai temuan arsitektur.
-4.  **Gap Analysis**: Jika perbaikan otomatis gagal, identifikasi apakah sistem membutuhkan modul `laravel-architect-actions.js` baru untuk menangani blueprint Laravel.

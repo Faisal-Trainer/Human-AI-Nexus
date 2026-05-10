@@ -36288,10 +36288,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Protocol 2 Mastery**: Saat menjalankan *Semantic Mass Update*, pastikan transformasi dari Knowledge HUB menjadi Skill Agent menggunakan bahasa yang instruksional (Actionable Wisdom) bukan naratif.
-2.  **Contextual Teaching**: Sesuaikan pengajaran dengan tingkat pengalaman Developer. Untuk Junior, berikan detail langkah demi langkah. Untuk Senior, berikan gambaran arsitektur dan efisiensi.
-3.  **Cross-Pollination Logic**: Satu temuan di HUB (misal: celah keamanan database) harus didistribusikan ke seluruh agen terkait (Database Architect, Cyber Security, dan Orchestrator).

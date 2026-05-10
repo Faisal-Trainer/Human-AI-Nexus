@@ -1258,10 +1258,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Livewire Reactivity**: Selalu verifikasi apakah state reaktif pada komponen Livewire bekerja sesuai ekspektasi, terutama pada input data yang kompleks.
-2.  **Tailwind Integrity**: Periksa apakah ada kelas Tailwind yang bertabrakan atau tidak ter-compile dengan benar (purge issues).
-3.  **Alpine Behavior**: Simulasikan interaksi Alpine.js untuk mendeteksi kegagalan logika pada sisi client sebelum proses deployment.

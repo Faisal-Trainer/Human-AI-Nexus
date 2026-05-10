@@ -38,7 +38,7 @@ ELSE {
     /* OPTION B: New/Alternative Pattern */
     # 🎨 NEXUS DESIGN SYSTEM GUIDELINES (Unified Standard)
 
-Dokumen ini menggabungkan prinsip desain terbaik dari ekosistem Nexus, mencakup mode terang (NEXUS LORE) dan mode gelap (Lumina).
+Dokumen ini menggabungkan prinsip desain terbaik dari ekosistem Nexus, mencakup mode terang (F-Novel) dan mode gelap (Lumina).
 
 ## 1. Brand & Aesthetics: "Institutional Innovation"
 Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan ekspresi kreatif yang futuristik (Web 3.0).
@@ -61,12 +61,7 @@ Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan
 - **Backdrop Blur**: Gunakan `backdrop-blur: 12px - 20px` pada elemen navigasi yang melayang (floating).
 
 ---
-## 5. Advanced Color Research [UPDATE: 2026-05-05]
-- **Contrast & Inclusivity**: WAJIB menggunakan standar audit otomatis dari `AccessibilityScanner.js` untuk memvalidasi temuan jurnal mengenai kenyamanan visual lintas demografi.
-- **Dynamic Theming**: Palet warna harus mendukung skalabilitas otonom; setiap penambahan kategori baru (misal: kategori jurnal baru) akan mendapatkan kode warna unik yang dihasilkan via `Designer.js`.
-
----
-*Status: Institutional Knowledge (Design & UI/UX Layer + Advanced Color Research).*
+*Status: Institutional Knowledge (Design & UI/UX Layer).*
 }
 
 ---

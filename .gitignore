@@ -68,6 +68,7 @@ dist/
 build/
 out/
 bin/
+NEXUS_PUBLIC_DISTRIBUTION/
 
 # --- Nexus Session Archives & Runtime Artifacts ---
 # Ignore session history archives that are generated during runtime

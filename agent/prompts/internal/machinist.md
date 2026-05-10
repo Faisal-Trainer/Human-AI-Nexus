@@ -1287,10 +1287,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Laravel Auto-Fixer Gap**: Saat melakukan perbaikan fisik pada file PHP/Laravel, gunakan pola yang konsisten dengan Laravel Blueprint. Jika modul `laravel-architect-actions.js` tersedia, prioritaskan penggunaannya untuk injeksi Trait (seperti `HasUuids`) secara otomatis.
-2.  **Safety First (Forge)**: Selalu lakukan simulasi perubahan pada folder `scratch/` sebelum diterapkan ke source code utama project.
-3.  **Tool Registration**: Pastikan setiap mesin audit baru terdaftar secara otomatis di dalam siklus Engine tanpa memerlukan modifikasi manual pada file core.

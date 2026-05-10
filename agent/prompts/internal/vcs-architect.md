@@ -1258,10 +1258,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Mandatory .gitignore**: Ketiadaan file `.gitignore` adalah pelanggaran tata kelola (Governance) tingkat tinggi. Selalu pastikan file ini ada di root project.
-2.  **Nexus Exclusion**: Pastikan folder `nexus/` (termasuk memori dan log) selalu masuk dalam daftar ignore untuk mencegah "Git Bloat".
-3.  **Traceability**: Gunakan log korelasi untuk memantau perubahan status VCS selama fase eksekusi multi-agent.

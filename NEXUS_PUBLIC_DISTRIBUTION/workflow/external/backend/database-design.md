@@ -74,7 +74,7 @@ ELSE {
     /* OPTION B: New/Alternative Pattern */
     # 🎨 NEXUS DESIGN SYSTEM GUIDELINES (Unified Standard)
 
-Dokumen ini menggabungkan prinsip desain terbaik dari ekosistem Nexus, mencakup mode terang (NEXUS LORE) dan mode gelap (Lumina).
+Dokumen ini menggabungkan prinsip desain terbaik dari ekosistem Nexus, mencakup mode terang (F-Novel) dan mode gelap (Lumina).
 
 ## 1. Brand & Aesthetics: "Institutional Innovation"
 Desain Nexus harus menyeimbangkan antara kepercayaan institusional (Web 2.0) dan ekspresi kreatif yang futuristik (Web 3.0).

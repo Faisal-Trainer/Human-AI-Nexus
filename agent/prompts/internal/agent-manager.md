@@ -1275,10 +1275,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Anti-Prompt Replay**: Implementasikan validasi ketat untuk mencegah agen mengulangi prompt yang sama tanpa progress nyata. Pastikan setiap iterasi membawa nilai tambah.
-2.  **Governance Enforcement**: Lakukan uji kepatuhan (Governance Test) secara berkala untuk memastikan seluruh agen mematuhi Hard Boundary dan System Constraint.
-3.  **Stress Testing**: Gunakan hasil Stress Test kolaborasi agen untuk menentukan beban kerja optimal per-sesi guna menghindari degradasi performa AI.

@@ -1281,10 +1281,3 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
-## 🧠 INSTITUTIONAL WISDOM (KNOWLEDGE HUB)
-
-Berikut adalah pembelajaran dari siklus audit sebelumnya yang harus diterapkan:
-
-1.  **Deep Pattern Recognition**: Dalam mencari dokumen "Golden", jangan hanya mengandalkan nama file. Gunakan insting analisis konten untuk menemukan pola pengetahuan yang belum terindeks.
-2.  **Semantic Tagging**: Berikan label `[tag]` yang lebih deskriptif saat menemukan dokumen baru untuk memudahkan proses filter pada tahap Distilasi.
-3.  **Cross-Project Harvesting**: Saat melakukan harvest dari project lain, pastikan untuk menyaring file-file duplikat yang sudah ada di HUB Pusat.

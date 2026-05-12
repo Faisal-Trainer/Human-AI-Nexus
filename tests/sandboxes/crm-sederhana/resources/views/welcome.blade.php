@@ -3,16 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Nexus URL Shortener</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Nexus CrmSederhana</title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="antialiased bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-6">
-        
+    <body class="antialiased bg-slate-50 dark:bg-slate-950 min-h-screen flex items-center justify-center p-6 font-sans">
         <div class="w-full">
-            <livewire:url-shortener />
+            <livewire:crm-sederhana />
         </div>
-
         @livewireScripts
     </body>
 </html>
+        

@@ -8,7 +8,8 @@ const glob = require('glob');
 async function scan(targetPath) {
     const findings = [];
 
-    const files = glob.sync('**/*.{html,jsx,tsx,blade.php,vue,css,scss}', { cwd: targetPath, ignore: ['node_modules/**'] });
+    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
+    const files = glob.sync('**/*.{html,jsx,tsx,blade.php,vue,css,scss}', { cwd: targetPath, ignore: IGNORE });
     
     // 1. Scan for hardcoded colors (HEX/RGB) instead of variables
     const colorRegex = /#([a-f0-9]{3}){1,2}|rgba?\(\d+,\s*\d+,\s*\d+(,\s*\d+(\.\d+)?)?\)/gi;

@@ -23,7 +23,8 @@ class MemoryPipeline {
         
         await this.archiveAuditReports();
         await this.archiveImplementationPlans();
-        await this.processHarvestData(); // New: Takes data from harvest
+        await this.processHarvestData(); // Takes data from harvest
+        await this.writeSemanticIndex(); // Populate memory/semantic/
         
         console.log('✅ Memory Pipeline: Optimization complete.');
     }
@@ -115,19 +116,13 @@ class MemoryPipeline {
             const filePath = path.join(auditDir, file);
             const data = await fs.readJson(filePath);
             
-            // archiveContent += `- **Audit ID**: ${data.id} | **Target**: ${data.target} | **Findings**: ${data.findings.length}\n`;
-            
-            // 🔥 Hotfix: DISABLED AUTO-DELETE for Human-AI Nexus v3.2.0 (PBL Compliance)
-            // await fs.remove(filePath);
-            // const mdPath = filePath.replace('.json', '.md');
-            // if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
-            
+            archiveContent += `- **Audit ID**: ${data.id} | **Target**: ${data.target} | **Findings**: ${(data.findings || []).length}\n`;
             count++;
         }
 
         if (count > 0) {
-            // await this.appendToArchive(archiveContent);
-            console.log(`   📦 Log: Found ${count} audit reports. (Auto-Archive Deletion Disabled)`);
+            await this.appendToArchive(archiveContent);
+            console.log(`   📦 Archived: ${count} audit reports.`);
         }
     }
 
@@ -145,19 +140,13 @@ class MemoryPipeline {
             const filePath = path.join(planningDir, file);
             const data = await fs.readJson(filePath);
             
-            // archiveContent += `- **Plan ID**: ${data.id} | **Audit Ref**: ${data.auditRef} | **Tasks**: ${data.tasks.length}\n`;
-            
-            // 🔥 Hotfix: DISABLED AUTO-DELETE for Human-AI Nexus v3.2.0 (PBL Compliance)
-            // await fs.remove(filePath);
-            // const mdPath = filePath.replace('.json', '.md');
-            // if (await fs.pathExists(mdPath)) await fs.remove(mdPath);
-            
+            archiveContent += `- **Plan ID**: ${data.id} | **Audit Ref**: ${data.auditRef} | **Tasks**: ${(data.tasks || []).length}\n`;
             count++;
         }
 
         if (count > 0) {
-            // await this.appendToArchive(archiveContent);
-            console.log(`   📦 Log: Found ${count} implementation plans. (Auto-Archive Deletion Disabled)`);
+            await this.appendToArchive(archiveContent);
+            console.log(`   📦 Archived: ${count} implementation plans.`);
         }
     }
 
@@ -178,6 +167,53 @@ class MemoryPipeline {
             // Append content before tags if possible, or just append
             await fs.appendFile(archiveFile, content);
         }
+    }
+
+    /**
+     * Populate memory/semantic/ with a live semantic index built from the distilled HUB.
+     * Fixes the gap where memory/semantic/ was always empty.
+     */
+    async writeSemanticIndex() {
+        const semanticDir = path.join(this.rootPath, 'memory', 'semantic');
+        await fs.ensureDir(semanticDir);
+
+        const knowledgeDir = this.knowledgePath;
+        if (!(await fs.pathExists(knowledgeDir))) return;
+
+        console.log('🏷️ Memory Pipeline: Building semantic index into memory/semantic/...');
+
+        const tagIndex = {}; // { tag: [filenames] }
+        let files;
+        try {
+            files = await fs.readdir(knowledgeDir);
+        } catch (e) {
+            return;
+        }
+
+        for (const file of files) {
+            if (!file.endsWith('.md') || file.startsWith('NEXUS_HUB') || file.startsWith('NEXUS_NEURAL')) continue;
+            const filePath = path.join(knowledgeDir, file);
+            try {
+                const content = await fs.readFile(filePath, 'utf8');
+                const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
+                if (match) {
+                    const tags = match[1].split(',').map(t => t.trim().toLowerCase());
+                    for (const tag of tags) {
+                        if (!tagIndex[tag]) tagIndex[tag] = [];
+                        tagIndex[tag].push(file);
+                    }
+                }
+            } catch (e) { /* skip unreadable files */ }
+        }
+
+        const outputPath = path.join(semanticDir, 'semantic_tag_index.json');
+        await fs.writeJson(outputPath, {
+            generated_at: new Date().toISOString(),
+            total_tags: Object.keys(tagIndex).length,
+            index: tagIndex
+        }, { spaces: 2 });
+
+        console.log(`   ✅ Semantic index written: ${Object.keys(tagIndex).length} tags → memory/semantic/semantic_tag_index.json`);
     }
 
     /**

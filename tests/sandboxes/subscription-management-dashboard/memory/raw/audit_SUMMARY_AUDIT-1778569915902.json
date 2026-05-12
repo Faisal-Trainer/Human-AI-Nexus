@@ -1,0 +1,47 @@
+{
+  "id": "AUDIT-1778569915902",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-12T07:11:55.934Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\tests\\sandboxes\\subscription-management-dashboard",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "Nexus standard folder [planning/] is missing or path is invalid.",
+      "file": "root"
+    },
+    {
+      "severity": "WARNING",
+      "message": "Nexus standard folder [summary/] is missing or path is invalid.",
+      "file": "root"
+    },
+    {
+      "severity": "SECURITY",
+      "message": ".env detected",
+      "file": ".env"
+    },
+    {
+      "severity": "WARNING",
+      "message": "LICENSE file missing (Standard compliance)",
+      "file": "root"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "file": "app/Models/Url.php"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "file": "app/Models/User.php"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[QueryOptimizer] Foreign Key 'user_id' may be missing an index.",
+      "file": "database/migrations/0001_01_01_000000_create_users_table.php"
+    }
+  ],
+  "metadata": {
+    "mode": "efficient",
+    "allowSensitive": true
+  }
+}

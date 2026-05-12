@@ -10,7 +10,8 @@ async function scan(targetPath) {
     const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
 
     // 1. Scan for Large Assets (Performance)
-    const assets = glob.sync('**/*.{png,jpg,jpeg,gif,svg,mp4,pdf}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', '.git/**'] });
+    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
+    const assets = glob.sync('**/*.{png,jpg,jpeg,gif,svg,mp4,pdf}', { cwd: targetPath, ignore: IGNORE });
     
     for (const asset of assets) {
         const fullPath = path.join(targetPath, asset);
@@ -28,7 +29,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan HTML/JSX/Blade for SEO best practices
-    const views = glob.sync('**/*.{html,htm,jsx,tsx,blade.php,vue}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**'] });
+    const views = glob.sync('**/*.{html,htm,jsx,tsx,blade.php,vue}', { cwd: targetPath, ignore: IGNORE });
     
     for (const view of views) {
         const fullPath = path.join(targetPath, view);

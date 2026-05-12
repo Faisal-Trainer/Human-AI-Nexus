@@ -32,7 +32,7 @@ async function scan(targetPath) {
 
     // 2. Scan for merge conflict markers
     const { glob } = require('glob');
-    const files = glob.sync('**/*.{js,php,py,md,txt,html}', { cwd: targetPath, ignore: ['node_modules/**', '.git/**', 'vendor/**'] });
+    const files = glob.sync('**/*.{js,php,py,md,txt,html}', { cwd: targetPath, ignore: ['node_modules/**', '.git/**', 'vendor/**', 'tests/sandboxes/**'] });
     
     for (const file of files) {
         const fullPath = path.join(targetPath, file);
@@ -48,7 +48,7 @@ async function scan(targetPath) {
 
     // 3. Junk Detection (Mata Sampah)
     const junkPatterns = ['**/*.log', '**/.DS_Store', '**/Thumbs.db', '**/desktop.ini', 'src/*_test.*', 'src/test_*.*'];
-    const junkFiles = glob.sync(`{${junkPatterns.join(',')}}`, { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**'] });
+    const junkFiles = glob.sync(`{${junkPatterns.join(',')}}`, { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**'] });
 
     for (const junk of junkFiles) {
         findings.push({

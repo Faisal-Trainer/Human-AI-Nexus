@@ -61,8 +61,14 @@
       "output_schema": "findings[]"
     },
     {
-      "id": "dummy-scanner",
-      "entrypoint": "dummy-scanner.js"
+      "name": "branding-scanner",
+      "version": "1.0.0",
+      "permissions": [
+        "read_files"
+      ],
+      "entrypoint": "branding-scanner.js",
+      "execution_timeout": 30000,
+      "output_schema": "findings[]"
     }
   ]
 }

@@ -21,7 +21,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan for hardcoded credentials (basic regex)
-    const files = glob.sync('**/*.{js,php,py,env}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**'] });
+    const files = glob.sync('**/*.{js,php,py,env}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'] });
     const secretRegex = /(password|api_key|secret|token)\s*[:=]\s*['"][^'"]+['"]/i;
 
     for (const file of files) {

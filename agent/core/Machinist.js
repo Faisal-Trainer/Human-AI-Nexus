@@ -39,7 +39,7 @@ class Machinist {
         
         let content = await fs.readFile(this.enginePath, 'utf8');
         const instanceName = name.charAt(0).toLowerCase() + name.slice(1);
-        const relPath = type === 'orchestrator' ? `./${name}` : `./../auditor/${name}`;
+        const relPath = type === 'orchestrator' ? `./${name}` : `./../tools/scanners/${name}`;
 
         // 1. Add Require (Smart Injection)
         if (!content.includes(`require('${relPath}')`)) {

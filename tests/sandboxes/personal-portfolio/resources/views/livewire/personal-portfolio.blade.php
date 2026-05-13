@@ -3,7 +3,7 @@
         <section class="grid lg:grid-cols-2 gap-20 items-center py-20">
             <div class="space-y-8">
                 <div class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">Available for Hire</div>
-                <h1 class="text-7xl font-black leading-none">I Build <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">Digital Worlds</span>.</h1>
+                <h1 class="text-7xl font-black leading-none">I Build <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-purple-600">Digital Worlds</span>.</h1>
                 <p class="text-xl text-slate-500 leading-relaxed max-w-md">Senior Creative Developer specializing in Nexus-powered experiences and AI orchestration.</p>
                 <div class="flex gap-4">
                     <button class="bg-slate-900 text-white px-10 py-5 rounded-3xl font-black shadow-2xl hover:scale-105 transition-all">My Work</button>

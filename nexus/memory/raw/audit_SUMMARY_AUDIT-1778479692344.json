@@ -1,0 +1,54 @@
+{
+  "id": "AUDIT-1778479692344",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-11T06:09:50.671Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI",
+  "findings": [
+    {
+      "severity": "SECURITY",
+      "message": ".env detected",
+      "file": ".env"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[seo-performance-specialist] Large asset detected (1.02 MB).",
+      "file": "tests/sandboxes/url-shortener/vendor/livewire/livewire/src/Features/SupportFileUploads/browser_test_image_big.jpg",
+      "rationale": "File media yang besar memperlambat waktu muat halaman (LCP), yang berdampak buruk pada pengalaman pengguna dan ranking Google.",
+      "recommendation": "Kompres gambar menggunakan tool seperti TinyPNG atau ubah formatnya menjadi WebP/WebM yang lebih ringan."
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/layout.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/laravel/framework/src/Illuminate/Foundation/resources/exceptions/renderer/components/request-url.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/livewire/livewire/src/Features/SupportCssModules/fixtures/nested/component/index.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/livewire/livewire/src/Features/SupportNavigate/test-views/navbar-sidebar.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Hardcoded color values detected. Consider using CSS variables or Tailwind classes for better UI consistency.",
+      "file": "tests/sandboxes/url-shortener/vendor/livewire/livewire/src/Features/SupportWireCurrent/test-views/navbar-sidebar.blade.php"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "allowSensitive": true
+  }
+}

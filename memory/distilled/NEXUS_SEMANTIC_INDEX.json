@@ -10,7 +10,35 @@
       "tdd"
     ],
     "last_updated": "13/05/2026",
-    "checksum": "ef35c352c2f9639245e82efa1009d41591cbf79e43ac3443d7ade2ec3a413f39"
+    "checksum": "c2cce0d1d9b0eae01ab8829788803c2ed3a878cb5508c7a426a90918695a84fc"
+  },
+  {
+    "node": "NEXUS_TDD_INSIGHTS.MD",
+    "path": "database/NEXUS_TDD_INSIGHTS.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "vcs",
+      "tdd",
+      "laravel",
+      "nexus_institutionalized"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "46f11d8c49864184f12f7e533b38229b782e36c105b317c363e715c05a1d625d"
+  },
+  {
+    "node": "NEXUS_TDD_PROJECT_1_LOG.MD",
+    "path": "database/NEXUS_TDD_PROJECT_1_LOG.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "vcs",
+      "tdd",
+      "laravel",
+      "nexus_institutionalized"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "716d762bc262c4fac90242a9e9804d2ede4e6c9d895a4836540f9faf509e7461"
   },
   {
     "node": "NEXUS_COLLABORATION_CONTRACT.MD",
@@ -318,12 +346,10 @@
     "tags": [
       "tdd",
       "test_result",
-      "intelligent_crud_auditor",
-      "audit-workflow",
-      "performance"
+      "intelligent_crud_auditor"
     ],
     "last_updated": "07/05/2026",
-    "checksum": "08f539c6434bccf8667040525df3ae368716c81ac158351ff66902011ecfa74c"
+    "checksum": "91cdd2359834b5fdf1f5e1648489ad3e84b1be0691c5e822b09c4a24d8a15f12"
   },
   {
     "node": "NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",

@@ -1,7 +1,7 @@
 
     <div class="max-w-2xl mx-auto space-y-8">
         <header class="text-center space-y-2">
-            <h1 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">Habit Mastery</h1>
+            <h1 class="text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-purple-600">Habit Mastery</h1>
             <p class="text-slate-500 font-medium">Build consistency, unlock your potential.</p>
         </header>
 

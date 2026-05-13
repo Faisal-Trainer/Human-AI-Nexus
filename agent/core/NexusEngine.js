@@ -97,13 +97,13 @@ class NexusEngine {
             this.skillPath = path.join(this.nexusDataPath, 'workflow');
         }
 
-        // 📂 PROJECT DATA PATHS (Target project being audited)
+        // 📂 PROJECT DATA PATHS (Unified Nexus Structure)
         this.auditPath = resolvePath('memory', 'raw');
         this.logPath = resolvePath('logs');
         this.planningPath = resolvePath('planning');
-        this.recordsPath = resolvePath('operational', 'records');
-        this.summaryPath = resolvePath('summary');
-        this.knowledgePath = resolvePath('distilled', 'knowledge');
+        this.recordsPath = resolvePath('memory', 'operational');
+        this.summaryPath = resolvePath('memory', 'summary');
+        this.knowledgePath = resolvePath('memory', 'distilled');
         this.algorithmsPath = resolvePath('algorithms');
 
         this.architect = new LaravelArchitect(this.rootPath);
@@ -815,20 +815,26 @@ ${tasks.map(t => `
                 path.join(primarySource, 'memory', altName || folderName),
                 path.join(primarySource, 'documentation', folderName),
                 path.join(sourcePath, 'documentation', folderName),
-                path.join(sourcePath, 'memory', folderName)
+                path.join(sourcePath, 'memory', folderName),
+                path.join(sourcePath, folderName)
             ];
             for (const p of potentials) {
-                if (await fs.pathExists(p)) return p;
+                if (await fs.pathExists(p)) {
+                    const files = await fs.readdir(p);
+                    if (files.length > 0) return p;
+                }
             }
             return null;
         };
 
         const foldersToHarvest = [
+            { id: 'raw' },
             { id: 'audit' },
             { id: 'planning' },
             { id: 'summary' },
             { id: 'algorithms' },
             { id: 'records', alt: 'short_term' },
+            { id: 'operational', alt: 'records' },
             { id: 'knowledge', alt: 'long_term' },
             { id: 'nexus_rules' },
             { id: 'legal' }

@@ -3,6 +3,7 @@ const path = require('path');
 const glob = require('glob');
 const crypto = require('crypto');
 const NexusClock = require('./NexusClock');
+const SemanticEngine = require('./SemanticEngine');
 
 /**
  * Distiller Engine - Responsibility: Compressing and standardizing Knowledge HUB.
@@ -12,6 +13,7 @@ class Distiller {
     constructor(knowledgePath) {
         this.knowledgePath = knowledgePath;
         this.prefix = 'NEXUS_';
+        this.semanticEngine = new SemanticEngine(knowledgePath);
     }
 
     /**
@@ -136,22 +138,17 @@ ${oldContent.trim()}
      * Identify category based on content keywords
      */
     identifyCategory(content) {
-        const tagMap = {
-            'security': ['auth', 'encryption', 'vulnerability', 'password', 'secure', 'guard', 'keamanan', 'hsts', 'cors'],
-            'performance': ['speed', 'caching', 'latency', 'optimize', 'fast', 'parallel', 'performa', 'redis', 'compression'],
-            'ui-ux': ['design', 'aesthetic', 'layout', 'user', 'interface', 'frontend', 'estetika', 'color', 'typography', 'branding'],
-            'database': ['query', 'schema', 'sql', 'migration', 'store', 'data', 'database', 'uuid', 'fillable'],
-            'tdd': ['test', 'unit', 'quality', 'verification', 'mock', 'pengujian', 'tdd', 'assertion'],
-            'vcs': ['git', 'commit', 'branch', 'merge', 'repo', 'repository', 'worktree'],
-            'marketing': ['seo', 'copywriting', 'conversion', 'analytics', 'marketing', 'audience'],
-            'psychology': ['cognitive', 'behavior', 'semiotic', 'psychology', 'human', 'emotion']
-        };
+        // Gunakan SemanticEngine.extractMultiTags untuk multi-label
+        const tags = this.semanticEngine.extractMultiTags(content);
+        // Return primary tag (pertama) untuk backward compat dengan shelve()
+        return tags.length > 0 ? tags[0] : 'other';
+    }
 
-        const lowerContent = content.toLowerCase();
-        for (const [tag, keywords] of Object.entries(tagMap)) {
-            if (keywords.some(kw => lowerContent.includes(kw))) return tag;
-        }
-        return 'other';
+    /**
+     * Return semua tags (multi-label) — dipakai untuk semantic tagging
+     */
+    identifyCategories(content) {
+        return this.semanticEngine.extractMultiTags(content);
     }
 
     /**
@@ -184,36 +181,22 @@ ${oldContent.trim()}
      * Add semantic tags recursively
      */
     async applySemanticTagging() {
-        console.log('🏷️ Distiller: Applying Semantic Tagging recursively...');
+        console.log('🏷️ Distiller: Applying Multi-Label Semantic Tagging (Vector-Enhanced)...');
         const files = this.getFiles();
-        const tagMap = {
-            'security': ['auth', 'encryption', 'vulnerability', 'password', 'secure', 'guard', 'keamanan', 'hsts', 'cors'],
-            'performance': ['speed', 'caching', 'latency', 'optimize', 'fast', 'parallel', 'performa', 'redis', 'compression'],
-            'ui-ux': ['design', 'aesthetic', 'layout', 'user', 'interface', 'frontend', 'estetika', 'color', 'typography', 'branding'],
-            'database': ['query', 'schema', 'sql', 'migration', 'store', 'data', 'database', 'uuid', 'fillable'],
-            'tdd': ['test', 'unit', 'quality', 'verification', 'mock', 'pengujian', 'tdd', 'assertion'],
-            'vcs': ['git', 'commit', 'branch', 'merge', 'repo', 'repository', 'worktree'],
-            'marketing': ['seo', 'copywriting', 'conversion', 'analytics', 'marketing', 'audience'],
-            'psychology': ['cognitive', 'behavior', 'semiotic', 'psychology', 'human', 'emotion']
-        };
 
         for (const file of files) {
             const filePath = path.join(this.knowledgePath, file);
             let content = await fs.readFile(filePath, 'utf8');
-            
-            const foundTags = new Set();
-            const lowerContent = content.toLowerCase();
 
-            for (const [tag, keywords] of Object.entries(tagMap)) {
-                if (keywords.some(kw => lowerContent.includes(kw))) foundTags.add(tag);
-            }
+            // Gunakan multi-label detection
+            const foundTags = this.identifyCategories(content);
 
-            if (foundTags.size > 0) {
-                const tagStr = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${Array.from(foundTags).join(', ')}]\n`;
+            if (foundTags.length > 0) {
+                const tagStr = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${foundTags.join(', ')}]\n`;
                 if (!content.includes('METADATA (NEXUS SEMANTIC TAGS)')) {
                     content += tagStr;
                     await this.updateVersionHeader(filePath, content);
-                    console.log(`   ✅ Tagged: ${file} with [${Array.from(foundTags).join(', ')}]`);
+                    console.log(`   ✅ Tagged: ${file} with [${foundTags.join(', ')}]`);
                 }
             }
         }
@@ -405,6 +388,11 @@ ${oldContent.trim()}
         await this.applySemanticLinking();
         await this.generateHubIndex();
         await this.generateNeuralMap();
+
+        // BARU: Rebuild vector index setelah distillation selesai
+        await this.semanticEngine.invalidateCache();
+        await this.semanticEngine.buildIndex();
+        console.log('🧠 Vector index rebuilt after distillation.');
     }
 }
 

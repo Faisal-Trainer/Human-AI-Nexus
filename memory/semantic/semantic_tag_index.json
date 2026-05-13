@@ -1,28 +1,7 @@
 {
-  "generated_at": "2026-05-13T07:08:06.302Z",
-  "total_tags": 11,
+  "generated_at": "2026-05-13T08:24:31.525Z",
+  "total_tags": 4,
   "index": {
-    "ui": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "design": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "frontend": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "blade": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "livewire": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "laravel": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
-    "architecture": [
-      "NEXUS_TALL_EVOLUTION_WISDOM.md"
-    ],
     "audit": [
       "SESSION_HISTORY_ARCHIVE.md"
     ],

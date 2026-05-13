@@ -21,7 +21,7 @@ async function main() {
     // Parse arguments
     const flags = {
         mode: args.includes('--mode') ? args[args.indexOf('--mode') + 1] : (args.includes('-m') ? args[args.indexOf('-m') + 1] : null),
-        root: args.includes('--root') ? args[args.indexOf('--root') + 1] : (args.includes('-r') ? args[args.indexOf('-r') + 1] : process.cwd()),
+        root: args.includes('--root') ? args[args.indexOf('--root') + 1] : (args.includes('-r') ? args[args.indexOf('-r') + 1] : (args[1] && !args[1].startsWith('-') ? args[1] : process.cwd())),
         yes: args.includes('--yes') || args.includes('-y'),
         command: args[0] && !args[0].startsWith('-') ? args[0] : 'run'
     };
@@ -150,6 +150,36 @@ async function main() {
             }
             rl.close();
             break;
+        case 'think':
+            const question = args.slice(1).join(' ');
+            if (!question) {
+                console.log('Usage: nexus think <your question>');
+            } else {
+                console.log('\x1b[36m%s\x1b[0m', '🤔 Nexus is thinking...');
+                const answer = await engine.localAI.generate(question);
+                console.log('\n\x1b[32m%s\x1b[0m', '🤖 Answer:');
+                console.log(answer || 'No response from local AI.');
+            }
+            rl.close();
+            break;
+        case 'review':
+            const filePath = args[1];
+            if (!filePath) {
+                console.log('Usage: nexus review <file_path>');
+            } else {
+                const absolutePath = path.resolve(filePath);
+                if (await fs.pathExists(absolutePath)) {
+                    const code = await fs.readFile(absolutePath, 'utf8');
+                    console.log('\x1b[36m%s\x1b[0m', `🔍 Reviewing ${filePath}...`);
+                    const review = await engine.localAI.analyzeCode(code);
+                    console.log('\n\x1b[32m%s\x1b[0m', '📊 Code Review:');
+                    console.log(review || 'No response from local AI.');
+                } else {
+                    console.log(`Error: File ${filePath} not found.`);
+                }
+            }
+            rl.close();
+            break;
         case 'help':
         default:
             console.log(`
@@ -163,6 +193,8 @@ Usage:
   nexus skills        - List available agent skills
   nexus distill       - Distill and standardize the HUB (NEXUS_ prefix)
   nexus forge <name> <file> - Forge a new machine from wisdom file
+  nexus think <query> - Ask local AI for architectural advice
+  nexus review <file> - Review specific code using local AI
   nexus help          - Show this help
             `);
             rl.close();

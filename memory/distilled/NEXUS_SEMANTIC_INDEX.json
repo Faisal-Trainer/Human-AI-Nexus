@@ -1,178 +1,8 @@
 [
   {
-    "node": "NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "adaptive_strategy_agent"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "9219bdbcaf3fed343412df3bf665d0dbc688d5e56911e8bf238a40673cec2953"
-  },
-  {
-    "node": "NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "agent_collaboration_stress_test"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "6ed1b8981d3eaef9b93866a74265af5a4bbc7cbeaceaba3137bde40edd49d08c"
-  },
-  {
-    "node": "NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "alpine_behavior_simulator"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "d3b166d230ee74da148a742e21dd4de19ce95a7729a252def264b5e9cbacfb53"
-  },
-  {
-    "node": "NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "anti-prompt-replay_validation"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "d82657a8e7f4abb9377b53dc3b7ca771cb7ae0c76ec4cded58f329d051bab402"
-  },
-  {
-    "node": "NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "autonomous_trigger_system"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "9ea8176f431fdc6c068d9095636869cf7450179654ea518fd0e6a3a8e577e9f3"
-  },
-  {
-    "node": "NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "code_generation_safety_test_(forge)"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "6a2212bd8d24039b34848e2e8aa353e02c568641a1e83bc23709afd6253c955b"
-  },
-  {
-    "node": "NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "end-to-end_intelligent_audit_system"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "b62d74ac76e7ae01b43335b479237b956d681e38ab90a5fa8b8f817786c0e679"
-  },
-  {
-    "node": "NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "failure_recovery_engine"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "0a1425ebfabc81f4ee54295d8e7ddc2548467e80074df85932ef97e325a1d758"
-  },
-  {
-    "node": "NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "full_stack_interaction_test_(tall_flow)"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "8870128059ae5e25bad6edbcd3ba52c17503f3115e45d9437f905fcd0e06f55e"
-  },
-  {
-    "node": "NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "governance_enforcement_test"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "951b145d2186da7353981dcefb1cecd1ebe229d425763f0a216183cf124acd3c"
-  },
-  {
-    "node": "NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "intelligent_crud_auditor",
-      "audit-workflow",
-      "performance"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "08f539c6434bccf8667040525df3ae368716c81ac158351ff66902011ecfa74c"
-  },
-  {
-    "node": "NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "livewire_reactive_validator"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "030f170c481ad848c87fd1477d9f62aba39d0a8271bc82e0f30e6b989ba1a942"
-  },
-  {
-    "node": "NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "memory_consistency_test"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "e8e9b4b521a8ed5b94c74a3b7cafc55ac09b07ca67b68535a4440c6a16b36265"
-  },
-  {
-    "node": "NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "multi-agent_debugging_system"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "3ea3125fd4f0f0936431551d41b6de22b642b5559d7a853924b56785f4399e72"
-  },
-  {
     "node": "NEXUS_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
+    "path": "audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "audit",
     "tags": [
       "audit",
       "performance",
@@ -181,18 +11,6 @@
     ],
     "last_updated": "13/05/2026",
     "checksum": "ef35c352c2f9639245e82efa1009d41591cbf79e43ac3443d7ade2ec3a413f39"
-  },
-  {
-    "node": "NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
-    "path": "performance/NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
-    "rack": "performance",
-    "tags": [
-      "tdd",
-      "test_result",
-      "tailwind_layout_integrity_checker"
-    ],
-    "last_updated": "07/05/2026",
-    "checksum": "b1ebd8534acb456458c28017714bd5b7f32a6cdb3d25144f0283c5cbce9d57d4"
   },
   {
     "node": "NEXUS_COLLABORATION_CONTRACT.MD",
@@ -374,9 +192,207 @@
     "checksum": "d5e3e19e5045aeac48e430a0136890e502a19c686ac88d3efef1302a57e35493"
   },
   {
+    "node": "NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "adaptive_strategy_agent"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "9219bdbcaf3fed343412df3bf665d0dbc688d5e56911e8bf238a40673cec2953"
+  },
+  {
+    "node": "NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "agent_collaboration_stress_test"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "6ed1b8981d3eaef9b93866a74265af5a4bbc7cbeaceaba3137bde40edd49d08c"
+  },
+  {
+    "node": "NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "alpine_behavior_simulator"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "d3b166d230ee74da148a742e21dd4de19ce95a7729a252def264b5e9cbacfb53"
+  },
+  {
+    "node": "NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "anti-prompt-replay_validation"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "d82657a8e7f4abb9377b53dc3b7ca771cb7ae0c76ec4cded58f329d051bab402"
+  },
+  {
+    "node": "NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "autonomous_trigger_system"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "9ea8176f431fdc6c068d9095636869cf7450179654ea518fd0e6a3a8e577e9f3"
+  },
+  {
+    "node": "NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "code_generation_safety_test_(forge)"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "6a2212bd8d24039b34848e2e8aa353e02c568641a1e83bc23709afd6253c955b"
+  },
+  {
+    "node": "NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "end-to-end_intelligent_audit_system"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "b62d74ac76e7ae01b43335b479237b956d681e38ab90a5fa8b8f817786c0e679"
+  },
+  {
+    "node": "NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "failure_recovery_engine"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "0a1425ebfabc81f4ee54295d8e7ddc2548467e80074df85932ef97e325a1d758"
+  },
+  {
+    "node": "NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "full_stack_interaction_test_(tall_flow)"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "8870128059ae5e25bad6edbcd3ba52c17503f3115e45d9437f905fcd0e06f55e"
+  },
+  {
+    "node": "NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "governance_enforcement_test"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "951b145d2186da7353981dcefb1cecd1ebe229d425763f0a216183cf124acd3c"
+  },
+  {
+    "node": "NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "intelligent_crud_auditor",
+      "audit-workflow",
+      "performance"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "08f539c6434bccf8667040525df3ae368716c81ac158351ff66902011ecfa74c"
+  },
+  {
+    "node": "NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "livewire_reactive_validator"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "030f170c481ad848c87fd1477d9f62aba39d0a8271bc82e0f30e6b989ba1a942"
+  },
+  {
+    "node": "NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "memory_consistency_test"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "e8e9b4b521a8ed5b94c74a3b7cafc55ac09b07ca67b68535a4440c6a16b36265"
+  },
+  {
+    "node": "NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "multi-agent_debugging_system"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "3ea3125fd4f0f0936431551d41b6de22b642b5559d7a853924b56785f4399e72"
+  },
+  {
+    "node": "NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
+    "path": "tdd/NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "test_result",
+      "tailwind_layout_integrity_checker"
+    ],
+    "last_updated": "07/05/2026",
+    "checksum": "b1ebd8534acb456458c28017714bd5b7f32a6cdb3d25144f0283c5cbce9d57d4"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_UI.md",
+    "path": "ui/NEXUS_DISTILLATION_UI.md",
+    "rack": "ui",
+    "tags": [
+      "ui",
+      "design",
+      "frontend",
+      "blade",
+      "livewire",
+      "laravel",
+      "architecture"
+    ],
+    "last_updated": "13/05/2026",
+    "checksum": "6ed118e97d12219f2b17daf0774db2ea869056157305c808db7fb9c9d0ca8944"
+  },
+  {
     "node": "NEXUS_TALL_EVOLUTION_WISDOM.md",
-    "path": "ui-ux/NEXUS_TALL_EVOLUTION_WISDOM.md",
-    "rack": "ui-ux",
+    "path": "ui/NEXUS_TALL_EVOLUTION_WISDOM.md",
+    "rack": "ui",
     "tags": [
       "ui",
       "design",

@@ -18,7 +18,7 @@
 
             <div class="space-y-6">
                 <h3 class="text-sm font-black uppercase tracking-widest text-slate-400">Glassmorphism Cards</h3>
-                <div class="relative p-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[40px] overflow-hidden">
+                <div class="relative p-8 bg-linear-to-br from-indigo-500 to-purple-600 rounded-[40px] overflow-hidden">
                     <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                     <div class="relative bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl text-white">
                         <h4 class="text-xl font-black mb-2">Premium Experience</h4>

@@ -1,0 +1,362 @@
+{
+  "built_at": 1778660700284,
+  "file_count": 31,
+  "index": [
+    {
+      "index": 0,
+      "file": "audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\audit\\NEXUS_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "audit",
+        "performance",
+        "testing",
+        "tdd"
+      ]
+    },
+    {
+      "index": 1,
+      "file": "standards/NEXUS_COLLABORATION_CONTRACT.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_COLLABORATION_CONTRACT.MD",
+      "tags": [
+        "ui-ux",
+        "tdd",
+        "vcs",
+        "marketing",
+        "psychology",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 2,
+      "file": "standards/NEXUS_CORE_PRINCIPLES.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_CORE_PRINCIPLES.md",
+      "tags": [
+        "security",
+        "performance",
+        "ui-ux",
+        "database",
+        "tdd",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 3,
+      "file": "standards/NEXUS_DATABASE_STANDARDS.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_DATABASE_STANDARDS.md",
+      "tags": [
+        "security",
+        "performance",
+        "ui-ux",
+        "database",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 4,
+      "file": "standards/NEXUS_INTEGRATION_ALGORITHM.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_INTEGRATION_ALGORITHM.MD",
+      "tags": [
+        "security",
+        "ui-ux",
+        "database",
+        "vcs",
+        "marketing",
+        "psychology"
+      ]
+    },
+    {
+      "index": 5,
+      "file": "standards/NEXUS_INTERNAL_WORKFLOW.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_INTERNAL_WORKFLOW.MD",
+      "tags": [
+        "performance",
+        "database",
+        "psychology",
+        "nexus_core",
+        "governance",
+        "standards"
+      ]
+    },
+    {
+      "index": 6,
+      "file": "standards/NEXUS_LIVEWIRE_STANDARDS.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_LIVEWIRE_STANDARDS.MD",
+      "tags": [
+        "security",
+        "performance",
+        "ui-ux",
+        "database",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 7,
+      "file": "standards/NEXUS_MEDIA_PROTOCOL.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_MEDIA_PROTOCOL.MD",
+      "tags": [
+        "performance",
+        "database",
+        "nexus_institutionalized",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 8,
+      "file": "standards/NEXUS_ORCHESTRATOR_GOLDEN_PROTOCOL.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_ORCHESTRATOR_GOLDEN_PROTOCOL.MD",
+      "tags": [
+        "ui-ux",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 9,
+      "file": "standards/NEXUS_PROJECT_MATURITY_STANDARDS.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_PROJECT_MATURITY_STANDARDS.MD",
+      "tags": [
+        "performance",
+        "ui-ux",
+        "database",
+        "tdd",
+        "marketing",
+        "security",
+        "api"
+      ]
+    },
+    {
+      "index": 10,
+      "file": "standards/NEXUS_SUPERPOWERS_WORKFLOW.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_SUPERPOWERS_WORKFLOW.md",
+      "tags": [
+        "ui-ux",
+        "tdd",
+        "vcs",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 11,
+      "file": "standards/NEXUS_TDD_IRON_LAWS.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_TDD_IRON_LAWS.md",
+      "tags": [
+        "tdd",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 12,
+      "file": "standards/NEXUS_WORKFLOW.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_WORKFLOW.MD",
+      "tags": [
+        "security",
+        "ui-ux",
+        "tdd",
+        "vcs",
+        "psychology",
+        "nexus_core",
+        "governance",
+        "standards"
+      ]
+    },
+    {
+      "index": 13,
+      "file": "standards/NEXUS_ZERO_FLAWS_STANDARDS.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\standards\\NEXUS_ZERO_FLAWS_STANDARDS.MD",
+      "tags": [
+        "performance",
+        "ui-ux",
+        "tdd",
+        "nexus_institutionalized"
+      ]
+    },
+    {
+      "index": 14,
+      "file": "tdd/NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "adaptive_strategy_agent"
+      ]
+    },
+    {
+      "index": 15,
+      "file": "tdd/NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_AGENT_COLLABORATION_STRESS_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "agent_collaboration_stress_test"
+      ]
+    },
+    {
+      "index": 16,
+      "file": "tdd/NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_ALPINE_BEHAVIOR_SIMULATOR_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "alpine_behavior_simulator",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 17,
+      "file": "tdd/NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_ANTI-PROMPT-REPLAY_VALIDATION_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "anti-prompt-replay_validation",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 18,
+      "file": "tdd/NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_AUTONOMOUS_TRIGGER_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "autonomous_trigger_system"
+      ]
+    },
+    {
+      "index": 19,
+      "file": "tdd/NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "code_generation_safety_test_(forge)"
+      ]
+    },
+    {
+      "index": 20,
+      "file": "tdd/NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "end-to-end_intelligent_audit_system"
+      ]
+    },
+    {
+      "index": 21,
+      "file": "tdd/NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "failure_recovery_engine"
+      ]
+    },
+    {
+      "index": 22,
+      "file": "tdd/NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "full_stack_interaction_test_(tall_flow)"
+      ]
+    },
+    {
+      "index": 23,
+      "file": "tdd/NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "governance_enforcement_test"
+      ]
+    },
+    {
+      "index": 24,
+      "file": "tdd/NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "intelligent_crud_auditor",
+        "audit-workflow",
+        "performance"
+      ]
+    },
+    {
+      "index": 25,
+      "file": "tdd/NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "livewire_reactive_validator",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 26,
+      "file": "tdd/NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "memory_consistency_test"
+      ]
+    },
+    {
+      "index": 27,
+      "file": "tdd/NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "multi-agent_debugging_system"
+      ]
+    },
+    {
+      "index": 28,
+      "file": "tdd/NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\tdd\\NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
+      "tags": [
+        "tdd",
+        "test_result",
+        "tailwind_layout_integrity_checker",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 29,
+      "file": "ui/NEXUS_DISTILLATION_UI.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\ui\\NEXUS_DISTILLATION_UI.md",
+      "tags": [
+        "ui",
+        "design",
+        "frontend",
+        "blade",
+        "livewire",
+        "laravel",
+        "architecture",
+        "database",
+        "ui-ux"
+      ]
+    },
+    {
+      "index": 30,
+      "file": "ui/NEXUS_TALL_EVOLUTION_WISDOM.md",
+      "path": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\memory\\distilled\\ui\\NEXUS_TALL_EVOLUTION_WISDOM.md",
+      "tags": [
+        "ui",
+        "design",
+        "frontend",
+        "blade",
+        "livewire",
+        "laravel",
+        "architecture",
+        "database",
+        "ui-ux",
+        "api"
+      ]
+    }
+  ]
+}

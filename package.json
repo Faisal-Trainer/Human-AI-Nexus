@@ -1,6 +1,6 @@
 {
   "name": "human-ai-nexus",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "description": "Documentation-First Framework for Human-AI Collaborative Development",
   "main": "cli.js",
   "type": "commonjs",
@@ -28,8 +28,11 @@
   "author": "Faisal-Trainer",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.16.0",
+    "chalk": "^4.1.2",
     "fs-extra": "^11.1.0",
     "glob": "^8.1.0",
-    "chalk": "^4.1.2"
+    "natural": "^8.1.1",
+    "redis": "^5.12.1"
   }
 }

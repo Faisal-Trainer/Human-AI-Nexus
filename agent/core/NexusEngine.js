@@ -26,6 +26,10 @@ const ResourceMonitor = require('./ResourceMonitor');
 const EvolutionPiper = require('./EvolutionPiper');
 const DecisionEngine = require('./DecisionEngine');
 
+const SemanticEngine = require('./SemanticEngine');
+const redis = require('./RedisMemory');
+const localAI = require('./LocalIntelligence');
+
 /**
  * Lifecycle States as per system-spec.md
  */
@@ -94,8 +98,8 @@ class NexusEngine {
         }
 
         // 📂 PROJECT DATA PATHS (Target project being audited)
-        this.auditPath = path.join(this.rootPath, 'memory', 'raw');
-        this.logPath = path.join(this.rootPath, 'logs');
+        this.auditPath = resolvePath('memory', 'raw');
+        this.logPath = resolvePath('logs');
         this.planningPath = resolvePath('planning');
         this.recordsPath = resolvePath('operational', 'records');
         this.summaryPath = resolvePath('summary');
@@ -139,6 +143,14 @@ class NexusEngine {
         this.resourceMonitor = new ResourceMonitor();
         this.sandbox = new SandboxExecutor();
         this.metrics = {};
+        this.semanticEngine = new SemanticEngine(this.knowledgePath);
+        this.localAI = localAI;
+        this.initRedis();
+    }
+
+    async initRedis() {
+        await redis.connect();
+        await localAI.checkAvailability();
     }
 
     /**
@@ -224,13 +236,26 @@ class NexusEngine {
      * Search knowledge HUB based on semantic tags.
      * @param {string} tag - The semantic domain (e.g., 'security', 'ui-ux')
      */
-    async searchKnowledge(tag) {
-        if (!this.memory.semanticIndex) await this.readMemory();
-        const results = this.memory.semanticIndex[tag.toLowerCase()] || [];
-        if (results.length > 0) {
-            this.log(`🔎 Semantic Search [${tag}]: Found ${results.length} relevant documents.`, 'success');
+    async searchKnowledge(query, topK = 5) {
+        // Coba vector search dulu
+        try {
+            const results = await this.semanticEngine.search(query, topK);
+            if (results.length > 0) {
+                this.log(
+                    `🔎 Vector Search [${query}]: Found ${results.length} relevant documents. ` +
+                    `Top: ${results[0].file} (score: ${results[0].score.toFixed(2)})`,
+                    'success'
+                );
+                return results.map(r => r.file);
+            }
+        } catch (e) {
+            this.log(`⚠️ Vector search failed, falling back to tag index: ${e.message}`, 'warning');
         }
-        return results;
+
+        // Fallback ke regex tag index (backward compatible)
+        if (!this.memory.semanticIndex) await this.readMemory();
+        const fallback = this.memory.semanticIndex[query.toLowerCase()] || [];
+        return fallback;
     }
 
     async loadAgent(agentName) {

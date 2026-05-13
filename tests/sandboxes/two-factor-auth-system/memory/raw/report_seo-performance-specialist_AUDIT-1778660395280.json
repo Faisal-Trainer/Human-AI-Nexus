@@ -1,0 +1,17 @@
+{
+  "id": "AUDIT-1778660395280-SEO-PERFORMANCE-SPECIALIST",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-13T08:19:56.152Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\tests\\sandboxes\\two-factor-auth-system",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "Image missing 'alt' attribute. This affects SEO and accessibility.",
+      "file": "resources/views/livewire/two-factor-auth-system.blade.php"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "agent": "seo-performance-specialist"
+  }
+}

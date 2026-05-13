@@ -3,23 +3,20 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\MultiTenantAdminPanel;
+use App\Models\Tenant;
 
 class MultiTenantAdminPanel extends Component
 {
-    public $name = '';
+    public $current_tenant = 'Global';
 
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        MultiTenantAdminPanel::create(['name' => $this->name]);
-        $this->name = '';
+    public function switch($name) {
+        $this->current_tenant = $name;
     }
 
     public function render()
     {
         return view('livewire.multi-tenant-admin-panel', [
-            'items' => MultiTenantAdminPanel::latest()->get()
+            'items' => Tenant::latest()->get()
         ]);
     }
 }

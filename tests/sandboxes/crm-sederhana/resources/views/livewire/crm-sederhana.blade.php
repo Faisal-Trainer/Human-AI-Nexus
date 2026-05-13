@@ -1,18 +1,29 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus CrmSederhana</h2>
-
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
-
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
-            </div>
-        @endforeach
-    </div>
-</div>
+    <div class="max-w-7xl mx-auto space-y-8">
+        <h1 class="text-3xl font-black">Sales Pipeline</h1>
         
+        <div class="grid lg:grid-cols-3 gap-6">
+            @foreach(['lead', 'negotiation', 'closed'] as $stage)
+                <div class="bg-slate-100 dark:bg-slate-900/50 p-4 rounded-3xl space-y-4">
+                    <div class="flex justify-between items-center px-2">
+                        <h3 class="font-black uppercase text-xs text-slate-400 tracking-widest">{{ $stage }}</h3>
+                        <span class="bg-slate-200 dark:bg-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $items->where('status', $stage)->count() }}</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        @foreach($items->where('status', $stage) as $deal)
+                            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 hover:shadow-md transition-all cursor-move">
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100">{{ $deal->client_name }}</h4>
+                                <p class="text-indigo-600 font-bold text-lg mt-1">$ {{ number_format($deal->value) }}</p>
+                                <div class="flex gap-1 mt-4">
+                                    @if($stage != 'closed')
+                                        <button wire:click="updateStatus({{ $deal->id }}, '{{ $stage == 'lead' ? 'negotiation' : 'closed' }}')" class="w-full bg-slate-50 dark:bg-slate-700 hover:bg-indigo-600 hover:text-white py-2 rounded-lg text-[10px] font-black uppercase transition-all">Move Forward</button>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>

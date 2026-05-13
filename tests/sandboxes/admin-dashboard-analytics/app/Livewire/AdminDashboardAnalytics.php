@@ -3,23 +3,16 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\AdminDashboardAnalytics;
+use App\Models\Analytics;
 
 class AdminDashboardAnalytics extends Component
 {
-    public $name = '';
-
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        AdminDashboardAnalytics::create(['name' => $this->name]);
-        $this->name = '';
-    }
-
     public function render()
     {
         return view('livewire.admin-dashboard-analytics', [
-            'items' => AdminDashboardAnalytics::latest()->get()
+            'items' => Analytics::latest()->get(),
+            'total_visits' => Analytics::where('metric_name', 'visit')->sum('metric_value'),
+            'conversion_rate' => 3.5
         ]);
     }
 }

@@ -1,0 +1,17 @@
+{
+  "id": "AUDIT-1778565311273-VCS-ARCHITECT",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-12T05:55:12.199Z",
+  "target": "tests/sandboxes/demo-sandbox",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "Missing 'dist' in .gitignore.",
+      "file": ".gitignore"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "agent": "vcs-architect"
+  }
+}

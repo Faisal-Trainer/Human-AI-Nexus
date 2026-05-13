@@ -1,18 +1,30 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus RolePermissionManager</h2>
+    <div class="max-w-6xl mx-auto space-y-10">
+        <header class="flex justify-between items-center">
+            <h1 class="text-3xl font-black">Role Registry</h1>
+            <button class="bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold">Create New Role</button>
+        </header>
 
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
+        <div class="grid md:grid-cols-2 gap-8">
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-10 rounded-[50px] border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <h3 class="text-2xl font-black text-slate-900 dark:text-white">{{ $item->name }}</h3>
+                            <p class="text-slate-400 text-sm">System Level Access</p>
+                        </div>
+                        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl">🛡️</div>
+                    </div>
 
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
-            </div>
-        @endforeach
+                    <div class="space-y-4">
+                        @foreach(['read_files', 'write_files', 'delete_files', 'manage_users'] as $p)
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-slate-600 dark:text-slate-300">{{ str_replace('_', ' ', $p) }}</span>
+                                <div class="w-10 h-6 bg-green-500 rounded-full p-1"><div class="w-4 h-4 bg-white rounded-full ml-auto"></div></div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
-        

@@ -1,18 +1,27 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus SubscriptionManagementDashboard</h2>
-
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
-
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
+    <div class="max-w-6xl mx-auto space-y-12">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-slate-900 text-white p-10 rounded-[50px] shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500 rounded-full blur-3xl opacity-20"></div>
+                <p class="text-[10px] font-black uppercase text-slate-500 mb-2">Monthly Spending</p>
+                <h2 class="text-4xl font-black">$ {{ number_format($items->sum('price'), 2) }}</h2>
             </div>
-        @endforeach
+            
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-2xl">⚡</div>
+                            <span class="text-xs font-black bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full uppercase tracking-widest">Active</span>
+                        </div>
+                        <h3 class="text-2xl font-black mb-1 text-slate-900 dark:text-white">{{ $item->service_name }}</h3>
+                        <p class="text-slate-400 font-medium">Billed every month</p>
+                    </div>
+                    <div class="mt-10 pt-6 border-t border-slate-50 dark:border-slate-800 flex justify-between items-center">
+                        <span class="text-2xl font-black text-slate-800 dark:text-white">$ {{ number_format($item->price, 2) }}</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase">Next: {{ $item->next_billing }}</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
-        

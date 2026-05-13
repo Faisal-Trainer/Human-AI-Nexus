@@ -1,18 +1,51 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus ErpMiniSystem</h2>
-
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
-
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
+    <div class="max-w-7xl mx-auto space-y-10">
+        <div class="flex justify-between items-center bg-slate-900 text-white p-10 rounded-[50px] shadow-2xl">
+            <div>
+                <h1 class="text-4xl font-black mb-2">Nexus ERP</h1>
+                <p class="text-slate-400">Inventory & Order Management System</p>
             </div>
-        @endforeach
+            <div class="flex gap-8">
+                <div class="text-center">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Revenue</p>
+                    <p class="text-2xl font-black text-green-400">$ {{ number_format($items->where('status', 'shipped')->sum('total_amount')) }}</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Orders</p>
+                    <p class="text-2xl font-black">{{ $items->count() }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-[40px] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-50 dark:bg-slate-800/50">
+                    <tr>
+                        <th class="px-8 py-6 text-xs font-black uppercase tracking-widest text-slate-400">Order #</th>
+                        <th class="px-8 py-6 text-xs font-black uppercase tracking-widest text-slate-400">Customer</th>
+                        <th class="px-8 py-6 text-xs font-black uppercase tracking-widest text-slate-400">Total</th>
+                        <th class="px-8 py-6 text-xs font-black uppercase tracking-widest text-slate-400">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
+                    @foreach($items as $item)
+                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
+                            <td class="px-8 py-6 font-mono font-bold text-indigo-600">{{ $item->order_number }}</td>
+                            <td class="px-8 py-6 font-bold text-slate-800 dark:text-slate-100">{{ $item->customer_name }}</td>
+                            <td class="px-8 py-6 font-black">$ {{ number_format($item->total_amount, 2) }}</td>
+                            <td class="px-8 py-6">
+                                <div class="flex items-center gap-4">
+                                    <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase {{ $item->status == 'shipped' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600' }}">
+                                        {{ $item->status }}
+                                    </span>
+                                    @if($item->status == 'pending')
+                                        <button wire:click="updateStatus({{ $item->id }}, 'shipped')" class="text-indigo-600 hover:text-indigo-700 font-bold text-xs uppercase tracking-widest">Ship Order</button>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-        

@@ -3,23 +3,20 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\CrmSederhana;
+use App\Models\Deal;
 
 class CrmSederhana extends Component
 {
-    public $name = '';
-
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        CrmSederhana::create(['name' => $this->name]);
-        $this->name = '';
+    public function updateStatus($id, $status) {
+        $deal = Deal::find($id);
+        $deal->status = $status;
+        $deal->save();
     }
 
     public function render()
     {
         return view('livewire.crm-sederhana', [
-            'items' => CrmSederhana::latest()->get()
+            'items' => Deal::latest()->get()
         ]);
     }
 }

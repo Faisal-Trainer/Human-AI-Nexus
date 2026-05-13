@@ -3,23 +3,32 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\ExpenseTracker;
+use App\Models\Expense;
 
 class ExpenseTracker extends Component
 {
-    public $name = '';
+    public $description = '';
+    public $amount = '';
+    public $category = 'Food';
 
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        ExpenseTracker::create(['name' => $this->name]);
-        $this->name = '';
+    public function save() {
+        $this->validate([
+            'description' => 'required',
+            'amount' => 'required|numeric',
+            'category' => 'required'
+        ]);
+        Expense::create([
+            'description' => $this->description,
+            'amount' => $this->amount,
+            'category' => $this->category
+        ]);
+        $this->reset(['description', 'amount']);
     }
 
     public function render()
     {
         return view('livewire.expense-tracker', [
-            'items' => ExpenseTracker::latest()->get()
+            'items' => Expense::latest()->get()
         ]);
     }
 }

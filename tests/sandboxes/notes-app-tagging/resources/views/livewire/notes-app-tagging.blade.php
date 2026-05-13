@@ -1,18 +1,28 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus NotesAppTagging</h2>
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-4 gap-10">
+        <div class="lg:col-span-1 space-y-6">
+            <h1 class="text-3xl font-black">Nexus Notes</h1>
+            <form wire:submit.prevent="save" class="space-y-4">
+                <input type="text" wire:model="title" placeholder="Note Title" class="w-full bg-white dark:bg-slate-900 border-2 border-slate-50 dark:border-slate-800 rounded-2xl px-6 py-4 font-bold">
+                <textarea wire:model="content" placeholder="Write something..." class="w-full bg-white dark:bg-slate-900 border-2 border-slate-50 dark:border-slate-800 rounded-2xl px-6 py-4 h-40 resize-none"></textarea>
+                <input type="text" wire:model="tags" placeholder="tags (comma separated)" class="w-full bg-white dark:bg-slate-900 border-2 border-slate-50 dark:border-slate-800 rounded-2xl px-6 py-4 text-xs font-mono">
+                <button type="submit" class="w-full bg-indigo-600 text-white font-black py-4 rounded-2xl shadow-lg shadow-indigo-500/30">Save Note</button>
+            </form>
+        </div>
 
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
-
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
-            </div>
-        @endforeach
+        <div class="lg:col-span-3 grid md:grid-cols-2 gap-6">
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all">
+                    <h3 class="text-xl font-black mb-4 text-slate-900 dark:text-white">{{ $item->title }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">{{ $item->content }}</p>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach(explode(',', $item->tags) as $tag)
+                            @if(trim($tag))
+                                <span class="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">#{{ trim($tag) }}</span>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
-        

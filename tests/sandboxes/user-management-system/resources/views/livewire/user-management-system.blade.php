@@ -1,18 +1,36 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus UserManagementSystem</h2>
+    <div class="max-w-7xl mx-auto space-y-12">
+        <header class="flex justify-between items-end">
+            <h1 class="text-5xl font-black text-slate-900 dark:text-white">User Base</h1>
+            <button class="bg-indigo-600 text-white px-8 py-4 rounded-3xl font-black shadow-xl shadow-indigo-500/20">Add Member</button>
+        </header>
 
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-[50px] border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-16 h-16 rounded-3xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-3xl group-hover:bg-indigo-50 transition-all">
+                            👤
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white">{{ $item->name }}</h3>
+                            <p class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">{{ $item->role }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-slate-500">Status</span>
+                        <span class="flex items-center gap-2 text-xs font-black uppercase text-green-500">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            {{ $item->status }}
+                        </span>
+                    </div>
 
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
-            </div>
-        @endforeach
+                    <div class="mt-8 flex gap-2">
+                        <button class="flex-1 bg-slate-100 dark:bg-slate-800 py-3 rounded-2xl font-bold text-xs">Edit</button>
+                        <button class="flex-1 bg-rose-50 text-rose-600 py-3 rounded-2xl font-bold text-xs">Revoke</button>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
-        

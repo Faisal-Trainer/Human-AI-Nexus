@@ -1,0 +1,17 @@
+{
+  "id": "AUDIT-1778565311273-SEO-PERFORMANCE-SPECIALIST",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-12T05:55:11.914Z",
+  "target": "tests/sandboxes/demo-sandbox",
+  "findings": [
+    {
+      "severity": "INFO",
+      "message": "Audit completed by seo-performance-specialist for Performa & SEO.",
+      "file": "project"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "agent": "seo-performance-specialist"
+  }
+}

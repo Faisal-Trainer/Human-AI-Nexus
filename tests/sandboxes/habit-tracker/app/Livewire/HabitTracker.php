@@ -3,23 +3,29 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\HabitTracker;
+use App\Models\Habit;
 
 class HabitTracker extends Component
 {
-    public $name = '';
+    public $title = '';
 
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        HabitTracker::create(['name' => $this->name]);
-        $this->name = '';
+    public function toggle($id) {
+        $habit = Habit::find($id);
+        $habit->streak++;
+        $habit->last_completed_at = now();
+        $habit->save();
+    }
+
+    public function save() {
+        $this->validate(['title' => 'required|min:3']);
+        Habit::create(['title' => $this->title]);
+        $this->title = '';
     }
 
     public function render()
     {
         return view('livewire.habit-tracker', [
-            'items' => HabitTracker::latest()->get()
+            'items' => Habit::latest()->get()
         ]);
     }
 }

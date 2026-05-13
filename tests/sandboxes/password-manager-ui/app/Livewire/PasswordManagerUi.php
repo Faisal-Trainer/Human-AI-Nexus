@@ -3,23 +3,21 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\PasswordManagerUi;
+use App\Models\Credential;
 
 class PasswordManagerUi extends Component
 {
-    public $name = '';
+    public $show = [];
 
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        PasswordManagerUi::create(['name' => $this->name]);
-        $this->name = '';
+    public function toggle($id) {
+        if(isset($this->show[$id])) unset($this->show[$id]);
+        else $this->show[$id] = true;
     }
 
     public function render()
     {
         return view('livewire.password-manager-ui', [
-            'items' => PasswordManagerUi::latest()->get()
+            'items' => Credential::latest()->get()
         ]);
     }
 }

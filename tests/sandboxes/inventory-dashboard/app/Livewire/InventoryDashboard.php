@@ -3,23 +3,20 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\InventoryDashboard;
+use App\Models\Product;
 
 class InventoryDashboard extends Component
 {
-    public $name = '';
-
-    public function save()
-    {
-        $this->validate(['name' => 'required|min:3']);
-        InventoryDashboard::create(['name' => $this->name]);
-        $this->name = '';
+    public function adjust($id, $amount) {
+        $p = Product::find($id);
+        $p->stock += $amount;
+        $p->save();
     }
 
     public function render()
     {
         return view('livewire.inventory-dashboard', [
-            'items' => InventoryDashboard::latest()->get()
+            'items' => Product::latest()->get()
         ]);
     }
 }

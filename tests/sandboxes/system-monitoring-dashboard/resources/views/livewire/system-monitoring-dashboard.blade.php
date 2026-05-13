@@ -1,18 +1,32 @@
 
-<div class="max-w-md mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Nexus SystemMonitoringDashboard</h2>
-
-    <form wire:submit.prevent="save" class="flex gap-2 mb-6">
-        <input type="text" wire:model="name" placeholder="Entry name..." class="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">Add</button>
-    </form>
-
-    <div class="space-y-3">
-        @foreach($items as $item)
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                <span class="text-gray-700 dark:text-gray-200 font-medium">{{ $item->name }}</span>
+    <div class="max-w-7xl mx-auto space-y-10">
+        <header class="flex justify-between items-center bg-slate-900 p-8 rounded-[40px] text-white">
+            <div>
+                <h1 class="text-3xl font-black">Watchtower</h1>
+                <p class="text-slate-400 font-mono text-xs uppercase tracking-widest mt-1">Status: Operational</p>
             </div>
-        @endforeach
+            <div class="flex gap-4">
+                <div class="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center animate-pulse">📡</div>
+            </div>
+        </header>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-[40px] border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-1 h-full {{ $item->load > 80 ? 'bg-rose-500' : ($item->load > 50 ? 'bg-amber-500' : 'bg-green-500') }}"></div>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">{{ $item->hostname }}</h3>
+                    <p class="text-sm font-mono text-slate-500 mb-8">{{ $item->ip }}</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end">
+                            <span class="text-xs font-bold text-slate-400 uppercase">CPU Load</span>
+                            <span class="text-2xl font-black text-slate-800 dark:text-white">{{ $item->load }}%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-50 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full {{ $item->load > 80 ? 'bg-rose-500' : ($item->load > 50 ? 'bg-amber-500' : 'bg-green-500') }} transition-all duration-1000" style="width: {{ $item->load }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
-</div>
-        

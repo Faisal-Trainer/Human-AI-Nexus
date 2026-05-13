@@ -1,32 +1,30 @@
-<div class="max-w-xl mx-auto p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Nexus URL Shortener</h2>
-    
-    <form wire:submit.prevent="shorten" class="space-y-4">
-        <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Paste your long URL</label>
-            <input type="text" wire:model="original_url" 
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition"
-                placeholder="https://example.com/very/long/url/that/needs/shortening">
-            @error('original_url') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+
+    <div class="max-w-4xl mx-auto space-y-12">
+        <div class="text-center">
+            <h1 class="text-6xl font-black mb-4">Shrink It.</h1>
+            <p class="text-slate-400 text-xl font-medium">Make your long URLs beautiful and trackable.</p>
         </div>
 
-        <button type="submit" 
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition shadow-lg shadow-blue-500/30">
-            Generate Short URL
-        </button>
-    </form>
+        <form wire:submit.prevent="shorten" class="bg-white dark:bg-slate-900 p-2 rounded-[30px] border-4 border-indigo-50 dark:border-slate-800 shadow-2xl flex gap-2">
+            <input type="text" wire:model="original_url" placeholder="Paste your long link here..." class="flex-1 bg-transparent border-0 focus:ring-0 px-8 py-4 text-lg">
+            <button type="submit" class="bg-indigo-600 text-white px-10 py-4 rounded-[20px] font-black hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">Shorten</button>
+        </form>
 
-    @if($shortened)
-        <div class="mt-8 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
-            <p class="text-sm text-green-800 dark:text-green-300 font-medium mb-1">Your short link is ready:</p>
-            <div class="flex items-center gap-2">
-                <input type="text" readonly value="{{ $shortened }}" id="shortUrl"
-                    class="flex-1 bg-transparent border-none text-green-700 dark:text-green-400 font-bold focus:ring-0">
-                <button onclick="navigator.clipboard.writeText('{{ $shortened }}')" 
-                    class="px-3 py-1 bg-green-200 dark:bg-green-800 text-green-800 dark:text-green-200 text-xs font-bold rounded hover:bg-green-300 transition">
-                    Copy
-                </button>
-            </div>
+        <div class="space-y-4">
+            @foreach($items as $item)
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-[30px] border border-slate-100 dark:border-slate-800 shadow-sm flex flex-wrap md:flex-nowrap justify-between items-center group">
+                    <div class="min-w-0">
+                        <p class="text-slate-800 dark:text-slate-100 font-bold truncate">{{ $item->original_url }}</p>
+                        <p class="text-indigo-600 font-black text-lg mt-1">nexus.ai/{{ $item->short_code }}</p>
+                    </div>
+                    <div class="flex items-center gap-6 mt-4 md:mt-0">
+                        <div class="text-right">
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Clicks</p>
+                            <p class="text-xl font-black text-slate-800 dark:text-white">{{ $item->clicks }}</p>
+                        </div>
+                        <button class="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-900 transition-all">📋</button>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    @endif
-</div>
+    </div>

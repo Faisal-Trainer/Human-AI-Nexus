@@ -11,7 +11,12 @@ const ALLOWED_TASKS = [
     'suggest_refactor',
     'explain_error',
     'validate_migration_schema',
-    'analyze_code'
+    'analyze_code',
+    'generate_architecture',
+    'build_model_migration',
+    'build_livewire_component',
+    'build_view',
+    'build_application'
 ];
 
 class LocalIntelligence {
@@ -20,9 +25,9 @@ class LocalIntelligence {
         this.model = 'deepseek-coder'; // Default model
         this.isAvailable = false;
 
-        // ⛔ HARD LIMIT: Tidak boleh diubah secara programatik
-        this.MAX_TOKENS = 512;
-        this.MAX_OUTPUT_LENGTH = 2000;
+        // ⛔ HARD LIMIT: Ditingkatkan untuk mendukung Code Generation
+        this.MAX_TOKENS = 4096;
+        this.MAX_OUTPUT_LENGTH = 15000;
     }
 
     async checkAvailability() {
@@ -57,13 +62,18 @@ class LocalIntelligence {
         if (!this.isAvailable) await this.checkAvailability();
         if (!this.isAvailable) return null;
 
-        // ⛔ System prompt DIKUNCI — tidak bisa di-override dari luar
-        const LOCKED_SYSTEM_PROMPT =
-            `You are a TALL Stack code reviewer for the NEXUS AI framework. ` +
-            `Your role is STRICTLY LIMITED to: ${ALLOWED_TASKS.join(', ')}. ` +
-            `You MUST NOT generate code autonomously, make architectural decisions, ` +
-            `or perform any action outside your defined role. ` +
-            `Respond in structured format only. Be concise.`;
+        // ⛔ System prompt DIKUNCI & DINAMIS — tidak bisa di-override dari luar
+        const isBuilderTask = ['generate_architecture', 'build_model_migration', 'build_livewire_component', 'build_view', 'build_application'].includes(taskType);
+        
+        const LOCKED_SYSTEM_PROMPT = isBuilderTask
+            ? `You are an elite TALL Stack Architect (Tailwind, Alpine.js, Laravel, Livewire) for the NEXUS AI framework. ` +
+              `Your role is to design and write high-quality, production-ready code. ` +
+              `You must generate EXACT, working code based on the user's requirements. ` +
+              `Output ONLY the raw code or structured JSON as requested, without any conversational filler or markdown code blocks if the output is meant to be a raw file.`
+            : `You are a TALL Stack code reviewer for the NEXUS AI framework. ` +
+              `Your role is STRICTLY LIMITED to: ${ALLOWED_TASKS.filter(t => !['generate_architecture', 'build_model_migration', 'build_livewire_component', 'build_view', 'build_application'].includes(t)).join(', ')}. ` +
+              `You MUST NOT generate full applications autonomously. ` +
+              `Respond in structured format only. Be concise.`;
 
         try {
             const response = await axios.post(`${this.baseUrl}/generate`, {

@@ -753,7 +753,11 @@ ${tasks.map(t => `
         try {
             // Extract JSON if wrapped in markdown
             const jsonMatch = response.match(/\{[\s\S]*\}/);
-            const blueprintJson = jsonMatch ? jsonMatch[0] : response;
+            let blueprintJson = jsonMatch ? jsonMatch[0] : response;
+            
+            // Remove single-line and multi-line comments that LLMs often hallucinate in JSON
+            blueprintJson = blueprintJson.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+            
             const blueprint = JSON.parse(blueprintJson);
 
             await fs.writeFile(blueprintPath, JSON.stringify(blueprint, null, 2), 'utf8');

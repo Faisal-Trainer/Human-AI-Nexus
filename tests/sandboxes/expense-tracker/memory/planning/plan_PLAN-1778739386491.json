@@ -1,0 +1,160 @@
+{
+  "id": "PLAN-1778739386491",
+  "type": "IMPLEMENTATION_PLAN",
+  "auditRef": "AUDIT-1778739385884",
+  "timestamp": "2026-05-14T06:16:26.491Z",
+  "tasks": [
+    {
+      "id": 1,
+      "description": "WARNING: Nexus standard folder [planning/] is missing or path is invalid.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 2,
+      "description": "SECURITY: .env detected (Auto-fix enabled)",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri.",
+      "action": {
+        "type": "FILE_APPEND",
+        "target": ".gitignore",
+        "content": ".env"
+      }
+    },
+    {
+      "id": 3,
+      "description": "WARNING: LICENSE file missing (Standard compliance)",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 4,
+      "description": "CRITICAL: [cyber-security] .env file detected in project root.",
+      "status": "pending",
+      "rationale": "File .env berisi kredensial sensitif seperti API keys dan password database. Membiarkannya di root tanpa proteksi berisiko kebocoran data jika tersinkronisasi ke repository publik.",
+      "recommendation": "Tambahkan .env ke dalam file .gitignore dan gunakan environment variables di tingkat server."
+    },
+    {
+      "id": 5,
+      "description": "WARNING: [vcs-architect] Missing 'dist' in .gitignore.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 6,
+      "description": "INFO: [vcs-architect] Potential junk or temporary file detected.",
+      "status": "pending",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "id": 7,
+      "description": "WARNING: [documentation-architect] No 'documentation/' or 'documentation/docs/' folder found. Standardizing project knowledge is recommended.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 8,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 9,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 10,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 11,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 12,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 13,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 14,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 15,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 16,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 17,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 18,
+      "description": "INFO: [documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 19,
+      "description": "WARNING: [SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 20,
+      "description": "WARNING: [SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    },
+    {
+      "id": 21,
+      "description": "WARNING: [QueryOptimizer] Foreign Key 'user_id' may be missing an index.",
+      "status": "pending",
+      "rationale": "Tidak ada keterangan tambahan.",
+      "recommendation": "Gunakan praktik terbaik standar industri."
+    }
+  ]
+}

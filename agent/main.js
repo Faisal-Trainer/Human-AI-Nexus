@@ -150,13 +150,53 @@ async function main() {
             }
             rl.close();
             break;
+        case 'status':
+            await engine.getSystemStatus();
+            rl.close();
+            break;
+        case 'sandbox': {
+            // nexus sandbox [--section 1|2|3] [--distill]
+            const { spawn: spawnChild } = require('child_process');
+            const runnerPath = path.join(__dirname, '..', 'tests', 'TDD', 'sandbox-master-runner.js');
+            const sandboxArgs = args.slice(1); // --section X, --distill, etc.
+            console.log('\x1b[36m%s\x1b[0m', '🧪 Nexus Sandbox Master Runner: Starting...');
+            const sandboxProc = spawnChild('node', [runnerPath, ...sandboxArgs], { stdio: 'inherit', shell: false });
+            sandboxProc.on('exit', code => { rl.close(); process.exit(code || 0); });
+            return; // Jangan close rl dulu — handled di exit callback
+        }
+        case 'dlq': {
+            // nexus dlq — tampilkan Dead Letter Queue (task gagal permanen)
+            const fs = require('fs-extra');
+            const dlqPath = path.join(path.resolve(flags.root), 'logs', 'dead_letter_queue.json');
+            if (!(await fs.pathExists(dlqPath))) {
+                console.log('✅ Dead Letter Queue: kosong (file tidak ditemukan).');
+            } else {
+                const dlq = await fs.readJson(dlqPath).catch(() => []);
+                if (dlq.length === 0) {
+                    console.log('✅ Dead Letter Queue: kosong — tidak ada task yang gagal permanen.');
+                } else {
+                    console.log(`\n💀 Dead Letter Queue — ${dlq.length} task gagal permanen:\n`);
+                    dlq.forEach((t, i) => {
+                        console.log(`  [${i + 1}] Task ID  : ${t.task_id}`);
+                        console.log(`       Agent    : ${t.error?.agent || 'unknown'}`);
+                        console.log(`       Error    : ${t.error?.message || t.error}`);
+                        console.log(`       Waktu    : ${t.failed_at}`);
+                        console.log('');
+                    });
+                    console.log(`  Hapus DLQ: rm logs/dead_letter_queue.json`);
+                }
+            }
+            rl.close();
+            break;
+        }
         case 'think':
             const question = args.slice(1).join(' ');
             if (!question) {
                 console.log('Usage: nexus think <your question>');
             } else {
                 console.log('\x1b[36m%s\x1b[0m', '🤔 Nexus is thinking...');
-                const answer = await engine.localAI.generate(question);
+                // taskType 'explain_error' — paling relevan untuk pertanyaan arsitektur
+                const answer = await engine.localAI.generate(question, 'explain_error');
                 console.log('\n\x1b[32m%s\x1b[0m', '🤖 Answer:');
                 console.log(answer || 'No response from local AI.');
             }
@@ -187,6 +227,11 @@ Human-AI Nexus Core Engine
 Usage:
   nexus run           - Start a full Audit -> Plan -> Execute cycle
   nexus audit         - Run only the Audit phase
+  nexus status        - Show real-time system health (CPU, RAM, agents, evolution)
+  nexus dlq           - View Dead Letter Queue (permanently failed tasks)
+  nexus sandbox       - 🆕 Run all 100 sandbox projects autonomously
+  nexus sandbox --section <1-10> - Run a specific Section only
+  nexus sandbox --distill     - Run all + distill knowledge to HUB
   nexus harvest <dir> - Harvest Nexus docs from another project to Golden HUB
   nexus refactor      - [Protocol 1] Mass Refactor from Golden to HUB
   nexus update-skills - [Protocol 2] Mass Update from HUB to Skills

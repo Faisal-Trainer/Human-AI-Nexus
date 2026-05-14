@@ -1,0 +1,166 @@
+# ============================================================
+# NEXUS AUTONOMOUS SANDBOX RUNNER — PowerShell Script (Windows)
+# Menjalankan seluruh pipeline sandbox secara mandiri.
+# ============================================================
+# Penggunaan:
+#   .\nexus-sandbox.ps1                  — semua section + distill
+#   .\nexus-sandbox.ps1 -Section <1-10>  — hanya jalankan section tertentu
+#   .\nexus-sandbox.ps1 -NoDistill       — tanpa distill
+#   .\nexus-sandbox.ps1 -Status          — cek status sistem
+# ============================================================
+param(
+    [int]$Section = 0,          # 0 = semua
+    [switch]$NoDistill,
+    [switch]$Status
+)
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RootDir   = $ScriptDir
+$TddDir    = Join-Path $RootDir "tests\TDD"
+$LogDir    = Join-Path $RootDir "logs"
+$LogFile   = Join-Path $LogDir "sandbox-runner-$(Get-Date -Format 'yyyyMMdd-HHmmss').log"
+
+# Pastikan log dir ada
+if (-not (Test-Path $LogDir)) { New-Item -ItemType Directory -Path $LogDir -Force | Out-Null }
+
+function Log {
+    param([string]$Message, [string]$Color = "White")
+    Write-Host $Message -ForegroundColor $Color
+    Add-Content -Path $LogFile -Value $Message
+}
+
+function LogHeader {
+    param([string]$Title)
+    Log ""
+    Log ("═" * 60) "DarkGray"
+    Log "  $Title" "Cyan"
+    Log ("═" * 60) "DarkGray"
+}
+
+# ── Status mode ──────────────────────────────────────────────
+if ($Status) {
+    Log "🔍 Checking Nexus system status..." "Yellow"
+    node "$RootDir\agent\main.js" status
+    exit 0
+}
+
+# ── Header ───────────────────────────────────────────────────
+LogHeader "🤖 NEXUS AUTONOMOUS SANDBOX RUNNER (Windows)"
+Log "  Date     : $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" "Gray"
+Log "  Root     : $RootDir" "Gray"
+Log "  Section  : $(if ($Section -eq 0) {'ALL'} else {$Section})" "Gray"
+Log "  Log file : $LogFile" "Gray"
+Log ""
+
+# ── Prerequisite checks ──────────────────────────────────────
+Log "🔎 Checking prerequisites..." "Yellow"
+
+try {
+    $nodeVer = node --version 2>&1
+    Log "   ✅ Node.js: $nodeVer" "Green"
+} catch {
+    Log "   ❌ Node.js tidak ditemukan. Install: https://nodejs.org" "Red"
+    exit 1
+}
+
+$phpOk = $false
+try {
+    $phpVer = (php --version 2>&1)[0]
+    Log "   ✅ PHP: $phpVer" "Green"
+    $phpOk = $true
+} catch {
+    Log "   ⚠️  PHP tidak ditemukan — migrate:fresh akan di-skip." "Yellow"
+}
+
+$templatePath = Join-Path $RootDir "tests\sandboxes\url-shortener"
+if (-not (Test-Path $templatePath)) {
+    Log "   ❌ Template TALL tidak ditemukan: $templatePath" "Red"
+    Log "   Pastikan sandbox url-shortener sudah ada." "Red"
+    exit 1
+}
+Log "   ✅ TALL Template: url-shortener ditemukan" "Green"
+Log ""
+
+$StartTime = Get-Date
+
+# ── Run section function ──────────────────────────────────────
+function Run-Section {
+    param([int]$Num, [string]$File, [string]$Label)
+
+    LogHeader "🚀 $Label"
+    Log "   File: $TddDir\$File" "Gray"
+    Log ""
+
+    $proc = Start-Process -FilePath "node" -ArgumentList "`"$TddDir\$File`"" `
+                          -NoNewWindow -Wait -PassThru `
+                          -RedirectStandardOutput "$LogDir\section${Num}_stdout.log" `
+                          -RedirectStandardError  "$LogDir\section${Num}_stderr.log"
+
+    # Tampilkan output ke console
+    Get-Content "$LogDir\section${Num}_stdout.log" | ForEach-Object { Log $_ }
+    $errContent = Get-Content "$LogDir\section${Num}_stderr.log" -ErrorAction SilentlyContinue
+    if ($errContent) { $errContent | ForEach-Object { Log $_ "Red" } }
+
+    if ($proc.ExitCode -eq 0) {
+        Log "   ✅ $Label — BERHASIL" "Green"
+        return $true
+    } else {
+        Log "   ❌ $Label — GAGAL (exit code: $($proc.ExitCode))" "Red"
+        return $false
+    }
+}
+
+$FailedCount = 0
+
+for ($i = 1; $i -le 10; $i++) {
+    if ($Section -eq 0 -or $Section -eq $i) {
+        $ok = $false
+        if ($i -eq 1) {
+            $ok = Run-Section -Num 1 -File "phase1_testing.js" -Label "Section 1 — Fundamental CRUD & Auth (9 projects)"
+        } elseif ($i -eq 2) {
+            $ok = Run-Section -Num 2 -File "setup_section2.js" -Label "Section 2 — Dashboard & Admin Panel (10 projects)"
+        } elseif ($i -eq 3) {
+            $ok = Run-Section -Num 3 -File "setup_section3.js" -Label "Section 3 — Security & Realtime (11 projects)"
+        } else {
+            # pass the section number as an argument to the file
+            $ok = Run-Section -Num $i -File "setup_dynamic_section.js $i" -Label "Section $i"
+        }
+        if (-not $ok) { $FailedCount++ }
+    }
+}
+
+# ── Distill knowledge ─────────────────────────────────────────
+if (-not $NoDistill -and $Section -eq 0) {
+    LogHeader "🧠 Distilasi Knowledge ke HUB"
+    $distillProc = Start-Process -FilePath "node" `
+        -ArgumentList "`"$RootDir\agent\main.js`" distill" `
+        -NoNewWindow -Wait -PassThru
+    if ($distillProc.ExitCode -eq 0) {
+        Log "   ✅ Distilasi selesai." "Green"
+    } else {
+        Log "   ⚠️  Distilasi gagal — jalankan manual: nexus distill" "Yellow"
+    }
+}
+
+# ── Final Report ──────────────────────────────────────────────
+$EndTime   = Get-Date
+$Elapsed   = [math]::Round(($EndTime - $StartTime).TotalMinutes, 1)
+
+LogHeader "📊 LAPORAN AKHIR"
+Log "   Total waktu  : $Elapsed menit" "Gray"
+Log "   Section gagal: $FailedCount" "$(if ($FailedCount -gt 0) {'Red'} else {'Green'})"
+Log "   Log tersimpan: $LogFile" "Gray"
+Log ""
+
+if ($FailedCount -gt 0) {
+    Log "⚠️  Ada section yang gagal. Review log di atas." "Yellow"
+    Log "   Jalankan ulang: .\nexus-sandbox.ps1 -Section <1|2|3>" "Yellow"
+    exit 1
+} else {
+    Log "🎉 Semua section selesai! 100 sandboxes siap digunakan." "Green"
+    Log "   Jalankan: node agent\main.js status" "Cyan"
+    Log "   Masuk ke sandbox: cd tests\sandboxes\<nama-project>" "Cyan"
+    Log "   Jalankan server: php artisan serve && npm run dev" "Cyan"
+}
+
+Log ""

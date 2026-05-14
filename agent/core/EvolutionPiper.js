@@ -5,17 +5,74 @@ const NexusClock = require('./NexusClock');
 /**
  * EvolutionPiper - The Laboratory Manager for Nexus AI.
  * Handles the recursive PBL cycle: Spawn -> Execute -> Harvest.
+ * ⛔ GUARDRAIL v2.0: Hard cycle limit + session time limit enforced.
  */
 class EvolutionPiper {
     constructor(rootPath) {
         this.rootPath = rootPath;
         this.sandboxPath = path.join(this.rootPath, 'tests', 'sandboxes');
+
+        // ⛔ HARD LIMIT: Maksimal iterasi per session — TIDAK BOLEH diubah programatik
+        this.MAX_EVOLUTION_CYCLES = 25; // Satu phase = max 25 project
+        this.currentCycle = 0;
+
+        // ⛔ HARD LIMIT: Maksimal waktu eksekusi total (dalam menit)
+        this.MAX_SESSION_MINUTES = 120; // 2 jam
+        this.sessionStartTime = null;
+    }
+
+    /**
+     * ⛔ GUARDRAIL: Cek batas sebelum setiap operasi evolusi.
+     * Harus dipanggil di awal setiap spawnSandbox / spawnRealLaravel.
+     */
+    async checkEvolutionBoundary() {
+        // Inisialisasi waktu mulai session pada cycle pertama
+        if (this.currentCycle === 0) {
+            this.sessionStartTime = Date.now();
+        }
+
+        // Cek cycle limit
+        if (this.currentCycle >= this.MAX_EVOLUTION_CYCLES) {
+            throw new Error(
+                `🚧 EVOLUTION BOUNDARY: Reached maximum cycles (${this.MAX_EVOLUTION_CYCLES}). ` +
+                `Manual review required before next phase. ` +
+                `Run 'nexus distill' then reset cycle counter manually.`
+            );
+        }
+
+        // Cek session time limit
+        if (this.sessionStartTime) {
+            const elapsedMinutes = (Date.now() - this.sessionStartTime) / 60000;
+            if (elapsedMinutes > this.MAX_SESSION_MINUTES) {
+                throw new Error(
+                    `🚧 EVOLUTION BOUNDARY: Session exceeded ${this.MAX_SESSION_MINUTES} minutes ` +
+                    `(elapsed: ${elapsedMinutes.toFixed(1)} min). ` +
+                    `Session paused for resource safety. Restart a new session to continue.`
+                );
+            }
+        }
+
+        this.currentCycle++;
+        console.log(`🔄 Evolution Cycle: ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}`);
+    }
+
+    /**
+     * Reset cycle counter — harus dipanggil manual setelah distill selesai.
+     * Tidak bisa dipanggil dari dalam loop evolusi.
+     */
+    resetCycleCounter() {
+        console.log(`🔁 EvolutionPiper: Cycle counter reset (was ${this.currentCycle}). New session started.`);
+        this.currentCycle = 0;
+        this.sessionStartTime = null;
     }
 
     /**
      * Phase 2: Spawn a new project sandbox with a specific scenario.
      */
     async spawnSandbox(name, scenarioType = 'chaos') {
+        // ⛔ GUARDRAIL: Wajib cek boundary sebelum spawn
+        await this.checkEvolutionBoundary();
+
         const targetPath = path.join(this.sandboxPath, name);
         await fs.ensureDir(targetPath);
         
@@ -53,6 +110,9 @@ class EvolutionPiper {
      * Phase 2 (Advanced): Spawn a real Laravel project using Composer.
      */
     async spawnRealLaravel(name) {
+        // ⛔ GUARDRAIL: Wajib cek boundary sebelum spawn
+        await this.checkEvolutionBoundary();
+
         const targetPath = path.join(this.sandboxPath, name);
         await fs.ensureDir(targetPath);
         
@@ -80,6 +140,22 @@ class EvolutionPiper {
             }
             console.log(`   ✅ Wisdom absorbed into main HUB.`);
         }
+    }
+
+    /**
+     * Get current evolution status.
+     */
+    getStatus() {
+        const elapsedMinutes = this.sessionStartTime
+            ? ((Date.now() - this.sessionStartTime) / 60000).toFixed(1)
+            : 0;
+        return {
+            currentCycle: this.currentCycle,
+            maxCycles: this.MAX_EVOLUTION_CYCLES,
+            remainingCycles: this.MAX_EVOLUTION_CYCLES - this.currentCycle,
+            sessionElapsedMinutes: elapsedMinutes,
+            maxSessionMinutes: this.MAX_SESSION_MINUTES
+        };
     }
 }
 

@@ -1,0 +1,72 @@
+{
+  "id": "AUDIT-1778739385884-DOCUMENTATION-ARCHITECT",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-14T06:16:26.429Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\tests\\sandboxes\\expense-tracker",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "No 'documentation/' or 'documentation/docs/' folder found. Standardizing project knowledge is recommended.",
+      "file": "root"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "bootstrap/cache/packages.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "bootstrap/cache/services.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/app.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/auth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/cache.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/database.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/filesystems.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/logging.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/mail.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/queue.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/session.php"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "agent": "documentation-architect"
+  }
+}

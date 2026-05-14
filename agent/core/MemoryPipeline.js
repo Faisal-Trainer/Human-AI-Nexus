@@ -3,7 +3,7 @@ const path = require('path');
 
 /**
  * MemoryPipeline - Automated Storage Optimization.
- * Implements Phase 4 (Compression) of the Memory Optimization Protocol.
+ * v2.0: versionedWrite — backup before overwrite, no data loss.
  */
 class MemoryPipeline {
     constructor(rootPath, knowledgePath, auditPath, planningPath) {
@@ -13,72 +13,79 @@ class MemoryPipeline {
         this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'operational', 'planning');
         this.recordsPath = path.join(this.rootPath, 'memory', 'operational', 'records');
         this.archiveFile = path.join(this.knowledgePath, 'SESSION_HISTORY_ARCHIVE.md');
+        this.backupPath = path.join(this.rootPath, 'memory', 'archived');
     }
 
-    /**
-     * Run the optimization pipeline
-     */
     async optimize() {
         console.log('🧹 Memory Pipeline: Starting storage optimization...');
-        
         await this.archiveAuditReports();
         await this.archiveImplementationPlans();
-        await this.processHarvestData(); // Takes data from harvest
-        await this.writeSemanticIndex(); // Populate memory/semantic/
-        
+        await this.processHarvestData();
+        await this.writeSemanticIndex();
         console.log('✅ Memory Pipeline: Optimization complete.');
     }
 
     /**
-     * Takes data from golden/harvest and moves it to archive or HUB
+     * ⛔ VERSIONED WRITE: Backup dulu sebelum overwrite.
+     * Tidak ada data yang hilang tanpa backup.
      */
+    async versionedWrite(destPath, content) {
+        if (await fs.pathExists(destPath)) {
+            const timestamp = Date.now();
+            const basename = path.basename(destPath, path.extname(destPath));
+            const ext = path.extname(destPath);
+            const backupName = `${basename}_backup_${timestamp}${ext}`;
+            const backupDest = path.join(this.backupPath, backupName);
+
+            await fs.ensureDir(this.backupPath);
+            await fs.copy(destPath, backupDest);
+            console.log(`   💾 Versioned: ${path.basename(destPath)} → archived/${backupName}`);
+        }
+        await fs.writeFile(destPath, content);
+    }
+
     async processHarvestData() {
         const harvestPath = path.join(this.rootPath, 'golden', 'harvest');
         if (!(await fs.pathExists(harvestPath))) return;
 
-        console.log('🌾 Memory Pipeline: Processing data from harvest folder with Cleansing Protocol...');
+        console.log('🌾 Memory Pipeline: Processing harvest with Cleansing Protocol...');
         const projects = await fs.readdir(harvestPath);
-        
+
         for (const project of projects) {
             const projectPath = path.join(harvestPath, project);
             if (!(await fs.lstat(projectPath)).isDirectory()) continue;
 
-            console.log(`🌾 Memory Pipeline: Ingesting artifacts from [${project}]...`);
-            
-            // Collect all MD files recursively from this project harvest
+            console.log(`🌾 Memory Pipeline: Ingesting [${project}]...`);
             const files = await this.globRecursive(projectPath, '**/*.md');
+
             for (const file of files) {
                 let content = await fs.readFile(file, 'utf8');
                 content = this.cleanseContent(content);
-                
-                // Determine destination: standard folders or distilled HUB
+
                 const relativePath = path.relative(projectPath, file);
                 const isRecords = ['records', 'summary', 'audit', 'planning'].some(k => relativePath.includes(k));
-                
                 const fileName = path.basename(file);
-                const dest = isRecords ? path.join(this.recordsPath, fileName) : path.join(this.knowledgePath, fileName);
-                
+                const dest = isRecords
+                    ? path.join(this.recordsPath, fileName)
+                    : path.join(this.knowledgePath, fileName);
+
                 await fs.ensureDir(path.dirname(dest));
-                await fs.writeFile(dest, content);
+                // ⛔ Versioned write — bukan fs.writeFile langsung
+                await this.versionedWrite(dest, content);
                 console.log(`   📦 Harvested: ${fileName} ➔ ${path.basename(path.dirname(dest))}/`);
             }
         }
 
-        // Cleanup: Empty the harvest folder
         await fs.emptyDir(harvestPath);
-        console.log('   🧹 Harvest folder recycled (cleared).');
+        console.log('   🧹 Harvest folder recycled.');
     }
 
-    /**
-     * Remove sensitive patterns from content
-     */
     cleanseContent(content) {
         const patterns = [
-            /(?:key|api|secret|token|pass|password|auth)[\s:=]+['"]?([a-z0-9-_]{16,})['"]?/gi,
-            /(?:https?:\/\/)[a-z0-9]+:[a-z0-9]+@[a-z0-9.]+/gi, // URL with credentials
-            /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g // IPv4
+            /(?:key|api|secret|token|pass|password|auth)[\s:=]+['"]?([a-z0-9\-_]{16,})['"]?/gi,
+            /(?:https?:\/\/)[a-z0-9]+:[a-z0-9]+@[a-z0-9.]+/gi,
+            /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g
         ];
-
         let cleansed = content;
         for (const p of patterns) {
             cleansed = cleansed.replace(p, (match, p1) => {
@@ -89,9 +96,6 @@ class MemoryPipeline {
         return cleansed;
     }
 
-    /**
-     * Helper to find files recursively
-     */
     async globRecursive(dir, pattern) {
         const glob = require('glob');
         return new Promise((resolve, reject) => {
@@ -112,10 +116,7 @@ class MemoryPipeline {
 
         for (const file of files) {
             if (file === '.gitkeep' || !file.endsWith('.json')) continue;
-
-            const filePath = path.join(auditDir, file);
-            const data = await fs.readJson(filePath);
-            
+            const data = await fs.readJson(path.join(auditDir, file));
             archiveContent += `- **Audit ID**: ${data.id} | **Target**: ${data.target} | **Findings**: ${(data.findings || []).length}\n`;
             count++;
         }
@@ -136,10 +137,7 @@ class MemoryPipeline {
 
         for (const file of files) {
             if (file === '.gitkeep' || !file.endsWith('.json')) continue;
-
-            const filePath = path.join(planningDir, file);
-            const data = await fs.readJson(filePath);
-            
+            const data = await fs.readJson(path.join(planningDir, file));
             archiveContent += `- **Plan ID**: ${data.id} | **Audit Ref**: ${data.auditRef} | **Tasks**: ${(data.tasks || []).length}\n`;
             count++;
         }
@@ -150,51 +148,35 @@ class MemoryPipeline {
         }
     }
 
-    /**
-     * Appends content to the current archive file, rotating if it exceeds 100KB.
-     */
     async appendToArchive(content) {
         const archiveFile = await this.getArchiveFile();
         await fs.ensureFile(archiveFile);
-        
-        let existingContent = await fs.readFile(archiveFile, 'utf8');
-        
-        // Inject Tags if missing to ensure cross-pollination
+        const existingContent = await fs.readFile(archiveFile, 'utf8');
         const tags = '\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [audit, performance, testing, tdd]\n';
         if (!existingContent.includes('METADATA')) {
             await fs.appendFile(archiveFile, content + tags);
         } else {
-            // Append content before tags if possible, or just append
             await fs.appendFile(archiveFile, content);
         }
     }
 
-    /**
-     * Populate memory/semantic/ with a live semantic index built from the distilled HUB.
-     * Fixes the gap where memory/semantic/ was always empty.
-     */
     async writeSemanticIndex() {
         const semanticDir = path.join(this.rootPath, 'memory', 'semantic');
         await fs.ensureDir(semanticDir);
-
         const knowledgeDir = this.knowledgePath;
         if (!(await fs.pathExists(knowledgeDir))) return;
 
-        console.log('🏷️ Memory Pipeline: Building semantic index into memory/semantic/...');
+        console.log('🏷️ Memory Pipeline: Building semantic index...');
+        const tagIndex = {};
 
-        const tagIndex = {}; // { tag: [filenames] }
         let files;
-        try {
-            files = await fs.readdir(knowledgeDir);
-        } catch (e) {
-            return;
-        }
+        try { files = await fs.readdir(knowledgeDir); }
+        catch (e) { return; }
 
         for (const file of files) {
             if (!file.endsWith('.md') || file.startsWith('NEXUS_HUB') || file.startsWith('NEXUS_NEURAL')) continue;
-            const filePath = path.join(knowledgeDir, file);
             try {
-                const content = await fs.readFile(filePath, 'utf8');
+                const content = await fs.readFile(path.join(knowledgeDir, file), 'utf8');
                 const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
                 if (match) {
                     const tags = match[1].split(',').map(t => t.trim().toLowerCase());
@@ -203,26 +185,22 @@ class MemoryPipeline {
                         tagIndex[tag].push(file);
                     }
                 }
-            } catch (e) { /* skip unreadable files */ }
+            } catch (e) { /* skip unreadable */ }
         }
 
-        const outputPath = path.join(semanticDir, 'semantic_tag_index.json');
-        await fs.writeJson(outputPath, {
+        await fs.writeJson(path.join(semanticDir, 'semantic_tag_index.json'), {
             generated_at: new Date().toISOString(),
             total_tags: Object.keys(tagIndex).length,
             index: tagIndex
         }, { spaces: 2 });
 
-        console.log(`   ✅ Semantic index written: ${Object.keys(tagIndex).length} tags → memory/semantic/semantic_tag_index.json`);
+        console.log(`   ✅ Semantic index: ${Object.keys(tagIndex).length} tags written.`);
     }
 
-    /**
-     * Determines the current archive file based on size and index.
-     */
     async getArchiveFile() {
         const indexPath = path.join(this.rootPath, 'memory', 'operational', 'archive_index.json');
         let indexData = { current_archive: 'SESSION_HISTORY_ARCHIVE.md', index: 1 };
-        
+
         if (await fs.pathExists(indexPath)) {
             indexData = await fs.readJson(indexPath);
         } else {
@@ -231,17 +209,15 @@ class MemoryPipeline {
         }
 
         const archivePath = path.join(this.knowledgePath, indexData.current_archive);
-        
         if (await fs.pathExists(archivePath)) {
             const stats = await fs.stat(archivePath);
-            if (stats.size > 100 * 1024) { // 100 KB threshold
+            if (stats.size > 100 * 1024) {
                 indexData.index++;
                 indexData.current_archive = `SESSION_HISTORY_ARCHIVE_${indexData.index}.md`;
                 await fs.writeJson(indexPath, indexData, { spaces: 2 });
                 return path.join(this.knowledgePath, indexData.current_archive);
             }
         }
-        
         return archivePath;
     }
 }

@@ -11,8 +11,8 @@ async function main() {
     const args = process.argv.slice(2);
     const command = args[0];
 
-    // If command is 'run', 'audit', or 'skills', delegate to Nexus Engine
-    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'forge', 'think', 'review', 'help'];
+    // If command is engine-level, delegate to Nexus Engine (agent/main.js)
+    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'forge', 'think', 'review', 'status', 'dlq', 'sandbox', 'help'];
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
         const cleanArgs = args.filter(a => a !== 'nexus');
@@ -206,7 +206,8 @@ async function install(args) {
                 await fs.ensureDir(path.join(memPath, 'distilled'));
                 await fs.ensureDir(path.join(memPath, 'operational'));
                 await fs.ensureDir(path.join(memPath, 'archived'));
-                console.log(chalk.green(`   ✅ Folder /memory telah dibuat (Multi-Agent Standard).`));
+                await fs.ensureDir(path.join(memPath, 'short_term')); // vector index cache
+                console.log(chalk.green(`   ✅ Folder /memory telah dibuat (Multi-Agent Standard v2.0).`));
             }
         }
 
@@ -219,7 +220,10 @@ async function install(args) {
             await fs.ensureDir(path.join(logsPath, 'scanners'));
             await fs.ensureDir(path.join(logsPath, 'plugins'));
             await fs.ensureDir(path.join(logsPath, 'errors'));
-            console.log(chalk.green(`   ✅ Folder /logs telah dibuat untuk Observability.`));
+            // Dead Letter Queue log — dibuat otomatis saat install
+            await fs.ensureFile(path.join(logsPath, 'dead_letter_queue.json'));
+            await fs.writeJson(path.join(logsPath, 'dead_letter_queue.json'), [], { spaces: 2 });
+            console.log(chalk.green(`   ✅ Folder /logs + Dead Letter Queue telah dibuat (Observability v2.0).`));
         }
 
         // 3. Documentation Folder Creation

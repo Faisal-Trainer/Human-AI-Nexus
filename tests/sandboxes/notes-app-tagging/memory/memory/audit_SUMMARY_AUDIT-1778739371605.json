@@ -1,0 +1,136 @@
+{
+  "id": "AUDIT-1778739371605",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-14T06:16:12.501Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\tests\\sandboxes\\notes-app-tagging",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "Nexus standard folder [planning/] is missing or path is invalid.",
+      "file": "root"
+    },
+    {
+      "severity": "SECURITY",
+      "message": ".env detected",
+      "file": ".env"
+    },
+    {
+      "severity": "WARNING",
+      "message": "LICENSE file missing (Standard compliance)",
+      "file": "root"
+    },
+    {
+      "severity": "CRITICAL",
+      "message": "[cyber-security] .env file detected in project root.",
+      "file": ".env",
+      "rationale": "File .env berisi kredensial sensitif seperti API keys dan password database. Membiarkannya di root tanpa proteksi berisiko kebocoran data jika tersinkronisasi ke repository publik.",
+      "recommendation": "Tambahkan .env ke dalam file .gitignore dan gunakan environment variables di tingkat server."
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Audit completed by ux-engineer for User Experience & Estetika.",
+      "file": "project"
+    },
+    {
+      "severity": "INFO",
+      "message": "[seo-performance-specialist] Audit completed by seo-performance-specialist for Performa & SEO.",
+      "file": "project"
+    },
+    {
+      "severity": "INFO",
+      "message": "[database-architect] Audit completed by database-architect for Arsitektur Data.",
+      "file": "project"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[vcs-architect] Missing 'dist' in .gitignore.",
+      "file": ".gitignore"
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "storage/logs/laravel.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "WARNING",
+      "message": "[documentation-architect] No 'documentation/' or 'documentation/docs/' folder found. Standardizing project knowledge is recommended.",
+      "file": "root"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "bootstrap/cache/packages.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "bootstrap/cache/services.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/app.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/auth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/cache.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/database.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/filesystems.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/logging.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/mail.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/queue.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "config/session.php"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "file": "app/Models/Url.php"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[SchemaGuard] Model missing HasUuids trait for UUID consistency.",
+      "file": "app/Models/User.php"
+    },
+    {
+      "severity": "WARNING",
+      "message": "[QueryOptimizer] Foreign Key 'user_id' may be missing an index.",
+      "file": "database/migrations/0001_01_01_000000_create_users_table.php"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "allowSensitive": true
+  }
+}

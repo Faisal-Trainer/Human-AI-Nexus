@@ -1,5 +1,19 @@
 const EventEmitter = require('events');
 
+// ⛔ EVENT SCHEMA REGISTRY: Semua event wajib terdaftar di sini sebelum bisa di-publish.
+// Tambah event baru di sini, BUKAN dengan bypass.
+const EVENT_SCHEMA = {
+    'SCANNER_TRIGGERED': { required: ['agent', 'pluginPath', 'input'] },
+    'SCANNER_FINISHED':  { required: ['task_id', 'result'] },
+    'TASK_FAILED':       { required: ['task_id', 'error'] },
+    'CYCLE_FINISHED':    { required: [] },
+    'MEMORY_UPDATED':    { required: ['category', 'filename'] },
+    'AGENT_READY':       { required: ['agent_id'] },
+    'AGENT_BUSY':        { required: ['agent_id', 'task_id'] },
+    'SYSTEM_PAUSE':      { required: ['reason'] },
+    'SYSTEM_RESUME':     { required: [] },
+};
+
 class EventBus extends EventEmitter {
     constructor() {
         super();
@@ -8,15 +22,48 @@ class EventBus extends EventEmitter {
         this._recentEvents = new Set();
     }
 
-    publish(event, payload) {
+    /**
+     * Publish an event to all subscribers.
+     * ⛔ Event HARUS terdaftar di EVENT_SCHEMA, dan payload HARUS memiliki required fields.
+     * @param {string} event - Event name (must be in EVENT_SCHEMA).
+     * @param {Object} [payload={}] - Event payload.
+     */
+    publish(event, payload = {}) {
+        // ⛔ Validasi: event harus terdaftar
+        if (!EVENT_SCHEMA[event]) {
+            console.warn(
+                `⚠️  EventBus: Unknown event "${event}". ` +
+                `Register it in EVENT_SCHEMA first. Event dropped.`
+            );
+            return; // Jangan crash — cukup drop event dan warn
+        }
+
+        // ⛔ Validasi: required fields harus ada
+        const schema = EVENT_SCHEMA[event];
+        const missing = schema.required.filter(
+            field => !payload || payload[field] === undefined
+        );
+        if (missing.length > 0) {
+            throw new Error(
+                `EventBus Schema Violation: Event "${event}" missing required fields: ` +
+                `[${missing.join(', ')}]. Got: [${Object.keys(payload || {}).join(', ')}]`
+            );
+        }
+
+        // Deduplicate: skip event yang identik dalam 1 detik terakhir
         const payloadStr = payload ? JSON.stringify(payload) : 'null';
         const eventKey = `${event}-${payloadStr}`;
-        if (this._recentEvents.has(eventKey)) return; // skip duplicate
-        
+        if (this._recentEvents.has(eventKey)) return;
+
         this._recentEvents.add(eventKey);
-        setTimeout(() => this._recentEvents.delete(eventKey), 1000); // clear after 1s
-        
-        const entry = { event, timestamp: new Date().toISOString(), payload_keys: Object.keys(payload || {}) };
+        setTimeout(() => this._recentEvents.delete(eventKey), 1000);
+
+        // Audit log
+        const entry = {
+            event,
+            timestamp: new Date().toISOString(),
+            payload_keys: Object.keys(payload || {})
+        };
         this._auditLog.push(entry);
 
         this.emit(event, payload);
@@ -31,8 +78,15 @@ class EventBus extends EventEmitter {
     }
 
     getAuditLog() { return this._auditLog; }
-    
+
     clearAuditLog() { this._auditLog = []; }
+
+    /**
+     * Get list of all registered event schemas.
+     */
+    getRegisteredEvents() {
+        return Object.keys(EVENT_SCHEMA);
+    }
 }
 
 // Export as singleton

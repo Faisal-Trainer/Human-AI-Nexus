@@ -1,11 +1,15 @@
-# 🤖 Human-AI Nexus:
+# 🤖 Human-AI Nexus
 
-A modular semantic multi-agent operating framework
-with dynamic capability orchestration.
+A modular semantic multi-agent operating framework  
+with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.1.0 (Time-Aware Autonomous)
+> **Version**: v3.2.0 (Stability Guardrail Edition)
+> **Updated**: 14/05/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
+[![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
+
+---
 
 ## 📌 Pendahuluan: Mengapa Human-AI Nexus?
 
@@ -24,84 +28,118 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 
 ## 🗺️ Daftar Isi
 
-- [🤖 Apa itu Human-AI Nexus?](#-apa-itu-human-ai-nexus)
+- [⚙️ Core Machines](#️-core-machines--modul-utama)
+- [🛡️ Stability Guardrails v2.0](#️-stability-guardrails-v20-baru)
 - [🏗️ Arsitektur Sistem](#️-arsitektur-sistem)
-- [📂 Struktur Folder (Organized)](#-struktur-folder-organized)
-- [🛠️ Cara Penggunaan](#️-cara-penggunaan)
+- [📂 Struktur Folder](#-struktur-folder)
+- [🛠️ Cara Penggunaan & Perintah CLI](#️-cara-penggunaan)
 - [🌟 Prinsip Utama](#-prinsip-utama)
 - [🤝 Cara Berkontribusi](#-cara-berkontribusi)
 
 ---
 
-Human-AI Nexus bukan sekadar kumpulan folder, melainkan sebuah **Autonomous Governance Engine**. Di dalamnya terdapat **Nexus Engine** yang secara otomatis mengoordinasikan berbagai Agent AI serta mengoperasikan **8 Mesin Otonom** untuk melakukan audit, perencanaan, hingga eksekusi tugas secara fisik.
+## ⚙️ Core Machines — Modul Utama
 
-### ⚙️ 8 Mesin Otonom (The Core Machines)
+Sistem ditenagai oleh modul spesialis yang bekerja secara independen dan terkoordinasi:
 
-Sistem ini kini ditenagai oleh 8 modul spesialis yang bekerja secara independen:
+| # | Modul | Fungsi |
+|---|---|---|
+| 1 | `Validator.js` | Verifikasi bukti fisik keberhasilan tugas |
+| 2 | `BugHunter.js` | Penegak "Aturan 3 Perbaikan" anti-loop halusinasi |
+| 3 | `Designer.js` | Automasi penalaran desain (Warna, Font, Style) |
+| 4 | `AccessibilityScanner.js` | Pemindaian standar WCAG/A11y otomatis |
+| 5 | `SchemaGuard.js` | Penegak standar database (UUID/Fillable) |
+| 6 | `QueryOptimizer.js` | Deteksi foreign key tanpa index |
+| 7 | `WorktreeManager.js` | Isolasi workspace via Git Worktree (**isActive guard**) |
+| 8 | `RootCauseAnalyzer.js` | Analisis akar masalah dari stack trace |
+| 9 | `LaravelArchitect.js` | Spesialis otomasi Laravel (Traits, Migrations, Env) |
+| 10 | `TDDScaffolder.js` | Pembangun scaffold pengujian otomatis |
+| 11 | `NexusClock.js` | Penegak standarisasi waktu UTC+8 untuk Docker |
+| 12 | `SemanticEngine.js` | TF-IDF vector search + Redis cache |
+| 13 | `LocalIntelligence.js` | Integrasi Ollama local LLM (**task whitelist enforced**) |
+| 14 | `AgentRegistry.js` | 🆕 Health monitor & stuck agent detection |
+| 15 | `EventBus.js` | Event bus dengan schema validation |
+| 16 | `ResourceMonitor.js` | CPU + RAM monitor (real measurement, tiered alerts) |
+| 17 | `MemoryGovernor.js` | File locking dengan stale lock detection |
+| 18 | `EvolutionPiper.js` | Lab manager dengan cycle + session hard limits |
+| 19 | `DecisionEngine.js` | Conflict resolver dengan 7 context weight profiles |
 
-1.  **Validator.js**: Verifikasi bukti fisik keberhasilan tugas.
-2.  **BugHunter.js**: Penegak "Aturan 3 Perbaikan" untuk mencegah loop halusinasi.
-3.  **Designer.js**: Automasi penalaran desain (Warna, Font, Style).
-4.  **AccessibilityScanner.js**: Pemindaian standar WCAG/A11y otomatis.
-5.  **SchemaGuard.js**: Penegak standar database (UUID/Fillable).
-6.  **QueryOptimizer.js**: Deteksi foreign key tanpa index.
-7.  **WorktreeManager.js**: Isolasi workspace otomatis menggunakan Git Worktree.
-8.  **RootCauseAnalyzer.js**: Analisis akar masalah otomatis dari stack trace.
-9.  **LaravelArchitect.js**: [NEW] Spesialis otomasi Laravel (Traits, Migrations, Env Management).
-10. **TDDScaffolder.js**: [NEW] Pembangun scaffold pengujian otomatis berbasis Iron Laws.
-11. **NexusClock.js**: [NEW] Penegak standarisasi waktu (UTC+8) untuk kesiapan kontainerisasi Docker.
+---
 
-Sistem ini juga dilengkapi dengan **Universal Collision Logic**, yang memungkinkan AI untuk menyimpan beberapa alternatif solusi (**Opsi A maupun Opsi B**) dalam satu dokumen, memungkinkan pengambilan keputusan (Decision Making) yang lebih cerdas dan kontekstual.
+## 🛡️ Stability Guardrails v2.0 (Baru)
 
-### Visi Utama
+Versi 3.2.0 mengimplementasikan **guardrail di level kode** — bukan hanya dokumentasi.
 
-Menciptakan ekosistem pengembangan di mana AI bekerja sebagai **Tim Profesional** yang patuh pada standar kualitas manusia, bukan sekadar chatbot yang menulis kode asal-asalan.
+### 🔴 Critical Fixes
+
+| Masalah | Fix |
+|---|---|
+| `Promise.all` — 1 agent gagal = seluruh audit crash | **Circuit Breaker** via `Promise.allSettled` — partial failure dilanjutkan |
+| `ResourceMonitor` CPU selalu 0% | Real CPU measurement via 2-snapshot delta |
+| `MemoryGovernor` stale lock = permanent deadlock | Stale lock detection (30s threshold) + exponential backoff |
+
+### 🛡️ Guardrail (Anti-Runaway)
+
+| Modul | Pagar |
+|---|---|
+| `LocalIntelligence` | Task whitelist, locked system prompt, token limit 512, output max 2000 chars |
+| `EvolutionPiper` | Max 25 cycles/session, max 120 menit, auto-throw kalau batas tercapai |
+| `Machinist` | Path whitelist (`agent/tools/scanners/` only), blacklist core folders, forbidden import check |
+| `WorktreeManager` | `isActive=false` — semua method return early dengan warning jelas |
+
+### 🟡 Reliability
+
+| Modul | Fix |
+|---|---|
+| `EventBus` | Schema registry — event tidak terdaftar di-drop, missing fields throw error |
+| `Orchestrator` | Dead Letter Queue — task gagal permanen disimpan ke `logs/dead_letter_queue.json` |
+| `MemoryPipeline` | `versionedWrite()` — backup otomatis ke `memory/archived/` sebelum overwrite |
+| `DecisionEngine` | 7 weight profiles: default, saas, security, performance, refactor, api, learning |
 
 ---
 
 ## 🏗️ Arsitektur Sistem
 
-```mermaid
-graph TD
-    User([User/Human]) -- Approval --> PM[Project Manager Agent]
-    User -- Initial Request --> Orc[Nexus Orchestrator]
-
-    subgraph "Core Engine (Executable)"
-        Orc -- Trigger --> Audit[Audit Phase]
-        Audit -- Results --> Plan[Planning Phase]
-        Plan -- Tasks --> Exec[Execution Phase]
-        Exec -- Success --> Record[Finalization Phase]
-    end
-
-    subgraph "Knowledge & Standards"
-        Agent[(Agent Library)]
-        Workflow[(Workflow/Skills)]
-        Knowledge[(Knowledge Base)]
-    end
-
-    Audit -.-> Agent
-    Plan -.-> Workflow
-    Record -.-> Knowledge
-
-    Record -- Recursive --> Audit
+```
+nexus run
+    │
+    ▼
+NexusEngine (Lazy-aware orchestrator)
+    │
+    ├── Orchestrator ──► EventBus [Schema-Validated] ──► SandboxExecutor
+    │        │                                                │
+    │        └── Dead Letter Queue                    6 Specialist Agents
+    │                                                  (Circuit Breaker)
+    ├── AgentRegistry [NEW] ── Health/Stuck Detection
+    │
+    ├── ResourceMonitor [Fixed] ── Real CPU + Tiered Alerts
+    │
+    ├── MemoryGovernor [Fixed] ── Stale Lock Detection
+    │
+    ├── MemoryPipeline [Fixed] ── Versioned Write
+    │
+    ├── SemanticEngine ── TF-IDF + Redis Cache
+    │
+    └── LocalIntelligence [Guardrailed] ── Task Whitelist + Output Validation
 ```
 
 ---
 
-## 📂 Struktur Folder (AI Agent System Structure)
+## 📂 Struktur Folder
 
-| Folder                             | Deskripsi                                                             |
-| :--------------------------------- | :-------------------------------------------------------------------- |
-| `📂 agent/core/`                   | **Core Logic**: NexusEngine, Orchestrator, dan Smart Shelving Engine. |
-| `📂 agent/tools/`                  | **Tools & Specialists**: Auditor, TDDGuard, Machinist, dan Distiller. |
-| `📂 agent/prompts/`                | **The Brain**: Library Agent MD (Internal & External).                |
-| `📂 workflow/`                     | **Skill Rack**: Aturan main (Workflows) berbasis kategori.            |
-| `📂 memory/long_term/`             | **Smart HUB**: Knowledge yang sudah disusun dalam **Rak Semantik**.   |
-| `📂 memory/long_term/security/`    | **Rack**: Keamanan, Auth, dan Protokol Audit.                         |
-| `📂 memory/long_term/performance/` | **Rack**: Optimasi, Caching, dan Speed.                               |
-| `📂 memory/long_term/ui-ux/`       | **Rack**: Design, Aesthetics, dan Responsive Standards.               |
-| `📂 documentation/nexus_rules/`    | **Governance**: Instruksi operasional permanen untuk Manusia.         |
-| `📂 tests/`                        | **TDD Lab**: Pengujian otomatis (15+ Project) berbasis Iron Laws.     |
+| Folder | Deskripsi |
+| :--- | :--- |
+| `📂 agent/core/` | **Core Logic**: NexusEngine, Orchestrator, semua modul inti |
+| `📂 agent/tools/` | **Tools & Specialists**: Auditor, TDDGuard, Machinist, Distiller |
+| `📂 agent/tools/scanners/` | **Forged Scanners**: Hanya folder ini yang boleh ditulis Machinist |
+| `📂 agent/prompts/` | **The Brain**: Library Agent MD (Internal & External) |
+| `📂 workflow/` | **Skill Rack**: Aturan main berbasis kategori |
+| `📂 memory/distilled/` | **Smart HUB**: Knowledge yang sudah distandarisasi |
+| `📂 memory/archived/` | **Backup Zone**: Versioned write backups otomatis |
+| `📂 memory/short_term/` | **Cache**: Vector index & session data |
+| `📂 logs/` | **Observability**: Agent logs, orchestration, errors, DLQ |
+| `📂 documentation/nexus_rules/` | **Governance**: Instruksi operasional permanen |
+| `📂 tests/` | **TDD Lab**: Pengujian otomatis berbasis Iron Laws |
 
 ---
 
@@ -109,84 +147,100 @@ graph TD
 
 ### 1. Instalasi
 
-Gunakan perintah otomatis via `npx` (direkomendasikan):
-
 ```bash
-# Jika sudah publish ke npm:
+# Via NPM (direkomendasikan):
 npx @faisal-trainer/human-ai-nexus
 
-# Atau jalankan langsung dari GitHub (Jika belum publish):
+# Via GitHub:
 npx github:Faisal-Trainer/Human-AI-Nexus
+
+# Force update (jika sudah terinstall):
+npx github:Faisal-Trainer/Human-AI-Nexus --force
 ```
 
-Atau copy seluruh folder framework ini secara manual ke dalam root proyek Anda.
+### 2. PowerShell (Windows, tanpa Node.js):
 
-> **Tip**: Untuk memperbarui framework yang sudah terinstall tanpa menghapusnya, gunakan flag `--force`:
-> `npx github:Faisal-Trainer/Human-AI-Nexus --force`
+```powershell
+# Download dan jalankan installer PowerShell:
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Faisal-Trainer/Human-AI-Nexus/main/install.ps1" -OutFile "install.ps1"
+.\install.ps1
+```
 
-### 3. Jalankan Engine
-
-Jalankan perintah berikut di terminal:
+### 3. Perintah CLI Lengkap
 
 ```bash
-# Via GitHub (Direkomendasikan jika belum publish):
-npx github:Faisal-Trainer/Human-AI-Nexus nexus run
+# ── CORE LIFECYCLE ─────────────────────────────────────────
+nexus run                      # Full cycle: Audit → Plan → Execute → Record
+nexus audit                    # Hanya fase Audit (scan + findings)
+nexus run --mode efficient     # Mode ringkas tanpa ADIK SIMBA detail
+nexus run --yes                # Auto-approve semua prompt (CI/CD mode)
 
-# Via NPM (Jika sudah publish):
-npx @faisal-trainer/human-ai-nexus nexus run
+# ── OBSERVABILITY ──────────────────────────────────────────
+nexus status                   # 🆕 Real-time system health (CPU, RAM, agents, cycles)
+nexus dlq                      # 🆕 Lihat Dead Letter Queue (task gagal permanen)
 
-# Lokal/Alias (Jika sudah terpasang):
-nexus run           # Menjalankan siklus Audit -> Plan -> Execute
-nexus audit         # Hanya melakukan pemindaian (Audit)
-nexus harvest <dir> # Memanen dokumen dari proyek lain ke Golden HUB
-nexus distill       # [Pipeline Utama] Shelving (Recursive) -> Hub Index -> Neural Map
-nexus distill --rack <name> # Menjalankan distilasi hanya pada rak tertentu (e.g. security)
-nexus refactor      # Sinkronisasi massal dari Golden ke HUB
-nexus update-skills # Sinkronisasi massal dari HUB ke Agent Skills
+# ── KNOWLEDGE PIPELINE ─────────────────────────────────────
+nexus harvest <dir>            # Panen dokumen dari proyek lain ke Golden HUB
+nexus distill                  # Shelving → Hub Index → Neural Map
+nexus distill --rack <name>    # Distilasi hanya pada rak tertentu (e.g. security)
+nexus refactor                 # Sinkronisasi massal Golden → HUB
+nexus update-skills            # Sinkronisasi massal HUB → Agent Skills
+
+# ── AI TOOLING ─────────────────────────────────────────────
+nexus forge <Name> <file.md>   # Forge scanner baru dari wisdom file (path-guarded)
+nexus think <query>            # Tanya local AI untuk saran arsitektur
+nexus review <file>            # Review kode spesifik via local AI
+
+# ── MANAGEMENT ─────────────────────────────────────────────
+nexus skills                   # List semua skill yang tersedia
+nexus dell                     # Lepas Nexus Engine (dokumentasi tetap aman)
+nexus help                     # Tampilkan semua perintah
 ```
 
-### 4. Uninstall (Lepas Engine)
+### 4. Ikuti Alur Kerja
 
-Jika ingin melepas Nexus Engine dari proyek Anda tanpa menghapus dokumentasi:
+1. **Audit** → AI memeriksa kesehatan proyek
+2. **Plan** → Setujui rencana di `documentation/planning/`
+3. **Execute** → AI eksekusi sesuai rencana dengan TDD enforcement
+4. **Verify** → Bukti fisik diverifikasi otomatis
+5. **Record** → Hasil disimpan ke `memory/` dengan versioned backup
+
+### 5. Uninstall
 
 ```bash
-npx github:Faisal-Trainer/Human-AI-Nexus dell
+nexus dell        # Hapus engine, dokumentasi tetap ada
+nexus dell --yes  # Non-interactive (untuk automation)
 ```
-
-_Perintah ini menghapus folder `agent/` (otak AI), namun tetap menjaga folder `documentation/` agar tetap bisa diakses oleh tim pengembang._
-
-### 3. Ikuti Alur Kerja
-
-1. **Audit**: Biarkan AI memeriksa kesehatan proyek Anda.
-2. **Plan**: Setujui rencana yang dibuat oleh Project Manager di folder `documentation/planning/`.
-3. **Execute**: Biarkan AI mengeksekusi tugas sesuai rencana.
-4. **Finalize**: Simpan hasil ke dalam `memory/short_term/` untuk memori jangka panjang.
 
 ---
 
 ## 🌟 Prinsip Utama
 
-- **Deep Wisdom Injection**: Setiap Agent membawa "Buku Saku" workflow mereka sendiri di dalam sistem prompt.
-- **Knowledge Portability**: Skill dan pengetahuan institusional ikut terinstal ke proyek eksternal via folder `workflow/`.
-- **Deterministic Contracts**: Standar interface data untuk menjamin AI bekerja secara konsisten.
-- **Standardized Knowledge**: Seluruh HUB menggunakan pola `NEXUS_...` untuk kemudahan pengindeksan.
+| Prinsip | Deskripsi |
+|---|---|
+| **Documentation-First** | Tidak ada kode tanpa rencana terdokumentasi |
+| **Deep Wisdom Injection** | Setiap agent membawa workflow "buku saku" dalam system prompt |
+| **Knowledge Portability** | Skill dan pengetahuan institusional ikut ter-install via `workflow/` |
+| **Deterministic Contracts** | Interface data terstandar — AI bekerja konsisten |
+| **Boundary by Code** | Guardrail diimplementasi sebagai `throw new Error()`, bukan hanya dokumentasi |
+| **Stability Rule #1** | Satu agent gagal **TIDAK BOLEH** crash agent lain |
+| **Stability Rule #2** | Satu write gagal **TIDAK BOLEH** corrupt knowledge yang sudah ada |
+| **Stability Rule #3** | Sistem **HARUS** bisa melaporkan kondisi dirinya sendiri kapanpun |
 
 ---
 
 ## 🤝 Cara Berkontribusi
 
-Kami menyambut kontribusi dari siapa saja!
-
 1. **Fork** repository ini.
-2. Buat **Branch** baru untuk fitur Anda (`git checkout -b feature/FiturKeren`).
-3. **Commit** perubahan Anda (`git commit -m 'Menambahkan fitur keren'`).
-4. **Push** ke branch tersebut (`git push origin feature/FiturKeren`).
+2. Buat **Branch** baru (`git checkout -b feature/FiturKeren`).
+3. **Commit** perubahan (`git commit -m 'feat: Menambahkan fitur keren'`).
+4. **Push** ke branch (`git push origin feature/FiturKeren`).
 5. Buat **Pull Request**.
 
 ---
 
-_Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin!_
+_Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi Human-AI yang lebih disiplin dan stabil!_
 
 ---
 
-_Terakhir Dioptimasi: 10/05/2026 (v3.1.0 - Time-Aware Autonomous)_
+_Terakhir Dioptimasi: 14/05/2026 (v3.2.0 - Stability Guardrail Edition)_

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Nexus Todo App</title>
+        <title>Nexus URL Shortener</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
     <body class="antialiased bg-slate-50 dark:bg-slate-950 min-h-screen flex items-center justify-center p-6 font-sans">
         
         <div class="w-full">
-            <livewire:todo-list />
+            <livewire:url-shortener />
         </div>
 
         @livewireScripts

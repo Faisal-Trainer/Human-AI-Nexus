@@ -1,0 +1,19 @@
+{
+  "id": "AUDIT-1778739381773-CYBER-SECURITY",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-14T06:16:22.214Z",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS AI\\tests\\sandboxes\\habit-tracker",
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "message": ".env file detected in project root.",
+      "file": ".env",
+      "rationale": "File .env berisi kredensial sensitif seperti API keys dan password database. Membiarkannya di root tanpa proteksi berisiko kebocoran data jika tersinkronisasi ke repository publik.",
+      "recommendation": "Tambahkan .env ke dalam file .gitignore dan gunakan environment variables di tingkat server."
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "agent": "cyber-security"
+  }
+}

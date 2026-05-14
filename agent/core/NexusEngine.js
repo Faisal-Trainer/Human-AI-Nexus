@@ -29,6 +29,7 @@ const DecisionEngine = require('./DecisionEngine');
 const SemanticEngine = require('./SemanticEngine');
 const redis = require('./RedisMemory');
 const localAI = require('./LocalIntelligence');
+const AgentRegistry = require('./AgentRegistry');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -145,6 +146,7 @@ class NexusEngine {
         this.metrics = {};
         this.semanticEngine = new SemanticEngine(this.knowledgePath);
         this.localAI = localAI;
+        this.agentRegistry = AgentRegistry;
         this.initRedis();
     }
 
@@ -406,8 +408,22 @@ ${specFindings.map(f => `
                 }
             });
 
-            const allSpecFindings = await Promise.all(auditPromises);
-            allSpecFindings.forEach(findings => consolidatedFindings.push(...findings));
+            // ⛔ CIRCUIT BREAKER: Promise.allSettled — 1 agent gagal TIDAK crash seluruh audit
+            const auditResults = await Promise.allSettled(auditPromises);
+            const failedAgents = [];
+            auditResults.forEach((result, i) => {
+                if (result.status === 'fulfilled') {
+                    consolidatedFindings.push(...(result.value || []));
+                } else {
+                    const agentId = specialists[i]?.id || `agent-${i}`;
+                    failedAgents.push(agentId);
+                    this.log(`⚠️ Circuit Breaker: Agent "${agentId}" failed — continuing with remaining agents.`, 'warning');
+                    this.agentRegistry.markFailed(agentId, result.reason?.message || 'Unknown error');
+                }
+            });
+            if (failedAgents.length > 0) {
+                this.log(`⚠️ ${failedAgents.length}/${specialists.length} agents failed: [${failedAgents.join(', ')}]. Results from remaining agents used.`, 'warning');
+            }
         }
 
         // 🤖 Phase 1.1: Autonomous Machine Audit
@@ -779,6 +795,52 @@ ${tasks.map(t => `
             this.log(`❌ Failed to log error: ${e.message}`, 'error');
         }
     }
+
+    /**
+     * getSystemStatus — Tampilkan health sistem secara real-time.
+     * Dipanggil via: nexus status
+     */
+    async getSystemStatus() {
+        const stress = await this.resourceMonitor.checkStress();
+        const agentHealth = this.agentRegistry ? this.agentRegistry.getHealthReport() : null;
+        const evolutionStatus = this.evolutionPiper ? this.evolutionPiper.getStatus() : null;
+        const vectorCacheExists = await fs.pathExists(
+            path.join(this.rootPath, 'memory', 'short_term', 'vector_index.json')
+        );
+
+        const line = (label, value) => {
+            const padded = `║ ${label}`.padEnd(38);
+            return `${padded}: ${value}`;
+        };
+
+        console.log('\n╔══════════════════════════════════════════╗');
+        console.log('║          NEXUS SYSTEM STATUS             ║');
+        console.log('╠══════════════════════════════════════════╣');
+        console.log(line('RAM Usage', `${stress.metrics.mem_usage_pct}%`));
+        console.log(line('CPU Usage', `${stress.metrics.cpu_usage_pct}%`));
+        console.log(line('Status', stress.recommendation));
+        console.log('╠══════════════════════════════════════════╣');
+        if (agentHealth) {
+            console.log(line('Agents (Total)', agentHealth.total));
+            console.log(line('  Idle', agentHealth.idle));
+            console.log(line('  Busy', agentHealth.busy));
+            console.log(line('  Failed', agentHealth.failed));
+            if (agentHealth.stuck > 0) {
+                console.log(line('  ⚠️  Stuck', `${agentHealth.stuck} — ${agentHealth.stuck_agents.join(', ')}`));
+            }
+        }
+        if (evolutionStatus) {
+            console.log('╠══════════════════════════════════════════╣');
+            console.log(line('Evolution Cycles', `${evolutionStatus.currentCycle}/${evolutionStatus.maxCycles}`));
+            console.log(line('Session Time', `${evolutionStatus.sessionElapsedMinutes} min / ${evolutionStatus.maxSessionMinutes} min`));
+        }
+        console.log('╠══════════════════════════════════════════╣');
+        console.log(line('Vector Index', vectorCacheExists ? '✅ Cached' : '❌ Not built'));
+        console.log('╚══════════════════════════════════════════╝\n');
+
+        return { stress, agentHealth, evolutionStatus, vectorCacheExists };
+    }
+
     /**
      * Phase 6: Harvesting (New Phase)
      * Extracts Nexus documentation from another project to enrich the Golden knowledge.

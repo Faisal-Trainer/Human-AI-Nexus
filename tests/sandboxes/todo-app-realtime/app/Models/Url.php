@@ -6,10 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Url extends Model
 {
-    protected $fillable = [
-        'original_url',
-        'short_code',
-        'visits',
-        'last_visited_at'
-    ];
+    protected $fillable = ['original_url', 'short_code', 'clicks'];
 }

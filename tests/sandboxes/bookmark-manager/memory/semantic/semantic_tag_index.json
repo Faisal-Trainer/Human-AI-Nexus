@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-14T06:16:18.048Z",
+  "total_tags": 4,
+  "index": {
+    "audit": [
+      "SESSION_HISTORY_ARCHIVE.md"
+    ],
+    "performance": [
+      "SESSION_HISTORY_ARCHIVE.md"
+    ],
+    "testing": [
+      "SESSION_HISTORY_ARCHIVE.md"
+    ],
+    "tdd": [
+      "SESSION_HISTORY_ARCHIVE.md"
+    ]
+  }
+}

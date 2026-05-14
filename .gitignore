@@ -37,6 +37,8 @@ golden/harvest/*
 
 # Ignore scratch files and temporary test scripts
 scratch/
+tests/sandboxes/*
+!tests/sandboxes/url-shortener/
 tests/tmp/
 tests/coverage/
 

@@ -133,6 +133,7 @@ async function runSection() {
     console.log(`${'='.repeat(56)}\n`);
 
     if (failed > 0) process.exit(1);
+    process.exit(0);
 }
 
 runSection().catch(err => {

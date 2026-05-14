@@ -137,6 +137,7 @@ async function setupSection2() {
     console.log(`${'='.repeat(56)}\n`);
 
     if (failed > 0) process.exit(1);
+    process.exit(0);
 }
 
 setupSection2().catch(err => {

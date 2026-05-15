@@ -14,7 +14,8 @@
     "start": "node cli.js run",
     "refactor": "node cli.js refactor",
     "update-skills": "node cli.js update-skills",
-    "test": "node tests/TDD/runner.js"
+    "test": "node tests/TDD/runner.js",
+    "lint": "eslint agent/ cli.js tests/TDD/*.js"
   },
   "keywords": [
     "ai",
@@ -34,5 +35,12 @@
     "glob": "^8.1.0",
     "natural": "^8.1.1",
     "redis": "^5.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }

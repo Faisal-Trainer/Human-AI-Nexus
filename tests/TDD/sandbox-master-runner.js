@@ -38,7 +38,7 @@ function runSection(section) {
     return new Promise((resolve, reject) => {
         const filePath = path.join(TDD_DIR, section.file);
         console.log(`\n${'═'.repeat(60)}`);
-        console.log(`🚀 Memulai: ${section.label}`);
+        console.log(`🚀 Section ${section.id}: ${section.label}`);
         console.log(`${'═'.repeat(60)}`);
 
         const childArgs = section.args ? [filePath, ...section.args] : [filePath];
@@ -46,7 +46,6 @@ function runSection(section) {
 
         child.on('exit', code => {
             if (code === 0) {
-                console.log(`\n✅ ${section.label} — SELESAI\n`);
                 resolve();
             } else {
                 reject(new Error(`Section ${section.id} exited with code ${code}`));
@@ -54,6 +53,17 @@ function runSection(section) {
         });
 
         child.on('error', err => reject(err));
+    });
+}
+
+function ask(question) {
+    const readline = require('readline');
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    return new Promise(res => {
+        rl.question(question, (answer) => {
+            rl.close();
+            res(answer);
+        });
     });
 }
 
@@ -83,15 +93,31 @@ async function main() {
             await runSection(section);
             results.success.push(section.label);
         } catch (err) {
-            console.error(`\n❌ GAGAL: ${section.label}`);
+            console.error(`\x1b[31m\n❌ GAGAL: ${section.label}\x1b[0m`);
             console.error(`   Reason: ${err.message}`);
             results.failed.push(section.label);
-            // Lanjut ke section berikutnya meskipun ada yang gagal (circuit breaker)
         }
     }
 
     // ── Distill knowledge ke HUB kalau flag --distill aktif
     if (doDistill) {
+        const fs = require('fs-extra');
+        const hubPath = path.join(ROOT_PATH, 'memory', 'distilled');
+        const existingFiles = await fs.readdir(hubPath).catch(() => []);
+        
+        if (existingFiles.length > 0) {
+            console.log(`\n\x1b[33m⚠️  Knowledge HUB saat ini berisi ${existingFiles.length} file.\x1b[0m`);
+            console.log(`   Flag --distill akan MENIMPA sebagian file tersebut.\n`);
+
+            if (!args.includes('--yes') && !args.includes('-y')) {
+                const confirm = await ask('Lanjutkan distill ke HUB? (y/n): ');
+                if (confirm.toLowerCase() !== 'y') {
+                    console.log('🚫 Distill dibatalkan.');
+                    process.exit(0);
+                }
+            }
+        }
+
         console.log(`\n${'═'.repeat(60)}`);
         console.log(`🧠 Menjalankan Distilasi Knowledge ke HUB...`);
         console.log(`${'═'.repeat(60)}`);

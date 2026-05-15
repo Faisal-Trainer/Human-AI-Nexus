@@ -11,56 +11,66 @@ class SandboxExecutor {
         const timeout = options.timeout || this.defaultTimeout;
 
         return new Promise((resolve, reject) => {
-            // Simulated worker thread for plugin isolation
-            let resolved = false;
-
-            const timer = setTimeout(() => {
-                if (!resolved) {
-                    resolved = true;
-                    reject(new Error(`SandboxExecutor: Execution timed out after ${timeout}ms`));
-                }
-            }, timeout);
-
             try {
-                // Permission Validation
+                // Permission Validation (before starting worker)
+                const fs = require('fs-extra');
                 const manifestPath = path.join(__dirname, '..', 'tools', 'scanners', 'manifest.json');
-                if (require('fs-extra').existsSync(manifestPath)) {
-                    const manifest = require(manifestPath);
+                if (fs.existsSync(manifestPath)) {
+                    const manifest = fs.readJsonSync(manifestPath);
                     const isAllowed = manifest.scanners.some(s => pluginPath.includes(s.entrypoint));
                     if (!isAllowed) {
-                        throw new Error(`SandboxExecutor: Plugin ${pluginPath} is not registered in manifest.json`);
+                        return reject(new Error(`SandboxExecutor: Plugin ${pluginPath} is not registered in manifest.json`));
                     }
                 }
 
-                // Restrict dangerous globals if this were a true VM sandbox
-                const plugin = require(pluginPath);
-                
-                if (typeof plugin.scan !== 'function' && typeof plugin.execute !== 'function') {
-                    throw new Error('Plugin must export a scan() or execute() function.');
-                }
+                const worker = new Worker(`
+                    const { workerData, parentPort } = require('worker_threads');
+                    const path = require('path');
+                    
+                    async function run() {
+                        try {
+                            const plugin = require(workerData.pluginPath);
+                            const action = plugin.scan || plugin.execute;
+                            
+                            if (typeof action !== 'function') {
+                                throw new Error('Plugin must export a scan() or execute() function.');
+                            }
 
-                const action = plugin.scan ? plugin.scan : plugin.execute;
-                
-                Promise.resolve(action(args)).then(result => {
-                    if (!resolved) {
-                        resolved = true;
-                        clearTimeout(timer);
-                        resolve(result);
+                            const result = await Promise.resolve(action(workerData.args));
+                            parentPort.postMessage({ ok: true, result });
+                        } catch (err) {
+                            parentPort.postMessage({ ok: false, error: err.message });
+                        }
                     }
-                }).catch(err => {
-                    if (!resolved) {
-                        resolved = true;
-                        clearTimeout(timer);
-                        reject(err);
+                    run();
+                `, { eval: true, workerData: { pluginPath, args } });
+
+                const timer = setTimeout(() => {
+                    worker.terminate();
+                    reject(new Error(`SandboxExecutor: Execution timed out after ${timeout}ms`));
+                }, timeout);
+
+                worker.on('message', (msg) => {
+                    clearTimeout(timer);
+                    worker.terminate();
+                    msg.ok ? resolve(msg.result) : reject(new Error(msg.error));
+                });
+
+                worker.on('error', (err) => {
+                    clearTimeout(timer);
+                    worker.terminate();
+                    reject(err);
+                });
+
+                worker.on('exit', (code) => {
+                    clearTimeout(timer);
+                    if (code !== 0) {
+                        reject(new Error(`Worker stopped with exit code ${code}`));
                     }
                 });
 
             } catch (err) {
-                if (!resolved) {
-                    resolved = true;
-                    clearTimeout(timer);
-                    reject(err);
-                }
+                reject(err);
             }
         });
     }

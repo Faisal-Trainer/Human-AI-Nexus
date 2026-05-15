@@ -1,0 +1,8 @@
+{
+  "extends": "standard",
+  "rules": {
+    "no-eval": "error",
+    "no-new-func": "error",
+    "indent": ["error", 4]
+  }
+}

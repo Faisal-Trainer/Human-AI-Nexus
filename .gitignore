@@ -30,6 +30,10 @@ yarn-error.log*
 *.log
 logs/
 
+# --- Sandbox Dependencies ---
+tests/sandboxes/*/vendor/
+tests/sandboxes/*/node_modules/
+
 # --- Nexus Ingestion & Transit (CLEAN REPO) ---
 # Ignore the harvest area as it is a temporary transit folder
 golden/harvest/*
@@ -78,7 +82,3 @@ knowledge/*_SESSION_HISTORY_ARCHIVE.md
 knowledge/*_LOG.md
 memory/distilled/performance/*.MD
 memory/operational/records/*.json
-.env
-.env
-.env
-.env

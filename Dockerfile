@@ -1,5 +1,5 @@
 # 🤖 Human-AI Nexus: Autonomous Multi-Agent Container
-# Version: v3.1.0 (Time-Aware)
+# Version: v3.3.0 (Time-Aware)
 
 FROM node:22-alpine
 
@@ -32,5 +32,5 @@ CMD ["run", "--yes"]
 
 # Labels for Metadata
 LABEL maintainer="Faisal-Trainer"
-LABEL version="3.1.0"
+LABEL version="3.3.0"
 LABEL description="Autonomous Multi-Agent AI Framework"

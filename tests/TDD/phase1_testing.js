@@ -97,6 +97,9 @@ async function setupTALLProject(project, piper) {
     const engine = new NexusEngine({ rootPath: targetPath });
     await engine.runCycle({ mode: 'learning', allowSensitive: true });
 
+    // ── STEP 8.5: Clean Code & Stability Verification Loop (5x)
+    await engine.cleanCodeAndVerify(targetPath);
+
     // ── STEP 9: Harvest wisdom ke Golden HUB
     console.log(`   🌾 Harvesting knowledge to Golden HUB...`);
     await engine.harvest(targetPath);
@@ -116,25 +119,40 @@ async function runPhase1() {
 
     if (!(await fs.pathExists(TEMPLATE_SOURCE))) {
         console.error(`❌ Template TALL stack tidak ditemukan di:\n   ${TEMPLATE_SOURCE}`);
-        console.error(`   Pastikan url-shortener sandbox sudah ada dan terinstall.`);
         process.exit(1);
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
+    const total = PHASE_1_PROJECTS.length;
     let success = 0, failed = 0;
+    const startTime = Date.now();
 
-    for (const project of PHASE_1_PROJECTS) {
+    for (let i = 0; i < total; i++) {
+        const project = PHASE_1_PROJECTS[i];
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        const eta = i > 0 ? Math.round((elapsed / i) * (total - i)) : '?';
+        const pct = Math.round(((i + 1) / total) * 100);
+        const bar = '█'.repeat(Math.floor(pct / 5)) + '░'.repeat(20 - Math.floor(pct / 5));
+
+        console.log(`\n\x1b[35m[${bar}] ${pct}% | ✅ ${success} ❌ ${failed} | Project ${i + 1}/${total}: ${project.name} | ETA: ${eta}s\x1b[0m`);
+
         try {
             await setupTALLProject(project, piper);
             success++;
         } catch (err) {
-            console.error(`\n❌ GAGAL [${project.name}]: ${err.message}`);
+            console.error(`\n\x1b[31m❌ GAGAL [${project.name}]: ${err.message}\x1b[0m`);
             failed++;
+            // Log to error file
+            const logFile = path.join(ROOT_PATH, 'logs', 'sandbox-errors.log');
+            await fs.ensureDir(path.dirname(logFile));
+            await fs.appendFile(logFile, `[${new Date().toISOString()}] [Section 1] [${project.name}] ${err.message}\n`);
         }
     }
 
+    const totalElapsed = Math.round((Date.now() - startTime) / 1000);
     console.log(`\n${'='.repeat(56)}`);
     console.log(`📊 SECTION 1 SELESAI: ${success} berhasil, ${failed} gagal`);
+    console.log(`⏱  Total waktu: ${totalElapsed}s`);
     console.log(`${'='.repeat(56)}\n`);
 
     if (failed > 0) process.exit(1);

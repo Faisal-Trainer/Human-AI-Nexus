@@ -157,12 +157,31 @@ async function main() {
         case 'sandbox': {
             // nexus sandbox [--section 1|2|3] [--distill]
             const { spawn: spawnChild } = require('child_process');
+            const fs = require('fs-extra');
             const runnerPath = path.join(__dirname, '..', 'tests', 'TDD', 'sandbox-master-runner.js');
             const sandboxArgs = args.slice(1); // --section X, --distill, etc.
+
+            if (!fs.existsSync(runnerPath)) {
+                console.error(`\x1b[31m❌ Sandbox runner tidak ditemukan: ${runnerPath}\x1b[0m`);
+                console.error(`   Pastikan folder tests/TDD/ tersedia di instalasi Nexus.`);
+                rl.close();
+                process.exit(1);
+            }
+
             console.log('\x1b[36m%s\x1b[0m', '🧪 Nexus Sandbox Master Runner: Starting...');
             const sandboxProc = spawnChild('node', [runnerPath, ...sandboxArgs], { stdio: 'inherit', shell: false });
-            sandboxProc.on('exit', code => { rl.close(); process.exit(code || 0); });
-            return; // Jangan close rl dulu — handled di exit callback
+            
+            sandboxProc.on('error', (err) => {
+                console.error(`\x1b[31m❌ Gagal menjalankan sandbox: ${err.message}\x1b[0m`);
+                rl.close();
+                process.exit(1);
+            });
+
+            sandboxProc.on('exit', code => { 
+                rl.close(); 
+                process.exit(code || 0); 
+            });
+            return; // Handled in exit callback
         }
         case 'dlq': {
             // nexus dlq — tampilkan Dead Letter Queue (task gagal permanen)

@@ -151,12 +151,18 @@ class MemoryPipeline {
     async appendToArchive(content) {
         const archiveFile = await this.getArchiveFile();
         await fs.ensureFile(archiveFile);
-        const existingContent = await fs.readFile(archiveFile, 'utf8');
+        let existingContent = await fs.readFile(archiveFile, 'utf8');
+        
         const tags = '\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [audit, performance, testing, tdd]\n';
+        
         if (!existingContent.includes('METADATA')) {
+            // First time: append content and then tags
             await fs.appendFile(archiveFile, content + tags);
         } else {
-            await fs.appendFile(archiveFile, content);
+            // Already has tags: insert content BEFORE the tags
+            const parts = existingContent.split('---\n> **METADATA');
+            const newContent = parts[0] + content + '\n\n---\n> **METADATA' + parts[1];
+            await fs.writeFile(archiveFile, newContent);
         }
     }
 

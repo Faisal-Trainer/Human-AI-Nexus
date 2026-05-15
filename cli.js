@@ -18,9 +18,9 @@ async function main() {
         const cleanArgs = args.filter(a => a !== 'nexus');
         const enginePath = path.join(__dirname, 'agent', 'main.js');
         
-        const child = spawn('node', [`"${enginePath}"`, ...cleanArgs], {
+        const child = spawn('node', [enginePath, ...cleanArgs], {
             stdio: 'inherit',
-            shell: true
+            shell: false
         });
 
         child.on('exit', (code) => process.exit(code));

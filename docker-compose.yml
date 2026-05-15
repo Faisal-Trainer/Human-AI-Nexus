@@ -2,10 +2,17 @@ services:
   nexus-ai:
     build: .
     container_name: nexus_autonomous_agent
+    env_file:
+      - .env
     environment:
       - NEXUS_MODE=autonomous
     volumes:
       - ./memory:/app/memory
       - ./documentation:/app/documentation
       - ./agent/prompts:/app/agent/prompts
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('./cli.js')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped

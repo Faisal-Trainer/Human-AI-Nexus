@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { spawn } = require('child_process');
 const { AuditReport, ImplementationPlan } = require('./Contract');
 const Modifier = require('./Modifier');
 const LaravelArchitect = require('./LaravelArchitect');
@@ -22,6 +23,7 @@ const MemoryGovernor = require('./MemoryGovernor');
 const EventBus = require('./EventBus');
 const SandboxExecutor = require('./SandboxExecutor');
 const NexusClock = require('./NexusClock');
+const Orchestrator = require('./Orchestrator');
 const ResourceMonitor = require('./ResourceMonitor');
 const EvolutionPiper = require('./EvolutionPiper');
 const DecisionEngine = require('./DecisionEngine');
@@ -137,6 +139,9 @@ class NexusEngine {
         this.currentAudit = null; 
         this.currentPlan = null;
         this.activeRack = null;
+        this.orchestrator = new Orchestrator(this.rootPath);
+        this.redisConnected = false;
+        this.ollamaAvailable = false;
 
         this.logger = new Logger(this.rootPath);
         this.memoryGovernor = new MemoryGovernor(this.rootPath);
@@ -151,8 +156,20 @@ class NexusEngine {
     }
 
     async initRedis() {
-        await redis.connect();
-        await localAI.checkAvailability();
+        try {
+            await redis.connect();
+            this.redisConnected = true;
+            this.log('✅ Redis connected.', 'success');
+        } catch (e) {
+            this.log(`⚠️ Redis unavailable: ${e.message}. Running in file-only mode.`, 'warning');
+        }
+        
+        try {
+            await localAI.checkAvailability();
+            this.ollamaAvailable = true;
+        } catch (e) {
+            this.log(`⚠️ Ollama unavailable: ${e.message}. AI features disabled.`, 'warning');
+        }
     }
 
     /**
@@ -350,7 +367,8 @@ class NexusEngine {
 
                     const agentStart = Date.now();
                     if (await fs.pathExists(scannerPath)) {
-                        specFindings = await this.sandbox.execute(scannerPath, targetPath, { timeout: 30000 });
+                        // Use Orchestrator for retry logic and DLQ protection
+                        specFindings = await this.orchestrator.executeTask(spec.id, scannerPath, targetPath);
                         this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
                     }
                     const agentDuration = Date.now() - agentStart;
@@ -727,7 +745,6 @@ ${tasks.map(t => `
         }
 
         this.log(`   🧠 Analyzing project intent from README...`, 'info');
-        const LocalIntelligence = require('./LocalIntelligence');
 
         // Check if we already built the blueprint
         const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
@@ -743,12 +760,19 @@ ${tasks.map(t => `
             `{ "models": [ { "name": "ModelName", "fields": ["title:string", "user_id:foreignId"] } ], "livewire_components": ["ComponentName"], "views": ["view.name"] }`;
 
         this.log(`   🤖 Generating Architecture Blueprint via LocalIntelligence...`, 'warning');
-        const response = await LocalIntelligence.generate(prompt, 'generate_architecture');
+        const response = await localAI.generate(prompt, 'generate_architecture');
         
         if (!response) {
-            this.log(`   ❌ LLM failed to generate blueprint.`, 'error');
+            this.metrics.blueprintFailures = (this.metrics.blueprintFailures || 0) + 1;
+            this.log(`   ⚠️ Blueprint skipped — LLM tidak merespons. Project: ${path.basename(this.rootPath)}`, 'warning');
+            
+            if (this.metrics.blueprintFailures >= 3) {
+                throw new NexusError('BLUEPRINT', '❌ Ollama tampaknya tidak aktif (3 kegagalan berturut-turut). Jalankan `ollama serve` lalu coba kembali.');
+            }
             return;
         }
+
+        this.metrics.blueprintFailures = 0;
 
         try {
             // Extract JSON if wrapped in markdown
@@ -769,7 +793,7 @@ ${tasks.map(t => `
             if (blueprint.models) {
                 for (const model of blueprint.models) {
                     this.log(`      - Generating Model: ${model.name}`, 'warning');
-                    const code = await LocalIntelligence.generate(
+                    const code = await localAI.generate(
                         `Write the Laravel PHP code for the Eloquent Model '${model.name}' with the following fields: ${model.fields.join(', ')}. Include the 'HasFactory' trait and a fillable array. Output only the PHP code without markdown wrappers.`, 
                         'build_model_migration'
                     );
@@ -782,7 +806,7 @@ ${tasks.map(t => `
             if (blueprint.livewire_components) {
                 for (const comp of blueprint.livewire_components) {
                     this.log(`      - Generating Livewire Component: ${comp}`, 'warning');
-                    const phpCode = await LocalIntelligence.generate(
+                    const phpCode = await localAI.generate(
                         `Write the Laravel Livewire 3 PHP class for the component '${comp}'. Output only the PHP code without markdown wrappers.`, 
                         'build_livewire_component'
                     );
@@ -791,7 +815,7 @@ ${tasks.map(t => `
                         await fs.outputFile(path.join(this.rootPath, `app/Livewire/${comp}.php`), cleanPhp);
                     }
                     
-                    const viewCode = await LocalIntelligence.generate(
+                    const viewCode = await localAI.generate(
                         `Write the Blade view for the Livewire component '${comp}'. Use TailwindCSS. Output only the HTML/Blade code without markdown wrappers.`, 
                         'build_view'
                     );
@@ -808,6 +832,106 @@ ${tasks.map(t => `
         } catch (e) {
             this.log(`   ❌ Failed to parse Blueprint JSON: ${e.message}`, 'error');
         }
+    }
+
+    /**
+     * Helper to wait for a service to become available (active polling)
+     */
+    async waitForService(url, timeoutMs = 8000) {
+        const axios = require('axios');
+        const start = Date.now();
+        while (Date.now() - start < timeoutMs) {
+            try {
+                await axios.get(url, { timeout: 500 });
+                return true;
+            } catch (_) {
+                await new Promise(r => setTimeout(r, 300));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Helper to find an available port
+     */
+    async getAvailablePort(start = 8001) {
+        const net = require('net');
+        return new Promise((resolve) => {
+            const server = net.createServer();
+            server.listen(start, () => {
+                server.close(() => resolve(start));
+            });
+            server.on('error', () => {
+                resolve(this.getAvailablePort(start + 1));
+            });
+        });
+    }
+
+    /**
+     * Phase 5.5: Clean Code & Verification Loop (High-Stability Sandbox)
+     * 1. Mencari dan menghapus komponen sisa "url-shortener" yang tidak relevan.
+     * 2. Looping 5x untuk memastikan app startup dengan stabil (artisan serve + npm dev).
+     */
+    async cleanCodeAndVerify(projectPath = this.rootPath) {
+        this.log(`🧹 Phase 5.5: Clean Code & Stability Verification...`, 'info');
+        
+        // --- 1. CLEANUP LEGACY CLUTTER ---
+        this.log(`   📂 Identifying legacy template clutter (UrlShortener remnants)...`, 'warning');
+        
+        // Pola file yang biasanya terbawa dari template url-shortener
+        const legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
+        const files = await this.globRecursive(projectPath, '**/*');
+        let deletedCount = 0;
+
+        for (const file of files) {
+            const fileName = path.basename(file);
+            const isLegacyFile = legacyPatterns.some(p => fileName.includes(p));
+            
+            // Jangan hapus di node_modules atau vendor
+            if (isLegacyFile && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
+                if (await fs.pathExists(file)) {
+                    await fs.remove(file);
+                    this.log(`      🗑️ Deleted legacy file: ${path.relative(projectPath, file)}`, 'error');
+                    deletedCount++;
+                }
+            }
+        }
+        
+        this.log(`   ✅ Cleanup complete: ${deletedCount} files removed.`, 'success');
+
+        // --- 2. VERIFICATION LOOP (5x) ---
+        this.log(`   🔄 Starting 5-Cycle Stability Loop (Health Check)...`, 'info');
+        
+        for (let i = 1; i <= 5; i++) {
+            this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
+            
+            const port = await this.getAvailablePort(8001);
+            const serveProc = spawn('php', ['artisan', 'serve', `--port=${port}`], { cwd: projectPath, shell: false });
+            const devProc = spawn('npm', ['run', 'dev'], { cwd: projectPath, shell: false });
+
+            // Active polling instead of flat timeout
+            const [serveReady, devReady] = await Promise.all([
+                this.waitForService(`http://localhost:${port}`, 8000),
+                this.waitForService('http://localhost:5173', 8000) // Default Vite port
+            ]);
+
+            if (serveReady && devReady) {
+                this.log(`      ✅ Iteration ${i} passed. Services are stable.`, 'success');
+            } else {
+                this.log(`      ❌ Iteration ${i} FAILED. Service timed out or crashed.`, 'error');
+                serveProc.kill();
+                devProc.kill();
+                throw new Error(`Stability check failed at iteration ${i} for ${projectPath}`);
+            }
+
+            // Cleanup for next iteration
+            serveProc.kill();
+            devProc.kill();
+            
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        
+        this.log(`   🎉 Stability Loop Passed: App is verified and clean.`, 'success');
     }
 
     async runCycle(options = {}) {

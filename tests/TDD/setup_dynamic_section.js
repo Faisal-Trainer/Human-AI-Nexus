@@ -93,6 +93,9 @@ async function setupTALLProject(projectName, piper) {
     const engine = new NexusEngine({ rootPath: targetPath });
     await engine.runCycle({ mode: sectionConfig.mode, allowSensitive: true });
 
+    // ── STEP 8.5: Clean Code & Stability Verification Loop (5x)
+    await engine.cleanCodeAndVerify(targetPath);
+
     // ── STEP 9: Harvest
     console.log(`   🌾 Harvesting knowledge to Golden HUB...`);
     await engine.harvest(targetPath);
@@ -116,20 +119,36 @@ async function runSection() {
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
+    const total = sectionConfig.projects.length;
     let success = 0, failed = 0;
+    const startTime = Date.now();
 
-    for (const projectName of sectionConfig.projects) {
+    for (let i = 0; i < total; i++) {
+        const projectName = sectionConfig.projects[i];
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        const eta = i > 0 ? Math.round((elapsed / i) * (total - i)) : '?';
+        const pct = Math.round(((i + 1) / total) * 100);
+        const bar = '█'.repeat(Math.floor(pct / 5)) + '░'.repeat(20 - Math.floor(pct / 5));
+
+        console.log(`\n\x1b[35m[${bar}] ${pct}% | ✅ ${success} ❌ ${failed} | Project ${i + 1}/${total}: ${projectName} | ETA: ${eta}s\x1b[0m`);
+
         try {
             await setupTALLProject(projectName, piper);
             success++;
         } catch (err) {
-            console.error(`\n❌ GAGAL [${projectName}]: ${err.message}`);
+            console.error(`\n\x1b[31m❌ GAGAL [${projectName}]: ${err.message}\x1b[0m`);
             failed++;
+            // Log to error file
+            const logFile = path.join(ROOT_PATH, 'logs', 'sandbox-errors.log');
+            await fs.ensureDir(path.dirname(logFile));
+            await fs.appendFile(logFile, `[${new Date().toISOString()}] [Section ${sectionArg}] [${projectName}] ${err.message}\n`);
         }
     }
 
+    const totalElapsed = Math.round((Date.now() - startTime) / 1000);
     console.log(`\n${'='.repeat(56)}`);
     console.log(`📊 SECTION ${sectionArg} SELESAI: ${success} berhasil, ${failed} gagal`);
+    console.log(`⏱  Total waktu: ${totalElapsed}s`);
     console.log(`${'='.repeat(56)}\n`);
 
     if (failed > 0) process.exit(1);

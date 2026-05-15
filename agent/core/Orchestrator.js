@@ -15,14 +15,28 @@ class Orchestrator {
 
         // ⛔ DEAD LETTER QUEUE: Menyimpan task yang gagal permanen untuk analisis
         this.deadLetterQueue = [];
-        this.MAX_DLQ_SIZE = 100; // Trim otomatis kalau terlalu besar
+        this.MAX_DLQ_SIZE = 100; 
+        this._isWritingDLQ = false;
+        this._dlqPendingWrite = false;
 
+        this.initDLQ(); // Async but safe to trigger here
         this.setupEventHandlers();
+    }
+
+    async initDLQ() {
+        try {
+            const dlqPath = path.join(this.rootPath, 'logs', 'dead_letter_queue.json');
+            if (await fs.pathExists(dlqPath)) {
+                this.deadLetterQueue = await fs.readJson(dlqPath).catch(() => []);
+            }
+        } catch (e) {
+            console.warn(`⚠️  Orchestrator: Failed to initialize DLQ from disk: ${e.message}`);
+        }
     }
 
     setupEventHandlers() {
         EventBus.subscribe('SCANNER_TRIGGERED', async (payload) => {
-            const taskId = `TASK-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+            const taskId = payload.task_id_override || `TASK-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
             const task = new TaskProtocol(taskId, payload.agent, payload.priority, payload.input);
             this.activeTasks.set(task.task_id, task);
             
@@ -39,8 +53,9 @@ class Orchestrator {
                     
                     task.status = 'done';
                     success = true;
+                    this.activeTasks.delete(task.task_id);
+
                     await this.logger.log('orchestration', 'INFO', 'Orchestrator', task.task_id, 'AGENT_TASK_COMPLETED', `Task completed by ${payload.agent}`);
-                    
                     EventBus.publish('SCANNER_FINISHED', { task_id: task.task_id, result: result });
                 } catch (err) {
                     attempt++;
@@ -49,6 +64,7 @@ class Orchestrator {
                     
                     if (attempt >= MAX_RETRY) {
                         task.status = 'failed';
+                        this.activeTasks.delete(task.task_id);
                         await this.logger.log('orchestration', 'ERROR', 'Orchestrator', task.task_id, 'AGENT_TASK_FAILED', `Task failed by ${payload.agent} after ${MAX_RETRY} attempts.`);
                         EventBus.publish('TASK_FAILED', { task_id: task.task_id, error: errPayload });
                     }
@@ -66,20 +82,12 @@ class Orchestrator {
 
             this.deadLetterQueue.push(dlqEntry);
 
-            // Trim DLQ kalau terlalu besar (FIFO — hapus yang paling lama)
+            // Trim DLQ kalau terlalu besar
             if (this.deadLetterQueue.length > this.MAX_DLQ_SIZE) {
-                this.deadLetterQueue.shift();
+                this.deadLetterQueue = this.deadLetterQueue.slice(-this.MAX_DLQ_SIZE);
             }
 
-            // Persistent: tulis ke disk untuk analisis setelah restart
-            try {
-                const dlqPath = path.join(this.rootPath, 'logs', 'dead_letter_queue.json');
-                await fs.ensureDir(path.dirname(dlqPath));
-                await fs.writeJson(dlqPath, this.deadLetterQueue, { spaces: 2 });
-            } catch (e) {
-                // Jangan crash jika disk write gagal
-                console.warn(`⚠️  Orchestrator DLQ: Failed to persist to disk: ${e.message}`);
-            }
+            await this.persistDLQ();
 
             console.error(
                 `💀 Dead Letter: Task ${payload.task_id} failed permanently. ` +
@@ -92,6 +100,67 @@ class Orchestrator {
         });
     }
 
+    /**
+     * Persist DLQ to disk with atomic write protection.
+     */
+    async persistDLQ() {
+        if (this._isWritingDLQ) {
+            this._dlqPendingWrite = true;
+            return;
+        }
+
+        this._isWritingDLQ = true;
+        try {
+            const dlqPath = path.join(this.rootPath, 'logs', 'dead_letter_queue.json');
+            await fs.ensureDir(path.dirname(dlqPath));
+            await fs.writeJson(dlqPath, this.deadLetterQueue, { spaces: 2 });
+        } catch (e) {
+            console.warn(`⚠️  Orchestrator DLQ: Failed to persist to disk: ${e.message}`);
+        } finally {
+            this._isWritingDLQ = false;
+            if (this._dlqPendingWrite) {
+                this._dlqPendingWrite = false;
+                await this.persistDLQ();
+            }
+        }
+    }
+
+    /**
+     * Route and wait for a task to complete.
+     */
+    async executeTask(agentName, pluginPath, inputArgs, priority = 'normal') {
+        const taskId = `TASK-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        
+        return new Promise((resolve, reject) => {
+            const onFinished = (payload) => {
+                if (payload.task_id === taskId) {
+                    EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
+                    EventBus.unsubscribe('TASK_FAILED', onFailed);
+                    resolve(payload.result);
+                }
+            };
+
+            const onFailed = (payload) => {
+                if (payload.task_id === taskId) {
+                    EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
+                    EventBus.unsubscribe('TASK_FAILED', onFailed);
+                    reject(new Error(payload.error?.message || 'Task failed permanently.'));
+                }
+            };
+
+            EventBus.subscribe('SCANNER_FINISHED', onFinished);
+            EventBus.subscribe('TASK_FAILED', onFailed);
+
+            EventBus.publish('SCANNER_TRIGGERED', {
+                agent: agentName,
+                pluginPath: pluginPath,
+                input: inputArgs,
+                priority: priority,
+                task_id_override: taskId // Support custom task ID if Orchestrator allows
+            });
+        });
+    }
+
     async routeTask(agentName, pluginPath, inputArgs, priority = 'normal') {
         EventBus.publish('SCANNER_TRIGGERED', {
             agent: agentName,
@@ -101,10 +170,6 @@ class Orchestrator {
         });
     }
 
-    /**
-     * Get a report of all failed tasks in the Dead Letter Queue.
-     * @returns {Object} DLQ summary with breakdown by agent.
-     */
     getDLQReport() {
         return {
             total_failed: this.deadLetterQueue.length,
@@ -117,12 +182,10 @@ class Orchestrator {
         };
     }
 
-    /**
-     * Clear the Dead Letter Queue (manual intervention only).
-     */
-    clearDLQ() {
+    async clearDLQ() {
         const count = this.deadLetterQueue.length;
         this.deadLetterQueue = [];
+        await this.persistDLQ();
         console.log(`🗑️  Orchestrator: Dead Letter Queue cleared (${count} entries removed).`);
     }
 }

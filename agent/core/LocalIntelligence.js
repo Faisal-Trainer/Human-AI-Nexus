@@ -83,7 +83,7 @@ class LocalIntelligence {
                 stream: false,
                 options: {
                     temperature: 0.1,   // Lebih deterministik
-                    num_ctx: 512
+                    num_ctx: this.MAX_TOKENS
                 }
             });
 

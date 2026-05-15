@@ -8,11 +8,14 @@ const path = require("path");
 const redis = require("./RedisMemory");
 
 class SemanticEngine {
-  constructor(knowledgePath) {
+    constructor(knowledgePath) {
     this.knowledgePath = knowledgePath;
     this.tfidf = new natural.TfIdf();
-    this.fileIndex = []; // [{ file, path, tags }]
+    this.fileIndex = []; // [{ file, path, tags, embedding }]
     this.isBuilt = false;
+    this.useOllamaEmbeddings = false;
+    this.ollamaModel = 'nomic-embed-text';
+    this.baseUrl = 'http://localhost:11434/api';
 
     // Domain vocabulary untuk TALL Stack context
     this.domainVocab = {
@@ -151,7 +154,19 @@ class SemanticEngine {
    * Dipanggil sekali saat startup atau setelah distill
    */
   async buildIndex() {
-    console.log("🔬 SemanticEngine: Building TF-IDF vector index...");
+    console.log("🔬 SemanticEngine: Building vector index...");
+
+    // 🚀 Check if Ollama embeddings are available
+    try {
+        const axios = require('axios');
+        const tags = await axios.get(`${this.baseUrl}/tags`);
+        if (tags.data.models.some(m => m.name.includes(this.ollamaModel))) {
+            this.useOllamaEmbeddings = true;
+            console.log(`   💎 Ollama: Using ${this.ollamaModel} for high-precision embeddings.`);
+        }
+    } catch (e) {
+        console.warn("   ⚠️ Ollama not found, falling back to TF-IDF.");
+    }
 
     this.tfidf = new natural.TfIdf(); // Reset
     this.fileIndex = [];
@@ -174,11 +189,18 @@ class SemanticEngine {
         const cleaned = this.cleanContent(content);
 
         this.tfidf.addDocument(cleaned);
+        
+        let embedding = null;
+        if (this.useOllamaEmbeddings) {
+            embedding = await this.getEmbedding(cleaned.substring(0, 8000));
+        }
+
         this.fileIndex.push({
           index: this.fileIndex.length,
           file: file,
           path: filePath,
           tags: this.extractMultiTags(content),
+          embedding: embedding
         });
       } catch (e) {
         // Skip file yang tidak bisa dibaca
@@ -265,18 +287,43 @@ class SemanticEngine {
       if (!cached) await this.buildIndex();
     }
 
-    const results = [];
+    let results = [];
     const queryLower = query.toLowerCase();
 
-    // TF-IDF scoring
-    this.tfidf.tfidfs(query, (i, measure) => {
-      if (measure > 0 && this.fileIndex[i]) {
-        results.push({
-          ...this.fileIndex[i],
-          score: measure,
+    if (this.useOllamaEmbeddings && this.fileIndex.some(f => f.embedding)) {
+        console.log(`   🔍 Semantic Search: Using vector similarity...`);
+        const queryEmbedding = await this.getEmbedding(query);
+        
+        if (queryEmbedding) {
+            results = this.fileIndex.map(doc => ({
+                ...doc,
+                score: doc.embedding ? this.cosineSimilarity(queryEmbedding, doc.embedding) : 0
+            })).filter(r => r.score > 0.1);
+        }
+    }
+
+    // Fallback or combine with TF-IDF if results are poor
+    if (results.length < topK) {
+        const tfidfResults = [];
+        this.tfidf.tfidfs(query, (i, measure) => {
+            if (measure > 0 && this.fileIndex[i]) {
+                tfidfResults.push({
+                    ...this.fileIndex[i],
+                    score: measure / 10, // Normalize TF-IDF score
+                });
+            }
         });
-      }
-    });
+        
+        // Merge results
+        for (const tr of tfidfResults) {
+            const existing = results.find(r => r.file === tr.file);
+            if (existing) {
+                existing.score += tr.score;
+            } else {
+                results.push(tr);
+            }
+        }
+    }
 
     // Domain vocab boost — tambahkan score kalau query match domain keyword
     for (const result of results) {
@@ -296,6 +343,32 @@ class SemanticEngine {
     await redis.set(cacheKey, finalResults, 1800);
     
     return finalResults;
+  }
+
+  async getEmbedding(text) {
+    try {
+        const axios = require('axios');
+        const response = await axios.post(`${this.baseUrl}/embeddings`, {
+            model: this.ollamaModel,
+            prompt: text
+        });
+        return response.data.embedding;
+    } catch (e) {
+        console.error("   ❌ Ollama: Embedding failed:", e.message);
+        return null;
+    }
+  }
+
+  cosineSimilarity(vecA, vecB) {
+    let dotProduct = 0;
+    let normA = 0;
+    let normB = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        dotProduct += vecA[i] * vecB[i];
+        normA += vecA[i] * vecA[i];
+        normB += vecB[i] * vecB[i];
+    }
+    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
   }
 
   /**

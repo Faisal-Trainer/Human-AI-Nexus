@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.2.0 (Stability Guardrail Edition)
-> **Updated**: 14/05/2026
+> **Version**: v3.3.0 (Ollama Qwen-Ready Edition)
+> **Updated**: 15/05/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
@@ -55,8 +55,8 @@ Sistem ditenagai oleh modul spesialis yang bekerja secara independen dan terkoor
 | 9 | `LaravelArchitect.js` | Spesialis otomasi Laravel (Traits, Migrations, Env) |
 | 10 | `TDDScaffolder.js` | Pembangun scaffold pengujian otomatis |
 | 11 | `NexusClock.js` | Penegak standarisasi waktu UTC+8 untuk Docker |
-| 12 | `SemanticEngine.js` | TF-IDF vector search + Redis cache |
-| 13 | `LocalIntelligence.js` | Integrasi Ollama local LLM (**task whitelist enforced**) |
+| 12 | `SemanticEngine.js` | 🆕 High-Precision Vector Search (Ollama nomic-embed-text) |
+| 13 | `LocalIntelligence.js` | 🆕 Ollama Qwen 2.5 Coder & Qwen 3 Integration |
 | 14 | `AgentRegistry.js` | 🆕 Health monitor & stuck agent detection |
 | 15 | `EventBus.js` | Event bus dengan schema validation |
 | 16 | `ResourceMonitor.js` | CPU + RAM monitor (real measurement, tiered alerts) |
@@ -82,7 +82,7 @@ Versi 3.2.0 mengimplementasikan **guardrail di level kode** — bukan hanya doku
 
 | Modul | Pagar |
 |---|---|
-| `LocalIntelligence` | Task whitelist, locked system prompt, token limit 512, output max 2000 chars |
+| `LocalIntelligence` | Task whitelist, locked system prompt, model auto-selection (Qwen 2.5/3), max 30k chars output |
 | `EvolutionPiper` | Max 25 cycles/session, max 120 menit, auto-throw kalau batas tercapai |
 | `Machinist` | Path whitelist (`agent/tools/scanners/` only), blacklist core folders, forbidden import check |
 | `WorktreeManager` | `isActive=false` — semua method return early dengan warning jelas |
@@ -188,8 +188,13 @@ nexus update-skills            # Sinkronisasi massal HUB → Agent Skills
 
 # ── AI TOOLING ─────────────────────────────────────────────
 nexus forge <Name> <file.md>   # Forge scanner baru dari wisdom file (path-guarded)
-nexus think <query>            # Tanya local AI untuk saran arsitektur
-nexus review <file>            # Review kode spesifik via local AI
+nexus think <query>            # Tanya local AI (Qwen) untuk saran arsitektur
+nexus review <file>            # Review kode spesifik via local AI (Qwen Coder)
+
+# ── SANDBOX PIPELINE ───────────────────────────────────────
+nexus sandbox                  # 🆕 Jalankan seluruh 100 project sandbox secara mandiri
+nexus sandbox --section <1-10> # Jalankan section tertentu (e.g. Fundamental CRUD)
+nexus sandbox --distill        # Jalankan + distilasi otomatis ke Golden HUB
 
 # ── MANAGEMENT ─────────────────────────────────────────────
 nexus skills                   # List semua skill yang tersedia
@@ -243,4 +248,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 14/05/2026 (v3.2.0 - Stability Guardrail Edition)_
+_Terakhir Dioptimasi: 15/05/2026 (v3.3.0 - Ollama Qwen-Ready Edition)_

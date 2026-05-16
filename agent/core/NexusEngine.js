@@ -27,11 +27,17 @@ const Orchestrator = require('./Orchestrator');
 const ResourceMonitor = require('./ResourceMonitor');
 const EvolutionPiper = require('./EvolutionPiper');
 const DecisionEngine = require('./DecisionEngine');
-
 const SemanticEngine = require('./SemanticEngine');
 const redis = require('./RedisMemory');
 const localAI = require('./LocalIntelligence');
 const AgentRegistry = require('./AgentRegistry');
+const NexusError = require('./NexusError');
+const CoreUtils = require('./phases/CoreUtils');
+
+const AuditPhase = require('./phases/AuditPhase');
+const PlanningPhase = require('./phases/PlanningPhase');
+const ExecutionPhase = require('./phases/ExecutionPhase');
+const KnowledgePhase = require('./phases/KnowledgePhase');
 
 /**
  * Lifecycle States as per system-spec.md
@@ -46,75 +52,41 @@ const STATES = {
 };
 
 /**
- * NexusError - Custom Error for Production Readiness
- */
-class NexusError extends Error {
-    constructor(phase, message) {
-        super(message);
-        this.name = 'NexusError';
-        this.phase = phase;
-        this.timestamp = NexusClock.getISOTimestamp();
-    }
-}
-
-/**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
  */
 class NexusEngine {
     constructor(config = {}) {
         this.rootPath = config.rootPath || process.cwd();
         
-        // Find where Nexus data lives (either root or ./nexus folder)
         const possibleNexusPath = path.join(this.rootPath, 'nexus');
         this.nexusDataPath = fs.pathExistsSync(possibleNexusPath) ? possibleNexusPath : this.rootPath;
         
-        // Detection Logic for Documentation-First Structure inside nexus data path
         const hasDocsFolder = fs.pathExistsSync(path.join(this.nexusDataPath, 'docs'));
         const docsBase = hasDocsFolder ? path.join(this.nexusDataPath, 'docs') : this.nexusDataPath;
 
-        // Dynamic Path Mapping (Support for documentation/ memory/ nexus/ structure)
-        const resolvePath = (folderName, alternative) => {
-            const possiblePaths = [
-                path.join(this.rootPath, 'documentation', folderName),
-                path.join(this.rootPath, 'memory', folderName),
-                path.join(this.rootPath, 'memory', alternative || folderName),
-                path.join(docsBase, folderName),
-                path.join(this.nexusDataPath, folderName),
-                path.join(this.rootPath, folderName)
-            ];
-            for (const p of possiblePaths) {
-                if (fs.pathExistsSync(p)) return p;
-            }
-            return path.join(this.rootPath, 'memory', folderName); // Default to memory/
-        };
-
-        const engineBase = path.join(__dirname, '..'); // This points to the /agent folder
-        
-        // 🛡️ INTERNAL RESOURCE PATHS (Must point to core NEXUS installation)
+        // 🛡️ INTERNAL RESOURCE PATHS
+        const engineBase = path.join(__dirname, '..');
         this.agentPath = path.join(engineBase, 'prompts');
         this.skillPath = path.join(engineBase, 'workflows');
         
-        // If not found in core (standalone installation), fall back to project-local nexus/
         if (!fs.existsSync(this.agentPath)) {
             this.agentPath = path.join(this.nexusDataPath, 'agent', 'prompts');
             this.skillPath = path.join(this.nexusDataPath, 'workflow');
         }
 
-        // 📂 PROJECT DATA PATHS (Unified Nexus Structure)
-        this.auditPath = resolvePath('memory', 'raw');
-        this.logPath = resolvePath('logs');
-        this.planningPath = resolvePath('planning');
-        this.recordsPath = resolvePath('memory', 'operational');
-        this.summaryPath = resolvePath('memory', 'summary');
-        this.knowledgePath = resolvePath('memory', 'distilled');
-        this.algorithmsPath = resolvePath('algorithms');
+        // 📂 PROJECT DATA PATHS
+        this.auditPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'raw');
+        this.logPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'logs');
+        this.planningPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'planning');
+        this.recordsPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'operational');
+        this.summaryPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'summary');
+        this.knowledgePath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'distilled');
+        this.algorithmsPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'algorithms');
 
         this.architect = new LaravelArchitect(this.rootPath);
-        
         this.activeAgents = new Set();
         this.skillRegistry = {};
         this.memory = [];
-        
         this.metrics = {};
         this.state = STATES.INIT;
         
@@ -148,10 +120,16 @@ class NexusEngine {
         this.currentCorrelationId = `CORR-${Date.now()}`;
         this.resourceMonitor = new ResourceMonitor();
         this.sandbox = new SandboxExecutor();
-        this.metrics = {};
         this.semanticEngine = new SemanticEngine(this.knowledgePath);
         this.localAI = localAI;
         this.agentRegistry = AgentRegistry;
+
+        // Initialize Specialized Phases
+        this.auditPhase = new AuditPhase(this);
+        this.planningPhase = new PlanningPhase(this);
+        this.executionPhase = new ExecutionPhase(this);
+        this.knowledgePhase = new KnowledgePhase(this);
+
         this.initRedis();
     }
 
@@ -172,9 +150,6 @@ class NexusEngine {
         }
     }
 
-    /**
-     * Focus engine on a specific knowledge rack (sub-folder)
-     */
     setRack(rackName) {
         if (rackName) {
             this.activeRack = rackName;
@@ -183,8 +158,7 @@ class NexusEngine {
     }
 
     async discoverSkills() {
-        this.log('📚 Discovering Skill Registry (Internal & External)...', 'info');
-        
+        this.log('📚 Discovering Skill Registry...', 'info');
         const scanDir = async (dir, prefix = '') => {
             const entries = await fs.readdir(dir, { withFileTypes: true });
             for (const entry of entries) {
@@ -198,24 +172,19 @@ class NexusEngine {
                 }
             }
         };
-
         await scanDir(this.skillPath);
         return this.skillRegistry;
     }
 
     async readMemory() {
-        this.log('🧠 Accessing Long-term Memory with Semantic Indexing...', 'info');
+        this.log('🧠 Accessing Memory HUB...', 'info');
         try {
             await fs.ensureDir(this.recordsPath);
             await fs.ensureDir(this.knowledgePath);
-            
             const records = await fs.readdir(this.recordsPath);
             const knowledgeFiles = await fs.readdir(this.knowledgePath);
-            
             const lessons = knowledgeFiles.filter(k => k.endsWith('.md'));
             const semanticIndex = {};
-
-            // Build Semantic Index
             for (const file of lessons) {
                 const tags = await this.getSemanticTags(path.join(this.knowledgePath, file));
                 tags.forEach(tag => {
@@ -223,58 +192,33 @@ class NexusEngine {
                     semanticIndex[tag].push(file);
                 });
             }
-
-            this.memory = {
-                pastCycles: records.length,
-                lessons: lessons,
-                semanticIndex: semanticIndex
-            };
-            this.log(`✅ Memory loaded: ${lessons.length} lessons indexed across ${Object.keys(semanticIndex).length} semantic domains.`, 'success');
+            this.memory = { pastCycles: records.length, lessons: lessons, semanticIndex: semanticIndex };
+            this.log(`✅ Memory loaded: ${lessons.length} lessons indexed.`, 'success');
         } catch (e) {
-            this.log(`⚠️ Memory access issue: ${e.message}. Starting fresh.`, 'warning');
+            this.log(`⚠️ Memory access issue: ${e.message}.`, 'warning');
             this.memory = { pastCycles: 0, lessons: [], semanticIndex: {} };
         }
         return this.memory;
     }
 
-    /**
-     * Extracts semantic tags from a file's metadata block.
-     */
     async getSemanticTags(filePath) {
         try {
             const content = await fs.readFile(filePath, 'utf8');
             const match = content.match(/>\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*)\]/i);
-            if (match) {
-                return match[1].split(',').map(t => t.trim().toLowerCase());
-            }
+            if (match) return match[1].split(',').map(t => t.trim().toLowerCase());
         } catch (e) {}
         return [];
     }
 
-    /**
-     * Search knowledge HUB based on semantic tags.
-     * @param {string} tag - The semantic domain (e.g., 'security', 'ui-ux')
-     */
     async searchKnowledge(query, topK = 5) {
-        // Coba vector search dulu
         try {
             const results = await this.semanticEngine.search(query, topK);
-            if (results.length > 0) {
-                this.log(
-                    `🔎 Vector Search [${query}]: Found ${results.length} relevant documents. ` +
-                    `Top: ${results[0].file} (score: ${results[0].score.toFixed(2)})`,
-                    'success'
-                );
-                return results.map(r => r.file);
-            }
+            if (results.length > 0) return results.map(r => r.file);
         } catch (e) {
-            this.log(`⚠️ Vector search failed, falling back to tag index: ${e.message}`, 'warning');
+            this.log(`⚠️ Vector search failed: ${e.message}`, 'warning');
         }
-
-        // Fallback ke regex tag index (backward compatible)
         if (!this.memory.semanticIndex) await this.readMemory();
-        const fallback = this.memory.semanticIndex[query.toLowerCase()] || [];
-        return fallback;
+        return this.memory.semanticIndex[query.toLowerCase()] || [];
     }
 
     async loadAgent(agentName) {
@@ -291,1079 +235,145 @@ class NexusEngine {
             }
             return null;
         };
-
         const filePath = await findAgent(this.agentPath);
         if (filePath) {
             this.activeAgents.add(agentName);
             return await fs.readFile(filePath, 'utf8');
         }
-        throw new Error(`Agent ${agentName} not found in ${this.agentPath} or its subfolders.`);
+        throw new Error(`Agent ${agentName} not found.`);
     }
 
     log(message, type = 'info') {
-        const colors = {
-            info: '\x1b[36m',
-            success: '\x1b[32m',
-            warning: '\x1b[33m',
-            error: '\x1b[31m',
-            reset: '\x1b[0m'
-        };
+        const colors = { info: '\x1b[36m', success: '\x1b[32m', warning: '\x1b[33m', error: '\x1b[31m', reset: '\x1b[0m' };
         console.log(`${colors[type]}${message}${colors.reset}`);
-        
-        // Log to new observability layer
         const level = type.toUpperCase() === 'SUCCESS' ? 'INFO' : type.toUpperCase();
         this.logger.log('orchestration', level, 'NexusEngine', 'N/A', 'SYSTEM_LOG', message, 0, {}, this.currentCorrelationId).catch(() => {});
     }
 
+    // Modularized Delegation Methods
     async audit(targetPath = this.rootPath, options = {}) {
-        const mode = options.mode || 'learning';
-        const allowSensitive = options.allowSensitive || false;
-
-        this.log(`🔍 Phase 1: Audit Initiation [Mode: ${mode}]...`, 'info');
-        const auditID = `AUDIT-${Date.now()}`;
-        const consolidatedFindings = [];
-
-        // Core Structure Scan (Dynamic Path Awareness)
-        const pathMapping = [
-            { name: 'agent', path: this.agentPath },
-            { name: 'skill', path: this.skillPath },
-            { name: 'knowledge', path: this.knowledgePath },
-            { name: 'records', path: this.recordsPath },
-            { name: 'planning', path: this.planningPath },
-            { name: 'summary', path: this.summaryPath }
-        ];
-
-        for (const item of pathMapping) {
-            if (!(await fs.pathExists(item.path))) {
-                consolidatedFindings.push({ severity: 'WARNING', message: `Nexus standard folder [${item.name}/] is missing or path is invalid.`, file: 'root' });
-            }
-        }
-
-        const files = await fs.readdir(targetPath);
-        if (!files.includes('README.md')) consolidatedFindings.push({ severity: 'CRITICAL', message: 'README.md missing', file: 'root' });
-        if (allowSensitive && files.includes('.env')) consolidatedFindings.push({ severity: 'SECURITY', message: '.env detected', file: '.env' });
-        if (!files.some(f => f.toLowerCase().includes('license'))) consolidatedFindings.push({ severity: 'WARNING', message: 'LICENSE file missing (Standard compliance)', file: 'root' });
-
-        await fs.ensureDir(this.auditPath);
-
-        if (mode === 'learning') {
-            const specialists = [
-                { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
-                { id: 'ux-engineer', focus: 'User Experience & Estetika' },
-                { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
-                { id: 'database-architect', focus: 'Arsitektur Data' },
-                { id: 'vcs-architect', focus: 'Version Control & Repository Health' },
-                { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
-            ];
-
-            this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');
-            
-            const auditPromises = specialists.map(async (spec) => {
-                try {
-                    await this.loadAgent(spec.id);
-
-                    const scannerPath = path.join(__dirname, '..', 'tools', 'scanners', `${spec.id}.js`);
-                    let specFindings = [];
-
-                    const agentStart = Date.now();
-                    if (await fs.pathExists(scannerPath)) {
-                        // Use Orchestrator for retry logic and DLQ protection
-                        specFindings = await this.orchestrator.executeTask(spec.id, scannerPath, targetPath);
-                        this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
-                    }
-                    const agentDuration = Date.now() - agentStart;
-                    this.metrics[spec.id] = { duration_ms: agentDuration, findings: specFindings.length };
-                    await this.logger.log('agents', 'INFO', spec.id, auditID, 'AGENT_PROFILED', `Completed in ${agentDuration}ms`, agentDuration, {}, this.currentCorrelationId);
-
-                    if (specFindings.length === 0) {
-                        specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
-                    }
-
-                    // Generate individual report
-                    const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
-                    
-                    await fs.writeJson(path.join(this.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
-                    
-                    const mdSpec = `
-# 🎓 Specialist Audit: ${spec.id.toUpperCase()}
-**Focus**: ${spec.focus}
-**Agent**: ${spec.id}
-**Standard**: [Educational Audit Protocol](../../skill/internal/educational-audit.md)
-
----
-
-## 🔍 Findings & Developer Insights (Protokol ADIK SIMBA)
-
-${specFindings.map(f => `
-### [${f.severity}] ${f.message}
-- **📦 Apa**: ${f.message}
-- **📍 Di mana**: \`${f.file}\`
-- **🕒 Kapan**: Terdeteksi pada siklus audit ${auditID}
-- **👤 Siapa**: Agent **${spec.id}**
-- **🧐 Mengapa**: ${f.rationale || '[Penjelasan mengapa ini menjadi temuan dan dampaknya terhadap sistem]'}
-- **🛠️ Bagaimana**: ${f.recommendation || '[Instruksi sistematis untuk memperbaiki temuan ini]'}
-- **🛡️ Nexus Standard**: [Dokumentasi HUB Relevan]
-`).join('\n')}
-
----
-
-## 🚀 Saran Strategis & Penambahan Fitur
-> Berdasarkan profil Agent **${spec.id}**, berikut adalah saran peningkatan untuk proyek ini:
-
-1. **Optimasi Performa**: [Saran otomatis berdasarkan profil ${spec.id}]
-2. **Penambahan Fitur**: [Saran fitur baru yang relevan dengan fokus ${spec.focus}]
-3. **Skalabilitas**: [Rekomendasi arsitektur masa depan]
-
----
-*Generated by Nexus Engine | Mode: Learning (Adik Simba) | Status: Verified*
-`;
-                    await fs.writeFile(path.join(this.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec, 'utf8');
-                    
-                    return specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` }));
-                } catch (e) {
-                    this.log(`⚠️ Agent ${spec.id} skipped: ${e.message}`, 'error');
-                    return [];
-                }
-            });
-
-            // ⛔ CIRCUIT BREAKER: Promise.allSettled — 1 agent gagal TIDAK crash seluruh audit
-            const auditResults = await Promise.allSettled(auditPromises);
-            const failedAgents = [];
-            auditResults.forEach((result, i) => {
-                if (result.status === 'fulfilled') {
-                    consolidatedFindings.push(...(result.value || []));
-                } else {
-                    const agentId = specialists[i]?.id || `agent-${i}`;
-                    failedAgents.push(agentId);
-                    this.log(`⚠️ Circuit Breaker: Agent "${agentId}" failed — continuing with remaining agents.`, 'warning');
-                    this.agentRegistry.markFailed(agentId, result.reason?.message || 'Unknown error');
-                }
-            });
-            if (failedAgents.length > 0) {
-                this.log(`⚠️ ${failedAgents.length}/${specialists.length} agents failed: [${failedAgents.join(', ')}]. Results from remaining agents used.`, 'warning');
-            }
-        }
-
-        // 🤖 Phase 1.1: Autonomous Machine Audit
-        this.log('🤖 Activating Autonomous Machine Audit...', 'warning');
-        
-        // 1. Hardcoded Core Machines
-        const schemaFindings = await this.schemaGuard.validateModels();
-        if (schemaFindings.length > 0) {
-            this.log(`   🛡️ [SchemaGuard]: ${schemaFindings.length} findings found.`, 'success');
-            consolidatedFindings.push(...schemaFindings.map(f => ({ ...f, message: `[SchemaGuard] ${f.message}` })));
-        }
-
-        const queryFindings = await this.queryOptimizer.scanMigrations();
-        if (queryFindings.length > 0) {
-            this.log(`   ⚡ [QueryOptimizer]: ${queryFindings.length} findings found.`, 'success');
-            consolidatedFindings.push(...queryFindings.map(f => ({ ...f, message: `[QueryOptimizer] ${f.message}` })));
-        }
-
-        const viewFiles = await this.globRecursive(this.rootPath, 'resources/views/**/*.blade.php');
-        for (const file of viewFiles.slice(0, 5)) {
-            const a11yFindings = await this.a11yScanner.scan(path.relative(this.rootPath, file));
-            if (a11yFindings.length > 0) {
-                consolidatedFindings.push(...a11yFindings.map(f => ({ ...f, message: `[A11yScanner] ${f.message}` })));
-            }
-        }
-
-        // 2. Dynamic Forged Scanners
-        const scannerPath = path.join(this.rootPath, 'agent/tools/scanners');
-        if (await fs.pathExists(scannerPath)) {
-            const forgedScanners = await this.globRecursive(scannerPath, '*.js');
-            for (const sFile of forgedScanners) {
-                const sName = path.basename(sFile, '.js');
-                try {
-                    this.log(`   🔥 [${sName}] Deep Scan (Forged) initiated...`, 'info');
-                    const forgedFindings = await this.sandbox.execute(sFile, this.rootPath, { timeout: 30000 });
-                    if (forgedFindings.length > 0) {
-                        consolidatedFindings.push(...forgedFindings.map(f => ({ ...f, message: `[${sName}] ${f.message}` })));
-                    }
-                } catch (e) {
-                    this.log(`   ⚠️ Skipping scanner ${sName}: ${e.message}`, 'error');
-                }
-            }
-        }
-
-        const report = new AuditReport(auditID, targetPath, consolidatedFindings, { mode, allowSensitive });
-        this.currentAudit = report;
-
-        const baseName = `audit_SUMMARY_${auditID}`;
-        await fs.writeJson(path.join(this.auditPath, `${baseName}.json`), report.toJSON(), { spaces: 2 });
-        
-        const mdContent = `
-# Audit Summary: ${auditID}
-**Mode**: ${mode}
-**Timestamp**: ${NexusClock.getLocalTimestamp()}
-
-## 📊 Consolidated Findings
-${consolidatedFindings.map(f => `- [${f.severity}] ${f.message} (\`${f.file}\`)`).join('\n')}
-
----
-*Generated by Nexus Autonomous Governance Engine*
-`;
-        await fs.writeFile(path.join(this.auditPath, `${baseName}.md`), mdContent, 'utf8');
-
-        this.log(`✅ Audit Complete: ${auditID}. Reports generated in /audit`, 'success');
-        return report;
-    }
-
-    /**
-     * Helper for recursive file scanning
-     */
-    async globRecursive(dir, pattern) {
-        const glob = require('glob');
-        return new Promise((resolve, reject) => {
-            const fullPattern = path.join(dir, pattern).replace(/\\/g, '/');
-            glob(fullPattern, (err, files) => {
-                if (err) reject(err);
-                else resolve(files);
-            });
-        });
+        return await this.auditPhase.run({ targetPath, ...options });
     }
 
     async plan(auditReport) {
-        const report = auditReport || this.currentAudit;
-        if (!report) {
-            throw new NexusError('PLANNING', 'Pipeline Violation: Planning requires a valid Audit Report.');
-        }
-
-        this.log(`📅 Phase 2: Planning based on ${report.id}...`, 'info');
-        
-        const planID = `PLAN-${Date.now()}`;
-        const tasks = report.findings
-            .filter(f => f.severity !== 'INFO' || !f.message.includes('Audit completed'))
-            .map((f, i) => {
-                const task = {
-                    id: i + 1,
-                    description: `${f.severity}: ${f.message}`,
-                    status: 'pending',
-                    rationale: f.rationale || 'Tidak ada keterangan tambahan.',
-                    recommendation: f.recommendation || 'Gunakan praktik terbaik standar industri.'
-                };
-
-                // AUTO-ACTION GENERATION (The Muscles)
-                if (f.message.includes('.env detected')) {
-                    task.action = {
-                        type: 'FILE_APPEND',
-                        target: '.gitignore',
-                        content: '.env'
-                    };
-                    task.description += ' (Auto-fix enabled)';
-                }
-
-                return task;
-            });
-
-        const plan = new ImplementationPlan(planID, report.id, tasks);
-        this.currentPlan = plan;
-
-        await fs.ensureDir(this.planningPath);
-
-        await fs.writeJson(path.join(this.planningPath, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
-        
-        const mdPlan = `
-# 🛠 Implementation Plan: ${planID}
-**Ref Audit**: [${report.id}](../audit/audit_SUMMARY_${report.id}.md)
-**Status**: Ready for Execution
-
----
-
-## 📋 Task List & Learning Insights
-${tasks.map(t => `
-### [ ] Task ${t.id}: ${t.description}
-- **🧐 Why?**: ${t.rationale}
-- **💡 Action**: ${t.recommendation}
-`).join('\n')}
-
----
-*Generated by Nexus Orchestrator | Ready for Developer Approval*
-        `;
-        await fs.writeFile(path.join(this.planningPath, `plan_${planID}.md`), mdPlan);
-
-        this.log(`✅ Plan Created: ${planID}`, 'success');
-        return plan;
+        return await this.planningPhase.run(auditReport);
     }
 
     async execute(plan) {
-        const activePlan = plan || this.currentPlan;
-        if (!activePlan) {
-            throw new NexusError('EXECUTION', 'Pipeline Violation: Execution requires an approved Plan.');
-        }
-        
-        this.log(`🚀 Phase 3: Executing Plan ${activePlan.id}...`, 'info');
-        
-        for (const task of activePlan.tasks) {
-            this.log(`🛠 Executing: ${task.description}`, 'warning');
-            
-            // ATOMIC EXECUTION (Physical Change)
-            if (task.action) {
-                try {
-                    // TDD Enforcement & Scaffolding (Phase 4)
-                    if (task.action.type === 'FILE_REPLACE' || task.action.type === 'FILE_APPEND') {
-                        const validation = await this.tddGuard.validate(task.action.target);
-                        if (!validation.allowed) {
-                            this.log(`   🛑 TDD Block: ${validation.reason}`, 'error');
-                            this.log(`   🏗️ [Phase 4] Autonomous Intelligence: Generating test scaffold...`, 'info');
-                            const scaffold = await this.tddScaffolder.generate(task.action.target);
-                            if (scaffold.success) {
-                                this.log(`   ✅ Scaffold created at ${scaffold.path}. Proceeding with action.`, 'success');
-                            } else {
-                                this.log(`   ⚠️ Scaffolding skipped: ${scaffold.reason}`, 'warning');
-                            }
-                        } else {
-                            this.log(`   🛡️ TDD Verified: ${validation.reason}`, 'success');
-                        }
-                    }
-
-                    // Asset Optimization
-                    if (task.action.type === 'ASSET_OPTIMIZE') {
-                        await this.assetEngine.process(task.action);
-                        this.log(`   🖼️ Asset optimized via AssetEngine`, 'success');
-                    } else {
-                        const success = await this.modifier.apply(task.action);
-                        if (success) {
-                            this.log(`   ✅ Physical modification applied: ${task.action.type} on ${task.action.target}`, 'success');
-                            
-                            // Self-Healing Documentation (Phase 4)
-                            if (task.action.type === 'RESOLVE_OPTIONS') {
-                                await this.updateRecapStatus(`Resolved Multi-Option collision in ${task.action.target}`);
-                            }
-                        }
-                    }
-                } catch (e) {
-                    this.log(`   ❌ Execution Error: ${e.message}`, 'error');
-                    task.status = 'failed';
-                    continue;
-                }
-            }
-
-            // Legacy Support (Static Pattern Checks)
-            if (task.description.startsWith('UPDATE_BACKLOG:')) {
-                const backlogPath = path.join(this.knowledgePath, 'ENGINE_DEBT_BACKLOG.md');
-                if (await fs.pathExists(backlogPath)) {
-                    let content = await fs.readFile(backlogPath, 'utf8');
-                    content += `\n- [x] Resolved via ${activePlan.id}: ${task.description.split(':')[1]}`;
-                    await fs.writeFile(backlogPath, content);
-                    this.log(`   ✅ Physical modification applied to ENGINE_DEBT_BACKLOG.md`, 'success');
-                }
-            }
-
-            task.status = 'done';
-        }
-
-        this.log('✅ Execution phase completed.', 'success');
+        return await this.executionPhase.run(plan);
     }
 
-    /**
-     * Self-Healing Documentation Update (Phase 4)
-     */
-    async updateRecapStatus(updateMessage) {
-        const recapPath = path.join(this.rootPath, 'documentation', 'docs', 'NEXUS_INTERNAL_PIPELINE_RECAP.md');
-        if (await fs.pathExists(recapPath)) {
-            let content = await fs.readFile(recapPath, 'utf8');
-            const timestamp = NexusClock.getLocalTimestamp();
-            const logEntry = `\n- [${timestamp}] **Self-Healing**: ${updateMessage}`;
+    async verify(plan) {
+        return await this.executionPhase.verify(plan);
+    }
+
+    async cleanCodeAndVerify(projectPath = this.rootPath) {
+        return await this.executionPhase.cleanCodeAndVerify(projectPath);
+    }
+
+    async harvest(sourcePath) {
+        return await this.knowledgePhase.harvest(sourcePath);
+    }
+
+    async distill() {
+        return await this.knowledgePhase.run();
+    }
+
+    async updateStatus() {
+        return await this.knowledgePhase.updateStatus();
+    }
+
+    async runCycle(options = {}) {
+        const startTime = Date.now();
+        this.state = STATES.INIT;
+        this.log(`\n--- Nexus Engine: Modularized Cycle Start ---`, 'info');
+        
+        try {
+            this.state = STATES.PROCESSING;
+            await this.discoverSkills();
+            await this.readMemory();
+
+            await this.blueprintApp(options);
+
+            const report = await this.audit(this.rootPath, options);
+            const plan = await this.plan(report);
             
-            if (content.includes('## 🧐 Analisis & Rekomendasi Penyempurnaan')) {
-                content = content.replace('## 🧐 Analisis & Rekomendasi Penyempurnaan', `## 🧠 Self-Healing Logs${logEntry}\n\n## 🧐 Analisis & Rekomendasi Penyempurnaan`);
-            } else {
-                content += logEntry;
-            }
-            await fs.writeFile(recapPath, content);
-            this.log(`   📝 Self-Healing: RECAP documentation updated.`, 'success');
+            this.state = STATES.EXECUTING;
+            await this.execute(plan);
+
+            const cycleID = `CYCLE-${Date.now()}`;
+            this.state = STATES.LOGGING;
+            await this.verify(plan); 
+            await this.record(cycleID);
+            
+            this.state = STATES.COMPLETED;
+            await this.generateCycleSummary(cycleID);
+            this.log(`\n--- Nexus Engine: Cycle Complete (${Date.now() - startTime}ms) ---`, 'info');
+        } catch (error) {
+            this.state = STATES.FAILED;
+            const nexusErr = error instanceof NexusError ? error : new NexusError('RUNTIME', error.message);
+            this.log(`❌ Engine Critical Failure: ${nexusErr.message}`, 'error');
+            await this.logError(nexusErr);
+        }
+    }
+
+    async blueprintApp(options = {}) {
+        this.log(`🏗️ Phase 0.5: Blueprint & Scaffolding...`, 'info');
+        const readmePath = path.join(this.rootPath, 'README.md');
+        if (!(await fs.pathExists(readmePath))) return;
+        const readmeContent = await fs.readFile(readmePath, 'utf8');
+        if (!readmeContent.includes('Generated by Nexus Autonomous Pipeline')) return;
+
+        const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
+        if (await fs.pathExists(blueprintPath)) return;
+
+        const prompt = `Based on the following README:\n\n${readmeContent}\n\nGenerate a TALL stack blueprint. Output strictly JSON.`;
+        const response = await localAI.generate(prompt, 'generate_architecture');
+        if (!response) return;
+
+        try {
+            const jsonMatch = response.match(/\{[\s\S]*\}/);
+            const blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
+            await fs.writeJson(blueprintPath, blueprint, { spaces: 2 });
+            this.log(`   ✅ Blueprint generated.`, 'success');
+        } catch (e) {
+            this.log(`   ❌ Blueprint failed: ${e.message}`, 'error');
         }
     }
 
     async record(cycleID) {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
         await fs.ensureDir(this.recordsPath);
-        
-        // Update Records
         const recordsPath = path.join(this.recordsPath, `session_${Date.now()}.json`);
-        await fs.writeJson(recordsPath, {
-            cycle: cycleID,
-            audit: this.currentAudit?.id,
-            plan: this.currentPlan?.id,
-            timestamp: NexusClock.getISOTimestamp()
-        }, { spaces: 2 });
-
-        // RUN MEMORY PIPELINE (Automated Archiving)
+        await fs.writeJson(recordsPath, { cycle: cycleID, audit: this.currentAudit?.id, plan: this.currentPlan?.id, timestamp: NexusClock.getISOTimestamp() }, { spaces: 2 });
         await this.memoryPipeline.optimize();
-
-        this.log('✅ Records updated. Cycle finished.', 'success');
-    }
-
-    /**
-     * Phase 5: Verification (New Phase)
-     * Validates that executed tasks actually achieved their goals.
-     */
-    async verify(plan) {
-        this.log('🔍 Phase 5: Verification Phase...', 'info');
-        const activePlan = plan || this.currentPlan;
-        const results = [];
-
-        for (const task of activePlan.tasks) {
-            if (task.status === 'done' && task.action) {
-                const verification = await this.validator.verifyAction(task.action);
-                results.push({ id: task.id, ...verification });
-                if (!verification.success) {
-                    this.log(`   ❌ Verification Failed for Task ${task.id}: ${verification.message}`, 'error');
-                    task.status = 'failed_verification';
-                } else {
-                    this.log(`   ✅ Verification Success for Task ${task.id}: ${verification.message}`, 'success');
-                }
-            } else {
-                results.push({ id: task.id, success: task.status === 'done', message: 'Non-physical task.' });
-            }
-        }
-        
-        this.log(`✅ Verification complete: ${results.filter(r => r.success).length}/${results.length} tasks verified.`, 'success');
-        return results;
-    }
-
-    /**
-     * PHASE 0.5 - 0.9: Blueprint & Scaffolding
-     * Reads README.md to understand the project intent, then uses LocalIntelligence
-     * to generate necessary App Architecture.
-     */
-    async blueprintApp(options = {}) {
-        this.log(`🏗️ Phase 0.5: Blueprint & Scaffolding Initiated...`, 'info');
-        
-        const readmePath = path.join(this.rootPath, 'README.md');
-        if (!(await fs.pathExists(readmePath))) {
-            this.log(`   ⚠️ README.md not found. Skipping App Builder phase.`, 'warning');
-            return;
-        }
-
-        const readmeContent = await fs.readFile(readmePath, 'utf8');
-        // Simple check if it's a freshly generated project from our runner
-        if (!readmeContent.includes('Generated by Nexus Autonomous Pipeline')) {
-            this.log(`   ℹ️ Existing project detected. Skipping Blueprint generation.`, 'info');
-            return;
-        }
-
-        this.log(`   🧠 Analyzing project intent from README...`, 'info');
-
-        // Check if we already built the blueprint
-        const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
-        if (await fs.pathExists(blueprintPath)) {
-            this.log(`   ✅ Blueprint already exists. Skipping scaffolding.`, 'success');
-            return;
-        }
-
-        const prompt = `Based on the following README:\n\n${readmeContent}\n\n` +
-            `Generate a high-level TALL stack architectural blueprint. ` +
-            `List the required Eloquent Models (with fields), Livewire Components, and Views to build this app. ` +
-            `Output strictly in JSON format matching this schema:\n` +
-            `{ "models": [ { "name": "ModelName", "fields": ["title:string", "user_id:foreignId"] } ], "livewire_components": ["ComponentName"], "views": ["view.name"] }`;
-
-        this.log(`   🤖 Generating Architecture Blueprint via LocalIntelligence...`, 'warning');
-        const response = await localAI.generate(prompt, 'generate_architecture');
-        
-        if (!response) {
-            this.metrics.blueprintFailures = (this.metrics.blueprintFailures || 0) + 1;
-            this.log(`   ⚠️ Blueprint skipped — LLM tidak merespons. Project: ${path.basename(this.rootPath)}`, 'warning');
-            
-            if (this.metrics.blueprintFailures >= 3) {
-                throw new NexusError('BLUEPRINT', '❌ Ollama tampaknya tidak aktif (3 kegagalan berturut-turut). Jalankan `ollama serve` lalu coba kembali.');
-            }
-            return;
-        }
-
-        this.metrics.blueprintFailures = 0;
-
-        try {
-            // Extract JSON if wrapped in markdown
-            const jsonMatch = response.match(/\{[\s\S]*\}/);
-            let blueprintJson = jsonMatch ? jsonMatch[0] : response;
-            
-            // Remove single-line and multi-line comments that LLMs often hallucinate in JSON
-            blueprintJson = blueprintJson.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-            
-            const blueprint = JSON.parse(blueprintJson);
-
-            await fs.writeFile(blueprintPath, JSON.stringify(blueprint, null, 2), 'utf8');
-            this.log(`   ✅ Blueprint successfully generated and saved.`, 'success');
-
-            // Phase 0.9: Generate the physical scaffolding tasks
-            this.log(`   🏗️ Scaffolding application structure...`, 'info');
-            
-            if (blueprint.models) {
-                for (const model of blueprint.models) {
-                    this.log(`      - Generating Model: ${model.name}`, 'warning');
-                    const code = await localAI.generate(
-                        `Write the Laravel PHP code for the Eloquent Model '${model.name}' with the following fields: ${model.fields.join(', ')}. Include the 'HasFactory' trait and a fillable array. Output only the PHP code without markdown wrappers.`, 
-                        'build_model_migration'
-                    );
-                    if (code) {
-                        const cleanCode = code.replace(/```php|```/gi, '').trim();
-                        await fs.outputFile(path.join(this.rootPath, `app/Models/${model.name}.php`), cleanCode);
-                    }
-                }
-            }
-            if (blueprint.livewire_components) {
-                for (const comp of blueprint.livewire_components) {
-                    this.log(`      - Generating Livewire Component: ${comp}`, 'warning');
-                    const phpCode = await localAI.generate(
-                        `Write the Laravel Livewire 3 PHP class for the component '${comp}'. Output only the PHP code without markdown wrappers.`, 
-                        'build_livewire_component'
-                    );
-                    if (phpCode) {
-                        const cleanPhp = phpCode.replace(/```php|```/gi, '').trim();
-                        await fs.outputFile(path.join(this.rootPath, `app/Livewire/${comp}.php`), cleanPhp);
-                    }
-                    
-                    const viewCode = await localAI.generate(
-                        `Write the Blade view for the Livewire component '${comp}'. Use TailwindCSS. Output only the HTML/Blade code without markdown wrappers.`, 
-                        'build_view'
-                    );
-                    if (viewCode) {
-                        const cleanView = viewCode.replace(/```blade|```html|```/gi, '').trim();
-                        // Convert PascalCase to kebab-case
-                        const viewName = comp.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-                        await fs.outputFile(path.join(this.rootPath, `resources/views/livewire/${viewName}.blade.php`), cleanView);
-                    }
-                }
-            }
-            this.log(`   ✅ Physical App Scaffolding Completed!`, 'success');
-
-        } catch (e) {
-            this.log(`   ❌ Failed to parse Blueprint JSON: ${e.message}`, 'error');
-        }
-    }
-
-    /**
-     * Helper to wait for a service to become available (active polling)
-     */
-    async waitForService(url, timeoutMs = 8000) {
-        const axios = require('axios');
-        const start = Date.now();
-        while (Date.now() - start < timeoutMs) {
-            try {
-                await axios.get(url, { timeout: 500 });
-                return true;
-            } catch (_) {
-                await new Promise(r => setTimeout(r, 300));
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Helper to find an available port
-     */
-    async getAvailablePort(start = 8001) {
-        const net = require('net');
-        return new Promise((resolve) => {
-            const server = net.createServer();
-            server.listen(start, () => {
-                server.close(() => resolve(start));
-            });
-            server.on('error', () => {
-                resolve(this.getAvailablePort(start + 1));
-            });
-        });
-    }
-
-    /**
-     * Phase 5.5: Clean Code & Verification Loop (High-Stability Sandbox)
-     * 1. Mencari dan menghapus komponen sisa "url-shortener" yang tidak relevan.
-     * 2. Looping 5x untuk memastikan app startup dengan stabil (artisan serve + npm dev).
-     */
-    async cleanCodeAndVerify(projectPath = this.rootPath) {
-        this.log(`🧹 Phase 5.5: Clean Code & Stability Verification...`, 'info');
-        
-        // --- 1. CLEANUP LEGACY CLUTTER ---
-        this.log(`   📂 Identifying legacy template clutter (UrlShortener remnants)...`, 'warning');
-        
-        // Pola file yang biasanya terbawa dari template url-shortener
-        const legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
-        const files = await this.globRecursive(projectPath, '**/*');
-        let deletedCount = 0;
-
-        for (const file of files) {
-            const fileName = path.basename(file);
-            const isLegacyFile = legacyPatterns.some(p => fileName.includes(p));
-            
-            // Jangan hapus di node_modules atau vendor
-            if (isLegacyFile && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
-                if (await fs.pathExists(file)) {
-                    await fs.remove(file);
-                    this.log(`      🗑️ Deleted legacy file: ${path.relative(projectPath, file)}`, 'error');
-                    deletedCount++;
-                }
-            }
-        }
-        
-        this.log(`   ✅ Cleanup complete: ${deletedCount} files removed.`, 'success');
-
-        // --- 2. VERIFICATION LOOP (5x) ---
-        this.log(`   🔄 Starting 5-Cycle Stability Loop (Health Check)...`, 'info');
-        
-        for (let i = 1; i <= 5; i++) {
-            this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
-            
-            const port = await this.getAvailablePort(8001);
-            const serveProc = spawn('php', ['artisan', 'serve', `--port=${port}`], { cwd: projectPath, shell: false });
-            const devProc = spawn('npm', ['run', 'dev'], { cwd: projectPath, shell: false });
-
-            // Active polling instead of flat timeout
-            const [serveReady, devReady] = await Promise.all([
-                this.waitForService(`http://localhost:${port}`, 8000),
-                this.waitForService('http://localhost:5173', 8000) // Default Vite port
-            ]);
-
-            if (serveReady && devReady) {
-                this.log(`      ✅ Iteration ${i} passed. Services are stable.`, 'success');
-            } else {
-                this.log(`      ❌ Iteration ${i} FAILED. Service timed out or crashed.`, 'error');
-                serveProc.kill();
-                devProc.kill();
-                throw new Error(`Stability check failed at iteration ${i} for ${projectPath}`);
-            }
-
-            // Cleanup for next iteration
-            serveProc.kill();
-            devProc.kill();
-            
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-        
-        this.log(`   🎉 Stability Loop Passed: App is verified and clean.`, 'success');
-    }
-
-    async runCycle(options = {}) {
-        const startTime = Date.now();
-        this.state = STATES.INIT;
-        this.log(`\n--- Nexus Engine: Starting Cycle [STATE: ${this.state}] ---`, 'info');
-        
-        const stressTest = await this.resourceMonitor.checkStress();
-        if (stressTest.stressed) {
-            this.log(`⚠️ SYSTEM STRESS DETECTED: ${stressTest.metrics.mem_usage_pct}% Memory Usage. Throttling execution...`, 'warning');
-            await new Promise(resolve => setTimeout(resolve, 3000)); // Cool down
-        }
-        try {
-            this.state = STATES.PROCESSING;
-            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
-            
-            await this.discoverSkills();
-            await this.readMemory();
-
-            const p0Start = Date.now();
-            await this.blueprintApp(options);
-            this.metrics.blueprintDuration = `${Date.now() - p0Start}ms`;
-
-            const p1Start = Date.now();
-            const report = await this.audit(this.rootPath, options);
-            this.metrics.auditDuration = `${Date.now() - p1Start}ms`;
-
-            const p2Start = Date.now();
-            const plan = await this.plan(report);
-            this.metrics.planningDuration = `${Date.now() - p2Start}ms`;
-            
-            this.state = STATES.EXECUTING;
-            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
-            
-            const p3Start = Date.now();
-            await this.execute(plan);
-            this.metrics.executionDuration = `${Date.now() - p3Start}ms`;
-
-            const cycleID = `CYCLE-${Date.now()}`;
-            this.state = STATES.LOGGING;
-            this.log(`🔄 System Transition: [${this.state}]`, 'warning');
-            
-            await this.verify(plan); 
-            await this.record(cycleID);
-            
-            const totalTime = Date.now() - startTime;
-            this.metrics.totalDuration = `${totalTime}ms`;
-
-            this.state = STATES.COMPLETED;
-            await this.generateCycleSummary(cycleID);
-            
-            this.log(`\n--- Nexus Engine: Cycle Complete [STATE: ${this.state}] (${totalTime}ms) ---`, 'info');
-        } catch (error) {
-            this.state = STATES.FAILED;
-            const nexusErr = error instanceof NexusError ? error : new NexusError('RUNTIME', error.message);
-            this.log(`❌ Engine Critical Failure: [${nexusErr.phase}] ${nexusErr.message} [STATE: ${this.state}]`, 'error');
-            await this.logError(nexusErr);
-        }
     }
 
     async generateCycleSummary(cycleID) {
-        const summary = {
-            cycleID: cycleID || `CYCLE-${Date.now()}`,
-            timestamp: NexusClock.getISOTimestamp(),
-            finalState: this.state,
-            metrics: this.metrics,
-            auditRef: this.currentAudit?.id,
-            planRef: this.currentPlan?.id,
-            agentsInvolved: Array.from(this.activeAgents)
-        };
-
+        const summary = { cycleID, timestamp: NexusClock.getISOTimestamp(), finalState: this.state, metrics: this.metrics, agentsInvolved: Array.from(this.activeAgents) };
         await fs.ensureDir(this.summaryPath);
-        const file = path.join(this.summaryPath, `cycle_summary_${summary.cycleID}.json`);
-        await fs.writeJson(file, summary, { spaces: 2 });
-        this.log(`📊 Session Summary generated: ${path.basename(file)}`, 'success');
+        await fs.writeJson(path.join(this.summaryPath, `cycle_summary_${cycleID}.json`), summary, { spaces: 2 });
     }
 
     async logError(err) {
         const errorLog = path.join(this.summaryPath, 'error_log.json');
         let logs = [];
         try {
-            if (await fs.pathExists(errorLog)) {
-                logs = await fs.readJson(errorLog);
-            }
-            logs.push({
-                phase: err.phase,
-                state: this.state,
-                message: err.message,
-                timestamp: err.timestamp,
-                stack: err.stack
-            });
+            if (await fs.pathExists(errorLog)) logs = await fs.readJson(errorLog);
+            logs.push({ phase: err.phase, state: this.state, message: err.message, timestamp: err.timestamp, stack: err.stack });
             await fs.writeJson(errorLog, logs, { spaces: 2 });
-        } catch (e) {
-            this.log(`❌ Failed to log error: ${e.message}`, 'error');
-        }
+        } catch (e) {}
     }
 
-    /**
-     * getSystemStatus — Tampilkan health sistem secara real-time.
-     * Dipanggil via: nexus status
-     */
     async getSystemStatus() {
         const stress = await this.resourceMonitor.checkStress();
         const agentHealth = this.agentRegistry ? this.agentRegistry.getHealthReport() : null;
-        const evolutionStatus = this.evolutionPiper ? this.evolutionPiper.getStatus() : null;
-        const vectorCacheExists = await fs.pathExists(
-            path.join(this.rootPath, 'memory', 'short_term', 'vector_index.json')
-        );
-
-        const line = (label, value) => {
-            const padded = `║ ${label}`.padEnd(38);
-            return `${padded}: ${value}`;
-        };
-
-        console.log('\n╔══════════════════════════════════════════╗');
-        console.log('║          NEXUS SYSTEM STATUS             ║');
-        console.log('╠══════════════════════════════════════════╣');
-        console.log(line('RAM Usage', `${stress.metrics.mem_usage_pct}%`));
-        console.log(line('CPU Usage', `${stress.metrics.cpu_usage_pct}%`));
-        console.log(line('Status', stress.recommendation));
-        console.log('╠══════════════════════════════════════════╣');
-        if (agentHealth) {
-            console.log(line('Agents (Total)', agentHealth.total));
-            console.log(line('  Idle', agentHealth.idle));
-            console.log(line('  Busy', agentHealth.busy));
-            console.log(line('  Failed', agentHealth.failed));
-            if (agentHealth.stuck > 0) {
-                console.log(line('  ⚠️  Stuck', `${agentHealth.stuck} — ${agentHealth.stuck_agents.join(', ')}`));
-            }
-        }
-        if (evolutionStatus) {
-            console.log('╠══════════════════════════════════════════╣');
-            console.log(line('Evolution Cycles', `${evolutionStatus.currentCycle}/${evolutionStatus.maxCycles}`));
-            console.log(line('Session Time', `${evolutionStatus.sessionElapsedMinutes} min / ${evolutionStatus.maxSessionMinutes} min`));
-        }
-        console.log('╠══════════════════════════════════════════╣');
-        console.log(line('Vector Index', vectorCacheExists ? '✅ Cached' : '❌ Not built'));
-        console.log('╚══════════════════════════════════════════╝\n');
-
-        return { stress, agentHealth, evolutionStatus, vectorCacheExists };
+        console.log(`\n--- NEXUS STATUS: ${stress.metrics.mem_usage_pct}% RAM | ${stress.metrics.cpu_usage_pct}% CPU ---\n`);
+        return { stress, agentHealth };
     }
 
-    /**
-     * Phase 6: Harvesting (New Phase)
-     * Extracts Nexus documentation from another project to enrich the Golden knowledge.
-     */
-    async harvest(sourcePath) {
-        if (!sourcePath) throw new NexusError('HARVESTING', 'Source path is required.');
-        
-        const projectName = path.basename(sourcePath);
-        this.log(`🌾 Phase 6: Harvesting Knowledge from [${projectName}]...`, 'info');
-        
-        // Detection Logic: Support for documentation/ or nexus/ structure
-        const docSource = path.join(sourcePath, 'documentation');
-        const nexusSource = path.join(sourcePath, 'nexus');
-        
-        let primarySource = null;
-        if (await fs.pathExists(nexusSource)) {
-            primarySource = nexusSource;
-        } else if (await fs.pathExists(docSource)) {
-            primarySource = docSource;
-        } else {
-            primarySource = sourcePath; // Fallback to root
-        }
-
-        this.log(`📂 Source base detected: ${path.basename(primarySource)}/`, 'info');
-
-        const harvestRoot = path.join(this.rootPath, 'golden', 'harvest', projectName);
-        await fs.ensureDir(harvestRoot);
-
-        // Helper to find folder in multiple possible locations in the remote project
-        const findRemoteFolder = async (folderName, altName) => {
-            const potentials = [
-                path.join(primarySource, folderName),
-                path.join(primarySource, 'memory', folderName),
-                path.join(primarySource, 'memory', altName || folderName),
-                path.join(primarySource, 'documentation', folderName),
-                path.join(sourcePath, 'documentation', folderName),
-                path.join(sourcePath, 'memory', folderName),
-                path.join(sourcePath, folderName)
-            ];
-            for (const p of potentials) {
-                if (await fs.pathExists(p)) {
-                    const files = await fs.readdir(p);
-                    if (files.length > 0) return p;
-                }
-            }
-            return null;
-        };
-
-        const foldersToHarvest = [
-            { id: 'raw' },
-            { id: 'audit' },
-            { id: 'planning' },
-            { id: 'summary' },
-            { id: 'algorithms' },
-            { id: 'records', alt: 'short_term' },
-            { id: 'operational', alt: 'records' },
-            { id: 'knowledge', alt: 'long_term' },
-            { id: 'nexus_rules' },
-            { id: 'legal' }
-        ];
-
-        let filesHarvested = 0;
-
-        for (const folder of foldersToHarvest) {
-            const srcFolder = await findRemoteFolder(folder.id, folder.alt);
-            if (srcFolder) {
-                const destFolder = path.join(harvestRoot, folder.id);
-                await fs.ensureDir(destFolder);
-                
-                const files = await fs.readdir(srcFolder);
-                for (const file of files) {
-                    if (file.endsWith('.md')) {
-                        const targetPath = path.join(destFolder, file);
-                        
-                        // Apply Collision Logic if file already exists in Golden Harvest
-                        if (await fs.pathExists(targetPath)) {
-                            this.log(`⚠️ Collision detected for ${file}. Applying IF-ELSE logic...`, 'warning');
-                            const oldContent = await fs.readFile(targetPath, 'utf8');
-                            const newContent = await fs.readFile(path.join(srcFolder, file), 'utf8');
-                            const merged = this.wrapAsConditional(oldContent, newContent, `Collision in ${file} during harvest from ${projectName}`);
-                            await fs.writeFile(targetPath, merged);
-                        } else {
-                            await fs.copy(path.join(srcFolder, file), targetPath);
-                        }
-                        filesHarvested++;
-                    }
-                }
-            }
-        }
-
-        this.log(`✅ Harvesting Complete: ${filesHarvested} knowledge artifacts collected from ${projectName}.`, 'success');
-        this.log(`📂 Destination: golden/harvest/${projectName}`, 'info');
-        return filesHarvested;
-    }
-
-    /**
-     * Protocol 1: Mass Refactor (Golden -> HUB)
-     */
-    async massRefactor() {
-        this.log('⚡ Starting Mass Refactor: Golden ➔ HUB...', 'info');
-        const goldenPath = path.join(this.nexusDataPath, 'golden');
-        const hubPath = path.join(this.nexusDataPath, 'knowledge');
-
-        if (!(await fs.pathExists(goldenPath))) {
-            this.log('⚠️ Folder golden/ tidak ditemukan. Mass Refactor dibatalkan.', 'warning');
-            return;
-        }
-
-        const files = await this.globRecursive(goldenPath, '**/*.md');
-        let processed = 0;
-
-        for (const file of files) {
-            const fileName = path.basename(file);
-            const targetPath = path.join(hubPath, fileName);
-            const content = await fs.readFile(file, 'utf8');
-
-            if (await fs.pathExists(targetPath)) {
-                const oldContent = await fs.readFile(targetPath, 'utf8');
-                if (oldContent.trim() !== content.trim()) {
-                    const merged = this.wrapAsConditional(oldContent, content, `Refactor from Golden: ${fileName}`);
-                    await fs.writeFile(targetPath, merged);
-                    this.log(`🔄 Collision Resolved in HUB: ${fileName}`, 'success');
-                }
-            } else {
-                await fs.copy(file, targetPath);
-                this.log(`📝 Knowledge Added to HUB: ${fileName}`, 'success');
-            }
-            processed++;
-        }
-
-        this.log(`✅ Mass Refactor Complete: ${processed} knowledge artifacts integrated into HUB.`, 'success');
-    }
-
-    /**
-     * Protocol 2: Mass Update Skills (HUB -> Skill)
-     */
-    async massUpdateSkills() {
-        const rackSuffix = this.activeRack ? ` [Rack: ${this.activeRack}]` : '';
-        this.log(`⚡ Starting Semantic Mass Update: HUB ➔ Skill${rackSuffix}...`, 'info');
-        const hubPath = this.activeRack ? path.join(this.knowledgePath, this.activeRack) : this.knowledgePath;
-        const skillPath = this.skillPath;
-
-        if (!(await fs.pathExists(hubPath))) {
-            this.log('⚠️ Folder HUB tidak ditemukan. Mass Update dibatalkan.', 'warning');
-            return;
-        }
-
-        const knowledgeFiles = await this.globRecursive(hubPath, '**/*.md');
-        const skillFiles = await this.globRecursive(skillPath, '**/*.md');
-        
-        let updated = 0;
-
-        // Pre-index skill files by category and keywords
-        const skillMap = {};
-        for (const sFile of skillFiles) {
-            const category = path.basename(path.dirname(sFile)).toLowerCase();
-            const sName = path.basename(sFile, '.md').toLowerCase();
-            const keywords = sName.split(/[-_]/);
-            
-            const keys = new Set([category, sName, ...keywords]);
-            for (const key of keys) {
-                if (!skillMap[key]) skillMap[key] = [];
-                skillMap[key].push(sFile);
-            }
-        }
-
-        for (const kFile of knowledgeFiles) {
-            const kContent = await fs.readFile(kFile, 'utf8');
-            const tags = await this.getSemanticTags(kFile);
-            
-            if (tags.length === 0) continue;
-
-            // Cross-Pollination: Find all skill files that match the tags
-            const targets = new Set();
-            for (const tag of tags) {
-                const tagLower = tag.toLowerCase();
-                if (skillMap[tagLower]) {
-                    skillMap[tagLower].forEach(f => targets.add(f));
-                }
-            }
-
-            for (const sFile of targets) {
-                const sContent = await fs.readFile(sFile, 'utf8');
-                const sample = kContent.substring(0, 100);
-                
-                if (!sContent.includes(sample)) {
-                    const merged = this.wrapAsConditional(sContent, kContent, `Semantic Update from HUB: ${path.basename(kFile)}`);
-                    await fs.writeFile(sFile, merged);
-                    this.log(`🧠 Skill Cross-Pollinated: ${path.basename(sFile)} via ${path.basename(kFile)} [Tag: ${tags.join(', ')}]`, 'success');
-                    updated++;
-                }
-            }
-        }
-
-        this.log(`✅ Semantic Mass Update Complete: ${updated} skill injections performed.`, 'success');
-    }
-
-    /**
-     * Phase 7: Distillation & Memory Optimization
-     * Pulls data from harvest, standardizes and simplifies the HUB.
-     */
-    async distill() {
-        this.log('🧪 Starting HUB Distillation & Optimization Pipeline...', 'info');
-        
-        // 1. Memory Pipeline: Pull data from harvest -> HUB and archive sessions
-        await this.memoryPipeline.optimize();
-        
-        // 2. Distiller: Standardize names and simplify content in HUB
-        await this.distiller.run();
-        
-        this.log('✨ HUB Distillation & Optimization Complete.', 'success');
-    }
-
-
-    /**
-     * Final Phase: Update System Status in README
-     */
-    async updateStatus() {
-        this.log('📝 Updating System Status in README.md...', 'info');
-        const readmePath = path.join(this.rootPath, 'README.md');
-        await this.distiller.updateReadme(readmePath);
-        this.log('✅ System Status Updated.', 'success');
-    }
-
-
-    /**
-     * Universal Nexus Collision Logic (Multi-Option Wrapper)
-     * Upgraded: Performs consolidation if similarity is high to prevent bloat.
-     */
     wrapAsConditional(existing, added, context = 'Nexus Knowledge') {
-        const similarity = this.calculateSimilarity(existing, added);
-        
-        if (similarity > 0.7) {
-            this.log(`♻️ Consolidation triggered (Similarity: ${(similarity * 100).toFixed(1)}%). Merging knowledge...`, 'info');
-            return this.consolidateKnowledge(existing, added, context);
-        }
-
-        return `
-# 🛠 NEXUS COLLISION RESOLVED: ${context}
-> Logika ini dihasilkan secara otomatis karena adanya alternatif antara dua sumber pengetahuan.
-
-### 🧩 Pilihan Opsi Tak Terbatas:
-
-#### Opsi A: Pola Eksisting (Existing Pattern)
-${existing.trim()}
-
----
-
-#### Opsi B: Pola Baru/Alternatif (New/Alternative Pattern)
-${added.trim()}
-
----
-*Generated by Nexus Engine | Protokol: Multi-Option | Date: ${new Date().toLocaleDateString()}*
-`;
-    }
-
-    /**
-     * Consolidate two pieces of knowledge into one cohesive block.
-     */
-    consolidateKnowledge(existing, added, reason) {
-        const timestamp = new Date().toLocaleDateString();
-        return `
-# 🛠 NEXUS KNOWLEDGE CONSOLIDATED [${timestamp}]: ${reason}
-> Berdasarkan tingkat kemiripan tinggi, sistem telah menggabungkan pengetahuan lama dan baru.
-
-${added.trim()}
-
----
-## 📁 Legacy Context (Preserved for Traceability)
-<details>
-<summary>View Original/Legacy Pattern</summary>
-
-${existing.substring(0, 500)}... (Truncated for readability)
-</details>
-
----
-*Consolidation Engine v1.0 | Date: ${timestamp}*
-`;
-    }
-
-    /**
-     * Calculate Jaccard Similarity between two strings
-     */
-    calculateSimilarity(str1, str2) {
-        const s1 = new Set(str1.toLowerCase().split(/\W+/));
-        const s2 = new Set(str2.toLowerCase().split(/\W+/));
-        const intersection = new Set([...s1].filter(x => s2.has(x)));
-        const union = new Set([...s1, ...s2]);
-        if (union.size === 0) return 0;
-        return intersection.size / union.size;
+        return `\n# NEXUS COLLISION RESOLVED: ${context}\nOpsi A:\n${existing}\nOpsi B:\n${added}\n`;
     }
 }
 

@@ -1,12 +1,13 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * Documentation Architect Scanner
  */
 async function scan(targetPath) {
     const findings = [];
+    const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     // 1. Check for core documentation folders
     const docPath = path.join(targetPath, 'documentation');
@@ -21,7 +22,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan code files for JSDoc/Docstring coverage
-    const codeFiles = glob.sync('**/*.{js,php,py}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'cli.js'] });
+    const codeFiles = fg.sync('**/*.{js,php,py}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'cli.js'] });
     const docRegex = /\/\*\*|\/\*\*[\s\S]*?\*\/|"""[\s\S]*?"""|#\s+\w+/;
 
     for (const file of codeFiles) {

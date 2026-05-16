@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * SEO & Performance Scanner
@@ -8,10 +8,11 @@ const glob = require('glob');
 async function scan(targetPath) {
     const findings = [];
     const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB
+    const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     // 1. Scan for Large Assets (Performance)
     const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
-    const assets = glob.sync('**/*.{png,jpg,jpeg,gif,svg,mp4,pdf}', { cwd: targetPath, ignore: IGNORE });
+    const assets = fg.sync('**/*.{png,jpg,jpeg,gif,svg,mp4,pdf}', { cwd: normalizedTarget, ignore: IGNORE });
     
     for (const asset of assets) {
         const fullPath = path.join(targetPath, asset);
@@ -29,7 +30,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan HTML/JSX/Blade for SEO best practices
-    const views = glob.sync('**/*.{html,htm,jsx,tsx,blade.php,vue}', { cwd: targetPath, ignore: IGNORE });
+    const views = fg.sync('**/*.{html,htm,jsx,tsx,blade.php,vue}', { cwd: normalizedTarget, ignore: IGNORE });
     
     for (const view of views) {
         const fullPath = path.join(targetPath, view);

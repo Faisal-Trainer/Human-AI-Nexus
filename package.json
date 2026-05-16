@@ -15,7 +15,8 @@
     "refactor": "node cli.js refactor",
     "update-skills": "node cli.js update-skills",
     "test": "node tests/TDD/runner.js",
-    "lint": "eslint agent/ cli.js tests/TDD/*.js"
+    "lint": "eslint agent/ cli.js tests/TDD/*.js",
+    "sync-version": "node -e \"const p=require('./package.json'); const pp=require('./NEXUS_PUBLIC_DISTRIBUTION/package.json'); pp.version=p.version; require('fs').writeFileSync('./NEXUS_PUBLIC_DISTRIBUTION/package.json', JSON.stringify(pp,null,2))\""
   },
   "keywords": [
     "ai",
@@ -31,10 +32,11 @@
   "dependencies": {
     "axios": "^1.16.0",
     "chalk": "^4.1.2",
+    "fast-glob": "^3.3.3",
     "fs-extra": "^11.1.0",
-    "glob": "^8.1.0",
     "llamaindex": "^0.12.1",
     "natural": "^8.1.1",
+    "p-limit": "^7.3.0",
     "redis": "^5.12.1"
   },
   "devDependencies": {

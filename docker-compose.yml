@@ -15,4 +15,10 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - nexus-internal
     restart: unless-stopped
+
+networks:
+  nexus-internal:
+    driver: bridge

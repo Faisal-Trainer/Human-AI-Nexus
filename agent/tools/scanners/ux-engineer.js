@@ -1,15 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * UX/UI Engineer Scanner
  */
 async function scan(targetPath) {
     const findings = [];
+    const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
-    const files = glob.sync('**/*.{html,jsx,tsx,blade.php,vue,css,scss}', { cwd: targetPath, ignore: IGNORE });
+    const files = fg.sync('**/*.{html,jsx,tsx,blade.php,vue,css,scss}', { cwd: normalizedTarget, ignore: IGNORE });
     
     // 1. Scan for hardcoded colors (HEX/RGB) instead of variables
     const colorRegex = /#([a-f0-9]{3}){1,2}|rgba?\(\d+,\s*\d+,\s*\d+(,\s*\d+(\.\d+)?)?\)/gi;

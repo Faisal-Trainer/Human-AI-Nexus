@@ -39,12 +39,15 @@ class Logger {
             metadata: metadata
         };
 
-        try {
-            await fs.ensureDir(logDir);
-            await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
-        } catch (e) {
-            console.error(`Logger Failed: ${e.message}`);
-        }
+        this._writeQueue = this._writeQueue.then(async () => {
+            try {
+                await fs.ensureDir(logDir);
+                await fs.appendFile(logFile, JSON.stringify(logEntry) + '\n');
+            } catch (e) {
+                console.error(`Logger Failed: ${e.message}`);
+            }
+        });
+        return this._writeQueue;
     }
 }
 

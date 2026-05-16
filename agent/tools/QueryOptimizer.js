@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * QueryOptimizer - Performance Indexing Machine.
@@ -14,7 +14,7 @@ class QueryOptimizer {
         const migrationsPath = path.join(this.rootPath, 'database/migrations');
         if (!(await fs.pathExists(migrationsPath))) return [];
 
-        const files = glob.sync('**/*.php', { cwd: migrationsPath });
+        const files = fg.sync('**/*.php', { cwd: migrationsPath.replace(/\\/g, '/') });
         const findings = [];
 
         for (const file of files) {

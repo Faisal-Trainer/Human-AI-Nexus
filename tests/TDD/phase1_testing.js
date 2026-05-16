@@ -114,7 +114,7 @@ async function setupTALLProject(project, piper) {
 async function runPhase1() {
     console.log('\n╔══════════════════════════════════════════════════════╗');
     console.log('║  🚀 NEXUS — Section 1: Fundamental CRUD & Auth       ║');
-    console.log('║  9 Projects | TALL Stack | Autonomous Pipeline        ║');
+    console.log('║  9 Projects | TALL Stack | Parallel Evolution        ║');
     console.log('╚══════════════════════════════════════════════════════╝\n');
 
     if (!(await fs.pathExists(TEMPLATE_SOURCE))) {
@@ -123,26 +123,20 @@ async function runPhase1() {
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
+    const engine = new NexusEngine({ rootPath: ROOT_PATH }); // We use main engine for parallel runner
     const total = PHASE_1_PROJECTS.length;
     let success = 0, failed = 0;
     const startTime = Date.now();
 
-    for (let i = 0; i < total; i++) {
-        const project = PHASE_1_PROJECTS[i];
-        const elapsed = Math.round((Date.now() - startTime) / 1000);
-        const eta = i > 0 ? Math.round((elapsed / i) * (total - i)) : '?';
-        const pct = Math.round(((i + 1) / total) * 100);
-        const bar = '█'.repeat(Math.floor(pct / 5)) + '░'.repeat(20 - Math.floor(pct / 5));
+    console.log(`\x1b[35m⚡ Starting Sequential Evolution (One by one)...\x1b[0m`);
 
-        console.log(`\n\x1b[35m[${bar}] ${pct}% | ✅ ${success} ❌ ${failed} | Project ${i + 1}/${total}: ${project.name} | ETA: ${eta}s\x1b[0m`);
-
+    for (const project of PHASE_1_PROJECTS) {
         try {
             await setupTALLProject(project, piper);
             success++;
         } catch (err) {
             console.error(`\n\x1b[31m❌ GAGAL [${project.name}]: ${err.message}\x1b[0m`);
             failed++;
-            // Log to error file
             const logFile = path.join(ROOT_PATH, 'logs', 'sandbox-errors.log');
             await fs.ensureDir(path.dirname(logFile));
             await fs.appendFile(logFile, `[${new Date().toISOString()}] [Section 1] [${project.name}] ${err.message}\n`);
@@ -150,6 +144,7 @@ async function runPhase1() {
     }
 
     const totalElapsed = Math.round((Date.now() - startTime) / 1000);
+
     console.log(`\n${'='.repeat(56)}`);
     console.log(`📊 SECTION 1 SELESAI: ${success} berhasil, ${failed} gagal`);
     console.log(`⏱  Total waktu: ${totalElapsed}s`);

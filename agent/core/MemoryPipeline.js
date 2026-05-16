@@ -97,13 +97,10 @@ class MemoryPipeline {
     }
 
     async globRecursive(dir, pattern) {
-        const glob = require('glob');
-        return new Promise((resolve, reject) => {
-            glob(path.join(dir, pattern).replace(/\\/g, '/'), (err, files) => {
-                if (err) reject(err);
-                else resolve(files);
-            });
-        });
+        const fg = require('fast-glob');
+        const normalizedDir = dir.replace(/\\/g, '/');
+        const fullPattern = path.join(normalizedDir, pattern).replace(/\\/g, '/');
+        return await fg(fullPattern);
     }
 
     async archiveAuditReports() {

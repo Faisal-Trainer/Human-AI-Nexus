@@ -33,6 +33,8 @@ const localAI = require('./LocalIntelligence');
 const AgentRegistry = require('./AgentRegistry');
 const NexusError = require('./NexusError');
 const CoreUtils = require('./phases/CoreUtils');
+const ParallelRunner = require('./ParallelRunner');
+const NativeBridge = require('./NativeBridge');
 
 const AuditPhase = require('./phases/AuditPhase');
 const PlanningPhase = require('./phases/PlanningPhase');
@@ -107,6 +109,8 @@ class NexusEngine {
         this.distiller = new Distiller(this.knowledgePath);
         this.evolutionPiper = new EvolutionPiper(this.rootPath);
         this.decisionEngine = new DecisionEngine();
+        this.parallel = ParallelRunner;
+        this.native = new NativeBridge(this.rootPath);
         
         this.currentAudit = null; 
         this.currentPlan = null;

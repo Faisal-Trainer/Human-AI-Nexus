@@ -1,15 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * Database Architect Scanner
  */
 async function scan(targetPath) {
     const findings = [];
+    const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     // 1. Scan for hardcoded DB connection strings
-    const files = glob.sync('**/*.{js,php,py}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'cli.js'] });
+    const files = fg.sync('**/*.{js,php,py}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'cli.js'] });
     const dbTokens = [
         Buffer.from('bXlzcWw6aG9zdD0=', 'base64').toString(),
         Buffer.from('cG9zdGdyZXM6Ly8=', 'base64').toString(),
@@ -33,7 +34,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan for potentially missing indexes (look for foreign key patterns in migrations/models)
-    const dbFiles = glob.sync('**/*.{sql,php,js}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**'] });
+    const dbFiles = fg.sync('**/*.{sql,php,js}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**'] });
     const fkRegex = /unsignedBigInteger\(['"]([^'"]+)_id['"]\)|foreign\(['"]([^'"]+)_id['"]\)/gi;
     const indexRegex = /index\(/i;
 

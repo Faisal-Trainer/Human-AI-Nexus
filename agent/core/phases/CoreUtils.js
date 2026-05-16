@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * Core Utilities for Nexus Phases
@@ -25,17 +25,19 @@ class CoreUtils {
     }
 
     /**
-     * Helper for recursive file scanning
+     * Helper for recursive file scanning (Optimized for SSD)
      */
     static async globRecursive(dir, pattern) {
-        return new Promise((resolve, reject) => {
-            const fullPattern = path.join(dir, pattern).replace(/\\/g, '/');
-            glob(fullPattern, (err, files) => {
-                if (err) reject(err);
-                else resolve(files);
-            });
+        // fast-glob is significantly faster on SSD than traditional glob
+        const entries = await fg(pattern, {
+            cwd: dir,
+            absolute: true,
+            onlyFiles: true,
+            ignore: ['**/node_modules/**', '**/vendor/**', '**/.git/**']
         });
+        return entries;
     }
+
 
     /**
      * Recursive deletion helper

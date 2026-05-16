@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * SchemaGuard - Identity & Security Machine.
@@ -15,7 +15,7 @@ class SchemaGuard {
         const modelsPath = path.join(this.rootPath, 'app/Models');
         if (!(await fs.pathExists(modelsPath))) return [];
 
-        const files = glob.sync('**/*.php', { cwd: modelsPath });
+        const files = fg.sync('**/*.php', { cwd: modelsPath.replace(/\\/g, '/') });
         const findings = [];
 
         for (const file of files) {

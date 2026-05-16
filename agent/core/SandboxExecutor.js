@@ -23,27 +23,8 @@ class SandboxExecutor {
                     }
                 }
 
-                const worker = new Worker(`
-                    const { workerData, parentPort } = require('worker_threads');
-                    const path = require('path');
-                    
-                    async function run() {
-                        try {
-                            const plugin = require(workerData.pluginPath);
-                            const action = plugin.scan || plugin.execute;
-                            
-                            if (typeof action !== 'function') {
-                                throw new Error('Plugin must export a scan() or execute() function.');
-                            }
-
-                            const result = await Promise.resolve(action(workerData.args));
-                            parentPort.postMessage({ ok: true, result });
-                        } catch (err) {
-                            parentPort.postMessage({ ok: false, error: err.message });
-                        }
-                    }
-                    run();
-                `, { eval: true, workerData: { pluginPath, args } });
+                const workerPath = path.join(__dirname, 'workers', 'plugin-worker.js');
+                const worker = new Worker(workerPath, { workerData: { pluginPath, args } });
 
                 const timer = setTimeout(() => {
                     worker.terminate();

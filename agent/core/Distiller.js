@@ -1,9 +1,9 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
 const crypto = require('crypto');
 const NexusClock = require('./NexusClock');
 const SemanticEngine = require('./SemanticEngine');
+const NativeBridge = require('./NativeBridge');
 
 /**
  * Distiller Engine - Responsibility: Compressing and standardizing Knowledge HUB.
@@ -14,16 +14,19 @@ class Distiller {
         this.knowledgePath = knowledgePath;
         this.prefix = 'NEXUS_';
         this.semanticEngine = new SemanticEngine(knowledgePath);
+        this.native = new NativeBridge(path.join(knowledgePath, '..', '..'));
     }
 
     /**
      * Get all knowledge files recursively
      */
     getFiles() {
-        return glob.sync('**/*.{md,MD}', { 
-            cwd: this.knowledgePath, 
+        const fg = require('fast-glob');
+        const normalizedPath = this.knowledgePath.replace(/\\/g, '/');
+        return fg.sync('**/*.{md,MD}', { 
+            cwd: normalizedPath, 
             ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
-            nodir: true 
+            onlyFiles: true 
         });
     }
 
@@ -106,16 +109,25 @@ ${oldContent.trim()}
 
                 const headerMatch = content.match(/^#+\s+(.*)$/m);
                 const title = headerMatch ? headerMatch[1] : path.basename(file).replace(this.prefix, '').replace('.md', '');
-                const insights = content.match(/(?:insight|temuan|hasil|conclusion|key point)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
-                const recs = content.match(/(?:recommendation|saran|pembelajaran|lesson|action)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
-                const body = content.replace(/^#+.*$/gm, '').trim();
-
+                
                 let block = `### 📄 ${title}\n`;
                 block += `> **Origin**: \`${file}\` | **Distilled At**: ${timestamp}\n\n`;
-                
-                if (insights) block += `#### 🧐 Core Insights (Distilled):\n${insights[0].trim().substring(0, 1000)}\n\n`;
-                if (recs) block += `#### 🛠 Actionable Steps:\n${recs[0].trim().substring(0, 800)}\n\n`;
-                if (!insights && !recs) block += `#### 💡 Content Summary:\n${body.substring(0, 1200)}...\n\n`;
+
+                // Try Python-based AI Distillation first
+                try {
+                    console.log(`   🧠 AI Distilling: ${file}...`);
+                    const aiResult = await this.native.callPython(path.join(this.native.binPath, 'distiller.py'), [filePath]);
+                    block += aiResult + '\n\n';
+                } catch (e) {
+                    console.warn(`   ⚠️ AI Distillation failed, falling back to Regex: ${e.message}`);
+                    const insights = content.match(/(?:insight|temuan|hasil|conclusion|key point)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
+                    const recs = content.match(/(?:recommendation|saran|pembelajaran|lesson|action)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
+                    const body = content.replace(/^#+.*$/gm, '').trim();
+
+                    if (insights) block += `#### 🧐 Core Insights (Distilled):\n${insights[0].trim().substring(0, 1000)}\n\n`;
+                    if (recs) block += `#### 🛠 Actionable Steps:\n${recs[0].trim().substring(0, 800)}\n\n`;
+                    if (!insights && !recs) block += `#### 💡 Content Summary:\n${body.substring(0, 1200)}...\n\n`;
+                }
 
                 block += `#### 🔗 Traceability:\n- [Source Context](${path.basename(file)})\n- [Related Standards](NEXUS_CORE_PRINCIPLES.md)\n\n---\n`;
                 
@@ -203,10 +215,22 @@ ${oldContent.trim()}
     }
 
     /**
-     * Optimized Semantic Linking with Path-Awareness (Phase 5)
+     * Optimized Semantic Linking with Native C++ Power (SSD-Aware)
      */
     async applySemanticLinking() {
-        console.log('🔗 Distiller: Applying Path-Aware Semantic Cross-Linking (Optimized)...');
+        console.log('🔗 Distiller: Applying Path-Aware Semantic Cross-Linking (Native C++ Optimized)...');
+        try {
+            const output = await this.native.callCpp('fast_linker', [this.knowledgePath]);
+            console.log(output);
+        } catch (e) {
+            console.warn(`   ⚠️ Native linking failed, falling back to JS: ${e.message}`);
+            // Fallback to JS logic if native fails
+            await this.applySemanticLinkingJS();
+        }
+    }
+
+    async applySemanticLinkingJS() {
+        console.log('🔗 Distiller: Falling back to JS Semantic Linking...');
         
         const cachePath = path.join(this.knowledgePath, '..', 'short_term', 'link_cache.json');
         let cache = {};
@@ -260,9 +284,8 @@ ${oldContent.trim()}
         }
 
         await fs.writeJson(cachePath, cache, { spaces: 2 });
-        if (totalLinked > 0) console.log(`   ✅ Finished cross-linking. ${totalLinked} files updated.`);
     }
-
+    
     getRelativePath(fromFile, toFile) {
         const fromDir = path.dirname(fromFile);
         const toDir = path.dirname(toFile);
@@ -361,15 +384,15 @@ ${oldContent.trim()}
 
             while ((match = linkRegex.exec(content)) !== null) {
                 const targetPath = match[1];
-                if (targetPath.includes('/')) {
-                    const targetNode = path.basename(targetPath).replace(this.prefix, '').replace('.md', '').replace(/-/g, '_');
-                    if (nodeName === targetNode) continue;
-                    const linkKey = `${nodeName}->${targetNode}`;
-                    if (!seenLinks.has(linkKey)) {
-                        mermaid += `    ${nodeName} --> ${targetNode}\n`;
-                        seenLinks.add(linkKey);
-                        connections++;
-                    }
+                // Hapus pengecekan .includes('/') agar link dalam folder yang sama tetap terpetakan
+                const targetNode = path.basename(targetPath).replace(this.prefix, '').replace('.md', '').replace(/-/g, '_');
+                
+                if (nodeName === targetNode) continue;
+                const linkKey = `${nodeName}->${targetNode}`;
+                if (!seenLinks.has(linkKey)) {
+                    mermaid += `    ${nodeName} --> ${targetNode}\n`;
+                    seenLinks.add(linkKey);
+                    connections++;
                 }
             }
         }

@@ -63,14 +63,28 @@ try {
     exit 1
 }
 
-$phpOk = $false
 try {
     $phpVer = (php --version 2>&1)[0]
     Log "   ✅ PHP: $phpVer" "Green"
-    $phpOk = $true
 } catch {
     Log "   ⚠️  PHP tidak ditemukan — migrate:fresh akan di-skip." "Yellow"
 }
+
+# ── C++ & Native Orchestrator Check ────────────────────────
+try {
+    $clangVer = (clang++ --version 2>&1)[0]
+    Log "   ✅ Clang++: $clangVer" "Green"
+    
+    $orchPath = Join-Path $RootDir "nexus\native\sandbox_orchestrator.exe"
+    if (Test-Path $orchPath) {
+        Log "   ✅ Native Orchestrator: Ready (C++)" "Green"
+    } else {
+        Log "   ⚠️  Native Orchestrator belum dikompilasi. Menggunakan Node.js fallback." "Yellow"
+    }
+} catch {
+    Log "   ⚠️  Clang++ tidak ditemukan. Performa native tidak tersedia." "Yellow"
+}
+
 
 $templatePath = Join-Path $RootDir "tests\sandboxes\url-shortener"
 if (-not (Test-Path $templatePath)) {
@@ -84,7 +98,7 @@ Log ""
 $StartTime = Get-Date
 
 # ── Run section function ──────────────────────────────────────
-function Run-Section {
+function Invoke-NexusSection {
     param([int]$Num, [string]$File, [string]$Label)
 
     LogHeader "🚀 $Label"
@@ -116,18 +130,19 @@ for ($i = 1; $i -le 10; $i++) {
     if ($Section -eq 0 -or $Section -eq $i) {
         $ok = $false
         if ($i -eq 1) {
-            $ok = Run-Section -Num 1 -File "phase1_testing.js" -Label "Section 1 — Fundamental CRUD & Auth (9 projects)"
+            $ok = Invoke-NexusSection -Num 1 -File "phase1_testing.js" -Label "Section 1 — Fundamental CRUD & Auth (9 projects)"
         } elseif ($i -eq 2) {
-            $ok = Run-Section -Num 2 -File "setup_section2.js" -Label "Section 2 — Dashboard & Admin Panel (10 projects)"
+            $ok = Invoke-NexusSection -Num 2 -File "setup_section2.js" -Label "Section 2 — Dashboard & Admin Panel (10 projects)"
         } elseif ($i -eq 3) {
-            $ok = Run-Section -Num 3 -File "setup_section3.js" -Label "Section 3 — Security & Realtime (11 projects)"
+            $ok = Invoke-NexusSection -Num 3 -File "setup_section3.js" -Label "Section 3 — Security & Realtime (11 projects)"
         } else {
             # pass the section number as an argument to the file
-            $ok = Run-Section -Num $i -File "setup_dynamic_section.js $i" -Label "Section $i"
+            $ok = Invoke-NexusSection -Num $i -File "setup_dynamic_section.js $i" -Label "Section $i"
         }
         if (-not $ok) { $FailedCount++ }
     }
 }
+
 
 # ── Distill knowledge ─────────────────────────────────────────
 if (-not $NoDistill -and $Section -eq 0) {

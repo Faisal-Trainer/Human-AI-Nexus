@@ -1,12 +1,13 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
  * Cyber Security Scanner
  */
 async function scan(targetPath) {
     const findings = [];
+    const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     // 1. Check for .env exposure
     const envPath = path.join(targetPath, '.env');
@@ -21,7 +22,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan for hardcoded credentials (basic regex)
-    const files = glob.sync('**/*.{js,php,py,env}', { cwd: targetPath, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'] });
+    const files = fg.sync('**/*.{js,php,py,env}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'] });
     const secretRegex = /(password|api_key|secret|token)\s*[:=]\s*['"][^'"]+['"]/i;
 
     for (const file of files) {

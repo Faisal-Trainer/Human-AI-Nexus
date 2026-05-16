@@ -41,7 +41,15 @@ class Machinist {
      * @throws {Error} jika path tidak di whitelist atau di blacklist.
      */
     _validateForgePath(outputPath) {
-        const normalizedPath = outputPath.replace(/\\/g, '/');
+        // Resolve absolute path to prevent ../../ traversal
+        const absoluteResolved = path.resolve(this.rootPath, outputPath);
+        const normalizedPath = path.relative(this.rootPath, absoluteResolved)
+                                   .replace(/\\/g, '/');
+
+        // Ensure it doesn't escape the rootPath
+        if (normalizedPath.startsWith('..')) {
+            throw new Error(`Machinist: Path traversal detected: ${outputPath}`);
+        }
 
         const isAllowed = FORGE_ALLOWED_PATHS.some(p => normalizedPath.startsWith(p));
         const isForbidden = FORGE_FORBIDDEN_PATHS.some(p => normalizedPath.startsWith(p));
@@ -191,24 +199,25 @@ class Machinist {
         // NOTE: Template deliberately does NOT import any core modules — GUARD 3 enforces this.
         return `const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
+const fg = require('fast-glob');
 
 /**
- * ${name} - Automatically Forged by Nexus Machinist
- * Source Wisdom: ${source}
- * Built At: ${NexusClock.getLocalTimestamp()}
+ * \${name} - Automatically Forged by Nexus Machinist
+ * Source Wisdom: \${source}
+ * Built At: \${NexusClock.getLocalTimestamp()}
  */
 async function scan(targetPath) {
     const findings = [];
-    const checkPoints = ${JSON.stringify(checkPoints, null, 4)};
+    const checkPoints = \${JSON.stringify(checkPoints, null, 4)};
+    const normalizedTarget = targetPath.replace(/\\\\/g, '/');
 
-    console.log(\`🔍 Forged Machine '${name}' scanning for wisdom adherence...\`);
+    console.log(\\\`🔍 Forged Machine '\${name}' scanning for wisdom adherence...\\\`);
 
     try {
-        const files = glob.sync('**/*.{js,php,html,css,md,json}', {
-            cwd: targetPath,
+        const files = fg.sync('**/*.{js,php,html,css,md,json}', {
+            cwd: normalizedTarget,
             ignore: ['node_modules/**', 'vendor/**', 'nexus/**', 'memory/**', 'documentation/**'],
-            nodir: true
+            onlyFiles: true
         });
 
         let matchCount = 0;

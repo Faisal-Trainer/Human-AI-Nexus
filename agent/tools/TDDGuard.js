@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 const path = require('path');
-const glob = require('glob');
 
 /**
  * TDDGuard - Enforcer of the Nexus TDD Iron Laws.
@@ -47,10 +46,11 @@ class TDDGuard {
         ];
 
         let testFound = false;
+        const fg = require('fast-glob');
         for (const dir of this.testDirs) {
             const dirPath = path.join(this.rootPath, dir);
             if (await fs.pathExists(dirPath)) {
-                const matches = glob.sync(`{${testPatterns.join(',')}}`, { cwd: dirPath });
+                const matches = fg.sync(testPatterns, { cwd: dirPath.replace(/\\/g, '/') });
                 if (matches.length > 0) {
                     testFound = true;
                     break;

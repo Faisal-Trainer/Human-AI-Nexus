@@ -10,7 +10,7 @@
     <body class="antialiased bg-slate-50 dark:bg-slate-950 min-h-screen flex items-center justify-center p-6 font-sans">
         
         <div class="w-full">
-            <livewire:url-shortener />
+            <!-- NEXUS_AUTO_WIRE_FRONTEND -->
         </div>
 
         @livewireScripts

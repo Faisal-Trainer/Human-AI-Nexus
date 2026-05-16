@@ -100,9 +100,16 @@ class ExecutionPhase extends BasePhase {
     }
 
     async cleanCodeAndVerify(projectPath = this.engine.rootPath) {
-        this.log(`🧹 Phase 5.5: Clean Code & Stability Verification...`, 'info');
+        this.log(`扫 Phase 5.5: Clean Code & Stability Verification...`, 'info');
         
         this.log(`   📂 Identifying legacy template clutter (UrlShortener remnants)...`, 'warning');
+        const blueprintPath = path.join(projectPath, 'NEXUS_BLUEPRINT.json');
+        let allowedComponents = [];
+        if (await fs.pathExists(blueprintPath)) {
+            const blueprint = await fs.readJson(blueprintPath);
+            allowedComponents = (blueprint.livewire_components || []).map(c => this.toKebabCase(c));
+        }
+
         const legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
         const files = await CoreUtils.globRecursive(projectPath, '**/*');
         let deletedCount = 0;
@@ -111,16 +118,29 @@ class ExecutionPhase extends BasePhase {
             const fileName = path.basename(file);
             const isLegacyFile = legacyPatterns.some(p => fileName.includes(p));
             
-            if (isLegacyFile && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
+            // Special check for Livewire views: if it's not in the blueprint, it's legacy
+            let isUnusedLivewire = false;
+            if (file.includes('resources/views/livewire') && file.endsWith('.blade.php')) {
+                const componentName = fileName.replace('.blade.php', '');
+                if (allowedComponents.length > 0 && !allowedComponents.includes(componentName) && componentName !== 'url-shortener') {
+                     // We keep 'url-shortener' only if it's explicitly in the blueprint, 
+                     // but here we mark it as legacy if it's not.
+                     if (!allowedComponents.includes('url-shortener')) isUnusedLivewire = true;
+                }
+            }
+
+            if ((isLegacyFile || isUnusedLivewire) && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
                 if (await fs.pathExists(file)) {
                     await fs.remove(file);
-                    this.log(`      🗑️ Deleted legacy file: ${path.relative(projectPath, file)}`, 'error');
+                    this.log(`      🗑️ Deleted legacy/unused file: ${path.relative(projectPath, file)}`, 'error');
                     deletedCount++;
                 }
             }
         }
         
-        this.log(`   ✅ Cleanup complete: ${deletedCount} files removed.`, 'success');
+        await this.autoWireFrontend(projectPath);
+        
+        this.log(`   ✅ Cleanup & Wiring complete: ${deletedCount} files removed.`, 'success');
 
         this.log(`   🔄 Starting 5-Cycle Stability Loop (Health Check)...`, 'info');
         for (let i = 1; i <= 5; i++) {
@@ -151,6 +171,50 @@ class ExecutionPhase extends BasePhase {
         
         this.log(`   🎉 Stability Loop Passed: App is verified and clean.`, 'success');
     }
+
+    /**
+     * Automatically wires Livewire components from blueprint into welcome.blade.php
+     */
+    async autoWireFrontend(projectPath) {
+        this.log(`   🔌 Auto-Wiring Frontend Components...`, 'info');
+        const welcomePath = path.join(projectPath, 'resources/views/welcome.blade.php');
+        const blueprintPath = path.join(projectPath, 'NEXUS_BLUEPRINT.json');
+
+        if (!(await fs.pathExists(welcomePath)) || !(await fs.pathExists(blueprintPath))) return;
+
+        const blueprint = await fs.readJson(blueprintPath);
+        const components = blueprint.livewire_components || [];
+        
+        if (components.length === 0) return;
+
+        let content = await fs.readFile(welcomePath, 'utf8');
+        
+        // Replace the old <livewire:url-shortener /> or any previous injection
+        const livewireRegex = /<div class="w-full">[\s\S]*?<\/div>/;
+        const newInjection = `<div class="w-full space-y-8">
+            ${components.map(c => `<livewire:${this.toKebabCase(c)} />`).join('\n            ')}
+        </div>`;
+
+        if (content.match(livewireRegex)) {
+            content = content.replace(livewireRegex, newInjection);
+        } else if (content.includes('<body')) {
+             // Fallback: inject into body if div is missing
+             content = content.replace('<body', `<body class="p-8"><div class="max-w-7xl mx-auto">${newInjection}</div>`);
+        }
+
+        // Update Title
+        const titleRegex = /<title>[\s\S]*?<\/title>/;
+        const projectName = path.basename(projectPath).replace(/-/g, ' ').toUpperCase();
+        content = content.replace(titleRegex, `<title>Nexus | ${projectName}</title>`);
+
+        await fs.writeFile(welcomePath, content);
+        this.log(`      ✅ welcome.blade.php updated with ${components.length} components.`, 'success');
+    }
+
+    toKebabCase(str) {
+        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    }
+
 
     async updateRecapStatus(updateMessage) {
         const recapPath = path.join(this.engine.rootPath, 'documentation', 'docs', 'NEXUS_INTERNAL_PIPELINE_RECAP.md');

@@ -49,48 +49,52 @@ class AuditPhase extends BasePhase {
             ];
 
             this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');
-            
-            const auditPromises = specialists.map(async (spec) => {
-                try {
-                    await this.engine.loadAgent(spec.id);
 
-                    const scannerPath = path.join(__dirname, '..', '..', 'tools', 'scanners', `${spec.id}.js`);
-                    let specFindings = [];
+            // FIX #14 — Batasi concurrency ke 2 agar tidak OOM pada 8GB RAM
+            // Ganti Promise.all dengan ParallelRunner yang sudah ada
+            const ParallelRunner = require('../ParallelRunner');
 
-                    const agentStart = Date.now();
-                    if (await fs.pathExists(scannerPath)) {
-                        specFindings = await this.engine.orchestrator.executeTask(spec.id, scannerPath, targetPath);
-                        this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
+            const auditResults = await ParallelRunner.run(
+                specialists,
+                async (spec) => {
+                    try {
+                        await this.engine.loadAgent(spec.id);
+
+                        const scannerPath = path.join(__dirname, '..', '..', 'tools', 'scanners', `${spec.id}.js`);
+                        let specFindings = [];
+
+                        const agentStart = Date.now();
+                        if (await fs.pathExists(scannerPath)) {
+                            specFindings = await this.engine.orchestrator.executeTask(spec.id, scannerPath, targetPath);
+                            this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
+                        }
+                        const agentDuration = Date.now() - agentStart;
+                        this.engine.metrics[spec.id] = { duration_ms: agentDuration, findings: specFindings.length };
+                        await this.engine.logger.log('agents', 'INFO', spec.id, auditID, 'AGENT_PROFILED', `Completed in ${agentDuration}ms`, agentDuration, {}, this.engine.currentCorrelationId);
+
+                        if (specFindings.length === 0) {
+                            specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
+                        }
+
+                        const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
+                        await fs.writeJson(path.join(this.engine.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
+                        
+                        const mdSpec = this.generateMarkdownReport(spec, auditID, specFindings);
+                        await fs.writeFile(path.join(this.engine.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec, 'utf8');
+                        
+                        return specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` }));
+                    } catch (e) {
+                        this.log(`⚠️ Agent ${spec.id} skipped: ${e.message}`, 'error');
+                        this.engine.agentRegistry.markFailed(spec.id, e.message);
+                        return [];
                     }
-                    const agentDuration = Date.now() - agentStart;
-                    this.engine.metrics[spec.id] = { duration_ms: agentDuration, findings: specFindings.length };
-                    await this.engine.logger.log('agents', 'INFO', spec.id, auditID, 'AGENT_PROFILED', `Completed in ${agentDuration}ms`, agentDuration, {}, this.engine.currentCorrelationId);
+                },
+                2 // FIX #14 — max 2 concurrent untuk hemat RAM (8GB / Vega 8 shared)
+            );
 
-                    if (specFindings.length === 0) {
-                        specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
-                    }
-
-                    const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
-                    await fs.writeJson(path.join(this.engine.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
-                    
-                    const mdSpec = this.generateMarkdownReport(spec, auditID, specFindings);
-                    await fs.writeFile(path.join(this.engine.auditPath, `report_${spec.id}_${auditID}.md`), mdSpec, 'utf8');
-                    
-                    return specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` }));
-                } catch (e) {
-                    this.log(`⚠️ Agent ${spec.id} skipped: ${e.message}`, 'error');
-                    return [];
-                }
-            });
-
-            const auditResults = await Promise.allSettled(auditPromises);
-            auditResults.forEach((result, i) => {
-                if (result.status === 'fulfilled') {
-                    consolidatedFindings.push(...(result.value || []));
-                } else {
-                    const agentId = specialists[i]?.id || `agent-${i}`;
-                    this.log(`⚠️ Circuit Breaker: Agent "${agentId}" failed.`, 'warning');
-                    this.engine.agentRegistry.markFailed(agentId, result.reason?.message || 'Unknown error');
+            auditResults.forEach((result) => {
+                if (result && Array.isArray(result)) {
+                    consolidatedFindings.push(...result);
                 }
             });
         }

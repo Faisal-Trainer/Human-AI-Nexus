@@ -13,12 +13,15 @@ class EvolutionPiper {
         this.sandboxPath = path.join(this.rootPath, 'tests', 'sandboxes');
 
         // ⛔ HARD LIMIT: Maksimal iterasi per session — TIDAK BOLEH diubah programatik
-        this.MAX_EVOLUTION_CYCLES = 25; // Satu phase = max 25 project
+        this.MAX_EVOLUTION_CYCLES = 25;
         this.currentCycle = 0;
 
         // ⛔ HARD LIMIT: Maksimal waktu eksekusi total (dalam menit)
-        this.MAX_SESSION_MINUTES = 120; // 2 jam
+        this.MAX_SESSION_MINUTES = 120;
         this.sessionStartTime = null;
+
+        // FIX #12 — Path untuk persistensi cycle state
+        this._statePath = path.join(this.rootPath, 'nexus', '.evolution_state.json');
     }
 
     /**
@@ -54,16 +57,48 @@ class EvolutionPiper {
 
         this.currentCycle++;
         console.log(`🔄 Evolution Cycle: ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}`);
+        // FIX #12 — Persist setelah increment agar crash tidak reset counter
+        await this.persistCycleState();
+    }
+
+    // FIX #12 — Load cycle state dari disk (panggil di awal session)
+    async loadCycleState() {
+        try {
+            if (await fs.pathExists(this._statePath)) {
+                const state = await fs.readJson(this._statePath);
+                this.currentCycle = state.currentCycle || 0;
+                this.sessionStartTime = state.sessionStartTime || null;
+                console.log(`♻️ EvolutionPiper: Resumed from cycle ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}.`);
+            }
+        } catch (e) {
+            console.warn(`⚠️ EvolutionPiper: Could not load cycle state: ${e.message}`);
+        }
+    }
+
+    // FIX #12 — Persist counter ke disk
+    async persistCycleState() {
+        try {
+            await fs.ensureDir(path.dirname(this._statePath));
+            await fs.writeJson(this._statePath, {
+                currentCycle: this.currentCycle,
+                sessionStartTime: this.sessionStartTime
+            });
+        } catch (e) {
+            console.warn(`⚠️ EvolutionPiper: Could not persist cycle state: ${e.message}`);
+        }
     }
 
     /**
      * Reset cycle counter — harus dipanggil manual setelah distill selesai.
      * Tidak bisa dipanggil dari dalam loop evolusi.
      */
+    // FIX #12 — resetCycleCounter juga hapus file state
     resetCycleCounter() {
         console.log(`🔁 EvolutionPiper: Cycle counter reset (was ${this.currentCycle}). New session started.`);
         this.currentCycle = 0;
         this.sessionStartTime = null;
+        // Best-effort delete persisted state
+        fs.remove(this._statePath).catch(() => {});
     }
 
     /**
@@ -91,7 +126,8 @@ class EvolutionPiper {
                 { name: 'app/Http/Controllers/ItemController.php', content: '<?php\nnamespace App\\Http\\Controllers;\nclass ItemController extends Controller {\n    public function index() { return view("items.index"); }\n}' },
                 { name: 'routes/web.php', content: '<?php\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\\Controllers\\ItemController;\nRoute::resource("items", ItemController::class);' },
                 { name: 'database/migrations/create_items_table.php', content: '<?php\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\nreturn new class extends Migration {\n    public function up() {\n        Schema::create("items", function (Blueprint $table) {\n            $table->id();\n            $table->string("name");\n            $table->timestamps();\n        });\n    }\n};' },
-                { name: '.env', content: 'APP_NAME=Laravel\nDB_CONNECTION=sqlite\nAPP_KEY=base64:a7gkNyQZZ4HamHeiMoQ2gFJygojiFUCyzXDTKQ3YwG4=' }
+                // FIX #27B — APP_KEY dibuat dinamis, bukan hardcoded di source code
+                { name: '.env', content: `APP_NAME=Laravel\nDB_CONNECTION=sqlite\nAPP_KEY=base64:${require('crypto').randomBytes(32).toString('base64')}` }
             ]
         };
 
@@ -109,17 +145,14 @@ class EvolutionPiper {
     /**
      * Phase 2 (Advanced): Spawn a real Laravel project using Composer.
      */
+    // FIX #24 — spawnRealLaravel tidak menghasilkan direktori kosong yang menyesatkan.
+    // Gunakan spawnSandbox() dengan scenario 'crud' atau implementasikan composer create-project.
     async spawnRealLaravel(name) {
-        // ⛔ GUARDRAIL: Wajib cek boundary sebelum spawn
-        await this.checkEvolutionBoundary();
-
-        const targetPath = path.join(this.sandboxPath, name);
-        await fs.ensureDir(targetPath);
-        
-        console.log(`🚀 EvolutionPiper: Installing real Laravel framework in [${name}]...`);
-        
-        // This will be executed via run_command in the main flow
-        return targetPath;
+        throw new Error(
+            'spawnRealLaravel: Not yet implemented. ' +
+            'Use spawnSandbox(name, "crud") sebagai gantinya, atau jalankan ' +
+            '`composer create-project laravel/laravel <name>` secara langsung.'
+        );
     }
 
     /**

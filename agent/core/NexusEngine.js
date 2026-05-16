@@ -99,19 +99,16 @@ class NexusEngine {
         this.assetEngine = new AssetEngine(this.rootPath);
         this.validator = new Validator(this.rootPath);
         this.bugHunter = new BugHunter(this.rootPath);
-        this.designer = new Designer();
-        this.a11yScanner = new AccessibilityScanner(this.rootPath);
+        // FIX #07 — Komponen mahal/jarang dipakai TIDAK diinstansiasi di constructor
+        // Gunakan lazy getter di bawah class: designer, a11yScanner, queryOptimizer,
+        // worktreeManager, evolutionPiper, native
         this.schemaGuard = new SchemaGuard(this.rootPath);
-        this.queryOptimizer = new QueryOptimizer(this.rootPath);
-        this.worktreeManager = new WorktreeManager(this.rootPath);
         this.rcAnalyzer = new RootCauseAnalyzer();
         this.machinist = new Machinist(this.rootPath, this.tddScaffolder);
         this.distiller = new Distiller(this.knowledgePath);
-        this.evolutionPiper = new EvolutionPiper(this.rootPath);
         this.decisionEngine = new DecisionEngine();
         this.parallel = ParallelRunner;
-        this.native = new NativeBridge(this.rootPath);
-        
+
         this.currentAudit = null; 
         this.currentPlan = null;
         this.activeRack = null;
@@ -136,6 +133,14 @@ class NexusEngine {
 
         this.initRedis();
     }
+
+    // FIX #07 — Lazy-init getters: komponen hanya dibuat saat pertama kali diakses
+    get designer() { if (!this._designer) this._designer = new Designer(); return this._designer; }
+    get a11yScanner() { if (!this._a11yScanner) this._a11yScanner = new AccessibilityScanner(this.rootPath); return this._a11yScanner; }
+    get queryOptimizer() { if (!this._queryOptimizer) this._queryOptimizer = new QueryOptimizer(this.rootPath); return this._queryOptimizer; }
+    get worktreeManager() { if (!this._worktreeManager) this._worktreeManager = new WorktreeManager(this.rootPath); return this._worktreeManager; }
+    get evolutionPiper() { if (!this._evolutionPiper) this._evolutionPiper = new EvolutionPiper(this.rootPath); return this._evolutionPiper; }
+    get native() { if (!this._native) this._native = new NativeBridge(this.rootPath); return this._native; }
 
     async initRedis() {
         try {
@@ -287,7 +292,21 @@ class NexusEngine {
         return await this.knowledgePhase.updateStatus();
     }
 
+    // FIX #17 — Global timeout 10 menit per cycle
+    // Jika audit/planning/execution hang (Ollama lambat dll), cycle di-abort otomatis
     async runCycle(options = {}) {
+        const CYCLE_TIMEOUT_MS = 10 * 60 * 1000; // 10 menit
+        const cyclePromise = this._doRunCycle(options);
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(
+                () => reject(new NexusError('TIMEOUT', 'Cycle exceeded 10 minutes — aborting to prevent permanent hang')),
+                CYCLE_TIMEOUT_MS
+            )
+        );
+        return Promise.race([cyclePromise, timeoutPromise]);
+    }
+
+    async _doRunCycle(options = {}) {
         const startTime = Date.now();
         this.state = STATES.INIT;
         this.log(`\n--- Nexus Engine: Modularized Cycle Start ---`, 'info');

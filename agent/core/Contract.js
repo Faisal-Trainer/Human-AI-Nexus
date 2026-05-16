@@ -2,12 +2,13 @@
  * Human-AI Nexus: Data Contracts
  * Mendefinisikan standar interface antar modul agar sistem bersifat deterministik.
  */
+const NexusClock = require('./NexusClock'); // FIX #21 — timestamp konsisten UTC+8
 
 class AuditReport {
     constructor(id, target, findings = [], metadata = {}) {
         this.id = id;
         this.target = target;
-        this.timestamp = new Date().toISOString();
+        this.timestamp = NexusClock.getISOTimestamp(); // FIX #21
         this.findings = findings; // Array of { severity, message, file }
         this.metadata = metadata;
     }
@@ -35,7 +36,7 @@ class ImplementationPlan {
     constructor(id, auditRef, tasks = []) {
         this.id = id;
         this.auditRef = auditRef; // Wajib merujuk ke Audit ID
-        this.timestamp = new Date().toISOString();
+        this.timestamp = NexusClock.getISOTimestamp(); // FIX #21
         this.tasks = tasks; // Array of { id, description, status: 'pending'|'done', action: { type, target, ... } }
     }
 
@@ -64,7 +65,7 @@ class NexusErrorPayload {
         this.message = message;
         this.retryable = retryable;
         this.agent = agent;
-        this.timestamp = new Date().toISOString();
+        this.timestamp = NexusClock.getISOTimestamp(); // FIX #21
     }
 }
 

@@ -50,13 +50,13 @@ class EventBus extends EventEmitter {
             );
         }
 
-        // Deduplicate: skip event yang identik dalam 1 detik terakhir
-        const payloadStr = payload ? JSON.stringify(payload) : 'null';
-        const eventKey = `${event}-${payloadStr}`;
-        if (this._recentEvents.has(eventKey)) return;
+        // FIX #18 — Dedup berdasarkan task_id, bukan seluruh payload JSON
+        // Mencegah dua task berbeda (dengan payload mirip) saling men-drop satu sama lain
+        const dedupKey = `${event}-${payload?.task_id || JSON.stringify(payload)}`;
+        if (this._recentEvents.has(dedupKey)) return;
 
-        this._recentEvents.add(eventKey);
-        setTimeout(() => this._recentEvents.delete(eventKey), 1000);
+        this._recentEvents.add(dedupKey);
+        setTimeout(() => this._recentEvents.delete(dedupKey), 1000);
 
         // Audit log
         const entry = {

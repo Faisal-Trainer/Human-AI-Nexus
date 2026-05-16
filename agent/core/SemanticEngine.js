@@ -359,6 +359,8 @@ class SemanticEngine {
     }
   }
 
+  // FIX #15 — Zero-norm guard: jika salah satu vektor nol (embedding gagal/dokumen kosong),
+  // kembalikan 0 (tidak ada kesamaan) bukan NaN yang menginfeksi seluruh ranking
   cosineSimilarity(vecA, vecB) {
     let dotProduct = 0;
     let normA = 0;
@@ -368,7 +370,9 @@ class SemanticEngine {
         normA += vecA[i] * vecA[i];
         normB += vecB[i] * vecB[i];
     }
-    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+    const denom = Math.sqrt(normA) * Math.sqrt(normB);
+    if (denom === 0) return 0; // Zero vector = no similarity (avoid NaN/Infinity)
+    return dotProduct / denom;
   }
 
   /**

@@ -110,7 +110,17 @@ class ExecutionPhase extends BasePhase {
             allowedComponents = (blueprint.livewire_components || []).map(c => this.toKebabCase(c));
         }
 
-        const legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
+        // FIX #22 — Legacy patterns dibuat dinamis dari blueprint, bukan hardcoded
+        // Hindari false-positive pada project non-UrlShortener
+        let legacyPatterns = [];
+        if (await fs.pathExists(blueprintPath)) {
+            const bp = await fs.readJson(blueprintPath).catch(() => ({}));
+            legacyPatterns = bp.legacy_patterns || [];
+        }
+        // Fallback hanya jika blueprint tidak punya legacy_patterns dan allowedComponents kosong
+        if (legacyPatterns.length === 0 && allowedComponents.length === 0) {
+            legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
+        }
         const files = await CoreUtils.globRecursive(projectPath, '**/*');
         let deletedCount = 0;
 
@@ -247,15 +257,20 @@ class ExecutionPhase extends BasePhase {
         return false;
     }
 
-    async getAvailablePort(start = 8001) {
+    // FIX #26 — Bounded port search: maxPort cap mencegah stack overflow rekursi tak terbatas
+    async getAvailablePort(start = 8001, maxPort = 9000) {
+        if (start > maxPort) {
+            throw new Error(`No available port found in range 8001-${maxPort}. Free up some ports and retry.`);
+        }
         const net = require('net');
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             const server = net.createServer();
             server.listen(start, () => {
                 server.close(() => resolve(start));
             });
             server.on('error', () => {
-                resolve(this.getAvailablePort(start + 1));
+                // FIX #26 — Iterasi, bukan rekursi tak terbatas
+                this.getAvailablePort(start + 1, maxPort).then(resolve).catch(reject);
             });
         });
     }

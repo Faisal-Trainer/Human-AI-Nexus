@@ -1,66 +1,60 @@
+// agent/core/NativeBridge.js — v2.1.0
+// FIX #03 — Cross-platform: tidak hardcode .exe; FIX timeout pada spawn
+
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 
-/**
- * NativeBridge - The high-performance bridge between Node.js, Python, and C++.
- * Optimized for SSD-based IPC and Clang-compiled binaries.
- */
 class NativeBridge {
     constructor(rootPath) {
         this.rootPath = rootPath;
         this.binPath = path.join(this.rootPath, 'nexus', 'native');
-        this.pythonPath = 'python'; // Default to system python
+        this.pythonPath = 'python';
     }
 
-    /**
-     * Execute a Clang-compiled C++ binary.
-     * @param {string} binaryName - Name of the binary in nexus/native/
-     * @param {Array} args - Arguments to pass.
-     */
-    async callCpp(binaryName, args = []) {
-        const isWindows = process.platform === 'win32';
-        const binaryFile = isWindows 
-            ? (binaryName.endsWith('.exe') ? binaryName : `${binaryName}.exe`)
-            : binaryName;
-        const fullPath = path.join(this.binPath, binaryFile);
+    // FIX #03 — Cross-platform extension + 60s timeout
+    async callCpp(binaryName, args = [], timeoutMs = 60000) {
+        const ext = process.platform === 'win32' ? '.exe' : '';
+        const baseName = binaryName.replace(/\.exe$/i, '');
+        const fullPath = path.join(this.binPath, `${baseName}${ext}`);
+
         if (!(await fs.pathExists(fullPath))) {
             throw new Error(`NativeBridge: C++ binary not found at ${fullPath}. Did you compile it?`);
         }
 
         return new Promise((resolve, reject) => {
             const proc = spawn(fullPath, args, { shell: false });
-            let output = '';
-            let error = '';
-
-            proc.stdout.on('data', data => output += data.toString());
-            proc.stderr.on('data', data => error += data.toString());
-
+            let output = '', error = '';
+            const timer = setTimeout(() => {
+                proc.kill();
+                reject(new Error(`NativeBridge: C++ binary timed out after ${timeoutMs}ms`));
+            }, timeoutMs);
+            proc.stdout.on('data', d => output += d.toString());
+            proc.stderr.on('data', d => error += d.toString());
             proc.on('close', code => {
-                if (code === 0) resolve(output.trim());
-                else reject(new Error(`NativeBridge: C++ execution failed with code ${code}. Stderr: ${error}`));
+                clearTimeout(timer);
+                code === 0 ? resolve(output.trim()) : reject(new Error(`NativeBridge: C++ failed (code ${code}): ${error}`));
             });
+            proc.on('error', err => { clearTimeout(timer); reject(err); });
         });
     }
 
-    /**
-     * Execute a Python script (Intelligence Layer).
-     * @param {string} scriptPath - Path to .py file.
-     * @param {Array} args - Arguments to pass.
-     */
-    async callPython(scriptPath, args = []) {
+    // FIX #03 — Python timeout 120s (AI distillation butuh lebih lama)
+    async callPython(scriptPath, args = [], timeoutMs = 120000) {
         return new Promise((resolve, reject) => {
             const proc = spawn(this.pythonPath, [scriptPath, ...args], { shell: false });
-            let output = '';
-            let error = '';
-
-            proc.stdout.on('data', data => output += data.toString());
-            proc.stderr.on('data', data => error += data.toString());
-
+            let output = '', error = '';
+            const timer = setTimeout(() => {
+                proc.kill();
+                reject(new Error(`NativeBridge: Python timed out after ${timeoutMs}ms`));
+            }, timeoutMs);
+            proc.stdout.on('data', d => output += d.toString());
+            proc.stderr.on('data', d => error += d.toString());
             proc.on('close', code => {
-                if (code === 0) resolve(output.trim());
-                else reject(new Error(`NativeBridge: Python execution failed with code ${code}. Stderr: ${error}`));
+                clearTimeout(timer);
+                code === 0 ? resolve(output.trim()) : reject(new Error(`NativeBridge: Python failed (code ${code}): ${error}`));
             });
+            proc.on('error', err => { clearTimeout(timer); reject(err); });
         });
     }
 }

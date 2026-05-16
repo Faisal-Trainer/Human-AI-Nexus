@@ -1,5 +1,6 @@
 const NexusEngine = require('./core/NexusEngine');
-const Orchestrator = require('./core/Orchestrator');
+// FIX #23 — Orchestrator dihapus dari main.js; NexusEngine sudah membuat instance internal
+// Menggunakan engine.orchestrator jika perlu akses dari luar
 const path = require('path');
 const readline = require('readline');
 
@@ -26,9 +27,8 @@ async function main() {
         command: args[0] && !args[0].startsWith('-') ? args[0] : 'run'
     };
 
-    // Initialize engine and orchestrator with specified root
+    // FIX #23 — Hanya satu instance engine; gunakan engine.orchestrator jika perlu
     const engine = new NexusEngine({ rootPath: path.resolve(flags.root) });
-    const orchestrator = new Orchestrator(path.resolve(flags.root));
 
     switch (flags.command) {
         case 'run':

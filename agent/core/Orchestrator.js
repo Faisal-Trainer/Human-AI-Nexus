@@ -1,7 +1,13 @@
+// agent/core/Orchestrator.js — v3.4.0
+// FIX #02: executeTask sekarang punya timeout → tidak ada lagi hanging promise
+// FIX #10: Listener tracking via _handlers → memory leak dicegah dengan destroy()
+// FIX #11: AgentRegistry diwire ke SCANNER_TRIGGERED/COMPLETED/FAILED
+
 const EventBus = require('./EventBus');
 const Logger = require('./Logger');
 const TaskProtocol = require('./TaskProtocol');
 const SandboxExecutor = require('./SandboxExecutor');
+const AgentRegistry = require('./AgentRegistry');
 const { NexusErrorPayload } = require('./Contract');
 const path = require('path');
 const fs = require('fs-extra');
@@ -19,7 +25,10 @@ class Orchestrator {
         this._isWritingDLQ = false;
         this._dlqPendingWrite = false;
 
-        this.initDLQ(); // Async but safe to trigger here
+        // FIX #10 — Tracking semua listener untuk cleanup
+        this._handlers = [];
+
+        this.initDLQ();
         this.setupEventHandlers();
     }
 
@@ -34,12 +43,31 @@ class Orchestrator {
         }
     }
 
+    // FIX #10 — Gunakan _subscribe agar semua handler bisa di-cleanup via destroy()
+    _subscribe(event, fn) {
+        EventBus.subscribe(event, fn);
+        this._handlers.push({ event, fn });
+    }
+
+    // FIX #10 — Cleanup semua listener (panggil saat engine shutdown)
+    destroy() {
+        this._handlers.forEach(({ event, fn }) => EventBus.unsubscribe(event, fn));
+        this._handlers = [];
+    }
+
     setupEventHandlers() {
-        EventBus.subscribe('SCANNER_TRIGGERED', async (payload) => {
+        // FIX #11 — AgentRegistry.markBusy dipanggil saat task dimulai
+        this._subscribe('SCANNER_TRIGGERED', async (payload) => {
             const taskId = payload.task_id_override || `TASK-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
             const task = new TaskProtocol(taskId, payload.agent, payload.priority, payload.input);
             this.activeTasks.set(task.task_id, task);
             
+            // FIX #11 — Register & mark busy
+            if (!AgentRegistry._agents.has(payload.agent)) {
+                AgentRegistry.register(payload.agent, payload.agent);
+            }
+            AgentRegistry.markBusy(payload.agent, taskId);
+
             await this.logger.log('orchestration', 'INFO', 'Orchestrator', task.task_id, 'AGENT_TASK_ASSIGNED', `Task assigned to ${payload.agent}`);
 
             task.status = 'running';
@@ -55,6 +83,9 @@ class Orchestrator {
                     success = true;
                     this.activeTasks.delete(task.task_id);
 
+                    // FIX #11 — Mark idle setelah sukses
+                    AgentRegistry.markIdle(payload.agent);
+
                     await this.logger.log('orchestration', 'INFO', 'Orchestrator', task.task_id, 'AGENT_TASK_COMPLETED', `Task completed by ${payload.agent}`);
                     EventBus.publish('SCANNER_FINISHED', { task_id: task.task_id, result: result });
                 } catch (err) {
@@ -65,6 +96,10 @@ class Orchestrator {
                     if (attempt >= MAX_RETRY) {
                         task.status = 'failed';
                         this.activeTasks.delete(task.task_id);
+
+                        // FIX #11 — Mark failed setelah semua retry habis
+                        AgentRegistry.markFailed(payload.agent, err.message);
+
                         await this.logger.log('orchestration', 'ERROR', 'Orchestrator', task.task_id, 'AGENT_TASK_FAILED', `Task failed by ${payload.agent} after ${MAX_RETRY} attempts.`);
                         EventBus.publish('TASK_FAILED', { task_id: task.task_id, error: errPayload });
                     }
@@ -73,7 +108,7 @@ class Orchestrator {
         });
 
         // ⛔ DEAD LETTER QUEUE HANDLER: Task gagal permanen disimpan untuk analisis
-        EventBus.subscribe('TASK_FAILED', async (payload) => {
+        this._subscribe('TASK_FAILED', async (payload) => {
             const dlqEntry = {
                 ...payload,
                 failed_at: new Date().toISOString(),
@@ -95,7 +130,7 @@ class Orchestrator {
             );
         });
 
-        EventBus.subscribe('CYCLE_FINISHED', async () => {
+        this._subscribe('CYCLE_FINISHED', async () => {
             await this.logger.log('orchestration', 'INFO', 'Orchestrator', 'N/A', 'CYCLE_FINISHED', 'Orchestration cycle finished.');
         });
     }
@@ -127,13 +162,22 @@ class Orchestrator {
 
     /**
      * Route and wait for a task to complete.
+     * FIX #02 — Tambahkan timeout agar Promise tidak hanging forever
      */
-    async executeTask(agentName, pluginPath, inputArgs, priority = 'normal') {
+    async executeTask(agentName, pluginPath, inputArgs, priority = 'normal', timeoutMs = 30000) {
         const taskId = `TASK-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
         
         return new Promise((resolve, reject) => {
+            // FIX #02 — Timeout guard: jika event tidak fire dalam timeoutMs, reject
+            const timeout = setTimeout(() => {
+                EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
+                EventBus.unsubscribe('TASK_FAILED', onFailed);
+                reject(new Error(`Task ${taskId} timed out after ${timeoutMs}ms — agent: ${agentName}`));
+            }, timeoutMs);
+
             const onFinished = (payload) => {
                 if (payload.task_id === taskId) {
+                    clearTimeout(timeout);
                     EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
                     EventBus.unsubscribe('TASK_FAILED', onFailed);
                     resolve(payload.result);
@@ -142,6 +186,7 @@ class Orchestrator {
 
             const onFailed = (payload) => {
                 if (payload.task_id === taskId) {
+                    clearTimeout(timeout);
                     EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
                     EventBus.unsubscribe('TASK_FAILED', onFailed);
                     reject(new Error(payload.error?.message || 'Task failed permanently.'));
@@ -156,7 +201,7 @@ class Orchestrator {
                 pluginPath: pluginPath,
                 input: inputArgs,
                 priority: priority,
-                task_id_override: taskId // Support custom task ID if Orchestrator allows
+                task_id_override: taskId
             });
         });
     }

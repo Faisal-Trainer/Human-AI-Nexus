@@ -3,18 +3,18 @@ const path = require('path');
 const crypto = require('crypto');
 const NexusClock = require('./NexusClock');
 const SemanticEngine = require('./SemanticEngine');
+// FIX #25 — NativeBridge masih dipakai di applySemanticLinking, tapi tidak diinstansiasi di constructor
+// Import tetap ada karena diperlukan saat native binary tersedia
 const NativeBridge = require('./NativeBridge');
 
-/**
- * Distiller Engine - Responsibility: Compressing and standardizing Knowledge HUB.
- * Phase 5 Upgrade: Recursive Shelving & Relative Linking.
- */
 class Distiller {
     constructor(knowledgePath) {
         this.knowledgePath = knowledgePath;
         this.prefix = 'NEXUS_';
         this.semanticEngine = new SemanticEngine(knowledgePath);
-        this.native = new NativeBridge(path.join(knowledgePath, '..', '..'));
+        // FIX #25 — this.native dihapus dari constructor; lazy-init hanya saat dibutuhkan
+        // this.native akan dibuat on-demand di applySemanticLinking()
+        this._rootPath = path.join(knowledgePath, '..', '..');
     }
 
     /**
@@ -219,12 +219,15 @@ ${oldContent.trim()}
      */
     async applySemanticLinking() {
         console.log('🔗 Distiller: Applying Path-Aware Semantic Cross-Linking (Native C++ Optimized)...');
+        // FIX #25 — Lazy-init NativeBridge hanya saat benar-benar dibutuhkan
+        if (!this._native) {
+            this._native = new NativeBridge(this._rootPath);
+        }
         try {
-            const output = await this.native.callCpp('fast_linker', [this.knowledgePath]);
+            const output = await this._native.callCpp('fast_linker', [this.knowledgePath]);
             console.log(output);
         } catch (e) {
             console.warn(`   ⚠️ Native linking failed, falling back to JS: ${e.message}`);
-            // Fallback to JS logic if native fails
             await this.applySemanticLinkingJS();
         }
     }

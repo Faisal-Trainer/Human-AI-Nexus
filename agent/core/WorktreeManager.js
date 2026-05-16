@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -44,7 +44,8 @@ class WorktreeManager {
         console.log(`🌳 WorktreeManager: Isolating '${featureName}' in ${targetPath}...`);
         
         try {
-            execSync(`git worktree add -b feature/${featureName} ${targetPath} main`, { cwd: this.rootPath });
+            // FIX #13 — Async git call, tidak memblok event loop
+            await this._execGit(['worktree', 'add', '-b', `feature/${featureName}`, targetPath, 'main'], this.rootPath);
             return targetPath;
         } catch (e) {
             console.error(`❌ WorktreeManager Error: ${e.message}`);
@@ -62,7 +63,9 @@ class WorktreeManager {
         console.log(`🌳 WorktreeManager: Merging and cleaning up '${featureName}'...`);
         
         try {
-            execSync(`git checkout main && git merge feature/${featureName}`, { cwd: this.rootPath });
+            // FIX #13 — Sequential async calls, tidak memblok event loop
+            await this._execGit(['checkout', 'main'], this.rootPath);
+            await this._execGit(['merge', `feature/${featureName}`], this.rootPath);
             await this.remove(featureName);
             console.log(`   ✅ Feature '${featureName}' merged and worktree removed.`);
             return true;
@@ -77,9 +80,29 @@ class WorktreeManager {
 
         const targetPath = path.join(this.rootPath, '..', `NEXUS_WORKTREE_${featureName.toUpperCase()}`);
         if (await fs.pathExists(targetPath)) {
-            execSync(`git worktree remove ${targetPath}`, { cwd: this.rootPath });
+            // FIX #13 — Async git call
+            await this._execGit(['worktree', 'remove', targetPath], this.rootPath).catch(() => {});
             await fs.remove(targetPath);
         }
+    }
+
+    // FIX #13 — Async git wrapper: tidak memblok event loop, ada timeout 30 detik
+    async _execGit(args, cwd, timeoutMs = 30000) {
+        return new Promise((resolve, reject) => {
+            const proc = spawn('git', args, { cwd, shell: false });
+            let out = '', err = '';
+            const timer = setTimeout(() => {
+                proc.kill();
+                reject(new Error(`WorktreeManager: git ${args.join(' ')} timed out after ${timeoutMs}ms`));
+            }, timeoutMs);
+            proc.stdout.on('data', d => out += d.toString());
+            proc.stderr.on('data', d => err += d.toString());
+            proc.on('close', code => {
+                clearTimeout(timer);
+                code === 0 ? resolve(out.trim()) : reject(new Error(err.trim() || `git exit code ${code}`));
+            });
+            proc.on('error', e => { clearTimeout(timer); reject(e); });
+        });
     }
 }
 

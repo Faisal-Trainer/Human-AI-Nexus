@@ -157,8 +157,9 @@ class ExecutionPhase extends BasePhase {
             this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
             
             const port = await this.getAvailablePort(8001);
-            const serveProc = spawn('php', ['artisan', 'serve', `--port=${port}`], { cwd: projectPath, shell: false });
-            const devProc = spawn('npm', ['run', 'dev'], { cwd: projectPath, shell: false });
+            const isWin = process.platform === 'win32';
+            const serveProc = spawn('php', ['artisan', 'serve', `--port=${port}`], { cwd: projectPath, shell: isWin });
+            const devProc = spawn('npm', ['run', 'dev'], { cwd: projectPath, shell: isWin });
 
             const [serveReady, devReady] = await Promise.all([
                 this.waitForService(`http://localhost:${port}`, 8000),

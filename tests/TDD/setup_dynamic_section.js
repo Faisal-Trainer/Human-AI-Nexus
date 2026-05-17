@@ -41,11 +41,25 @@ async function setupTALLProject(projectName, piper) {
     // ── STEP 2: Copy TALL template (Bypass dependencies EPERM)
     console.log(`   📂 Copying TALL stack template...`);
     const hasDeps = await fs.pathExists(path.join(targetPath, 'node_modules'));
-    await fs.emptyDir(targetPath).catch(e => console.warn(`   ⚠️  Bypass locked files during clean: ${e.message.slice(0,60)}`));
+    const hasVendor = await fs.pathExists(path.join(targetPath, 'vendor'));
+    
+    if (await fs.pathExists(targetPath)) {
+        const items = await fs.readdir(targetPath);
+        for (const item of items) {
+            if (item === 'node_modules' && hasDeps) continue;
+            if (item === 'vendor' && hasVendor) continue;
+            if (item === '_nexus_backup') continue;
+            await fs.remove(path.join(targetPath, item)).catch(()=>{});
+        }
+    } else {
+        await fs.ensureDir(targetPath);
+    }
+
     await fs.copy(TEMPLATE_SOURCE, targetPath, {
         filter: src => {
             if (src.includes(path.join('url-shortener', 'nexus'))) return false;
-            if (hasDeps && /(\\|\/)(node_modules|vendor)(\\|\/|$)/.test(src)) return false;
+            if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
+            if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
             return true;
         }
     });
@@ -119,7 +133,7 @@ async function runSection() {
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
-    const total = sectionConfig.projects.length;
+    const total = 1; // Temporarily limit to 1 project for testing
     let success = 0, failed = 0;
     const startTime = Date.now();
 

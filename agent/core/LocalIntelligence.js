@@ -148,7 +148,7 @@ class LocalIntelligence {
                 num_gpu: 0,               // Matikan GPU offload jika Vega 8 tidak di-set ROCm/OpenCL
                 low_vram: true            // Menghemat RAM sistem yang dishare ke Vega 8
             }
-        }, { timeout: 120000 }); // 2 menit timeout per request
+        }, { timeout: 300000 }); // 5 menit timeout per request
 
         return this.validateOutput(response.data.response, taskType);
     }

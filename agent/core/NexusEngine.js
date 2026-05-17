@@ -38,6 +38,7 @@ const NativeBridge = require('./NativeBridge');
 
 const AuditPhase = require('./phases/AuditPhase');
 const PlanningPhase = require('./phases/PlanningPhase');
+const ImplementationPhase = require('./phases/ImplementationPhase');
 const ExecutionPhase = require('./phases/ExecutionPhase');
 const KnowledgePhase = require('./phases/KnowledgePhase');
 
@@ -128,6 +129,7 @@ class NexusEngine {
         // Initialize Specialized Phases
         this.auditPhase = new AuditPhase(this);
         this.planningPhase = new PlanningPhase(this);
+        this.implementationPhase = new ImplementationPhase(this);
         this.executionPhase = new ExecutionPhase(this);
         this.knowledgePhase = new KnowledgePhase(this);
 
@@ -268,6 +270,10 @@ class NexusEngine {
         return await this.planningPhase.run(auditReport);
     }
 
+    async implement() {
+        return await this.implementationPhase.run();
+    }
+
     async execute(plan) {
         return await this.executionPhase.run(plan);
     }
@@ -322,6 +328,7 @@ class NexusEngine {
             const plan = await this.plan(report);
             
             this.state = STATES.EXECUTING;
+            await this.implement();
             await this.execute(plan);
 
             const cycleID = `CYCLE-${Date.now()}`;
@@ -350,7 +357,13 @@ class NexusEngine {
         const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
         if (await fs.pathExists(blueprintPath)) return;
 
-        const prompt = `Based on the following README:\n\n${readmeContent}\n\nGenerate a TALL stack blueprint. Output strictly JSON.`;
+        const prompt = `Based on the following README:\n\n${readmeContent}\n\nGenerate a TALL stack blueprint. Output strictly JSON with this exact structure (do not add any other keys):
+{
+  "project_name": "...",
+  "models": ["Todo", "User"],
+  "migrations": ["create_todos_table"],
+  "livewire_components": ["todo-list", "todo-item"]
+}`;
         const response = await localAI.generate(prompt, 'generate_architecture');
         if (!response) return;
 

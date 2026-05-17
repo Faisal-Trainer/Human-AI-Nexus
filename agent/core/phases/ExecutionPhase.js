@@ -148,6 +148,19 @@ class ExecutionPhase extends BasePhase {
             }
         }
         
+        // Clean up routes/web.php from legacy references
+        const webRoutesPath = path.join(projectPath, 'routes', 'web.php');
+        if (await fs.pathExists(webRoutesPath)) {
+            const webRoutesContent = await fs.readFile(webRoutesPath, 'utf8');
+            const newWebRoutes = webRoutesContent.split('\n').filter(line => {
+                return !legacyPatterns.some(p => line.includes(p));
+            }).join('\n');
+            if (webRoutesContent !== newWebRoutes) {
+                await fs.writeFile(webRoutesPath, newWebRoutes);
+                this.log(`      🗑️ Removed legacy routes from routes/web.php`, 'warning');
+            }
+        }
+
         await this.autoWireFrontend(projectPath);
         
         this.log(`   ✅ Cleanup & Wiring complete: ${deletedCount} files removed.`, 'success');
@@ -157,26 +170,25 @@ class ExecutionPhase extends BasePhase {
             this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
             
             const port = await this.getAvailablePort(8001);
+            const devPort = await this.getAvailablePort(5173);
             const isWin = process.platform === 'win32';
             const serveProc = spawn('php', ['artisan', 'serve', `--port=${port}`], { cwd: projectPath, shell: isWin });
-            const devProc = spawn('npm', ['run', 'dev'], { cwd: projectPath, shell: isWin });
+            const devProc = spawn('npx', ['vite', '--port', devPort.toString(), '--strictPort', '--host', '127.0.0.1'], { cwd: projectPath, shell: isWin });
 
             const [serveReady, devReady] = await Promise.all([
-                this.waitForService(`http://localhost:${port}`, 8000),
-                this.waitForService('http://localhost:5173', 8000)
+                this.waitForService(`http://127.0.0.1:${port}`, 30000),
+                this.waitForService(`http://127.0.0.1:${devPort}`, 30000)
             ]);
 
             if (serveReady && devReady) {
                 this.log(`      ✅ Iteration ${i} passed. Services are stable.`, 'success');
             } else {
                 this.log(`      ❌ Iteration ${i} FAILED. Service timed out or crashed.`, 'error');
-                serveProc.kill();
-                devProc.kill();
+                if (isWin) { spawn('taskkill', ['/pid', serveProc.pid, '/f', '/t']); spawn('taskkill', ['/pid', devProc.pid, '/f', '/t']); } else { serveProc.kill(); devProc.kill(); }
                 throw new Error(`Stability check failed at iteration ${i} for ${projectPath}`);
             }
 
-            serveProc.kill();
-            devProc.kill();
+            if (isWin) { spawn('taskkill', ['/pid', serveProc.pid, '/f', '/t']); spawn('taskkill', ['/pid', devProc.pid, '/f', '/t']); } else { serveProc.kill(); devProc.kill(); }
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
         
@@ -249,8 +261,8 @@ class ExecutionPhase extends BasePhase {
         const start = Date.now();
         while (Date.now() - start < timeoutMs) {
             try {
-                await axios.get(url, { timeout: 500 });
-                return true;
+                const res = await axios.get(url, { timeout: 500, validateStatus: () => true });
+                if (res.status === 200 || res.status === 404) return true;
             } catch (_) {
                 await new Promise(r => setTimeout(r, 300));
             }

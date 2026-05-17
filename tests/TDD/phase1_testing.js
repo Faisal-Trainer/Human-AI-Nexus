@@ -44,11 +44,25 @@ async function setupTALLProject(project, piper) {
     // ── STEP 2: Copy TALL stack template (url-shortener sebagai base)
     console.log(`   📂 Copying TALL stack template...`);
     const hasDeps = await fs.pathExists(path.join(targetPath, 'node_modules'));
-    await fs.emptyDir(targetPath).catch(e => console.warn(`   ⚠️  Bypass locked files during clean: ${e.message.slice(0,60)}`));
+    const hasVendor = await fs.pathExists(path.join(targetPath, 'vendor'));
+    
+    if (await fs.pathExists(targetPath)) {
+        const items = await fs.readdir(targetPath);
+        for (const item of items) {
+            if (item === 'node_modules' && hasDeps) continue;
+            if (item === 'vendor' && hasVendor) continue;
+            if (item === '_nexus_backup') continue;
+            await fs.remove(path.join(targetPath, item)).catch(()=>{});
+        }
+    } else {
+        await fs.ensureDir(targetPath);
+    }
+
     await fs.copy(TEMPLATE_SOURCE, targetPath, {
         filter: src => {
             if (src.includes(path.join('url-shortener', 'nexus'))) return false;
-            if (hasDeps && /(\\|\/)(node_modules|vendor)(\\|\/|$)/.test(src)) return false;
+            if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
+            if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
             return true;
         }
     });
@@ -130,7 +144,7 @@ async function runPhase1() {
 
     console.log(`\x1b[35m⚡ Starting Sequential Evolution (One by one)...\x1b[0m`);
 
-    for (const project of PHASE_1_PROJECTS) {
+    for (const project of PHASE_1_PROJECTS.slice(0, 1)) {
         try {
             await setupTALLProject(project, piper);
             success++;

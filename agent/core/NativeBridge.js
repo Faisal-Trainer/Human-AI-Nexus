@@ -40,7 +40,7 @@ class NativeBridge {
     }
 
     // FIX #03 — Python timeout 120s (AI distillation butuh lebih lama)
-    async callPython(scriptPath, args = [], timeoutMs = 120000) {
+    async callPython(scriptPath, args = [], timeoutMs = 300000) {
         return new Promise((resolve, reject) => {
             const proc = spawn(this.pythonPath, [scriptPath, ...args], { shell: false });
             let output = '', error = '';

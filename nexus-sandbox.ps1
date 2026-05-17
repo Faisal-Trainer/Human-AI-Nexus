@@ -110,6 +110,9 @@ function Invoke-NexusSection {
     $scriptFile = $fileParts[0]
     $scriptArgs = $fileParts[1..($fileParts.Length-1)]
 
+    Log "   [INFO] Memuat modul Node.js & inisialisasi AI agent... (mohon tunggu)" "Yellow"
+    Log ""
+
     # Jalankan node secara direct di foreground agar output mengalir real-time ke console
     $exitCode = 0
     try {

@@ -74,15 +74,15 @@ try {
 try {
     $clangVer = (clang++ --version 2>&1)[0]
     Log "   [OK] Clang++: $clangVer" "Green"
-    
-    $orchPath = Join-Path $RootDir "nexus\native\sandbox_orchestrator.exe"
-    if (Test-Path $orchPath) {
-        Log "   [OK] Native Orchestrator: Ready (C++)" "Green"
-    } else {
-        Log "   [WARN] Native Orchestrator belum dikompilasi. Menggunakan Node.js fallback." "Yellow"
-    }
 } catch {
-    Log "   [WARN] Clang++ tidak ditemukan. Performa native tidak tersedia." "Yellow"
+    Log "   [WARN] Clang++ tidak ditemukan. Kompilasi native tidak tersedia." "Yellow"
+}
+
+$orchPath = Join-Path $RootDir "nexus\native\sandbox_orchestrator.exe"
+if (Test-Path $orchPath) {
+    Log "   [OK] Native Orchestrator: Ready (C++)" "Green"
+} else {
+    Log "   [WARN] Native Orchestrator belum dikompilasi. Menggunakan Node.js fallback." "Yellow"
 }
 
 

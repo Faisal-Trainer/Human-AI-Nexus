@@ -105,21 +105,29 @@ function Invoke-NexusSection {
     Log "   File: $TddDir\$File" "Gray"
     Log ""
 
-    $proc = Start-Process -FilePath "node" -ArgumentList "`"$TddDir\$File`"" `
-                          -NoNewWindow -Wait -PassThru `
-                          -RedirectStandardOutput "$LogDir\section${Num}_stdout.log" `
-                          -RedirectStandardError  "$LogDir\section${Num}_stderr.log"
+    # Split file and arguments dynamically
+    $fileParts  = $File -split " "
+    $scriptFile = $fileParts[0]
+    $scriptArgs = $fileParts[1..($fileParts.Length-1)]
 
-    # Tampilkan output ke console
-    Get-Content "$LogDir\section${Num}_stdout.log" | ForEach-Object { Log $_ }
-    $errContent = Get-Content "$LogDir\section${Num}_stderr.log" -ErrorAction SilentlyContinue
-    if ($errContent) { $errContent | ForEach-Object { Log $_ "Red" } }
+    # Jalankan node secara direct di foreground agar output mengalir real-time ke console
+    $exitCode = 0
+    try {
+        if ($scriptArgs) {
+            node "$TddDir\$scriptFile" $scriptArgs
+        } else {
+            node "$TddDir\$scriptFile"
+        }
+        $exitCode = $LASTEXITCODE
+    } catch {
+        $exitCode = 1
+    }
 
-    if ($proc.ExitCode -eq 0) {
+    if ($exitCode -eq 0) {
         Log "   [OK] $Label - BERHASIL" "Green"
         return $true
     } else {
-        Log "   [ERROR] $Label - GAGAL (exit code: $($proc.ExitCode))" "Red"
+        Log "   [ERROR] $Label - GAGAL (exit code: $exitCode)" "Red"
         return $false
     }
 }
@@ -147,10 +155,14 @@ for ($i = 1; $i -le 10; $i++) {
 # -- Distill knowledge -----------------------------------------
 if (-not $NoDistill -and $Section -eq 0) {
     LogHeader "[DISTILL] Distilasi Knowledge ke HUB"
-    $distillProc = Start-Process -FilePath "node" `
-        -ArgumentList "`"$RootDir\agent\main.js`" distill" `
-        -NoNewWindow -Wait -PassThru
-    if ($distillProc.ExitCode -eq 0) {
+    $exitCode = 0
+    try {
+        node "$RootDir\agent\main.js" distill
+        $exitCode = $LASTEXITCODE
+    } catch {
+        $exitCode = 1
+    }
+    if ($exitCode -eq 0) {
         Log "   [OK] Distilasi selesai." "Green"
     } else {
         Log "   [WARN] Distilasi gagal - jalankan manual: nexus distill" "Yellow"

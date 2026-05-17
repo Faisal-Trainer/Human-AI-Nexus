@@ -1,12 +1,12 @@
 # ============================================================
-# NEXUS AUTONOMOUS SANDBOX RUNNER — PowerShell Script (Windows)
+# NEXUS AUTONOMOUS SANDBOX RUNNER - PowerShell Script (Windows)
 # Menjalankan seluruh pipeline sandbox secara mandiri.
 # ============================================================
 # Penggunaan:
-#   .\nexus-sandbox.ps1                  — semua section + distill
-#   .\nexus-sandbox.ps1 -Section <1-10>  — hanya jalankan section tertentu
-#   .\nexus-sandbox.ps1 -NoDistill       — tanpa distill
-#   .\nexus-sandbox.ps1 -Status          — cek status sistem
+#   .\nexus-sandbox.ps1                  - semua section + distill
+#   .\nexus-sandbox.ps1 -Section <1-10>  - hanya jalankan section tertentu
+#   .\nexus-sandbox.ps1 -NoDistill       - tanpa distill
+#   .\nexus-sandbox.ps1 -Status          - cek status sistem
 # ============================================================
 param(
     [int]$Section = 0,          # 0 = semua
@@ -32,76 +32,76 @@ function Log {
 function LogHeader {
     param([string]$Title)
     Log ""
-    Log ("═" * 60) "DarkGray"
+    Log ("=" * 60) "DarkGray"
     Log "  $Title" "Cyan"
-    Log ("═" * 60) "DarkGray"
+    Log ("=" * 60) "DarkGray"
 }
 
-# ── Status mode ──────────────────────────────────────────────
+# -- Status mode ----------------------------------------------
 if ($Status) {
-    Log "🔍 Checking Nexus system status..." "Yellow"
+    Log "[STATUS] Checking Nexus system status..." "Yellow"
     node "$RootDir\agent\main.js" status
     exit 0
 }
 
-# ── Header ───────────────────────────────────────────────────
-LogHeader "🤖 NEXUS AUTONOMOUS SANDBOX RUNNER (Windows)"
+# -- Header ---------------------------------------------------
+LogHeader "[NEXUS] AUTONOMOUS SANDBOX RUNNER (Windows)"
 Log "  Date     : $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" "Gray"
 Log "  Root     : $RootDir" "Gray"
 Log "  Section  : $(if ($Section -eq 0) {'ALL'} else {$Section})" "Gray"
 Log "  Log file : $LogFile" "Gray"
 Log ""
 
-# ── Prerequisite checks ──────────────────────────────────────
-Log "🔎 Checking prerequisites..." "Yellow"
+# -- Prerequisite checks --------------------------------------
+Log "[CHECK] Checking prerequisites..." "Yellow"
 
 try {
     $nodeVer = node --version 2>&1
-    Log "   ✅ Node.js: $nodeVer" "Green"
+    Log "   [OK] Node.js: $nodeVer" "Green"
 } catch {
-    Log "   ❌ Node.js tidak ditemukan. Install: https://nodejs.org" "Red"
+    Log "   [ERROR] Node.js tidak ditemukan. Install: https://nodejs.org" "Red"
     exit 1
 }
 
 try {
     $phpVer = (php --version 2>&1)[0]
-    Log "   ✅ PHP: $phpVer" "Green"
+    Log "   [OK] PHP: $phpVer" "Green"
 } catch {
-    Log "   ⚠️  PHP tidak ditemukan — migrate:fresh akan di-skip." "Yellow"
+    Log "   [WARN] PHP tidak ditemukan - migrate:fresh akan di-skip." "Yellow"
 }
 
-# ── C++ & Native Orchestrator Check ────────────────────────
+# -- C++ & Native Orchestrator Check ------------------------
 try {
     $clangVer = (clang++ --version 2>&1)[0]
-    Log "   ✅ Clang++: $clangVer" "Green"
+    Log "   [OK] Clang++: $clangVer" "Green"
     
     $orchPath = Join-Path $RootDir "nexus\native\sandbox_orchestrator.exe"
     if (Test-Path $orchPath) {
-        Log "   ✅ Native Orchestrator: Ready (C++)" "Green"
+        Log "   [OK] Native Orchestrator: Ready (C++)" "Green"
     } else {
-        Log "   ⚠️  Native Orchestrator belum dikompilasi. Menggunakan Node.js fallback." "Yellow"
+        Log "   [WARN] Native Orchestrator belum dikompilasi. Menggunakan Node.js fallback." "Yellow"
     }
 } catch {
-    Log "   ⚠️  Clang++ tidak ditemukan. Performa native tidak tersedia." "Yellow"
+    Log "   [WARN] Clang++ tidak ditemukan. Performa native tidak tersedia." "Yellow"
 }
 
 
 $templatePath = Join-Path $RootDir "tests\sandboxes\url-shortener"
 if (-not (Test-Path $templatePath)) {
-    Log "   ❌ Template TALL tidak ditemukan: $templatePath" "Red"
+    Log "   [ERROR] Template TALL tidak ditemukan: $templatePath" "Red"
     Log "   Pastikan sandbox url-shortener sudah ada." "Red"
     exit 1
 }
-Log "   ✅ TALL Template: url-shortener ditemukan" "Green"
+Log "   [OK] TALL Template: url-shortener ditemukan" "Green"
 Log ""
 
 $StartTime = Get-Date
 
-# ── Run section function ──────────────────────────────────────
+# -- Run section function --------------------------------------
 function Invoke-NexusSection {
     param([int]$Num, [string]$File, [string]$Label)
 
-    LogHeader "🚀 $Label"
+    LogHeader "[RUNNING] $Label"
     Log "   File: $TddDir\$File" "Gray"
     Log ""
 
@@ -116,10 +116,10 @@ function Invoke-NexusSection {
     if ($errContent) { $errContent | ForEach-Object { Log $_ "Red" } }
 
     if ($proc.ExitCode -eq 0) {
-        Log "   ✅ $Label — BERHASIL" "Green"
+        Log "   [OK] $Label - BERHASIL" "Green"
         return $true
     } else {
-        Log "   ❌ $Label — GAGAL (exit code: $($proc.ExitCode))" "Red"
+        Log "   [ERROR] $Label - GAGAL (exit code: $($proc.ExitCode))" "Red"
         return $false
     }
 }
@@ -130,11 +130,11 @@ for ($i = 1; $i -le 10; $i++) {
     if ($Section -eq 0 -or $Section -eq $i) {
         $ok = $false
         if ($i -eq 1) {
-            $ok = Invoke-NexusSection -Num 1 -File "phase1_testing.js" -Label "Section 1 — Fundamental CRUD & Auth (9 projects)"
+            $ok = Invoke-NexusSection -Num 1 -File "phase1_testing.js" -Label "Section 1 - Fundamental CRUD & Auth (9 projects)"
         } elseif ($i -eq 2) {
-            $ok = Invoke-NexusSection -Num 2 -File "setup_section2.js" -Label "Section 2 — Dashboard & Admin Panel (10 projects)"
+            $ok = Invoke-NexusSection -Num 2 -File "setup_section2.js" -Label "Section 2 - Dashboard & Admin Panel (10 projects)"
         } elseif ($i -eq 3) {
-            $ok = Invoke-NexusSection -Num 3 -File "setup_section3.js" -Label "Section 3 — Security & Realtime (11 projects)"
+            $ok = Invoke-NexusSection -Num 3 -File "setup_section3.js" -Label "Section 3 - Security & Realtime (11 projects)"
         } else {
             # pass the section number as an argument to the file
             $ok = Invoke-NexusSection -Num $i -File "setup_dynamic_section.js $i" -Label "Section $i"
@@ -144,37 +144,37 @@ for ($i = 1; $i -le 10; $i++) {
 }
 
 
-# ── Distill knowledge ─────────────────────────────────────────
+# -- Distill knowledge -----------------------------------------
 if (-not $NoDistill -and $Section -eq 0) {
-    LogHeader "🧠 Distilasi Knowledge ke HUB"
+    LogHeader "[DISTILL] Distilasi Knowledge ke HUB"
     $distillProc = Start-Process -FilePath "node" `
         -ArgumentList "`"$RootDir\agent\main.js`" distill" `
         -NoNewWindow -Wait -PassThru
     if ($distillProc.ExitCode -eq 0) {
-        Log "   ✅ Distilasi selesai." "Green"
+        Log "   [OK] Distilasi selesai." "Green"
     } else {
-        Log "   ⚠️  Distilasi gagal — jalankan manual: nexus distill" "Yellow"
+        Log "   [WARN] Distilasi gagal - jalankan manual: nexus distill" "Yellow"
     }
 }
 
-# ── Final Report ──────────────────────────────────────────────
+# -- Final Report ----------------------------------------------
 $EndTime   = Get-Date
 $Elapsed   = [math]::Round(($EndTime - $StartTime).TotalMinutes, 1)
 
-LogHeader "📊 LAPORAN AKHIR"
+LogHeader "[REPORT] LAPORAN AKHIR"
 Log "   Total waktu  : $Elapsed menit" "Gray"
 Log "   Section gagal: $FailedCount" "$(if ($FailedCount -gt 0) {'Red'} else {'Green'})"
 Log "   Log tersimpan: $LogFile" "Gray"
 Log ""
 
 if ($FailedCount -gt 0) {
-    Log "⚠️  Ada section yang gagal. Review log di atas." "Yellow"
-    Log "   Jalankan ulang: .\nexus-sandbox.ps1 -Section <1|2|3>" "Yellow"
+    Log "   [WARN] Ada section yang gagal. Review log di atas." "Yellow"
+    Log "   Jalankan ulang: .\nexus-sandbox.ps1 -Section [1|2|3]" "Yellow"
     exit 1
 } else {
-    Log "🎉 Semua section selesai! 100 sandboxes siap digunakan." "Green"
+    Log "   [SUCCESS] Semua section selesai! 100 sandboxes siap digunakan." "Green"
     Log "   Jalankan: node agent\main.js status" "Cyan"
-    Log "   Masuk ke sandbox: cd tests\sandboxes\<nama-project>" "Cyan"
+    Log "   Masuk ke sandbox: cd tests\sandboxes\[nama-project]" "Cyan"
     Log "   Jalankan server: php artisan serve && npm run dev" "Cyan"
 }
 

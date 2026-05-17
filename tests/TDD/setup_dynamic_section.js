@@ -133,7 +133,7 @@ async function runSection() {
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
-    const total = 1; // Temporarily limit to 1 project for testing
+    const total = sectionConfig.projects.length; // Run all projects
     let success = 0, failed = 0;
     const startTime = Date.now();
 

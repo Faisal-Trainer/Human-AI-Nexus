@@ -298,14 +298,14 @@ class NexusEngine {
         return await this.knowledgePhase.updateStatus();
     }
 
-    // FIX #17 — Global timeout 10 menit per cycle
+    // FIX #17 — Global timeout 45 menit per cycle (ditingkatkan untuk local AI generation)
     // Jika audit/planning/execution hang (Ollama lambat dll), cycle di-abort otomatis
     async runCycle(options = {}) {
-        const CYCLE_TIMEOUT_MS = 10 * 60 * 1000; // 10 menit
+        const CYCLE_TIMEOUT_MS = 45 * 60 * 1000; // 45 menit
         const cyclePromise = this._doRunCycle(options);
         const timeoutPromise = new Promise((_, reject) =>
             setTimeout(
-                () => reject(new NexusError('TIMEOUT', 'Cycle exceeded 10 minutes — aborting to prevent permanent hang')),
+                () => reject(new NexusError('TIMEOUT', 'Cycle exceeded 45 minutes — aborting to prevent permanent hang')),
                 CYCLE_TIMEOUT_MS
             )
         );

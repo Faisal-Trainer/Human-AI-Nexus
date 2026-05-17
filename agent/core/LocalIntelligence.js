@@ -26,8 +26,8 @@ class LocalIntelligence {
     constructor() {
         this.baseUrl = 'http://localhost:11434/api';
         // 🚀 RYZEN 2500U OPTIMIZED: Menggunakan model Q4_K_M yang lebih ringan & cepat
-        this.model = 'qwen2.5-coder:7b-instruct-q4_K_M'; 
-        this.fallbackModels = ['qwen2.5-coder:7b', 'qwen3:8b', 'deepseek-coder'];
+        this.model = 'qwen3:8b'; 
+        this.fallbackModels = ['qwen2.5-coder:7b-instruct-q4_K_M', 'qwen2.5-coder:7b', 'deepseek-coder'];
         this.isAvailable = false;
 
         // ⛔ HARD LIMIT: Disesuaikan untuk memori laptop (Ryzen 2500U)
@@ -53,8 +53,10 @@ class LocalIntelligence {
             const tagsResponse = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
             const availableModels = tagsResponse.data.models.map(m => m.name);
             
-            // Auto-select best model (Ryzen 2500U Preference: Q4_K_M)
-            if (availableModels.includes('qwen2.5-coder:7b-instruct-q4_K_M')) {
+            // Auto-select best model (Prioritaskan qwen3:8b)
+            if (availableModels.includes('qwen3:8b')) {
+                this.model = 'qwen3:8b';
+            } else if (availableModels.includes('qwen2.5-coder:7b-instruct-q4_K_M')) {
                 this.model = 'qwen2.5-coder:7b-instruct-q4_K_M';
             } else if (availableModels.includes('qwen2.5-coder:7b')) {
                 this.model = 'qwen2.5-coder:7b';
@@ -148,7 +150,7 @@ class LocalIntelligence {
                 num_gpu: 0,               // Matikan GPU offload jika Vega 8 tidak di-set ROCm/OpenCL
                 low_vram: true            // Menghemat RAM sistem yang dishare ke Vega 8
             }
-        }, { timeout: 300000 }); // 5 menit timeout per request
+        }, { timeout: 900000 }); // 5 menit timeout per request
 
         return this.validateOutput(response.data.response, taskType);
     }

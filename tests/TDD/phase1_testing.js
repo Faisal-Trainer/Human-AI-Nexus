@@ -144,7 +144,7 @@ async function runPhase1() {
 
     console.log(`\x1b[35m⚡ Starting Sequential Evolution (One by one)...\x1b[0m`);
 
-    for (const project of PHASE_1_PROJECTS.slice(0, 1)) {
+    for (const project of PHASE_1_PROJECTS) {
         try {
             await setupTALLProject(project, piper);
             success++;

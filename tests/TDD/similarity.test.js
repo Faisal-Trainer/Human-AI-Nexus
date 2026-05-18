@@ -27,7 +27,15 @@ async function testSimilarity() {
     console.log('✅ Similarity Logic Test Passed!\n');
 }
 
-testSimilarity().catch(err => {
-    console.error('❌ Similarity Logic Test Failed:', err.message);
-    process.exit(1);
-});
+testSimilarity()
+    .then(async () => {
+        const redis = require('../../agent/core/RedisMemory');
+        await redis.disconnect().catch(() => {});
+        process.exit(0);
+    })
+    .catch(async (err) => {
+        console.error('❌ Similarity Logic Test Failed:', err.message);
+        const redis = require('../../agent/core/RedisMemory');
+        await redis.disconnect().catch(() => {});
+        process.exit(1);
+    });

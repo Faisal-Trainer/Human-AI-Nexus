@@ -1,4 +1,13 @@
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: nexus_redis
+    restart: unless-stopped
+    networks:
+      - nexus-internal
+    volumes:
+      - redis_data:/data
+
   nexus-ai:
     build: .
     container_name: nexus_autonomous_agent
@@ -6,10 +15,14 @@ services:
       - .env
     environment:
       - NEXUS_MODE=autonomous
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
     volumes:
       - ./memory:/app/memory
       - ./documentation:/app/documentation
       - ./agent/prompts:/app/agent/prompts
+      - ./nexus/native:/app/nexus/native
     healthcheck:
       test: ["CMD", "node", "-e", "require('./cli.js')"]
       interval: 30s
@@ -22,3 +35,6 @@ services:
 networks:
   nexus-internal:
     driver: bridge
+
+volumes:
+  redis_data:

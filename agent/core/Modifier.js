@@ -40,10 +40,15 @@ class Modifier {
             case 'LARAVEL_ADD_COLUMN':
                 return await this.addMigrationColumn(targetPath, action.definition);
             case 'ENV_ENSURE':
-                return await this.ensureEnv(action.key, action.value);
+                return await this.ensureEnv(targetPath, action.key, action.value);
             case 'COMMAND_EXEC':
-                const { execSync } = require('child_process');
-                execSync(action.command, { cwd: this.rootPath, stdio: 'ignore' });
+                const ALLOWED_COMMANDS = ['composer', 'php', 'npm', 'node'];
+                const cmdParts = action.command.split(' ');
+                const cmdBase = path.basename(cmdParts[0]);
+                if (!ALLOWED_COMMANDS.includes(cmdBase)) {
+                    throw new Error(`COMMAND_EXEC Security Violation: Command "${cmdBase}" is not allowed.`);
+                }
+                await this.spawnAsync(cmdBase, cmdParts.slice(1), { cwd: this.rootPath, stdio: 'ignore' });
                 return true;
             default:
                 throw new Error(`Unknown action type: ${action.type}`);
@@ -128,6 +133,18 @@ class Modifier {
         return await this.fileCreate(filePath, content);
     }
 
+    async spawnAsync(cmd, args, options = {}) {
+        return new Promise((resolve, reject) => {
+            const { spawn } = require('child_process');
+            const child = spawn(cmd, args, options);
+            child.on('close', (code) => {
+                if (code === 0) resolve();
+                else reject(new Error(`Command ${cmd} exited with code ${code}`));
+            });
+            child.on('error', (err) => reject(err));
+        });
+    }
+
     async fileReplace(filePath, targetContent, replacementContent) {
         if (await fs.pathExists(filePath)) {
             let content = await fs.readFile(filePath, 'utf8');
@@ -136,6 +153,22 @@ class Modifier {
                 await fs.writeFile(filePath, newContent);
                 return true;
             }
+            
+            // 2. Jika gagal, coba normalisasi whitespace & newline (fuzzy matching)
+            const normalize = (str) => str.replace(/\s+/g, ' ').trim();
+            const normalizedContent = normalize(content);
+            const normalizedTarget = normalize(targetContent);
+            
+            if (normalizedContent.includes(normalizedTarget)) {
+                const escapedTarget = this.escapeRegExp(targetContent.trim()).replace(/\\s+/g, '\\s+');
+                const regex = new RegExp(escapedTarget);
+                if (regex.test(content)) {
+                    const newContent = content.replace(regex, replacementContent);
+                    await fs.writeFile(filePath, newContent);
+                    return true;
+                }
+            }
+            
             throw new Error(`Target content not found in file: ${filePath}`);
         }
         throw new Error(`File not found: ${filePath}`);
@@ -179,8 +212,7 @@ class Modifier {
     /**
      * GENERAL: Ensure environment variable exists
      */
-    async ensureEnv(filePath, key, value) {
-        const envFile = path.resolve(this.rootPath, '.env');
+    async ensureEnv(envFile, key, value) {
         let content = (await fs.pathExists(envFile)) ? await fs.readFile(envFile, 'utf8') : '';
 
         if (content.includes(`${key}=`)) {

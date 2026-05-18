@@ -25,9 +25,9 @@ const MAX_PROMPT_CHARS = 30000;
 class LocalIntelligence {
     constructor() {
         this.baseUrl = 'http://localhost:11434/api';
-        // 🚀 RYZEN 2500U OPTIMIZED: Menggunakan model Q4_K_M yang lebih ringan & cepat
-        this.model = 'qwen3:8b'; 
-        this.fallbackModels = ['qwen2.5-coder:7b-instruct-q4_K_M', 'qwen2.5-coder:7b', 'deepseek-coder'];
+        // 🚀 RYZEN 2500U OPTIMIZED: Prioritaskan 1.5B agar pas di RAM laptop
+        this.model = 'qwen2.5-coder:1.5b'; 
+        this.fallbackModels = ['qwen3:8b', 'qwen2.5-coder:7b-instruct-q4_K_M', 'qwen2.5-coder:7b', 'deepseek-coder'];
         this.isAvailable = false;
 
         // ⛔ HARD LIMIT: Disesuaikan untuk memori laptop (Ryzen 2500U)
@@ -53,8 +53,10 @@ class LocalIntelligence {
             const tagsResponse = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
             const availableModels = tagsResponse.data.models.map(m => m.name);
             
-            // Auto-select best model (Prioritaskan qwen3:8b)
-            if (availableModels.includes('qwen3:8b')) {
+            // Auto-select best model (Prioritaskan 1.5b untuk memory safety di laptop Ryzen 2500U)
+            if (availableModels.includes('qwen2.5-coder:1.5b')) {
+                this.model = 'qwen2.5-coder:1.5b';
+            } else if (availableModels.includes('qwen3:8b')) {
                 this.model = 'qwen3:8b';
             } else if (availableModels.includes('qwen2.5-coder:7b-instruct-q4_K_M')) {
                 this.model = 'qwen2.5-coder:7b-instruct-q4_K_M';
@@ -80,24 +82,44 @@ class LocalIntelligence {
             throw new Error(`Boundary Violation: Task "${taskType}" not allowed.`);
         }
 
-        // FIX #01 — Truncate prompt jika melebihi batas aman
-        let safePrompt = prompt;
+        // FIX #01 & 🟢 AUDIT FEEDBACK — Chunk prompt jika melebihi batas aman untuk mencegah silent truncation & OOM
         if (typeof prompt === 'string' && prompt.length > MAX_PROMPT_CHARS) {
             console.warn(
                 `⚠️ LocalIntelligence: Prompt terlalu besar (${prompt.length} chars). ` +
-                `Truncating to ${MAX_PROMPT_CHARS} chars untuk mencegah OOM.`
+                `Processing in chunks to prevent OOM and silent truncation.`
             );
-            safePrompt = prompt.substring(0, MAX_PROMPT_CHARS) + '\n...[PROMPT TRUNCATED BY SIZE GUARD]';
+            
+            const chunks = [];
+            let current = 0;
+            while (current < prompt.length) {
+                chunks.push(prompt.substring(current, current + MAX_PROMPT_CHARS));
+                current += MAX_PROMPT_CHARS;
+            }
+            
+            console.warn(`⚠️ LocalIntelligence: Split prompt into ${chunks.length} chunks.`);
+            
+            let combinedResponse = '';
+            for (let i = 0; i < chunks.length; i++) {
+                console.log(`🤖 Processing prompt chunk ${i + 1}/${chunks.length}...`);
+                const chunkResult = await this.generate(chunks[i], taskType, _systemPrompt);
+                if (chunkResult) {
+                    combinedResponse += (combinedResponse ? '\n\n' : '') + chunkResult;
+                }
+            }
+            return combinedResponse;
         }
+        let safePrompt = prompt;
 
-        // FIX #09 — Circuit breaker: fail fast jika OPEN
+        // FIX #09 — Circuit breaker: fail fast jika OPEN (G2-10)
+        const now = Date.now();
         if (this.cb.state === 'OPEN') {
-            if (Date.now() - this.cb.openedAt < 30000) {
+            if (now - this.cb.openedAt < 30000) {
                 console.warn('⚡ LocalIntelligence: Circuit breaker OPEN — skipping Ollama call (fail fast).');
                 return null;
             }
-            // Setelah 30 detik, coba HALF-OPEN
+            // Cooldown finished: transition to HALF-OPEN
             this.cb.state = 'HALF-OPEN';
+            console.log('⚡ LocalIntelligence: Circuit breaker HALF-OPEN — testing Ollama availability...');
         }
 
         if (!this.isAvailable) await this.checkAvailability();
@@ -117,16 +139,21 @@ class LocalIntelligence {
 
         try {
             const result = await this._doGenerate(safePrompt, LOCKED_SYSTEM_PROMPT, taskType);
-            // FIX #09 — Reset circuit breaker pada sukses
+            // Reset circuit breaker on success
             this.cb = { state: 'CLOSED', failures: 0, openedAt: null };
             return result;
         } catch (e) {
-            // FIX #09 — Increment failure counter
-            this.cb.failures++;
             this.cb.openedAt = Date.now();
-            if (this.cb.failures >= 3) {
+            if (this.cb.state === 'HALF-OPEN') {
                 this.cb.state = 'OPEN';
-                console.error(`🔴 LocalIntelligence: Circuit breaker OPEN setelah ${this.cb.failures} kegagalan. Cooldown 30 detik.`);
+                this.cb.failures = 3;
+                console.error(`🔴 LocalIntelligence: Circuit breaker HALF-OPEN test failed. Returned to OPEN. Cooldown 30 detik.`);
+            } else {
+                this.cb.failures++;
+                if (this.cb.failures >= 3) {
+                    this.cb.state = 'OPEN';
+                    console.error(`🔴 LocalIntelligence: Circuit breaker transitioned to OPEN after ${this.cb.failures} failures. Cooldown 30 detik.`);
+                }
             }
             console.error('❌ Ollama: Generation failed:', e.message);
             return null;

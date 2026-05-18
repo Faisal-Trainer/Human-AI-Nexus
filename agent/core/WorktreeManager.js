@@ -14,8 +14,8 @@ class WorktreeManager {
     constructor(rootPath) {
         this.rootPath = rootPath;
 
-        // ⛔ GUARD: Set ke true hanya setelah git commands diuji dan siap production
-        this.isActive = false;
+        // ⛔ GUARD: Diaktifkan dinamis berdasarkan konfigurasi env
+        this.isActive = process.env.NEXUS_GIT_ISOLATION === 'true';
     }
 
     /**

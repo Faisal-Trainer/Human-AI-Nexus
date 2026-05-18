@@ -25,7 +25,15 @@ async function testWrapAsConditional() {
     console.log('✅ NexusEngine.wrapAsConditional Test Passed!\n');
 }
 
-testWrapAsConditional().catch(err => {
-    console.error('❌ NexusEngine.wrapAsConditional Test Failed:', err.message);
-    process.exit(1);
-});
+testWrapAsConditional()
+    .then(async () => {
+        const redis = require('../../agent/core/RedisMemory');
+        await redis.disconnect().catch(() => {});
+        process.exit(0);
+    })
+    .catch(async (err) => {
+        console.error('❌ NexusEngine.wrapAsConditional Test Failed:', err.message);
+        const redis = require('../../agent/core/RedisMemory');
+        await redis.disconnect().catch(() => {});
+        process.exit(1);
+    });

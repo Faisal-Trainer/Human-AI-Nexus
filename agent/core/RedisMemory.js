@@ -88,10 +88,15 @@ class RedisMemory {
     }
 
     async disconnect() {
-        if (this.isConnected) {
-            await this.client.disconnect();
-            this.isConnected = false;
+        if (this._connectingPromise) {
+            try {
+                await this._connectingPromise;
+            } catch (e) {}
         }
+        try {
+            await this.client.disconnect();
+        } catch (e) {}
+        this.isConnected = false;
     }
 }
 

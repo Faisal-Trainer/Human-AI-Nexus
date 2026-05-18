@@ -7,14 +7,14 @@ class MemoryGovernor {
     constructor(rootPath) {
         this.rootPath = rootPath;
         this.memoryPath = path.join(this.rootPath, 'memory');
-        this.ensureDirectories();
+        this.initialized = this.ensureDirectories();
     }
 
-    ensureDirectories() {
+    async ensureDirectories() {
         const dirs = ['raw', 'normalized', 'semantic', 'distilled', 'operational', 'archived', 'short_term'];
-        dirs.forEach(dir => {
-            fs.ensureDirSync(path.join(this.memoryPath, dir));
-        });
+        for (const dir of dirs) {
+            await fs.ensureDir(path.join(this.memoryPath, dir));
+        }
     }
 
     generateChecksum(content) {

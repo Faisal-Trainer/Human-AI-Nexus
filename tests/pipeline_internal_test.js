@@ -176,14 +176,20 @@ async function runTests() {
     if (s.includes('new Orchestrator(')) throw new Error('Still has duplicate Orchestrator instantiation!');
   });
 
-  await test('Fix #24: spawnRealLaravel throws NotImplemented error', async () => {
+  await test('Fix #24: spawnRealLaravel is implemented and executes correctly', async () => {
     const ep = new EvolutionPiper(ROOT);
-    try {
-      await ep.spawnRealLaravel('test');
-      throw new Error('Should have thrown but did not!');
-    } catch(e) {
-      if (!e.message.includes('Not yet implemented')) throw new Error('Wrong error message: ' + e.message);
-    }
+    let spawnedCommands = [];
+    ep._spawn = async (cmd, args) => {
+      spawnedCommands.push(`${cmd} ${args.join(' ')}`);
+      return '';
+    };
+    ep.generateSandboxDocumentation = async () => {};
+    ep.checkEvolutionBoundary = async () => {};
+    
+    const targetPath = await ep.spawnRealLaravel('mock-laravel-test');
+    if (!targetPath.includes('mock-laravel-test')) throw new Error('Wrong target path returned: ' + targetPath);
+    if (spawnedCommands.length !== 3) throw new Error(`Expected 3 spawned commands, got ${spawnedCommands.length}`);
+    if (!spawnedCommands[0].includes('create-project')) throw new Error('Expected first command to be create-project');
   });
 
   test('Fix #25: Distiller no eager NativeBridge in constructor (lazy _native)', () => {

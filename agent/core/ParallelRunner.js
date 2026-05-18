@@ -20,8 +20,8 @@ class ParallelRunner {
                 try {
                     results[currentIndex] = await taskFn(items[currentIndex]);
                 } catch (e) {
-                    results[currentIndex] = e; // Optional: handle or rethrow
-                    throw e;
+                    results[currentIndex] = { error: e.message, severity: 'SCANNER_ERROR' };
+                    // Jangan throw — catat error tapi lanjut ke item berikutnya
                 }
             }
         };

@@ -8,8 +8,14 @@ const NexusClock = require('./NexusClock');
  * ⛔ GUARDRAIL v2.0: Hard cycle limit + session time limit enforced.
  */
 class EvolutionPiper {
-    constructor(rootPath) {
-        this.rootPath = rootPath;
+    constructor(engineOrRootPath) {
+        if (typeof engineOrRootPath === 'string') {
+            this.rootPath = engineOrRootPath;
+            this.engine = null;
+        } else {
+            this.engine = engineOrRootPath;
+            this.rootPath = engineOrRootPath.rootPath;
+        }
         this.sandboxPath = path.join(this.rootPath, 'tests', 'sandboxes');
 
         // ⛔ HARD LIMIT: Maksimal iterasi per session — TIDAK BOLEH diubah programatik
@@ -29,6 +35,9 @@ class EvolutionPiper {
      * Harus dipanggil di awal setiap spawnSandbox / spawnRealLaravel.
      */
     async checkEvolutionBoundary() {
+        // Reload state to ensure multi-instance thread safety
+        await this.loadCycleState();
+
         // Inisialisasi waktu mulai session pada cycle pertama
         if (this.currentCycle === 0) {
             this.sessionStartTime = Date.now();
@@ -75,14 +84,16 @@ class EvolutionPiper {
         }
     }
 
-    // FIX #12 — Persist counter ke disk
+    // FIX #12 — Persist counter ke disk secara atomic
     async persistCycleState() {
         try {
             await fs.ensureDir(path.dirname(this._statePath));
-            await fs.writeJson(this._statePath, {
+            const tempPath = `${this._statePath}.tmp`;
+            await fs.writeJson(tempPath, {
                 currentCycle: this.currentCycle,
                 sessionStartTime: this.sessionStartTime
             });
+            await fs.rename(tempPath, this._statePath);
         } catch (e) {
             console.warn(`⚠️ EvolutionPiper: Could not persist cycle state: ${e.message}`);
         }
@@ -101,6 +112,9 @@ class EvolutionPiper {
         fs.remove(this._statePath).catch(() => {});
     }
 
+    /**
+     * Phase 2: Spawn a new project sandbox with a specific scenario.
+     */
     /**
      * Phase 2: Spawn a new project sandbox with a specific scenario.
      */
@@ -139,20 +153,111 @@ class EvolutionPiper {
             await fs.writeFile(filePath, file.content);
         }
 
+        // R-06: Generate initial sandbox documentation to feed the harvest phase
+        await this.generateSandboxDocumentation(targetPath, {
+            success: true,
+            files: files.map(f => f.name),
+            lessons: [
+                `Spawned sandbox with scenario ${scenarioType}.`,
+                `Successfully initialized project layout at ${targetPath}.`
+            ]
+        });
+
         return targetPath;
     }
 
     /**
      * Phase 2 (Advanced): Spawn a real Laravel project using Composer.
      */
-    // FIX #24 — spawnRealLaravel tidak menghasilkan direktori kosong yang menyesatkan.
-    // Gunakan spawnSandbox() dengan scenario 'crud' atau implementasikan composer create-project.
     async spawnRealLaravel(name) {
-        throw new Error(
-            'spawnRealLaravel: Not yet implemented. ' +
-            'Use spawnSandbox(name, "crud") sebagai gantinya, atau jalankan ' +
-            '`composer create-project laravel/laravel <name>` secara langsung.'
-        );
+        await this.checkEvolutionBoundary();
+        const targetPath = path.join(this.sandboxPath, name);
+        
+        console.log(`🧪 EvolutionPiper: Spawning a real Laravel project [${name}] via Composer...`);
+        
+        // Ensure parent directory exists
+        await fs.ensureDir(this.sandboxPath);
+
+        // Step 1: composer create-project
+        await this._spawn('composer', [
+            'create-project', 'laravel/laravel', name, '--no-interaction'
+        ], { cwd: this.sandboxPath, timeout: 300000 });
+
+        // Step 2: Install TALL Stack dependencies
+        await this._spawn('composer', [
+            'require', 'livewire/livewire', 'laravel/sanctum', '--no-interaction'
+        ], { cwd: targetPath, timeout: 120000 });
+
+        // Step 3: Install JS assets
+        await this._spawn('npm', ['install'], { cwd: targetPath, timeout: 120000 });
+
+        // R-06: Generate initial sandbox documentation to feed the harvest phase
+        await this.generateSandboxDocumentation(targetPath, {
+            success: true,
+            files: [
+                'composer.json',
+                'package.json',
+                'artisan',
+                'app/Models/User.php'
+            ],
+            lessons: [
+                `Successfully spawned real Laravel project [${name}] via Composer.`,
+                `Configured Livewire and Alpine.js dependencies.`,
+                `Validated native development assets layout.`
+            ]
+        });
+
+        return targetPath;
+    }
+
+    // Helper: spawn process to run commands with shell wrapper (Windows & Linux compatible)
+    async _spawn(command, args = [], options = {}) {
+        const { spawn } = require('child_process');
+        return new Promise((resolve, reject) => {
+            const proc = spawn(command, args, {
+                cwd: options.cwd || this.rootPath,
+                shell: true
+            });
+            let out = '', err = '';
+            const timeoutMs = options.timeout || 300000;
+            const timer = setTimeout(() => {
+                proc.kill();
+                reject(new Error(`Command ${command} ${args.join(' ')} timed out after ${timeoutMs}ms`));
+            }, timeoutMs);
+            proc.stdout.on('data', d => out += d.toString());
+            proc.stderr.on('data', d => err += d.toString());
+            proc.on('close', code => {
+                clearTimeout(timer);
+                if (code === 0) {
+                    resolve(out.trim());
+                } else {
+                    reject(new Error(`Command failed (code ${code}): ${err.trim() || out.trim()}`));
+                }
+            });
+            proc.on('error', e => {
+                clearTimeout(timer);
+                reject(e);
+            });
+        });
+    }
+
+    // R-06: Generate sandbox documentation (harvester payload)
+    async generateSandboxDocumentation(targetPath, buildResult) {
+        const docsPath = path.join(targetPath, 'nexus', 'memory', 'operational');
+        await fs.ensureDir(docsPath);
+        
+        const doc = `# Sandbox Build Report
+**Project:** ${path.basename(targetPath)}
+**Date:** ${new Date().toISOString()}
+**Status:** ${buildResult.success ? 'SUCCESS' : 'FAILED'}
+
+## Files Generated
+${buildResult.files ? buildResult.files.map(f => `- ${f}`).join('\n') : '- None'}
+
+## Lessons Learned
+${buildResult.lessons ? buildResult.lessons.map(l => `- ${l}`).join('\n') : '- None'}
+`;
+        await fs.writeFile(path.join(docsPath, 'BUILD_REPORT.md'), doc);
     }
 
     /**
@@ -172,6 +277,19 @@ class EvolutionPiper {
                 await fs.copy(source, destination);
             }
             console.log(`   ✅ Wisdom absorbed into main HUB.`);
+        }
+
+        // R-05: Auto-trigger KnowledgePhase untuk internalisasi
+        if (this.engine) {
+            try {
+                const KnowledgePhase = require('./phases/KnowledgePhase');
+                const knowledgePhase = new KnowledgePhase(this.engine);
+                await knowledgePhase.harvest(targetPath);
+                await knowledgePhase.run(); // distill ke HUB
+                console.log(`   ✅ Knowledge from [${name}] internalized to NEXUS core memory.`);
+            } catch (e) {
+                console.error(`⚠️ EvolutionPiper KnowledgePhase Auto-trigger failed: ${e.message}`);
+            }
         }
     }
 

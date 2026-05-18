@@ -34,7 +34,77 @@ class ImplementationPhase extends BasePhase {
             await this.generateLivewireComponent(component, blueprint);
         }
 
+        // R-02: Bootstrap application dependencies, migrations, and assets
+        await this.bootstrapApplication();
+
         this.log(`✅ Implementation Phase complete. Web app realized.`, 'success');
+    }
+
+    async bootstrapApplication() {
+        const root = this.engine.rootPath;
+        
+        // Ensure sqlite database exists if DB_CONNECTION is sqlite (standard in Laravel 11)
+        const envPath = path.join(root, '.env');
+        if (await fs.pathExists(envPath)) {
+            try {
+                const envContent = await fs.readFile(envPath, 'utf8');
+                if (envContent.includes('DB_CONNECTION=sqlite')) {
+                    const dbPath = path.join(root, 'database', 'database.sqlite');
+                    await fs.ensureFile(dbPath);
+                    this.log(`      ✅ Ensured database/database.sqlite exists.`, 'success');
+                }
+            } catch (err) {
+                this.log(`      ⚠️ Could not check/create database.sqlite: ${err.message}`, 'warning');
+            }
+        }
+        
+        this.log(`   📦 Bootstrapping Application (Composer, NPM, Migrations)...`, 'info');
+        try {
+            this.log(`      Running 'composer install'...`, 'info');
+            await this._run('composer', ['install', '--no-interaction'], root);
+            
+            this.log(`      Running 'php artisan key:generate'...`, 'info');
+            await this._run('php', ['artisan', 'key:generate', '--force'], root);
+            
+            this.log(`      Running 'php artisan migrate'...`, 'info');
+            await this._run('php', ['artisan', 'migrate', '--force', '--seed'], root);
+            
+            this.log(`      Running 'npm install'...`, 'info');
+            await this._run('npm', ['install'], root);
+            
+            this.log(`      Running 'npm run build'...`, 'info');
+            await this._run('npm', ['run', 'build'], root);
+            
+            this.log('✅ Application bootstrapped and ready.', 'success');
+        } catch (e) {
+            this.log(`⚠️ Bootstrapping partial success / failed: ${e.message}`, 'warning');
+        }
+    }
+
+    async _run(command, args = [], cwd, timeoutMs = 300000) {
+        const { spawn } = require('child_process');
+        return new Promise((resolve, reject) => {
+            const proc = spawn(command, args, { cwd, shell: true });
+            let out = '', err = '';
+            const timer = setTimeout(() => {
+                proc.kill();
+                reject(new Error(`Command ${command} ${args.join(' ')} timed out after ${timeoutMs}ms`));
+            }, timeoutMs);
+            proc.stdout.on('data', d => out += d.toString());
+            proc.stderr.on('data', d => err += d.toString());
+            proc.on('close', code => {
+                clearTimeout(timer);
+                if (code === 0) {
+                    resolve(out.trim());
+                } else {
+                    reject(new Error(`Command failed (code ${code}): ${err.trim() || out.trim()}`));
+                }
+            });
+            proc.on('error', e => {
+                clearTimeout(timer);
+                reject(e);
+            });
+        });
     }
 
     async generateModel(modelName) {

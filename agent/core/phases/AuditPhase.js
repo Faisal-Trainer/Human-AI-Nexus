@@ -39,14 +39,33 @@ class AuditPhase extends BasePhase {
         await fs.ensureDir(this.engine.auditPath);
 
         if (mode === 'learning') {
-            const specialists = [
-                { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
-                { id: 'ux-engineer', focus: 'User Experience & Estetika' },
-                { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
-                { id: 'database-architect', focus: 'Arsitektur Data' },
-                { id: 'vcs-architect', focus: 'Version Control & Repository Health' },
-                { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
-            ];
+            // Dynamic Specialist Plugin Loader (G2-07)
+            const scannerDir = path.join(__dirname, '..', '..', 'tools', 'scanners');
+            const specialists = [];
+            
+            if (await fs.pathExists(scannerDir)) {
+                const scannerFiles = await fs.readdir(scannerDir);
+                for (const file of scannerFiles) {
+                    if (file.endsWith('.js')) {
+                        const id = path.basename(file, '.js');
+                        const focus = id.split('-')
+                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                        .join(' ') + ' Verification';
+                        specialists.push({ id, focus });
+                    }
+                }
+            }
+            
+            if (specialists.length === 0) {
+                specialists.push(
+                    { id: 'cyber-security', focus: 'Keamanan & Autentikasi' },
+                    { id: 'ux-engineer', focus: 'User Experience & Estetika' },
+                    { id: 'seo-performance-specialist', focus: 'Performa & SEO' },
+                    { id: 'database-architect', focus: 'Arsitektur Data' },
+                    { id: 'vcs-architect', focus: 'Version Control & Repository Health' },
+                    { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
+                );
+            }
 
             this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');
 

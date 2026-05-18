@@ -129,7 +129,13 @@ class ImplementationPhase extends BasePhase {
         
         const response = await localAI.generate(prompt, 'build_model_migration');
         if (response) {
-            const cleanCode = this.cleanLLMOutput(response);
+            let cleanCode = this.cleanLLMOutput(response);
+            
+            // Auto-convert named migration class to Laravel anonymous class to prevent collisions
+            if (cleanCode.includes('class ') && cleanCode.includes(' extends Migration')) {
+                cleanCode = cleanCode.replace(/class\s+\w+\s+extends\s+Migration/i, 'return new class extends Migration');
+            }
+            
             const timestamp = new Date().toISOString().replace(/[-:T]/g, '_').slice(0, 14);
             const migrationFilename = `2026_06_01_${timestamp}_${migrationName}.php`;
             const migrationPath = path.join(this.engine.rootPath, 'database', 'migrations', migrationFilename);

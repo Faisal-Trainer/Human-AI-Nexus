@@ -52,6 +52,13 @@ async function main() {
             }
             
             // --- CORE I/O LOOP ---
+            console.log('\n🧠 Inisialisasi Environment & Memory...');
+            await engine.discoverSkills();
+            await engine.readMemory();
+
+            console.log('\n🏗️ [0.5/4] Memulai Fase Blueprint & Scaffolding...');
+            await engine.blueprintApp({ mode, allowSensitive });
+
             console.log('\n🔍 [1/4] Memulai Fase Audit Seluruh Project...');
             const report = await engine.audit(flags.root, { mode, allowSensitive });
             
@@ -89,9 +96,15 @@ async function main() {
                 }
             }
             
+            console.log('\n🏗️ [2.5/4] Memulai Fase Implementasi (Generasi Kode)...');
+            await engine.implement();
+
             console.log('\n🚀 [3/4] Memulai Fase Eksekusi Perubahan...');
             await engine.execute(plan);
             await engine.verify(plan);
+
+            console.log('\n🧹 [3.5/4] Memulai Fase Clean Code & Verifikasi Stabilitas...');
+            await engine.cleanCodeAndVerify(flags.root);
             
             console.log('\n📝 [4/4] Memulai Fase Dokumentasi (Laporan untuk Dev)...');
             const cycleID = `CYCLE-${Date.now()}`;

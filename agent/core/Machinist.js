@@ -119,24 +119,37 @@ class Machinist {
     async integrate(name, type = 'auditor') {
         console.log(`🦾 Machinist: Integrating new ${type} component '${name}'...`);
 
+        if (type === 'auditor') {
+            console.log(`🦾 Machinist: Dynamic Plugin System Active. '${name}' is registered as a scanner and will be auto-loaded during scan phases.`);
+            return;
+        }
+
         let content = await fs.readFile(this.enginePath, 'utf8');
         const instanceName = name.charAt(0).toLowerCase() + name.slice(1);
         const relPath = type === 'orchestrator' ? `./${name}` : `./../tools/scanners/${name}`;
 
         if (!content.includes(`require('${relPath}')`)) {
             const requireAnchor = "const Distiller = require('./Distiller');";
-            content = content.replace(
-                requireAnchor,
-                `${requireAnchor}\nconst ${name} = require('${relPath}');`
-            );
+            if (content.includes(requireAnchor)) {
+                content = content.replace(
+                    requireAnchor,
+                    `${requireAnchor}\nconst ${name} = require('${relPath}');`
+                );
+            } else {
+                console.log(`⚠️ Machinist: Require anchor not found in NexusEngine.js. Dynamic fallback will be used.`);
+            }
         }
 
         if (!content.includes(`this.${instanceName} = new ${name}`)) {
             const initAnchor = "this.distiller = new Distiller(this.knowledgePath);";
-            content = content.replace(
-                initAnchor,
-                `${initAnchor}\n        this.${instanceName} = new ${name}(this.rootPath);`
-            );
+            if (content.includes(initAnchor)) {
+                content = content.replace(
+                    initAnchor,
+                    `${initAnchor}\n        this.${instanceName} = new ${name}(this.rootPath);`
+                );
+            } else {
+                console.log(`⚠️ Machinist: Instantiation anchor not found in NexusEngine.js. Dynamic fallback will be used.`);
+            }
         }
 
         await fs.writeFile(this.enginePath, content);

@@ -50,8 +50,15 @@ class MemoryPipeline {
 
         console.log('🌾 Memory Pipeline: Processing harvest with Cleansing Protocol...');
         const projects = await fs.readdir(harvestPath);
+        
+        const processedLog = path.join(harvestPath, '.processed.json');
+        let processed = [];
+        if (await fs.pathExists(processedLog)) {
+            try { processed = await fs.readJson(processedLog); } catch (e) {}
+        }
 
         for (const project of projects) {
+            if (project === '.processed.json') continue;
             const projectPath = path.join(harvestPath, project);
             if (!(await fs.lstat(projectPath)).isDirectory()) continue;
 
@@ -59,6 +66,8 @@ class MemoryPipeline {
             const files = await this.globRecursive(projectPath, '**/*.md');
 
             for (const file of files) {
+                if (processed.includes(file)) continue;
+
                 let content = await fs.readFile(file, 'utf8');
                 content = this.cleanseContent(content);
 
@@ -73,6 +82,9 @@ class MemoryPipeline {
                 // ⛔ Versioned write — bukan fs.writeFile langsung
                 await this.versionedWrite(dest, content);
                 console.log(`   📦 Harvested: ${fileName} ➔ ${path.basename(path.dirname(dest))}/`);
+                
+                processed.push(file);
+                await fs.writeJson(processedLog, processed); // checkpoint
             }
         }
 

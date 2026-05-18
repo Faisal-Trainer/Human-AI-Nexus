@@ -370,12 +370,25 @@ class NexusEngine {
                                (options && options.isNewProject);
         if (!isNexusManaged) return;
 
-        const prompt = `Based on the following README:\n\n${readmeContent}\n\nGenerate a TALL stack blueprint. Output strictly JSON with this exact structure (do not add any other keys):
+        const prompt = `You are a Senior Software Architect. We are building a Laravel TALL Stack application.
+Analyze the following project README carefully (paying attention to the project name, description, and tags):
+
+${readmeContent}
+
+Identify all the essential features this application MUST have based on its name and tags.
+For example:
+- A "todo-app-realtime" project MUST have a "Todo" model, a "create_todos_table" migration, and Livewire components like "todo-list" to view, create, toggle, and delete todo items.
+- A "notes-app-tagging" project MUST have "Note" and "Tag" models, migrations like "create_notes_table", "create_tags_table", and Livewire components like "note-manager".
+- An "expense-tracker" project MUST have "Expense" or "Transaction" models, migrations like "create_expenses_table", and Livewire components like "expense-manager".
+
+Ensure you do NOT return empty arrays. Generate the complete list of models, migrations, and Livewire components needed to build the fully functional application described in the README.
+
+Output strictly JSON with this exact structure (do not add any other keys, explanation, or markdown):
 {
   "project_name": "...",
-  "models": ["Todo", "User"],
-  "migrations": ["create_todos_table"],
-  "livewire_components": ["todo-list", "todo-item"]
+  "models": ["ModelName1", "ModelName2"],
+  "migrations": ["create_table_name1_table", "create_table_name2_table"],
+  "livewire_components": ["component-name-1", "component-name-2"]
 }`;
         const response = await localAI.generate(prompt, 'generate_architecture');
         if (!response) return;
@@ -396,8 +409,10 @@ class NexusEngine {
             }
             for (const key of BLUEPRINT_SCHEMA.arrays) {
                 if (!Array.isArray(blueprint[key])) throw new Error(`Blueprint key "${key}" must be array`);
-                // Sanitize: hanya izinkan nama yang valid (alphanumeric + underscore)
-                blueprint[key] = blueprint[key].filter(v => typeof v === 'string' && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(v));
+                // Sanitize: allow alphanumeric + underscore + hyphen for Livewire components, strict alphanumeric + underscore for models/migrations
+                const isComponent = key === 'livewire_components';
+                const regex = isComponent ? /^[a-zA-Z0-9_-]+$/ : /^[a-zA-Z_][a-zA-Z0-9_]*$/;
+                blueprint[key] = blueprint[key].filter(v => typeof v === 'string' && regex.test(v));
             }
             if (typeof blueprint.project_name !== 'string') {
                 blueprint.project_name = String(blueprint.project_name || 'nexus_app');

@@ -133,13 +133,13 @@ class ExecutionPhase extends BasePhase {
             let isUnusedLivewire = false;
             if (file.includes('resources/views/livewire') && file.endsWith('.blade.php')) {
                 const componentName = fileName.replace('.blade.php', '');
-                if (allowedComponents.length > 0 && !allowedComponents.includes(componentName)) {
+                if (!allowedComponents.includes(componentName)) {
                      isUnusedLivewire = true;
                 }
             }
             if (file.includes('app/Livewire') && file.endsWith('.php')) {
                 const componentName = this.toKebabCase(fileName.replace('.php', ''));
-                if (allowedComponents.length > 0 && !allowedComponents.includes(componentName)) {
+                if (!allowedComponents.includes(componentName)) {
                      isUnusedLivewire = true;
                 }
             }
@@ -234,29 +234,60 @@ class ExecutionPhase extends BasePhase {
         if (!(await fs.pathExists(welcomePath)) || !(await fs.pathExists(blueprintPath))) return;
 
         const blueprint = await fs.readJson(blueprintPath);
-        const components = blueprint.livewire_components || [];
+        const rawComponents = blueprint.livewire_components || [];
         
-        if (components.length === 0) return;
+        // Filter out components that require mount parameters without defaults (child components)
+        const components = [];
+        for (const c of rawComponents) {
+            const componentPath = path.join(projectPath, 'app', 'Livewire', `${c}.php`);
+            if (await fs.pathExists(componentPath)) {
+                const phpContent = await fs.readFile(componentPath, 'utf8');
+                const mountMatch = phpContent.match(/public\s+function\s+mount\s*\(([^)]*)\)/i);
+                if (mountMatch) {
+                    const params = mountMatch[1].trim();
+                    if (params.length > 0 && !params.includes('=')) {
+                        this.log(`      ⚠️ Skipping root wiring for child component ${c} as it requires mount parameters.`, 'warning');
+                        continue;
+                    }
+                }
+            }
+            components.push(c);
+        }
 
         let content = await fs.readFile(welcomePath, 'utf8');
         
-        // Replace the old <livewire:url-shortener /> or any previous injection
-        const livewireRegex = /<div class="w-full">[\s\S]*?<\/div>/;
-        const newInjection = `<div class="w-full space-y-8">
-            ${components.map(c => `<livewire:${this.toKebabCase(c)} />`).join('\n            ')}
-        </div>`;
-
-        if (content.match(livewireRegex)) {
-            content = content.replace(livewireRegex, newInjection);
-        } else if (content.includes('<body')) {
-             // Fallback: inject into body if div is missing
-             content = content.replace('<body', `<body class="p-8"><div class="max-w-7xl mx-auto">${newInjection}</div>`);
-        }
-
         // Update Title
         const titleRegex = /<title>[\s\S]*?<\/title>/;
         const projectName = path.basename(projectPath).replace(/-/g, ' ').toUpperCase();
         content = content.replace(titleRegex, `<title>Nexus | ${projectName}</title>`);
+
+        // Replace the old <livewire:url-shortener /> or any previous injection or placeholder
+        const livewireRegex = /<div class="w-full">[\s\S]*?<\/div>/;
+        const placeholderRegex = /<!-- NEXUS_AUTO_WIRE_FRONTEND -->/;
+        
+        const newInjection = components.length > 0
+            ? `<div class="w-full space-y-8">
+            ${components.map(c => `<livewire:${this.toKebabCase(c)} />`).join('\n            ')}
+        </div>`
+            : `<div class="w-full text-center py-20 space-y-6">
+                <div class="inline-flex bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-3xl text-indigo-600 dark:text-indigo-400 font-bold mb-4 shadow-sm">
+                    ✨ Nexus Sandbox Ready
+                </div>
+                <h1 class="text-6xl font-black text-slate-900 dark:text-white leading-tight">Welcome to <span class="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">${projectName}</span></h1>
+                <p class="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-lg">Your TALL stack sandbox application has been successfully generated, migrated, and is fully active.</p>
+                <div class="flex justify-center gap-4 pt-4">
+                    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 transition-all">Get Started</a>
+                </div>
+            </div>`;
+
+        if (content.match(livewireRegex)) {
+            content = content.replace(livewireRegex, newInjection);
+        } else if (content.match(placeholderRegex)) {
+            content = content.replace(placeholderRegex, newInjection);
+        } else if (content.includes('<body')) {
+             // Fallback: inject into body if div is missing
+             content = content.replace('<body', `<body class="p-8"><div class="max-w-7xl mx-auto">${newInjection}</div>`);
+        }
 
         await fs.writeFile(welcomePath, content);
         this.log(`      ✅ welcome.blade.php updated with ${components.length} components.`, 'success');

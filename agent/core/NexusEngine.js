@@ -362,6 +362,23 @@ class NexusEngine {
         const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
         if (await fs.pathExists(blueprintPath)) return;
 
+        // R-05: Global Blueprint Cache
+        const projectName = path.basename(this.rootPath);
+        const globalCacheDir = path.join(__dirname, '..', '..', 'memory', 'cache', 'blueprints');
+        const cachePath = path.join(globalCacheDir, `${projectName}.json`);
+
+        if (await fs.pathExists(cachePath)) {
+            try {
+                this.log(`   🎁 Found cached blueprint for ${projectName} in global cache.`, 'success');
+                const cachedBlueprint = await fs.readJson(cachePath);
+                await fs.writeJson(blueprintPath, cachedBlueprint, { spaces: 2 });
+                this.log(`   ✅ Blueprint restored from cache.`, 'success');
+                return;
+            } catch (err) {
+                this.log(`   ⚠️ Failed to read cached blueprint: ${err.message}`, 'warning');
+            }
+        }
+
         let readmeContent = '';
         if (await fs.pathExists(readmePath)) {
             readmeContent = await fs.readFile(readmePath, 'utf8');
@@ -422,7 +439,11 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             blueprint.project_name = blueprint.project_name.replace(/[^a-zA-Z0-9_-]/g, '');
 
             await fs.writeJson(blueprintPath, blueprint, { spaces: 2 });
-            this.log(`   ✅ Blueprint generated & validated.`, 'success');
+            
+            // Cache globally for future runs
+            await fs.ensureDir(globalCacheDir);
+            await fs.writeJson(cachePath, blueprint, { spaces: 2 });
+            this.log(`   ✅ Blueprint generated, validated, and cached globally.`, 'success');
         } catch (e) {
             this.log(`   ❌ Blueprint failed: ${e.message}`, 'error');
         }

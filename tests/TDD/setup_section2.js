@@ -42,31 +42,58 @@ async function setupTALLProject(project, piper) {
         await fs.copy(nexusPath, nexusBackup);
     }
 
-    // ── STEP 2: Copy TALL template (Bypass dependencies EPERM)
+    // ── STEP 2: Copy TALL stack template (url-shortener sebagai base)
     console.log(`   📂 Copying TALL stack template...`);
     const hasDeps = await fs.pathExists(path.join(targetPath, 'node_modules'));
     const hasVendor = await fs.pathExists(path.join(targetPath, 'vendor'));
     
-    if (await fs.pathExists(targetPath)) {
-        const items = await fs.readdir(targetPath);
-        for (const item of items) {
-            if (item === 'node_modules' && hasDeps) continue;
-            if (item === 'vendor' && hasVendor) continue;
-            if (item === '_nexus_backup') continue;
-            await fs.remove(path.join(targetPath, item)).catch(()=>{});
-        }
-    } else {
-        await fs.ensureDir(targetPath);
+    const tempDeps = path.join(targetPath, '..', `${project.name}_node_modules_temp`);
+    const tempVendor = path.join(targetPath, '..', `${project.name}_vendor_temp`);
+    
+    if (hasDeps) {
+        await fs.rename(path.join(targetPath, 'node_modules'), tempDeps).catch(() => {});
+    }
+    if (hasVendor) {
+        await fs.rename(path.join(targetPath, 'vendor'), tempVendor).catch(() => {});
     }
 
-    await fs.copy(TEMPLATE_SOURCE, targetPath, {
-        filter: src => {
-            if (src.includes(path.join('url-shortener', 'nexus'))) return false;
-            if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
-            if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
-            return true;
+    if (await fs.pathExists(targetPath)) {
+        await fs.remove(targetPath).catch(() => {});
+    }
+    await fs.ensureDir(targetPath);
+
+    const orchestratorPath = path.join(ROOT_PATH, 'nexus', 'native', 'sandbox_orchestrator.exe');
+    let nativeCopySuccess = false;
+
+    if (await fs.pathExists(orchestratorPath)) {
+        try {
+            console.log(`   🚀 Invoking C++ Native Sandbox Orchestrator...`);
+            const { execSync } = require('child_process');
+            execSync(`"${orchestratorPath}" setup "${TEMPLATE_SOURCE}" "${targetPath}" "${project.name}"`, { stdio: 'ignore' });
+            nativeCopySuccess = true;
+        } catch (e) {
+            console.warn(`   ⚠️ Native copy failed: ${e.message}. Falling back to JS copy.`);
         }
-    });
+    }
+
+    if (!nativeCopySuccess) {
+        await fs.copy(TEMPLATE_SOURCE, targetPath, {
+            filter: src => {
+                if (src.includes(path.join('url-shortener', 'nexus'))) return false;
+                if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
+                if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
+                return true;
+            }
+        });
+    }
+
+    // Restore node_modules & vendor if they were backed up
+    if (hasDeps && await fs.pathExists(tempDeps)) {
+        await fs.rename(tempDeps, path.join(targetPath, 'node_modules')).catch(() => {});
+    }
+    if (hasVendor && await fs.pathExists(tempVendor)) {
+        await fs.rename(tempVendor, path.join(targetPath, 'vendor')).catch(() => {});
+    }
 
     // ── STEP 3: Konfigurasi .env
     console.log(`   ⚙️  Configuring environment...`);

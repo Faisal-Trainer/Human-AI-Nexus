@@ -83,16 +83,29 @@ class ImplementationPhase extends BasePhase {
         
         this.log(`   📦 Bootstrapping Application (Composer, NPM, Auth, Migrations)...`, 'info');
         try {
-            this.log(`      Running 'composer install'...`, 'info');
-            await this._run('composer', ['install', '--no-interaction'], root);
+            const hasVendor = await fs.pathExists(path.join(root, 'vendor', 'autoload.php'));
+            const hasBreeze = await fs.pathExists(path.join(root, 'vendor', 'laravel', 'breeze'));
+            const hasNodeModules = await fs.pathExists(path.join(root, 'node_modules'));
+            const hasBuildManifest = await fs.pathExists(path.join(root, 'public', 'build', 'manifest.json'));
+
+            if (!hasVendor) {
+                this.log(`      Running 'composer install'...`, 'info');
+                await this._run('composer', ['install', '--no-interaction'], root);
+            } else {
+                this.log(`      ✅ Skipping 'composer install' (already installed).`, 'success');
+            }
             
             // Phase B #8: Auth Scaffolding
-            this.log(`      Scaffolding Laravel Breeze (Livewire)...`, 'info');
-            try {
-                await this._run('composer', ['require', 'laravel/breeze', '--dev', '--no-interaction'], root);
-                await this._run('php', ['artisan', 'breeze:install', 'livewire', '--no-interaction'], root);
-            } catch (authErr) {
-                this.log(`      ⚠️ Breeze scaffolding skipped/failed: ${authErr.message}`, 'warning');
+            if (!hasBreeze) {
+                this.log(`      Scaffolding Laravel Breeze (Livewire)...`, 'info');
+                try {
+                    await this._run('composer', ['require', 'laravel/breeze', '--dev', '--no-interaction'], root);
+                    await this._run('php', ['artisan', 'breeze:install', 'livewire', '--no-interaction'], root);
+                } catch (authErr) {
+                    this.log(`      ⚠️ Breeze scaffolding skipped/failed: ${authErr.message}`, 'warning');
+                }
+            } else {
+                this.log(`      ✅ Skipping Breeze scaffolding (already installed).`, 'success');
             }
             
             this.log(`      Running 'php artisan key:generate'...`, 'info');
@@ -101,16 +114,43 @@ class ImplementationPhase extends BasePhase {
             this.log(`      Running 'php artisan migrate'...`, 'info');
             await this._run('php', ['artisan', 'migrate', '--force', '--seed'], root);
             
-            this.log(`      Running 'npm install'...`, 'info');
-            await this._run('npm', ['install'], root);
+            if (!hasNodeModules) {
+                this.log(`      Running 'npm install'...`, 'info');
+                await this._run('npm', ['install'], root);
+            } else {
+                this.log(`      ✅ Skipping 'npm install' (already installed).`, 'success');
+            }
             
-            this.log(`      Running 'npm run build'...`, 'info');
-            await this._run('npm', ['run', 'build'], root);
+            if (!hasBuildManifest) {
+                this.log(`      Running 'npm run build'...`, 'info');
+                await this._run('npm', ['run', 'build'], root);
+            } else {
+                this.log(`      ✅ Skipping 'npm run build' (build manifest exists).`, 'success');
+            }
             
             this.log('✅ Application bootstrapped and ready.', 'success');
         } catch (e) {
             this.log(`⚠️ Bootstrapping partial success / failed: ${e.message}`, 'warning');
         }
+    }
+
+    async getCachedOrGenerate(prompt, taskType) {
+        const crypto = require('crypto');
+        const hash = crypto.createHash('md5').update(prompt + taskType).digest('hex');
+        const cacheDir = path.join(__dirname, '..', '..', 'memory', 'cache', 'generated_code');
+        const cacheFile = path.join(cacheDir, `${hash}.txt`);
+        
+        if (await fs.pathExists(cacheFile)) {
+            this.log(`      🎁 Code retrieved from template cache.`, 'success');
+            return await fs.readFile(cacheFile, 'utf8');
+        }
+        
+        const response = await localAI.generate(prompt, taskType);
+        if (response) {
+            await fs.ensureDir(cacheDir);
+            await fs.writeFile(cacheFile, response, 'utf8');
+        }
+        return response;
     }
 
     async _run(command, args = [], cwd, timeoutMs = 300000) {
@@ -153,7 +193,7 @@ class ImplementationPhase extends BasePhase {
         this.log(`   🧠 Generating Model: ${modelName}...`, 'info');
         const prompt = `Write a complete Laravel Model class for '${modelName}'. Use namespace App\\Models. Include necessary traits like HasFactory and HasUuids. Include fillable fields based on a typical ${modelName} for a ${blueprint.project_name} application. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
         
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const modelPath = path.join(this.engine.rootPath, 'app', 'Models', `${modelName}.php`);
@@ -168,9 +208,9 @@ class ImplementationPhase extends BasePhase {
 
     async generateMigration(migrationName, blueprint) {
         this.log(`   🗄️ Generating Migration: ${migrationName}...`, 'info');
-        const prompt = `Write a complete Laravel database migration for '${migrationName}'. Use anonymous class syntax: "return new class extends Migration". Include $table->uuid('id')->primary() and timestamps(). Add relevant columns for a ${blueprint.project_name}. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+        const prompt = `Write a complete Laravel database migration for '${migrationName}'. Use anonymous class syntax: "return new class extends Migration". Include "use Illuminate\\Database\\Schema\\Blueprint;" and "use Illuminate\\Support\\Facades\\Schema;". Include $table->uuid('id')->primary() and timestamps(). Add relevant columns for a ${blueprint.project_name}. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
         
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             let cleanCode = this.cleanLLMOutput(response);
             
@@ -185,6 +225,13 @@ class ImplementationPhase extends BasePhase {
 
             if (!cleanCode.includes('use Illuminate\\Support\\Facades\\Schema;')) {
                 cleanCode = cleanCode.replace(/(use Illuminate\\Database\\Migrations\\Migration;)/i, "$1\nuse Illuminate\\Support\\Facades\\Schema;");
+            }
+
+            if (cleanCode.includes('Blueprint ') && !cleanCode.includes('use Illuminate\\Database\\Schema\\Blueprint;')) {
+                cleanCode = cleanCode.replace(/(use Illuminate\\Support\\Facades\\Schema;)/i, "$1\nuse Illuminate\\Database\\Schema\\Blueprint;");
+                if (!cleanCode.includes('use Illuminate\\Database\\Schema\\Blueprint;')) {
+                    cleanCode = cleanCode.replace(/(use Illuminate\\Database\\Migrations\\Migration;)/i, "$1\nuse Illuminate\\Database\\Schema\\Blueprint;");
+                }
             }
             
             const timestamp = new Date().toISOString().replace(/[-:T]/g, '_').slice(0, 14);
@@ -205,7 +252,7 @@ class ImplementationPhase extends BasePhase {
         
         // Generate PHP Class
         const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}. Include public properties and basic methods (like save/delete). Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
-        const phpResponse = await localAI.generate(phpPrompt, 'build_livewire_component');
+        const phpResponse = await this.getCachedOrGenerate(phpPrompt, 'build_livewire_component');
         
         if (phpResponse) {
             const cleanPhp = this.cleanLLMOutput(phpResponse);
@@ -218,7 +265,7 @@ class ImplementationPhase extends BasePhase {
 
         // Generate Blade View
         const bladePrompt = `Write a complete Livewire blade view for the '${className}' component. Use Tailwind CSS for styling and Alpine.js where appropriate. Make it look professional and beautiful. Use wire:model and wire:click for interactions. Output ONLY the raw HTML/Blade code. No markdown blocks.`;
-        const bladeResponse = await localAI.generate(bladePrompt, 'build_view');
+        const bladeResponse = await this.getCachedOrGenerate(bladePrompt, 'build_view');
         
         if (bladeResponse) {
             const cleanBlade = this.cleanLLMOutput(bladeResponse);
@@ -232,7 +279,7 @@ class ImplementationPhase extends BasePhase {
     async generateFactory(factoryName, blueprint) {
         this.log(`   🏭 Generating Factory: ${factoryName}...`, 'info');
         const prompt = `Write a complete Laravel Factory class for '${factoryName}'. Namespace: Database\\Factories. Output ONLY the raw PHP code, starting with <?php.`;
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'database', 'factories', `${factoryName}.php`);
@@ -245,7 +292,7 @@ class ImplementationPhase extends BasePhase {
     async generateSeeder(seederName, blueprint) {
         this.log(`   🌱 Generating Seeder: ${seederName}...`, 'info');
         const prompt = `Write a complete Laravel Seeder class for '${seederName}'. Namespace: Database\\Seeders. Use the corresponding Factory to create dummy data. Output ONLY the raw PHP code, starting with <?php.`;
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'database', 'seeders', `${seederName}.php`);
@@ -258,7 +305,7 @@ class ImplementationPhase extends BasePhase {
     async generateRoutes(routesList, blueprint) {
         this.log(`   🛣️ Generating Routes...`, 'info');
         const prompt = `Write the content for routes/web.php in Laravel for a ${blueprint.project_name} application. Include these routes: ${routesList.join(', ')}. Use Volt or Livewire syntax if applicable. Output ONLY the raw PHP code, starting with <?php.`;
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'routes', 'web.php');
@@ -271,7 +318,7 @@ class ImplementationPhase extends BasePhase {
         if (models.length > 0) {
             this.log(`   🛣️ Generating API Routes...`, 'info');
             const apiPrompt = `Write the content for routes/api.php in Laravel. Create apiResource routes for these models: ${models.join(', ')}. Output ONLY the raw PHP code, starting with <?php.`;
-            const apiResponse = await localAI.generate(apiPrompt, 'build_model_migration');
+            const apiResponse = await this.getCachedOrGenerate(apiPrompt, 'build_model_migration');
             if (apiResponse) {
                 const apiCleanCode = this.cleanLLMOutput(apiResponse);
                 const apiP = path.join(this.engine.rootPath, 'routes', 'api.php');
@@ -285,7 +332,7 @@ class ImplementationPhase extends BasePhase {
     async generatePolicy(modelName, blueprint) {
         this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, 'info');
         const prompt = `Write a complete Laravel Policy class for '${modelName}'. Namespace: App\\Policies. Include standard CRUD authorization methods (viewAny, view, create, update, delete). Output ONLY the raw PHP code, starting with <?php.`;
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'app', 'Policies', `${modelName}Policy.php`);
@@ -298,7 +345,7 @@ class ImplementationPhase extends BasePhase {
     async generateApiController(modelName, blueprint) {
         this.log(`   📡 Generating API Controller: ${modelName}Controller...`, 'info');
         const prompt = `Write a complete Laravel API Controller for '${modelName}'. Namespace: App\\Http\\Controllers\\Api. Include index, store, show, update, destroy methods. Output ONLY the raw PHP code, starting with <?php.`;
-        const response = await localAI.generate(prompt, 'build_model_migration');
+        const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'app', 'Http', 'Controllers', 'Api', `${modelName}Controller.php`);
@@ -311,7 +358,7 @@ class ImplementationPhase extends BasePhase {
     async generateLayout(blueprint) {
         this.log(`   🎨 Generating Layouts...`, 'info');
         const prompt = `Write a complete Blade layout file (app.blade.php) for a ${blueprint.project_name} application. Include a modern Tailwind CSS sidebar, navigation, and footer. The content should be injected via {!! $slot ?? '' !!} or @yield('content'). Output ONLY the raw HTML/Blade code. No markdown blocks.`;
-        const response = await localAI.generate(prompt, 'build_view');
+        const response = await this.getCachedOrGenerate(prompt, 'build_view');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
             const p = path.join(this.engine.rootPath, 'resources', 'views', 'layouts', 'app.blade.php');
@@ -322,15 +369,38 @@ class ImplementationPhase extends BasePhase {
     }
 
     cleanLLMOutput(output) {
-        let clean = output;
-        const codeBlockRegex = /```(?:php|html|blade)?\s*([\s\S]*?)```/i;
+        if (!output) return '';
+        let clean = output.trim();
+
+        // Check for standard code blocks first
+        const codeBlockRegex = /```(?:[a-zA-Z0-9_-]+)?\s*([\s\S]*?)```/i;
         const match = clean.match(codeBlockRegex);
         if (match && match[1]) {
-            clean = match[1];
-        } else {
-            clean = clean.replace(/^```(?:php|html|blade)?\n?/i, '').replace(/```$/i, '');
+            return match[1].trim();
         }
-        return clean.trim();
+
+        // If there is an opening code block but no closing one (cut-off)
+        if (clean.startsWith('```')) {
+            return clean.replace(/^```(?:[a-zA-Z0-9_-]+)?\n?/i, '').trim();
+        }
+
+        // If it has a php tag, it's a PHP file content. Discard anything before <?php and anything after the first subsequent ```
+        if (clean.includes('<?php')) {
+            const phpStart = clean.indexOf('<?php');
+            let phpCode = clean.slice(phpStart);
+            // If there's a closing ``` after the PHP code, strip it and everything after
+            if (phpCode.includes('```')) {
+                phpCode = phpCode.split('```')[0];
+            }
+            return phpCode.trim();
+        }
+
+        // If it's a HTML/Blade file and has a trailing ``` followed by text
+        if (clean.includes('```')) {
+            return clean.split('```')[0].trim();
+        }
+
+        return clean;
     }
 
     toPascalCase(str) {

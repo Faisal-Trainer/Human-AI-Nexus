@@ -47,26 +47,53 @@ async function setupTALLProject(project, piper) {
     const hasDeps = await fs.pathExists(path.join(targetPath, 'node_modules'));
     const hasVendor = await fs.pathExists(path.join(targetPath, 'vendor'));
     
-    if (await fs.pathExists(targetPath)) {
-        const items = await fs.readdir(targetPath);
-        for (const item of items) {
-            if (item === 'node_modules' && hasDeps) continue;
-            if (item === 'vendor' && hasVendor) continue;
-            if (item === '_nexus_backup') continue;
-            await fs.remove(path.join(targetPath, item)).catch(()=>{});
-        }
-    } else {
-        await fs.ensureDir(targetPath);
+    const tempDeps = path.join(targetPath, '..', `${project.name}_node_modules_temp`);
+    const tempVendor = path.join(targetPath, '..', `${project.name}_vendor_temp`);
+    
+    if (hasDeps) {
+        await fs.rename(path.join(targetPath, 'node_modules'), tempDeps).catch(() => {});
+    }
+    if (hasVendor) {
+        await fs.rename(path.join(targetPath, 'vendor'), tempVendor).catch(() => {});
     }
 
-    await fs.copy(TEMPLATE_SOURCE, targetPath, {
-        filter: src => {
-            if (src.includes(path.join('url-shortener', 'nexus'))) return false;
-            if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
-            if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
-            return true;
+    if (await fs.pathExists(targetPath)) {
+        await fs.remove(targetPath).catch(() => {});
+    }
+    await fs.ensureDir(targetPath);
+
+    const orchestratorPath = path.join(ROOT_PATH, 'nexus', 'native', 'sandbox_orchestrator.exe');
+    let nativeCopySuccess = false;
+
+    if (await fs.pathExists(orchestratorPath)) {
+        try {
+            console.log(`   🚀 Invoking C++ Native Sandbox Orchestrator...`);
+            const { execSync } = require('child_process');
+            execSync(`"${orchestratorPath}" setup "${TEMPLATE_SOURCE}" "${targetPath}" "${project.name}"`, { stdio: 'ignore' });
+            nativeCopySuccess = true;
+        } catch (e) {
+            console.warn(`   ⚠️ Native copy failed: ${e.message}. Falling back to JS copy.`);
         }
-    });
+    }
+
+    if (!nativeCopySuccess) {
+        await fs.copy(TEMPLATE_SOURCE, targetPath, {
+            filter: src => {
+                if (src.includes(path.join('url-shortener', 'nexus'))) return false;
+                if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
+                if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
+                return true;
+            }
+        });
+    }
+
+    // Restore node_modules & vendor if they were backed up
+    if (hasDeps && await fs.pathExists(tempDeps)) {
+        await fs.rename(tempDeps, path.join(targetPath, 'node_modules')).catch(() => {});
+    }
+    if (hasVendor && await fs.pathExists(tempVendor)) {
+        await fs.rename(tempVendor, path.join(targetPath, 'vendor')).catch(() => {});
+    }
 
     // ── STEP 3: Konfigurasi project-spesifik
     console.log(`   ⚙️  Configuring environment...`);
@@ -165,7 +192,10 @@ async function runPhase1() {
     console.log(`⏱  Total waktu: ${totalElapsed}s`);
     console.log(`${'='.repeat(56)}\n`);
 
-    if (success > 0) {
+    const args = process.argv.slice(2);
+    const runPostAudit = args.includes('--post-audit');
+
+    if (runPostAudit && success > 0) {
         console.log(`\n🔍 Memulai POST-GENERATION AUDIT EXTREME untuk ${success} Web App...\n`);
         for (const project of PHASE_1_PROJECTS) {
             const targetPath = path.join(SANDBOXES_DIR, project.name);
@@ -180,6 +210,8 @@ async function runPhase1() {
                 }
             }
         }
+    } else {
+        console.log(`\n⚡ Skipping POST-GENERATION AUDIT to optimize execution time (run with --post-audit to enable).\n`);
     }
 
     if (failed > 0) process.exit(1);

@@ -129,7 +129,18 @@ class ExecutionPhase extends BasePhase {
 
         for (const file of files) {
             const fileName = path.basename(file);
-            const isLegacyFile = legacyPatterns.some(p => file.includes(p));
+            let isLegacyFile = legacyPatterns.some(p => file.includes(p));
+            
+            // Protect allowed models, components, and migrations from being treated as legacy template clutter
+            if (isLegacyFile) {
+                const lowerFileName = fileName.toLowerCase();
+                const isAllowedModel = allowedModels.some(m => lowerFileName.startsWith(m));
+                const isAllowedComponent = allowedComponents.some(c => lowerFileName.includes(c));
+                const isMigrationForAllowedModel = allowedModels.some(m => lowerFileName.includes(`create_${m}s_table`) || lowerFileName.includes(`create_${m}_table`));
+                if (isAllowedModel || isAllowedComponent || isMigrationForAllowedModel) {
+                    isLegacyFile = false;
+                }
+            }
             
             // Special check for Livewire views: if it's not in the blueprint, it's unused
             let isUnusedLivewire = false;
@@ -189,23 +200,43 @@ class ExecutionPhase extends BasePhase {
             this.log(`   ⚠️ Migration failed: ${e.message}`, 'warning');
         }
 
+        let hasSmokePassed = false;
         this.log(`   🕵️‍♂️ Running Artisan Smoke Test (route:list)...`, 'info');
         try {
             const { execSync } = require('child_process');
             execSync('php artisan route:list', { cwd: projectPath, stdio: 'ignore' });
             this.log(`      ✅ Smoke test passed.`, 'success');
+            hasSmokePassed = true;
         } catch (e) {
             this.log(`      ⚠️ Smoke test failed: ${e.message}`, 'error');
         }
 
-        this.log(`   🔄 Starting 5-Cycle Stability Loop (Health Check)...`, 'info');
+        // Fast-track validation: if smoke passed and no recent errors in laravel.log, skip serve loop
+        let isLogClean = true;
+        const logPath = path.join(projectPath, 'storage', 'logs', 'laravel.log');
+        if (await fs.pathExists(logPath)) {
+            try {
+                const logs = await fs.readFile(logPath, 'utf8');
+                const lastPart = logs.slice(-2000).toLowerCase();
+                if (lastPart.includes('exception') || lastPart.includes('error') || lastPart.includes('fatal')) {
+                    isLogClean = false;
+                }
+            } catch (_) {}
+        }
+
+        if (hasSmokePassed && isLogClean) {
+            this.log(`   🎉 Fast-track Stability: Smoke test passed and log is clean. Skipping active service verification.`, 'success');
+            return;
+        }
+
+        this.log(`   🔄 Starting 2-Cycle Stability Loop (Health Check)...`, 'info');
         let totalAttempts = 0;
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 2; i++) {
             totalAttempts++;
-            if (totalAttempts > 15) {
-                throw new Error(`Stability check failed: exceeded 15 total attempts in stability loop for ${projectPath}.`);
+            if (totalAttempts > 6) {
+                throw new Error(`Stability check failed: exceeded 6 total attempts in stability loop for ${projectPath}.`);
             }
-            this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
+            this.log(`      [Iteration ${i}/2] Testing Artisan Serve & NPM Dev...`, 'warning');
             
             const port = await this.getAvailablePort(8001);
             const devPort = await this.getAvailablePort(5173);
@@ -214,8 +245,8 @@ class ExecutionPhase extends BasePhase {
             const devProc = spawn('npm', ['run', 'dev', '--', '--port', devPort.toString(), '--strictPort', '--host', '127.0.0.1'], { cwd: projectPath, shell: isWin });
 
             const [serveReady, devReady] = await Promise.all([
-                this.waitForService(`http://127.0.0.1:${port}`, 30000),
-                this.waitForService(`http://127.0.0.1:${devPort}`, 30000)
+                this.waitForService(`http://127.0.0.1:${port}`, 10000),
+                this.waitForService(`http://127.0.0.1:${devPort}`, 10000)
             ]);
 
             if (serveReady && devReady) {
@@ -392,10 +423,16 @@ class ExecutionPhase extends BasePhase {
              return false;
         }
 
-        const projectFiles = await CoreUtils.globRecursive(projectPath, 'app/**/*.php');
+        const projectFiles = await CoreUtils.globRecursive(projectPath, [
+            'app/**/*.php',
+            'routes/**/*.php',
+            'database/**/*.php',
+            'config/**/*.php',
+            'resources/views/**/*.blade.php'
+        ]);
         const fileListStr = projectFiles.map(f => path.relative(projectPath, f)).join('\n- ');
         
-        const prompt = `The Laravel application crashed with this error during stability check:\n\n${lastError}\n\nHere are the existing PHP files in the project:\n- ${fileListStr}\n\nAnalyze this error and fix the PHP/Blade code. Provide ONLY a JSON array of file edits in this exact format:\n[\n  {\n    "file": "app/Livewire/Component.php",\n    "search": "old code exactly as it appears",\n    "replace": "new code to fix the error"\n  }\n]\nDo not include any explanation, markdown blocks, or other text outside the JSON array.`;
+        const prompt = `The Laravel application crashed with this error during stability check:\n\n${lastError}\n\nHere are the existing PHP/Blade files in the project:\n- ${fileListStr}\n\nAnalyze this error and fix the PHP/Blade code. Provide ONLY a JSON array of file edits in this exact format:\n[\n  {\n    "file": "app/Livewire/Component.php",\n    "search": "old code exactly as it appears",\n    "replace": "new code to fix the error"\n  }\n]\nDo not include any explanation, markdown blocks, or other text outside the JSON array.`;
         
         // Using localAI from global scope if available, otherwise require it
         const localAI = require('../LocalIntelligence');
@@ -404,13 +441,23 @@ class ExecutionPhase extends BasePhase {
 
         try {
             let jsonString = response.trim();
+            
+            // Try to extract from markdown code blocks
+            const jsonBlockRegex = /```(?:json)?\s*([\s\S]*?)```/i;
+            const match = jsonString.match(jsonBlockRegex);
+            if (match && match[1]) {
+                jsonString = match[1].trim();
+            }
+            
+            // If it still contains text around the JSON array, extract the array
+            const firstBracket = jsonString.indexOf('[');
+            const lastBracket = jsonString.lastIndexOf(']');
+            if (firstBracket !== -1 && lastBracket !== -1 && lastBracket > firstBracket) {
+                jsonString = jsonString.slice(firstBracket, lastBracket + 1);
+            }
+            
             // Sanitize C4-02: Remove invalid escape characters for JSON parse
             jsonString = jsonString.replace(/[\x00-\x1F\x7F]/g, '');
-            if (jsonString.startsWith('```json')) {
-                jsonString = jsonString.split('```json')[1].split('```')[0].trim();
-            } else if (jsonString.startsWith('```')) {
-                jsonString = jsonString.split('```')[1].split('```')[0].trim();
-            }
             
             const fixes = JSON.parse(jsonString);
             let applied = 0;

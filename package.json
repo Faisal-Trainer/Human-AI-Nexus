@@ -1,23 +1,7 @@
 {
-  "name": "human-ai-nexus",
+  "name": "nexus",
   "version": "3.3.0",
   "description": "Documentation-First Framework for Human-AI Collaborative Development",
-  "main": "cli.js",
-  "type": "commonjs",
-  "bin": {
-    "nexus": "./cli.js"
-  },
-  "engines": {
-    "node": ">=24.0.0"
-  },
-  "scripts": {
-    "start": "node cli.js run",
-    "refactor": "node cli.js refactor",
-    "update-skills": "node cli.js update-skills",
-    "test": "node tests/TDD/runner.js",
-    "lint": "eslint agent/ cli.js tests/TDD/*.js",
-    "sync-version": "node -e \"const p=require('./package.json'); const pp=require('./NEXUS_PUBLIC_DISTRIBUTION/package.json'); pp.version=p.version; require('fs').writeFileSync('./NEXUS_PUBLIC_DISTRIBUTION/package.json', JSON.stringify(pp,null,2))\""
-  },
   "keywords": [
     "ai",
     "orchestration",
@@ -27,8 +11,28 @@
     "tdd",
     "automation"
   ],
-  "author": "Faisal-Trainer",
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
   "license": "MIT",
+  "author": "Faisal-Trainer",
+  "type": "commonjs",
+  "main": "cli.js",
+  "bin": {
+    "nexus": "cli.js"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node cli.js run",
+    "refactor": "node cli.js refactor",
+    "update-skills": "node cli.js update-skills",
+    "test": "node tests/TDD/runner.js",
+    "lint": "eslint agent/ cli.js tests/TDD/*.js",
+    "sync-version": "node -e \"const p=require('./package.json'); const pp=require('./NEXUS_PUBLIC_DISTRIBUTION/package.json'); pp.version=p.version; require('fs').writeFileSync('./NEXUS_PUBLIC_DISTRIBUTION/package.json', JSON.stringify(pp,null,2))\""
+  },
   "dependencies": {
     "axios": "^1.16.0",
     "chalk": "^4.1.2",
@@ -45,5 +49,8 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

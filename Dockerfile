@@ -1,7 +1,7 @@
 # 🤖 Human-AI Nexus: Autonomous Multi-Agent Container
 # Version: v3.3.0 (Time-Aware)
 
-FROM node:22-alpine
+FROM node:24-alpine
 
 # Set Timezone to UTC+8 (Asia/Makassar/Singapore)
 RUN apk add --no-cache tzdata

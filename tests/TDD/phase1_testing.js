@@ -14,6 +14,7 @@ const SANDBOXES_DIR   = path.join(__dirname, '..', 'sandboxes');
 const ROOT_PATH       = path.join(__dirname, '..', '..');
 
 const PHASE_1_PROJECTS = [
+    { name: 'url-shortener-app',   tags: ['crud', 'auth', 'routing',  'phase-1'] },
     { name: 'todo-app-realtime',   tags: ['crud', 'auth', 'realtime', 'phase-1'] },
     { name: 'notes-app-tagging',   tags: ['crud', 'auth', 'tagging',  'phase-1'] },
     { name: 'bookmark-manager',    tags: ['crud', 'auth', 'basic',    'phase-1'] },

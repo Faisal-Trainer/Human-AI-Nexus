@@ -111,6 +111,9 @@ async function setupTALLProject(project, piper) {
     const engine = new NexusEngine({ rootPath: targetPath });
     await engine.runCycle({ mode: 'efficient', allowSensitive: true });
 
+    // ── STEP 8.5: Clean Code & Stability Verification Loop (5x)
+    await engine.cleanCodeAndVerify(targetPath);
+
     // ── STEP 9: Harvest
     console.log(`   🌾 Harvesting knowledge to Golden HUB...`);
     await engine.harvest(targetPath);

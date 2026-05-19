@@ -105,9 +105,11 @@ class ExecutionPhase extends BasePhase {
         this.log(`   📂 Identifying legacy template clutter (UrlShortener remnants)...`, 'warning');
         const blueprintPath = path.join(projectPath, 'NEXUS_BLUEPRINT.json');
         let allowedComponents = [];
+        let allowedModels = [];
         if (await fs.pathExists(blueprintPath)) {
             const blueprint = await fs.readJson(blueprintPath);
             allowedComponents = (blueprint.livewire_components || []).map(c => this.toKebabCase(c));
+            allowedModels = (blueprint.models || []).map(m => m.toLowerCase());
         }
 
         // FIX #22 — Legacy patterns dibuat dinamis dari blueprint, bukan hardcoded
@@ -119,7 +121,7 @@ class ExecutionPhase extends BasePhase {
         }
         
         if (legacyPatterns.length === 0) {
-            legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController'];
+            legacyPatterns = ['UrlShortener', 'UrlMapping', 'ShortenUrl', 'UrlController', 'Url.php', 'create_urls_table'];
         }
         
         const files = await CoreUtils.globRecursive(projectPath, '**/*');
@@ -131,20 +133,28 @@ class ExecutionPhase extends BasePhase {
             
             // Special check for Livewire views: if it's not in the blueprint, it's unused
             let isUnusedLivewire = false;
+            let isUnusedModel = false;
+            let isUnusedMigration = false;
+            
             if (file.includes('resources/views/livewire') && file.endsWith('.blade.php')) {
                 const componentName = fileName.replace('.blade.php', '');
-                if (!allowedComponents.includes(componentName)) {
-                     isUnusedLivewire = true;
-                }
+                if (!allowedComponents.includes(componentName)) isUnusedLivewire = true;
             }
             if (file.includes('app/Livewire') && file.endsWith('.php')) {
                 const componentName = this.toKebabCase(fileName.replace('.php', ''));
-                if (!allowedComponents.includes(componentName)) {
-                     isUnusedLivewire = true;
-                }
+                if (!allowedComponents.includes(componentName)) isUnusedLivewire = true;
+            }
+            if (file.includes('app/Models') && file.endsWith('.php') && fileName !== 'User.php') {
+                const modelName = fileName.replace('.php', '').toLowerCase();
+                if (!allowedModels.includes(modelName)) isUnusedModel = true;
+            }
+            if (file.includes('database/migrations') && file.endsWith('.php') && !file.includes('0001_01_01')) {
+                // If migration doesn't match any allowed model name or doesn't have 2026_06_01, it's likely legacy.
+                // Simple check for our timestamp generated in ImplementationPhase
+                if (!file.includes('2026_06_01')) isUnusedMigration = true;
             }
 
-            if ((isLegacyFile || isUnusedLivewire) && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
+            if ((isLegacyFile || isUnusedLivewire || isUnusedModel || isUnusedMigration) && !file.includes('node_modules') && !file.includes('vendor') && !file.includes('.git')) {
                 if (await fs.pathExists(file)) {
                     await fs.remove(file);
                     this.log(`      🗑️ Deleted legacy/unused file: ${path.relative(projectPath, file)}`, 'error');
@@ -179,8 +189,22 @@ class ExecutionPhase extends BasePhase {
             this.log(`   ⚠️ Migration failed: ${e.message}`, 'warning');
         }
 
+        this.log(`   🕵️‍♂️ Running Artisan Smoke Test (route:list)...`, 'info');
+        try {
+            const { execSync } = require('child_process');
+            execSync('php artisan route:list', { cwd: projectPath, stdio: 'ignore' });
+            this.log(`      ✅ Smoke test passed.`, 'success');
+        } catch (e) {
+            this.log(`      ⚠️ Smoke test failed: ${e.message}`, 'error');
+        }
+
         this.log(`   🔄 Starting 5-Cycle Stability Loop (Health Check)...`, 'info');
+        let totalAttempts = 0;
         for (let i = 1; i <= 5; i++) {
+            totalAttempts++;
+            if (totalAttempts > 15) {
+                throw new Error(`Stability check failed: exceeded 15 total attempts in stability loop for ${projectPath}.`);
+            }
             this.log(`      [Iteration ${i}/5] Testing Artisan Serve & NPM Dev...`, 'warning');
             
             const port = await this.getAvailablePort(8001);
@@ -329,22 +353,25 @@ class ExecutionPhase extends BasePhase {
         return false;
     }
 
-    // FIX #26 — Bounded port search: maxPort cap mencegah stack overflow rekursi tak terbatas
+    // FIX #26 — Iterative port search to prevent stack overflow
     async getAvailablePort(start = 8001, maxPort = 9000) {
-        if (start > maxPort) {
-            throw new Error(`No available port found in range 8001-${maxPort}. Free up some ports and retry.`);
-        }
         const net = require('net');
-        return new Promise((resolve, reject) => {
-            const server = net.createServer();
-            server.listen(start, () => {
-                server.close(() => resolve(start));
-            });
-            server.on('error', () => {
-                // FIX #26 — Iterasi, bukan rekursi tak terbatas
-                this.getAvailablePort(start + 1, maxPort).then(resolve).catch(reject);
-            });
-        });
+        for (let port = start; port <= maxPort; port++) {
+            try {
+                await new Promise((resolve, reject) => {
+                    const server = net.createServer();
+                    server.listen(port, () => {
+                        server.close(() => resolve());
+                    });
+                    server.on('error', reject);
+                });
+                return port;
+            } catch (err) {
+                // Port is in use or unavailable, try next
+                continue;
+            }
+        }
+        throw new Error(`No available port found in range ${start}-${maxPort}. Free up some ports and retry.`);
     }
 
     async selfHeal(projectPath, attempt) {
@@ -365,7 +392,10 @@ class ExecutionPhase extends BasePhase {
              return false;
         }
 
-        const prompt = `The Laravel application crashed with this error during stability check:\n\n${lastError}\n\nAnalyze this error and fix the PHP/Blade code. Provide ONLY a JSON array of file edits in this exact format:\n[\n  {\n    "file": "app/Livewire/Component.php",\n    "search": "old code exactly as it appears",\n    "replace": "new code to fix the error"\n  }\n]\nDo not include any explanation, markdown blocks, or other text outside the JSON array.`;
+        const projectFiles = await CoreUtils.globRecursive(projectPath, 'app/**/*.php');
+        const fileListStr = projectFiles.map(f => path.relative(projectPath, f)).join('\n- ');
+        
+        const prompt = `The Laravel application crashed with this error during stability check:\n\n${lastError}\n\nHere are the existing PHP files in the project:\n- ${fileListStr}\n\nAnalyze this error and fix the PHP/Blade code. Provide ONLY a JSON array of file edits in this exact format:\n[\n  {\n    "file": "app/Livewire/Component.php",\n    "search": "old code exactly as it appears",\n    "replace": "new code to fix the error"\n  }\n]\nDo not include any explanation, markdown blocks, or other text outside the JSON array.`;
         
         // Using localAI from global scope if available, otherwise require it
         const localAI = require('../LocalIntelligence');
@@ -374,10 +404,12 @@ class ExecutionPhase extends BasePhase {
 
         try {
             let jsonString = response.trim();
-            if (jsonString.startsWith('\`\`\`json')) {
-                jsonString = jsonString.split('\`\`\`json')[1].split('\`\`\`')[0].trim();
-            } else if (jsonString.startsWith('\`\`\`')) {
-                jsonString = jsonString.split('\`\`\`')[1].split('\`\`\`')[0].trim();
+            // Sanitize C4-02: Remove invalid escape characters for JSON parse
+            jsonString = jsonString.replace(/[\x00-\x1F\x7F]/g, '');
+            if (jsonString.startsWith('```json')) {
+                jsonString = jsonString.split('```json')[1].split('```')[0].trim();
+            } else if (jsonString.startsWith('```')) {
+                jsonString = jsonString.split('```')[1].split('```')[0].trim();
             }
             
             const fixes = JSON.parse(jsonString);

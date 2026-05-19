@@ -337,6 +337,8 @@ class NexusEngine {
             this.state = STATES.EXECUTING;
             await this.implement();
             await this.execute(plan);
+            
+            await this.cleanCodeAndVerify();
 
             const cycleID = `CYCLE-${Date.now()}`;
             this.state = STATES.LOGGING;
@@ -376,19 +378,19 @@ Analyze the following project README carefully (paying attention to the project 
 ${readmeContent}
 
 Identify all the essential features this application MUST have based on its name and tags.
-For example:
-- A "todo-app-realtime" project MUST have a "Todo" model, a "create_todos_table" migration, and Livewire components like "todo-list" to view, create, toggle, and delete todo items.
-- A "notes-app-tagging" project MUST have "Note" and "Tag" models, migrations like "create_notes_table", "create_tags_table", and Livewire components like "note-manager".
-- An "expense-tracker" project MUST have "Expense" or "Transaction" models, migrations like "create_expenses_table", and Livewire components like "expense-manager".
-
-Ensure you do NOT return empty arrays. Generate the complete list of models, migrations, and Livewire components needed to build the fully functional application described in the README.
+For a 100% complete web app, you must generate a comprehensive architecture.
 
 Output strictly JSON with this exact structure (do not add any other keys, explanation, or markdown):
 {
   "project_name": "...",
   "models": ["ModelName1", "ModelName2"],
   "migrations": ["create_table_name1_table", "create_table_name2_table"],
-  "livewire_components": ["component-name-1", "component-name-2"]
+  "livewire_components": ["component-name-1", "component-name-2"],
+  "seeders": ["ModelName1Seeder", "ModelName2Seeder"],
+  "factories": ["ModelName1Factory", "ModelName2Factory"],
+  "routes": ["/dashboard", "/modelname1"],
+  "pivot_tables": [],
+  "relationships": [{"model": "ModelName1", "type": "hasMany", "target": "ModelName2"}]
 }`;
         const response = await localAI.generate(prompt, 'generate_architecture');
         if (!response) return;
@@ -399,8 +401,8 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             
             // Schema Validation (G2-02)
             const BLUEPRINT_SCHEMA = {
-                required: ['project_name', 'models', 'migrations', 'livewire_components'],
-                arrays: ['models', 'migrations', 'livewire_components'],
+                required: ['project_name', 'models', 'migrations', 'livewire_components', 'seeders', 'factories'],
+                arrays: ['models', 'migrations', 'livewire_components', 'seeders', 'factories'],
                 strings: ['project_name']
             };
             

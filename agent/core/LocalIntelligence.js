@@ -162,6 +162,8 @@ class LocalIntelligence {
 
     // Internal: actual HTTP call ke Ollama
     async _doGenerate(prompt, systemPrompt, taskType) {
+        const isBuilderTask = ['generate_architecture', 'build_model_migration', 'build_livewire_component', 'build_view', 'build_application'].includes(taskType);
+        
         const response = await axios.post(`${this.baseUrl}/generate`, {
             model: this.model,
             prompt: prompt,
@@ -169,8 +171,8 @@ class LocalIntelligence {
             stream: false,
             options: {
                 // ⚡ RYZEN 2500U TURBO PARAMETERS
-                temperature: 0.1,
-                num_ctx: this.MAX_TOKENS,
+                temperature: isBuilderTask ? 0.7 : 0.1,
+                num_ctx: isBuilderTask ? 8192 : this.MAX_TOKENS,
                 num_thread: 6,            // 8 logical cores, gunakan 6 agar laptop tetap responsif
                 num_batch: 256,           // Batch kecil agar tidak membebani memory bandwidth Vega 8
                 use_mmap: true,

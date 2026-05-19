@@ -19,7 +19,7 @@ class ImplementationPhase extends BasePhase {
         // 1. Generate Models, Policies, and API Controllers
         const models = blueprint.models || [];
         for (const model of models) {
-            await this.generateModel(model);
+            await this.generateModel(model, blueprint);
             await this.generatePolicy(model, blueprint);
             await this.generateApiController(model, blueprint);
         }
@@ -149,9 +149,9 @@ class ImplementationPhase extends BasePhase {
         }
     }
 
-    async generateModel(modelName) {
+    async generateModel(modelName, blueprint) {
         this.log(`   🧠 Generating Model: ${modelName}...`, 'info');
-        const prompt = `Write a complete Laravel Model class for '${modelName}'. Use namespace App\\Models. Include necessary traits like HasFactory and HasUuids. Include fillable fields based on a typical ${modelName}. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+        const prompt = `Write a complete Laravel Model class for '${modelName}'. Use namespace App\\Models. Include necessary traits like HasFactory and HasUuids. Include fillable fields based on a typical ${modelName} for a ${blueprint.project_name} application. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
         
         const response = await localAI.generate(prompt, 'build_model_migration');
         if (response) {

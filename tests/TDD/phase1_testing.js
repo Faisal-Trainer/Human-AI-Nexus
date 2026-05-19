@@ -165,6 +165,23 @@ async function runPhase1() {
     console.log(`⏱  Total waktu: ${totalElapsed}s`);
     console.log(`${'='.repeat(56)}\n`);
 
+    if (success > 0) {
+        console.log(`\n🔍 Memulai POST-GENERATION AUDIT EXTREME untuk ${success} Web App...\n`);
+        for (const project of PHASE_1_PROJECTS) {
+            const targetPath = path.join(SANDBOXES_DIR, project.name);
+            if (await fs.pathExists(targetPath)) {
+                try {
+                    console.log(`   🕵️‍♂️ Mengaudit [${project.name}] dengan 6 Spesialis AI...`);
+                    const auditEngine = new NexusEngine({ rootPath: targetPath });
+                    await auditEngine.audit(targetPath, { mode: 'learning' });
+                    console.log(`      ✅ Laporan audit ekstensif tersimpan di dalam folder nexus/docs/memory/raw/`);
+                } catch (e) {
+                    console.log(`      ⚠️ Gagal mengaudit ${project.name}: ${e.message}`);
+                }
+            }
+        }
+    }
+
     if (failed > 0) process.exit(1);
     process.exit(0);
 }

@@ -1,8 +1,0 @@
-<?php
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-Route::apiResource('notes', \App\Http\Controllers\NoteController::class);
-Route::apiResource('tags', \App\Http\Controllers\TagController::class);
-Route::apiResource('relations', \App\Http\Controllers\RelationController::class);

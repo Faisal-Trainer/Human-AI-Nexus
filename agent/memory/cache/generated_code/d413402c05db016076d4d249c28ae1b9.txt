@@ -4,36 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus AI URL Shortener App</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.29.3/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.7.6/dist/alpine.js"></script>
+    <title>Nexus AI Shortener</title>
+    @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <div class="flex h-screen bg-gray-100">
-        <!-- Sidebar -->
-        <aside class="w-64 fixed left-0 top-0 bottom-0 flex-col bg-white shadow-md p-4 overflow-y-auto">
-            <h2 class="text-xl font-semibold text-gray-800">Menu</h2>
-            <ul class="mt-4 space-y-2">
-                @foreach ($sidebarItems as $item)
-                    <li class="@if ($activeItem === $item['name']) bg-blue-500 text-white rounded-md py-2 px-4 shadow-sm hover:bg-blue-600 @else bg-gray-100 text-gray-700 rounded-md py-2 px-4 hover:bg-gray-200 @endif">
-                        <a href="#@if ($item['name'] === 'Home')/home @elseif ($item['name'] === 'Shorten URL')/shorten-url @else # @endif">{{ $item['label'] }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-grow p-8">
-            @yield('content')
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white fixed bottom-0 left-0 right-0 py-4 shadow-md">
-            <p>&copy; 2023 Nexus AI. All rights reserved.</p>
-        </footer>
+<body class="bg-gray-900 dark:bg-gray-800 text-white font-sans antialiased">
+    <!-- Sidebar -->
+    <div class="fixed left-0 top-0 w-64 bg-gray-700 dark:bg-gray-800 shadow-lg border-r p-4 space-y-4">
+        <a href="/" class="text-white hover:text-primary">Home</a>
+        <a href="/about" class="text-white hover:text-primary">About</a>
+        <a href="/contact" class="text-white hover:text-primary">Contact</a>
     </div>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+    <!-- Main Content -->
+    <main class="flex flex-grow p-8">
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 w-full bg-gray-700 dark:bg-gray-800 text-white p-4 space-y-4">
+        &copy; 2023 Nexus AI. All rights reserved.
+    </footer>
 </body>
 </html>
 ```

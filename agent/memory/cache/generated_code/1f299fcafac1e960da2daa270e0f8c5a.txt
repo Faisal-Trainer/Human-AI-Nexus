@@ -13,10 +13,13 @@ return new class extends Migration
             $table->uuid('id')->primary();      // UUID primary key
             $table->foreignUuid('user_id')      // FK to users (if applicable)
                   ->constrained()->cascadeOnDelete();
-            $table->string('username');       // varchar 255 for unique username
-            $table->email('email');           // varchar 255 for email address
-            $table->string('password')->nullable(); // nullable password for security reasons
-            $table->timestamp('created_at')->default(\Carbon\Carbon::now());
+            $table->string('username');        // varchar 255, required
+            $table->string('email');           // varchar 255, required, unique
+            $table->boolean('is_active')->default(true);
+            $table->decimal('balance', 10, 2);  // money/decimal
+            $table->enum('role', ['admin', 'user']);
+            $table->index(['username']);     // add index for searchable columns
+            $table->timestamps();              // created_at, updated_at
             $table->softDeletes();             // deleted_at for soft delete
         });
     }

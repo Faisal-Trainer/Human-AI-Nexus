@@ -1,24 +1,45 @@
-```html
-<div class="bg-blue-500 text-white font-bold py-4 px-8 rounded-md shadow-lg mx-auto mt-16">
-    <div wire:key="{{ $shortLink->id }}">
-        <h2>{{ $shortLink->title }}</h2>
-        <p>Click {{ $shortLink->clicks }} times</p>
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md shadow-lg mt-4" wire:click="copyToClipboard('{{ $shortLink->short_url }}')">Copy Link</button>
-    </div>
-</div>
+```blade
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Link Component</title>
+    <!-- Tailwind CSS -->
+    @vite('resources/css/app.css')
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/alpine.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div wire:init="loadShortLinks" class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-6">Create Short Links</h1>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        Alpine.data('ShortLinkComponent', () => ({
-            shortLink: null,
-            copyToClipboard(url) {
-                navigator.clipboard.writeText(url).then(() => {
-                    alert('Link copied to clipboard!');
-                }).catch(err => {
-                    console.error('Failed to copy link:', err);
-                });
-            }
-        }));
-    });
-</script>
+        <form wire:submit.prevent="saveShortLink">
+            <div class="mb-4">
+                <label for="longUrl" class="block text-gray-700 font-medium">{{ __('Long URL') }}</label>
+                <input type="text" id="longUrl" class="w-full px-4 py-2 border rounded-md focus:outline-none" wire:model="longUrl">
+            </div>
+
+            <div class="mb-4">
+                <label for="shortName" class="block text-gray-700 font-medium">{{ __('Short Name') }}</label>
+                <input type="text" id="shortName" class="w-full px-4 py-2 border rounded-md focus:outline-none" wire:model="shortName">
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">Create Short Link</button>
+        </form>
+
+        <ul class="mt-8 space-y-2">
+            @foreach ($shortLinks as $link)
+                <li class="border border-gray-300 p-4 rounded-md hover:bg-gray-100">
+                    <p class="text-sm font-medium">{{ $link->longUrl }}</p>
+                    <p class="text-xs text-gray-500">{{ $link->shortName }}</p>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+    <!-- Livewire JavaScript -->
+    @livewireScripts
+</body>
+</html>
 ```

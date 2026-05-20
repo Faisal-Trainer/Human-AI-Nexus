@@ -2,14 +2,12 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Models\Url;
 use App\Models\User;
 
-Route::apiResources([
-    'urls' => Url::class,
-    'users' => User::class,
-]);
+Route::apiResource('urls', UrlController::class);
+Route::apiResource('users', UserController::class);
+
 ```
 
-This code snippet defines the routes for the `Url` and `User` models using Laravel's `apiResource` method, which automatically generates all the necessary API resources. The `routes/api.php` file in your Laravel application will now handle all requests related to these models, providing a clean and organized RESTful API structure.
+This code snippet defines two apiResource routes for the Url and User models. Each route is mapped to a respective controller method. The `ApiResource` middleware automatically generates CRUD API routes based on the model's attributes.

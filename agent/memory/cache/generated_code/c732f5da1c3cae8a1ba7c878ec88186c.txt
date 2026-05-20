@@ -4,7 +4,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Url;
+use Illuminate\Support\Facades\Storage;
 
 class UrlFactory extends Factory
 {
@@ -16,9 +16,11 @@ class UrlFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word(),
-            'url' => $this->faker->url(),
-            'status' => \App\Models\Url::STATUS_ACTIVE,
+            'original_url' => $this->faker->url(),
+            'shortened_url' => Storage::put('public/url_shorteners', $this->faker->uuid()),
+            'redirected_to' => $this->faker->domainName(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

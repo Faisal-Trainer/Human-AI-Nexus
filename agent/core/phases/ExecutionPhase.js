@@ -423,7 +423,6 @@ class ExecutionPhase extends BasePhase {
         }
         
         const logs = await fs.readFile(logPath, 'utf8');
-        // Get the last 3000 characters of the log to find the latest error
         const lastError = logs.slice(-3000);
         
         if (!lastError || lastError.trim() === '') {
@@ -440,9 +439,10 @@ class ExecutionPhase extends BasePhase {
         ]);
         const fileListStr = projectFiles.map(f => path.relative(projectPath, f)).join('\n- ');
         
-        const prompt = `The Laravel application crashed with this error during stability check:\n\n${lastError}\n\nHere are the existing PHP/Blade files in the project:\n- ${fileListStr}\n\nAnalyze this error and fix the PHP/Blade code. Provide ONLY a JSON array of file edits in this exact format:\n[\n  {\n    "file": "app/Livewire/Component.php",\n    "search": "old code exactly as it appears",\n    "replace": "new code to fix the error"\n  }\n]\nDo not include any explanation, markdown blocks, or other text outside the JSON array.`;
+        // FIX: Use full-file-replacement strategy instead of search/replace.
+        // This avoids "can't find exact search string" failures caused by whitespace/indent mismatches.
+        const prompt = `The Laravel application crashed with this error:\n\n${lastError}\n\nExisting PHP/Blade files:\n- ${fileListStr}\n\nIdentify which file(s) need to be fixed and provide the COMPLETE corrected file content.\nRespond with ONLY a valid JSON array. Each element must have exactly these keys:\n[\n  {\n    "file": "app/Models/Habit.php",\n    "content": "<?php\\n\\nnamespace App\\\\Models;\\n... complete file content ..."\n  }\n]\nIMPORTANT:\n- "file" is the relative path from project root\n- "content" is the COMPLETE new file content (not a diff or partial snippet)\n- Escape all backslashes as \\\\\\\\ and all double quotes as \\" inside the JSON string\n- Do NOT use search/replace format\n- Do NOT include markdown code blocks\n- Output ONLY the JSON array, nothing else`;
         
-        // Using localAI from global scope if available, otherwise require it
         const localAI = require('../LocalIntelligence');
         const response = await localAI.generate(prompt, 'suggest_refactor');
         if (!response) return false;
@@ -450,45 +450,102 @@ class ExecutionPhase extends BasePhase {
         try {
             let jsonString = response.trim();
             
-            // Try to extract from markdown code blocks
+            // Layer 1: Extract from markdown code blocks if present
             const jsonBlockRegex = /```(?:json)?\s*([\s\S]*?)```/i;
             const match = jsonString.match(jsonBlockRegex);
             if (match && match[1]) {
                 jsonString = match[1].trim();
             }
             
-            // If it still contains text around the JSON array, extract the array
+            // Layer 2: Extract JSON array boundaries
             const firstBracket = jsonString.indexOf('[');
             const lastBracket = jsonString.lastIndexOf(']');
             if (firstBracket !== -1 && lastBracket !== -1 && lastBracket > firstBracket) {
                 jsonString = jsonString.slice(firstBracket, lastBracket + 1);
             }
             
-            // Sanitize C4-02: Remove invalid escape characters for JSON parse
-            jsonString = jsonString.replace(/[\x00-\x1F\x7F]/g, '');
+            // Layer 3: Robust sanitization for PHP code inside JSON strings
+            // Fix unescaped backslashes that are NOT already part of valid JSON escapes
+            jsonString = jsonString.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+            // Remove literal control characters
+            jsonString = jsonString.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
             
-            const fixes = JSON.parse(jsonString);
+            let fixes;
+            try {
+                fixes = JSON.parse(jsonString);
+            } catch (parseErr) {
+                this.log(`         ❌ Self-healing failed to parse AI response: ${parseErr.message}`, 'error');
+                return false;
+            }
+
+            if (!Array.isArray(fixes)) {
+                this.log(`         ❌ Self-healing response is not an array.`, 'error');
+                return false;
+            }
+
             let applied = 0;
             for (const fix of fixes) {
+                if (!fix.file) continue;
                 const targetPath = path.join(projectPath, fix.file);
-                if (await fs.pathExists(targetPath)) {
+
+                // Strategy A: Full file replacement (preferred new format)
+                if (fix.content !== undefined) {
+                    await fs.ensureDir(path.dirname(targetPath));
+                    await fs.writeFile(targetPath, fix.content, 'utf8');
+                    this.log(`         ✅ Full file replacement applied to ${fix.file}`, 'success');
+                    applied++;
+                    continue;
+                }
+
+                // Strategy B: Search/replace fallback (legacy format)
+                if (fix.search !== undefined && fix.replace !== undefined) {
+                    if (!(await fs.pathExists(targetPath))) {
+                        this.log(`         ⚠️ Target file ${fix.file} does not exist.`, 'warning');
+                        continue;
+                    }
                     let content = await fs.readFile(targetPath, 'utf8');
+                    
+                    // Exact match first
                     if (content.includes(fix.search)) {
                         content = content.replace(fix.search, fix.replace);
-                        await fs.writeFile(targetPath, content);
-                        this.log(`         ✅ Applied fix to ${fix.file}`, 'success');
+                        await fs.writeFile(targetPath, content, 'utf8');
+                        this.log(`         ✅ Applied exact-match fix to ${fix.file}`, 'success');
                         applied++;
-                    } else {
-                        this.log(`         ⚠️ Could not find exact search string in ${fix.file}`, 'warning');
+                        continue;
                     }
-                } else {
-                    this.log(`         ⚠️ Target file ${fix.file} does not exist.`, 'warning');
+
+                    // Fuzzy match: normalize whitespace and try again
+                    const normalize = s => s.replace(/\r\n/g, '\n').replace(/\t/g, '    ').trim();
+                    const normContent = normalize(content);
+                    const normSearch = normalize(fix.search);
+                    if (normContent.includes(normSearch)) {
+                        const lines = content.split('\n');
+                        const searchLines = fix.search.trim().split('\n').map(l => l.trim());
+                        const replaceLines = fix.replace.trim().split('\n');
+                        let found = false;
+                        for (let i = 0; i <= lines.length - searchLines.length; i++) {
+                            const slice = lines.slice(i, i + searchLines.length).map(l => l.trim());
+                            if (slice.join('\n') === searchLines.join('\n')) {
+                                lines.splice(i, searchLines.length, ...replaceLines);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) {
+                            await fs.writeFile(targetPath, lines.join('\n'), 'utf8');
+                            this.log(`         ✅ Applied fuzzy-match fix to ${fix.file}`, 'success');
+                            applied++;
+                            continue;
+                        }
+                    }
+
+                    this.log(`         ⚠️ Could not find search string in ${fix.file} (exact or fuzzy)`, 'warning');
                 }
             }
             
             return applied > 0;
         } catch (e) {
-            this.log(`         ❌ Self-healing failed to parse AI response: ${e.message}`, 'error');
+            this.log(`         ❌ Self-healing unexpected error: ${e.message}`, 'error');
             return false;
         }
     }

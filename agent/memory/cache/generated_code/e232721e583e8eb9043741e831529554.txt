@@ -1,0 +1,41 @@
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Url;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class UrlController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(Url::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = Url::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(Url $url): JsonResponse
+    {
+        return response()->json($url);
+    }
+
+    public function update(Request $request, Url $url): JsonResponse
+    {
+        $url->update($request->validated());
+        return response()->json($url);
+    }
+
+    public function destroy(Url $url): JsonResponse
+    {
+        $url->delete();
+        return response()->json(null, 204);
+    }
+}
+```

@@ -1,3 +1,4 @@
+```php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -12,12 +13,13 @@ return new class extends Migration
             $table->uuid('id')->primary();      // UUID primary key
             $table->foreignUuid('user_id')      // FK to users (if applicable)
                   ->constrained()->cascadeOnDelete();
-            $table->string('short_code');        // varchar 255
-            $table->text('full_url');        // long text
-            $table->unsignedBigInteger('view_count'); // integer
+            $table->string('short_code')->unique()       // unique short code for each URL
+                  ->nullable();    // allow null values if not needed
+            $table->text('long_url')->nullable();  // long URL, can be NULL or non-NULL
+            $table->unsignedBigInteger('click_count')->default(0);   // number of clicks on the URL
             $table->boolean('is_active')->default(true);
-            $table->decimal('amount', 10, 2);  // money/decimal
-            $table->enum('status', ['active','inactive']);
+            $table->decimal('cost', 10, 2)->nullable();   // cost associated with the URL
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->index(['short_code']);     // add index for searchable columns
             $table->timestamps();              // created_at, updated_at
             $table->softDeletes();             // deleted_at for soft delete
@@ -29,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('urls');
     }
 };
+```

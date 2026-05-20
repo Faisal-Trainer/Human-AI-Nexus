@@ -1,6 +1,8 @@
 ```php
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Faker\Factory as Faker;
@@ -9,14 +11,14 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $faker = F faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
-            User::create([
+        for ($i = 0; $i < 100; $i++) {
+            User::factory()->create([
                 'name' => $faker->name(),
                 'email' => $faker->unique()->safeEmail(),
-                'password' => bcrypt('secret'),
-                'role_id' => 2, // Assuming 'role_id' for regular users is 2
+                'password' => bcrypt('secret'), // You should use a stronger password hashing algorithm in production
+                'role' => 'admin', // or any other roles you need
             ]);
         }
     }

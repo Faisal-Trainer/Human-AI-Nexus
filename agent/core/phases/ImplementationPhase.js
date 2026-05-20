@@ -221,11 +221,13 @@ FILE STRUCTURE:
 - Namespace: App\\Models
 - Import traits EXPLICITLY with full use statements (never assume auto-import)
 
-REQUIRED USE STATEMENTS (always include all of these):
+REQUIRED USE STATEMENTS (always include all of these, exactly as written):
 use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;
 use Illuminate\\Database\\Eloquent\\Model;
 use Illuminate\\Database\\Eloquent\\SoftDeletes;
 use Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;
+
+DO NOT import or use any other Illuminate classes. DO NOT use any traits other than HasFactory, HasUuids, SoftDeletes.
 
 CLASS DEFINITION:
 class ${modelName} extends Model
@@ -233,7 +235,7 @@ class ${modelName} extends Model
     use HasFactory, HasUuids, SoftDeletes;
 
     protected $table = '${tableName}';
-    protected $primaryKey = 'id'; // UUID via HasUuids
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -243,37 +245,39 @@ class ${modelName} extends Model
 
     protected $casts = [
         'id' => 'string',
-        // cast booleans as 'boolean', dates as 'datetime', json as 'array'
     ];
 
-    protected $hidden = [
-        // hide sensitive fields like 'password', 'remember_token'
-    ];
-
-    // RELATIONSHIPS: define belongsTo/hasMany/belongsToMany for related models
-    // Example: public function user(): \\Illuminate\\Database\\Eloquent\\Relations\\BelongsTo
-    // { return $this->belongsTo(User::class); }
+    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
 }
 
 APPLICATION CONTEXT:
 - Project: ${blueprint.project_name}
 - Model: ${modelName}
 - Table: ${tableName}
-- Add realistic fillable fields and casts relevant to this project type.
 
-OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
+OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, no extra text.`;
         
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
+        const modelPath = path.join(this.engine.rootPath, 'app', 'Models', `${modelName}.php`);
+        await fs.ensureDir(path.dirname(modelPath));
+
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
-            const modelPath = path.join(this.engine.rootPath, 'app', 'Models', `${modelName}.php`);
-            await fs.ensureDir(path.dirname(modelPath));
             await fs.writeFile(modelPath, cleanCode);
-            await this.validatePHPSyntax(modelPath);
+            const syntaxOk = await this.validatePHPSyntax(modelPath);
+            if (!syntaxOk) {
+                this.log(`      ⚠️ Syntax error in generated model. Writing safe fallback for ${modelName}.php`, 'warning');
+                await fs.writeFile(modelPath, this._safeFallbackModel(modelName, tableName));
+            }
             this.log(`      ✅ Saved ${modelName}.php`, 'success');
         } else {
-            this.log(`      ❌ Failed to generate model ${modelName}.`, 'error');
+            this.log(`      ⚠️ LLM returned empty. Writing safe fallback for ${modelName}.php`, 'warning');
+            await fs.writeFile(modelPath, this._safeFallbackModel(modelName, tableName));
         }
+    }
+
+    _safeFallbackModel(modelName, tableName) {
+        return `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\nuse Illuminate\\Database\\Eloquent\\SoftDeletes;\nuse Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;\n\nclass ${modelName} extends Model\n{\n    use HasFactory, HasUuids, SoftDeletes;\n\n    protected $table = '${tableName}';\n    protected $primaryKey = 'id';\n    public $incrementing = false;\n    protected $keyType = 'string';\n\n    protected $fillable = ['name'];\n\n    protected $casts = ['id' => 'string'];\n}\n`;
     }
 
     async generateMigration(migrationName, blueprint) {
@@ -466,28 +470,148 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
 
     async generatePolicy(modelName, blueprint) {
         this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, 'info');
-        const prompt = `Write a complete Laravel Policy class named '${modelName}Policy' for model '${modelName}'. Namespace: App\\Policies. Import App\\Models\\User and App\\Models\\${modelName} explicitly. The policy class should be a standard Laravel policy (a plain PHP class that does not extend any base class unless needed, but here do not extend any base class). Include standard CRUD authorization methods (viewAny, view, create, update, delete) which accept User and ${modelName} parameters as appropriate. Output ONLY the raw PHP code, starting with <?php.`;
+        // STRICT TEMPLATE PROMPT: prevents LLM from hallucinating fake Illuminate\Auth imports
+        const prompt = `Write a Laravel 11 Policy PHP class. Follow this EXACT template structure:
+
+<?php
+
+namespace App\\Policies;
+
+use App\\Models\\User;
+use App\\Models\\${modelName};
+
+class ${modelName}Policy
+{
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
+    public function view(User $user, ${modelName} $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
+    public function update(User $user, ${modelName} $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+
+    public function delete(User $user, ${modelName} $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+}
+
+RULES:
+- Use EXACTLY the namespace: App\\Policies
+- Use EXACTLY these two imports: App\\Models\\User and App\\Models\\${modelName}
+- The class MUST NOT extend any base class
+- The class MUST NOT use any traits
+- DO NOT import any other classes (no Illuminate\\Auth classes)
+- Return only bool values from all methods
+- Output ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
+
+        const policyPath = path.join(this.engine.rootPath, 'app', 'Policies', `${modelName}Policy.php`);
+        await fs.ensureDir(path.dirname(policyPath));
+
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
-            const p = path.join(this.engine.rootPath, 'app', 'Policies', `${modelName}Policy.php`);
-            await fs.ensureDir(path.dirname(p));
-            await fs.writeFile(p, cleanCode);
-            await this.validatePHPSyntax(p);
+            await fs.writeFile(policyPath, cleanCode);
+            const syntaxOk = await this.validatePHPSyntax(policyPath);
+            if (!syntaxOk) {
+                this.log(`      ⚠️ Syntax error in generated policy. Writing safe fallback for ${modelName}Policy.php`, 'warning');
+                await fs.writeFile(policyPath, this._safeFallbackPolicy(modelName));
+            }
+        } else {
+            this.log(`      ⚠️ LLM returned empty. Writing safe fallback for ${modelName}Policy.php`, 'warning');
+            await fs.writeFile(policyPath, this._safeFallbackPolicy(modelName));
         }
+        this.log(`      ✅ Saved ${modelName}Policy.php`, 'success');
+    }
+
+    _safeFallbackPolicy(modelName) {
+        return `<?php\n\nnamespace App\\Policies;\n\nuse App\\Models\\User;\nuse App\\Models\\${modelName};\n\nclass ${modelName}Policy\n{\n    public function viewAny(User $user): bool { return true; }\n    public function view(User $user, ${modelName} $model): bool { return true; }\n    public function create(User $user): bool { return true; }\n    public function update(User $user, ${modelName} $model): bool { return true; }\n    public function delete(User $user, ${modelName} $model): bool { return true; }\n}\n`;
     }
 
     async generateApiController(modelName, blueprint) {
         this.log(`   📡 Generating API Controller: ${modelName}Controller...`, 'info');
-        const prompt = `Write a complete Laravel API Controller named '${modelName}Controller' for model '${modelName}'. Namespace: App\\Http\\Controllers\\Api. Import App\\Http\\Controllers\\Controller and App\\Models\\${modelName} explicitly. The controller class should extend the base Controller class (Controller). Include index, store, show, update, destroy methods. Output ONLY the raw PHP code, starting with <?php.`;
+        const prompt = `Write a Laravel 11 API Controller. Follow this EXACT template structure:
+
+<?php
+
+namespace App\\Http\\Controllers\\Api;
+
+use App\\Http\\Controllers\\Controller;
+use App\\Models\\${modelName};
+use Illuminate\\Http\\Request;
+use Illuminate\\Http\\JsonResponse;
+
+class ${modelName}Controller extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(${modelName}::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = ${modelName}::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(${modelName} $${modelName.toLowerCase()}): JsonResponse
+    {
+        return response()->json($${modelName.toLowerCase()});
+    }
+
+    public function update(Request $request, ${modelName} $${modelName.toLowerCase()}): JsonResponse
+    {
+        $${modelName.toLowerCase()}->update($request->validated());
+        return response()->json($${modelName.toLowerCase()});
+    }
+
+    public function destroy(${modelName} $${modelName.toLowerCase()}): JsonResponse
+    {
+        $${modelName.toLowerCase()}->delete();
+        return response()->json(null, 204);
+    }
+}
+
+RULES:
+- Namespace MUST be App\\Http\\Controllers\\Api
+- MUST extend Controller from App\\Http\\Controllers\\Controller
+- MUST import Illuminate\\Http\\Request and Illuminate\\Http\\JsonResponse
+- Output ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
+
+        const controllerPath = path.join(this.engine.rootPath, 'app', 'Http', 'Controllers', 'Api', `${modelName}Controller.php`);
+        await fs.ensureDir(path.dirname(controllerPath));
+
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
-            const p = path.join(this.engine.rootPath, 'app', 'Http', 'Controllers', 'Api', `${modelName}Controller.php`);
-            await fs.ensureDir(path.dirname(p));
-            await fs.writeFile(p, cleanCode);
-            await this.validatePHPSyntax(p);
+            await fs.writeFile(controllerPath, cleanCode);
+            const syntaxOk = await this.validatePHPSyntax(controllerPath);
+            if (!syntaxOk) {
+                this.log(`      ⚠️ Syntax error in generated controller. Writing safe fallback for ${modelName}Controller.php`, 'warning');
+                await fs.writeFile(controllerPath, this._safeFallbackController(modelName));
+            }
+        } else {
+            this.log(`      ⚠️ LLM returned empty. Writing safe fallback for ${modelName}Controller.php`, 'warning');
+            await fs.writeFile(controllerPath, this._safeFallbackController(modelName));
         }
+        this.log(`      ✅ Saved ${modelName}Controller.php`, 'success');
+    }
+
+    _safeFallbackController(modelName) {
+        const varName = modelName.charAt(0).toLowerCase() + modelName.slice(1);
+        return `<?php\n\nnamespace App\\Http\\Controllers\\Api;\n\nuse App\\Http\\Controllers\\Controller;\nuse App\\Models\\${modelName};\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Http\\JsonResponse;\n\nclass ${modelName}Controller extends Controller\n{\n    public function index(): JsonResponse { return response()->json(${modelName}::all()); }\n    public function store(Request $request): JsonResponse { return response()->json(${modelName}::create($request->all()), 201); }\n    public function show(${modelName} $${varName}): JsonResponse { return response()->json($${varName}); }\n    public function update(Request $request, ${modelName} $${varName}): JsonResponse { $${varName}->update($request->all()); return response()->json($${varName}); }\n    public function destroy(${modelName} $${varName}): JsonResponse { $${varName}->delete(); return response()->json(null, 204); }\n}\n`;
     }
 
     async generateLayout(blueprint) {

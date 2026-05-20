@@ -1,13 +1,17 @@
-```php
 <?php
 
 namespace Database\Seeders;
 
-use App\Models\Url;
 use Illuminate\Database\Seeder;
+use App\Models\Url;
 
 class UrlSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
         factory(Url::class, 10)->create();

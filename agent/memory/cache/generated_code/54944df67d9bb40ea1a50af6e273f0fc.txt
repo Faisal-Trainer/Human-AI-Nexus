@@ -3,17 +3,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/url', function () {
-    return view('url');
-});
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::post('/url', [App\Http\Controllers\UrlShortenerController::class, 'create'])->name('url.create');
 ```
-
-This code snippet defines the routes for your URL-shortener-app application in Laravel. Each route maps a specific URL to a corresponding Blade template located in the `resources/views` directory.

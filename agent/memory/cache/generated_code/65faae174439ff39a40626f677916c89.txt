@@ -13,22 +13,18 @@ class Url extends Model
     use HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'urls';
-    protected $primaryKey = 'id'; // UUID via HasUuids
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'original_url', 'shortened_url', 'is_active', 'click_count'
+        // list all writable columns except id, created_at, updated_at, deleted_at
     ];
 
     protected $casts = [
         'id' => 'string',
-        'is_active' => 'boolean',
-        'click_count' => 'integer'
     ];
 
-    // RELATIONSHIPS: define belongsTo/hasMany/belongsToMany for related models
-    // Example: public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    // { return $this->belongsTo(User::class); }
+    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
 }
 ```

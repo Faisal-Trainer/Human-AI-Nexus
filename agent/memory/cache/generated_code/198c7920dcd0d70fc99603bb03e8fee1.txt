@@ -1,0 +1,42 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class Relation extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'relations';
+    protected $primaryKey = 'id'; // UUID via HasUuids
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'user_id', // Assuming a user model exists and we're using it as the relation's target
+        'title',
+        'description',
+        'tags',
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+        'title' => 'string',
+        'description' => 'text',
+        'tags' => 'array', // Assuming tags are stored as a comma-separated string in the database
+    ];
+
+    protected $hidden = [];
+
+    // RELATIONSHIPS: define belongsTo for related models
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}
+```

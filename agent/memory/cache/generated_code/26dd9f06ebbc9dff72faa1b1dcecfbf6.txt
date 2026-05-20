@@ -1,0 +1,10 @@
+```php
+<?php
+
+use Illuminate\Http\Request;
+use App\Models\Bookmark;
+use App\Models\User;
+
+Route::apiResource('bookmarks', 'BookmarkController');
+Route::apiResource('users', 'UserController');
+```

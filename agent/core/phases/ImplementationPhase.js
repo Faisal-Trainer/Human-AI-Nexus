@@ -112,7 +112,12 @@ class ImplementationPhase extends BasePhase {
             await this._run('php', ['artisan', 'key:generate', '--force'], root);
             
             this.log(`      Running 'php artisan migrate'...`, 'info');
-            await this._run('php', ['artisan', 'migrate', '--force', '--seed'], root);
+            try {
+                await this._run('php', ['artisan', 'migrate:fresh', '--force', '--seed'], root);
+            } catch (migrateErr) {
+                // Fallback to regular migrate if fresh fails (e.g., no seeder)
+                await this._run('php', ['artisan', 'migrate', '--force'], root);
+            }
             
             if (!hasNodeModules) {
                 this.log(`      Running 'npm install'...`, 'info');
@@ -156,7 +161,24 @@ class ImplementationPhase extends BasePhase {
     async _run(command, args = [], cwd, timeoutMs = 300000) {
         const { spawn } = require('child_process');
         return new Promise((resolve, reject) => {
-            const proc = spawn(command, args, { cwd, shell: true });
+            let spawnCommand = command;
+            let useShell = true;
+
+            if (process.platform === 'win32') {
+                if (command === 'php') {
+                    useShell = false;
+                } else if (command === 'npm') {
+                    spawnCommand = 'npm.cmd';
+                    useShell = false;
+                } else if (command === 'npx') {
+                    spawnCommand = 'npx.cmd';
+                    useShell = false;
+                }
+            } else {
+                useShell = false;
+            }
+
+            const proc = spawn(spawnCommand, args, { cwd, shell: useShell });
             let out = '', err = '';
             const timer = setTimeout(() => {
                 proc.kill();
@@ -191,7 +213,55 @@ class ImplementationPhase extends BasePhase {
 
     async generateModel(modelName, blueprint) {
         this.log(`   🧠 Generating Model: ${modelName}...`, 'info');
-        const prompt = `Write a complete Laravel Model class for '${modelName}'. Use namespace App\\Models. Include necessary traits like HasFactory and HasUuids. Include fillable fields based on a typical ${modelName} for a ${blueprint.project_name} application. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+        const tableName = this._toSnakePlural(modelName);
+        const prompt = `Write a complete Laravel 11 Eloquent Model class for '${modelName}' following ALL these Laravel conventions:
+
+FILE STRUCTURE:
+- Start with: <?php
+- Namespace: App\\Models
+- Import traits EXPLICITLY with full use statements (never assume auto-import)
+
+REQUIRED USE STATEMENTS (always include all of these):
+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;
+use Illuminate\\Database\\Eloquent\\Model;
+use Illuminate\\Database\\Eloquent\\SoftDeletes;
+use Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;
+
+CLASS DEFINITION:
+class ${modelName} extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = '${tableName}';
+    protected $primaryKey = 'id'; // UUID via HasUuids
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        // list all writable columns except id, created_at, updated_at, deleted_at
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+        // cast booleans as 'boolean', dates as 'datetime', json as 'array'
+    ];
+
+    protected $hidden = [
+        // hide sensitive fields like 'password', 'remember_token'
+    ];
+
+    // RELATIONSHIPS: define belongsTo/hasMany/belongsToMany for related models
+    // Example: public function user(): \\Illuminate\\Database\\Eloquent\\Relations\\BelongsTo
+    // { return $this->belongsTo(User::class); }
+}
+
+APPLICATION CONTEXT:
+- Project: ${blueprint.project_name}
+- Model: ${modelName}
+- Table: ${tableName}
+- Add realistic fillable fields and casts relevant to this project type.
+
+OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
@@ -208,7 +278,62 @@ class ImplementationPhase extends BasePhase {
 
     async generateMigration(migrationName, blueprint) {
         this.log(`   🗄️ Generating Migration: ${migrationName}...`, 'info');
-        const prompt = `Write a complete Laravel database migration for '${migrationName}'. Use anonymous class syntax: "return new class extends Migration". Include "use Illuminate\\Database\\Schema\\Blueprint;" and "use Illuminate\\Support\\Facades\\Schema;". Include $table->uuid('id')->primary() and timestamps(). Add relevant columns for a ${blueprint.project_name}. Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+        const tableName = migrationName.replace(/^create_/, '').replace(/_table$/, '');
+        const prompt = `Write a complete Laravel 11 database migration for table '${tableName}' following ALL these Laravel conventions:
+
+FILE STRUCTURE:
+- Start with: <?php
+- NO namespace declaration (migrations NEVER have namespaces)
+- Import statements come directly after <?php
+
+REQUIRED USE STATEMENTS (always include exactly these three):
+use Illuminate\\Database\\Migrations\\Migration;
+use Illuminate\\Database\\Schema\\Blueprint;
+use Illuminate\\Support\\Facades\\Schema;
+
+MIGRATION SYNTAX (use anonymous class — never use named class):
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('${tableName}', function (Blueprint $table) {
+            $table->uuid('id')->primary();      // UUID primary key
+            $table->foreignUuid('user_id')      // FK to users (if applicable)
+                  ->constrained()->cascadeOnDelete();
+            // add columns relevant to the project here
+            $table->string('column_name');      // varchar 255
+            $table->text('column_name');        // long text
+            $table->unsignedBigInteger('col'); // integer
+            $table->boolean('is_active')->default(true);
+            $table->decimal('amount', 10, 2);  // money/decimal
+            $table->enum('status', ['active','inactive']);
+            $table->index(['column_name']);     // add index for searchable columns
+            $table->timestamps();              // created_at, updated_at
+            $table->softDeletes();             // deleted_at for soft delete
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('${tableName}');
+    }
+};
+
+COLUMN RULES:
+- Use uuid('id')->primary() NOT id() for UUID PKs
+- Use foreignUuid() NOT unsignedBigInteger() for UUID FKs
+- Use constrained()->cascadeOnDelete() for all foreign keys
+- Always add softDeletes() for data that should be recoverable
+- Always add index() on columns used in WHERE/ORDER BY
+- Use nullable() only when the column is truly optional
+- String columns default to varchar(255); use text() for long content
+
+APPLICATION CONTEXT:
+- Project: ${blueprint.project_name}
+- Table: ${tableName}
+- Add realistic columns relevant to this project type.
+
+OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
@@ -223,14 +348,24 @@ class ImplementationPhase extends BasePhase {
                 cleanCode = cleanCode.trimEnd() + ';';
             }
 
-            if (!cleanCode.includes('use Illuminate\\Support\\Facades\\Schema;')) {
-                cleanCode = cleanCode.replace(/(use Illuminate\\Database\\Migrations\\Migration;)/i, "$1\nuse Illuminate\\Support\\Facades\\Schema;");
+            // Ensure essential Laravel migration imports are present programmatically
+            let importsToInject = '';
+            if (!cleanCode.includes('Illuminate\\Database\\Migrations\\Migration')) {
+                importsToInject += 'use Illuminate\\Database\\Migrations\\Migration;\n';
+            }
+            if (!cleanCode.includes('Illuminate\\Support\\Facades\\Schema')) {
+                importsToInject += 'use Illuminate\\Support\\Facades\\Schema;\n';
+            }
+            if (!cleanCode.includes('Illuminate\\Database\\Schema\\Blueprint')) {
+                importsToInject += 'use Illuminate\\Database\\Schema\\Blueprint;\n';
             }
 
-            if (cleanCode.includes('Blueprint ') && !cleanCode.includes('use Illuminate\\Database\\Schema\\Blueprint;')) {
-                cleanCode = cleanCode.replace(/(use Illuminate\\Support\\Facades\\Schema;)/i, "$1\nuse Illuminate\\Database\\Schema\\Blueprint;");
-                if (!cleanCode.includes('use Illuminate\\Database\\Schema\\Blueprint;')) {
-                    cleanCode = cleanCode.replace(/(use Illuminate\\Database\\Migrations\\Migration;)/i, "$1\nuse Illuminate\\Database\\Schema\\Blueprint;");
+            if (importsToInject) {
+                // PHP namespace must be the first statement. If namespace is present, inject imports after it.
+                if (cleanCode.match(/namespace\s+[^;]+;/i)) {
+                    cleanCode = cleanCode.replace(/(namespace\s+[^;]+;)/i, `$1\n\n${importsToInject}`);
+                } else {
+                    cleanCode = cleanCode.replace(/(<\?php)/i, `$1\n\n${importsToInject}`);
                 }
             }
             
@@ -331,7 +466,7 @@ class ImplementationPhase extends BasePhase {
 
     async generatePolicy(modelName, blueprint) {
         this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, 'info');
-        const prompt = `Write a complete Laravel Policy class for '${modelName}'. Namespace: App\\Policies. Include standard CRUD authorization methods (viewAny, view, create, update, delete). Output ONLY the raw PHP code, starting with <?php.`;
+        const prompt = `Write a complete Laravel Policy class named '${modelName}Policy' for model '${modelName}'. Namespace: App\\Policies. Import App\\Models\\User and App\\Models\\${modelName} explicitly. The policy class should be a standard Laravel policy (a plain PHP class that does not extend any base class unless needed, but here do not extend any base class). Include standard CRUD authorization methods (viewAny, view, create, update, delete) which accept User and ${modelName} parameters as appropriate. Output ONLY the raw PHP code, starting with <?php.`;
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
@@ -344,7 +479,7 @@ class ImplementationPhase extends BasePhase {
 
     async generateApiController(modelName, blueprint) {
         this.log(`   📡 Generating API Controller: ${modelName}Controller...`, 'info');
-        const prompt = `Write a complete Laravel API Controller for '${modelName}'. Namespace: App\\Http\\Controllers\\Api. Include index, store, show, update, destroy methods. Output ONLY the raw PHP code, starting with <?php.`;
+        const prompt = `Write a complete Laravel API Controller named '${modelName}Controller' for model '${modelName}'. Namespace: App\\Http\\Controllers\\Api. Import App\\Http\\Controllers\\Controller and App\\Models\\${modelName} explicitly. The controller class should extend the base Controller class (Controller). Include index, store, show, update, destroy methods. Output ONLY the raw PHP code, starting with <?php.`;
         const response = await this.getCachedOrGenerate(prompt, 'build_model_migration');
         if (response) {
             const cleanCode = this.cleanLLMOutput(response);
@@ -409,6 +544,23 @@ class ImplementationPhase extends BasePhase {
 
     toKebabCase(str) {
         return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    }
+
+    // Convert PascalCase model name to snake_case plural table name
+    // e.g. UrlShortener -> url_shorteners, ExpenseItem -> expense_items
+    _toSnakePlural(modelName) {
+        const snake = modelName
+            .replace(/([A-Z])/g, '_$1')
+            .toLowerCase()
+            .replace(/^_/, '');
+        // Simple pluralization: add 's', handle common irregular endings
+        if (snake.endsWith('y') && !['ay','ey','iy','oy','uy'].some(e => snake.endsWith(e))) {
+            return snake.slice(0, -1) + 'ies';
+        }
+        if (snake.endsWith('s') || snake.endsWith('sh') || snake.endsWith('ch') || snake.endsWith('x') || snake.endsWith('z')) {
+            return snake + 'es';
+        }
+        return snake + 's';
     }
 }
 

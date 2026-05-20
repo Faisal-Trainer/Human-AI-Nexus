@@ -1,0 +1,27 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class TodoItem extends Model
+{
+    use HasFactory;
+    use HasUuids;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
+
+    // Other methods and relationships can be added here as needed
+}
+```
+
+This code snippet defines the `TodoItem` model within the `App\Models` namespace. It uses the necessary traits, including `HasFactory` and `HasUuids`, to provide factory capabilities and UUID support. The `$fillable` array specifies which columns are mass assignable through the model's mass assignment feature, making it easy for data to be inserted into the database via controllers or other parts of the application.

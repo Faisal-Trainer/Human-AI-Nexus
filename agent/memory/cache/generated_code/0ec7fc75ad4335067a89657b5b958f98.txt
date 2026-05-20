@@ -1,0 +1,44 @@
+```php
+<?php
+
+namespace App\Policies;
+
+use App\Models\User;
+use App\Models\TodoItem;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class TodoItemPolicy
+{
+    use HandlesAuthorization;
+
+    public function viewAny(User $user)
+    {
+        // Check if the user has permission to view all todo items
+        return true; // Adjust based on your authorization logic
+    }
+
+    public function view(TodoItem $todoItem, User $user)
+    {
+        // Check if the user has permission to view a specific todo item
+        return true; // Adjust based on your authorization logic
+    }
+
+    public function create(User $user)
+    {
+        // Check if the user has permission to create a new todo item
+        return true; // Adjust based on your authorization logic
+    }
+
+    public function update(TodoItem $todoItem, User $user)
+    {
+        // Check if the user has permission to update a specific todo item
+        return true; // Adjust based on your authorization logic
+    }
+
+    public function delete(TodoItem $todoItem, User $user)
+    {
+        // Check if the user has permission to delete a specific todo item
+        return true; // Adjust based on your authorization logic
+    }
+}
+```

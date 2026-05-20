@@ -210,13 +210,29 @@ class EvolutionPiper {
         return targetPath;
     }
 
-    // Helper: spawn process to run commands with shell wrapper (Windows & Linux compatible)
     async _spawn(command, args = [], options = {}) {
         const { spawn } = require('child_process');
         return new Promise((resolve, reject) => {
-            const proc = spawn(command, args, {
+            let spawnCommand = command;
+            let useShell = true;
+
+            if (process.platform === 'win32') {
+                if (command === 'php') {
+                    useShell = false;
+                } else if (command === 'npm') {
+                    spawnCommand = 'npm.cmd';
+                    useShell = false;
+                } else if (command === 'npx') {
+                    spawnCommand = 'npx.cmd';
+                    useShell = false;
+                }
+            } else {
+                useShell = false;
+            }
+
+            const proc = spawn(spawnCommand, args, {
                 cwd: options.cwd || this.rootPath,
-                shell: true
+                shell: useShell
             });
             let out = '', err = '';
             const timeoutMs = options.timeout || 300000;

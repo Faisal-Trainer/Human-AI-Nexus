@@ -1,0 +1,44 @@
+{
+  "project_name": "todo-app-realtime",
+  "models": [
+    "User",
+    "TodoItem"
+  ],
+  "migrations": [
+    "create_users_table",
+    "create_todo_items_table",
+    "create_user_todo_item_pivot_table"
+  ],
+  "livewire_components": [
+    "TodoList",
+    "TodoDetail",
+    "AddTodo"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "TodoItemSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "TodoItemFactory"
+  ],
+  "routes": [
+    "/login",
+    "/register",
+    "/dashboard",
+    "/todoitem/create"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "TodoItem"
+    },
+    {
+      "model": "TodoItem",
+      "type": "belongsTo",
+      "target": "User"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Detail</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="container mx-auto py-8 lg:py-16">
+        <div class="max-w-md w-full rounded bg-white shadow-lg overflow-hidden">
+            <div class="px-4 py-5 sm:p-6">
+                <h2 class="text-xl font-semibold text-gray-900">{{ $todo->title }}</h2>
+                <p class="mt-1 text-gray-700">{{ $todo->description }}</p>
+
+                <div class="flex items-center mt-4">
+                    @if ($todo->completed == false)
+                        <button wire:click="toggleCompletion({{ $todo->id }})" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded shadow-lg focus:outline-none focus:ring ring-blue-300">
+                            Mark as Complete
+                        </button>
+                    @else
+                        <button wire:click="toggleCompletion({{ $todo->id }})" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded shadow-lg focus:outline-none focus:ring ring-red-300">
+                            Mark as Incomplete
+                        </button>
+                    @endif
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                    <span wire:click="deleteTodo({{ $todo->id }})" class="text-gray-600 hover:text-red-500 cursor-pointer">Delete</span>
+                    <a href="{{ route('todos.index') }}" class="text-gray-600 hover:text-blue-500 cursor-pointer">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @livewireScript
+</body>
+</html>
+```
+
+This Blade view includes the necessary HTML structure, Tailwind CSS styling, Alpine.js interactions, and Livewire component calls for toggling completion status and deleting the todo item.

@@ -1,0 +1,45 @@
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Habit;
+use Illuminate\Http\Request;
+
+class HabitController extends Controller
+{
+    // Index method to retrieve all habits
+    public function index()
+    {
+        return Habit::all();
+    }
+
+    // Store method to create a new habit
+    public function store(Request $request)
+    {
+        $habit = Habit::create($request->all());
+        return response()->json($habit, 201);
+    }
+
+    // Show method to retrieve a specific habit by ID
+    public function show(Habit $habit)
+    {
+        return response()->json($habit);
+    }
+
+    // Update method to modify an existing habit
+    public function update(Request $request, Habit $habit)
+    {
+        $habit->update($request->all());
+        return response()->json($habit, 200);
+    }
+
+    // Destroy method to delete a specific habit by ID
+    public function destroy(Habit $habit)
+    {
+        $habit->delete();
+        return response()->json(['message' => 'Habit deleted'], 204);
+    }
+}
+```

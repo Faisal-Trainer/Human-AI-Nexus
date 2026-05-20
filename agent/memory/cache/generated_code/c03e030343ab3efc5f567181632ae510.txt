@@ -1,0 +1,21 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\UUID;
+
+class User extends Model
+{
+    use HasFactory;
+    use UUID;
+
+    protected $fillable = [
+        'name', 'email', 'password', 'is_active'
+    ];
+
+    // Other methods and relationships can be added here as needed
+}
+```

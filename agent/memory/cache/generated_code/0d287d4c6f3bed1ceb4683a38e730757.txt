@@ -1,0 +1,24 @@
+```html
+<div class="bg-blue-500 text-white font-bold py-4 px-8 rounded-md shadow-lg mx-auto mt-16">
+    <div wire:key="{{ $shortLink->id }}">
+        <h2>{{ $shortLink->title }}</h2>
+        <p>Click {{ $shortLink->clicks }} times</p>
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md shadow-lg mt-4" wire:click="copyToClipboard('{{ $shortLink->short_url }}')">Copy Link</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Alpine.data('ShortLinkComponent', () => ({
+            shortLink: null,
+            copyToClipboard(url) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy link:', err);
+                });
+            }
+        }));
+    });
+</script>
+```

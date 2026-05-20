@@ -1,0 +1,46 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Http;
+
+class CreateLinkComponent extends Component
+{
+    // Public properties
+    public $url = '';
+    public $shortenedUrl = '';
+    public $status = '';
+
+    // Method to save the link
+    public function store()
+    {
+        try {
+            // Send a POST request to your backend endpoint to shorten the URL
+            $response = Http::post('api/shorten-url', ['url' => $this->url]);
+
+            if ($response->successful()) {
+                $data = json_decode($response->body(), true);
+                $this->status = 'success';
+                $this->shortenedUrl = $data['shortened_url'];
+            } else {
+                $this->status = 'error';
+                $this->shortenedUrl = '';
+            }
+        } catch (\Exception $e) {
+            $this->status = 'error';
+            $this->shortenedUrl = '';
+        }
+
+        // Refresh the component to update the status and shortened URL
+        $this->render();
+    }
+
+    // Method to delete the link (not implemented in this example)
+    public function delete()
+    {
+        // Implement deletion logic here
+    }
+}
+```

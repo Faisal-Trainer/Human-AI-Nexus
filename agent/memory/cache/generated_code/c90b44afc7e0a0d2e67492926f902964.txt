@@ -1,0 +1,14 @@
+```php
+<?php
+
+use App\Models\TodoItem;
+use Illuminate\Database\Seeder;
+
+class TodoItemSeeder extends Seeder
+{
+    public function run()
+    {
+        factory(TodoItem::class, 10)->create();
+    }
+}
+```

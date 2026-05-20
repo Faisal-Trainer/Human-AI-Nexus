@@ -1,0 +1,36 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
+use Illuminate\Support\Facades\Validator;
+
+class TagCreateComponent extends Component
+{
+    public $name;
+
+    protected $rules = [
+        'name' => ['required', 'string', 'max:255'],
+    ];
+
+    public function create()
+    {
+        Validator::make($this->validate(), $this->rules)->passed() ? $this->storeTag() : $this->addError('create', 'Invalid tag name');
+    }
+
+    private function storeTag()
+    {
+        Tag::create([
+            'user_id' => Auth::id(),
+            'name' => $this->name,
+        ]);
+
+        session()->flash('success', 'Tag created successfully');
+
+        return redirect()->route('tag.index');
+    }
+}
+```

@@ -1,0 +1,50 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
+class ExpenseFormComponent extends Component
+{
+    public $expense = [];
+    public $itemPrice = 0;
+    public $description = '';
+    public $userId = Auth::id();
+
+    public function store()
+    {
+        // Logic to store expense in the database
+        // Example:
+        // Expense::create([
+        //     'user_id' => $this->userId,
+        //     'item_price' => $this->itemPrice,
+        //     'description' => $this->description,
+        // ]);
+
+        $this->resetForm();
+    }
+
+    public function destroy($id)
+    {
+        // Logic to delete an expense from the database
+        // Example:
+        // Expense::find($id)->delete();
+
+        // Optionally, you might want to show a confirmation message or redirect after deletion
+    }
+
+    private function resetForm()
+    {
+        $this->expense = [];
+        $this->itemPrice = 0;
+        $this->description = '';
+    }
+
+    public function render()
+    {
+        return view('livewire.expense-form-component');
+    }
+}
+```

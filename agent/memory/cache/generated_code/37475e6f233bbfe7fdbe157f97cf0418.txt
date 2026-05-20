@@ -1,0 +1,37 @@
+```php
+<?php
+
+namespace App\Policies;
+
+use Illuminate\Auth\Guard;
+use App\Models\User;
+use App\Models\Tag;
+
+class TagPolicy
+{
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
+    public function view(User $user, Tag $tag)
+    {
+        return true;
+    }
+
+    public function create(User $user)
+    {
+        return true;
+    }
+
+    public function update(User $user, Tag $tag)
+    {
+        return $user->hasRole('admin'); // Assuming 'admin' role allows updating tags
+    }
+
+    public function delete(User $user, Tag $tag)
+    {
+        return $user->hasRole('admin'); // Assuming 'admin' role allows deleting tags
+    }
+}
+```

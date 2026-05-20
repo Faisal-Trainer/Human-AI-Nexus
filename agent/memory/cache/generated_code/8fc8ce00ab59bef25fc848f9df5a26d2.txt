@@ -1,0 +1,48 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
+
+class NoteIndexComponent extends Component
+{
+    use WithFileUploads;
+
+    public $noteContent;
+    public $isNotePublic = true;
+    public $tags = [];
+
+    public function store()
+    {
+        if ($this->noteContent) {
+            // Save the note with content and tags
+            $note = Note::create([
+                'content' => $this->noteContent,
+                'public' => $this->isNotePublic,
+            ]);
+
+            foreach ($this->tags as $tag) {
+                $note->addTag($tag);
+            }
+
+            session()->flash('success', 'Note created successfully!');
+        }
+    }
+
+    public function delete()
+    {
+        // Delete the note
+        Note::destroy($this->id);
+
+        session()->flash('success', 'Note deleted successfully!');
+    }
+
+    public function render()
+    {
+        return view('livewire.note-index-component');
+    }
+}
+```

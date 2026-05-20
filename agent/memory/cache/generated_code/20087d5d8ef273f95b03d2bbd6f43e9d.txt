@@ -1,0 +1,43 @@
+```php
+<?php
+
+namespace App\Policies;
+
+use App\Models\User;
+use App\Models\Expense;
+use Illuminate\Auth\CanSeeAs;
+use Illuminate\Auth\CanViewAny;
+use Illuminate\Auth\CanCreate;
+use Illuminate\Auth\CanUpdate;
+use Illuminate\Auth\CanDelete;
+use Illuminate\Contracts\Auth\Authorizable;
+
+class ExpensePolicy implements Authorizable
+{
+    use CanSeeAs, CanViewAny, CanCreate, CanUpdate, CanDelete;
+
+    public function view(User $user, Expense $expense): bool
+    {
+        // Implement your logic here
+        return $user->can('view', $expense);
+    }
+
+    public function create(User $user): bool
+    {
+        // Implement your logic here
+        return $user->can('create', Expense::class);
+    }
+
+    public function update(User $user, Expense $expense): bool
+    {
+        // Implement your logic here
+        return $user->can('update', $expense);
+    }
+
+    public function delete(User $user, Expense $expense): bool
+    {
+        // Implement your logic here
+        return $user->can('delete', $expense);
+    }
+}
+```

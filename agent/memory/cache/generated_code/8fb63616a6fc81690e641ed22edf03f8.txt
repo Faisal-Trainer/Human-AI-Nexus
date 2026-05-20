@@ -1,0 +1,16 @@
+```php
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Url;
+use Illuminate\Database\Seeder;
+
+class UrlSeeder extends Seeder
+{
+    public function run()
+    {
+        factory(Url::class, 10)->create();
+    }
+}
+```

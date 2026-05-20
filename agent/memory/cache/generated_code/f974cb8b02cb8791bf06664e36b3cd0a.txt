@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Expense;
+use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+
+class ExpenseSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            Expense::factory()->create([
+                'user_id' => fake()->numberBetween(1, 5),
+                'category_id' => fake()->numberBetween(1, 4),
+                'amount' => fake()->randomFloat(2, 0, 1000),
+                'description' => $faker->realText(),
+            ]);
+        }
+    }
+}
+```

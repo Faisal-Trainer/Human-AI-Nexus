@@ -1,0 +1,24 @@
+```php
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use Faker\Factory as Faker;
+
+class UserSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            User::create([
+                'name' => $faker->name(),
+                'email' => $faker->unique()->safeEmail(),
+                'password' => bcrypt('secret'),
+                'role_id' => 2, // Assuming 'role_id' for regular users is 2
+            ]);
+        }
+    }
+}
+```

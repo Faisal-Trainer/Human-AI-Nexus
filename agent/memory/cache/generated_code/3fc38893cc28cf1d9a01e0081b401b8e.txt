@@ -1,0 +1,39 @@
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Relation;
+
+class RelationController extends Controller
+{
+    public function index()
+    {
+        return Relation::all();
+    }
+
+    public function store(Request $request)
+    {
+        $relation = Relation::create($request->validated());
+        return response()->json($relation, 201);
+    }
+
+    public function show(Relation $relation)
+    {
+        return $relation;
+    }
+
+    public function update(Request $request, Relation $relation)
+    {
+        $relation->update($request->validated());
+        return response()->json($relation, 200);
+    }
+
+    public function destroy(Relation $relation)
+    {
+        $relation->delete();
+        return response()->json(null, 204);
+    }
+}
+```

@@ -1,0 +1,42 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class Category extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'categories';
+    protected $primaryKey = 'id'; // UUID via HasUuids
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'name', // Writable field
+        'description', // Writable field
+        'status' // Writable field, cast to boolean or string
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+        'status' => 'boolean', // Cast to boolean from the database
+        'created_at' => 'datetime', // Convert created_at timestamp to datetime
+        'updated_at' => 'datetime', // Convert updated_at timestamp to datetime
+        'deleted_at' => 'datetime', // Convert deleted_at timestamp to datetime
+    ];
+
+    protected $hidden = [
+        'description', // Hidden from the API or public views
+    ];
+
+    // RELATIONSHIPS: define belongsTo/hasMany/belongsToMany for related models
+    // Example: public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    // { return $this->belongsTo(User::class); }
+}
+```

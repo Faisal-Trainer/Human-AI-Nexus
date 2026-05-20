@@ -191,13 +191,21 @@ class ExecutionPhase extends BasePhase {
         
         this.log(`   ✅ Cleanup & Wiring complete: ${deletedCount} files removed.`, 'success');
 
-        // Run migrate to ensure newly generated migrations from ImplementationPhase are applied
+        // Run migrate:fresh to avoid table-already-exists collisions between
+        // template migrations and generated migrations targeting the same table names.
+        // FIX: execSync declared at function scope so it is accessible in all catch branches.
+        const { execSync } = require('child_process');
         try {
-            const { execSync } = require('child_process');
-            execSync('php artisan migrate --force', { cwd: projectPath, stdio: 'ignore' });
-            this.log(`   🗄️ Database migrated successfully.`, 'success');
+            execSync('php artisan migrate:fresh --force', { cwd: projectPath, stdio: 'ignore' });
+            this.log(`   🗄️ Database migrated (fresh) successfully.`, 'success');
         } catch (e) {
-            this.log(`   ⚠️ Migration failed: ${e.message}`, 'warning');
+            // Fallback: try regular migrate in case fresh fails
+            try {
+                execSync('php artisan migrate --force', { cwd: projectPath, stdio: 'ignore' });
+                this.log(`   🗄️ Database migrated (incremental) successfully.`, 'success');
+            } catch (e2) {
+                this.log(`   ⚠️ Migration failed: ${e2.message}`, 'warning');
+            }
         }
 
         let hasSmokePassed = false;

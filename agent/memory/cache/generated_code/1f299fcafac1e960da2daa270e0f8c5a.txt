@@ -1,0 +1,29 @@
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->uuid('id')->primary();      // UUID primary key
+            $table->foreignUuid('user_id')      // FK to users (if applicable)
+                  ->constrained()->cascadeOnDelete();
+            $table->string('username');       // varchar 255 for unique username
+            $table->email('email');           // varchar 255 for email address
+            $table->string('password')->nullable(); // nullable password for security reasons
+            $table->timestamp('created_at')->default(\Carbon\Carbon::now());
+            $table->softDeletes();             // deleted_at for soft delete
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
+```

@@ -1,0 +1,23 @@
+```html
+<div class="flex flex-col items-center justify-center h-screen bg-gray-50">
+    <div class="p-8 max-w-md">
+        <h1 class="text-2xl font-bold text-gray-900">Edit Tag</h1>
+        <form wire:submit.prevent="updateTag" class="mt-8 space-y-4">
+            <label for="name" class="block text-sm font-medium text-gray-900">Tag Name</label>
+            <input type="text" id="name" class="w-full rounded-md border border-gray-300 p-2 shadow-sm focus:outline-none focus:border-indigo-500" wire:model="tagName">
+
+            <button type="submit" class="w-full rounded-md bg-indigo-500 py-2 text-center text-white font-medium hover:bg-indigo-600">Update Tag</button>
+        </form>
+    </div>
+</div>
+
+<script>
+import Alpine from 'alpinejs';
+
+window.addEventListener('DOMContentLoaded', () => {
+    Alpine.start();
+});
+</script>
+```
+
+This Livewire blade view creates a form to edit the tag name. It uses Tailwind CSS for styling and Alpine.js for event handling. The form includes a text input field for the tag name with wire:model to bind the input value to the `tagName` property in the component's data. When the user submits the form, it calls the `updateTag` method using wire:submit.prevent, which you would need to define in your Livewire component to save the updated tag name to your database or other storage mechanism.

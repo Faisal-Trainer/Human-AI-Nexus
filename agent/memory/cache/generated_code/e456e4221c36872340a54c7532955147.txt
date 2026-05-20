@@ -1,0 +1,60 @@
+```php
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Url;
+
+class UrlController extends Controller
+{
+    public function index()
+    {
+        return response()->json(Url::all());
+    }
+
+    public function store(Request $request)
+    {
+        $url = Url::create($request->all());
+
+        if ($url) {
+            return response()->json($url, 201);
+        } else {
+            return response()->json(['error' => 'Failed to create URL'], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        $url = Url::findOrFail($id);
+
+        if ($url) {
+            return response()->json($url);
+        } else {
+            return response()->json(['error' => 'URL not found'], 404);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $url = Url::findOrFail($id);
+
+        if ($url->update($request->all())) {
+            return response()->json($url);
+        } else {
+            return response()->json(['error' => 'Failed to update URL'], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $url = Url::findOrFail($id);
+
+        if ($url->delete()) {
+            return response()->json(['message' => 'URL deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Failed to delete URL'], 500);
+        }
+    }
+}
+```

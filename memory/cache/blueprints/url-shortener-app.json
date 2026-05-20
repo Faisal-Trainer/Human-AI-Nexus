@@ -1,0 +1,36 @@
+{
+  "project_name": "url-shortener-app",
+  "models": [
+    "Url",
+    "User"
+  ],
+  "migrations": [
+    "create_urls_table",
+    "create_users_table"
+  ],
+  "livewire_components": [
+    "ShortLinkComponent",
+    "CreateLinkComponent"
+  ],
+  "seeders": [
+    "UrlSeeder",
+    "UserSeeder"
+  ],
+  "factories": [
+    "UrlFactory",
+    "UserFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/url"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "Url",
+      "type": "hasManyThrough",
+      "through": "Visit",
+      "target": "User"
+    }
+  ]
+}

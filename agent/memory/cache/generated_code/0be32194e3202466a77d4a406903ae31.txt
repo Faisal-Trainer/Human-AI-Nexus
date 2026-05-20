@@ -1,0 +1,38 @@
+```php
+<?php
+
+namespace App\Policies;
+
+use App\Models\Url;
+use Illuminate\Auth\CanSeeBeforeRulesPolicy;
+
+class Url extends CanSeeBeforeRulesPolicy
+{
+    use HandlesAuthorization;
+
+    public function viewAny(User $user)
+    {
+        return true; // Allow all users to see any URL
+    }
+
+    public function view(User $user, Url $url)
+    {
+        return true; // Allow all users to view any URL
+    }
+
+    public function create(User $user)
+    {
+        return $user->hasRole('admin') || $user->can('create urls'); // Admins or users with the create role can create URLs
+    }
+
+    public function update(User $user, Url $url)
+    {
+        return $user->hasRole('admin') || $user->can('update urls'); // Admins or users with the update role can update URLs
+    }
+
+    public function delete(User $user, Url $url)
+    {
+        return $user->hasRole('admin') || $user->can('delete urls'); // Admins or users with the delete role can delete URLs
+    }
+}
+```

@@ -1,0 +1,54 @@
+{
+  "project_name": "notes-app-tagging",
+  "models": [
+    "Note",
+    "Tag",
+    "Relation"
+  ],
+  "migrations": [
+    "create_table_notes_table",
+    "create_table_tags_table",
+    "create_table_relations_table"
+  ],
+  "livewire_components": [
+    "NoteIndexComponent",
+    "NoteShowComponent",
+    "TagListComponent",
+    "TagCreateComponent",
+    "TagEditComponent"
+  ],
+  "seeders": [
+    "NoteSeeder",
+    "TagSeeder",
+    "RelationSeeder"
+  ],
+  "factories": [
+    "NoteFactory",
+    "TagFactory",
+    "RelationFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/notes",
+    "/tags",
+    "/note/{id}",
+    "/tag/{id}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "Note",
+      "type": "hasMany",
+      "target": "Tag"
+    },
+    {
+      "model": "Tag",
+      "type": "manyToMany",
+      "target": "Relation",
+      "through_table": "relation_tags",
+      "join_column_name": "tag_id",
+      "related_key_name": "note_id",
+      "foreign_pivot_key_name": "relation_id"
+    }
+  ]
+}

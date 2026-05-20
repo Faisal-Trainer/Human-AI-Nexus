@@ -1,0 +1,29 @@
+```php
+<?php
+
+use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+
+class RelationSeeder extends Seeder
+{
+    public function run()
+    {
+        // Create dummy data using the factory
+        $users = User::factory()->create(10);
+        $products = Product::factory()->create(20);
+
+        // Set up relationships between users and products
+        for ($i = 0; $i < 5; $i++) {
+            $user = $users->random();
+            $product = $products->random();
+
+            // Create a relationship
+            UserProductRelation::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'quantity' => Faker::numberBetween(1, 5)
+            ]);
+        }
+    }
+}
+```

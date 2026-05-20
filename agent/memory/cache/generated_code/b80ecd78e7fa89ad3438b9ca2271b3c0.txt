@@ -1,0 +1,29 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Http;
+
+class ShortLinkComponent extends Component
+{
+    public $url;
+    public $shortUrl;
+
+    public function save()
+    {
+        // Logic to save the URL and generate a short URL using an API or service
+        // For example, using a custom service:
+        // $response = Http::post('https://your-custom-api-url.com/shorten', ['url' => $this->url]);
+        // $this->shortUrl = $response->json()->short_url;
+    }
+
+    public function delete()
+    {
+        // Logic to delete the short URL using an API or service
+        // For example, using a custom service:
+        // Http::delete('https://your-custom-api-url.com/delete', ['short_url' => $this->shortUrl]);
+    }
+}
+```

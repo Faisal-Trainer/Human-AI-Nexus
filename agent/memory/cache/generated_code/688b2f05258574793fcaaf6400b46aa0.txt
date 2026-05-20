@@ -1,0 +1,46 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class User extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'users';
+    protected $primaryKey = 'id'; // UUID via HasUuids
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password', // Example sensitive field
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+        'password' => 'hashed', // Example cast for sensitive fields like password
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime'
+    ];
+
+    protected $hidden = [
+        'password', // Example hidden field
+        'remember_token'
+    ];
+
+    // RELATIONSHIPS: define belongsTo/hasMany/belongsToMany for related models
+    // Example: public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    // { return $this->belongsTo(User::class); }
+}
+```

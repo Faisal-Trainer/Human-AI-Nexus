@@ -3,8 +3,6 @@
 // Enables autonomous code review and reasoning without cloud costs
 // ⛔ GUARDRAIL v2.1: Task whitelist + output validation + circuit breaker enforced
 
-const axios = require('axios');
-
 // ⛔ PAGAR 1: Whitelist task yang diizinkan — tidak boleh diperluas secara programatik
 const ALLOWED_TASKS = [
     'review_code_quality',
@@ -50,8 +48,10 @@ class LocalIntelligence {
         }
 
         try {
-            const tagsResponse = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
-            const availableModels = tagsResponse.data.models.map(m => m.name);
+            const tagsResponse = await fetch(`${this.baseUrl}/tags`, { signal: AbortSignal.timeout(5000) });
+            if (!tagsResponse.ok) throw new Error(`HTTP error! status: ${tagsResponse.status}`);
+            const data = await tagsResponse.json();
+            const availableModels = data.models.map(m => m.name);
             
             // Auto-select best model (Prioritaskan 1.5b untuk memory safety di laptop Ryzen 2500U)
             if (availableModels.includes('qwen2.5-coder:1.5b')) {
@@ -164,24 +164,31 @@ class LocalIntelligence {
     async _doGenerate(prompt, systemPrompt, taskType) {
         const isBuilderTask = ['generate_architecture', 'build_model_migration', 'build_livewire_component', 'build_view', 'build_application'].includes(taskType);
         
-        const response = await axios.post(`${this.baseUrl}/generate`, {
-            model: this.model,
-            prompt: prompt,
-            system: systemPrompt,
-            stream: false,
-            options: {
-                // ⚡ RYZEN 2500U TURBO PARAMETERS
-                temperature: isBuilderTask ? 0.7 : 0.1,
-                num_ctx: isBuilderTask ? 8192 : this.MAX_TOKENS,
-                num_thread: 6,            // 8 logical cores, gunakan 6 agar laptop tetap responsif
-                num_batch: 256,           // Batch kecil agar tidak membebani memory bandwidth Vega 8
-                use_mmap: true,
-                num_gpu: 0,               // Matikan GPU offload jika Vega 8 tidak di-set ROCm/OpenCL
-                low_vram: true            // Menghemat RAM sistem yang dishare ke Vega 8
-            }
-        }, { timeout: 900000 }); // 5 menit timeout per request
+        const response = await fetch(`${this.baseUrl}/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: this.model,
+                prompt: prompt,
+                system: systemPrompt,
+                stream: false,
+                options: {
+                    // ⚡ RYZEN 2500U TURBO PARAMETERS
+                    temperature: isBuilderTask ? 0.7 : 0.1,
+                    num_ctx: isBuilderTask ? 8192 : this.MAX_TOKENS,
+                    num_thread: 6,            // 8 logical cores, gunakan 6 agar laptop tetap responsif
+                    num_batch: 256,           // Batch kecil agar tidak membebani memory bandwidth Vega 8
+                    use_mmap: true,
+                    num_gpu: 0,               // Matikan GPU offload jika Vega 8 tidak di-set ROCm/OpenCL
+                    low_vram: true            // Menghemat RAM sistem yang dishare ke Vega 8
+                }
+            }),
+            signal: AbortSignal.timeout(900000)
+        });
 
-        return this.validateOutput(response.data.response, taskType);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return this.validateOutput(data.response, taskType);
     }
 
     /**

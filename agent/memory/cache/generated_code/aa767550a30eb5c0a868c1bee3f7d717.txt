@@ -1,0 +1,81 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App Realtime</title>
+    <!-- Include Tailwind CSS -->
+    @include('vendor.tailwindcss.full')
+    <!-- Include Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 z-50 w-full bg-white shadow-md transition duration-200 ease-in-out lg:hidden">
+        <div class="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8">
+            <h1 class="text-lg font-bold text-gray-700">Todo App</h1>
+            <button @click="toggleSidebar" class="mt-4 w-full py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-700">
+                Toggle Sidebar
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex flex-col items-center justify-center w-full h-screen overflow-x-hidden lg:w-3/4 lg:max-w-6xl">
+        <!-- Navigation -->
+        <nav class="bg-gray-800 shadow-lg rounded-t-md sm:shadow-xl lg:bg-blue-500 dark:bg-gray-900 lg:dark:bg-gray-700 dark:text-white transition duration-200 ease-in-out lg:hidden">
+            <div class="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8">
+                <h1 class="text-lg font-bold text-white">Todo App</h1>
+                <ul class="space-y-2 mt-4 w-full text-sm font-medium leading-5 text-gray-700">
+                    @foreach ($navigation as $item)
+                        <li><a href="#!" class="hover:text-blue-500">{{ $item }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="flex flex-col items-center justify-center w-full h-screen overflow-x-hidden lg:w-3/4 lg:max-w-6xl">
+            {!! $slot ?? '' !!}
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-4 sm:py-8 rounded-b-md lg:hidden">
+            <div class="flex flex-col items-center justify-between p-4 sm:p-6 md:p-8">
+                <h1 class="text-lg font-bold text-white">Todo App</h1>
+                <ul class="space-y-2 mt-4 w-full text-sm font-medium leading-5 text-gray-700">
+                    @foreach ($footer as $item)
+                        <li><a href="#!" class="hover:text-blue-500">{{ $item }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </footer>
+
+        <!-- Sidebar Toggle Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const sidebar = document.querySelector('.fixed.left-0.top-0.z-50.w-full.bg-white.shadow-md.transition.duration-200 ease-in-out lg:hidden');
+                const toggleSidebar = () => {
+                    if (sidebar.classList.contains('hidden')) {
+                        sidebar.classList.remove('hidden');
+                    } else {
+                        sidebar.classList.add('hidden');
+                    }
+                };
+            });
+        </script>
+    </main>
+
+    <!-- Alpine.js Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Alpine.data('app', {
+                navigation: ['Home', 'Tasks', 'Settings'],
+                footer: ['About Us', 'Contact Us']
+            });
+        });
+    </script>
+</body>
+</html>
+```

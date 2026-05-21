@@ -1,0 +1,39 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+
+class AddTodo extends Component
+{
+    // Public Properties
+    public $todo = '';
+
+    // Basic Methods
+    public function save()
+    {
+        DB::table('todos')->insert([
+            'user_id' => auth()->id(),
+            'title' => $this->todo,
+            'completed' => false
+        ]);
+
+        $this->resetForm();
+    }
+
+    public function delete($id)
+    {
+        DB::table('todos')->where('id', $id)->delete();
+
+        $this->emit('refresh-todos');
+    }
+
+    // Reset Form Function
+    private function resetForm()
+    {
+        $this->todo = '';
+    }
+}
+```

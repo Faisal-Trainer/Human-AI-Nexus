@@ -1,0 +1,60 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Redis;
+
+class TodoList extends Component
+{
+    // Public properties to store todo items and status
+    public $items = [];
+    public $status = 'all';
+
+    // Method to fetch initial data from Redis
+    public function mount()
+    {
+        $this->items = Redis::get('todo_items') ?? [];
+    }
+
+    // Method to save a new todo item
+    public function saveItem($text)
+    {
+        // Add the new item to the items array and update Redis
+        $this->items[] = ['text' => $text, 'status' => 'active'];
+        Redis::set('todo_items', json_encode($this->items));
+    }
+
+    // Method to delete a todo item by ID
+    public function deleteItem($id)
+    {
+        // Remove the item from the items array and update Redis
+        foreach ($this->items as $index => &$item) {
+            if ($item['id'] == $id) {
+                unset($this->items[$index]);
+                break;
+            }
+        }
+        Redis::set('todo_items', json_encode($this->items));
+    }
+
+    // Method to toggle the status of a todo item
+    public function toggleStatus($id)
+    {
+        foreach ($this->items as &$item) {
+            if ($item['id'] == $id) {
+                $item['status'] = $item['status'] === 'active' ? 'completed' : 'active';
+                break;
+            }
+        }
+        Redis::set('todo_items', json_encode($this->items));
+    }
+
+    // Render method to return the Livewire component view
+    public function render()
+    {
+        return view('livewire.todo-list');
+    }
+}
+```

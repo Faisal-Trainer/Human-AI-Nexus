@@ -1,0 +1,33 @@
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('todo_items', function (Blueprint $table) {
+            $table->uuid('id')->primary();      // UUID primary key
+            $table->foreignUuid('user_id')      // FK to users (if applicable)
+                  ->constrained()->cascadeOnDelete();
+            $table->string('title')->nullable();     // varchar 255
+            $table->text('description')->nullable();    // long text
+            $table->integer('priority')->nullable();   // integer
+            $table->boolean('completed')->default(false);
+            $table->decimal('budget', 10, 2);        // money/decimal
+            $table->enum('status', ['active','inactive'])->default('active');
+            $table->index(['title']);              // add index for searchable columns
+            $table->timestamps();              // created_at, updated_at
+            $table->softDeletes();             // deleted_at for soft delete
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('todo_items');
+    }
+};
+```

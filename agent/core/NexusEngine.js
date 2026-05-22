@@ -521,6 +521,227 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         return `\n# NEXUS COLLISION RESOLVED: ${context}\nOpsi A:\n${existing}\nOpsi B:\n${added}\n`;
     }
 
+    async massUpdateSkills() {
+        this.log('📚 Initiating Semantic Mass Update (HUB ➔ Skills)...', 'info');
+        
+        // 1. Scan memory/distilled/ for all .md files recursively
+        const fg = require('fast-glob');
+        const normalizedPath = this.knowledgePath.replace(/\\/g, '/');
+        const distilledFiles = fg.sync('**/*.{md,MD}', {
+            cwd: normalizedPath,
+            ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+            onlyFiles: true
+        });
+
+        this.log(`   🔍 Found ${distilledFiles.length} distilled wisdom nodes in HUB.`, 'info');
+
+        // 2. Read all files and extract their content and semantic tags
+        const wisdomNodes = [];
+        for (const file of distilledFiles) {
+            const fullPath = path.join(this.knowledgePath, file);
+            try {
+                const content = await fs.readFile(fullPath, 'utf8');
+                const tags = await this.getSemanticTags(fullPath);
+                wisdomNodes.push({
+                    name: path.basename(file),
+                    content: content,
+                    tags: tags
+                });
+            } catch (err) {
+                this.log(`   ⚠️ Failed to read distilled node ${file}: ${err.message}`, 'warning');
+            }
+        }
+
+        // 3. Define Tag-Based Mappings to Agent Prompts
+        const agentMappings = {
+            'cyber-security': ['security', 'cyber', 'auth', 'cryptography', 'protection', 'htaccess', 'permission'],
+            'database-architect': ['database', 'db', 'migration', 'eloquent', 'laravel', 'sql', 'query', 'schema'],
+            'documentation-architect': ['documentation', 'doc', 'readme', 'recap'],
+            'looping-tester': ['tdd', 'testing', 'test', 'sandbox', 'assertion'],
+            'seo-performance-specialist': ['performance', 'seo', 'speed', 'optimization', 'cache', 'cdn'],
+            'ux-engineer': ['ui', 'ux', 'frontend', 'blade', 'design', 'tailwind', 'responsive', 'a11y', 'accessibility', 'chrome-extensions', 'chrome', 'extension'],
+            'vcs-architect': ['git', 'vcs', 'version', 'branch', 'worktree'],
+            'guru': ['*'],
+            'orchestrator': ['*'],
+            'pipeline-architect': ['*']
+        };
+
+        // 4. Update prompts in agentPath (agent/prompts/)
+        const promptsDirs = [
+            path.join(this.agentPath, 'internal'),
+            path.join(this.agentPath, 'external')
+        ];
+
+        let updatedAgentsCount = 0;
+
+        for (const dir of promptsDirs) {
+            if (!(await fs.pathExists(dir))) continue;
+            const entries = await fs.readdir(dir, { withFileTypes: true });
+
+            for (const entry of entries) {
+                if (entry.isDirectory() || !entry.name.endsWith('.md')) continue;
+
+                const agentName = entry.name.replace('.md', '');
+                const agentTags = agentMappings[agentName];
+                if (!agentTags) continue;
+
+                const fullPath = path.join(dir, entry.name);
+                let promptContent = await fs.readFile(fullPath, 'utf8');
+
+                // Filter wisdom nodes that match the agent tags
+                const matchingWisdom = wisdomNodes.filter(node => {
+                    if (agentTags.includes('*')) return true;
+                    return node.tags.some(tag => agentTags.includes(tag));
+                });
+
+                if (matchingWisdom.length === 0) continue;
+
+                // Build the new injection content
+                let injectionContent = `## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)\n> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.\n\n`;
+                for (const node of matchingWisdom) {
+                    injectionContent += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
+                }
+
+                // Inject into the prompt file
+                const targetHeader = '## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)';
+                const headerIndex = promptContent.indexOf(targetHeader);
+
+                let newPromptContent;
+                if (headerIndex !== -1) {
+                    // Replace everything from the target header to the end of the file
+                    newPromptContent = promptContent.substring(0, headerIndex) + injectionContent;
+                } else {
+                    // Append at the end of the file
+                    newPromptContent = promptContent.trim() + '\n\n' + injectionContent;
+                }
+
+                await fs.writeFile(fullPath, newPromptContent, 'utf8');
+                this.log(`   ✅ Injected ${matchingWisdom.length} wisdom nodes into agent prompt: ${agentName}`, 'success');
+                updatedAgentsCount++;
+            }
+        }
+
+        this.log(`✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated successfully.`, 'success');
+    }
+
+    async massRefactor() {
+        this.log('🔄 Initiating Semantic Mass Refactor (Golden ➔ HUB)...', 'info');
+
+        const goldenDir = path.join(this.rootPath, 'golden');
+        if (!(await fs.pathExists(goldenDir))) {
+            this.log('⚠️ Golden directory does not exist. Skipping refactor.', 'warning');
+            return;
+        }
+
+        // 1. Scan golden/ for all .md files recursively
+        const fg = require('fast-glob');
+        const normalizedGolden = goldenDir.replace(/\\/g, '/');
+        const goldenFiles = fg.sync('**/*.{md,MD}', {
+            cwd: normalizedGolden,
+            ignore: ['harvest/**'], // ignore harvested project outputs, only process golden templates/standards
+            onlyFiles: true
+        });
+
+        this.log(`   🔍 Found ${goldenFiles.length} golden template files.`, 'info');
+
+        let refactoredCount = 0;
+
+        for (const file of goldenFiles) {
+            const goldenFullPath = path.join(goldenDir, file);
+            const goldenContent = await fs.readFile(goldenFullPath, 'utf8');
+            const basename = path.basename(file);
+            
+            // Standardize name (NEXUS_ prefix and uppercase)
+            const cleanBasename = basename.replace(/^NEXUS_/i, '').replace('.md', '').toUpperCase();
+            const standardizedName = `NEXUS_${cleanBasename}.md`;
+
+            // 2. Search for a matching file in memory/distilled/ recursively
+            const normalizedDistilled = this.knowledgePath.replace(/\\/g, '/');
+            const distilledFiles = fg.sync('**/*.{md,MD}', {
+                cwd: normalizedDistilled,
+                ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+                onlyFiles: true
+            });
+
+            // Find matching distilled file (by name comparison ignoring NEXUS_ prefix and case)
+            let matchedRelPath = null;
+            for (const df of distilledFiles) {
+                const dfBasename = path.basename(df).replace(/^NEXUS_/i, '').replace('.md', '').toUpperCase();
+                if (dfBasename === cleanBasename) {
+                    matchedRelPath = df;
+                    break;
+                }
+            }
+
+            const calculateMetrics = (content) => {
+                let security = 0.5;
+                let stability = 0.5;
+                let performance = 0.5;
+                let readability = 0.5;
+
+                const headingsCount = (content.match(/^#+ /gm) || []).length;
+                if (headingsCount > 5) readability += 0.2;
+                const boldCount = (content.match(/\*\*.*?\*\*/g) || []).length;
+                if (boldCount > 10) readability += 0.2;
+
+                if (/security|guardrail|allow|protect|sanitize|permission|auth|role/i.test(content)) security += 0.3;
+                if (/test|tdd|verify|assert|stable|error|exception/i.test(content)) stability += 0.3;
+                if (/performance|speed|optimize|cache|fast|latency/i.test(content)) performance += 0.3;
+
+                return {
+                    security: Math.min(1.0, security),
+                    stability: Math.min(1.0, stability),
+                    performance: Math.min(1.0, performance),
+                    readability: Math.min(1.0, readability)
+                };
+            };
+
+            if (matchedRelPath) {
+                const distilledFullPath = path.join(this.knowledgePath, matchedRelPath);
+                const distilledContent = await fs.readFile(distilledFullPath, 'utf8');
+
+                // 3. Compare them using DecisionEngine resolve
+                const options = [
+                    { id: 'existing', scores: calculateMetrics(distilledContent), content: distilledContent },
+                    { id: 'golden', scores: calculateMetrics(goldenContent), content: goldenContent }
+                ];
+
+                const result = this.decisionEngine.resolve(options, 'refactor');
+                this.log(`   ⚖️ DecisionEngine: Comparing existing vs golden for ${basename} (Winner: ${result.winner.id})`, 'info');
+
+                // 4. Merge safely using wrapAsConditional
+                const mergedContent = this.wrapAsConditional(distilledContent, goldenContent, `Refactor from Golden: ${basename}`);
+                
+                // Update file
+                await this.distiller.updateVersionHeader(distilledFullPath, mergedContent);
+                this.log(`   🔄 Safely merged and updated: ${matchedRelPath}`, 'success');
+                refactoredCount++;
+            } else {
+                // 5. No match: Copy to distilled/standards/ (or default distilled category)
+                const standardsDir = path.join(this.knowledgePath, 'standards');
+                await fs.ensureDir(standardsDir);
+                const destPath = path.join(standardsDir, standardizedName);
+
+                await fs.writeFile(destPath, goldenContent, 'utf8');
+                await this.distiller.updateVersionHeader(destPath, goldenContent);
+                this.log(`   📂 Copied new golden standard: standards/${standardizedName}`, 'success');
+                refactoredCount++;
+            }
+        }
+
+        // 6. Regenerate index files
+        if (refactoredCount > 0) {
+            this.log('   📚 Regenerating HUB Master Index & Neural Map...', 'info');
+            await this.distiller.generateHubIndex();
+            await this.distiller.generateNeuralMap();
+            // Rebuild vector index
+            await this.semanticEngine.invalidateCache();
+            await this.semanticEngine.buildIndex();
+        }
+
+        this.log(`✨ Mass Refactor Complete: ${refactoredCount} files refactored successfully.`, 'success');
+    }
+
     calculateSimilarity(str1, str2) {
         if (!str1 || !str2) return 0;
         if (str1 === str2) return 1;

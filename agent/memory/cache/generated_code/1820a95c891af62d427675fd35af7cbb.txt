@@ -1,0 +1,15 @@
+```php
+<?php
+
+use Illuminate\Http\Request;
+use App\Models\Habit;
+use App\Models\User;
+
+Route::get('habits', [Habit::class, 'index']);
+Route::post('habits', [Habit::class, 'store']);
+
+Route::get('users', [User::class, 'index']);
+Route::post('users', [User::class, 'store']);
+```
+
+Note: The `App\Models\Habit` and `App\Models\User` classes are assumed to exist in your Laravel application. If they don't, you would need to define them or use the appropriate existing models from your database schema.

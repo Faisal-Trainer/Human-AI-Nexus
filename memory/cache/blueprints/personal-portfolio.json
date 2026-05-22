@@ -1,0 +1,48 @@
+{
+  "project_name": "personal-portfolio",
+  "models": [
+    "User",
+    "Post",
+    "Comment"
+  ],
+  "migrations": [
+    "create_users_table",
+    "create_posts_table",
+    "create_comments_table"
+  ],
+  "livewire_components": [
+    "DashboardComponent",
+    "PostComponent",
+    "CommentComponent"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "PostSeeder",
+    "CommentSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "PostFactory",
+    "CommentFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/posts",
+    "/posts/{post}",
+    "/comments",
+    "/comments/{comment}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Post"
+    },
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Comment"
+    }
+  ]
+}

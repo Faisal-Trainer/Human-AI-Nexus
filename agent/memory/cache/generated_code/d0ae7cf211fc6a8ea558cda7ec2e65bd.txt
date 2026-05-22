@@ -1,0 +1,15 @@
+```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+// Dashboard Route
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+// Journal Entry Create Route
+Route::get('/journalentry/create', function () {
+    return view('journalentry.create');
+})->name('journalentry.create');
+```

@@ -1,0 +1,54 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+
+class TagListComponent extends Component
+{
+    // Properties
+    protected $tags = [];
+
+    // Public method to get tags
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    // Public method to add a new tag
+    public function storeTag($name)
+    {
+        if ($this->validate(['name' => 'required'])) {
+            $tag = Tag::create([
+                'name' => $name,
+            ]);
+            $this->tags[] = $tag;
+        }
+    }
+
+    // Public method to delete a tag
+    public function deleteTag($id)
+    {
+        if ($this->validate(['id' => 'required'])) {
+            $tag = Tag::find($id);
+            if ($tag) {
+                $tag->delete();
+                array_splice($this->tags, array_search($tag, $this->tags), 1);
+            }
+        }
+    }
+
+    // Public method to fetch tags from the database
+    public function fetchTags()
+    {
+        $this->tags = Tag::all()->toArray();
+    }
+
+    // Render method
+    public function render()
+    {
+        return view('livewire.tag-list-component');
+    }
+}
+```

@@ -1,0 +1,47 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
+class PostComponent extends Component
+{
+    // Properties
+    public $postTitle = '';
+    public $postContent = '';
+
+    // Method to save a post
+    public function storePost()
+    {
+        $user = Auth::user();
+        if ($user) {
+            $newPost = new \App\Models\Post([
+                'title' => $this->postTitle,
+                'content' => $this->postContent,
+                'user_id' => $user->id,
+            ]);
+            $newPost->save();
+
+            // Optionally, reset the form after saving
+            $this->reset();
+        }
+    }
+
+    // Method to delete a post
+    public function deletePost()
+    {
+        $post = \App\Models\Post::where('title', $this->postTitle)->first();
+        if ($post && Auth::user()->id === $post->user_id) {
+            $post->delete();
+        }
+    }
+
+    // Render method to return the Livewire view
+    public function render()
+    {
+        return view('livewire.post-component');
+    }
+}
+```

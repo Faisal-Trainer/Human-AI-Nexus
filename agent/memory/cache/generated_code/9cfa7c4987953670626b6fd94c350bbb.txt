@@ -1,0 +1,57 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Illuminate\View\Component;
+use Livewire\WithEventListeners;
+
+class TagEditComponent extends Component
+{
+    public $tag;
+    public $selectedTagId;
+    public $newTagName;
+
+    use WithEventListeners;
+
+    protected $listeners = [
+        'updateTag' => 'handleUpdateTag',
+        'deleteTag' => 'handleDeleteTag'
+    ];
+
+    public function mount($tagId)
+    {
+        $this->tag = $tagId ? Tag::find($tagId) : null;
+        $this->selectedTagId = $tagId ?? null;
+    }
+
+    public function save()
+    {
+        if ($this->tag) {
+            $this->tag->name = $this->newTagName;
+            $this->tag->save();
+        } else {
+            Tag::create(['name' => $this->newTagName]);
+        }
+        $this->emit('tagSaved');
+    }
+
+    public function delete()
+    {
+        if ($this->tag) {
+            $this->tag->delete();
+            $this->emit('tagDeleted');
+        }
+    }
+
+    public function updateTag($tagName)
+    {
+        $this->newTagName = $tagName;
+    }
+
+    public function render()
+    {
+        return view('livewire.tag-edit-component');
+    }
+}
+```

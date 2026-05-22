@@ -1,0 +1,28 @@
+```html
+<!-- TagListComponent.blade.php -->
+<div class="container max-w-md mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold">Tag List</h1>
+    <div wire:key="{{ $tags->count() }}">
+        @if ($tags->isEmpty())
+            <p>No tags found.</p>
+        @else
+            <ul class="space-y-2">
+                @foreach ($tags as $tag)
+                    <li class="flex items-center space-x-4">
+                        <div class="w-10 h-10 flex-shrink-0 bg-gray-300 rounded-full">
+                            <span class="text-white text-lg font-bold">{{ $tag->name }}</span>
+                        </div>
+                        <p>{{ $tag->description }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+
+    <button wire:click="createTag" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Create Tag
+    </button>
+
+    <livewire:tag-form :current-tag="$currentTag" />
+</div>
+```

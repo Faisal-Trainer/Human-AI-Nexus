@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\JournalEntry;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class JournalEntryController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(JournalEntry::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = JournalEntry::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(JournalEntry $journalentry): JsonResponse
+    {
+        return response()->json($journalentry);
+    }
+
+    public function update(Request $request, JournalEntry $journalentry): JsonResponse
+    {
+        $journalentry->update($request->validated());
+        return response()->json($journalentry);
+    }
+
+    public function destroy(JournalEntry $journalentry): JsonResponse
+    {
+        $journalentry->delete();
+        return response()->json(null, 204);
+    }
+}

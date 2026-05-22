@@ -1,0 +1,45 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Create</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans text-black">
+    <div class="max-w-md mx-auto p-6 rounded-lg shadow-lg bg-white">
+        <h2 class="text-xl font-bold mb-4">Create Tag</h2>
+
+        <!-- Tag Input -->
+        <input wire:model="tag.name" type="text" placeholder="Enter tag name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+        
+        <!-- Submit Button -->
+        <button wire:click="createTag" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-sm hover:bg-blue-600">Create Tag</button>
+    </div>
+
+    @livewire('tag.create-component')
+</body>
+</html>
+```
+
+### Explanation:
+1. **HTML Structure**:
+   - A `div` with Tailwind classes to center the form and provide a rounded border.
+   - A heading for the form title.
+   - An input field using `wire:model="tag.name"` to bind the tag name.
+   - A submit button using `wire:click="createTag"` to trigger the creation of the tag.
+
+2. **Tailwind CSS**:
+   - Tailwind's base styles and utilities are applied to create a simple, professional look for the form.
+
+3. **Alpine.js**:
+   - Alpine.js is used to handle dynamic behavior in the form.
+   - `wire:model` binds the input field value to the `tag.name` property on the Livewire component.
+   - `wire:click` triggers the `createTag` method of the Livewire component when clicked.
+
+4. **Livewire Component**:
+   - The `livewire('tag.create-component')` directive ensures that the `TagCreateComponent` component is rendered within this blade view.
+
+This Blade view provides a clean, functional form for creating tags using Livewire and Tailwind CSS.

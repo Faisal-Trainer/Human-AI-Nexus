@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Relation;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class RelationController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(Relation::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = Relation::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(Relation $relation): JsonResponse
+    {
+        return response()->json($relation);
+    }
+
+    public function update(Request $request, Relation $relation): JsonResponse
+    {
+        $relation->update($request->validated());
+        return response()->json($relation);
+    }
+
+    public function destroy(Relation $relation): JsonResponse
+    {
+        $relation->delete();
+        return response()->json(null, 204);
+    }
+}

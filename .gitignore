@@ -57,6 +57,10 @@ memory/short_term/summary/*
 # Keep the Long Term HUB (Knowledge racks)
 # !memory/long_term/
 
+# --- Nexus Agent Skills & Config ---
+# Kita ingin melacak file SKILL.md tapi mungkin ingin mengabaikan cache lokal agent
+.agents/
+
 # --- Documentation (Legacy Folders) ---
 # Since we now use the HUB, we only keep .md files if specifically needed
 # but generally we want to keep the documentation folder clean

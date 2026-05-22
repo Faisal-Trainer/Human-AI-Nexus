@@ -1,0 +1,14 @@
+```php
+<?php
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\JournalEntry;
+
+Route::apiResources([
+    'users' => User::class,
+    'journal-entries' => JournalEntry::class,
+]);
+```
+
+This code snippet defines the API routes for `User` and `JournalEntry` models using Laravel's built-in `apiResource()` function. The `apiResources()` function automatically generates all necessary routes, such as index, show, store, update, and destroy methods, as well as resourceful routes like `/users/{user}` and `/journal-entries/{journal-entry}`.

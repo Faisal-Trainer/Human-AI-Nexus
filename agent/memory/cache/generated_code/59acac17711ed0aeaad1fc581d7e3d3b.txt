@@ -1,0 +1,19 @@
+```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::prefix('/dashboard')->middleware(['auth'])->group(function () {
+    Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index']);
+    Route::post('/role', [App\Http\Controllers\RoleController::class, 'store']);
+    Route::put('/user/{user}', [App\Http\Controllers\UserController::class, 'update']);
+});
+
+```

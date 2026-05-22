@@ -1,0 +1,25 @@
+```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/dashboard', function () {
+    // Your dashboard logic here
+});
+
+Route::get('/posts', function () {
+    // Your posts listing logic here
+});
+
+Route::get('/posts/{post}', function ($post) {
+    // Your post details logic here
+});
+
+Route::get('/comments', function () {
+    // Your comments listing logic here
+});
+
+Route::get('/comments/{comment}', function ($comment) {
+    // Your comment details logic here
+});
+```

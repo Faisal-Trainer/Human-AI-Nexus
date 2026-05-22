@@ -1,0 +1,58 @@
+```blade
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Form</title>
+    <!-- Include Tailwind CSS -->
+    @vite('resources/css/app.css')
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-md mx-auto">
+        <div class="rounded-lg bg-white shadow-md overflow-hidden">
+            <header class="px-4 py-3 bg-blue-800 text-white uppercase">
+                <h2 class="text-center">Edit Role</h2>
+            </header>
+            <form wire:submit.prevent="updateRole">
+                <div class="p-4">
+                    @if ($errors->any())
+                        <div class="bg-red-100 border-red-400 text-red-700 p-4 rounded-lg">
+                            {{ implode('<br>', $errors->all()) }}
+                        </div>
+                    @endif
+                    <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                    <input type="text" wire:model="name" id="name" name="name" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="p-4 flex justify-between items-center mt-8">
+                    <button type="button" wire:click="cancelRoleForm" class="bg-gray-300 text-gray-700 hover:bg-gray-500 hover:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2">Cancel</button>
+                    <button type="submit" class="bg-blue-800 text-white hover:bg-blue-700 hover:text-white rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2">Update Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('roleForm', () => ({
+                name: '',
+                cancelRoleForm() {
+                    window.livewire.emit('cancelRoleForm');
+                },
+                updateRole() {
+                    if (this.name) {
+                        window.livewire.emit('updateRole', this.name);
+                    } else {
+                        alert('Please enter a role name.');
+                    }
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
+```
+
+This Blade template includes all necessary Tailwind CSS classes for styling and Alpine.js interactions. The form allows users to update an existing role, with fields for the role's name and buttons to cancel or submit the changes. The `wire:model` directive binds input elements to Livewire properties, and `wire:click` triggers methods on the Livewire component when the user interacts with the form.

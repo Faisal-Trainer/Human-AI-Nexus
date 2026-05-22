@@ -1,0 +1,38 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+
+class RoleForm extends Component
+{
+    public $role = [];
+
+    public function render()
+    {
+        return view('livewire.role-form');
+    }
+
+    public function save()
+    {
+        // Logic to save the role
+        // Example:
+        // \App\Models\Role::create($this->role);
+        // $this->clearForm();
+    }
+
+    public function delete()
+    {
+        // Logic to delete the role
+        // Example:
+        // \App\Models\Role::destroy($this->role['id']);
+        // $this->clearForm();
+    }
+
+    private function clearForm()
+    {
+        $this->reset('role');
+    }
+}
+```

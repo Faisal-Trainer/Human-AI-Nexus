@@ -1,0 +1,44 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
+class DashboardComponent extends Component
+{
+    public $expenses = [];
+    public $newExpense = '';
+
+    protected $rules = [
+        'newExpense' => ['required', 'numeric'],
+    ];
+
+    public function render()
+    {
+        return view('livewire.dashboard');
+    }
+
+    public function saveExpense()
+    {
+        if (Auth::user()->can('add_expense')) {
+            $this->expenses[] = $this->newExpense;
+            $this->newExpense = '';
+            $this->dispatch('expense-added', ['message' => 'Expense added successfully!']);
+        } else {
+            $this->addError('error', 'You do not have permission to add expenses.');
+        }
+    }
+
+    public function deleteExpense($id)
+    {
+        if (Auth::user()->can('delete_expense')) {
+            unset($this->expenses[$id]);
+            $this->dispatch('expense-deleted', ['message' => 'Expense deleted successfully!']);
+        } else {
+            $this->addError('error', 'You do not have permission to delete expenses.');
+        }
+    }
+}
+```

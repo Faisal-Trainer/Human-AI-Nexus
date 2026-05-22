@@ -1,0 +1,43 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+
+class BookmarksTable extends Component
+{
+    // Public properties to be used in the template and methods to manipulate them
+    public $bookmarks = [];
+    public $newBookmark = '';
+
+    // Method to fetch bookmarks from the database
+    public function loadBookmarks()
+    {
+        $this->bookmarks = DB::table('bookmarks')->get();
+    }
+
+    // Method to save a new bookmark
+    public function saveBookmark()
+    {
+        if (!empty($this->newBookmark)) {
+            DB::table('bookmarks')->insert(['url' => $this->newBookmark]);
+            $this->newBookmark = '';
+            $this->loadBookmarks();
+        }
+    }
+
+    // Method to delete a bookmark
+    public function deleteBookmark($id)
+    {
+        DB::table('bookmarks')->where('id', $id)->delete();
+        $this->loadBookmarks();
+    }
+
+    public function render()
+    {
+        return view('livewire.bookmarks-table');
+    }
+}
+```

@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Expense;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class ExpenseController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(Expense::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = Expense::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(Expense $expense): JsonResponse
+    {
+        return response()->json($expense);
+    }
+
+    public function update(Request $request, Expense $expense): JsonResponse
+    {
+        $expense->update($request->validated());
+        return response()->json($expense);
+    }
+
+    public function destroy(Expense $expense): JsonResponse
+    {
+        $expense->delete();
+        return response()->json(null, 204);
+    }
+}

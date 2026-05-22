@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Bookmark;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class BookmarkController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(Bookmark::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $model = Bookmark::create($request->validated());
+        return response()->json($model, 201);
+    }
+
+    public function show(Bookmark $bookmark): JsonResponse
+    {
+        return response()->json($bookmark);
+    }
+
+    public function update(Request $request, Bookmark $bookmark): JsonResponse
+    {
+        $bookmark->update($request->validated());
+        return response()->json($bookmark);
+    }
+
+    public function destroy(Bookmark $bookmark): JsonResponse
+    {
+        $bookmark->delete();
+        return response()->json(null, 204);
+    }
+}
+```

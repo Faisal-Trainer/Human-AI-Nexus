@@ -1,0 +1,42 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Http\Request;
+
+class CommentComponent extends Component
+{
+    public $comment = '';
+    public $comments = [];
+    
+    public function storeComment(Request $request)
+    {
+        $this->comments[] = [
+            'user_id' => Auth::id(),
+            'content' => $request->input('comment'),
+            'created_at' => now()
+        ];
+        
+        $this->reset('comment');
+    }
+    
+    public function deleteComment($commentId)
+    {
+        foreach ($this->comments as $key => $comment) {
+            if ($comment['id'] === $commentId) {
+                unset($this->comments[$key]);
+                break;
+            }
+        }
+        
+        session()->flash('success', 'Comment deleted successfully');
+    }
+    
+    public function render()
+    {
+        return view('livewire.comment-component');
+    }
+}
+```

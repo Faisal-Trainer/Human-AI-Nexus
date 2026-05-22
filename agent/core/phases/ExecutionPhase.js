@@ -252,7 +252,8 @@ class ExecutionPhase extends BasePhase {
           isUnusedMigration) &&
         !file.includes("node_modules") &&
         !file.includes("vendor") &&
-        !file.includes(".git")
+        !file.includes(".git") &&
+        !file.includes(".agents")
       ) {
         if (await fs.pathExists(file)) {
           await fs.remove(file);
@@ -298,20 +299,36 @@ class ExecutionPhase extends BasePhase {
     const dbPath = path.join(projectPath, "database", "database.sqlite");
 
     try {
-      execSync("php artisan migrate:fresh --force", {
+      // Absolute Hard Reset for Sandbox SQLite to prevent "table already exists" errors
+      if (await fs.pathExists(dbPath)) {
+        await fs.remove(dbPath);
+      }
+      await fs.ensureFile(dbPath);
+
+      execSync("php artisan migrate:fresh --force --seed", {
         cwd: projectPath,
         stdio: "ignore",
       });
       this.log(`   🗄️ Database migrated (fresh) successfully.`, "success");
     } catch (e) {
       this.log(
-        `   ⚠️ migrate:fresh failed. Attempting hard DB reset...`,
+        `   ⚠️ migrate:fresh failed (Collision detected). Attempting Nuclear DB Reset...`,
         "warning",
       );
       try {
-        // Hard reset for SQLite: Delete and Recreate
+        // Hardening: Physically remove the SQLite file to break locks/collisions
         if (await fs.pathExists(dbPath)) {
           await fs.remove(dbPath);
+        }
+        await fs.ensureFile(dbPath);
+        
+        // Re-attempt migration after physical reset
+        execSync("php artisan migrate:fresh --force --seed", {
+          cwd: projectPath,
+          stdio: "ignore",
+        });
+        
+        this.log(
           await fs.ensureFile(dbPath);
         }
         execSync("php artisan migrate --force", {
@@ -319,7 +336,7 @@ class ExecutionPhase extends BasePhase {
           stdio: "ignore",
         });
         this.log(
-          `   🗄️ Database hard reset & migrated successfully.`,
+          `   🗄️ Database Nuclear Reset & Migration successful.`,
           "success",
         );
       } catch (e2) {
@@ -380,24 +397,17 @@ class ExecutionPhase extends BasePhase {
       const port = await this.getAvailablePort(8001);
       const devPort = await this.getAvailablePort(5173);
       const isWin = process.platform === "win32";
+      // Hardening: Set shell to false for security; handle Windows commands as arrays
       const serveProc = spawn("php", ["artisan", "serve", `--port=${port}`], {
         cwd: projectPath,
-        shell: isWin,
+        shell: false,
       });
-      const devProc = spawn(
-        "npm",
-        [
-          "run",
-          "dev",
-          "--",
-          "--port",
-          devPort.toString(),
-          "--strictPort",
-          "--host",
-          "127.0.0.1",
-        ],
-        { cwd: projectPath, shell: isWin },
-      );
+      
+      const npmCmd = isWin ? "npm.cmd" : "npm";
+      const devProc = spawn(npmCmd, ["run", "dev", "--", "--port", devPort.toString(), "--strictPort", "--host", "127.0.0.1"], {
+        cwd: projectPath,
+        shell: false,
+      });
 
       const [serveReady, devReady] = await Promise.all([
         this.waitForService(`http://127.0.0.1:${port}`, 10000),
@@ -658,7 +668,7 @@ class ExecutionPhase extends BasePhase {
 
     // FIX: Use full-file-replacement strategy instead of search/replace.
     // This avoids "can't find exact search string" failures caused by whitespace/indent mismatches.
-    const prompt = `The Laravel application crashed with this error:\n\n${lastError}\n\nExisting PHP/Blade files:\n- ${fileListStr}\n\nIdentify which file(s) need to be fixed and provide the COMPLETE corrected file content.\nRespond with ONLY a valid JSON array. Each element must have exactly these keys:\n[\n  {\n    "file": "app/Models/Habit.php",\n    "content": "<?php\\n\\nnamespace App\\\\Models;\\n... complete file content ..."\n  }\n]\nIMPORTANT:\n- "file" is the relative path from project root\n- "content" is the COMPLETE new file content (not a diff or partial snippet)\n- Escape all backslashes as \\\\\\\\ and all double quotes as \\" inside the JSON string\n- Do NOT use search/replace format\n- Do NOT include markdown code blocks\n- Output ONLY the JSON array, nothing else`;
+    const prompt = `[SYSTEM: SELF-HEALING MODE]\nThe Laravel application crashed. \nERROR LOG:\n${lastError}\n\nPROJECT STRUCTURE:\n- ${fileListStr}\n\nINSTRUCTION for Qwen-2.5:\nAnalyze the stack trace. Identify the root cause. Provide the COMPLETE corrected PHP/Blade code for the affected files.\n\nOUTPUT FORMAT (STRICT JSON):\n[\n  {\n    "file": "relative/path/to/file.php",\n    "content": "<?php\\n\\nnamespace... full code..."\n  }\n]\n\nRULES:\n- Output ONLY the JSON array.\n- No conversational text.\n- Ensure backslashes in PHP namespaces are escaped (\\\\\\\\).`;
 
     const localAI = require("../LocalIntelligence");
     const response = await localAI.generate(prompt, "suggest_refactor");

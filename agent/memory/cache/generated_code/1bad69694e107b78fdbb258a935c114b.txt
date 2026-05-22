@@ -1,0 +1,59 @@
+```php
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
+class BookmarkForm extends Component
+{
+    public $bookmarkId = null;
+    public $title;
+    public $url;
+
+    public function mount($bookmarkId = null)
+    {
+        if ($bookmarkId) {
+            $this->bookmarkId = $bookmarkId;
+            $this->loadBookmark();
+        }
+    }
+
+    public function loadBookmark()
+    {
+        // Fetch the bookmark from the database using Auth::user() as the owner
+        $this->bookmark = Auth::user()->bookmarks()->find($this->bookmarkId);
+        if ($this->bookmark) {
+            $this->title = $this->bookmark->title;
+            $this->url = $this->bookmark->url;
+        }
+    }
+
+    public function save()
+    {
+        // Save the bookmark to the database using Auth::user() as the owner
+        $bookmarkedItem = Auth::user()->bookmarks()->create([
+            'title' => $this->title,
+            'url' => $this->url,
+            'owner_id' => Auth::id(),
+        ]);
+        session()->flash('message', 'Bookmark saved successfully!');
+    }
+
+    public function delete()
+    {
+        // Delete the bookmark from the database using Auth::user() as the owner
+        $bookmarkedItem = Auth::user()->bookmarks()->find($this->bookmarkId);
+        if ($bookmarkedItem) {
+            $bookmarkedItem->delete();
+            session()->flash('message', 'Bookmark deleted successfully!');
+        }
+    }
+
+    public function render()
+    {
+        return view('livewire.bookmark-form');
+    }
+}
+```

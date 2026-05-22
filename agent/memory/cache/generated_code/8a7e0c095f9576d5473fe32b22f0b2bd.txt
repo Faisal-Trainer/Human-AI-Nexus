@@ -1,0 +1,30 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class User extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'email', 'username', 'password',
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
+}
+```

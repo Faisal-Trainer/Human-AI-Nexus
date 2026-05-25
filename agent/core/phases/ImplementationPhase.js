@@ -501,13 +501,25 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
 
       const timestamp = Math.floor(Date.now() / 1000);
       const migrationFilename = `2026_06_01_${timestamp}_${migrationName}.php`;
-      const migrationPath = path.join(
+      const migrationDir = path.join(
         this.engine.rootPath,
         "database",
-        "migrations",
-        migrationFilename,
+        "migrations"
       );
-      await fs.ensureDir(path.dirname(migrationPath));
+      
+      // Prevent duplicate migrations: delete any existing migration that includes this migrationName
+      if (await fs.pathExists(migrationDir)) {
+        const existingFiles = await fs.readdir(migrationDir);
+        for (const file of existingFiles) {
+          if (file.includes(migrationName)) {
+            await fs.remove(path.join(migrationDir, file));
+            this.log(`      🗑️ Removed old duplicate migration: ${file}`, "warning");
+          }
+        }
+      }
+
+      const migrationPath = path.join(migrationDir, migrationFilename);
+      await fs.ensureDir(migrationDir);
       await fs.writeFile(migrationPath, cleanCode);
       await this.validatePHPSyntax(migrationPath);
       this.log(`      ✅ Saved ${migrationFilename}`, "success");

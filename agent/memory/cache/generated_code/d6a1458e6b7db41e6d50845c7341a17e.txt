@@ -1,0 +1,22 @@
+```php
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class UrlSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $fake = \Faker\Factory::create();
+            $url = $fake->url();
+            \App\Models\Url::create(['url' => $url]);
+        }
+    }
+}
+```

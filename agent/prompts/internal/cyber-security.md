@@ -1258,3 +1258,329 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)
+> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.
+
+### 📘 KNOWLEDGE: NEXUS_CORE_PRINCIPLES.MD
+
+# 🛡️ NEXUS CORE PRINCIPLES (Distilled from Golden Standard)
+
+Dokumen ini adalah kristalisasi dari nilai-nilai inti yang ditemukan dalam proyek tersukses (Golden Projects) di ekosistem Human-AI Nexus.
+
+## 1. Documentation-First Architecture
+Dokumentasi bukan sekadar catatan, melainkan **blueprint wajib**.
+- **No Algorithm, No Code**: Dilarang menulis logika kompleks sebelum algoritma tertulis di folder `documentation/algorithms/`.
+- **No Plan, No Execution**: Setiap tugas harus memiliki rencana kerja di folder `documentation/planning/`.
+
+## 3. The Approval Protocol
+- **Human Authority**: AI adalah pelaksana, Manusia adalah pemegang keputusan.
+- **Explicit Approval**: Persetujuan ("OKE" / "APPROVE") wajib didapatkan sebelum modifikasi file fisik dilakukan.
+- **Two-Stage Review**: Setiap perubahan harus melalui 2 tahap review:
+    1. **Spec Compliance**: Apakah kode memenuhi persyaratan?
+    2. **Code Quality**: Apakah kode rapi, efisien, dan sesuai standar Nexus?
+- **Socratic Brainstorming**: Gunakan teknik tanya-jawab untuk memvalidasi desain sebelum masuk ke fase perencanaan.
+
+## 3. Zero Flaws Enforcement
+- Proyek belum dianggap selesai sebelum status audit menyatakan "Nol Cacat".
+- Kualitas meliputi: Keamanan (Security), Performa (Performance), dan Pemeliharaan (Maintainability).
+
+## 4. IP-First & Future Proofing
+- Selalu gunakan UUID untuk identitas data.
+- Pastikan data siap untuk dipetakan ke Web 3.0 / Smart Contract di masa depan.
+
+## 5. User-Centric Evolution (Findability & Temporality)
+- **Findability is Core**: Antarmuka harus sederhana, cepat, dan relevan. Kurangi clics, utamakan visual actionable.
+- **Temporal UX Awareness**: Sadari bahwa kebutuhan user berubah dari **Orientation** (estetika) ke **Incorporation** (fungsionalitas).
+- **Mobile-First Priority**: Desain harus responsif dan memprioritaskan pengalaman mobile sebagai standar utama.
+
+---
+*Status: Institutional Knowledge (Verified).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_DATABASE_STANDARDS.MD
+
+# 💾 NEXUS DATABASE STANDARDS (Distilled from Golden Standard)
+
+Standar ini wajib diikuti untuk memastikan integritas data dan kesiapan skalabilitas (Web 3.0 Ready).
+
+## 1. Identity Management
+- **UUID as Primary Key**: Gunakan `uuid()` untuk seluruh tabel utama.
+- **Trait Implementation**: Gunakan `HasUuids` pada model Laravel untuk otomatisasi.
+- **Benefit**: Menghindari kebocoran jumlah data melalui ID integer dan mempermudah migrasi ke sistem terdesentralisasi.
+
+## 2. Mass Assignment Security
+- **Explicit Fillable**: Seluruh kolom yang dapat diisi oleh user **WAJIB** didefinisikan dalam array `$fillable`.
+- **Forbidden Guarded**: Penggunaan `$guarded = []` dilarang keras karena melanggar prinsip "Zero Flaws".
+
+## 3. Relationship Architecture
+- Gunakan Eloquent Relationship dengan definisi yang jelas (One-to-Many, Many-to-Many).
+- Gunakan tabel pivot untuk relasi interaksi (like, bookmark, follow).
+
+## 4. Indexing for Performance
+- Setiap Foreign Key (`user_id`, `author_id`, dll) **WAJIB** memiliki index untuk kecepatan query.
+
+---
+*Status: Institutional Knowledge (Database Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_INTEGRATION_ALGORITHM.MD
+
+# 🛠 ALGORITMA INTEGRASI: Human-AI Nexus (Automated Engine Version)
+
+Dokumen ini adalah **Sumber Kebenaran (Source of Truth)** untuk logika orkestrasi yang dijalankan oleh `NexusEngine`. Seluruh instruksi di sini diimplementasikan ke dalam kode program untuk memastikan konsistensi antara dokumentasi dan eksekusi.
+
+## 📋 1. Setup & Inisialisasi
+
+Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
+1.  **Skill Discovery**: Engine memetakan seluruh modul di folder `skill/` (Frontend, Backend, Security, dll).
+2.  **Memory Access**: Engine membaca folder `records/` dan `knowledge/` untuk mendapatkan konteks dari sesi sebelumnya.
+
+```bash
+# Inisialisasi otomatis via Nexus Engine (GitHub Version)
+npx github:Faisal-Trainer/Human-AI-Nexus nexus run
+```
+
+## 📋 2. Algoritma Audit (Dev-Centric Logic)
+
+Fase audit adalah tahap penentu kualitas. Alur kerja ditentukan oleh tingkat pengalaman Developer (User):
+
+### IF (Mode == "Learning")
+- **Kondisi**: Developer baru atau membutuhkan edukasi teknis mendalam.
+- **Tindakan**: 
+    1. Orchestrator memanggil seluruh **Agent Spesialis** (Cyber Security, UX Engineer, SEO Specialist, Database Architect).
+    2. Setiap Agent menghasilkan satu laporan mandiri di folder `audit/`.
+- **Tujuan**: Memberikan transparansi penuh dan bahan pembelajaran dari tiap sudut pandang ahli.
+
+### ELSE (Mode == "Efficient")
+- **Kondisi**: Developer berpengalaman atau membutuhkan eksekusi cepat.
+- **Tindakan**:
+    1. Orchestrator memanggil **Project Manager (PM)**.
+    2. PM melakukan scanning dan menulis satu laporan konsolidasi yang merangkum seluruh temuan utama.
+- **Tujuan**: Efisiensi waktu dan fokus pada masalah strategis.
+
+## 📋 3. Nexus Workflow (Siklus Otomatis)
+
+Engine menjalankan siklus berikut secara rekursif:
+
+1.  **Phase: Audit**: Menjalankan algoritma di atas (Learning/Efficient).
+    - **Security Guardrail**: Engine meminta izin eksplisit sebelum menscan `.env`, `package.json`, dan `composer.json`.
+2.  **Phase: Planning**: 
+    - Input: Hasil audit terbaru (termasuk temuan keamanan jika diizinkan).
+    - Action: PM menyusun dokumen di `planning/` berisi daftar tugas (TODO list).
+3.  **Phase: Approval**:
+    - Engine **WAJIB** berhenti dan menunggu input User (Ketik: "OKE" atau "APPROVE").
+4.  **Phase: Execution**:
+    - Agent Engineer mengeksekusi tugas sesuai rencana yang telah disetujui.
+5.  **Phase: Recording**:
+    - Mencatat hasil ke `records/` dan memperbarui memori di `knowledge/`.
+
+## ⚠️ Aturan Emas (The Golden Rules)
+
+1.  **Logic-First**: Kode program dilarang menyimpang dari algoritma yang tertulis di dokumen ini.
+2.  **Zero Flaws Enforcement**: Siklus audit tidak boleh berhenti sebelum status proyek mencapai "Zero Flaws" sesuai [STANDAR_ZERO_FLAWS.md](STANDAR_ZERO_FLAWS.md).
+3.  **Traceability**: Setiap file yang dihasilkan harus menyertakan referensi ke dokumen sumbernya (misal: Plan merujuk pada Audit ID tertentu).
+
+---
+*Dokumen ini mengatur bagaimana software dan manusia berkolaborasi dalam ekosistem Nexus.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, marketing, psychology]
+
+### 📘 KNOWLEDGE: NEXUS_LIVEWIRE_STANDARDS.MD
+
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+--- APPENDED FROM LIVEWIRE_STANDARDS.md ---
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+--- APPENDED FROM LIVEWIRE_STANDARDS.md ---
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_WORKFLOW.MD
+
+# Nexus Workflow
+> **VERSION**: v1 | **Last Updated**: 05/05/2026
+
+
+
+The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximum quality and traceability.
+
+## 1. Audit Phase
+The system (or specialized agents) scans the current state of the project.
+- **Security Guardrails**: The engine will request explicit permission before scanning sensitive files (`.env`, `package.json`, `composer.json`).
+- **Input**: Source code, documentation, and (if permitted) configuration files.
+- **Output**: An Audit Report in `audit/`.
+- **Goal**: Identify gaps, bugs, or opportunities for improvement.
+
+## 2. Planning Phase
+Based on the audit report, a detailed plan is generated.
+- **Input**: Audit Report.
+- **Output**: Implementation Plan in `documentation/planning/`.
+- **Human Role**: Review and approve the plan.
+
+## 3. Execution Phase
+Specialized agents execute the tasks defined in the plan.
+- **Input**: Approved Implementation Plan.
+- **Action**: Code generation, configuration updates, or content creation.
+- **Constraint**: Agents must follow the standards in `skill/`.
+
+## 4. Finalization Phase
+The results are recorded and the knowledge base is updated.
+- **Input**: Execution results.
+- **Output**: Logs in `memory/short_term/` and summaries in `documentation/summary/`.
+- **Loop**: Trigger a new Audit to verify the changes.
+
+---
+
+### Zero Flaws Enforcement
+The cycle repeats until an audit results in "Zero Flaws". This ensures that no technical debt or bugs are left behind.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology, nexus_core, governance, standards]
+

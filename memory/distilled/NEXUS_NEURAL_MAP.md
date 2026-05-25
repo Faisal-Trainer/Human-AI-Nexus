@@ -2,6 +2,11 @@
 
 ```mermaid
 graph TD
+    INTEGRATION_ALGORITHM.MD --> STANDAR_ZERO_FLAWS
+    DISTILLATION_UI --> TALL_EVOLUTION_WISDOM
+    DISTILLATION_UI --> CORE_PRINCIPLES
+    DISTILLATION_UI_UX --> SANDBOX_UI_FINDINGS
+    DISTILLATION_UI_UX --> CORE_PRINCIPLES
 ```
 
-> **Stats**: 33 Nodes | 0 Connections | **Generated**: 2026-05-13 09:36:45 (UTC+8)
+> **Stats**: 35 Nodes | 5 Connections | **Generated**: 2026-05-25 08:59:49 (UTC+8)

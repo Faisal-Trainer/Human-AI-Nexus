@@ -328,13 +328,7 @@ class ExecutionPhase extends BasePhase {
           stdio: "ignore",
         });
         
-        this.log(
-          await fs.ensureFile(dbPath);
-        }
-        execSync("php artisan migrate --force", {
-          cwd: projectPath,
-          stdio: "ignore",
-        });
+
         this.log(
           `   🗄️ Database Nuclear Reset & Migration successful.`,
           "success",
@@ -406,7 +400,7 @@ class ExecutionPhase extends BasePhase {
       const npmCmd = isWin ? "npm.cmd" : "npm";
       const devProc = spawn(npmCmd, ["run", "dev", "--", "--port", devPort.toString(), "--strictPort", "--host", "127.0.0.1"], {
         cwd: projectPath,
-        shell: false,
+        shell: isWin,
       });
 
       const [serveReady, devReady] = await Promise.all([
@@ -525,14 +519,6 @@ class ExecutionPhase extends BasePhase {
       .basename(projectPath)
       .replace(/-/g, " ")
       .toUpperCase();
-    content = content.replace(
-      titleRegex,
-      `<title>Nexus | ${projectName}</title>`,
-    );
-
-    // Replace the old <livewire:url-shortener /> or any previous injection or placeholder
-    const livewireRegex = /<div class="w-full">[\s\S]*?<\/div>/;
-    const placeholderRegex = /<!-- NEXUS_AUTO_WIRE_FRONTEND -->/;
 
     const newInjection =
       components.length > 0
@@ -550,21 +536,26 @@ class ExecutionPhase extends BasePhase {
                 </div>
             </div>`;
 
-    if (content.match(livewireRegex)) {
-      content = content.replace(livewireRegex, newInjection);
-    } else if (content.match(placeholderRegex)) {
-      content = content.replace(placeholderRegex, newInjection);
-    } else if (content.includes("<body")) {
-      // Fallback: inject into body if div is missing
-      content = content.replace(
-        "<body",
-        `<body class="p-8"><div class="max-w-7xl mx-auto">${newInjection}</div>`,
-      );
-    }
+    const fullContent = `<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nexus | ${projectName}</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gray-50 text-slate-800 dark:bg-slate-900 dark:text-white antialiased p-8">
+    <div class="max-w-7xl mx-auto">
+        ${newInjection}
+    </div>
+</body>
+</html>`;
 
-    await fs.writeFile(welcomePath, content);
+    await fs.writeFile(welcomePath, fullContent);
     this.log(
-      `      ✅ welcome.blade.php updated with ${components.length} components.`,
+      `      ✅ welcome.blade.php completely regenerated with ${components.length} components.`,
       "success",
     );
   }
@@ -668,52 +659,25 @@ class ExecutionPhase extends BasePhase {
 
     // FIX: Use full-file-replacement strategy instead of search/replace.
     // This avoids "can't find exact search string" failures caused by whitespace/indent mismatches.
-    const prompt = `[SYSTEM: SELF-HEALING MODE]\nThe Laravel application crashed. \nERROR LOG:\n${lastError}\n\nPROJECT STRUCTURE:\n- ${fileListStr}\n\nINSTRUCTION for Qwen-2.5:\nAnalyze the stack trace. Identify the root cause. Provide the COMPLETE corrected PHP/Blade code for the affected files.\n\nOUTPUT FORMAT (STRICT JSON):\n[\n  {\n    "file": "relative/path/to/file.php",\n    "content": "<?php\\n\\nnamespace... full code..."\n  }\n]\n\nRULES:\n- Output ONLY the JSON array.\n- No conversational text.\n- Ensure backslashes in PHP namespaces are escaped (\\\\\\\\).`;
+    const prompt = `[SYSTEM: SELF-HEALING MODE]\nThe Laravel application crashed. \nERROR LOG:\n${lastError}\n\nPROJECT STRUCTURE:\n- ${fileListStr}\n\nINSTRUCTION for Qwen-2.5:\nAnalyze the stack trace. Identify the root cause. Provide the COMPLETE corrected PHP/Blade code for the affected files.\n\nOUTPUT FORMAT:\nProvide the full corrected code wrapped in file blocks like this:\n\n<file path="relative/path/to/file.php">\n<?php\nnamespace App\\\\Models;\n// full code here\n</file>\n\nRULES:\n- Output ONLY the file blocks.\n- Do not use markdown code fences around the file block.\n- Provide the COMPLETE file content, do not truncate.`;
 
     const localAI = require("../LocalIntelligence");
     const response = await localAI.generate(prompt, "suggest_refactor");
     if (!response) return false;
 
     try {
-      let jsonString = response.trim();
-
-      // Layer 1: Extract from markdown code blocks if present
-      const jsonBlockRegex = /```(?:json)?\s*([\s\S]*?)```/i;
-      const match = jsonString.match(jsonBlockRegex);
-      if (match && match[1]) {
-        jsonString = match[1].trim();
+      const fileRegex = /<file\s+path=["']([^"']+)["']>([\s\S]*?)<\/file>/ig;
+      let match;
+      const fixes = [];
+      while ((match = fileRegex.exec(response)) !== null) {
+        fixes.push({
+          file: match[1],
+          content: match[2].trim()
+        });
       }
 
-      // Layer 2: Extract JSON array boundaries
-      const firstBracket = jsonString.indexOf("[");
-      const lastBracket = jsonString.lastIndexOf("]");
-      if (
-        firstBracket !== -1 &&
-        lastBracket !== -1 &&
-        lastBracket > firstBracket
-      ) {
-        jsonString = jsonString.slice(firstBracket, lastBracket + 1);
-      }
-
-      // Layer 3: Robust sanitization for PHP code inside JSON strings
-      // Fix unescaped backslashes that are NOT already part of valid JSON escapes
-      jsonString = jsonString.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
-      // Remove literal control characters
-      jsonString = jsonString.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-
-      let fixes;
-      try {
-        fixes = JSON.parse(jsonString);
-      } catch (parseErr) {
-        this.log(
-          `         ❌ Self-healing failed to parse AI response: ${parseErr.message}`,
-          "error",
-        );
-        return false;
-      }
-
-      if (!Array.isArray(fixes)) {
-        this.log(`         ❌ Self-healing response is not an array.`, "error");
+      if (fixes.length === 0) {
+        this.log(`         ❌ Self-healing failed to parse AI response: No <file> blocks found.`, "error");
         return false;
       }
 
@@ -722,81 +686,16 @@ class ExecutionPhase extends BasePhase {
         if (!fix.file) continue;
         const targetPath = path.join(projectPath, fix.file);
 
-        // Strategy A: Full file replacement (preferred new format)
-        if (fix.content !== undefined) {
-          await fs.ensureDir(path.dirname(targetPath));
-          await fs.writeFile(targetPath, fix.content, "utf8");
-          this.log(
-            `         ✅ Full file replacement applied to ${fix.file}`,
-            "success",
-          );
-          applied++;
-          continue;
-        }
-
-        // Strategy B: Search/replace fallback (legacy format)
-        if (fix.search !== undefined && fix.replace !== undefined) {
-          if (!(await fs.pathExists(targetPath))) {
-            this.log(
-              `         ⚠️ Target file ${fix.file} does not exist.`,
-              "warning",
-            );
-            continue;
-          }
-          let content = await fs.readFile(targetPath, "utf8");
-
-          // Exact match first
-          if (content.includes(fix.search)) {
-            content = content.replace(fix.search, fix.replace);
-            await fs.writeFile(targetPath, content, "utf8");
-            this.log(
-              `         ✅ Applied exact-match fix to ${fix.file}`,
-              "success",
-            );
-            applied++;
-            continue;
-          }
-
-          // Fuzzy match: normalize whitespace and try again
-          const normalize = (s) =>
-            s.replace(/\r\n/g, "\n").replace(/\t/g, "    ").trim();
-          const normContent = normalize(content);
-          const normSearch = normalize(fix.search);
-          if (normContent.includes(normSearch)) {
-            const lines = content.split("\n");
-            const searchLines = fix.search
-              .trim()
-              .split("\n")
-              .map((l) => l.trim());
-            const replaceLines = fix.replace.trim().split("\n");
-            let found = false;
-            for (let i = 0; i <= lines.length - searchLines.length; i++) {
-              const slice = lines
-                .slice(i, i + searchLines.length)
-                .map((l) => l.trim());
-              if (slice.join("\n") === searchLines.join("\n")) {
-                lines.splice(i, searchLines.length, ...replaceLines);
-                found = true;
-                break;
-              }
-            }
-            if (found) {
-              await fs.writeFile(targetPath, lines.join("\n"), "utf8");
-              this.log(
-                `         ✅ Applied fuzzy-match fix to ${fix.file}`,
-                "success",
-              );
-              applied++;
-              continue;
-            }
-          }
-
-          this.log(
-            `         ⚠️ Could not find search string in ${fix.file} (exact or fuzzy)`,
-            "warning",
-          );
-        }
+        await fs.ensureDir(path.dirname(targetPath));
+        await fs.writeFile(targetPath, fix.content, "utf8");
+        this.log(
+          `         ✅ Full file replacement applied to ${fix.file}`,
+          "success",
+        );
+        applied++;
       }
+
+      return applied > 0;
 
       return applied > 0;
     } catch (e) {

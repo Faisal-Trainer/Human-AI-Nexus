@@ -1,0 +1,23 @@
+```php
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+use App\Models\TodoItem;
+
+class TodoItemSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create();
+        for ($i = 0; $i < 10; $i++) {
+            TodoItem::create([
+                'title' => $faker->name(),
+                'description' => $faker->paragraph(),
+                'status' => $faker->randomElement(['pending', 'completed']),
+                'created_at' => now(),
+            ]);
+        }
+    }
+}
+```

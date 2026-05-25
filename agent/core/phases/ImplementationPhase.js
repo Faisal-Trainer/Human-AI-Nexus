@@ -239,10 +239,14 @@ class ImplementationPhase extends BasePhase {
           useShell = false;
         } else if (command === "npm") {
           spawnCommand = "npm.cmd";
-          useShell = false;
+          useShell = true;
         } else if (command === "npx") {
           spawnCommand = "npx.cmd";
-          useShell = false;
+          useShell = true;
+        } else if (command === "composer") {
+          useShell = true;
+        } else {
+          useShell = true;
         }
       } else {
         useShell = false;

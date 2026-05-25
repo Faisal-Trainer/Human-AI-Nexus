@@ -9,8 +9,8 @@
       "testing",
       "tdd"
     ],
-    "last_updated": "13/05/2026",
-    "checksum": "c2cce0d1d9b0eae01ab8829788803c2ed3a878cb5508c7a426a90918695a84fc"
+    "last_updated": "25/05/2026",
+    "checksum": "721fc261cce28af6dd55fb19202668df7496371033407085617db585c8be2b74"
   },
   {
     "node": "NEXUS_TDD_INSIGHTS.MD",
@@ -430,5 +430,25 @@
     ],
     "last_updated": "13/05/2026",
     "checksum": "ec2f5cb5db38643cf8572a30d803fcf12344c1f305a939a9b508bb22b79995ce"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_UI-UX.md",
+    "path": "ui-ux/NEXUS_DISTILLATION_UI-UX.md",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "25/05/2026",
+    "checksum": "3fd020a9bc45a17ad2589bdbbbdc3a906f317560337fc2519e5ead88c3797a90"
+  },
+  {
+    "node": "NEXUS_SANDBOX_UI_FINDINGS.md",
+    "path": "ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "25/05/2026",
+    "checksum": "07d6b2b0f9580300a51668b3b825d3c95ff277695e967a846ffb7f8a71fed74b"
   }
 ]

@@ -22,10 +22,13 @@ async function main() {
     // Parse arguments
     const flags = {
         mode: args.includes('--mode') ? args[args.indexOf('--mode') + 1] : (args.includes('-m') ? args[args.indexOf('-m') + 1] : null),
-        root: args.includes('--root') ? args[args.indexOf('--root') + 1] : (args.includes('-r') ? args[args.indexOf('-r') + 1] : (args[1] && !args[1].startsWith('-') ? args[1] : process.cwd())),
+        root: args.includes('--root') ? args[args.indexOf('--root') + 1] : process.cwd(),
+        target: args.includes('--target') ? args[args.indexOf('--target') + 1] : (args.includes('-t') ? args[args.indexOf('-t') + 1] : (args[1] && !args[1].startsWith('-') ? args[1] : null)),
         yes: args.includes('--yes') || args.includes('-y'),
         command: args[0] && !args[0].startsWith('-') ? args[0] : 'run'
     };
+
+    const targetPath = flags.target ? path.resolve(flags.target) : path.resolve(flags.root);
 
     // FIX #23 — Hanya satu instance engine; gunakan engine.orchestrator jika perlu
     const engine = new NexusEngine({ rootPath: path.resolve(flags.root) });
@@ -59,8 +62,8 @@ async function main() {
             console.log('\n🏗️ [0.5/4] Memulai Fase Blueprint & Scaffolding...');
             await engine.blueprintApp({ mode, allowSensitive });
 
-            console.log('\n🔍 [1/4] Memulai Fase Audit Seluruh Project...');
-            const report = await engine.audit(flags.root, { mode, allowSensitive });
+            console.log(`\n🔍 [1/4] Memulai Fase Audit pada target: ${targetPath}...`);
+            const report = await engine.audit(targetPath, { mode, allowSensitive });
             
             let approved = false;
             let plan;
@@ -104,7 +107,7 @@ async function main() {
             await engine.verify(plan);
 
             console.log('\n🧹 [3.5/4] Memulai Fase Clean Code & Verifikasi Stabilitas...');
-            await engine.cleanCodeAndVerify(flags.root);
+            await engine.cleanCodeAndVerify(targetPath);
             
             console.log('\n📝 [4/4] Memulai Fase Dokumentasi (Laporan untuk Dev)...');
             const cycleID = `CYCLE-${Date.now()}`;
@@ -117,7 +120,7 @@ async function main() {
             rl.close();
             break;
         case 'audit':
-            await engine.audit();
+            await engine.audit(targetPath);
             rl.close();
             break;
         case 'skills':
@@ -129,7 +132,7 @@ async function main() {
             rl.close();
             break;
         case 'harvest':
-            const sourcePath = args[1];
+            const sourcePath = flags.target;
             if (!sourcePath) {
                 console.log('Error: Path sumber proyek (source path) wajib disertakan.');
                 console.log('Usage: nexus harvest <path_to_project>');
@@ -194,7 +197,7 @@ async function main() {
                 rl.close(); 
                 process.exit(code || 0); 
             });
-            return; // Handled in exit callback
+            return new Promise(() => {}); // Handled in exit callback
         }
         case 'dlq': {
             // nexus dlq — tampilkan Dead Letter Queue (task gagal permanen)
@@ -257,8 +260,8 @@ async function main() {
             console.log(`
 Human-AI Nexus Core Engine
 Usage:
-  nexus run           - Start a full Audit -> Plan -> Execute cycle
-  nexus audit         - Run only the Audit phase
+  nexus run [target]  - Start a full Audit -> Plan -> Execute cycle (on whole project or specific target folder)
+  nexus audit [target]- Run only the Audit phase (on whole project or specific target folder)
   nexus status        - Show real-time system health (CPU, RAM, agents, evolution)
   nexus dlq           - View Dead Letter Queue (permanently failed tasks)
   nexus sandbox       - 🆕 Run all 100 sandbox projects autonomously
@@ -284,7 +287,9 @@ module.exports = NexusEngine;
 
 // Run if called directly
 if (require.main === module) {
-    main().catch(err => {
+    main().then(() => {
+        process.exit(0);
+    }).catch(err => {
         console.error(err);
         process.exit(1);
     });

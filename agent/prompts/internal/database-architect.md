@@ -1258,3 +1258,575 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)
+> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.
+
+### 📘 KNOWLEDGE: NEXUS_TDD_INSIGHTS.MD
+
+# 🧠 NEXUS INSIGHT: TDD Project #1 Conclusions
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs, tdd, laravel, nexus_institutionalized]
+
+## 📝 Kesimpulan Strategis
+1. **Inkonsistensi Model-Migration**: Berhasil dideteksi oleh `SchemaGuard` dan `database-architect`.
+2. **Keamanan Hardcoded**: `database-architect` berhasil mendeteksi string koneksi dalam file JS.
+3. **Kesenjangan Perangkat (Gap Analysis)**: Sistem membutuhkan modul perbaikan otomatis khusus Laravel (`laravel-architect-actions.js`).
+
+## 🚀 Insight Operasional
+Protokol multi-agent terbukti stabil dalam menjalankan siklus audit paralel tanpa tabrakan memori.
+
+---
+*Verified by Nexus Engine - TDD Project #1*
+
+### 📘 KNOWLEDGE: NEXUS_TDD_PROJECT_1_LOG.MD
+
+# 🚀 TDD Project #1 Log: Intelligent CRUD Auditor
+**Target**: `tests/project1`
+**Date**: 07/05/2026
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs, tdd, laravel, nexus_institutionalized]
+
+## 🧐 Problem Statement
+Mendeteksi inkonsistensi antara Model Laravel dan Migration, serta menemukan celah keamanan database (hardcoded strings).
+
+---
+
+## 🔍 [1/4] Audit Phase
+**Status**: COMPLETED
+**Audit ID**: `AUDIT-1778142921955`
+
+### Key Findings:
+1.  **Database Security**: Hardcoded connection string found in `config/database.js`. (Database Architect)
+2.  **VCS Governance**: `.gitignore` missing. (VCS Architect)
+3.  **Schema Governance**: `User` model missing `HasUuids` trait. (SchemaGuard)
+4.  **Structure**: Standard Nexus folders and README are missing.
+
+---
+
+## 📅 [2/4] Planning Phase
+**Status**: COMPLETED
+**Plan ID**: `PLAN-1778142974753`
+
+### Implementation Strategy:
+*   **Fix 1-4**: Manual structure creation (Engine skipped auto-fix as no pattern matched).
+*   **Fix 5**: Hardcoded DB string needs moving to `.env`.
+*   **Fix 6**: `.gitignore` generation.
+*   **Fix 8**: UUID Trait injection into `User.php`.
+
+---
+
+## 🚀 [3/4] Execution Phase
+**Status**: COMPLETED (Partial)
+**Tasks**: 8/8 processed by Orchestrator.
+**Note**: Sebagian besar perbaikan bersifat rekomendasi karena ketiadaan modul "Auto-Fixer" spesifik untuk Laravel Blueprint dalam core saat ini.
+
+---
+
+## 🔍 [4/4] Re-Audit Phase
+**Status**: COMPLETED
+**Audit ID**: `AUDIT-1778143001765`
+**Observation**: Temuan tetap sama. Ini memvalidasi bahwa agen spesialis bekerja secara konsisten dalam mendeteksi masalah, namun alur "Auto-Execution" memerlukan penambahan *Machine Actions* khusus untuk Laravel Blueprint.
+
+---
+
+## 📝 Final Summary & Pipeline Insight
+**Status**: SUCCESSFUL TEST
+**Kesimpulan**: 
+1.  **Multi-Agent Stability**: Agen spesialis (`database-architect`, `vcs-architect`, `documentation-architect`) berhasil berkolaborasi dalam satu siklus tanpa tabrakan.
+2.  **Observability**: Trace ID dan Log korelasi tercatat dengan benar di `logs/orchestration`.
+3.  **Gap Analysis**: NEXUS memerlukan modul `laravel-architect-actions.js` untuk melakukan perbaikan fisik otomatis pada file PHP/Laravel.
+4.  **Pipeline Ready**: Bahan dokumentasi ini sudah cukup untuk menjadi referensi *Learning* bagi agen di siklus berikutnya.
+
+---
+*End of Project #1 Test Log*
+
+### 📘 KNOWLEDGE: NEXUS_CORE_PRINCIPLES.MD
+
+# 🛡️ NEXUS CORE PRINCIPLES (Distilled from Golden Standard)
+
+Dokumen ini adalah kristalisasi dari nilai-nilai inti yang ditemukan dalam proyek tersukses (Golden Projects) di ekosistem Human-AI Nexus.
+
+## 1. Documentation-First Architecture
+Dokumentasi bukan sekadar catatan, melainkan **blueprint wajib**.
+- **No Algorithm, No Code**: Dilarang menulis logika kompleks sebelum algoritma tertulis di folder `documentation/algorithms/`.
+- **No Plan, No Execution**: Setiap tugas harus memiliki rencana kerja di folder `documentation/planning/`.
+
+## 3. The Approval Protocol
+- **Human Authority**: AI adalah pelaksana, Manusia adalah pemegang keputusan.
+- **Explicit Approval**: Persetujuan ("OKE" / "APPROVE") wajib didapatkan sebelum modifikasi file fisik dilakukan.
+- **Two-Stage Review**: Setiap perubahan harus melalui 2 tahap review:
+    1. **Spec Compliance**: Apakah kode memenuhi persyaratan?
+    2. **Code Quality**: Apakah kode rapi, efisien, dan sesuai standar Nexus?
+- **Socratic Brainstorming**: Gunakan teknik tanya-jawab untuk memvalidasi desain sebelum masuk ke fase perencanaan.
+
+## 3. Zero Flaws Enforcement
+- Proyek belum dianggap selesai sebelum status audit menyatakan "Nol Cacat".
+- Kualitas meliputi: Keamanan (Security), Performa (Performance), dan Pemeliharaan (Maintainability).
+
+## 4. IP-First & Future Proofing
+- Selalu gunakan UUID untuk identitas data.
+- Pastikan data siap untuk dipetakan ke Web 3.0 / Smart Contract di masa depan.
+
+## 5. User-Centric Evolution (Findability & Temporality)
+- **Findability is Core**: Antarmuka harus sederhana, cepat, dan relevan. Kurangi clics, utamakan visual actionable.
+- **Temporal UX Awareness**: Sadari bahwa kebutuhan user berubah dari **Orientation** (estetika) ke **Incorporation** (fungsionalitas).
+- **Mobile-First Priority**: Desain harus responsif dan memprioritaskan pengalaman mobile sebagai standar utama.
+
+---
+*Status: Institutional Knowledge (Verified).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, tdd, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_DATABASE_STANDARDS.MD
+
+# 💾 NEXUS DATABASE STANDARDS (Distilled from Golden Standard)
+
+Standar ini wajib diikuti untuk memastikan integritas data dan kesiapan skalabilitas (Web 3.0 Ready).
+
+## 1. Identity Management
+- **UUID as Primary Key**: Gunakan `uuid()` untuk seluruh tabel utama.
+- **Trait Implementation**: Gunakan `HasUuids` pada model Laravel untuk otomatisasi.
+- **Benefit**: Menghindari kebocoran jumlah data melalui ID integer dan mempermudah migrasi ke sistem terdesentralisasi.
+
+## 2. Mass Assignment Security
+- **Explicit Fillable**: Seluruh kolom yang dapat diisi oleh user **WAJIB** didefinisikan dalam array `$fillable`.
+- **Forbidden Guarded**: Penggunaan `$guarded = []` dilarang keras karena melanggar prinsip "Zero Flaws".
+
+## 3. Relationship Architecture
+- Gunakan Eloquent Relationship dengan definisi yang jelas (One-to-Many, Many-to-Many).
+- Gunakan tabel pivot untuk relasi interaksi (like, bookmark, follow).
+
+## 4. Indexing for Performance
+- Setiap Foreign Key (`user_id`, `author_id`, dll) **WAJIB** memiliki index untuk kecepatan query.
+
+---
+*Status: Institutional Knowledge (Database Layer).*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_INTEGRATION_ALGORITHM.MD
+
+# 🛠 ALGORITMA INTEGRASI: Human-AI Nexus (Automated Engine Version)
+
+Dokumen ini adalah **Sumber Kebenaran (Source of Truth)** untuk logika orkestrasi yang dijalankan oleh `NexusEngine`. Seluruh instruksi di sini diimplementasikan ke dalam kode program untuk memastikan konsistensi antara dokumentasi dan eksekusi.
+
+## 📋 1. Setup & Inisialisasi
+
+Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
+1.  **Skill Discovery**: Engine memetakan seluruh modul di folder `skill/` (Frontend, Backend, Security, dll).
+2.  **Memory Access**: Engine membaca folder `records/` dan `knowledge/` untuk mendapatkan konteks dari sesi sebelumnya.
+
+```bash
+# Inisialisasi otomatis via Nexus Engine (GitHub Version)
+npx github:Faisal-Trainer/Human-AI-Nexus nexus run
+```
+
+## 📋 2. Algoritma Audit (Dev-Centric Logic)
+
+Fase audit adalah tahap penentu kualitas. Alur kerja ditentukan oleh tingkat pengalaman Developer (User):
+
+### IF (Mode == "Learning")
+- **Kondisi**: Developer baru atau membutuhkan edukasi teknis mendalam.
+- **Tindakan**: 
+    1. Orchestrator memanggil seluruh **Agent Spesialis** (Cyber Security, UX Engineer, SEO Specialist, Database Architect).
+    2. Setiap Agent menghasilkan satu laporan mandiri di folder `audit/`.
+- **Tujuan**: Memberikan transparansi penuh dan bahan pembelajaran dari tiap sudut pandang ahli.
+
+### ELSE (Mode == "Efficient")
+- **Kondisi**: Developer berpengalaman atau membutuhkan eksekusi cepat.
+- **Tindakan**:
+    1. Orchestrator memanggil **Project Manager (PM)**.
+    2. PM melakukan scanning dan menulis satu laporan konsolidasi yang merangkum seluruh temuan utama.
+- **Tujuan**: Efisiensi waktu dan fokus pada masalah strategis.
+
+## 📋 3. Nexus Workflow (Siklus Otomatis)
+
+Engine menjalankan siklus berikut secara rekursif:
+
+1.  **Phase: Audit**: Menjalankan algoritma di atas (Learning/Efficient).
+    - **Security Guardrail**: Engine meminta izin eksplisit sebelum menscan `.env`, `package.json`, dan `composer.json`.
+2.  **Phase: Planning**: 
+    - Input: Hasil audit terbaru (termasuk temuan keamanan jika diizinkan).
+    - Action: PM menyusun dokumen di `planning/` berisi daftar tugas (TODO list).
+3.  **Phase: Approval**:
+    - Engine **WAJIB** berhenti dan menunggu input User (Ketik: "OKE" atau "APPROVE").
+4.  **Phase: Execution**:
+    - Agent Engineer mengeksekusi tugas sesuai rencana yang telah disetujui.
+5.  **Phase: Recording**:
+    - Mencatat hasil ke `records/` dan memperbarui memori di `knowledge/`.
+
+## ⚠️ Aturan Emas (The Golden Rules)
+
+1.  **Logic-First**: Kode program dilarang menyimpang dari algoritma yang tertulis di dokumen ini.
+2.  **Zero Flaws Enforcement**: Siklus audit tidak boleh berhenti sebelum status proyek mencapai "Zero Flaws" sesuai [STANDAR_ZERO_FLAWS.md](STANDAR_ZERO_FLAWS.md).
+3.  **Traceability**: Setiap file yang dihasilkan harus menyertakan referensi ke dokumen sumbernya (misal: Plan merujuk pada Audit ID tertentu).
+
+---
+*Dokumen ini mengatur bagaimana software dan manusia berkolaborasi dalam ekosistem Nexus.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, marketing, psychology]
+
+### 📘 KNOWLEDGE: NEXUS_INTERNAL_WORKFLOW.MD
+
+# ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v3.0 — Autonomous Evolution)
+> **VERSION**: v1 | **Last Updated**: 05/05/2026
+
+
+
+Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemeliharaan sistem, dan evolusi fisik mesin Nexus AI.
+
+---
+
+## ⚡ 1. Protokol: "Semantic Mass Refactor" (Golden ➔ HUB)
+**Deskripsi**: Integrasi pengetahuan skala besar dengan pemetaan semantik otomatis.
+
+*   **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
+*   **Algoritma Kerja**:
+    1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
+    2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
+    3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
+
+---
+
+## ⚡ 2. Protokol: "Semantic Mass Update" (HUB ➔ Skill)
+**Deskripsi**: Transformasi standar HUB menjadi keahlian agen berbasis distribusi semantik (Cross-Pollination).
+
+*   **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
+*   **Algoritma Kerja**:
+    1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
+    2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
+    3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
+
+---
+
+## ⚡ 3. Protokol: "Machine Forging" (Wisdom ➔ Code)
+**Deskripsi**: Pembangunan mesin (tools) baru secara fisik berdasarkan pengetahuan yang dipelajari sistem.
+
+*   **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
+*   **Aktor**: `Machinist Forge`.
+*   **Algoritma Kerja**:
+    1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
+    2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
+    3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
+
+---
+
+## ⚡ 4. Protokol: "Plugin-Based Audit" (Autonomous Scanners)
+**Deskripsi**: Pemanfaatan ekosistem mesin (scanners) yang bersifat dinamis dan dapat diperluas.
+
+*   **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
+*   **Algoritma Kerja**:
+    1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
+    2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
+
+---
+
+## ⚡ 5. Protokol: "Ecosystem Synchronization"
+**Deskripsi**: Sinkronisasi dokumentasi publik (README, dsb) untuk mencerminkan status evolusi terbaru.
+
+---
+*Status: Protokol v3.0 Aktif (Autonomous Evolution)*
+*Target: Zero Flaws & Physical Self-Evolution*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database, psychology, nexus_core, governance, standards]
+
+### 📘 KNOWLEDGE: NEXUS_LIVEWIRE_STANDARDS.MD
+
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+--- APPENDED FROM LIVEWIRE_STANDARDS.md ---
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+--- APPENDED FROM LIVEWIRE_STANDARDS.md ---
+# ⚡ LIVEWIRE & ARCHITECTURE STANDARDS
+
+Dokumen ini mencatat standar penulisan komponen Livewire di dalam ekosistem Nexus untuk memastikan kompatibilitas IDE dan performa maksimal.
+
+---
+
+## 1. Layout Definition
+**Masalah**: Penggunaan method chaining `->layout('layouts.app')` pada fungsi `render()` sering menyebabkan *Undefined Method* linting error di beberapa IDE meskipun secara fungsional valid di Livewire 3.
+
+**Standar Nexus**: Gunakan **PHP Attributes** di atas metode `render()` atau di atas deklarasi class untuk mendefinisikan layout.
+
+```php
+// ✅ BENAR (Gunakan Attribute)
+use Livewire\Attributes\Layout;
+
+#[Layout('layouts.app')]
+public function render()
+{
+    return view('livewire.component');
+}
+
+// ❌ HINDARI (Dapat menyebabkan lint error)
+public function render()
+{
+    return view('livewire.component')->layout('layouts.app');
+}
+```
+
+---
+
+## 2. Mass Assignment Protection
+Seluruh model interaksi (Rating, Bookmark, Follow) **WAJIB** menggunakan `$fillable` secara eksplisit. Penggunaan `$guarded = []` sangat dilarang untuk menjaga integritas "Zero Flaws".
+
+---
+
+## 3. Media Protocol (WebP)
+Setiap komponen yang menangani unggahan gambar harus menyertakan logic konversi ke **WebP** menggunakan `Intervention/Image` sebelum disimpan ke storage untuk efisiensi bandwidth.
+
+---
+
+## 4. UUID Consistency
+Seluruh tabel database menggunakan `UUID` sebagai Primary Key. Jangan pernah menggunakan `id` (integer) untuk entitas yang terekspos ke publik atau entitas yang akan menjadi aset IP.
+
+---
+*Last Updated: 2026-04-28 by Nexus Orchestrator.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, performance, ui-ux, database, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_MEDIA_PROTOCOL.MD
+
+# 🖼️ MEDIA HANDLING PROTOCOL
+
+## 1. Image Strategy
+- **Format**: Prefer **WebP** for all web-based visual assets due to superior compression.
+- **Responsiveness**: Images should be resized to the maximum necessary display size (e.g., 800px width for book covers) to prevent bandwidth waste.
+- **Metadata**: Strip unnecessary EXIF data to reduce file size.
+
+## 2. Storage Best Practices
+- Use a clear directory structure (e.g., `public/storage/{category}/{uuid}/`).
+- Implement automated cleanup for temporary or abandoned assets.
+
+
+--- APPENDED FROM MEDIA_PROTOCOL.md ---
+# 🖼️ MEDIA HANDLING PROTOCOL
+
+## 1. Image Strategy
+- **Format**: Prefer **WebP** for all web-based visual assets due to superior compression.
+- **Responsiveness**: Images should be resized to the maximum necessary display size (e.g., 800px width for book covers) to prevent bandwidth waste.
+- **Metadata**: Strip unnecessary EXIF data to reduce file size.
+
+## 2. Storage Best Practices
+- Use a clear directory structure (e.g., `public/storage/{category}/{uuid}/`).
+- Implement automated cleanup for temporary or abandoned assets.
+
+
+--- APPENDED FROM MEDIA_PROTOCOL.md ---
+# 🖼️ MEDIA HANDLING PROTOCOL
+
+## 1. Image Strategy
+- **Format**: Prefer **WebP** for all web-based visual assets due to superior compression.
+- **Responsiveness**: Images should be resized to the maximum necessary display size (e.g., 800px width for book covers) to prevent bandwidth waste.
+- **Metadata**: Strip unnecessary EXIF data to reduce file size.
+
+## 2. Storage Best Practices
+- Use a clear directory structure (e.g., `public/storage/{category}/{uuid}/`).
+- Implement automated cleanup for temporary or abandoned assets.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_PROJECT_MATURITY_STANDARDS.MD
+
+# Project Maturity Standards
+## High-Performance & Security Baseline
+
+### 🛡️ Security Best Practices (Applied)
+1. **Zero Hardcoded Credentials**: Selalu gunakan `config()` dan `.env`. Jangan pernah menuliskan email atau token langsung di file PHP.
+2. **MCP Tokenization**: Setiap endpoint API eksternal yang mengecualikan CSRF wajib divalidasi menggunakan `X-MCP-Token`.
+
+### 🚀 SEO & Content Standards (Applied)
+1. **Automated Indexing**: Setiap publikasi `Post` harus memicu perintah `seo:ping` untuk notifikasi mesin pencari (Google/Bing).
+2. **Metadata Consistency**: Gunakan JSON-LD `@graph` untuk seluruh entitas halaman guna memperkuat skema Rich Snippets.
+
+### 🖼️ Asset Optimization (Applied)
+1. **WebP Conversion**: Seluruh gambar yang diupload untuk Proyek atau Blog wajib diproses melalui `ImageService` untuk konversi ke format WebP (Quality 80%).
+2. **Lazy Loading**: Pastikan tag gambar di frontend selalu menyertakan atribut `loading="lazy"`.
+
+### 🧠 Orchestration Workflow (Lessons Learned)
+1. **Audit-First**: Selalu lakukan pemindaian multispesialis sebelum melakukan perubahan besar.
+2. **Documentation-First**: Gunakan folder `nexus/docs/` sebagai sumber kebenaran teknis.
+
+---
+*Persisted by Nexus Orchestrator*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, ui-ux, database, tdd, marketing]
+
+### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI.MD
+
+> **VERSION**: v1 | **Last Updated**: 13/05/2026
+
+
+
+## 🎓 UI WISDOM DISTILLATION [v1557] - 13/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 💎 NEXUS WISDOM: TALL STACK EVOLUTION PROTOCOL (v2.1)
+> **Origin**: `ui-ux/NEXUS_TALL_EVOLUTION_WISDOM.md` | **Distilled At**: 13/05/2026
+
+#### 💡 Content Summary:
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui, design, frontend, blade, livewire, laravel, architecture]
+
+
+This wisdom was distilled from the mass evolution of 21 sandbox projects into high-fidelity TALL stack applications.
+
+
+
+
+- **Card Geometry**: Use `rounded-[40px]` for main containers to create a premium, modern feel.
+- **Glassmorphism**: Combine `bg-white/80` or `bg-slate-900/80` with `backdrop-blur-xl` for overlays.
+- **Color Depth**: Use HSL-curated gradients (e.g., `from-indigo-500 to-purple-600`) instead of flat colors.
+- **Micro-Animations**: Always add `hover:scale-[1.02] transition-all duration-300` to interactive cards.
+
+
+- **Model Integrity**: Ensure every Livewire component is backed by a robust Eloquent model.
+- **Fillable Safety**: Always define `protected $fillable` to prevent mass-assignment vulnerabilities.
+- **Table Explicitly**: Set `protected $table = 'name'` in Models to avoid naming collisions with auto-generated tables.
+
+
+- **Blade Layouts**: Use `@livewireStyles` and `@livewireScripts` in the base layout.
+- **Alpine Sync**: Use `wire:model` for backend sync and `x-data` for local UI state.
+- **Tailwind JIT**: Leverage arbitrary values like `bg-[#4F46E5]` when...
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TALL_EVOLUTION_WISDOM.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+### 📘 KNOWLEDGE: NEXUS_TALL_EVOLUTION_WISDOM.MD
+
+# 💎 NEXUS WISDOM: TALL STACK EVOLUTION PROTOCOL (v2.1)
+
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui, design, frontend, blade, livewire, laravel, architecture]
+
+## 🎯 Context
+This wisdom was distilled from the mass evolution of 21 sandbox projects into high-fidelity TALL stack applications.
+
+## 🛠 Core Patterns (Gold Nuggets)
+
+### 1. Ultra-Modern UI Design
+- **Card Geometry**: Use `rounded-[40px]` for main containers to create a premium, modern feel.
+- **Glassmorphism**: Combine `bg-white/80` or `bg-slate-900/80` with `backdrop-blur-xl` for overlays.
+- **Color Depth**: Use HSL-curated gradients (e.g., `from-indigo-500 to-purple-600`) instead of flat colors.
+- **Micro-Animations**: Always add `hover:scale-[1.02] transition-all duration-300` to interactive cards.
+
+### 2. Database-Driven Components
+- **Model Integrity**: Ensure every Livewire component is backed by a robust Eloquent model.
+- **Fillable Safety**: Always define `protected $fillable` to prevent mass-assignment vulnerabilities.
+- **Table Explicitly**: Set `protected $table = 'name'` in Models to avoid naming collisions with auto-generated tables.
+
+### 3. TALL Integration
+- **Blade Layouts**: Use `@livewireStyles` and `@livewireScripts` in the base layout.
+- **Alpine Sync**: Use `wire:model` for backend sync and `x-data` for local UI state.
+- **Tailwind JIT**: Leverage arbitrary values like `bg-[#4F46E5]` when specific brand colors are required.
+
+## 📝 Writing Law
+When generating new TALL stack projects, agents must prioritize "Visual Excellence" as a functional requirement, not just an option.
+
+---
+*Status: Institutional Wisdom | Distilled from Sandbox Batch v2.1*
+

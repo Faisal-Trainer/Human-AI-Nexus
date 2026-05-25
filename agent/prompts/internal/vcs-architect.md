@@ -1258,3 +1258,270 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)
+> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.
+
+### 📘 KNOWLEDGE: NEXUS_TDD_INSIGHTS.MD
+
+# 🧠 NEXUS INSIGHT: TDD Project #1 Conclusions
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs, tdd, laravel, nexus_institutionalized]
+
+## 📝 Kesimpulan Strategis
+1. **Inkonsistensi Model-Migration**: Berhasil dideteksi oleh `SchemaGuard` dan `database-architect`.
+2. **Keamanan Hardcoded**: `database-architect` berhasil mendeteksi string koneksi dalam file JS.
+3. **Kesenjangan Perangkat (Gap Analysis)**: Sistem membutuhkan modul perbaikan otomatis khusus Laravel (`laravel-architect-actions.js`).
+
+## 🚀 Insight Operasional
+Protokol multi-agent terbukti stabil dalam menjalankan siklus audit paralel tanpa tabrakan memori.
+
+---
+*Verified by Nexus Engine - TDD Project #1*
+
+### 📘 KNOWLEDGE: NEXUS_TDD_PROJECT_1_LOG.MD
+
+# 🚀 TDD Project #1 Log: Intelligent CRUD Auditor
+**Target**: `tests/project1`
+**Date**: 07/05/2026
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, vcs, tdd, laravel, nexus_institutionalized]
+
+## 🧐 Problem Statement
+Mendeteksi inkonsistensi antara Model Laravel dan Migration, serta menemukan celah keamanan database (hardcoded strings).
+
+---
+
+## 🔍 [1/4] Audit Phase
+**Status**: COMPLETED
+**Audit ID**: `AUDIT-1778142921955`
+
+### Key Findings:
+1.  **Database Security**: Hardcoded connection string found in `config/database.js`. (Database Architect)
+2.  **VCS Governance**: `.gitignore` missing. (VCS Architect)
+3.  **Schema Governance**: `User` model missing `HasUuids` trait. (SchemaGuard)
+4.  **Structure**: Standard Nexus folders and README are missing.
+
+---
+
+## 📅 [2/4] Planning Phase
+**Status**: COMPLETED
+**Plan ID**: `PLAN-1778142974753`
+
+### Implementation Strategy:
+*   **Fix 1-4**: Manual structure creation (Engine skipped auto-fix as no pattern matched).
+*   **Fix 5**: Hardcoded DB string needs moving to `.env`.
+*   **Fix 6**: `.gitignore` generation.
+*   **Fix 8**: UUID Trait injection into `User.php`.
+
+---
+
+## 🚀 [3/4] Execution Phase
+**Status**: COMPLETED (Partial)
+**Tasks**: 8/8 processed by Orchestrator.
+**Note**: Sebagian besar perbaikan bersifat rekomendasi karena ketiadaan modul "Auto-Fixer" spesifik untuk Laravel Blueprint dalam core saat ini.
+
+---
+
+## 🔍 [4/4] Re-Audit Phase
+**Status**: COMPLETED
+**Audit ID**: `AUDIT-1778143001765`
+**Observation**: Temuan tetap sama. Ini memvalidasi bahwa agen spesialis bekerja secara konsisten dalam mendeteksi masalah, namun alur "Auto-Execution" memerlukan penambahan *Machine Actions* khusus untuk Laravel Blueprint.
+
+---
+
+## 📝 Final Summary & Pipeline Insight
+**Status**: SUCCESSFUL TEST
+**Kesimpulan**: 
+1.  **Multi-Agent Stability**: Agen spesialis (`database-architect`, `vcs-architect`, `documentation-architect`) berhasil berkolaborasi dalam satu siklus tanpa tabrakan.
+2.  **Observability**: Trace ID dan Log korelasi tercatat dengan benar di `logs/orchestration`.
+3.  **Gap Analysis**: NEXUS memerlukan modul `laravel-architect-actions.js` untuk melakukan perbaikan fisik otomatis pada file PHP/Laravel.
+4.  **Pipeline Ready**: Bahan dokumentasi ini sudah cukup untuk menjadi referensi *Learning* bagi agen di siklus berikutnya.
+
+---
+*End of Project #1 Test Log*
+
+### 📘 KNOWLEDGE: NEXUS_COLLABORATION_CONTRACT.MD
+
+# 🤝 HUMAN-AI COLLABORATION CONTRACT
+
+## 1. Documentation First
+Documentation is not the byproduct; it is the blueprint. No implementation should occur without a prior design or algorithm document.
+
+## 2. The Approval Protocol
+- **No Approval, No Code**: AI must never modify business logic or core architecture without explicit user approval (OKE/APPROVE).
+- **Traceability**: Every commit or major change must refer to a specific Plan or Audit ID.
+
+## 3. Specialist Roles
+- The system operates through **Agents** (Specialists) overseen by an **Orchestrator**.
+- Each agent brings a specific "Lens" (Security, UX, SEO, etc.) to ensure a multi-dimensional perspective on quality.
+
+
+--- APPENDED FROM COLLABORATION_CONTRACT.md ---
+# 🤝 HUMAN-AI COLLABORATION CONTRACT
+
+## 1. Documentation First
+Documentation is not the byproduct; it is the blueprint. No implementation should occur without a prior design or algorithm document.
+
+## 2. The Approval Protocol
+- **No Approval, No Code**: AI must never modify business logic or core architecture without explicit user approval (OKE/APPROVE).
+- **Traceability**: Every commit or major change must refer to a specific Plan or Audit ID.
+
+## 3. Specialist Roles
+- The system operates through **Agents** (Specialists) overseen by an **Orchestrator**.
+- Each agent brings a specific "Lens" (Security, UX, SEO, etc.) to ensure a multi-dimensional perspective on quality.
+
+
+--- APPENDED FROM COLLABORATION_CONTRACT.md ---
+# 🤝 HUMAN-AI COLLABORATION CONTRACT
+
+## 1. Documentation First
+Documentation is not the byproduct; it is the blueprint. No implementation should occur without a prior design or algorithm document.
+
+## 2. The Approval Protocol
+- **No Approval, No Code**: AI must never modify business logic or core architecture without explicit user approval (OKE/APPROVE).
+- **Traceability**: Every commit or major change must refer to a specific Plan or Audit ID.
+
+## 3. Specialist Roles
+- The system operates through **Agents** (Specialists) overseen by an **Orchestrator**.
+- Each agent brings a specific "Lens" (Security, UX, SEO, etc.) to ensure a multi-dimensional perspective on quality.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, marketing, psychology, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_INTEGRATION_ALGORITHM.MD
+
+# 🛠 ALGORITMA INTEGRASI: Human-AI Nexus (Automated Engine Version)
+
+Dokumen ini adalah **Sumber Kebenaran (Source of Truth)** untuk logika orkestrasi yang dijalankan oleh `NexusEngine`. Seluruh instruksi di sini diimplementasikan ke dalam kode program untuk memastikan konsistensi antara dokumentasi dan eksekusi.
+
+## 📋 1. Setup & Inisialisasi
+
+Sistem mengawali setiap siklus dengan fase **Intelligence Discovery**:
+1.  **Skill Discovery**: Engine memetakan seluruh modul di folder `skill/` (Frontend, Backend, Security, dll).
+2.  **Memory Access**: Engine membaca folder `records/` dan `knowledge/` untuk mendapatkan konteks dari sesi sebelumnya.
+
+```bash
+# Inisialisasi otomatis via Nexus Engine (GitHub Version)
+npx github:Faisal-Trainer/Human-AI-Nexus nexus run
+```
+
+## 📋 2. Algoritma Audit (Dev-Centric Logic)
+
+Fase audit adalah tahap penentu kualitas. Alur kerja ditentukan oleh tingkat pengalaman Developer (User):
+
+### IF (Mode == "Learning")
+- **Kondisi**: Developer baru atau membutuhkan edukasi teknis mendalam.
+- **Tindakan**: 
+    1. Orchestrator memanggil seluruh **Agent Spesialis** (Cyber Security, UX Engineer, SEO Specialist, Database Architect).
+    2. Setiap Agent menghasilkan satu laporan mandiri di folder `audit/`.
+- **Tujuan**: Memberikan transparansi penuh dan bahan pembelajaran dari tiap sudut pandang ahli.
+
+### ELSE (Mode == "Efficient")
+- **Kondisi**: Developer berpengalaman atau membutuhkan eksekusi cepat.
+- **Tindakan**:
+    1. Orchestrator memanggil **Project Manager (PM)**.
+    2. PM melakukan scanning dan menulis satu laporan konsolidasi yang merangkum seluruh temuan utama.
+- **Tujuan**: Efisiensi waktu dan fokus pada masalah strategis.
+
+## 📋 3. Nexus Workflow (Siklus Otomatis)
+
+Engine menjalankan siklus berikut secara rekursif:
+
+1.  **Phase: Audit**: Menjalankan algoritma di atas (Learning/Efficient).
+    - **Security Guardrail**: Engine meminta izin eksplisit sebelum menscan `.env`, `package.json`, dan `composer.json`.
+2.  **Phase: Planning**: 
+    - Input: Hasil audit terbaru (termasuk temuan keamanan jika diizinkan).
+    - Action: PM menyusun dokumen di `planning/` berisi daftar tugas (TODO list).
+3.  **Phase: Approval**:
+    - Engine **WAJIB** berhenti dan menunggu input User (Ketik: "OKE" atau "APPROVE").
+4.  **Phase: Execution**:
+    - Agent Engineer mengeksekusi tugas sesuai rencana yang telah disetujui.
+5.  **Phase: Recording**:
+    - Mencatat hasil ke `records/` dan memperbarui memori di `knowledge/`.
+
+## ⚠️ Aturan Emas (The Golden Rules)
+
+1.  **Logic-First**: Kode program dilarang menyimpang dari algoritma yang tertulis di dokumen ini.
+2.  **Zero Flaws Enforcement**: Siklus audit tidak boleh berhenti sebelum status proyek mencapai "Zero Flaws" sesuai [STANDAR_ZERO_FLAWS.md](STANDAR_ZERO_FLAWS.md).
+3.  **Traceability**: Setiap file yang dihasilkan harus menyertakan referensi ke dokumen sumbernya (misal: Plan merujuk pada Audit ID tertentu).
+
+---
+*Dokumen ini mengatur bagaimana software dan manusia berkolaborasi dalam ekosistem Nexus.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, database, vcs, marketing, psychology]
+
+### 📘 KNOWLEDGE: NEXUS_SUPERPOWERS_WORKFLOW.MD
+
+# ⚡ NEXUS SUPERPOWERS WORKFLOW (Institutional Memory)
+
+Dokumen ini mengadopsi prinsip **Superpowers** untuk menjamin kedisiplinan tingkat tinggi dalam pengembangan perangkat lunak.
+
+## 1. Hukum Besi (The Iron Laws)
+- **TDD (Test-Driven Development)**: Dilarang menulis kode produksi sebelum ada pengujian (test) yang gagal terlebih dahulu.
+- **Systematic Debugging**: Dilarang melakukan perbaikan (fix) sebelum melakukan investigasi akar masalah (root cause).
+- **Evidence-Based Verification**: Dilarang mengklaim tugas selesai tanpa bukti (evidence) berupa log eksekusi atau hasil test yang valid.
+
+## 2. Gerbang Persetujuan (Approval Gates)
+Gunakan checkpoint manusia pada titik-titik kritis:
+1. **Design Gate**: Setujui desain sebelum lanjut ke perencanaan.
+2. **Plan Gate**: Setujui rencana sebelum menulis kode.
+3. **Review Gate**: Setujui hasil implementasi sebelum melakukan merge/commit.
+
+## 3. Systematic Debugging Framework
+1. **Observation**: Catat perilaku aneh.
+2. **Hypothesis**: Buat hipotesis penyebab.
+3. **Experiment**: Lakukan pengetesan untuk membuktikan hipotesis.
+4. **Fix & Verify**: Terapkan solusi dan verifikasi dengan test.
+
+---
+*Status: Institutional Knowledge (Workflow Discipline).*
+*Referenced from: amplifier-bundle-superpowers.*
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, tdd, vcs, nexus_institutionalized]
+
+### 📘 KNOWLEDGE: NEXUS_WORKFLOW.MD
+
+# Nexus Workflow
+> **VERSION**: v1 | **Last Updated**: 05/05/2026
+
+
+
+The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximum quality and traceability.
+
+## 1. Audit Phase
+The system (or specialized agents) scans the current state of the project.
+- **Security Guardrails**: The engine will request explicit permission before scanning sensitive files (`.env`, `package.json`, `composer.json`).
+- **Input**: Source code, documentation, and (if permitted) configuration files.
+- **Output**: An Audit Report in `audit/`.
+- **Goal**: Identify gaps, bugs, or opportunities for improvement.
+
+## 2. Planning Phase
+Based on the audit report, a detailed plan is generated.
+- **Input**: Audit Report.
+- **Output**: Implementation Plan in `documentation/planning/`.
+- **Human Role**: Review and approve the plan.
+
+## 3. Execution Phase
+Specialized agents execute the tasks defined in the plan.
+- **Input**: Approved Implementation Plan.
+- **Action**: Code generation, configuration updates, or content creation.
+- **Constraint**: Agents must follow the standards in `skill/`.
+
+## 4. Finalization Phase
+The results are recorded and the knowledge base is updated.
+- **Input**: Execution results.
+- **Output**: Logs in `memory/short_term/` and summaries in `documentation/summary/`.
+- **Loop**: Trigger a new Audit to verify the changes.
+
+---
+
+### Zero Flaws Enforcement
+The cycle repeats until an audit results in "Zero Flaws". This ensures that no technical debt or bugs are left behind.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology, nexus_core, governance, standards]
+

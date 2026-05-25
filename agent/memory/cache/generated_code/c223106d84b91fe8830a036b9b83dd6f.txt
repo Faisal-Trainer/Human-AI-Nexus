@@ -1,0 +1,57 @@
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Faker;
+
+class RelationSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $faker = app(Faker::class);
+
+        // Create fake users
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('users')->insert([
+                'name' => $faker->name(),
+                'email' => $faker->email(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Create fake posts
+        for ($i = 0; $i < 20; $i++) {
+            $user = DB::table('users')->inRandomOrder()->first();
+            DB::table('posts')->insert([
+                'user_id' => $user->id,
+                'title' => $faker->title(),
+                'content' => $faker->paragraph(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Create fake comments
+        for ($i = 0; $i < 30; $i++) {
+            $user = DB::table('users')->inRandomOrder()->first();
+            $post = DB::table('posts')->inRandomOrder()->first();
+            DB::table('comments')->insert([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+                'content' => $faker->paragraph(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    }
+}
+```

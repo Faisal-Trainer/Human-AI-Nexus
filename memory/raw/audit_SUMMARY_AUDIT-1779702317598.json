@@ -1,0 +1,245 @@
+{
+  "id": "AUDIT-1779702317598",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-05-25T10:45:19.551+08:00",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS-AI",
+  "findings": [
+    {
+      "severity": "SECURITY",
+      "message": ".env detected",
+      "file": ".env"
+    },
+    {
+      "severity": "CRITICAL",
+      "message": "[cyber-security] .env file detected in project root.",
+      "file": ".env",
+      "rationale": "File .env berisi kredensial sensitif seperti API keys dan password database. Membiarkannya di root tanpa proteksi berisiko kebocoran data jika tersinkronisasi ke repository publik.",
+      "recommendation": "Tambahkan .env ke dalam file .gitignore dan gunakan environment variables di tingkat server."
+    },
+    {
+      "severity": "WARNING",
+      "message": "[database-architect] Hardcoded database connection string detected.",
+      "file": "agent/core/phases/ImplementationPhase.js",
+      "rationale": "Menyimpan kredensial database langsung di dalam kode adalah celah keamanan besar. Jika kode ini diakses pihak luar, mereka bisa mengontrol database Anda.",
+      "recommendation": "Pindahkan string koneksi ke file .env dan gunakan process.env untuk memanggilnya."
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/pipeline_internal_test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/Logger.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/NativeBridge.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/RedisMemory.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/SandboxExecutor.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/TaskProtocol.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/tests/stress-test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/100-projects-data.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/phase1_testing.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/sandbox-master-runner.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_dynamic_section.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_section2.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_section3.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/upgrade_to_tall.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/phases/ImplementationPhase.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/phases/KnowledgePhase.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[documentation-architect] File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/phases/PlanningPhase.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "[seo-performance-specialist] Audit completed by seo-performance-specialist for Seo Performance Specialist Verification.",
+      "file": "project"
+    },
+    {
+      "severity": "INFO",
+      "message": "[ux-engineer] Audit completed by ux-engineer for Ux Engineer Verification.",
+      "file": "project"
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-errors.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152431.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152441.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152513.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152609.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152616.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152630.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152654.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152752.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-152944.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-153128.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260517-154318.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260520-133930.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260520-140811.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/sandbox-runner-20260520-140828.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/section1_stderr.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    },
+    {
+      "severity": "INFO",
+      "message": "[vcs-architect] Potential junk or temporary file detected.",
+      "file": "logs/section1_stdout.log",
+      "rationale": "File sampah atau temporary (seperti .log atau .DS_Store) mengotori repository dan bisa menyebabkan masalah performa pada Git.",
+      "recommendation": "Hapus file ini atau tambahkan polanya ke dalam .gitignore agar tidak terlacak oleh Version Control."
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "allowSensitive": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "project_name": "url-shortener-app",
+  "models": [
+    "Url",
+    "User",
+    "History"
+  ],
+  "schema": {
+    "Url": {
+      "column1": "string",
+      "column2": "string",
+      "column3": "integer"
+    }
+  },
+  "migrations": [
+    "create_url_table",
+    "create_user_table",
+    "create_history_table"
+  ],
+  "livewire_components": [
+    "UrlComponent",
+    "HistoryComponent"
+  ],
+  "seeders": [
+    "UrlSeeder",
+    "UserSeeder"
+  ],
+  "factories": [
+    "UrlFactory",
+    "UserFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/url"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "Url",
+      "type": "belongsTo",
+      "target": "User"
+    },
+    {
+      "model": "History",
+      "type": "belongsTo",
+      "target": "Url"
+    }
+  ]
+}

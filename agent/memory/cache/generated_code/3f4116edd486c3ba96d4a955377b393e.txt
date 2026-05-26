@@ -1,0 +1,33 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class Url extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'urls';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'original_url',
+        'short_url',
+        'click_count',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
+}
+```

@@ -13,10 +13,10 @@ class SemanticEngine {
     this.tfidf = new natural.TfIdf();
     this.fileIndex = []; // [{ file, path, tags, embedding }]
     this.isBuilt = false;
-    this.useLocalEmbeddings = false;
-    this._embeddingContext = null; // Lazy-init node-llama-cpp embedding context
-    this._embeddingModel = null;
-    this._embeddingInitFailed = false;
+    this.useOllamaEmbeddings = false;
+    this.ollamaModel = 'nomic-embed-text';
+    this.baseUrl = 'http://localhost:11434/api';
+    this.ollamaFailures = 0;
 
     // Domain vocabulary untuk TALL Stack context
     this.domainVocab = {
@@ -157,8 +157,17 @@ class SemanticEngine {
   async buildIndex() {
     console.log("🔬 SemanticEngine: Building vector index...");
 
-    // 🚀 Initialize local embedding context (node-llama-cpp)
-    await this._initEmbeddingContext();
+    // 🚀 Check if Ollama embeddings are available
+    try {
+        const axios = require('axios');
+        const tags = await axios.get(`${this.baseUrl}/tags`);
+        if (tags.data.models.some(m => m.name.includes(this.ollamaModel))) {
+            this.useOllamaEmbeddings = true;
+            console.log(`   💎 Ollama: Using ${this.ollamaModel} for high-precision embeddings.`);
+        }
+    } catch (e) {
+        console.warn("   ⚠️ Ollama not found, falling back to TF-IDF.");
+    }
 
     this.tfidf = new natural.TfIdf(); // Reset
     this.fileIndex = [];
@@ -183,8 +192,8 @@ class SemanticEngine {
         this.tfidf.addDocument(cleaned);
         
         let embedding = null;
-        if (this.useLocalEmbeddings) {
-            embedding = await this.getEmbedding(cleaned.substring(0, 2000));
+        if (this.useOllamaEmbeddings) {
+            embedding = await this.getEmbedding(cleaned.substring(0, 8000));
         }
 
         this.fileIndex.push({
@@ -282,8 +291,8 @@ class SemanticEngine {
     let results = [];
     const queryLower = query.toLowerCase();
 
-    if (this.useLocalEmbeddings && this.fileIndex.some(f => f.embedding)) {
-        console.log(`   🔍 Semantic Search: Using local vector similarity...`);
+    if (this.useOllamaEmbeddings && this.fileIndex.some(f => f.embedding)) {
+        console.log(`   🔍 Semantic Search: Using vector similarity...`);
         const queryEmbedding = await this.getEmbedding(query);
         
         if (queryEmbedding) {
@@ -337,38 +346,24 @@ class SemanticEngine {
     return finalResults;
   }
 
-  /**
-   * Initialize local embedding context using node-llama-cpp (same model as LocalIntelligence)
-   */
-  async _initEmbeddingContext() {
-    if (this._embeddingContext || this._embeddingInitFailed) return;
-    try {
-        const modelPath = process.env.NEXUS_MODEL_PATH || path.join(this.knowledgePath, '..', '..', 'models', 'qwen2.5-coder-1.5b-instruct-q4_k_m.gguf');
-        if (!fs.existsSync(modelPath)) {
-            console.warn(`   ⚠️ SemanticEngine: Model not found at ${modelPath}, using TF-IDF only.`);
-            this._embeddingInitFailed = true;
-            return;
-        }
-        const { getLlama } = await import('node-llama-cpp');
-        const llama = await getLlama();
-        this._embeddingModel = await llama.loadModel({ modelPath, gpuLayers: 0 });
-        this._embeddingContext = await this._embeddingModel.createEmbeddingContext();
-        this.useLocalEmbeddings = true;
-        console.log(`   💎 LocalEmbedding: Using node-llama-cpp for local vector embeddings.`);
-    } catch (e) {
-        console.warn(`   ⚠️ LocalEmbedding: Init failed (${e.message}), using TF-IDF only.`);
-        this._embeddingInitFailed = true;
-        this.useLocalEmbeddings = false;
-    }
-  }
-
   async getEmbedding(text) {
-    if (!this._embeddingContext) return null;
+    if (this.ollamaFailures >= 3) return null;
     try {
-        const result = await this._embeddingContext.getEmbeddingFor(text);
-        return result.vector;
+        const axios = require('axios');
+        const response = await axios.post(`${this.baseUrl}/embeddings`, {
+            model: this.ollamaModel,
+            prompt: text
+        }, { timeout: 5000 }); // 5 second timeout to prevent hanging
+        this.ollamaFailures = 0;
+        return response.data.embedding;
     } catch (e) {
-        // Silently fallback — no spam
+        this.ollamaFailures++;
+        if (this.ollamaFailures >= 3) {
+            console.error(`   ❌ Ollama: Embedding failed 3 times (${e.message}). Disabling Ollama embeddings for this session.`);
+            this.useOllamaEmbeddings = false;
+        } else {
+            console.error("   ❌ Ollama: Embedding failed:", e.message);
+        }
         return null;
     }
   }

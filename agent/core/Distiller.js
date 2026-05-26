@@ -116,7 +116,8 @@ ${oldContent.trim()}
                 // Try Python-based AI Distillation first
                 try {
                     console.log(`   🧠 AI Distilling: ${file}...`);
-                    const aiResult = await this.native.callPython(path.join(this.native.binPath, 'distiller.py'), [filePath]);
+                    if (!this._native) this._native = new NativeBridge(this._rootPath);
+                    const aiResult = await this._native.callPython(path.join(this._native.binPath, 'distiller.py'), [filePath]);
                     block += aiResult + '\n\n';
                 } catch (e) {
                     console.warn(`   ⚠️ AI Distillation failed, falling back to Regex: ${e.message}`);

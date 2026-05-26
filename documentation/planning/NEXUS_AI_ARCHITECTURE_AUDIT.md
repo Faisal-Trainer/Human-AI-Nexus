@@ -788,7 +788,7 @@ async getAvailablePort(start = 8001, maxPort = 9000) {
 **Masalah B — APP_KEY hardcoded:**
 ```js
 // EvolutionPiper.spawnSandbox() — hardcoded di source code:
-{ name: '.env', content: 'APP_KEY=base64:a7gkNyQZZ4HamHeiMoQ2gFJygojiFUCyzXDTKQ3YwG4=' }
+{ name: '.env', content: 'APP_KEY=base64:DUMMYKEYDUMMYKEYDUMMYKEYDUMMYKEYDUMMYKEYDUMMY=' }
 ```
 
 Laravel APP_KEY hardcoded di source code. Meskipun ini untuk sandbox test, key ini bisa disalahgunakan jika seseorang reuse untuk production.

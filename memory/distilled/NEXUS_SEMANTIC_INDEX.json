@@ -1,5 +1,115 @@
 [
   {
+    "node": "NEXUS_API-CALLING.MD",
+    "path": "api/NEXUS_API-CALLING.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2ec443c5f4dc18c31331e4008434b3efe91ced08f07235132c07550ed2422d3b"
+  },
+  {
+    "node": "NEXUS_CONTENT-SCRIPTS.MD",
+    "path": "api/NEXUS_CONTENT-SCRIPTS.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "1158347034d352a64016201eb2dcb52a40159f68e56e80e0bd6d915d1c452cf3"
+  },
+  {
+    "node": "NEXUS_CSP-SANDBOX.MD",
+    "path": "api/NEXUS_CSP-SANDBOX.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "0ce98c68bc0911fa0460423ef8feca9fc45611b3e15d27baa301c47e235a67aa"
+  },
+  {
+    "node": "NEXUS_DECLARATIVE-NET-REQUEST.MD",
+    "path": "api/NEXUS_DECLARATIVE-NET-REQUEST.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a87772723354b1ed3d643bbfb5df0e729c6e4f5bee69b9a90513bbc1d453d287"
+  },
+  {
+    "node": "NEXUS_DEPRIORITIZE-BACKGROUND-FETCHES.MD",
+    "path": "api/NEXUS_DEPRIORITIZE-BACKGROUND-FETCHES.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8060ca532c536c92c5651eb133bbc0a91c6d77b10e7fe1737861d1aff0e18035"
+  },
+  {
+    "node": "NEXUS_DEVTOOLS.MD",
+    "path": "api/NEXUS_DEVTOOLS.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d4347ec8e7b9d861e59ff3c7319b7e92b4f173619db1a7d7dbe1483e88ee5ffd"
+  },
+  {
+    "node": "NEXUS_MEDIA-CAPTURE.MD",
+    "path": "api/NEXUS_MEDIA-CAPTURE.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "bcf8102244d35977361732892e1fe0768e206867f9cde20b3adede80e83bb8fe"
+  },
+  {
+    "node": "NEXUS_MESSAGE-PASSING.MD",
+    "path": "api/NEXUS_MESSAGE-PASSING.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "6212425d138cd6d009313c7dbfb8a14f7941a9c58d322f2f9ece3bf0f37c45f7"
+  },
+  {
+    "node": "NEXUS_PERSISTENT-TOP-LAYER-UI.MD",
+    "path": "api/NEXUS_PERSISTENT-TOP-LAYER-UI.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "1b31feb07bca35926aa9e231a8c872920b0a98c358deb500ec56290768dd418c"
+  },
+  {
+    "node": "NEXUS_POPUP-UI.MD",
+    "path": "api/NEXUS_POPUP-UI.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "ed7305a8d8de1b8320c495580795e7f45f045fffa9fe448f514aa91a67de6c1d"
+  },
+  {
+    "node": "NEXUS_SIDE-PANEL.MD",
+    "path": "api/NEXUS_SIDE-PANEL.MD",
+    "rack": "api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8e5ac6696076d098f9912e253bedee098ee33b0a6aaf0626fdcd71a19f07dc51"
+  },
+  {
     "node": "NEXUS_SESSION_HISTORY_ARCHIVE.MD",
     "path": "audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD",
     "rack": "audit",
@@ -9,8 +119,276 @@
       "testing",
       "tdd"
     ],
-    "last_updated": "25/05/2026",
-    "checksum": "721fc261cce28af6dd55fb19202668df7496371033407085617db585c8be2b74"
+    "last_updated": "26/05/2026",
+    "checksum": "27b7d8f76b4893982a77bed87bb2127a64ae36fc38b69cdd42b552d292ea240f"
+  },
+  {
+    "node": "NEXUS_AGENTIC-JAVASCRIPT-TOOLS.MD",
+    "path": "database/NEXUS_AGENTIC-JAVASCRIPT-TOOLS.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "6c331f0cfd422bce4e707335f31d3d52feecb4211a3677b18ee039d4affbdd2f"
+  },
+  {
+    "node": "NEXUS_CALCULATE-WITH-INTRINSIC-SIZES.MD",
+    "path": "database/NEXUS_CALCULATE-WITH-INTRINSIC-SIZES.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e5493677659b9bb06227e030664320c1c0057d92069de3a1971df379b602b81d"
+  },
+  {
+    "node": "NEXUS_CSS-LAYOUT.MD",
+    "path": "database/NEXUS_CSS-LAYOUT.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d2b4ad1e5ed56dfb43872a867fac6818c98b22a2d41263ff13882cb893cb9581"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_DATABASE.md",
+    "path": "database/NEXUS_DISTILLATION_DATABASE.md",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c1612dea76ebaad42804086ecfe7e0e56a775c8a9c7993309359a9d01231c9b6"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_TDD.md",
+    "path": "database/NEXUS_DISTILLATION_TDD.md",
+    "rack": "database",
+    "tags": [
+      "database",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "eb966fce3939bd383a50dac6128bf60d6a534537aa9aae1f10ba05d018a2b6ed"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_UI-UX.md",
+    "path": "database/NEXUS_DISTILLATION_UI-UX.md",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "56c6bff3260cb2bc794f232bd594c7a1651ecef8bebeab19a3d6559e537b1a7b"
+  },
+  {
+    "node": "NEXUS_DYNAMIC-SIBLING-STYLING.MD",
+    "path": "database/NEXUS_DYNAMIC-SIBLING-STYLING.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "b4c894783d7ff231ba00bb66ff2ef58ab79fa3ff73627dc011d977fb3be505e9"
+  },
+  {
+    "node": "NEXUS_EXPOSE-CANVAS-CONTENT-TO-BROWSER-FEATURES.MD",
+    "path": "database/NEXUS_EXPOSE-CANVAS-CONTENT-TO-BROWSER-FEATURES.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f24af9a61c720a850f819fd7a4ccd5c016d11864bbf6e82ad342f70b61c7f0c6"
+  },
+  {
+    "node": "NEXUS_HIGHLIGHT-TEXT-RANGES.MD",
+    "path": "database/NEXUS_HIGHLIGHT-TEXT-RANGES.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "5043d7107113f6c292f1989d782facd5ec496301e211039d2ac1d55ef07f58ba"
+  },
+  {
+    "node": "NEXUS_NAVIGATION-DRAWER.MD",
+    "path": "database/NEXUS_NAVIGATION-DRAWER.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c460c76f9e3157fadf9d967c0922bb1987ce731e0cdf550c21ff305b6be81a38"
+  },
+  {
+    "node": "NEXUS_PARALLAX-SCROLL-EFFECTS.MD",
+    "path": "database/NEXUS_PARALLAX-SCROLL-EFFECTS.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3bb38d494b38427409004368bde0010dac8c1af98c428b3d51c4d7cec9705c39"
+  },
+  {
+    "node": "NEXUS_PROMPT-API.MD",
+    "path": "database/NEXUS_PROMPT-API.MD",
+    "rack": "database",
+    "tags": [
+      "database"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c6d033e10afac2a63b4329c47a4f34ca961b4241455a13dfe50632035c04b1d9"
+  },
+  {
+    "node": "NEXUS_RESILIENT-CONTEXT-MENUS-AND-NESTED-DROPDOWNS.MD",
+    "path": "database/NEXUS_RESILIENT-CONTEXT-MENUS-AND-NESTED-DROPDOWNS.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "5167cbbd2906886aa6e5ab3fbabfd7cdbd0582c98fd7f34b973a58dd9b761360"
+  },
+  {
+    "node": "NEXUS_SAME-DOCUMENT-TRANSITIONS.MD",
+    "path": "database/NEXUS_SAME-DOCUMENT-TRANSITIONS.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8e0ec846289a5f4a1e383866c136cff3216e59a59ecbd71f297ee24b6c620944"
+  },
+  {
+    "node": "NEXUS_SCROLL-SNAP-REALTIME-FEEDBACK.MD",
+    "path": "database/NEXUS_SCROLL-SNAP-REALTIME-FEEDBACK.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "68596e58e2f2bbb626fd8a185db3a5623339a8b225b573048ff3a9cc5808d9e1"
+  },
+  {
+    "node": "NEXUS_SCROLL-SNAP-STATE-SYNC.MD",
+    "path": "database/NEXUS_SCROLL-SNAP-STATE-SYNC.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "dca3a2a5126277f46e81ca7d5c04ffefdde1e64e6a991aafb14e53991de4c81c"
+  },
+  {
+    "node": "NEXUS_SCROLLYTELLING.MD",
+    "path": "database/NEXUS_SCROLLYTELLING.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "5013529ca572a8d94e116e8074f54b4f99762c31f9d7c89bc02ecfb6f0f533a4"
+  },
+  {
+    "node": "NEXUS_SEARCH-HIDDEN-CONTENT.MD",
+    "path": "database/NEXUS_SEARCH-HIDDEN-CONTENT.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "bb8ac577f31b4c08bcd5a6faf5e0ef7e29e0b096a78bea70babf058758c992cc"
+  },
+  {
+    "node": "NEXUS_STACK-DRILL-DOWN.MD",
+    "path": "database/NEXUS_STACK-DRILL-DOWN.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f06b6a647d029be6dfd95e0a916fa26c53e53bdfca4561277dcba8d3b1291d26"
+  },
+  {
+    "node": "NEXUS_SUMMARIZER.MD",
+    "path": "database/NEXUS_SUMMARIZER.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "aec16ba626ea3127bb54e4e78019b4357da84e86c5d25b74040b713dde4dfb94"
+  },
+  {
+    "node": "NEXUS_SWIPE-TO-REMOVE.MD",
+    "path": "database/NEXUS_SWIPE-TO-REMOVE.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "1f7d615e4970ab3f3ba093e1ef3bd7c41c4ebad57ad93a7785662b9af3247db9"
+  },
+  {
+    "node": "NEXUS_TAB-MANAGEMENT.MD",
+    "path": "database/NEXUS_TAB-MANAGEMENT.MD",
+    "rack": "database",
+    "tags": [
+      "database"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3a0e3f2e87f9ec1bd6d34d338223ec2fd2afe59ed294e6de79fbf01533796eaf"
   },
   {
     "node": "NEXUS_TDD_INSIGHTS.MD",
@@ -39,6 +417,680 @@
     ],
     "last_updated": "07/05/2026",
     "checksum": "716d762bc262c4fac90242a9e9804d2ede4e6c9d895a4836540f9faf509e7461"
+  },
+  {
+    "node": "NEXUS_WEBMCP.MD",
+    "path": "database/NEXUS_WEBMCP.MD",
+    "rack": "database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "ad01973e3a355a81c59c223050229932efdd9fd390323318cb97f1651f8b235d"
+  },
+  {
+    "node": "NEXUS_PASSKEY-MANAGEMENT.MD",
+    "path": "determine the passkey provider from aaguid/NEXUS_PASSKEY-MANAGEMENT.MD",
+    "rack": "determine the passkey provider from aaguid",
+    "tags": [
+      "determine the passkey provider from aaguid",
+      "security",
+      "database",
+      "ui-ux",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e1a2b0995f22b192d7d510b6add864e61fe3605d3f8af73eb0fb8439d50b636b"
+  },
+  {
+    "node": "NEXUS_ADAPT-SCROLLBAR-TO-CONTRAST-PREFERENCES.MD",
+    "path": "other/NEXUS_ADAPT-SCROLLBAR-TO-CONTRAST-PREFERENCES.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "ce9a6d9831e1a4d46530b6ba4b974ff2b1671bef7cfea9ac5c8e237e5a595bc7"
+  },
+  {
+    "node": "NEXUS_ANCHOR-POSITIONING-TAB-UNDERLINE.MD",
+    "path": "other/NEXUS_ANCHOR-POSITIONING-TAB-UNDERLINE.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "b44d079f8b793ca430ef078955fe6555c494c668cdacdf31322b85bc1b501532"
+  },
+  {
+    "node": "NEXUS_ANIMATE-ELEMENT-ENTRY-EXIT.MD",
+    "path": "other/NEXUS_ANIMATE-ELEMENT-ENTRY-EXIT.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "bff1f42fef1ae4b324b8f67b621668e736e6b50e3ae7d178024fe0337d6879d0"
+  },
+  {
+    "node": "NEXUS_CALCULATE-TOTAL-FOREGROUND-TIME.MD",
+    "path": "other/NEXUS_CALCULATE-TOTAL-FOREGROUND-TIME.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "e295bf3eb98bc5975050d53a18ba34b940bc1c073b9c397b5d11aa92ea508ae2"
+  },
+  {
+    "node": "NEXUS_CONDITIONAL-ASYNC-DEPENDENCIES.MD",
+    "path": "other/NEXUS_CONDITIONAL-ASYNC-DEPENDENCIES.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "c1884b1f1dd209b02708768e33274a8cf5c3a326bb73bcc70b21d68abecb48f1"
+  },
+  {
+    "node": "NEXUS_CONTEXT-MENUS.MD",
+    "path": "other/NEXUS_CONTEXT-MENUS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "357333e7e02cece75fb7c40d02d1e6695e8f63d31708e70ac5180ccf5344f419"
+  },
+  {
+    "node": "NEXUS_COORDINATE-GLOBAL-EVENTS.MD",
+    "path": "other/NEXUS_COORDINATE-GLOBAL-EVENTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "aa7980198feea23546af8771b01dbf112b172ae27f3ce99eb055ac17c2df78e5"
+  },
+  {
+    "node": "NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD",
+    "path": "other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "6fe4d5d1128c5405c080025b5deacca1920d8859974e345af7fcd29712b8cdc3"
+  },
+  {
+    "node": "NEXUS_CUSTOMIZE-SCROLLBAR-COLOR-AND-THICKNESS.MD",
+    "path": "other/NEXUS_CUSTOMIZE-SCROLLBAR-COLOR-AND-THICKNESS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "edea858bc1f23cfb1cf21fd2a7de18842c9dfe9a0994e523540f2fe5779f0cb9"
+  },
+  {
+    "node": "NEXUS_DETECT-INITIAL-VISIBILITY-STATE.MD",
+    "path": "other/NEXUS_DETECT-INITIAL-VISIBILITY-STATE.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "7fbee60853c3f6d42dff04d545ee8a8c7b710ef5772cb8814a83d2b647edd4c7"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_API.md",
+    "path": "other/NEXUS_DISTILLATION_API.md",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "26/05/2026",
+    "checksum": "6ae22883f9450df545d66420c9270815bdbec4cfa0d4ca993bb4a34f57385862"
+  },
+  {
+    "node": "NEXUS_ICONS.MD",
+    "path": "other/NEXUS_ICONS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "2311218137cc4bd7f42bddaffaecb79e23cd66ad5943de3164e0e6fbe1ac727c"
+  },
+  {
+    "node": "NEXUS_OPTIMIZE-PRELOAD-PRIORITY.MD",
+    "path": "other/NEXUS_OPTIMIZE-PRELOAD-PRIORITY.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "1553c4881f37f536a41334164431b93d5d95727ebca9d7313527627cb702bae7"
+  },
+  {
+    "node": "NEXUS_OPTIMIZE-SCRIPT-PRIORITY.MD",
+    "path": "other/NEXUS_OPTIMIZE-SCRIPT-PRIORITY.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "cfa6697003ead50398dfdd358e0a05b2f162c4258a82ffc095a822b9e9a59b6e"
+  },
+  {
+    "node": "NEXUS_PERSISTENT-APP-TOURS.MD",
+    "path": "other/NEXUS_PERSISTENT-APP-TOURS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "752afdf8fb4e0c11a5571368648590eb9425f49fd485bf0fcf6171561fc1508f"
+  },
+  {
+    "node": "NEXUS_PERSISTENT-TOAST-NOTIFICATIONS.MD",
+    "path": "other/NEXUS_PERSISTENT-TOAST-NOTIFICATIONS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "94992cb6abe0fd5b34c44b01b5a9c582311f186bef0695247ca7066f7cdf22a6"
+  },
+  {
+    "node": "NEXUS_RESOLUTION-OPTIMIZED-PSEUDO-ELEMENTS.MD",
+    "path": "other/NEXUS_RESOLUTION-OPTIMIZED-PSEUDO-ELEMENTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "3c601d1b7fd7f878ab5718218d5152a1fa0ed20811e0a51d20ba35138760e5be"
+  },
+  {
+    "node": "NEXUS_SCROLL-POSITION-AWARE-ELEMENTS.MD",
+    "path": "other/NEXUS_SCROLL-POSITION-AWARE-ELEMENTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "85929f545e03a2602be3f258611ea05b1340b30529f8549051fda567cac3a53e"
+  },
+  {
+    "node": "NEXUS_SCROLLABILITY-AFFORDANCE-HINTS.MD",
+    "path": "other/NEXUS_SCROLLABILITY-AFFORDANCE-HINTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "9d06180cd206a29a7b11474ede93690590fd907ab772e2af20fed3ed0034363e"
+  },
+  {
+    "node": "NEXUS_SEQUENCE-DISTRIBUTED-EVENTS.MD",
+    "path": "other/NEXUS_SEQUENCE-DISTRIBUTED-EVENTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "32febdfe1c58d407fc7e6cf3851854b24bc4d21eb8ae189585f420678181aa54"
+  },
+  {
+    "node": "NEXUS_SERVICE-WORKER.MD",
+    "path": "other/NEXUS_SERVICE-WORKER.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "a3274637bf2d1d8813089108120da9536f2cee36041049de7a8ccdd2487b69ba"
+  },
+  {
+    "node": "NEXUS_SOFT-EDGE-CONTENT-FADE.MD",
+    "path": "other/NEXUS_SOFT-EDGE-CONTENT-FADE.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "8d7550e544e7eca8a56e66eb1ab9e343cd2087581fd3d64d4050d5ac96ecdf3f"
+  },
+  {
+    "node": "NEXUS_VISUALLY-STABLE-FONT-FALLBACKS.MD",
+    "path": "other/NEXUS_VISUALLY-STABLE-FONT-FALLBACKS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "979c8a9366944db226c3631ed4d888e1e74d512e4cef142df721d0e1cd57feac"
+  },
+  {
+    "node": "NEXUS_VISUALLY-STABLE-MIXED-FONTS.MD",
+    "path": "other/NEXUS_VISUALLY-STABLE-MIXED-FONTS.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "66af47d80b18887f2a21043ab2e80ddd4902c1fd5766e0555fb4fd7cdcda95ee"
+  },
+  {
+    "node": "NEXUS_VISUALLY-TEXTURE-CONTENT.MD",
+    "path": "other/NEXUS_VISUALLY-TEXTURE-CONTENT.MD",
+    "rack": "other",
+    "tags": [],
+    "last_updated": "21/05/2026",
+    "checksum": "b1bc44d71e16052d076f6220f23dc8c11b2afbc2977ad3da4a31e78831a08f2d"
+  },
+  {
+    "node": "NEXUS_BATCH-ANALYTICS-EVENTS.MD",
+    "path": "performance/NEXUS_BATCH-ANALYTICS-EVENTS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "7cccdf04d34ddaf885a47fadc593e8bbb49f82903b5011df1b500cc0587cd4ff"
+  },
+  {
+    "node": "NEXUS_CAROUSEL-SLIDE-EFFECTS.MD",
+    "path": "performance/NEXUS_CAROUSEL-SLIDE-EFFECTS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "96658c1dd425c879dc99042a3e945e404de80223bc0e6a55c28bad14f765ba19"
+  },
+  {
+    "node": "NEXUS_DECLARATIVE-BUTTON-ACTIONS.MD",
+    "path": "performance/NEXUS_DECLARATIVE-BUTTON-ACTIONS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "02626626c18977e1676d72db16f32747136a4cae7c535d1a6913af2be1eff294"
+  },
+  {
+    "node": "NEXUS_DELIVER-OPTIMIZED-DECORATIVE-IMAGES.MD",
+    "path": "performance/NEXUS_DELIVER-OPTIMIZED-DECORATIVE-IMAGES.MD",
+    "rack": "performance",
+    "tags": [
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "55df403ab2e186e840c90b51c315ef8e6dd7de6cde2dadb97e8d68f65cfcb7cc"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_PERFORMANCE.md",
+    "path": "performance/NEXUS_DISTILLATION_PERFORMANCE.md",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "7ebffc54a6e95854a3c6240c88fe19067e673097be0e627940e37d5ba0c73e28"
+  },
+  {
+    "node": "NEXUS_FLICKER-FREE-CLIENT-SIDE-AB-TESTING.MD",
+    "path": "performance/NEXUS_FLICKER-FREE-CLIENT-SIDE-AB-TESTING.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "545dc7c7e0e6dc3d0c52fca0121d7a9f5e36b3e9261c5fc4312326c31deede00"
+  },
+  {
+    "node": "NEXUS_FULL-SESSION-ANALYTICS.MD",
+    "path": "performance/NEXUS_FULL-SESSION-ANALYTICS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "9bae782b25da11a3cf595f49c81b12b855973a2e9ea0bc8daab8af4a714779f7"
+  },
+  {
+    "node": "NEXUS_OPTIMIZE-IMAGE-PRIORITY.MD",
+    "path": "performance/NEXUS_OPTIMIZE-IMAGE-PRIORITY.MD",
+    "rack": "performance",
+    "tags": [
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "7c82da39ce140e571a99f57604d63f2684ffa91a8bc3d0f37eb53f15465e1d5c"
+  },
+  {
+    "node": "NEXUS_SCROLL-ENTRY-EXIT-EFFECTS.MD",
+    "path": "performance/NEXUS_SCROLL-ENTRY-EXIT-EFFECTS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2114c02c7456680dcbf1030efe3127c6d0ee8173eb2bdd40ad79c89cd50dd50b"
+  },
+  {
+    "node": "NEXUS_SCROLL-PROGRESS-INDICATOR.MD",
+    "path": "performance/NEXUS_SCROLL-PROGRESS-INDICATOR.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d75ea532a82115334fa0df1be65ccd836c73246d0305f4f8a0adf1cc9376b778"
+  },
+  {
+    "node": "NEXUS_SHRINKING-HEADER-ON-SCROLL.MD",
+    "path": "performance/NEXUS_SHRINKING-HEADER-ON-SCROLL.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "34e98d399e44f9d65a361b5ac79b840da6645ee21569d39a4f055916fd20aa6c"
+  },
+  {
+    "node": "NEXUS_SUPPORT-GLOBAL-CALENDAR-SYSTEMS.MD",
+    "path": "performance/NEXUS_SUPPORT-GLOBAL-CALENDAR-SYSTEMS.MD",
+    "rack": "performance",
+    "tags": [
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "9e3437c066e4076756b8b7c20a9c5d6fd27450298c590cb1538adcaa42902c3a"
+  },
+  {
+    "node": "NEXUS_TRANSLATOR.MD",
+    "path": "performance/NEXUS_TRANSLATOR.MD",
+    "rack": "performance",
+    "tags": [
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "ee8e35049caace11656c5307248d5ff486d620051fbbdc7622aa5edd5f73a0a9"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_SAAS.md",
+    "path": "saas/NEXUS_DISTILLATION_SAAS.md",
+    "rack": "saas",
+    "tags": [
+      "saas"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a5d09fa6b72c4cdbca55a2b7c77e592cba1bba0b1482e1d8153caae76484a5b7"
+  },
+  {
+    "node": "NEXUS_MANAGE-RECURRING-INTERVALS.MD",
+    "path": "saas/NEXUS_MANAGE-RECURRING-INTERVALS.MD",
+    "rack": "saas",
+    "tags": [
+      "saas"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4bd7fa3a18cdc3d7cff5a2874d98350ccb55d7a8fea4e9f52c69dfc3a586971d"
+  },
+  {
+    "node": "NEXUS_ACCESSIBILITY.MD",
+    "path": "security/NEXUS_ACCESSIBILITY.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "45dfe67e0e50e94540b3a425aab6540d111b6da5d8f8be3e22111d55db8c3f51"
+  },
+  {
+    "node": "NEXUS_AGENTIC-FORMS.MD",
+    "path": "security/NEXUS_AGENTIC-FORMS.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "saas",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "35996f0968824bd6945e153144dd99ea33a5af944f04a0c7316be9210e023899"
+  },
+  {
+    "node": "NEXUS_AUTH-IDENTITY.MD",
+    "path": "security/NEXUS_AUTH-IDENTITY.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3177976277739fddaef0380b4fc7e61a00dbf2a8b1bb6786f5e12e88cc8b2b10"
+  },
+  {
+    "node": "NEXUS_CHROMEWEBSTORE-TEMPLATE.MD",
+    "path": "security/NEXUS_CHROMEWEBSTORE-TEMPLATE.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c5bcfee8a3d4e2f8bd5490ed0fd976714a6e672d03d2c12d6f1728e5b6d33075"
+  },
+  {
+    "node": "NEXUS_CSS.MD",
+    "path": "security/NEXUS_CSS.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "saas",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "659c2fa4745a51dca4ce4530ede80df7efbde809ca5edb36aa1559a3d2eff82a"
+  },
+  {
+    "node": "NEXUS_DARK-MODE.MD",
+    "path": "security/NEXUS_DARK-MODE.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "33b254647706caff783368c49a9201e6e9274093c43baa989950bf8be48bffbe"
+  },
+  {
+    "node": "NEXUS_DESIGN-TOKEN-REACTIVITY.MD",
+    "path": "security/NEXUS_DESIGN-TOKEN-REACTIVITY.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "96cf2b74ec8cec603a23f07935d5c0787f5e5387251e32c5614925cb41fc8517"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_SECURITY.md",
+    "path": "security/NEXUS_DISTILLATION_SECURITY.md",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e33327d2286a5f9e384881fd4f6ba59e52b83886de29577287d6d0fd51ac6618"
+  },
+  {
+    "node": "NEXUS_FORMS.MD",
+    "path": "security/NEXUS_FORMS.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d201ce810bf654c266a3bc6b10471955de676c9b205d692cbde1e3c5edf4b078"
+  },
+  {
+    "node": "NEXUS_HTML.MD",
+    "path": "security/NEXUS_HTML.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c6144ebe5f72e945e19c27e1ccbc64d09e0e7cd6445d76c98a305f5cefbe0ea3"
+  },
+  {
+    "node": "NEXUS_LANGUAGE-MODEL.MD",
+    "path": "security/NEXUS_LANGUAGE-MODEL.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2bfffb9a26b2196e3e2d7f33f1e53198d2c69381606124af1e37c50fd7b8b5eb"
+  },
+  {
+    "node": "NEXUS_LARAVEL_DATABASE_RULES.MD",
+    "path": "security/NEXUS_LARAVEL_DATABASE_RULES.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "vcs"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d50deea3c3897e13e44d2ee83c2d700d446c16dbc4c3ae7848a4d9d7afa9ab0d"
+  },
+  {
+    "node": "NEXUS_PASSKEY-AUTHENTICATION.MD",
+    "path": "security/NEXUS_PASSKEY-AUTHENTICATION.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "6d649f169de1609c08b30b7641fda34c94d6958344fe0bd2e1ad162f8fc4aca8"
+  },
+  {
+    "node": "NEXUS_PASSKEY-CONDITIONAL-CREATE.MD",
+    "path": "security/NEXUS_PASSKEY-CONDITIONAL-CREATE.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "aa0a644e21247e510d2be6d75f8182cd3ef2fb2bd7d73f8cb4ea67f0e77de0a8"
+  },
+  {
+    "node": "NEXUS_PASSKEY-REAUTHENTICATION.MD",
+    "path": "security/NEXUS_PASSKEY-REAUTHENTICATION.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "bddf496c827bac9e9b0a92a750e8136f021fd393eef3c9ca546ec046098a8777"
+  },
+  {
+    "node": "NEXUS_PASSKEY-REGISTRATION.MD",
+    "path": "security/NEXUS_PASSKEY-REGISTRATION.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a82cd9025f1eb9011c7d4fcbc91b8bd4d202e2ca26fd91f5bffa374f162e1c94"
+  },
+  {
+    "node": "NEXUS_PASSKEYS.MD",
+    "path": "security/NEXUS_PASSKEYS.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "ef27c51b9c4e9c1d2e768ecb651d25a0c530e1ccbc1dac13229e2c82af9ff0e6"
+  },
+  {
+    "node": "NEXUS_PRIVACY.MD",
+    "path": "security/NEXUS_PRIVACY.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f2bb6991fa2485d536523fa6fc61264e369c49e34a7896dfb3c5cdc2611d65fc"
+  },
+  {
+    "node": "NEXUS_REVIEW-CHECKLIST.MD",
+    "path": "security/NEXUS_REVIEW-CHECKLIST.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "81530349462985b26687964f0b756e1b36edb1a058ca1dad6c47f908e45f3f4e"
+  },
+  {
+    "node": "NEXUS_SECURITY.MD",
+    "path": "security/NEXUS_SECURITY.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "saas",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a770cc0773ef986ad546a57781e036c65f5a0e1b29ecff25b65a10160e5b3b87"
+  },
+  {
+    "node": "NEXUS_STORAGE.MD",
+    "path": "security/NEXUS_STORAGE.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "7a3f3d49bd55f9f22eb62fe7ee6d501a9334df3b2d90c5c6dc6f45d849436c65"
+  },
+  {
+    "node": "NEXUS_STORE-LISTING.MD",
+    "path": "security/NEXUS_STORE-LISTING.MD",
+    "rack": "security",
+    "tags": [
+      "security",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "274f18fdeed61a5882bfd2e4a11b6c67a91c8cf0b060be36f980a7dca644856d"
   },
   {
     "node": "NEXUS_COLLABORATION_CONTRACT.MD",
@@ -280,6 +1332,26 @@
     "checksum": "9ea8176f431fdc6c068d9095636869cf7450179654ea518fd0e6a3a8e577e9f3"
   },
   {
+    "node": "NEXUS_CALCULATE-EVENT-DIFFERENTIALS.MD",
+    "path": "tdd/NEXUS_CALCULATE-EVENT-DIFFERENTIALS.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c2ce8ebaaf287440c2dc40b1c675f5fc3a5593302999b5a3af2d7eca17e0f678"
+  },
+  {
+    "node": "NEXUS_CAPTURE-LOCATION-AGNOSTIC-DATA.MD",
+    "path": "tdd/NEXUS_CAPTURE-LOCATION-AGNOSTIC-DATA.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "474d377c221a87a593f74b0f36c453eb9471c1dbbb66e371b089fa0facc30887"
+  },
+  {
     "node": "NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
     "path": "tdd/NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
     "rack": "tdd",
@@ -290,6 +1362,16 @@
     ],
     "last_updated": "07/05/2026",
     "checksum": "6a2212bd8d24039b34848e2e8aa353e02c568641a1e83bc23709afd6253c955b"
+  },
+  {
+    "node": "NEXUS_DYNAMIC-SIBLING-ANIMATIONS.MD",
+    "path": "tdd/NEXUS_DYNAMIC-SIBLING-ANIMATIONS.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2ee15f4cba8f1e5aa9aadf217637d2905495e9f52e251358a45e8e6e6a70a5db"
   },
   {
     "node": "NEXUS_END-TO-END_INTELLIGENT_AUDIT_SYSTEM_SESSION_HISTORY_ARCHIVE.MD",
@@ -314,6 +1396,16 @@
     ],
     "last_updated": "07/05/2026",
     "checksum": "0a1425ebfabc81f4ee54295d8e7ddc2548467e80074df85932ef97e325a1d758"
+  },
+  {
+    "node": "NEXUS_FORMAT-HUMAN-READABLE-DURATIONS.MD",
+    "path": "tdd/NEXUS_FORMAT-HUMAN-READABLE-DURATIONS.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "98a1f46a08d44d3b617ca6b50016f9b9bfe98387499e2148a606dd8d9deccfa7"
   },
   {
     "node": "NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD",
@@ -352,6 +1444,17 @@
     "checksum": "91cdd2359834b5fdf1f5e1648489ad3e84b1be0691c5e822b09c4a24d8a15f12"
   },
   {
+    "node": "NEXUS_INTEREST-TRIGGERED-ACTION-PREVIEWS.MD",
+    "path": "tdd/NEXUS_INTEREST-TRIGGERED-ACTION-PREVIEWS.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "122750c759c926a8fe3c0f12b473f47967105316952d7568d7fdf0d3f34ed8eb"
+  },
+  {
     "node": "NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
     "path": "tdd/NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD",
     "rack": "tdd",
@@ -386,6 +1489,16 @@
     ],
     "last_updated": "07/05/2026",
     "checksum": "3ea3125fd4f0f0936431551d41b6de22b642b5559d7a853924b56785f4399e72"
+  },
+  {
+    "node": "NEXUS_POSITION-AWARE-TOOLTIPS.MD",
+    "path": "tdd/NEXUS_POSITION-AWARE-TOOLTIPS.MD",
+    "rack": "tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "943e5c1fedf1d1dbc34359c6cbcad4da243d763f9d7a7676db847f4a7b88814d"
   },
   {
     "node": "NEXUS_TAILWIND_LAYOUT_INTEGRITY_CHECKER_SESSION_HISTORY_ARCHIVE.MD",
@@ -432,6 +1545,276 @@
     "checksum": "ec2f5cb5db38643cf8572a30d803fcf12344c1f305a939a9b508bb22b79995ce"
   },
   {
+    "node": "NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD",
+    "path": "ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4cb8301de91aa0e5160d995adbf4da8cf1d528ead1282a37d55bef392d2fa265"
+  },
+  {
+    "node": "NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD",
+    "path": "ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e307478bc96d5d887cacbd3cc82447a44d98821058ab50703e9f0ad334157f15"
+  },
+  {
+    "node": "NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD",
+    "path": "ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d86a1fa1301aaaacb0afcfd6de694cb366f613e23cfe9d8bf183d79b35967bd2"
+  },
+  {
+    "node": "NEXUS_ANIMATED-SELECT-PICKER.MD",
+    "path": "ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2d1153ffdd3993b51e9e0248eb57e754ff6e2272992b6bbab8087a20bad82704"
+  },
+  {
+    "node": "NEXUS_APPLY-WEBGL-SHADERS.MD",
+    "path": "ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "5a52e057ea600766d17465066647a10744aa194c1b3b6d043ada3a242d3c11b4"
+  },
+  {
+    "node": "NEXUS_AUTOFILL-ADDRESS-FORM.MD",
+    "path": "ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "80063db15d7f5d8d96351a054cf7d8165dd8f8a9434bd963739120328532cd88"
+  },
+  {
+    "node": "NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD",
+    "path": "ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "9fae80c002a6a9e7b3c07dc7d5470f51106bef22a2c63c66bbff7cd305294dd3"
+  },
+  {
+    "node": "NEXUS_AUTOFILL-PAYMENT-FORM.MD",
+    "path": "ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "saas"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "5caed4b6fe8444b061a4604bbcd03104caba035db7836f6f3ef6adb487695f1b"
+  },
+  {
+    "node": "NEXUS_AUTOFILL-SIGN-IN-FORM.MD",
+    "path": "ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "09e05327678c36cab824286ed2622c4312aa5ab299e1b46bea7811c881515ace"
+  },
+  {
+    "node": "NEXUS_AUTOFILL-SIGN-UP-FORM.MD",
+    "path": "ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "0f0ba3f17e22dccb0741b6c3aa4a0810d45d95b2d02364103dfd59014913e80f"
+  },
+  {
+    "node": "NEXUS_BRAND-CONSISTENT-FORMS.MD",
+    "path": "ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "db596c994c644727ec7b3c30c4e367d97eb07567db6df17e80a9eff11719248c"
+  },
+  {
+    "node": "NEXUS_BRANDED-SELECT-STYLING.MD",
+    "path": "ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "60518be451a2f6cd0a7f89fdd01fd53804081112101183126dbdb74a0bf97491"
+  },
+  {
+    "node": "NEXUS_BREAK-UP-LONG-TASKS.MD",
+    "path": "ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f229e52d98516ffffb05954667ac20c5c2184fb003d60bc9a84cc952b025ef15"
+  },
+  {
+    "node": "NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD",
+    "path": "ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "cf14e68b3afe7596a79d79ce46cfcc279cb74c217bfa9e4aa9abc25a75087968"
+  },
+  {
+    "node": "NEXUS_CHILD-STATE-BASED-STYLING.MD",
+    "path": "ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f3f73961ccfdafc2ef0457f2050aa791507ab9fcf19ad464f1b4a843a6730aaa"
+  },
+  {
+    "node": "NEXUS_COMPLEX-SHAPES.MD",
+    "path": "ui-ux/NEXUS_COMPLEX-SHAPES.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8ed53244196c8f3d5bc7eb24d93fefa4d33430b161306a2d4c6a0abf2f14dbea"
+  },
+  {
+    "node": "NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD",
+    "path": "ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d73d04e00e6896c5bcaeef0cb4851b31d5e8758763ebcdfd89b35b0212e8633e"
+  },
+  {
+    "node": "NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD",
+    "path": "ui-ux/NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e3e983d4649e7fa3bc217a62ef119061a4e389720fbc81b7f83cfc8e2fb48135"
+  },
+  {
+    "node": "NEXUS_CONTENT-BASED-STYLING.MD",
+    "path": "ui-ux/NEXUS_CONTENT-BASED-STYLING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a4bdca3b45dd697cb051a5fe71d49d257b33aa9440eaeb66d39178c64d806a7f"
+  },
+  {
+    "node": "NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD",
+    "path": "ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e24c5dda395c3080e402bf42e66ccdc05fb356b031e34ce84dd25a43b203aa9b"
+  },
+  {
+    "node": "NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD",
+    "path": "ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "06b48f4b6ea3b95eb2c64ab9d1be600515e00a0b3c8bdd52c8f2f768b59db679"
+  },
+  {
+    "node": "NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD",
+    "path": "ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2f807ace0b5125ab5b9d26b379ff688db2d522744017a62c29372428cd078157"
+  },
+  {
+    "node": "NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD",
+    "path": "ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "cf69c9347486eeb160edf34b3020f3254e63cbb3d153a6124fc25e084c0929ec"
+  },
+  {
+    "node": "NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD",
+    "path": "ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c1b4430f8a5f9234ad803b9507ba656a279f093cd761a3be61f6a6c2f76c7790"
+  },
+  {
+    "node": "NEXUS_DISTILLATION_OTHER.md",
+    "path": "ui-ux/NEXUS_DISTILLATION_OTHER.md",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3df66cd15784782be77102dbb45709d8b281dc428894c102be46ccdcb814e7bd"
+  },
+  {
     "node": "NEXUS_DISTILLATION_UI-UX.md",
     "path": "ui-ux/NEXUS_DISTILLATION_UI-UX.md",
     "rack": "ui-ux",
@@ -442,6 +1825,330 @@
     "checksum": "c11068cec5c5715b9a1d4b130455eee6ed5a1ada9be28d7f2f83dc485856ebb2"
   },
   {
+    "node": "NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD",
+    "path": "ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "339105550bbd8ec8134b7ecc68d82c20070bf8672b6effa0194294c99aa91e9e"
+  },
+  {
+    "node": "NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD",
+    "path": "ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "1dc9807bb491546c0beb2fd3eb360fc7970acb98c3f4d47badef6e508b69082a"
+  },
+  {
+    "node": "NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD",
+    "path": "ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "bb6748ea71fc4a8cc208dce57c97ffb8afbaee2e94ac36b64dbcc37ea0781e8c"
+  },
+  {
+    "node": "NEXUS_FLUID-SCALING.MD",
+    "path": "ui-ux/NEXUS_FLUID-SCALING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "66f487fca57b099dc4177f5c5e88853b921efbae962c32e8a7e5ea40a700b864"
+  },
+  {
+    "node": "NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD",
+    "path": "ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2d20a475ee4bcea7c58acead7bad6ade2c5b7c9dbf3cc4f32f835c72b39cbaad"
+  },
+  {
+    "node": "NEXUS_GROUP-ELEMENT-TRANSITIONS.MD",
+    "path": "ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "d5e7d5f9428e0274c4a5a8154e4c12194310d8dac6e19b9a8558674fe2884860"
+  },
+  {
+    "node": "NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD",
+    "path": "ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3a6c717ad40d8e713f4a5609a1389e1d5cc8b87852c95e139f9c4862280fe4b0"
+  },
+  {
+    "node": "NEXUS_IDENTIFY-INP-CAUSES.MD",
+    "path": "ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4865eea79e721c8bf4c10eb8e4e61e5b8367dfcf09798d2c071fa94af2822fe3"
+  },
+  {
+    "node": "NEXUS_IMPROVE-NEXT-PAGE-LOAD-PERFORMANCE.MD",
+    "path": "ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-PERFORMANCE.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "a7b80eee0c0185724fc1aee2c0696896211ac25bf3611481ef14b78e35797c77"
+  },
+  {
+    "node": "NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD",
+    "path": "ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "afd1f8a6a76ef2177a737ab0567524d5cda5a134bff366aef2c3ebceff69fc22"
+  },
+  {
+    "node": "NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD",
+    "path": "ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4aba72a7076b97c39a8fd66c707d9acdc56be936961c1e661a17c2ef38c55429"
+  },
+  {
+    "node": "NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD",
+    "path": "ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "606ac6e42fa571c6f835ec44baf299a53feea3333942264ebab8fc64bfcf5cd3"
+  },
+  {
+    "node": "NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD",
+    "path": "ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8ed4a11318d0590a48552b4e98340c7ee74229e91e8928b5881742f603bbae19"
+  },
+  {
+    "node": "NEXUS_INTERACTIVE-CONTENT-REVEAL.MD",
+    "path": "ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "59ba3c9e4de57454dac6a4b4b7121e48e2df2c81b3b66834e1e608b26a920784"
+  },
+  {
+    "node": "NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD",
+    "path": "ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "b89ed6348538563e75bdc63c98a5e6dec449de372b27663ca3bbbc62f7bb2c65"
+  },
+  {
+    "node": "NEXUS_LANGUAGE-DETECTION.MD",
+    "path": "ui-ux/NEXUS_LANGUAGE-DETECTION.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "e3c78bc0c64a2145336770daa62492507e483bbafc281dd8c560edcb50dcebe6"
+  },
+  {
+    "node": "NEXUS_LIGHT-DISMISS-A-DIALOG.MD",
+    "path": "ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "36db185f6f8f7d620c77ea7def186a4a6d60a3e4cbc57af44763f5a2ef2efbd6"
+  },
+  {
+    "node": "NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD",
+    "path": "ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8d9d5a88bba37375848635a3ec8d690e402823f54b6f7476260bbf2b3905ac07"
+  },
+  {
+    "node": "NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD",
+    "path": "ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "36b2731214615530ea8943b8223c463d3082c35087e7b15dd5036eede7303f7e"
+  },
+  {
+    "node": "NEXUS_OMNIBOX.MD",
+    "path": "ui-ux/NEXUS_OMNIBOX.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c5fdb43d5fcd2ecebdc52aa6e167e603a801d5819e78a4b34ba8ec48d6f07dcb"
+  },
+  {
+    "node": "NEXUS_OVERFLOW-CLIPPING-CONTROL.MD",
+    "path": "ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f866372d002cc9d84d81707f2ea2986289ae7a304fdc00d0e5c0a09480b54c81"
+  },
+  {
+    "node": "NEXUS_PERFORMANCE.MD",
+    "path": "ui-ux/NEXUS_PERFORMANCE.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "81564d5f9deabc2ee5ab1cb0eb5f4ead5c583e406c1620ed9294ffe2ff458876"
+  },
+  {
+    "node": "NEXUS_PHYSICS-BASED-EASING.MD",
+    "path": "ui-ux/NEXUS_PHYSICS-BASED-EASING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "afce1339e50751ed33d47c66235f3b85a4c84e96061cfd49e8e09a79b8e5599d"
+  },
+  {
+    "node": "NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD",
+    "path": "ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c527a2aaeef93334aef1c821388d8577de689f7d4e6e2fd128275d13ea2c68df"
+  },
+  {
+    "node": "NEXUS_PRECISE-TEXT-ALIGNMENT.MD",
+    "path": "ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "1869f91f48482af5ba59f0dd1764879c5c2222116df48f27f7b3b49ec1e8e3a1"
+  },
+  {
+    "node": "NEXUS_PREVENT-TEXT-WRAPPING.MD",
+    "path": "ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "331293e7eb94fa8f3ed90a4202a772a4acb8e09aedd7cba9fdebca45625c5ab9"
+  },
+  {
+    "node": "NEXUS_PULL-TO-REVEAL.MD",
+    "path": "ui-ux/NEXUS_PULL-TO-REVEAL.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "b0793d43ba0bad5e0c8f722bcf46085466e215e0fb96fe3712872eff110f01af"
+  },
+  {
+    "node": "NEXUS_REDUCE-STYLE-REPETITION.MD",
+    "path": "ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "ddc636b89ab90ac5134d4714334ef7faecc4115177f0011cd6f48d46ce60c3c7"
+  },
+  {
+    "node": "NEXUS_REQUIRED-FIELD-FEEDBACK.MD",
+    "path": "ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "fa3adf1cf4dfe897228ef61f6f4d3fe41a5c0260098bac08c742a960931629b7"
+  },
+  {
+    "node": "NEXUS_RICH-MEDIA-PICKER.MD",
+    "path": "ui-ux/NEXUS_RICH-MEDIA-PICKER.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "3334fc4f5057041063e91325b544574b0162f905cb6f253b2e9c826ff38dabd4"
+  },
+  {
     "node": "NEXUS_SANDBOX_UI_FINDINGS.md",
     "path": "ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md",
     "rack": "ui-ux",
@@ -450,5 +2157,99 @@
     ],
     "last_updated": "25/05/2026",
     "checksum": "07d6b2b0f9580300a51668b3b825d3c95ff277695e967a846ffb7f8a71fed74b"
+  },
+  {
+    "node": "NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD",
+    "path": "ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "fd5ba4540964571723d4f3d2afed74f56de066f390cf23a5e2f5ef7865d4ae57"
+  },
+  {
+    "node": "NEXUS_SCROLL-TARGET-ON-LOAD.MD",
+    "path": "ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4646addd647f7bb7b1802f9636a5a4c87e46715e6b8135d561f38774ab9ac5f4"
+  },
+  {
+    "node": "NEXUS_SELECT-MENU-INTERACTION.MD",
+    "path": "ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "7cd90d768063a381bc64dc3a2021b0bd99241b02c19f2d58e1ffc64d708159b4"
+  },
+  {
+    "node": "NEXUS_SHAPED-CUTOUTS.MD",
+    "path": "ui-ux/NEXUS_SHAPED-CUTOUTS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "4aff375ce08a4d0cf65ddb0a7715d63331f6a57f8bc44e4eb62d047175eac486"
+  },
+  {
+    "node": "NEXUS_SIZE-AWARE-STYLING.MD",
+    "path": "ui-ux/NEXUS_SIZE-AWARE-STYLING.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "2115313250ef9a9cf238146c41e6595d7c14e9f1b2d65b7b8a3a4e5b3c0a4953"
+  },
+  {
+    "node": "NEXUS_STABILIZE-REACTIVE-STATE.MD",
+    "path": "ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "c7eec6ade12a53b7e0a1aa3e58aae1bb86e18cc80b89ea91fef97758918952ac"
+  },
+  {
+    "node": "NEXUS_STYLE-PARENT-WITH-HAS.MD",
+    "path": "ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "f877e89f3fbba76c4d046aa7c54253bff206aeb80c0a83e6e7d1d52bca2138b9"
+  },
+  {
+    "node": "NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD",
+    "path": "ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD",
+    "rack": "ui-ux",
+    "tags": [
+      "ui-ux"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "cdcf8e2124f522c1caf901c2f43a01b15df7a6cc8a16fd71048c862d9c0c8f11"
+  },
+  {
+    "node": "NEXUS_PRIVACY-POLICY.MD",
+    "path": "vcs/NEXUS_PRIVACY-POLICY.MD",
+    "rack": "vcs",
+    "tags": [
+      "vcs",
+      "api"
+    ],
+    "last_updated": "26/05/2026",
+    "checksum": "8bfc8d1c837ed07b4a6ae5e5e8ab7ea462672e9a4aef25a170abe747ec5f8ead"
   }
 ]

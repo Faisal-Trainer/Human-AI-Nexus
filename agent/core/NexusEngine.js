@@ -401,6 +401,13 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
 {
   "project_name": "...",
   "models": ["ModelName1", "ModelName2"],
+  "schema": {
+    "ModelName1": {
+      "column1": "string",
+      "column2": "text",
+      "column3": "boolean"
+    }
+  },
   "migrations": ["create_table_name1_table", "create_table_name2_table"],
   "livewire_components": ["component-name-1", "component-name-2"],
   "seeders": ["ModelName1Seeder", "ModelName2Seeder"],
@@ -418,7 +425,7 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             
             // Schema Validation (G2-02)
             const BLUEPRINT_SCHEMA = {
-                required: ['project_name', 'models', 'migrations', 'livewire_components', 'seeders', 'factories'],
+                required: ['project_name', 'models', 'schema', 'migrations', 'livewire_components', 'seeders', 'factories'],
                 arrays: ['models', 'migrations', 'livewire_components', 'seeders', 'factories'],
                 strings: ['project_name']
             };

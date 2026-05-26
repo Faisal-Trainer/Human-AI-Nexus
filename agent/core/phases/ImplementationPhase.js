@@ -300,6 +300,7 @@ class ImplementationPhase extends BasePhase {
   async generateModel(modelName, blueprint) {
     this.log(`   🧠 Generating Model: ${modelName}...`, "info");
     const tableName = this._toSnakePlural(modelName);
+    const modelSchema = blueprint.schema && blueprint.schema[modelName] ? JSON.stringify(blueprint.schema[modelName], null, 2) : "Guess appropriate columns";
     const prompt = `Write a complete Laravel 11 Eloquent Model class for '${modelName}' following ALL these Laravel conventions:
 
 FILE STRUCTURE:
@@ -340,6 +341,7 @@ APPLICATION CONTEXT:
 - Project: ${blueprint.project_name}
 - Model: ${modelName}
 - Table: ${tableName}
+- Schema: ${modelSchema} // USE EXACTLY THESE COLUMNS FOR $fillable
 
 OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, no extra text.`;
 
@@ -391,6 +393,23 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
     const tableName = migrationName
       .replace(/^create_/, "")
       .replace(/_table$/, "");
+    
+    // Find matching schema
+    const models = blueprint.models || [];
+    let targetModelName = null;
+    for (const m of models) {
+      if (this._toSnakePlural(m) === tableName) {
+        targetModelName = m; break;
+      }
+    }
+    const modelSchema = targetModelName && blueprint.schema && blueprint.schema[targetModelName] ? JSON.stringify(blueprint.schema[targetModelName], null, 2) : "Guess appropriate columns";
+
+    // Read the database rules SOT
+    let databaseRules = "";
+    try {
+      databaseRules = await fs.readFile(path.join(this.engine.rootPath, 'memory', 'distilled', 'laravel_database_rules.md'), 'utf8');
+    } catch(e) {}
+
     const prompt = `Write a complete Laravel 11 database migration for table '${tableName}' following ALL these Laravel conventions:
 
 FILE STRUCTURE:
@@ -440,10 +459,13 @@ COLUMN RULES:
 - Use nullable() only when the column is truly optional
 - String columns default to varchar(255); use text() for long content
 
+DATABASE SOT RULES (MUST FOLLOW STRICTLY):
+${databaseRules}
+
 APPLICATION CONTEXT:
 - Project: ${blueprint.project_name}
 - Table: ${tableName}
-- Add realistic columns relevant to this project type.
+- Schema: ${modelSchema} // USE EXACTLY THESE COLUMNS AND NO OTHERS
 
 OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
 
@@ -537,9 +559,16 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       "info",
     );
     const className = this.toPascalCase(componentName);
+    const fullSchema = blueprint.schema ? JSON.stringify(blueprint.schema, null, 2) : "No schema";
 
     // Generate PHP Class
-    const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}. Include public properties and basic methods (like save/delete). Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+    const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}. Include public properties and basic methods (like save/delete). 
+    
+SCHEMA REFERENCE:
+${fullSchema}
+Make sure public properties match the columns in the schema if this component manages a model.
+    
+Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     const phpResponse = await this.getCachedOrGenerate(
       phpPrompt,
       "build_livewire_component",
@@ -560,7 +589,13 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
     }
 
     // Generate Blade View
-    const bladePrompt = `Write a complete Livewire blade view for the '${className}' component. Use Tailwind CSS for styling and Alpine.js where appropriate. Make it look professional and beautiful. Use wire:model and wire:click for interactions. Output ONLY the raw HTML/Blade code. No markdown blocks.`;
+    const bladePrompt = `Write a complete Livewire blade view for the '${className}' component. Use Tailwind CSS for styling and Alpine.js where appropriate. Make it look professional and beautiful. Use wire:model and wire:click for interactions. 
+    
+SCHEMA REFERENCE:
+${fullSchema}
+Ensure your wire:model attributes match the properties corresponding to the schema.
+    
+Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const bladeResponse = await this.getCachedOrGenerate(
       bladePrompt,
       "build_view",
@@ -749,6 +784,7 @@ RULES:
       `   📡 Generating API Controller: ${modelName}Controller...`,
       "info",
     );
+    const modelSchema = blueprint.schema && blueprint.schema[modelName] ? JSON.stringify(blueprint.schema[modelName], null, 2) : "{}";
     const prompt = `Write a Laravel 11 API Controller. Follow this EXACT template structure:
 
 <?php
@@ -769,7 +805,10 @@ class ${modelName}Controller extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $model = ${modelName}::create($request->validated());
+        $validated = $request->validate([
+            // Generate validation rules here based on the schema
+        ]);
+        $model = ${modelName}::create($validated);
         return response()->json($model, 201);
     }
 
@@ -780,7 +819,10 @@ class ${modelName}Controller extends Controller
 
     public function update(Request $request, ${modelName} $${modelName.toLowerCase()}): JsonResponse
     {
-        $${modelName.toLowerCase()}->update($request->validated());
+        $validated = $request->validate([
+            // Generate validation rules here based on the schema
+        ]);
+        $${modelName.toLowerCase()}->update($validated);
         return response()->json($${modelName.toLowerCase()});
     }
 
@@ -791,10 +833,14 @@ class ${modelName}Controller extends Controller
     }
 }
 
+SCHEMA REFERENCE FOR VALIDATION:
+${modelSchema}
+
 RULES:
 - Namespace MUST be App\\Http\\Controllers\\Api
 - MUST extend Controller from App\\Http\\Controllers\\Controller
 - MUST import Illuminate\\Http\\Request and Illuminate\\Http\\JsonResponse
+- Implement the validation inside the controller using $request->validate() based on the schema
 - Output ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
 
     const controllerPath = path.join(

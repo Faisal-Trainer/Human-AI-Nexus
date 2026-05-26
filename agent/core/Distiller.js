@@ -153,7 +153,8 @@ ${oldContent.trim()}
         // Gunakan SemanticEngine.extractMultiTags untuk multi-label
         const tags = this.semanticEngine.extractMultiTags(content);
         // Return primary tag (pertama) untuk backward compat dengan shelve()
-        return tags.length > 0 ? tags[0] : 'other';
+        let primary = tags.length > 0 ? tags[0] : 'other';
+        return primary.replace(/[<>:"/\\|?*]/g, '').trim() || 'other';
     }
 
     /**

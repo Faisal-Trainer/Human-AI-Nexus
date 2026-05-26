@@ -1,7 +1,4 @@
 # Nexus Workflow
-> **VERSION**: v1 | **Last Updated**: 05/05/2026
-
-
 
 The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximum quality and traceability.
 
@@ -34,7 +31,3 @@ The results are recorded and the knowledge base is updated.
 
 ### Zero Flaws Enforcement
 The cycle repeats until an audit results in "Zero Flaws". This ensures that no technical debt or bugs are left behind.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, ui-ux, tdd, vcs, psychology, nexus_core, governance, standards]

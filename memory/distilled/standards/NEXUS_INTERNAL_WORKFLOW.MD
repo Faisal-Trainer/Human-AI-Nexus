@@ -1,7 +1,4 @@
 # ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v3.0 — Autonomous Evolution)
-> **VERSION**: v1 | **Last Updated**: 05/05/2026
-
-
 
 Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemeliharaan sistem, dan evolusi fisik mesin Nexus AI.
 
@@ -57,7 +54,3 @@ Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemelihara
 ---
 *Status: Protokol v3.0 Aktif (Autonomous Evolution)*
 *Target: Zero Flaws & Physical Self-Evolution*
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, database, psychology, nexus_core, governance, standards]

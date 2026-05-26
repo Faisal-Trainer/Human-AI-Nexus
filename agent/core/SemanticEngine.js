@@ -16,6 +16,7 @@ class SemanticEngine {
     this.useOllamaEmbeddings = false;
     this.ollamaModel = 'nomic-embed-text';
     this.baseUrl = 'http://localhost:11434/api';
+    this.ollamaFailures = 0;
 
     // Domain vocabulary untuk TALL Stack context
     this.domainVocab = {
@@ -346,15 +347,23 @@ class SemanticEngine {
   }
 
   async getEmbedding(text) {
+    if (this.ollamaFailures >= 3) return null;
     try {
         const axios = require('axios');
         const response = await axios.post(`${this.baseUrl}/embeddings`, {
             model: this.ollamaModel,
             prompt: text
         });
+        this.ollamaFailures = 0;
         return response.data.embedding;
     } catch (e) {
-        console.error("   ❌ Ollama: Embedding failed:", e.message);
+        this.ollamaFailures++;
+        if (this.ollamaFailures >= 3) {
+            console.error(`   ❌ Ollama: Embedding failed 3 times (${e.message}). Disabling Ollama embeddings for this session.`);
+            this.useOllamaEmbeddings = false;
+        } else {
+            console.error("   ❌ Ollama: Embedding failed:", e.message);
+        }
         return null;
     }
   }

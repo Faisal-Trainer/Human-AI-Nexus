@@ -95,3 +95,4 @@ nexus/
 
 # Nexus Agent Cache
 agent/memory/cache/
+memory/cache/

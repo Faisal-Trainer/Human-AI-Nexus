@@ -19,11 +19,11 @@
   "migrations": [
     "create_tasks_table",
     "create_users_table",
-    "create_user_tasks_table"
+    "create_task_user_table"
   ],
   "livewire_components": [
-    "TodoList",
-    "TaskForm"
+    "TaskForm",
+    "TaskList"
   ],
   "seeders": [
     "TaskSeeder",
@@ -36,22 +36,19 @@
   "routes": [
     "/dashboard",
     "/tasks",
-    "/tasks/{id}",
-    "/tasks/{id}/edit"
+    "/tasks/{id}"
   ],
-  "pivot_tables": [
-    "user_tasks"
-  ],
+  "pivot_tables": [],
   "relationships": [
-    {
-      "model": "Task",
-      "type": "belongsTo",
-      "target": "User"
-    },
     {
       "model": "Task",
       "type": "hasMany",
       "target": "User"
+    },
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Task"
     }
   ]
 }

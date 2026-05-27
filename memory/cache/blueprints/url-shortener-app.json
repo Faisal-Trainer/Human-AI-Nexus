@@ -3,47 +3,72 @@
   "models": [
     "Url",
     "User",
-    "History"
+    "ShortLink"
   ],
   "schema": {
     "Url": {
-      "column1": "string",
-      "column2": "string",
-      "column3": "integer"
+      "original_url": "string",
+      "short_url": "string",
+      "user_id": "integer",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "User": {
+      "email": "string",
+      "password": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    },
+    "ShortLink": {
+      "short_url": "string",
+      "target_url": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_url_table",
     "create_user_table",
-    "create_history_table"
+    "create_short_link_table"
   ],
   "livewire_components": [
-    "UrlComponent",
-    "HistoryComponent"
+    "ShortLinkComponent",
+    "UserComponent"
   ],
   "seeders": [
     "UrlSeeder",
-    "UserSeeder"
+    "UserSeeder",
+    "ShortLinkSeeder"
   ],
   "factories": [
     "UrlFactory",
-    "UserFactory"
+    "UserFactory",
+    "ShortLinkFactory"
   ],
   "routes": [
     "/dashboard",
-    "/url"
+    "/shortlink",
+    "/user"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "Url",
       "type": "belongsTo",
-      "target": "User"
+      "target": "User",
+      "foreignKey": "user_id"
     },
     {
-      "model": "History",
+      "model": "Url",
+      "type": "hasMany",
+      "target": "ShortLink",
+      "foreignKey": "url_id"
+    },
+    {
+      "model": "ShortLink",
       "type": "belongsTo",
-      "target": "Url"
+      "target": "Url",
+      "foreignKey": "url_id"
     }
   ]
 }

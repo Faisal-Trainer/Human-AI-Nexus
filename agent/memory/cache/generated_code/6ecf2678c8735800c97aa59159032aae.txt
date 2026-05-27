@@ -1,3 +1,4 @@
+```php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -12,14 +13,14 @@ return new class extends Migration
             $table->uuid('id')->primary();      // UUID primary key
             $table->foreignUuid('user_id')      // FK to users (if applicable)
                   ->constrained()->cascadeOnDelete();
-            $table->string('name')->nullable();      // varchar 255
-            $table->string('email')->nullable();      // varchar 255
-            $table->text('bio')->nullable();        // long text
-            $table->unsignedBigInteger('age')->nullable(); // integer
-            $table->boolean('is_active')->default(true);
-            $table->decimal('balance', 10, 2)->nullable();  // money/decimal
-            $table->enum('role', ['admin', 'user'])->nullable();  // enum
-            $table->index(['name']);     // add index for searchable columns
+            $table->string('username')->nullable();      // varchar 255
+            $table->string('email')->nullable();        // varchar 255
+            $table->string('password')->nullable();        // varchar 255
+            $table->unsignedBigInteger('role_id')->nullable(); // integer
+            $table->foreignUuid('role_id')      // FK to roles (if applicable)
+                  ->constrained()->cascadeOnDelete();
+            $table->string('created_by')->nullable();    // varchar 255
+            $table->string('updated_by')->nullable();    // varchar 255
             $table->timestamps();              // created_at, updated_at
             $table->softDeletes();             // deleted_at for soft delete
         });
@@ -30,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('user');
     }
 };
+```

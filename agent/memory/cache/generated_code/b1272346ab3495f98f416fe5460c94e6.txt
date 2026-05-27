@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UrlController;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These routes are
+| available for all of your application. Make sure to place them behind authentication
+| to protect them from unauthorized access.
+|
+*/
+
+Route::apiResource('users', UserController::class);
+Route::apiResource('histories', HistoryController::class);
+Route::apiResource('urls', UrlController::class);
+Route::post('urls', UrlController::class)->name('url.store');
+Route::post('urls/{url}/share', UrlController::class)->name('url.share');

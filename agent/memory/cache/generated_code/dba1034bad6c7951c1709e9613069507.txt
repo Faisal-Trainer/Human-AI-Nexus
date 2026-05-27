@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\History;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class HistoryController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return response()->json(History::all());
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|string',
+        ]);
+        $model = History::create($validated);
+        return response()->json($model, 201);
+    }
+
+    public function show(History $history): JsonResponse
+    {
+        return response()->json($history);
+    }
+
+    public function update(Request $request, History $history): JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|string',
+        ]);
+        $history->update($validated);
+        return response()->json($history);
+    }
+
+    public function destroy(History $history): JsonResponse
+    {
+        $history->delete();
+        return response()->json(null, 204);
+    }
+}
+```

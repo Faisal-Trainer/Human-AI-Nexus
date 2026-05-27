@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use App\Models\Url;
+
+class UrlComponent extends Component
+{
+    public function store($link)
+    {
+        $this->validate([
+            'link' => 'required|url',
+        ]);
+
+        Url::create([
+            'original' => $link,
+            'shortened' => $this->generateShortenedUrl(),
+        ]);
+
+        $this->emit('urlSaved');
+    }
+
+    public function delete($urlId)
+    {
+        Url::destroy($urlId);
+
+        $this->emit('urlDeleted');
+    }
+
+    private function generateShortenedUrl()
+    {
+        // Implement a logic to generate a short URL
+        return uniqid();
+    }
+}
+```

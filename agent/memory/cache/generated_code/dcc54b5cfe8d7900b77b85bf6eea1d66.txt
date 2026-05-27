@@ -1,0 +1,35 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class History extends Model
+{
+    use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = 'histories';
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'short_url',
+        'original_url',
+        'click_count',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+    ];
+
+    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
+}
+```

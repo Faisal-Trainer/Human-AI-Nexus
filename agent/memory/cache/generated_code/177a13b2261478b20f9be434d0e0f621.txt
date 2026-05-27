@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\User;
+use App\Models\History;
+
+class HistoryPolicy
+{
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
+    public function view(User $user, History $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
+    public function update(User $user, History $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+
+    public function delete(User $user, History $model): bool
+    {
+        return $user->id === $model->user_id;
+    }
+}

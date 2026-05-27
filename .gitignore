@@ -92,3 +92,6 @@ models/
 *.gguf
 # Human-AI Nexus
 nexus/
+
+# Nexus Agent Cache
+agent/memory/cache/

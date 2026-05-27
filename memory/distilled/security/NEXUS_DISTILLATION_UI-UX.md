@@ -1,10 +1,10 @@
 
 
-## 🎓 UI-UX WISDOM DISTILLATION [v5391] - 26/05/2026
+## 🎓 UI-UX WISDOM DISTILLATION [v9617] - 27/05/2026
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Accessible Error Announcement
-> **Origin**: `ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action has occurred.
@@ -15,10 +15,10 @@ action has occurred.
 
 ---
 ### 📄 Implementation
-> **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v4 | **Last Updated**: 26/05/2026
+> **VERSION**: v4 | **Last Updated**: 27/05/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -42,7 +42,7 @@ Use the `@starting-style` at-rule to define the styles an element should transit
 
 ---
 ### 📄 Animate to Intrinsic Sizes
-> **Origin**: `ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action (e.g., `:hover` or a state class).
@@ -54,7 +54,7 @@ action (e.g., `:hover` or a state class).
 
 ---
 ### 📄 Animated Select Picker
-> **Origin**: `ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -79,7 +79,7 @@ To implement an animated select picker:
 
 ---
 ### 📄 Apply WebGL shaders to HTML content
-> **Origin**: `ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 Action</button>
@@ -120,7 +120,7 @@ Action</button>
 
 ---
 ### 📄 System Architecture
-> **Origin**: `ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -173,7 +173,7 @@ Technical standards and "best practice" snippets ...
 
 ---
 ### 📄 Build an address form that follows best practice
-> **Origin**: `ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action that shows progress and makes the next step obvious. For example, label the submit button on your delivery address form **Proceed to Payment** rather than **Continue** or **Save**.
@@ -184,7 +184,7 @@ action that shows progress and makes the next step obvious. For example, label t
 
 ---
 ### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
-> **Origin**: `ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -216,7 +216,7 @@ input:-webkit-autofill {
 
 ---
 ### 📄 Build a payment form that follows best practice
-> **Origin**: `ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action that shows progress and makes the next step obvious. For example, label the submit button on your delivery address form **Proceed to Payment** rather than **Continue** or **Save**.
@@ -227,7 +227,7 @@ action that shows progress and makes the next step obvious. For example, label t
 
 ---
 ### 📄 Build a sign-in form that follows best practice
-> **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -265,7 +265,7 @@ Make it easy for users to enter data, by using the appropriate `<input>` element
 
 ---
 ### 📄 Build a sign-up form that follows best practice
-> **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -303,7 +303,7 @@ Make it easy for users to enter data, by using the appropriate `<input>` element
 
 ---
 ### 📄 Brand-Consistent Forms
-> **Origin**: `ui-ux/NEXUS_BRAND-CONSISTENT-[FORMS.MD](NEXUS_FORMS.MD)` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_BRAND-CONSISTENT-[FORMS.MD](NEXUS_FORMS.MD)` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -337,7 +337,7 @@ To apply your brand color to form controls:
 
 ---
 ### 📄 Branded Select Styling
-> **Origin**: `ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -361,7 +361,7 @@ To implement branded select styling:
 
 ---
 ### 📄 Breaking up long tasks
-> **Origin**: `ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -404,7 +404,7 @@ Sched...
 
 ---
 ### 📄 Core implementation
-> **Origin**: `ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -451,7 +451,7 @@ Each item in the carousel that should be tracked for snapping must be declared a
 
 ---
 ### 📄 Implementing state-based container styling
-> **Origin**: `ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions, such as a localized theme toggle reacting to a checkbox (`:checked`), a form group highlighting an error (`:invalid`), or a card elevating when a child link is focused (`:focus-within`).
@@ -462,7 +462,7 @@ actions, such as a localized theme toggle reacting to a checkbox (`:checked`), a
 
 ---
 ### 📄 Overview
-> **Origin**: `ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions from `0` to `1` (like `0.5` for 50%) instead of absolute pixels.
@@ -483,7 +483,7 @@ actions from `0` to `1` (like `0.5` for 50%) instead of absolute pixels.
 
 ---
 ### 📄 Component-specific light/dark themes
-> **Origin**: `ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -511,7 +511,7 @@ For example, a primary button may be rendered as blue with white text in light m
 
 ---
 ### 📄 Consistent Cross-Document Transitions
-> **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -537,7 +537,7 @@ Use `blocking="render"` on critical `<link>` and `<script>` elements in the new 
 
 ---
 ### 📄 Implementing content-based container styling
-> **Origin**: `ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -563,7 +563,7 @@ To build a component that changes its layout based on its content:
 
 ---
 ### 📄 Custom Select Picker Layouts
-> **Origin**: `ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -588,7 +588,7 @@ To implement a custom select picker layout:
 
 ---
 ### 📄 Overview
-> **Origin**: `ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action) attributes to a `<button>`, the browser automatically handles open/close state changes, focus management, and accessibility bindings (such as `aria-expanded`). This declarative approach is recommended because it removes brittle boilerplate code, ensures interactions are functional immediately upon HTML parsing, and guarantees a robust, natively accessible user experience.
@@ -599,7 +599,7 @@ action) attributes to a `<button>`, the browser automatically handles open/close
 
 ---
 ### 📄 Defer rendering heavy content
-> **Origin**: `ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions. Modern web technologies allow you to defer the rendering workload for content that is not immediately visible, significantly boosting performance without breaking accessibility or user expectations.
@@ -612,7 +612,7 @@ To optimize rendering, you can utilize the CSS `content-visibility` property and
 
 ---
 ### 📄 Defer Work Until Scroll Ends
-> **Origin**: `ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions if you're building carousels or testimonial galleries slides.
@@ -625,7 +625,7 @@ actions if you're building carousels or testimonial galleries slides.
 
 ---
 ### 📄 Implementation Steps
-> **Origin**: `ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -650,7 +650,7 @@ Define sliding animations to and from each direction. For bes...
 
 ---
 ### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
-> **Origin**: `ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -686,7 +686,7 @@ Sistem Nexus AI kini telah dipindahkan ke dalam Docker untuk meningkatkan otonom
 
 ---
 ### 📄 Efficient Background Processing
-> **Origin**: `ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -714,7 +714,7 @@ It is important to understand when to use which API:
 
 ---
 ### 📄 Export HTML content from canvas
-> **Origin**: `ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions frame by frame, for example, for streaming, capture DOM mutations using libraries like `rrweb`. 
@@ -727,7 +727,7 @@ Alternatively, implement a warning that HTML media export is not supported in th
 
 ---
 ### 📄 Faster SPA View Transitions via State Caching
-> **Origin**: `ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -759,7 +759,7 @@ While this approach offers massive performance benefits, it introduces a specifi
 
 ---
 ### 📄 Overview
-> **Origin**: `ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -799,7 +799,7 @@ Use container query units (`cqi`, `cqb`, etc.) to set sizes relative to the cont
 
 ---
 ### 📄 Auto-sizing form controls
-> **Origin**: `ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -822,7 +822,7 @@ For textareas, allowing horizontal auto-sizing can cause a jarring UX (e.g., a t
 
 ---
 ### 📄 Implementation steps
-> **Origin**: `ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -859,7 +859,7 @@ Use the `::view-transition-gro...
 
 ---
 ### 📄 NEXUS — Post-Stabilization Hardening Plan
-> **Origin**: `ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 hasilkan false positives.
@@ -870,7 +870,7 @@ hasilkan false positives.
 
 ---
 ### 📄 Identify heavy-running JavaScript
-> **Origin**: `ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions.
@@ -883,7 +883,7 @@ The Long Animation Frames API is a lightweight API that can be used to identify 
 
 ---
 ### 📄 Identify causes of poor INP
-> **Origin**: `ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 insights for JavaScript code delaying an interaction. A full performance trace using the JS Self-Profiling API is a heavyweight solution that is liable to cause performance problems. The Long Animation Frames API is a lightweight API that can be used to identify slow running JavaScript in the field for INP interactions.
@@ -901,7 +901,7 @@ The Event Timing API allows for splitting the INP duration into three subparts: 
 
 ---
 ### 📄 Improve next page load performance
-> **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -926,7 +926,7 @@ Rules can be combined with different eagerness setti...
 
 ---
 ### 📄 Improve Text Layout and Legibility
-> **Origin**: `ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action with Width:** `text-wrap: balance` does not change the container's width (`inline-size`). It only affects how text wraps *within* that width. This can leave empty space at the end of the container, which may affect layouts relying on full-width text blocks.
@@ -937,7 +937,7 @@ action with Width:** `text-wrap: balance` does not change the container's width 
 
 ---
 ### 📄 Key Implementation Details
-> **Origin**: `ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -968,7 +968,7 @@ The `transform` property and individual transform properties impact the layout a
 
 ---
 ### 📄 Optimizing Interactions in Complex Layouts
-> **Origin**: `ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 actions in Complex Layouts
@@ -984,7 +984,7 @@ Maintain high frame rates (60FPS) and eliminate interaction latency during drag-
 
 ---
 ### 📄 Enable interactive HTML content in 3D scenes
-> **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 Action</button>
@@ -1025,7 +1025,7 @@ Action</button>
 
 ---
 ### 📄 Implementation
-> **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action */
@@ -1041,7 +1041,7 @@ action */
 
 ---
 ### 📄 Show a tooltip when hovering
-> **Origin**: `ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action an icon-only button will take, or provide additional form field guidance.
@@ -1052,7 +1052,7 @@ action an icon-only button will take, or provide additional form field guidance.
 
 ---
 ### 📄 Key Use Cases
-> **Origin**: `ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1087,7 +1087,7 @@ Check model availability before attempting to instantiate the detector or trigge
 
 ---
 ### 📄 Implementation
-> **Origin**: `ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1129,7 +1129,7 @@ dialog::backdrop {
 
 ---
 ### 📄 Modeling Partial Time Concepts with Temporal
-> **Origin**: `ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1163,7 +1163,7 @@ const duration = currentM...
 
 ---
 ### 📄 Moving an element with state
-> **Origin**: `ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1195,7 +1195,7 @@ If you are moving custom elements using `moveBefore()`, their `connec...
 
 ---
 ### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
-> **Origin**: `ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 hasil analisis
@@ -1210,7 +1210,7 @@ action
 
 ---
 ### 📄 NEXUS — Post-Stabilization Hardening Guide
-> **Origin**: `ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 hasil
@@ -1234,7 +1234,7 @@ action-based memory write
 
 ---
 ### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
-> **Origin**: `ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 Conclusion
@@ -1267,7 +1267,7 @@ Recommendations
 
 ---
 ### 📄 Omnibox Integration
-> **Origin**: `ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action=opensearch&search=${encodeURIComponent(text)}&limit=5&format=json`
@@ -1292,7 +1292,7 @@ action=opensearch&search=${encodeURIComponent(text)}&limit=5&format=json`
 
 ---
 ### 📄 Overflow Clipping Control
-> **Origin**: `ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action logic.
@@ -1305,7 +1305,7 @@ action logic.
 
 ---
 ### 📄 Critical Rendering Path (CRP) Optimization
-> **Origin**: `ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action to Next Paint (INP) & Main Thread Unblocking
@@ -1317,8 +1317,21 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+### 📄 Superpowers Philosophy
+> **Origin**: `ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 27/05/2026
+
+#### 🛠 Actionable Steps:
+action must justify its existence.
+
+YAGNI (You Aren't Gonna Need It) ruthlessly. DRY (Don't Repeat Yourself) pragmatically. Start minimal, grow only as needed.
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PHILOSOPHY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
 ### 📄 Implementation Steps
-> **Origin**: `ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1340,7 +1353,7 @@ Traditional CSS easing functions like `ease-in` or `cubic-bezier()` are limited 
 
 ---
 ### 📄 🛠 Implementation Plan: PLAN-1778479790742
-> **Origin**: `ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 Insights
@@ -1354,7 +1367,7 @@ Action**: Gunakan praktik terbaik standar industri.
 
 ---
 ### 📄 Fallback strategies
-> **Origin**: `ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1373,7 +1386,7 @@ When the `<dialog>` element was first introduced, it could be dismissed with the
 
 ---
 ### 📄 Precise Text Alignment
-> **Origin**: `ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1403,7 +1416,7 @@ The `text-box-trim` and `text-box-edge` properties (shorthand `text-box`) allow 
 
 ---
 ### 📄 Prevent text wrapping
-> **Origin**: `ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1443,7 +1456,7 @@ To prevent any automatic line breaks, apply `text-wrap: nowrap` to the element c
 
 ---
 ### 📄 Pull to Reveal
-> **Origin**: `ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1467,7 +1480,7 @@ To implement a pull-to-reveal pattern:
 
 ---
 ### 📄 Reduce Style Repetition with CSS Functions
-> **Origin**: `ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1502,7 +1515,7 @@ A custom function is defined using the `@function` rule followed by a dashed nam
 
 ---
 ### 📄 Required Field Feedback
-> **Origin**: `ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action state using a `WeakMap`. This avoids polluting the DOM with "dirty" classes or data attributes.
@@ -1539,7 +1552,7 @@ const UserInvalidFallback = (() => {
 
 ---
 ### 📄 Rich Media Picker (Customizable Select)
-> **Origin**: `ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1561,7 +1574,7 @@ To implement a rich media picker using the Customizable Select API:
 
 ---
 ### 📄 Sandbox UI/UX Distilled Findings
-> **Origin**: `ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 25/05/2026
@@ -1587,7 +1600,7 @@ Untuk generasi kode selanjutnya (terutama agen `ux-engineer` dan `pipeline-archi
 
 ---
 ### 📄 Scheduling tasks by priority
-> **Origin**: `ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action (e.g., input handling, critical rendering).
@@ -1619,7 +1632,7 @@ scheduler.postTask(() => {
 
 ---
 ### 📄 Set a scroll target for the initial render
-> **Origin**: `ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1658,7 +1671,7 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 ---
 ### 📄 Select Menu Interaction
-> **Origin**: `ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action
@@ -1670,7 +1683,7 @@ action
 
 ---
 ### 📄 Overview
-> **Origin**: `ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1700,7 +1713,7 @@ SVG masks allow you to define shapes that subtract from or add to the visible ar
 
 ---
 ### 📄 Overview
-> **Origin**: `ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1744,8 +1757,72 @@ Use the `@container` rule to apply styles when the container reaches a certain s
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+### 📄 Systematic Debugging
+> **Origin**: `ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 27/05/2026
+
+#### 💡 Content Summary:
+> **VERSION**: v1 | **Last Updated**: 27/05/2026
+
+
+
+
+
+Random fixes waste time and create new bugs. Quick patches mask underlying issues.
+
+**Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.
+
+**Violating the letter of this process is violating the spirit of debugging.**
+
+
+
+```
+NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+```
+
+If you haven't completed Phase 1, you cannot propose fixes.
+
+
+
+Use for ANY technical issue:
+- Test failures
+- Bugs in production
+- Unexpected behavior
+- Performance problems
+- Build failures
+- Integration issues
+
+**Use this ESPECIALLY when:**
+- Under time pressure (emergencies make guessing tempting)
+- "Just one quick fix" seems obvious
+- You've already tried multiple fixes
+- Previous fix didn't work
+- You don't fully understand the issue
+
+
+
+You MUST complete each phase before proceeding to the next.
+
+
+
+**BEFORE attempting ANY fix:**
+
+1. **Read Error Messages Carefully**
+   - Don't skip past errors or warnings
+   - They often contain the exact solution
+   - Read stack traces completely
+   - Note line numbers, file paths, error codes
+
+2. **Reproduce Consistently**
+   - Can you trigger it reliably?
+   - What are the e...
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SKILL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
 ### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
-> **Origin**: `ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1783,7 +1860,7 @@ This plan addresses the critical bugs, architectural redundancies, and repositor
 
 ---
 ### 📄 Stabilize Reactive State with Temporal
-> **Origin**: `ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 27/05/2026
 
 #### 💡 Content Summary:
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -1807,7 +1884,7 @@ To stabilize reactive state using Temporal:
 
 ---
 ### 📄 Style Parent with :has()
-> **Origin**: `ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action state using a `WeakMap`. This avoids polluting the DOM with "dirty" classes or data attributes.
@@ -1844,7 +1921,7 @@ const UserInvalidFallback = (() => {
 
 ---
 ### 📄 Completion Summary:
-> **Origin**: `ui-ux/NEXUS_TES.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_TES.MD` | **Distilled At**: 27/05/2026
 
 #### 🧐 Core Insights (Distilled):
 hasil dari test sandboxes harus memiliki dan menggunakan tailwind,alpinejs,laravel,livewire dan bisa saya bisa jalankan dg php artisan serve.
@@ -1858,7 +1935,7 @@ Status: ✅ COMPLETED BY ANTIGRAVITY (2026-05-13)
 
 ---
 ### 📄 Validate Input After Interaction
-> **Origin**: `ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 26/05/2026
+> **Origin**: `ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 27/05/2026
 
 #### 🛠 Actionable Steps:
 action

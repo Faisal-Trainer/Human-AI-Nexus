@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 const fs = require('fs-extra');
 const path = require('path');
 const { spawn } = require('child_process');
@@ -18,9 +18,20 @@ async function main() {
         const cleanArgs = args.filter(a => a !== 'nexus');
         const enginePath = path.join(__dirname, 'agent', 'main.js');
         
-        const child = spawn('node', [enginePath, ...cleanArgs], {
+        let command = 'bun';
+        let spawnArgs = [enginePath, ...cleanArgs];
+        let shellOpt = false;
+        
+        if (process.platform === 'win32') {
+            // Escape args manually and pass as a single string to avoid DEP0190
+            command = `bun "${enginePath}" ${cleanArgs.map(a => `"${a}"`).join(' ')}`;
+            spawnArgs = [];
+            shellOpt = true;
+        }
+        
+        const child = spawn(command, spawnArgs, {
             stdio: 'inherit',
-            shell: false
+            shell: shellOpt
         });
 
         child.on('exit', (code) => process.exit(code));

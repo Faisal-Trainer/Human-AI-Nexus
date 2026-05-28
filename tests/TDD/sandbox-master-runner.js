@@ -2,11 +2,11 @@
 // NEXUS SANDBOX MASTER RUNNER
 // Menjalankan seluruh 3 section secara otomatis dan berurutan.
 // Penggunaan:
-//   node tests/TDD/sandbox-master-runner.js             — semua section
-//   node tests/TDD/sandbox-master-runner.js --section 1 — hanya section 1
-//   node tests/TDD/sandbox-master-runner.js --section 2 — hanya section 2
-//   node tests/TDD/sandbox-master-runner.js --section 3 — hanya section 3
-//   node tests/TDD/sandbox-master-runner.js --distill   — distill setelah semua selesai
+//   bun tests/TDD/sandbox-master-runner.js             — semua section
+//   bun tests/TDD/sandbox-master-runner.js --section 1 — hanya section 1
+//   bun tests/TDD/sandbox-master-runner.js --section 2 — hanya section 2
+//   bun tests/TDD/sandbox-master-runner.js --section 3 — hanya section 3
+//   bun tests/TDD/sandbox-master-runner.js --distill   — distill setelah semua selesai
 
 const { spawn } = require('child_process');
 const path = require('path');
@@ -42,7 +42,17 @@ function runSection(section) {
         console.log(`${'═'.repeat(60)}`);
 
         const childArgs = section.args ? [filePath, ...section.args] : [filePath];
-        const child = spawn('node', childArgs, { stdio: 'inherit', shell: false });
+        let command = 'bun';
+        let spawnArgs = childArgs;
+        let shellOpt = false;
+        
+        if (process.platform === 'win32') {
+            command = `bun ${childArgs.map(a => `"${a}"`).join(' ')}`;
+            spawnArgs = [];
+            shellOpt = true;
+        }
+        
+        const child = spawn(command, spawnArgs, { stdio: 'inherit', shell: shellOpt });
 
         child.on('exit', code => {
             if (code === 0) {

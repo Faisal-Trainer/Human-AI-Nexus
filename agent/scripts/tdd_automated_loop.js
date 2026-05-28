@@ -40,7 +40,7 @@ async function runPipeline(projectName, rootPath) {
     try {
         // 1. RUN SDLC CYCLE (Audit -> Plan -> Execute)
         console.log('🔄 Executing SDLC Cycle...');
-        execSync(`node agent/main.js run --root "${rootPath}" --yes`, { stdio: 'inherit' });
+        execSync(`bun agent/main.js run --root "${rootPath}" --yes`, { stdio: 'inherit' });
 
         // 2. INTERNAL PIPELINE (Refactor -> Distill -> Update)
         console.log('\n🧠 Executing Internal Pipeline...');
@@ -73,9 +73,9 @@ async function runPipeline(projectName, rootPath) {
             }
         }
 
-        execSync('node cli.js refactor', { stdio: 'inherit' });
-        execSync('node cli.js distill', { stdio: 'inherit' });
-        execSync('node cli.js update-skills', { stdio: 'inherit' });
+        execSync('bun cli.js refactor', { stdio: 'inherit' });
+        execSync('bun cli.js distill', { stdio: 'inherit' });
+        execSync('bun cli.js update-skills', { stdio: 'inherit' });
 
         console.log(`\n✅ PROJECT ${projectName} COMPLETED SUCCESSFULLY.`);
     } catch (error) {

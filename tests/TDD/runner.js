@@ -33,7 +33,17 @@ async function runAllTests() {
 
 function runTest(filePath) {
     return new Promise((resolve) => {
-        const child = spawn('node', [filePath], { stdio: 'inherit' });
+        let command = 'bun';
+        let spawnArgs = [filePath];
+        let shellOpt = false;
+        
+        if (process.platform === 'win32') {
+            command = `bun "${filePath}"`;
+            spawnArgs = [];
+            shellOpt = true;
+        }
+        
+        const child = spawn(command, spawnArgs, { stdio: 'inherit', shell: shellOpt });
         child.on('exit', (code) => {
             resolve(code === 0);
         });

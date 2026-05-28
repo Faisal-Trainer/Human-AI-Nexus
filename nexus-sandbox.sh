@@ -31,7 +31,7 @@ for arg in "$@"; do
         --no-distill) NO_DISTILL=true ;;
         --status)
             echo "🔍 Checking Nexus system status..."
-            node "$ROOT_DIR/agent/main.js" status
+            bun "$ROOT_DIR/agent/main.js" status
             exit 0
             ;;
         --help|-h)
@@ -72,12 +72,12 @@ log ""
 # ── Prerequisite checks ──────────────────────────────────────
 log "🔎 Checking prerequisites..."
 
-if ! command -v node &> /dev/null; then
-    log "❌ Node.js tidak ditemukan. Install dulu: https://nodejs.org"
+if ! command -v bun &> /dev/null; then
+    log "❌ Bun tidak ditemukan. Install dulu: https://bun.sh"
     exit 1
 fi
-NODE_VER=$(node --version)
-log "   ✅ Node.js: $NODE_VER"
+BUN_VER=$(bun --version)
+log "   ✅ Bun: $BUN_VER"
 
 if ! command -v php &> /dev/null; then
     log "⚠️  PHP tidak ditemukan — migrate:fresh akan di-skip tapi pipeline tetap lanjut."
@@ -107,7 +107,7 @@ run_section() {
     log "   File: $TDD_DIR/$section_file"
     log ""
 
-    if node "$TDD_DIR/$section_file" 2>&1 | tee -a "$LOG_FILE"; then
+    if bun "$TDD_DIR/$section_file" 2>&1 | tee -a "$LOG_FILE"; then
         log ""
         log "   ✅ $section_label — BERHASIL"
         return 0
@@ -137,7 +137,7 @@ done
 # ── Distill knowledge ke HUB ─────────────────────────────────
 if [ "$NO_DISTILL" = false ] && [ -z "$SECTION" ]; then
     log_header "🧠 Distilasi Knowledge ke HUB"
-    if node "$ROOT_DIR/agent/main.js" distill 2>&1 | tee -a "$LOG_FILE"; then
+    if bun "$ROOT_DIR/agent/main.js" distill 2>&1 | tee -a "$LOG_FILE"; then
         log "   ✅ Distilasi selesai."
     else
         log "   ⚠️  Distilasi gagal — lanjutkan secara manual: nexus distill"

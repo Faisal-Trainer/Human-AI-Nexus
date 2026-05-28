@@ -1,0 +1,54 @@
+{
+  "project_name": "todo-app-realtime",
+  "models": [
+    "Task",
+    "User"
+  ],
+  "schema": {
+    "Task": {
+      "title": "string",
+      "description": "text",
+      "completed": "boolean"
+    },
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "string"
+    }
+  },
+  "migrations": [
+    "create_tasks_table",
+    "create_users_table",
+    "create_task_user_table"
+  ],
+  "livewire_components": [
+    "TaskForm",
+    "TaskList"
+  ],
+  "seeders": [
+    "TaskSeeder",
+    "UserSeeder"
+  ],
+  "factories": [
+    "TaskFactory",
+    "UserFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/tasks",
+    "/tasks/{id}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "Task",
+      "type": "hasMany",
+      "target": "User"
+    },
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Task"
+    }
+  ]
+}

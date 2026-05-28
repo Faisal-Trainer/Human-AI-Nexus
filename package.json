@@ -26,12 +26,12 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "node cli.js run",
-    "refactor": "node cli.js refactor",
-    "update-skills": "node cli.js update-skills",
-    "test": "node tests/TDD/runner.js",
+    "start": "bun cli.js run",
+    "refactor": "bun cli.js refactor",
+    "update-skills": "bun cli.js update-skills",
+    "test": "bun tests/TDD/runner.js",
     "lint": "eslint agent/ cli.js tests/TDD/*.js",
-    "sync-version": "node -e \"const p=require('./package.json'); const pp=require('./NEXUS_PUBLIC_DISTRIBUTION/package.json'); pp.version=p.version; require('fs').writeFileSync('./NEXUS_PUBLIC_DISTRIBUTION/package.json', JSON.stringify(pp,null,2))\""
+    "sync-version": "bun -e \"const p=require('./package.json'); const pp=require('./NEXUS_PUBLIC_DISTRIBUTION/package.json'); pp.version=p.version; require('fs').writeFileSync('./NEXUS_PUBLIC_DISTRIBUTION/package.json', JSON.stringify(pp,null,2))\""
   },
   "dependencies": {
     "axios": "^1.16.0",

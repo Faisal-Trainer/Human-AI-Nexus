@@ -1,0 +1,58 @@
+{
+  "project_name": "url-shortener-app",
+  "models": [
+    "ShortenedUrl",
+    "User"
+  ],
+  "schema": {
+    "ShortenedUrl": {
+      "url": "string",
+      "original_url": "string",
+      "shortened_url": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime",
+      "user_id": "integer"
+    },
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    }
+  },
+  "migrations": [
+    "create_shortened_url_table",
+    "create_user_table",
+    "create_shortened_url_user_table"
+  ],
+  "livewire_components": [
+    "ShortenedUrlComponent",
+    "UserComponent"
+  ],
+  "seeders": [
+    "ShortenedUrlSeeder",
+    "UserSeeder"
+  ],
+  "factories": [
+    "ShortenedUrlFactory",
+    "UserFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/shortened-url/{shortened_url}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "ShortenedUrl",
+      "type": "belongsTo",
+      "target": "User"
+    },
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "ShortenedUrl"
+    }
+  ]
+}

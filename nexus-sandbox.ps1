@@ -40,7 +40,7 @@ function LogHeader {
 # -- Status mode ----------------------------------------------
 if ($Status) {
     Log "[STATUS] Checking Nexus system status..." "Yellow"
-    node "$RootDir\agent\main.js" status
+    bun "$RootDir\agent\main.js" status
     exit 0
 }
 
@@ -56,10 +56,10 @@ Log ""
 Log "[CHECK] Checking prerequisites..." "Yellow"
 
 try {
-    $nodeVer = node --version 2>&1
-    Log "   [OK] Node.js: $nodeVer" "Green"
+    $bunVer = bun --version 2>&1
+    Log "   [OK] Bun: $bunVer" "Green"
 } catch {
-    Log "   [ERROR] Node.js tidak ditemukan. Install: https://nodejs.org" "Red"
+    Log "   [ERROR] Bun tidak ditemukan. Install: https://bun.sh" "Red"
     exit 1
 }
 
@@ -110,16 +110,16 @@ function Invoke-NexusSection {
     $scriptFile = $fileParts[0]
     $scriptArgs = $fileParts[1..($fileParts.Length-1)]
 
-    Log "   [INFO] Memuat modul Node.js & inisialisasi AI agent... (mohon tunggu)" "Yellow"
+    Log "   [INFO] Memuat modul Bun & inisialisasi AI agent... (mohon tunggu)" "Yellow"
     Log ""
 
-    # Jalankan node secara direct di foreground agar output mengalir real-time ke console
+    # Jalankan bun secara direct di foreground agar output mengalir real-time ke console
     $exitCode = 0
     try {
         if ($scriptArgs) {
-            node "$TddDir\$scriptFile" $scriptArgs
+            bun "$TddDir\$scriptFile" $scriptArgs
         } else {
-            node "$TddDir\$scriptFile"
+            bun "$TddDir\$scriptFile"
         }
         $exitCode = $LASTEXITCODE
     } catch {
@@ -160,7 +160,7 @@ if (-not $NoDistill -and $Section -eq 0) {
     LogHeader "[DISTILL] Distilasi Knowledge ke HUB"
     $exitCode = 0
     try {
-        node "$RootDir\agent\main.js" distill
+        bun "$RootDir\agent\main.js" distill
         $exitCode = $LASTEXITCODE
     } catch {
         $exitCode = 1
@@ -188,7 +188,7 @@ if ($FailedCount -gt 0) {
     exit 1
 } else {
     Log "   [SUCCESS] Semua section selesai! 100 sandboxes siap digunakan." "Green"
-    Log "   Jalankan: node agent\main.js status" "Cyan"
+    Log "   Jalankan: bun agent\main.js status" "Cyan"
     Log "   Masuk ke sandbox: cd tests\sandboxes\[nama-project]" "Cyan"
     Log "   Jalankan server: php artisan serve && npm run dev" "Cyan"
 }

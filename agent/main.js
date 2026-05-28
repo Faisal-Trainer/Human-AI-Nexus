@@ -185,7 +185,17 @@ async function main() {
             }
 
             console.log('\x1b[36m%s\x1b[0m', '🧪 Nexus Sandbox Master Runner: Starting...');
-            const sandboxProc = spawnChild('node', [runnerPath, ...sandboxArgs], { stdio: 'inherit', shell: false });
+            let command = 'bun';
+            let sArgs = [runnerPath, ...sandboxArgs];
+            let shellOpt = false;
+
+            if (process.platform === 'win32') {
+                command = `bun "${runnerPath}" ${sandboxArgs.map(a => `"${a}"`).join(' ')}`;
+                sArgs = [];
+                shellOpt = true;
+            }
+
+            const sandboxProc = spawnChild(command, sArgs, { stdio: 'inherit', shell: shellOpt });
             
             sandboxProc.on('error', (err) => {
                 console.error(`\x1b[31m❌ Gagal menjalankan sandbox: ${err.message}\x1b[0m`);

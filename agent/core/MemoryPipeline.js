@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const SemanticEngine = require('./SemanticEngine');
 
 /**
  * MemoryPipeline - Automated Storage Optimization.
@@ -9,8 +10,8 @@ class MemoryPipeline {
     constructor(rootPath, knowledgePath, auditPath, planningPath) {
         this.rootPath = rootPath;
         this.knowledgePath = knowledgePath;
-        this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'operational', 'audit');
-        this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'operational', 'planning');
+        this.auditPath = auditPath || path.join(this.rootPath, 'memory', 'raw', 'audits');
+        this.planningPath = planningPath || path.join(this.rootPath, 'memory', 'raw', 'reports');
         this.recordsPath = path.join(this.rootPath, 'memory', 'operational', 'records');
         this.archiveFile = path.join(this.knowledgePath, 'SESSION_HISTORY_ARCHIVE.md');
         this.backupPath = path.join(this.rootPath, 'memory', 'archived');
@@ -86,10 +87,12 @@ class MemoryPipeline {
                 processed.push(file);
                 await fs.writeJson(processedLog, processed); // checkpoint
             }
+            // S6: Only remove the project folder that was processed
+            await fs.remove(projectPath);
         }
 
-        await fs.emptyDir(harvestPath);
-        console.log('   🧹 Harvest folder recycled.');
+        await fs.remove(processedLog);
+        console.log('   🧹 Harvest folders recycled safely.');
     }
 
     cleanseContent(content) {
@@ -162,7 +165,10 @@ class MemoryPipeline {
         await fs.ensureFile(archiveFile);
         let existingContent = await fs.readFile(archiveFile, 'utf8');
         
-        const tags = '\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [audit, performance, testing, tdd]\n';
+        const semanticEngine = new SemanticEngine(this.knowledgePath);
+        const contentTags = semanticEngine.extractMultiTags(content);
+        const finalTags = contentTags.length > 0 ? contentTags : ['audit'];
+        const tags = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${finalTags.join(', ')}]\n`;
         
         if (!existingContent.includes('METADATA')) {
             // First time: append content and then tags
@@ -176,7 +182,7 @@ class MemoryPipeline {
     }
 
     async writeSemanticIndex() {
-        const semanticDir = path.join(this.rootPath, 'memory', 'semantic');
+        const semanticDir = path.join(this.rootPath, 'memory', 'operational', 'indexes');
         await fs.ensureDir(semanticDir);
         const knowledgeDir = this.knowledgePath;
         if (!(await fs.pathExists(knowledgeDir))) return;
@@ -185,7 +191,14 @@ class MemoryPipeline {
         const tagIndex = {};
 
         let files;
-        try { files = await fs.readdir(knowledgeDir); }
+        try { 
+            const fg = require('fast-glob');
+            files = await fg('**/*.{md,MD}', {
+                cwd: knowledgeDir.replace(/\\/g, '/'),
+                ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+                onlyFiles: true
+            });
+        }
         catch (e) { return; }
 
         for (const file of files) {
@@ -213,7 +226,7 @@ class MemoryPipeline {
     }
 
     async getArchiveFile() {
-        const indexPath = path.join(this.rootPath, 'memory', 'operational', 'archive_index.json');
+        const indexPath = path.join(this.rootPath, 'memory', 'operational', 'indexes', 'archive_index.json');
         let indexData = { current_archive: 'SESSION_HISTORY_ARCHIVE.md', index: 1 };
 
         if (await fs.pathExists(indexPath)) {

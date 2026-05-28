@@ -1,5 +1,5 @@
 # NEXUS AI — Analisis Arsitektur & Audit Pipeline Sandbox
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 **Versi Dokumen:** 1.0  
@@ -231,7 +231,7 @@ cli.js
 ```
 AuditPhase.run(targetPath)
   ├─ Scan 6 standard Nexus folders → WARNING jika missing
-  ├─ Cek README.md, .env, LICENSE
+  ├─ Cek [README.md](../vcs/NEXUS_README.MD), .env, LICENSE
   └─ ParallelRunner (concurrency=2):
         ├─ cyber-security scanner
         ├─ ux-engineer scanner

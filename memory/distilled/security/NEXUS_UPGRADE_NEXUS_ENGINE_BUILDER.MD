@@ -1,5 +1,5 @@
 # 🏗️ PLAN: UPGRADE NEXUS ENGINE DARI "AUDITOR" MENJADI "APP BUILDER"
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 
@@ -33,7 +33,7 @@ Mengubah batasan arsitektur sehingga Nexus memiliki kemampuan **App Scaffolding 
 **File Target**: `agent/core/NexusEngine.js`
 - **Modifikasi `runCycle()`**:
   Menyuntikkan fase baru sebelum "Audit".
-  1. **Phase 0.5: Context Awareness**: Membaca file `README.md` di dalam *sandbox* untuk mengenali bahwa AI sedang membangun (misal) `E-Commerce System` dengan *tag* `livewire, payment`.
+  1. **Phase 0.5: Context Awareness**: Membaca file `[README.md](../vcs/NEXUS_README.MD)` di dalam *sandbox* untuk mengenali bahwa AI sedang membangun (misal) `E-Commerce System` dengan *tag* `livewire, payment`.
   2. **Phase 0.8: Blueprint Generation**: AI menghasilkan kerangka kerja (Blueprint) berupa daftar Migrasi, Model, dan Komponen Livewire apa saja yang dibutuhkan project tersebut.
   3. **Phase 0.9: Autonomous Code Generation**: Mengirim perintah (*task action* `FILE_WRITE`) ke *Pipeline/Machinist* untuk menciptakan file `.php` dan `.blade.php` secara otomatis.
 - Setelah kode aplikasi utama selesai ditulis, barulah masuk ke fase **Audit (Phase 1)** untuk memastikan *Zero Flaw* pada kode yang baru saja ia ciptakan.

@@ -1,4 +1,7 @@
 # 🔍 AUDIT: Sinkronisasi Hardening Engine (JS & PowerShell)
+> **VERSION**: v1 | **Last Updated**: 28/05/2026
+
+
 
 | Detail | Deskripsi |
 | :--- | :--- |
@@ -29,7 +32,7 @@ Tujuan audit adalah memastikan fitur keamanan (Hardening) dan restrukturisasi fo
     *   Keduanya berhasil membuat file `.htaccess` dengan direktif `Deny from all`. Ini memberikan proteksi instan pada server berbasis Apache/XAMPP.
 
 ### 2.2 Integritas Struktur Folder
-*   Penyalinan `README.md` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/` telah terverifikasi di kedua script. 
+*   Penyalinan `[README.md](../vcs/NEXUS_README.MD)` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/` telah terverifikasi di kedua script. 
 *   Hal ini meningkatkan portabilitas; folder `nexus/` kini dapat berdiri sendiri sebagai paket dokumentasi lengkap.
 
 ### 2.3 Ketahanan Kode (Error Handling)

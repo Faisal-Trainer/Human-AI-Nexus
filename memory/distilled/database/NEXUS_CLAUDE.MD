@@ -1,5 +1,5 @@
 # CLAUDE.md
-> **VERSION**: v2 | **Last Updated**: 26/05/2026
+> **VERSION**: v3 | **Last Updated**: 28/05/2026
 
 
 
@@ -74,7 +74,7 @@ When modifying files:
    - Changes automatically available via symlinks in `.claude/`, `.factory/`, `.shared/`
 
 2. **Templates** - Edit in `src/ui-ux-pro-max/templates/`:
-   - `base/[skill-content.md](../security/NEXUS_SKILL-CONTENT.MD)` - Common SKILL.md content
+   - `base/[skill-content.md](../security/NEXUS_SKILL-CONTENT.MD)` - Common [SKILL.md](../ui-ux/NEXUS_SKILL.MD) content
    - `base/[quick-reference.md](../security/NEXUS_QUICK-REFERENCE.MD)` - Quick reference section (Claude only)
    - `platforms/*.json` - Platform-specific configs
 

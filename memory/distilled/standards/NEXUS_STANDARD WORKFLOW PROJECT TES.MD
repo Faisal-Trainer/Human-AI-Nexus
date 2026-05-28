@@ -1,5 +1,5 @@
 # Standard Workflow PBL TALL Stack
-> **VERSION**: v2 | **Last Updated**: 26/05/2026
+> **VERSION**: v3 | **Last Updated**: 28/05/2026
 
 
 
@@ -655,7 +655,7 @@ php artisan queue:work
 
 # Wajib Ada
 
-## README.md
+## [README.md](../vcs/NEXUS_README.MD)
 
 Isi:
 
@@ -738,7 +738,7 @@ projects/
 # Setiap Project Harus Punya
 
 ```text
-README.md
+[README.md](../vcs/NEXUS_README.MD)
 screenshots/
 docs/
 ```

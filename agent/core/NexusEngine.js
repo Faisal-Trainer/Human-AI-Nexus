@@ -78,11 +78,11 @@ class NexusEngine {
         }
 
         // 📂 PROJECT DATA PATHS
-        this.auditPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'raw');
+        this.auditPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'raw', 'audits');
         this.logPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'logs');
         this.planningPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'planning');
-        this.recordsPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'operational');
-        this.summaryPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'summary');
+        this.recordsPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'operational', 'records');
+        this.summaryPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'raw', 'reports');
         this.knowledgePath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'memory', 'distilled');
         this.algorithmsPath = CoreUtils.resolvePath(this.rootPath, this.nexusDataPath, docsBase, 'algorithms');
 
@@ -190,11 +190,16 @@ class NexusEngine {
     async readMemory() {
         this.log('🧠 Accessing Memory HUB...', 'info');
         try {
-            await fs.ensureDir(this.recordsPath);
+            const sessionPath = path.join(this.rootPath, 'memory', 'short_term', 'sessions');
+            await fs.ensureDir(sessionPath);
             await fs.ensureDir(this.knowledgePath);
-            const records = await fs.readdir(this.recordsPath);
-            const knowledgeFiles = await fs.readdir(this.knowledgePath);
-            const lessons = knowledgeFiles.filter(k => k.endsWith('.md'));
+            const records = await fs.readdir(sessionPath);
+            const fg = require('fast-glob');
+            const lessons = await fg('**/*.{md,MD}', {
+                cwd: this.knowledgePath.replace(/\\/g, '/'),
+                ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+                onlyFiles: true
+            });
             const semanticIndex = {};
             for (const file of lessons) {
                 const tags = await this.getSemanticTags(path.join(this.knowledgePath, file));
@@ -364,7 +369,7 @@ class NexusEngine {
 
         // R-05: Global Blueprint Cache
         const projectName = path.basename(this.rootPath);
-        const globalCacheDir = path.join(__dirname, '..', '..', 'memory', 'cache', 'blueprints');
+        const globalCacheDir = path.join(__dirname, '..', '..', 'memory', 'operational', 'blueprints');
         const cachePath = path.join(globalCacheDir, `${projectName}.json`);
 
         if (await fs.pathExists(cachePath)) {
@@ -458,9 +463,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
 
     async record(cycleID) {
         this.log('📝 Phase 4: Finalization & Records...', 'info');
-        await fs.ensureDir(this.recordsPath);
-        const recordsPath = path.join(this.recordsPath, `session_${Date.now()}.json`);
-        await fs.writeJson(recordsPath, { cycle: cycleID, audit: this.currentAudit?.id, plan: this.currentPlan?.id, timestamp: NexusClock.getISOTimestamp() }, { spaces: 2 });
+        const sessionPath = path.join(this.rootPath, 'memory', 'short_term', 'sessions');
+        await fs.ensureDir(sessionPath);
+        const sessionFile = path.join(sessionPath, `session_${Date.now()}.json`);
+        await fs.writeJson(sessionFile, { cycle: cycleID, audit: this.currentAudit?.id, plan: this.currentPlan?.id, timestamp: NexusClock.getISOTimestamp() }, { spaces: 2 });
         await this.memoryPipeline.optimize();
     }
 
@@ -595,11 +601,13 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
                 const fullPath = path.join(dir, entry.name);
                 let promptContent = await fs.readFile(fullPath, 'utf8');
 
-                // Filter wisdom nodes that match the agent tags
+                const MAX_NODES_PER_AGENT = 30;
+                const MAX_INJECT_KB = 200;
+
                 const matchingWisdom = wisdomNodes.filter(node => {
                     if (agentTags.includes('*')) return true;
                     return node.tags.some(tag => agentTags.includes(tag));
-                });
+                }).slice(0, MAX_NODES_PER_AGENT);
 
                 if (matchingWisdom.length === 0) continue;
 
@@ -609,18 +617,15 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
                     injectionContent += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
                 }
 
-                // Inject into the prompt file
-                const targetHeader = '## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)';
-                const headerIndex = promptContent.indexOf(targetHeader);
-
-                let newPromptContent;
-                if (headerIndex !== -1) {
-                    // Replace everything from the target header to the end of the file
-                    newPromptContent = promptContent.substring(0, headerIndex) + injectionContent;
-                } else {
-                    // Append at the end of the file
-                    newPromptContent = promptContent.trim() + '\n\n' + injectionContent;
+                const injectionKB = Buffer.byteLength(injectionContent, 'utf8') / 1024;
+                if (injectionKB > MAX_INJECT_KB) {
+                    injectionContent = injectionContent.substring(0, MAX_INJECT_KB * 1024) + '\n\n...[truncated]';
+                    this.log(`⚠️ Injection truncated at ${MAX_INJECT_KB}KB for ${agentName}`, 'warning');
                 }
+
+                // Inject into the prompt file (S7: clean regex)
+                const cleanPrompt = promptContent.replace(/\n*## 🧠 DEEP WISDOM INJECTION[\s\S]*/, '').trimEnd();
+                const newPromptContent = cleanPrompt + '\n\n' + injectionContent;
 
                 await fs.writeFile(fullPath, newPromptContent, 'utf8');
                 this.log(`   ✅ Injected ${matchingWisdom.length} wisdom nodes into agent prompt: ${agentName}`, 'success');

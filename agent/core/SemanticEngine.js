@@ -121,6 +121,12 @@ class SemanticEngine {
         "release",
         "gitflow",
       ],
+      laravel: [
+        "artisan", "blade", "eloquent", "filament", "livewire",
+        "provider", "facade", "middleware", "sanctum", "route",
+        "controller", "migration", "seeder", "request", "policy",
+        "pennant", "horizon", "telescope", "sail", "octane"
+      ],
       saas: [
         "tenant",
         "subscription",
@@ -225,8 +231,8 @@ class SemanticEngine {
   async saveIndex() {
     const indexPath = path.join(
       this.knowledgePath,
-      "..",
       "short_term",
+      "cache",
       "vector_index.json",
     );
     await fs.ensureDir(path.dirname(indexPath));
@@ -247,8 +253,8 @@ class SemanticEngine {
   async loadIndex() {
     const indexPath = path.join(
       this.knowledgePath,
-      "..",
       "short_term",
+      "cache",
       "vector_index.json",
     );
     if (!(await fs.pathExists(indexPath))) return false;
@@ -391,11 +397,15 @@ class SemanticEngine {
   extractMultiTags(content) {
     const lowerContent = content.toLowerCase();
     const tags = new Set();
+    const VALID_DOMAINS = new Set(Object.keys(this.domainVocab).concat(['other', 'standards', 'academics', 'planning', 'audit']));
 
     // 1. Cek existing NEXUS metadata tags dulu
     const metaMatch = content.match(/METADATA.*\[([^\]]+)\]/i);
     if (metaMatch) {
-      metaMatch[1].split(",").forEach((t) => tags.add(t.trim().toLowerCase()));
+      metaMatch[1].split(",")
+        .map(t => t.trim().toLowerCase())
+        .filter(t => VALID_DOMAINS.has(t))
+        .forEach((t) => tags.add(t));
     }
 
     // 2. Score setiap domain berdasarkan keyword frequency
@@ -408,6 +418,38 @@ class SemanticEngine {
     }
 
     return Array.from(tags);
+  }
+
+  /**
+   * Extract multi-label tags with scores
+   * Berguna untuk menentukan priority folder saat shelving
+   */
+  extractMultiTagsWithScores(content) {
+    const lowerContent = content.toLowerCase();
+    const tagScores = [];
+    const VALID_DOMAINS = new Set(Object.keys(this.domainVocab).concat(['other', 'standards', 'academics', 'planning', 'audit']));
+
+    const metaMatch = content.match(/METADATA.*\[([^\]]+)\]/i);
+    if (metaMatch) {
+      metaMatch[1].split(",")
+        .map(t => t.trim().toLowerCase())
+        .filter(t => VALID_DOMAINS.has(t))
+        .forEach(t => tagScores.push({ tag: t, score: 50 })); // Base score for explicit tags
+    }
+
+    for (const [domain, keywords] of Object.entries(this.domainVocab)) {
+      const hits = keywords.filter((kw) => lowerContent.includes(kw)).length;
+      if (hits > 0) {
+        const existing = tagScores.find(t => t.tag === domain);
+        if (existing) {
+          existing.score += hits;
+        } else {
+          tagScores.push({ tag: domain, score: hits });
+        }
+      }
+    }
+
+    return tagScores;
   }
 
   /**
@@ -429,8 +471,8 @@ class SemanticEngine {
   async invalidateCache() {
     const indexPath = path.join(
       this.knowledgePath,
-      "..",
       "short_term",
+      "cache",
       "vector_index.json",
     );
     if (await fs.pathExists(indexPath)) {

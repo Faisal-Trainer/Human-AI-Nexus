@@ -1,4 +1,4 @@
-> **VERSION**: v3 | **Last Updated**: 26/05/2026
+> **VERSION**: v4 | **Last Updated**: 28/05/2026
 
 
 
@@ -115,7 +115,7 @@ To animate an element when toggling its visibility via an attribute (e.g., `hidd
 
 ---
 ### 📄 Coordinating Global Events with Temporal
-> **Origin**: `guides/user-experience/[coordinate-global-events.md](../other/NEXUS_COORDINATE-GLOBAL-EVENTS.MD)` | **Distilled At**: 26/05/2026
+> **Origin**: `guides/user-experience/[coordinate-global-events.md](../other/NEXUS_COORDINATE-GLOBAL-[EVENTS.MD](../security/NEXUS_EVENTS.MD))` | **Distilled At**: 26/05/2026
 
 #### 💡 Content Summary:
 Scheduling events across different time zones is notoriously difficult with the legacy `Date` object, especially around Daylight Saving Time (DST) transitions when hours can be skipped or repeated.
@@ -145,7 +145,7 @@ try {
   // 'reject...
 
 #### 🔗 Traceability:
-- [Source Context]([coordinate-global-events.md](../other/NEXUS_COORDINATE-GLOBAL-EVENTS.MD))
+- [Source Context]([coordinate-global-events.md](../other/NEXUS_COORDINATE-GLOBAL-[EVENTS.MD](../security/NEXUS_EVENTS.MD)))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -250,7 +250,7 @@ action="hide">Got it</button>
 
 ---
 ### 📄 Creating Toast Notifications
-> **Origin**: `guides/user-experience/[persistent-toast-notifications.md](../other/NEXUS_PERSISTENT-TOAST-NOTIFICATIONS.MD)` | **Distilled At**: 26/05/2026
+> **Origin**: `guides/user-experience/[persistent-toast-notifications.md](../other/NEXUS_PERSISTENT-TOAST-[NOTIFICATIONS.MD](../laravel/NEXUS_NOTIFICATIONS.MD))` | **Distilled At**: 26/05/2026
 
 #### 🛠 Actionable Steps:
 action="hide".
@@ -258,7 +258,7 @@ action="hide".
 * **DO** utilize transition-behavior: allow-discrete to animate the entry and exit from the Top Layer.
 
 #### 🔗 Traceability:
-- [Source Context]([persistent-toast-notifications.md](../other/NEXUS_PERSISTENT-TOAST-NOTIFICATIONS.MD))
+- [Source Context]([persistent-toast-notifications.md](../other/NEXUS_PERSISTENT-TOAST-[NOTIFICATIONS.MD](../laravel/NEXUS_NOTIFICATIONS.MD)))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---

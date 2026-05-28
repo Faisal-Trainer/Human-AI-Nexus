@@ -1,5 +1,5 @@
 # 🛠️ Installation & Uninstallation Workflow (v3.1)
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 
@@ -22,7 +22,7 @@ Proses instalasi dirancang untuk membuat lingkungan kerja AI yang mandiri (*self
     *   **Tujuan**: Memblokir akses langsung browser ke file log dan dokumentasi sensitif.
 5.  **Strukturisasi**:
     *   Memasang folder `agent/`, `workflow/`, `documentation/`, `memory/`, dan `logs/`.
-    *   Menyalin `README.md` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/`.
+    *   Menyalin `[README.md](../vcs/NEXUS_README.MD)` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/`.
 
 ---
 
@@ -34,7 +34,7 @@ Proses uninstalasi menggunakan protokol **Selective Deletion** untuk melindungi 
 1.  **Eksekusi Command**: Menjalankan `nexus uninstall` atau `uninstall.ps1`.
 2.  **Peringatan & Konfirmasi**: User diberikan peringatan keras tentang penghapusan engine dan memori.
 3.  **Selective Deletion**:
-    *   🗑️ **Dihapus**: Folder `agent/`, `memory/`, `logs/`, dan file sistem (`.htaccess`, `README.md`).
+    *   🗑️ **Dihapus**: Folder `agent/`, `memory/`, `logs/`, dan file sistem (`.htaccess`, `[README.md](../vcs/NEXUS_README.MD)`).
     *   🛡️ **Dipertahankan**: Folder `documentation/` (berisi `planning/`, `audit/`, `records/`, `summary/`).
 4.  **Final State**: Engine terlepas dari project, namun seluruh riwayat perubahan dan hasil audit tetap tersimpan untuk referensi manual developer.
 

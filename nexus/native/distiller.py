@@ -1,19 +1,16 @@
 import os
 import sys
 import json
-from llama_index.core import Document, SummaryIndex
-from llama_index.llms.ollama import Ollama
+import httpx
 
 def distill_content(content, filename):
-    llm = Ollama(model="llama3", request_timeout=120.0)
-    
     prompt = f"""
     You are the Nexus Distiller. Analyze the following document and extract:
     1. Core Insights: Technical findings and theoretical breakthroughs.
     2. Actionable Steps: Practical recommendations for a developer.
     
     Document Content:
-    {content[:4000]}
+    {content[:3000]}
     
     Output strictly in the following Markdown format:
     #### 🧐 Core Insights (Distilled):
@@ -26,8 +23,12 @@ def distill_content(content, filename):
     """
     
     try:
-        response = llm.complete(prompt)
-        return str(response)
+        r = httpx.post("http://localhost:11434/api/generate", json={
+            "model": "llama3",
+            "prompt": prompt,
+            "stream": False
+        }, timeout=25.0)
+        return r.json().get("response", "")
     except Exception as e:
         return f"Error during distillation: {str(e)}"
 

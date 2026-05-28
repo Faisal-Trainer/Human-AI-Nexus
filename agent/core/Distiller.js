@@ -9,12 +9,12 @@ const NativeBridge = require('./NativeBridge');
 
 class Distiller {
     constructor(knowledgePath) {
+        // knowledgePath passed from NexusEngine is memory/distilled
         this.knowledgePath = knowledgePath;
         this.prefix = 'NEXUS_';
-        this.semanticEngine = new SemanticEngine(knowledgePath);
-        // FIX #25 — this.native dihapus dari constructor; lazy-init hanya saat dibutuhkan
-        // this.native akan dibuat on-demand di applySemanticLinking()
         this._rootPath = path.join(knowledgePath, '..', '..');
+        this.memoryPath = path.join(this._rootPath, 'memory');
+        this.semanticEngine = new SemanticEngine(this.memoryPath);
     }
 
     /**
@@ -22,10 +22,10 @@ class Distiller {
      */
     getFiles() {
         const fg = require('fast-glob');
-        const normalizedPath = this.knowledgePath.replace(/\\/g, '/');
+        const normalizedPath = this.memoryPath.replace(/\\/g, '/');
         return fg.sync('**/*.{md,MD}', { 
             cwd: normalizedPath, 
-            ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+            ignore: ['INDEX.md', 'NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md', 'INDEX_NEURAL_MAP.md', 'short_term/**', 'cache/**', 'operational/indexes/**'],
             onlyFiles: true 
         });
     }
@@ -42,7 +42,7 @@ class Distiller {
             if (basename === '.gitkeep') continue;
             
             if (!basename.startsWith(this.prefix)) {
-                const oldPath = path.join(this.knowledgePath, file);
+                const oldPath = path.join(this.memoryPath, file);
                 const newBasename = this.prefix + basename.toUpperCase();
                 const newPath = path.join(path.dirname(oldPath), newBasename);
                 
@@ -94,11 +94,17 @@ ${oldContent.trim()}
         const version = `v${Date.now().toString().slice(-4)}`;
         const categoryData = {}; // { category: content }
 
-        let count = 0;
-        for (const file of files) {
+        const filteredFiles = files.filter(file => {
             const lowerFile = file.toLowerCase();
-            if (academicKeywords.some(kw => lowerFile.includes(kw)) && !path.basename(file).startsWith('NEXUS_DISTILLATION')) {
-                const filePath = path.join(this.knowledgePath, file);
+            return academicKeywords.some(kw => lowerFile.includes(kw)) && !path.basename(file).startsWith('NEXUS_DISTILLATION');
+        });
+
+        const chunkArray = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size));
+        const CONCURRENCY = 2;
+
+        for (const chunk of chunkArray(filteredFiles, CONCURRENCY)) {
+            await Promise.all(chunk.map(async file => {
+                const filePath = path.join(this.memoryPath, file);
                 const content = await fs.readFile(filePath, 'utf8');
                 
                 const category = this.identifyCategory(content);
@@ -133,8 +139,7 @@ ${oldContent.trim()}
                 block += `#### 🔗 Traceability:\n- [Source Context](${path.basename(file)})\n- [Related Standards](NEXUS_CORE_PRINCIPLES.md)\n\n---\n`;
                 
                 categoryData[category] += block;
-                count++;
-            }
+            }));
         }
 
         for (const [cat, distilled] of Object.entries(categoryData)) {
@@ -151,11 +156,14 @@ ${oldContent.trim()}
      * Identify category based on content keywords
      */
     identifyCategory(content) {
-        // Gunakan SemanticEngine.extractMultiTags untuk multi-label
-        const tags = this.semanticEngine.extractMultiTags(content);
-        // Return primary tag (pertama) untuk backward compat dengan shelve()
-        let primary = tags.length > 0 ? tags[0] : 'other';
-        return primary.replace(/[<>:"/\\|?*]/g, '').trim() || 'other';
+        const tagScores = this.semanticEngine.extractMultiTagsWithScores(content);
+        const primary = tagScores.sort((a, b) => b.score - a.score)[0]?.tag || 'other';
+        return primary
+            .replace(/[<>:"/\\|?*\[\]'=$(){}@#%^&+,;]/g, '')
+            .replace(/\s+/g, '-')
+            .substring(0, 32)
+            .toLowerCase()
+            .trim() || 'other';
     }
 
     /**
@@ -172,13 +180,31 @@ ${oldContent.trim()}
         console.log('📂 Distiller: Shelving knowledge into semantic racks...');
         const files = this.getFiles();
         
+        const VALID_RACKS = new Set([
+            'standards', 'security', 'database', 'ui-ux', 'performance',
+            'tdd', 'vcs', 'saas', 'api', 'laravel', 'other',
+            'academics', 'planning', 'audit', 'core', 'frontend', 'devops'
+        ]);
+
         for (const file of files) {
-            const filePath = path.join(this.knowledgePath, file);
+            const parts = file.replace(/\\/g, '/').split('/');
+            const rootFolder = parts[0];
+
+            if (['raw', 'operational', 'archived'].includes(rootFolder)) {
+                continue; // Do not shelve files that belong in raw or operational
+            }
+
+            if (rootFolder === 'distilled' && parts.length > 2 && VALID_RACKS.has(parts[1])) {
+                continue; // Skip files already shelved in a valid rack
+            }
+
+            const filePath = path.join(this.memoryPath, file);
             const content = await fs.readFile(filePath, 'utf8');
             
             // Standards stay in standards rack
             const isStandard = ['PRINCIPLES', 'STANDARDS', 'LAWS', 'PROTOCOL', 'CONTRACT', 'ALGORITHM', 'WORKFLOW'].some(kw => file.includes(kw));
-            const category = isStandard ? 'standards' : this.identifyCategory(content);
+            const rawCategory = isStandard ? 'standards' : this.identifyCategory(content);
+            const category = VALID_RACKS.has(rawCategory) ? rawCategory : 'other';
             
             const targetDir = path.join(this.knowledgePath, category);
             const targetPath = path.join(targetDir, path.basename(file));
@@ -199,7 +225,7 @@ ${oldContent.trim()}
         const files = this.getFiles();
 
         for (const file of files) {
-            const filePath = path.join(this.knowledgePath, file);
+            const filePath = path.join(this.memoryPath, file);
             let content = await fs.readFile(filePath, 'utf8');
 
             // Gunakan multi-label detection
@@ -226,7 +252,7 @@ ${oldContent.trim()}
             this._native = new NativeBridge(this._rootPath);
         }
         try {
-            const output = await this._native.callCpp('fast_linker', [this.knowledgePath]);
+            const output = await this._native.callCpp('fast_linker', [this.memoryPath]);
             console.log(output);
         } catch (e) {
             console.warn(`   ⚠️ Native linking failed, falling back to JS: ${e.message}`);
@@ -237,7 +263,7 @@ ${oldContent.trim()}
     async applySemanticLinkingJS() {
         console.log('🔗 Distiller: Falling back to JS Semantic Linking...');
         
-        const cachePath = path.join(this.knowledgePath, '..', 'short_term', 'link_cache.json');
+        const cachePath = path.join(this.memoryPath, 'short_term', 'cache', 'link_cache.json');
         let cache = {};
         if (await fs.pathExists(cachePath)) {
             try { cache = await fs.readJson(cachePath); } catch (e) { cache = {}; }
@@ -256,7 +282,7 @@ ${oldContent.trim()}
         let totalLinked = 0;
 
         for (const file of files) {
-            const filePath = path.join(this.knowledgePath, file);
+            const filePath = path.join(this.memoryPath, file);
             const stats = await fs.stat(filePath);
             const lastLinked = cache[file] || 0;
 
@@ -339,10 +365,10 @@ ${oldContent.trim()}
         indexContent += `| :--- | :--- | :--- | :--- |\n`;
 
         for (const file of files) {
-            const filePath = path.join(this.knowledgePath, file);
+            const filePath = path.join(this.memoryPath, file);
             const content = await fs.readFile(filePath, 'utf8');
             const stats = await fs.stat(filePath);
-            const rack = path.dirname(file) === '.' ? 'root' : path.dirname(file);
+            const rack = path.dirname(file) === '.' ? 'root' : path.dirname(file).replace(/\\/g, '/');
             const size = (stats.size / 1024).toFixed(1);
             const updated = stats.mtime.toLocaleDateString();
 
@@ -362,10 +388,10 @@ ${oldContent.trim()}
             });
         }
 
-        const indexPath = path.join(this.knowledgePath, 'NEXUS_HUB_INDEX.md');
+        const indexPath = path.join(this.memoryPath, 'INDEX.md');
         await fs.writeFile(indexPath, indexContent);
 
-        const semanticPath = path.join(this.knowledgePath, 'NEXUS_SEMANTIC_INDEX.json');
+        const semanticPath = path.join(this.memoryPath, 'operational', 'indexes', 'semantic_tag_index.json');
         await fs.writeJson(semanticPath, semanticData, { spaces: 2 });
 
         console.log(`   ✅ HUB Master Index & Semantic JSON generated.`);
@@ -379,7 +405,7 @@ ${oldContent.trim()}
         let connections = 0;
 
         for (const file of files) {
-            const filePath = path.join(this.knowledgePath, file);
+            const filePath = path.join(this.memoryPath, file);
             const content = await fs.readFile(filePath, 'utf8');
             const nodeName = path.basename(file).replace(this.prefix, '').replace('.md', '').replace(/-/g, '_');
             
@@ -402,7 +428,7 @@ ${oldContent.trim()}
             }
         }
 
-        const mapPath = path.join(this.knowledgePath, 'NEXUS_NEURAL_MAP.md');
+        const mapPath = path.join(this.memoryPath, 'INDEX_NEURAL_MAP.md');
         const finalContent = `# 🧠 NEXUS AI: Neural Knowledge Map\n\n\`\`\`mermaid\n${mermaid}\`\`\`\n\n> **Stats**: ${files.length} Nodes | ${connections} Connections | **Generated**: ${NexusClock.getLocalTimestamp()}\n`;
         
         await fs.writeFile(mapPath, finalContent);

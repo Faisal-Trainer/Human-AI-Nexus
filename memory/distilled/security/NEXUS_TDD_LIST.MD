@@ -1,5 +1,5 @@
 # Nexus TDD (Test-Driven Development) List
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 ## 🛡️ TDD Guardrail Exemption & Backlog
@@ -13,7 +13,7 @@ Jika Anda ingin agen AI mengabaikan aturan TDD untuk file tertentu, atau Anda in
 Tuliskan nama file atau path yang diizinkan untuk dimodifikasi oleh AI tanpa harus diblokir oleh TDDGuard:
 
 - `.gitignore`
-- `README.md`
+- `[README.md](../vcs/NEXUS_README.MD)`
 - `database/database.sqlite`
 - `package.json`
 - `vite.config.js`

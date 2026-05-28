@@ -206,9 +206,7 @@ class ImplementationPhase extends BasePhase {
       .update(prompt + taskType)
       .digest("hex");
     const cacheDir = path.join(
-      __dirname,
-      "..",
-      "..",
+      this.engine.rootPath,
       "memory",
       "cache",
       "generated_code",

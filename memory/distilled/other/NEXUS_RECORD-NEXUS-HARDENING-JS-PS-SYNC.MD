@@ -1,4 +1,7 @@
 # 📑 RECORD: Sinkronisasi Hardening Engine (JS & PowerShell)
+> **VERSION**: v1 | **Last Updated**: 28/05/2026
+
+
 
 | Detail | Deskripsi |
 | :--- | :--- |
@@ -21,7 +24,7 @@ Berdasarkan analisis risiko sebelumnya (REC-NEXUS-MNG-001), ditemukan celah keam
 *   **After**: 
     *   Penambahan fungsi `updateGitignore` untuk injeksi otomatis entri `nexus/`.
     *   Pembuatan file `.htaccess` berisi `Deny from all` di root folder Nexus.
-    *   Penyalinan `README.md` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/`.
+    *   Penyalinan `[README.md](../vcs/NEXUS_README.MD)` dan `ALGORITMA_INTEGRASI.md` ke dalam folder `nexus/`.
 
 ### 2.2 Perubahan pada `install.ps1` (PowerShell Script)
 *   **Before**: Script hanya mengunduh dan mengekstrak ZIP repo tanpa pengamanan tambahan.
@@ -40,7 +43,7 @@ project-root/
 ├── ALGORITMA_INTEGRASI.md (Optional Root Copy)
 └── nexus/
     ├── .htaccess (Security Barrier)
-    ├── README.md (Self-Contained Guide)
+    ├── [README.md](../vcs/NEXUS_README.MD) (Self-Contained Guide)
     ├── ALGORITMA_INTEGRASI.md (Self-Contained Guide)
     ├── agent/
     ├── workflow/

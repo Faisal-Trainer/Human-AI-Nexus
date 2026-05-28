@@ -1,5 +1,5 @@
 # 🔬 NEXUS Pipeline — Extreme Performance Scan & Optimization Roadmap
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 
@@ -197,7 +197,7 @@ async bootstrapApplication() {
 
 **Lokasi**: `NexusEngine.js` baris 359-445
 
-**Masalah**: Blueprint di-generate ulang via Ollama untuk setiap proyek, meskipun README.md hanya berisi nama proyek dan tags yang bisa di-derive secara deterministik.
+**Masalah**: Blueprint di-generate ulang via Ollama untuk setiap proyek, meskipun [README.md](../vcs/NEXUS_README.MD) hanya berisi nama proyek dan tags yang bisa di-derive secara deterministik.
 
 **Solusi**: Buat lookup table `blueprintRegistry` yang memetakan `project-name + tags` → blueprint JSON. Ollama hanya dipanggil jika kombinasi belum pernah dilihat.
 

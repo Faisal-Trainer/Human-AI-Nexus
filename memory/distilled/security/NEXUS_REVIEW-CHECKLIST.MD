@@ -1,5 +1,5 @@
 # Pre-Publish Review Checklist
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
+> **VERSION**: v2 | **Last Updated**: 28/05/2026
 
 
 
@@ -17,7 +17,7 @@ corresponds to a common rejection reason or publishing failure.
 - [ ] **Description in manifest ≤ 132 chars** — This is the short description shown in
       chrome://extensions. It should match or be close to your CWS short description.
 - [ ] **No unnecessary files in ZIP** — Exclude: `.git/`, `node_modules/`, `.env`,
-      `*.map`, test files, build configs, `CHROMEWEBSTORE.md` itself, `README.md`,
+      `*.map`, test files, build configs, `CHROMEWEBSTORE.md` itself, `[README.md](../vcs/NEXUS_README.MD)`,
       `.DS_Store`, `thumbs.db`. Use a build script or `.cws-ignore`-style exclusion.
 - [ ] **ZIP under 2GB** — Maximum package size. Most extensions should be under 10MB.
 - [ ] **No absolute file paths** — All paths in manifest.json must be relative.
@@ -134,7 +134,7 @@ zip -r "$OUTPUT" . \
   -x "vite.config.*" \
   -x "rollup.config.*" \
   -x "CHROMEWEBSTORE.md" \
-  -x "README.md" \
+  -x "[README.md](../vcs/NEXUS_README.MD)" \
   -x "CHANGELOG.md" \
   -x ".DS_Store" \
   -x "Thumbs.db" \

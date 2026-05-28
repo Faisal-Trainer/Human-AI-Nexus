@@ -359,7 +359,7 @@ class SemanticEngine {
         const response = await axios.post(`${this.baseUrl}/embeddings`, {
             model: this.ollamaModel,
             prompt: text
-        }, { timeout: 5000 }); // 5 second timeout to prevent hanging
+        }, { timeout: 60000 }); // 60 second timeout to prevent hanging
         this.ollamaFailures = 0;
         return response.data.embedding;
     } catch (e) {

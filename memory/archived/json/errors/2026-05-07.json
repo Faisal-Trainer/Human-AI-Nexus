@@ -1,0 +1,68 @@
+[
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:09:37.158Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141376851",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 1/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  },
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:09:37.341Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141376851",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 1/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  },
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:09:37.926Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141376851",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 2/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  },
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:10:27.760Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141427403-8snvi",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 1/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  },
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:10:27.975Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141427402-ceknu",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 1/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  },
+  {
+    "trace_id": "N/A",
+    "timestamp": "2026-05-07T08:10:28.163Z",
+    "level": "WARNING",
+    "agent": "Orchestrator",
+    "task_id": "TASK-1778141427402-ceknu",
+    "duration_ms": 0,
+    "event": "RETRY",
+    "message": "Retry 2/3 for dummy-agent: Simulated random failure",
+    "metadata": {}
+  }
+]

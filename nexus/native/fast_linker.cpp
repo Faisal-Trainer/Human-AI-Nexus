@@ -15,6 +15,17 @@ struct KnowledgeNode {
     std::string keyword;
 };
 
+std::string escape_regex(const std::string& str) {
+    std::string result;
+    for (char c : str) {
+        if (std::string(".^$|()*+?{}[]\\").find(c) != std::string::npos) {
+            result += "\\";
+        }
+        result += c;
+    }
+    return result;
+}
+
 std::string get_relative_path(const fs::path& from, const fs::path& to) {
     fs::path rel = fs::relative(to.parent_path(), from.parent_path());
     fs::path result = rel / to.filename();
@@ -71,16 +82,44 @@ int main(int argc, char* argv[]) {
             });
             if (it == nodes.end() || it->path == node.path) continue;
 
-            // Simple regex check: avoid linking if already linked or inside a link
-            // C++ std::regex is slower than PCRE but enough for this
-            std::regex linkRegex("(?<!\\[)\\b" + kw + "\\b(?![\\]\\(])", std::regex_constants::icase);
+            // Escape regex special characters in keyword
+            std::string escapedKw = escape_regex(kw);
             
-            if (std::regex_search(content, linkRegex)) {
-                std::string relPath = get_relative_path(fs::path(node.path), fs::path(it->path));
-                if (content.find("](" + relPath + ")") == std::string::npos) {
-                    content = std::regex_replace(content, linkRegex, "[" + kw + "](" + relPath + ")");
-                    modified = true;
+            // Standard C++ regex doesn't support lookbehinds like (?<!\[), so we check manually.
+            std::regex linkRegex("\\b" + escapedKw + "\\b", std::regex_constants::icase);
+            
+            std::sregex_iterator next(content.begin(), content.end(), linkRegex);
+            std::sregex_iterator end;
+            bool localModified = false;
+            
+            std::string newContent = "";
+            size_t lastPos = 0;
+
+            while (next != end) {
+                std::smatch match = *next;
+                size_t pos = match.position();
+                
+                // Manually check if it's already inside a link (e.g. preceded by '[' or followed by ']')
+                bool insideLink = false;
+                if (pos > 0 && content[pos - 1] == '[') insideLink = true;
+                if (pos + match.length() < content.length() && content[pos + match.length()] == ']') insideLink = true;
+
+                if (!insideLink) {
+                    std::string relPath = get_relative_path(fs::path(node.path), fs::path(it->path));
+                    newContent += content.substr(lastPos, pos - lastPos);
+                    newContent += "[" + match.str() + "](" + relPath + ")";
+                    lastPos = pos + match.length();
+                    localModified = true;
+                } else {
+                    newContent += content.substr(lastPos, pos + match.length() - lastPos);
+                    lastPos = pos + match.length();
                 }
+                next++;
+            }
+            if (localModified) {
+                newContent += content.substr(lastPos);
+                content = newContent;
+                modified = true;
             }
         }
 

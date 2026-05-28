@@ -1,0 +1,200 @@
+[
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:54.629Z",
+    "level": "INFO",
+    "agent": "ux-engineer",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 180ms",
+    "duration_ms": 180,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:54.655Z",
+    "level": "INFO",
+    "agent": "seo-performance-specialist",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 216ms",
+    "duration_ms": 216,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:55.015Z",
+    "level": "INFO",
+    "agent": "documentation-architect",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 832ms",
+    "duration_ms": 832,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:55.041Z",
+    "level": "INFO",
+    "agent": "cyber-security",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 938ms",
+    "duration_ms": 938,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:55.101Z",
+    "level": "INFO",
+    "agent": "database-architect",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 1345ms",
+    "duration_ms": 1345,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778404793729",
+    "timestamp": "2026-05-10T09:19:57.393Z",
+    "level": "INFO",
+    "agent": "vcs-architect",
+    "task_id": "AUDIT-1778404793734",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 3635ms",
+    "duration_ms": 3635,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:00.774+08:00",
+    "level": "INFO",
+    "agent": "ux-engineer",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 322ms",
+    "duration_ms": 322,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:00.822+08:00",
+    "level": "INFO",
+    "agent": "seo-performance-specialist",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 671ms",
+    "duration_ms": 671,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:01.430+08:00",
+    "level": "INFO",
+    "agent": "documentation-architect",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 1247ms",
+    "duration_ms": 1247,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:01.522+08:00",
+    "level": "INFO",
+    "agent": "cyber-security",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 2034ms",
+    "duration_ms": 2034,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:01.687+08:00",
+    "level": "INFO",
+    "agent": "database-architect",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 2294ms",
+    "duration_ms": 2294,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778405399023",
+    "timestamp": "2026-05-10T10:30:02.573+08:00",
+    "level": "INFO",
+    "agent": "vcs-architect",
+    "task_id": "AUDIT-1778405399034",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 3182ms",
+    "duration_ms": 3182,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:50.690+08:00",
+    "level": "INFO",
+    "agent": "ux-engineer",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 371ms",
+    "duration_ms": 371,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:50.718+08:00",
+    "level": "INFO",
+    "agent": "seo-performance-specialist",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 639ms",
+    "duration_ms": 639,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:50.930+08:00",
+    "level": "INFO",
+    "agent": "cyber-security",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 772ms",
+    "duration_ms": 772,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:50.965+08:00",
+    "level": "INFO",
+    "agent": "documentation-architect",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 423ms",
+    "duration_ms": 423,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:51.072+08:00",
+    "level": "INFO",
+    "agent": "database-architect",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 1003ms",
+    "duration_ms": 1003,
+    "metadata": {}
+  },
+  {
+    "trace_id": "CORR-1778406829380",
+    "timestamp": "2026-05-10T10:53:51.898+08:00",
+    "level": "INFO",
+    "agent": "vcs-architect",
+    "task_id": "AUDIT-1778406829388",
+    "event": "AGENT_PROFILED",
+    "message": "Completed in 2469ms",
+    "duration_ms": 2469,
+    "metadata": {}
+  }
+]

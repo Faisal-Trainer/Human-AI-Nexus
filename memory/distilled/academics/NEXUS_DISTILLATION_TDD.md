@@ -7,7 +7,7 @@
 > **Origin**: `ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v5 | **Last Updated**: 28/05/2026
+> **VERSION**: v6 | **Last Updated**: 5/28/2026
 
 Scroll-state container queries allow you to style elements based on their current scroll state, such as whether an element is "stuck" (via sticky positioning) or "snapped" (via scroll snapping). This enables carousel or gallery experiences where the active item can be visually distinguished without relying on JavaScript intersection observers or scroll event listeners.
 
@@ -422,6 +422,91 @@ This plan addresses the critical bugs, architectural redundancies, and repositor
 ---
 ### 📄 Asset Bundling (Vite)
 > **Origin**: `distilled/ui-ux/NEXUS_VITE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VITE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 TDD WISDOM DISTILLATION [v9787] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Core implementation
+> **Origin**: `distilled/ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_COMPLEX-SHAPES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Export HTML content from canvas
+> **Origin**: `distilled/ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Modeling Partial Time Concepts with Temporal
+> **Origin**: `distilled/ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Steps
+> **Origin**: `distilled/ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Processes
+> **Origin**: `distilled/ui-ux/NEXUS_PROCESSES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PROCESSES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+> **Origin**: `distilled/ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZATION_PLAN.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Asset Bundling (Vite)
+> **Origin**: `distilled/ui-ux/NEXUS_VITE.MD` | **Distilled At**: 5/28/2026
 
 
 

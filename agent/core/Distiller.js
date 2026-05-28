@@ -25,7 +25,7 @@ class Distiller {
         const normalizedPath = this.memoryPath.replace(/\\/g, '/');
         return fg.sync('**/*.{md,MD}', { 
             cwd: normalizedPath, 
-            ignore: ['INDEX.md', 'NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md', 'INDEX_NEURAL_MAP.md', 'short_term/**', 'cache/**', 'operational/indexes/**'],
+            ignore: ['INDEX.md', 'NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md', 'INDEX_NEURAL_MAP.md', 'short_term/**', 'cache/**', 'operational/indexes/**', 'references/**'],
             onlyFiles: true 
         });
     }
@@ -74,6 +74,88 @@ ${oldContent.trim()}
                     await fs.remove(oldPath);
                     console.log(`   🔄 Multi-Option Merge: ${basename} into ${newBasename}`);
                 }
+            }
+        }
+    }
+
+    /**
+     * Distill JSON agent logs from logs/agents/ into Markdown audit reports.
+     */
+    async distillJSONLogs() {
+        console.log('📊 Distiller: Distilling JSON Agent Logs into Audit Reports...');
+        const fg = require('fast-glob');
+        const logsDir = path.join(this._rootPath, 'logs', 'agents');
+        
+        if (!(await fs.pathExists(logsDir))) return;
+        
+        const jsonFiles = fg.sync('*.json', { cwd: logsDir, onlyFiles: true });
+        
+        for (const file of jsonFiles) {
+            const filePath = path.join(logsDir, file);
+            let logs;
+            try {
+                logs = await fs.readJson(filePath);
+            } catch (e) {
+                console.warn(`   ⚠️ Failed to read ${file}: ${e.message}`);
+                continue;
+            }
+            
+            if (!Array.isArray(logs) || logs.length === 0) continue;
+            
+            const timestamp = new Date().toLocaleDateString();
+            const dateStr = path.basename(file, '.json');
+            
+            let mdContent = `# 📊 NEXUS AGENT PERFORMANCE LOG: ${dateStr}\n`;
+            mdContent += `> **Protocol**: Autonomous Log Distillation | **Source**: \`logs/agents/${file}\` | **Distilled At**: ${timestamp}\n\n`;
+            
+            // Group by trace_id
+            const traces = {};
+            for (const log of logs) {
+                if (!log.trace_id) continue;
+                if (!traces[log.trace_id]) traces[log.trace_id] = [];
+                traces[log.trace_id].push(log);
+            }
+            
+            let totalAgents = new Set();
+            let fastestAgent = { agent: '-', duration: Infinity };
+            let slowestAgent = { agent: '-', duration: 0 };
+            let totalDuration = 0;
+            let logCount = 0;
+            
+            for (const [traceId, events] of Object.entries(traces)) {
+                mdContent += `## ⏱️ Trace: \`${traceId}\`\n`;
+                let traceDuration = 0;
+                for (const event of events) {
+                    if (event.duration_ms !== undefined) {
+                        mdContent += `- **${event.agent || 'Unknown'}**: ${event.duration_ms}ms\n`;
+                        if (event.agent) totalAgents.add(event.agent);
+                        traceDuration += event.duration_ms;
+                        totalDuration += event.duration_ms;
+                        logCount++;
+                        
+                        if (event.duration_ms < fastestAgent.duration) fastestAgent = { agent: event.agent, duration: event.duration_ms };
+                        if (event.duration_ms > slowestAgent.duration) slowestAgent = { agent: event.agent, duration: event.duration_ms };
+                    }
+                }
+                mdContent += `- **Total Trace Duration**: ${traceDuration}ms\n\n`;
+            }
+            
+            mdContent += `## 📈 Performance Summary\n`;
+            mdContent += `- **Total Agents Involved**: ${totalAgents.size}\n`;
+            mdContent += `- **Total Log Entries Processed**: ${logCount}\n`;
+            mdContent += `- **Total Combined Execution Time**: ${totalDuration}ms\n`;
+            mdContent += `- **Fastest Agent**: ${fastestAgent.agent} (${fastestAgent.duration === Infinity ? 0 : fastestAgent.duration}ms)\n`;
+            mdContent += `- **Slowest Agent**: ${slowestAgent.agent} (${slowestAgent.duration}ms)\n\n`;
+            
+            const targetPath = path.join(this.knowledgePath, 'audit', `NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
+            await fs.ensureDir(path.dirname(targetPath));
+            
+            const existing = (await fs.pathExists(targetPath)) ? await fs.readFile(targetPath, 'utf8') : '';
+            // Only update if it doesn't already exist or if we want to overwrite it.
+            // Using updateVersionHeader will merge or update.
+            await this.updateVersionHeader(targetPath, existing ? existing : mdContent);
+            if (!existing) {
+                console.log(`   ✅ Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
             }
         }
     }
@@ -181,9 +263,8 @@ ${oldContent.trim()}
         const files = this.getFiles();
         
         const VALID_RACKS = new Set([
-            'standards', 'security', 'database', 'ui-ux', 'performance',
-            'tdd', 'vcs', 'saas', 'api', 'laravel', 'other',
-            'academics', 'planning', 'audit', 'core', 'frontend', 'devops'
+            'core', 'laravel', 'frontend', 'api', 'database', 'security', 
+            'tdd', 'devops', 'performance', 'planning', 'audit', 'academics'
         ]);
 
         for (const file of files) {
@@ -435,6 +516,7 @@ ${oldContent.trim()}
     }
 
     async run() {
+        await this.distillJSONLogs();
         await this.distillAcademics();
         await this.standardizeNames();
         await this.applySemanticTagging();

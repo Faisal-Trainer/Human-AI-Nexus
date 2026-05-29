@@ -1263,7 +1263,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v9 | **Last Updated**: 5/28/2026
+> **VERSION**: v15 | **Last Updated**: 5/29/2026
 
 
 
@@ -1410,6 +1410,96 @@ Other Color DatasetsMunroe‘s
 
 ### 📄 Colorization Through Text-based Palette
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
 
 
@@ -1957,7 +2047,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v13 | **Last Updated**: 5/28/2026
+> **VERSION**: v19 | **Last Updated**: 5/29/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5303,6 +5393,156 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD
 
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -6748,177 +6988,6 @@ correspond to the color; its RGB parameters; its HEX triplet value; and finally,
 As it is, ImageMagick has mapped 388,577 colors. Most of them contribute little to the
 overall image, corresponding to less than 100 pixels out of 1,906,128. This is because,
 ```
-for example, a color characterized in RGB parameters as (224, 111, 232) is different from
-```
-```
-(224, 108, 232). Although they are hardly noticeable, ImageMagick considers them as
-```
-different and therefore counts them as separate entries.
-13 Code presented by user chas_prinz on Reddit https://www.reddit.com/r/GIMP/
-comments/rn8fyn/getting_colour_percentages_for_a_colour_indexed/
-14 sRGB, or standard RGB, is a color space created in 1996 by Microsoft and Hewlett-
-```
-Packard Company (RHYNE, 2017, p. 40).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2048
-So we can use index colors to Reduce the number of colors and group these similar colors.
-We will now use 256 colors. Although the document is clearer this way, it can still be
-cumbersome to read.
-To better analyze and organize the data, both on an RGB and index color basis, we can use
-Microsoft Excel. First, we can open the file in a text editor, use the Find and Replace function
-```
-(Ctrl+F), go to the Replace tab, and replace all “:” (colon) with nothing (leave “Replace
-```
-```
-with” blank15). When we copy and paste the text lines, Excel will automatically divide them
-```
-into different rows. We recommend leaving the first row blank. If the pasted data is in a
-single column, we can select all the rows and go to Data → Text to Columns. We first select
-Delimited, then click Next. Select “Space” from the Delimiters menu and then click Next and
-Finish. Excel will automatically split the data into columns. In the first row, we can now label
-```
-each column (e.g. “Number of Pixels”, “RGB”, “HEX”, etc.). Select the labels and go to Data
-```
-→ Filter. Excel now allows the researcher to filter the data, for example, by highest to lowest
-pixel count. This allows the researcher to determine, for example, which colors are dominant
-in the composition and better analyze the use of color in the image.
-15 We can also use the find and replace function on Microsoft Excel. However, Excel
-can incorrectly interpret the colon due to how to software reads data. It will then change
-the data shown.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2049
-In our example, we can see that in the index colors, the following are the five most common
-```
-colors in the image: (16,7,5), (14,20,4), (0,0,0), (34,22,8), (217,170,0). Excel can automatically
-```
-sum the selected values. If we select the number of pixel values for these five colors, Excel
-will show in the lower right corner that they total 50,432 pixels. If we then select the entire
-column, Excel displays 1,906,128, the same number shown by GIMP. Using these values, we
-can see that the five predominant colors account for about 2.6% of the entire image.
-We can then import this data into GIMP and create a palette for the dominant colors. Here
-we will select the 24 dominant colors from the image. First, we write a header in software
-like Notepad++ as follows:
-GIMP Palette
-#
-After the hashtag, we need to insert the RGB values of the colors. These values must not
-be between parentheses and must be separated by a comma and a space. To speed up the
-process, we can use Find and Replace to remove the parentheses and replace the commas
-```
-(,) with a comma + space (, ).
-```
-We can then import this file into GIMP using the Import palette... menu but instead of
-choosing an image as the source, we choose a palette file.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2050
-By default, GIMP arranges the colors from left to right according to their order in the txt.
-file. In this way, we get a visual representation of the colors by which occur most often.
-```
-Source: Created by the authors.
-```
-Color theory and software such as GIMP and ImageMagick can
-greatly enhance color analysis from a social-semiotic perspective. The
-categories presented here are consistent with Kress and van Leeuwen’s
-approach, both in their names and in their descriptions. Thus, rather than
-creating new categories from scratch, we will use Rhyne’s contributions
-to better adapt the features for digital color analysis in Table 14:
-Table 14 – Color distinctive features revised
-Distinctive
-feature Description
-Value
-```
-Refers to the scale from pure black (0% in HSV color space) to pure
-```
-```
-light (100% in HSV color space) (Rhyne, 2017, p. 62, Kress; Van
-```
-```
-Leeuwen, 2021, p. 245).
-```
-Saturation
-```
-Refers to the scale from pure colors (our hues) to neutral gray. On the
-```
-color wheel, the most saturated colors are in the outer region. It is one
-of the parameters in both HSV and HSL color spaces and scales from
-```
-0% (no dominance) to 100% (pure color) (Rhyne, 2017, p. 61, Kress;
-```
-```
-Van Leeuwen, 2021, p. 245).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2051
-Distinctive
-feature Description
-Purity
-Refers to a scale between the use of a single color and its hues,
-```
-tints, tones, and shades (purity or monochromaticity) and a variety
-```
-```
-of analogous colors (hybridity) (Rhyne, 2017, p. 86, Kress; Van
-```
-```
-Leeuwen, 2021, p. 245).
-```
-Modulation
-Refers to the degree of monochromatic modulation, i.e., the use of a
-register within a color or its variety of hues, tints, tones, and shades
-```
-(Rhyne, 2017, p. 86, Kress; Van Leeuwen, 2021, p. 245).
-```
-Transparency
-Refers to the scale from transparency to opacity. For some image
-```
-extensions (e.g., png.), transparency can be quantified by alpha levels. For
-```
-```
-others, we detect it by color overlap (Kress; Van Leeuwen, 2021, p. 246).
-```
-```
-Luminosity (or
-```
-```
-Lightness)
-```
-Refers to the degree of brightness of a color. In HSL color space,
-```
-Lightness varies with Saturation from 0% (pure black) to 100% (presence
-```
-```
-of color) (Rhyne, 2017, p. 62, Kress; Van Leeuwen, 2021, p. 246-7).
-```
-```
-Differentiation Refers to the scale from monochrome registers to a full range of colorsand harmonies (Rhyne, 2017, p. 86, Kress; Van Leeuwen, 2021, p. 247).
-```
-Hue
-Hue in HSV and HSL color spaces varies in a 360-degree wheel,
-with 0/360 being Red. Hue can also be represented by its RGB
-configuration, i.e., how much Red, Green, and Blue are in the color.
-Finally, it can also be represented as a HEX triplet, which represents
-```
-the RGB values in a hexadecimal format (Rhyne, 2017, p. 61, 66).
-```
-```
-Source: Created by the authors.
-```
-5 Case study: color analysis of two stock images
-We will comparatively analyze two images to demonstrate the
-methods presented here and discuss the potential for meaning in colors.
-We will again draw on the Microsoft 365 image database. We searched for
-the keywords “Europe” and “Africa” and obtained the results in Figure 8:
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2052
-Figure 8 – Stock image for “Europe” and “Africa”
-```
-Source: Microsoft (2023).
-```
-Searching for “Europe” yields 11 images, while searching for
-“Africa” yields eight images. An important difference between the results
-```
-is the nature of the participants (Kress; Van Leeuwen, 2021, p. 45, p.
-```
-```
-113-5): Europe is represented by people, cityscapes, natural landscapes,
-```
-and animals, while Africa is represented mainly by animals and natural
-landscapes.
-Although the sample size is small, thi
+for example, a color characteri
 
 ...[truncated]

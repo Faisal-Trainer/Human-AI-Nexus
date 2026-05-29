@@ -1619,7 +1619,7 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v9 | **Last Updated**: 5/28/2026
+> **VERSION**: v15 | **Last Updated**: 5/29/2026
 
 
 
@@ -1775,9 +1775,99 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 DATABASE WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_OTHER.MD
 
-> **VERSION**: v7 | **Last Updated**: 5/28/2026
+> **VERSION**: v13 | **Last Updated**: 5/29/2026
 
 
 
@@ -1870,6 +1960,96 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 OTHER WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_PERFORMANCE.MD
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -1909,7 +2089,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v12 | **Last Updated**: 5/28/2026
+> **VERSION**: v18 | **Last Updated**: 5/29/2026
 
 
 
@@ -2175,6 +2355,96 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
 
 
@@ -2722,7 +2992,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v13 | **Last Updated**: 5/28/2026
+> **VERSION**: v19 | **Last Updated**: 5/29/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6068,6 +6338,156 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -7112,399 +7532,6 @@ The devtools page runs ONLY when DevTools is open. It's invisible — its job is
 `devtools/devtools.js`:
 ```js
 chrome.devtools.panels.create(
-  'My Panel',                    // Title shown in DevTools tab
-  'icons/icon-16.png',           // Icon (optional, can be empty string)
-  'devtools/panel/panel.html',   // Panel content page — RELATIVE TO EXTENSION ROOT
-  (panel) => {
-    // panel.onShown.addListener((window) => { ... });
-    // panel.onHidden.addListener(() => { ... });
-  }
-);
-```
-
-**CRITICAL: The panel path is relative to the extension root**, NOT relative to the devtools.js
-file. This is the most common DevTools extension bug.
-
-```js
-// ❌ WRONG — resolves to <ext-root>/panel/panel.html (file not found)
-chrome.devtools.panels.create("My Panel", "", "panel/panel.html");
-
-// ✅ CORRECT — resolves to <ext-root>/devtools/panel/panel.html
-chrome.devtools.panels.create("My Panel", "", "devtools/panel/panel.html");
-```
-
-## Panel Content
-
-`devtools/panel/panel.html` is a regular extension page with full chrome.* API access.
-
-## Accessing DevTools APIs
-
-Only available in the devtools page and panels:
-
-```js
-// Get inspected window's tab ID
-const tabId = chrome.devtools.inspectedWindow.tabId;
-
-// Evaluate JS in the inspected page
-chrome.devtools.inspectedWindow.eval('document.title', (result, isException) => {
-  console.log('Page title:', result);
-});
-
-// Monitor network requests
-chrome.devtools.network.onRequestFinished.addListener((request) => {
-  // request.request.url, request.response.status, etc.
-  // HAR entry format
-});
-
-// Get all captured requests
-chrome.devtools.network.getHAR((harLog) => {
-  harLog.entries.forEach((entry) => { /* process */ });
-});
-```
-
-## Communication Architecture
-
-DevTools pages/panels CANNOT directly talk to the service worker via `chrome.runtime.sendMessage`
-in all cases. Use a connection pattern:
-
-```js
-// In panel JS — connect to service worker
-const port = chrome.runtime.connect({ name: 'devtools-panel' });
-port.postMessage({ type: 'INIT', tabId: chrome.devtools.inspectedWindow.tabId });
-port.onMessage.addListener((msg) => { /* handle */ });
-
-// In service worker
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === 'devtools-panel') {
-    port.onMessage.addListener((msg) => { /* handle */ });
-  }
-});
-```
-
-## Important Notes
-
-- DevTools pages exist per-DevTools-window (one per inspected tab)
-- They are destroyed when DevTools closes
-- `chrome.devtools.*` APIs are ONLY available in the devtools page context, not in the service worker
-- Panels can inject scripts into the inspected page via `chrome.devtools.inspectedWindow.eval()`
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_MEDIA-CAPTURE.MD
-
-# Media Capture (Tab & Desktop)
-> **VERSION**: v2 | **Last Updated**: 26/05/2026
-
-
-
-## Choosing the Right API
-
-| Need | API |
-|------|-----|
-| Record the active tab's audio/video | `chrome.tabCapture.getMediaStreamId()` |
-| Let the user choose a screen, window, or tab | `chrome.desktopCapture.chooseDesktopMedia()` |
-
-Prefer `tabCapture` when you only need the current tab — it requires no user chooser dialog and
-no `"tabs"` permission. Use `desktopCapture` only when the user must select what to capture.
-
-## Tab Capture
-
-### Permissions
-
-```json
-{ "permissions": ["tabCapture"] }
-```
-
-### Pattern
-
-`chrome.tabCapture.getMediaStreamId()` runs in the **service worker** and returns a stream ID.
-The actual `getUserMedia()` call must happen in an **offscreen document** (the SW cannot access
-media streams directly).
-
-```js
-// service-worker.js
-chrome.action.onClicked.addListener(async (tab) => {
-  const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });
-  // Pass the ID to the offscreen document to call getUserMedia
-  await chrome.runtime.sendMessage({ type: 'START_CAPTURE', streamId });
-});
-
-// offscreen.js
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type !== 'START_CAPTURE') return;
-  (async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: { mandatory: { chromeMediaSource: 'tab', chromeMediaSourceId: msg.streamId } },
-      video: { mandatory: { chromeMediaSource: 'tab', chromeMediaSourceId: msg.streamId } }
-    });
-    const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-    // ... handle recorder events
-  })();
-});
-```
-
-## Desktop Capture
-
-### Permissions
-
-```json
-{ "permissions": ["tabs", "desktopCapture"] }
-```
-
-`"tabs"` is **required** — `chooseDesktopMedia` needs a `targetTab` with its `url` field
-populated, which requires the `"tabs"` permission.
-
-### Pattern
-
-```js
-// service-worker.js
-chrome.action.onClicked.addListener(async (tab) => {
-  // ❌ BROKEN — no targetTab
-  // chrome.desktopCapture.chooseDesktopMedia(['screen', 'window'], cb);
-
-  // ✅ CORRECT — pass the active tab
-  chrome.desktopCapture.chooseDesktopMedia(['screen', 'window', 'tab'], tab, (streamId) => {
-    if (!streamId) return; // User cancelled
-    // Send streamId to offscreen document for getUserMedia
-    chrome.runtime.sendMessage({ type: 'START_DESKTOP_CAPTURE', streamId });
-  });
-});
-```
-
-## State Locking — Prevent Double-Start Errors
-
-Both APIs fail if called while a previous capture is still active:
-- `tabCapture`: `"Cannot capture a tab with an active stream"`
-- `desktopCapture`: opens a second chooser dialog on top of the first
-
-Use a state machine stored in `chrome.storage.session` (survives service worker restarts,
-cleared on browser close):
-
-```js
-// State: 'idle' → 'starting' → 'recording' → 'stopping' → 'idle'
-chrome.action.onClicked.addListener(async (tab) => {
-  const { recordingState = 'idle' } = await chrome.storage.session.get('recordingState');
-
-  // Ignore clicks during transitions
-  if (recordingState === 'starting' || recordingState === 'stopping') return;
-
-  if (recordingState === 'idle') {
-    await chrome.storage.session.set({ recordingState: 'starting' });
-    try {
-      await startRecording(tab);
-      await chrome.storage.session.set({ recordingState: 'recording' });
-      await chrome.action.setBadgeText({ text: 'REC' });
-      await chrome.action.setBadgeBackgroundColor({ color: '#FF0000' });
-    } catch (err) {
-      console.error('Failed to start recording:', err);
-      await chrome.storage.session.set({ recordingState: 'idle' });
-    }
-  } else if (recordingState === 'recording') {
-    await chrome.storage.session.set({ recordingState: 'stopping' });
-    try { await stopRecording(); }
-    finally {
-      await chrome.storage.session.set({ recordingState: 'idle' });
-      await chrome.action.setBadgeText({ text: '' });
-    }
-  }
-});
-```
-
-This same pattern applies to `chrome.offscreen.createDocument` (only one offscreen document
-is allowed at a time) and any other API that manages an exclusive resource.
-
-## Saving Recordings
-
-Offscreen documents cannot call `chrome.downloads` — send the blob back to the service worker:
-
-```js
-// offscreen.js — when recording stops
-recorder.ondataavailable = (e) => chunks.push(e.data);
-recorder.onstop = async () => {
-  const blob = new Blob(chunks, { type: 'video/webm' });
-  const url = URL.createObjectURL(blob);
-  // Service worker handles the download
-  await chrome.runtime.sendMessage({ type: 'SAVE_RECORDING', url });
-};
-
-// service-worker.js
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type !== 'SAVE_RECORDING') return;
-  chrome.downloads.download({ url: msg.url, filename: 'recording.webm' });
-});
-```
-
-See `references/extensions/[message-passing.md](NEXUS_MESSAGE-PASSING.MD)` for the full offscreen document messaging pattern.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_MESSAGE-PASSING.MD
-
-# Message Passing
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-## Basic patterns
-
-### One-way message (fire and forget)
-
-```js
-// sender (popup, content script, etc.)
-chrome.runtime.sendMessage({ type: 'LOG', data: 'hello' });
-
-// receiver (service worker)
-chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message.type === 'LOG') console.log(message.data);
-});
-```
-
-### Request/response — IIFE + return true (most compatible)
-
-```js
-// sender
-const response = await chrome.runtime.sendMessage({ type: 'GET_DATA' });
-console.log(response.data);
-
-// receiver — IIFE keeps the channel open until sendResponse is called
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'GET_DATA') {
-    (async () => {
-      const data = await chrome.storage.local.get('key');
-      sendResponse({ data });
-    })();
-    return true; // REQUIRED — tells Chrome to keep the channel open
-  }
-});
-```
-
-### Request/response — return a Promise (Chrome 99+)
-
-Returning a Promise directly from the listener is now supported and cleaner than the IIFE pattern:
-
-```js
-chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message.type === 'GET_DATA') {
-    return chrome.storage.local.get('key'); // returned promise resolves the response
-  }
-  // Return nothing (or undefined) for messages this listener doesn't handle
-});
-```
-
-**Note:** Requires Chrome 99+, only use when minimum Chrome version is set to 99.
-**Note:** Do NOT mix the two styles. If you return a Promise, do NOT also call `sendResponse` or `return true`.
-
-## Content script ↔ service worker
-
-```js
-// content script → service worker
-const result = await chrome.runtime.sendMessage({ type: 'FETCH_DATA', url: location.href });
-
-// service worker → specific tab's content script
-await chrome.tabs.sendMessage(tabId, { type: 'HIGHLIGHT', selector: '.important' });
-```
-
-## Service worker → content script (targeted)
-
-Always check that the tab exists and the content script is injected:
-
-```js
-async function sendToContentScript(tabId, message) {
-  try {
-    return await chrome.tabs.sendMessage(tabId, message);
-  } catch (err) {
-    // Content script not injected yet, or tab navigated away
-    console.warn('Could not reach content script:', err.message);
-    return null;
-  }
-}
-```
-
-## Long-lived connections (ports)
-
-Use ports when you need a persistent channel (e.g., streaming data, DevTools panel):
-
-```js
-// opener (popup or content script)
-const port = chrome.runtime.connect({ name: 'my-channel' });
-port.postMessage({ type: 'START' });
-port.onMessage.addListener((msg) => console.log('received:', msg));
-port.onDisconnect.addListener(() => console.log('disconnected'));
-
-// receiver (service worker)
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name !== 'my-channel') return;
-  port.onMessage.addListener((msg) => {
-    if (msg.type === 'START') {
-      port.postMessage({ status: 'ok' });
-    }
-  });
-});
-```
-
-## Common mistakes
-
-### Missing `return true` causes response to never arrive
-
-```js
-// ❌ BROKEN — async work completes but channel is already closed
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  fetchSomething().then(data => sendResponse(data)); // too late
-  // missing: return true
-});
-
-// ✅ CORRECT
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  fetchSomething().then(data => sendResponse(data));
-  return true;
-});
-```
-
-### Sending to a tab before the content script is ready
-
-Content scripts are injected after the page loads. If the service worker sends a message immediately on `tabs.onUpdated`, the content script may not be listening yet. Use a handshake or retry:
-
-```js
-// content script — announce it's ready
-chrome.runtime.sendMessage({ type: 'CONTENT_READY' });
-
-// service worker — wait for CONTENT_READY before sending
-chrome.runtime.onMessage.addListener((msg, sender) => {
-  if (msg.type === 'CONTENT_READY' && sender.tab) {
-    chrome.tabs.sendMessage(sender.tab.id, { type: 'INIT_DATA', ... });
-  }
-});
-```
-
-### Multiple listeners responding
-
-Only one listener should respond to a given message type. If multiple listeners call `sendResponse`, only the first one wins and the rest are silently ignored.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_MIX.MD
-
-# Laravel Mix
-> **VERSION**: v2 | **Last Updated**: 27/05/2026
-
-
-
-- [Introduction](#introduction)
-
-<a name="introduction"></a>
-## Introduction
-
-> [!WARNING]
-> Laravel Mix is a legacy package that is no longer actively maintained. [Vite](/docs/{{version}}/vite) may be used as a modern alternative.
-
-[Laravel Mix](https://github.com/laravel-mix/laravel-mix), a package developed by [Laracasts](https://laracasts.com) creator Jeffrey Way, provides a fluent API for defining [webpack](https://webpack.js.org) build steps for your Laravel application using several common CSS and JavaScript pre-processors.
-
-
+  'My Panel',                    // Title shown in DevTools
 
 ...[truncated]

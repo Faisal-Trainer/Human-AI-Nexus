@@ -1816,7 +1816,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v13 | **Last Updated**: 5/28/2026
+> **VERSION**: v19 | **Last Updated**: 5/29/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5162,6 +5162,156 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1016] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2024] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v6900] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2990] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v4761] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1327] - 5/29/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD
 
 # 🎓 NEXUS SPECIALIST AUDIT: 10-LOOP DEEP SCAN
@@ -6711,89 +6861,6 @@ middle of the scale. Thus, we can see that Red and hues close to it (yellow, ora
 ```
 are substantially more saturated than other hues. This is due to the fact that, overall, red
 ```
-composition (closer to 255) is more prevalent than Green or Blue, a fact that may not be
-```
-easily discernible with mere perception.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2037
-Finally, in the lower area, we will find various statistics and other information. In Pixels,
-GIMP shows the number of pixels in the image, while Count shows how many pixels are in
-the selected area. Percentile refers to the percentage of pixels in the selected range.
-Median refers to the middle value in the selected range, while mean indicates the average
-value. Finally, Std dev refers to the standard deviation of the selected range or how
-```
-homogeneous the distribution of values in the selected range is (GIMP Documentation
-```
-```
-Team, 2023, s.p.), which can be used in research as an indicator of the color purity of the
-```
-composition.
-GIMP automatically converts its values to a number from 0 to 1, to the thousandth digit.
-These values represent the scale from 0 to 255 — the scale visually represented by the
-histogram. For example, 0.369 corresponds to 94.095 on a scale of 255, which means that
-```
-the RGB value of the image averages 94 (out of 255).
-```
-The standard deviation, simply put, indicates how much is the average dispersion from the
-mean. In our case, it is 0.296. If we were to plot the data on a graph, for example, we could
-```
-calculate one standard deviation below the mean (0.369 - 0.296 = 0.073) and one standard
-```
-```
-deviation above the mean (0.369 + 0.296 = 0.665), which would give us an interval of
-```
-0.073 ≤ x ≤ 0.665.
-Thus, the higher the standard deviation, the higher the hybridity of the colors, whether from
-```
-the total set (RGB) or for each channel individually.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2038
-```
-To visualize how each channel affects the image, we can use the Hue-Saturation tool (Colors
-```
-```
-→ Hue-Saturation...). The GIMP tool lets you edit the Hue, Lightness, and Saturation of
-```
-```
-the primary RGB colors and the complementary colors (Cyan, Magenta, and Yellow).
-```
-This allows us to locate areas of interest for each color. It should be noted, however, that
-depending on the colors used, we may also select colors that fall between a primary and
-a complementary color. In the image to the left, we desaturated all colors except for the
-Yellow hue, whose Saturation was set to maximum. This highlights the Yellow areas and
-some colors between Green and Yellow, and between Yellow and Red. If we do the same
-process but saturate Red and Green to the maximum, we can see how they relate to Yellow.
-```
-Source: Created by the authors.
-```
-The histogram can give us a quick overview of the image and
-its dominant channels. It can also be used in conjunction with the Select
-by color and the Fuzzy selection tools, both of which are included in
-the Toolbox. These tools allow us to select a specific color in the image:
-The first tool selects all instances of a particular color, while the second
-selects a delimited area where the color occurs. In the histogram, GIMP
-```
-shows how many pixels (both in count and percentile) are allotted to
-```
-the selected color. These tools also have a threshold option. By default,
-this is set to 0, which means the tool will only select the exact color we
-clicked on. If we increase the threshold, GIMP will average and select
-colors similar to the selected one, as shown in Table 10.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2039
-Table 10 – Select by color tool
-We have highlighted both tools in the figure above with a dark box. We can change them by
-right-clicking on their icons. The magic wand icon points to the Fuzzy selection tool, while
-the square icon points to the Select by Color tool.
-Both tools offer almost identical options. Relevant to this article is the threshold scale
-mentioned earlier and the drop-down menu directly below it. In it, the researcher can
-choose which parameter GIMP should use to select colors, such as Red, Green, and Blue
-values. By default, the “Composite” parameter is used, which takes into account the overall
-composition of the color.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2040
-When the Histogram tab is open, we can right-click on the image and go to Select →
-```
-All (Select all), which will select all pixels in the image. In our example, the image has
-```
-1,906,128 pixels.
-```
+composition (closer to 255) is more prevalent than Green or Blue, a
 
 ...[truncated]

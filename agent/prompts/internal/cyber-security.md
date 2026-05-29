@@ -1281,7 +1281,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v5 | **Last Updated**: 28/05/2026
+> **VERSION**: v13 | **Last Updated**: 5/28/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -2897,12 +2897,12 @@ action
 
 ---
 ### 📄 Consistent Cross-Document Transitions
-> **Origin**: `ui-ux/NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+> **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
 
 
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD)
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -3313,6 +3313,1316 @@ action
 
 #### 🔗 Traceability:
 - [Source Context](NEXUS_VIEWS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5766] - 28/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/[report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context]([report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Accessible Error Announcement
+> **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animated Select Picker
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animate to Intrinsic Sizes
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Apply WebGL shaders to HTML content
+> **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build an address form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a payment form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-in form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Brand-Consistent Forms
+> **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-up form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Branded Select Styling
+> **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Breaking up long tasks
+> **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing state-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Component-specific light/dark themes
+> **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Consistent Cross-Document Transitions
+> **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing content-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Custom Select Picker Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer rendering heavy content
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer Work Until Scroll Ends
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+> **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Steps
+> **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Efficient Background Processing
+> **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Faster SPA View Transitions via State Caching
+> **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FLUID-SCALING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Auto-sizing form controls
+> **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation steps
+> **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify heavy-running JavaScript
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify causes of poor INP
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve Text Layout and Legibility
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Optimizing Interactions in Complex Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Implementation Details
+> **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Use Cases
+> **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Show a tooltip when hovering
+> **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Moving an element with state
+> **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overflow Clipping Control
+> **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🛠 Implementation Plan: PLAN-1778479790742
+> **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Precise Text Alignment
+> **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Fallback strategies
+> **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Prevent text wrapping
+> **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Reduce Style Repetition with CSS Functions
+> **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Pull to Reveal
+> **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PULL-TO-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Required Field Feedback
+> **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Sandbox UI/UX Distilled Findings
+> **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Rich Media Picker (Customizable Select)
+> **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Scheduling tasks by priority
+> **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Select Menu Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Stabilize Reactive State with Temporal
+> **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Completion Summary:
+> **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Style Parent with :has()
+> **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Views
+> **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VIEWS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Validate Input After Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/[report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context]([report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9787] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Accessible Error Announcement
+> **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animated Select Picker
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animate to Intrinsic Sizes
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Apply WebGL shaders to HTML content
+> **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build an address form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a payment form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-in form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Brand-Consistent Forms
+> **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-up form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Breaking up long tasks
+> **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Branded Select Styling
+> **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing state-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Component-specific light/dark themes
+> **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing content-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Consistent Cross-Document Transitions
+> **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Custom Select Picker Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer rendering heavy content
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer Work Until Scroll Ends
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Steps
+> **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+> **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Efficient Background Processing
+> **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Faster SPA View Transitions via State Caching
+> **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FLUID-SCALING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Auto-sizing form controls
+> **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation steps
+> **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify heavy-running JavaScript
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify causes of poor INP
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve Text Layout and Legibility
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Optimizing Interactions in Complex Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Implementation Details
+> **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Use Cases
+> **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Show a tooltip when hovering
+> **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Moving an element with state
+> **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overflow Clipping Control
+> **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🛠 Implementation Plan: PLAN-1778479790742
+> **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Precise Text Alignment
+> **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Fallback strategies
+> **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Prevent text wrapping
+> **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Pull to Reveal
+> **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PULL-TO-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Reduce Style Repetition with CSS Functions
+> **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Required Field Feedback
+> **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Sandbox UI/UX Distilled Findings
+> **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Rich Media Picker (Customizable Select)
+> **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Scheduling tasks by priority
+> **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Select Menu Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Stabilize Reactive State with Temporal
+> **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Completion Summary:
+> **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Style Parent with :has()
+> **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Views
+> **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VIEWS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Validate Input After Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9584] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v3707] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v6131] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9098] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -6084,825 +7394,6 @@ As you can see in the example above, we will utilize Cashier's provided `checkou
 If necessary, the `checkout` method will automatically create a customer in Stripe and connect that Stripe customer record to the corresponding user in your application's database. After completing the checkout session, the customer will be redirected to a dedicated success or cancellation page where you can display an informational message to the customer.
 
 <a name="providing-meta-data-to-stripe-checkout"></a>
-#### Providing Meta Data to Stripe Checkout
-
-When selling products, it's common to keep track of completed orders and purchased products via `Cart` and `Order` models defined by your own application. When redirecting customers to Stripe Checkout to complete a purchase, you may need to provide an existing order identifier so that you can associate the completed purchase with the corresponding order when the customer is redirected back to your application.
-
-To accomplish this, you may provide an array of `metadata` to the `checkout` method. Let's imagine that a pending `Order` is created within our application when a user begins the checkout process. Remember, the `Cart` and `Order` models in this example are illustrative and not provided by Cashier. You are free to implement these concepts based on the needs of your own application:
-
-```php
-use App\Models\Cart;
-use App\Models\Order;
-use Illuminate\Http\Request;
-
-Route::get('/cart/{cart}/checkout', function (Request $request, Cart $cart) {
-    $order = Order::create([
-        'cart_id' => $cart->id,
-        'price_ids' => $cart->price_ids,
-        'status' => 'incomplete',
-    ]);
-
-    return $request->user()->checkout($order->price_ids, [
-        'success_url' => route('checkout-success').'?session_id={CHECKOUT_SESSION_ID}',
-        'cancel_url' => route('checkout-cancel'),
-        'metadata' => ['order_id' => $order->id],
-    ]);
-})->name('checkout');
-```
-
-As you can see in the example above, when a user begins the checkout process, we will provide all of the cart / order's associated Stripe price identifiers to the `checkout` method. Of course, your application is responsible for associating these items with the "shopping cart" or order as a customer adds them. We also provide the order's ID to the Stripe Checkout session via the `metadata` array. Finally, we have added the `CHECKOUT_SESSION_ID` template variable to the Checkout success route. When Stripe redirects customers back to your application, this template variable will automatically be populated with the Checkout session ID.
-
-Next, let's build the Checkout success route. This is the route that users will be redirected to after their purchase has been completed via Stripe Checkout. Within this route, we can retrieve the Stripe Checkout session ID and the associated Stripe Checkout instance in order to access our provided meta data and update our customer's order accordingly:
-
-```php
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Laravel\Cashier\Cashier;
-
-Route::get('/checkout/success', function (Request $request) {
-    $sessionId = $request->get('session_id');
-
-    if ($sessionId === null) {
-        return;
-    }
-
-    $session = Cashier::stripe()->checkout->sessions->retrieve($sessionId);
-
-    if ($session->payment_status !== 'paid') {
-        return;
-    }
-
-    $orderId = $session['metadata']['order_id'] ?? null;
-
-    $order = Order::findOrFail($orderId);
-
-    $order->update(['status' => 'completed']);
-
-    return view('checkout-success', ['order' => $order]);
-})->name('checkout-success');
-```
-
-Please refer to Stripe's documentation for more information on the [data contained by the Checkout session object](https://stripe.com/docs/api/checkout/sessions/object).
-
-<a name="quickstart-selling-subscriptions"></a>
-### Selling Subscriptions
-
-> [!NOTE]
-> Before utilizing Stripe Checkout, you should define Products with fixed prices in your Stripe dashboard. In addition, you should [configure Cashier's webhook handling](#handling-stripe-webhooks).
-
-Offering product and subscription billing via your application can be intimidating. However, thanks to Cashier and [Stripe Checkout](https://stripe.com/payments/checkout), you can easily build modern, robust payment integrations.
-
-To learn how to sell subscriptions using Cashier and Stripe Checkout, let's consider the simple scenario of a subscription service with a basic monthly (`price_basic_monthly`) and yearly (`price_basic_yearly`) plan. These two prices could be grouped under a "Basic" product (`pro_basic`) in our Stripe dashboard. In addition, our subscription service might offer an Expert plan as `pro_expert`.
-
-First, let's discover how a customer can subscribe to our services. Of course, you can imagine the customer might click a "subscribe" button for the Basic plan on our application's pricing page. This button or link should direct the user to a Laravel route which creates the Stripe Checkout session for their chosen plan:
-
-```php
-use Illuminate\Http\Request;
-
-Route::get('/subscription-checkout', function (Request $request) {
-    return $request->user()
-        ->newSubscription('default', 'price_basic_monthly')
-        ->trialDays(5)
-        ->allowPromotionCodes()
-        ->checkout([
-            'success_url' => route('your-success-route'),
-            'cancel_url' => route('your-cancel-route'),
-        ]);
-});
-```
-
-As you can see in the example above, we will redirect the customer to a Stripe Checkout session which will allow them to subscribe to our Basic plan. After a successful checkout or cancellation, the customer will be redirected back to the URL we provided to the `checkout` method. To know when their subscription has actually started (since some payment methods require a few seconds to process), we'll also need to [configure Cashier's webhook handling](#handling-stripe-webhooks).
-
-Now that customers can start subscriptions, we need to restrict certain portions of our application so that only subscribed users can access them. Of course, we can always determine a user's current subscription status via the `subscribed` method provided by Cashier's `Billable` trait:
-
-```blade
-@if ($user->subscribed())
-    <p>You are subscribed.</p>
-@endif
-```
-
-We can even easily determine if a user is subscribed to specific product or price:
-
-```blade
-@if ($user->subscribedToProduct('pro_basic'))
-    <p>You are subscribed to our Basic product.</p>
-@endif
-
-@if ($user->subscribedToPrice('price_basic_monthly'))
-    <p>You are subscribed to our monthly Basic plan.</p>
-@endif
-```
-
-<a name="quickstart-building-a-subscribed-middleware"></a>
-#### Building a Subscribed Middleware
-
-For convenience, you may wish to create a [middleware](/docs/{{version}}/middleware) which determines if the incoming request is from a subscribed user. Once this middleware has been defined, you may easily assign it to a route to prevent users that are not subscribed from accessing the route:
-
-```php
-<?php
-
-namespace App\Http\Middleware;
-
-use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class Subscribed
-{
-    /**
-     * Handle an incoming request.
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if (! $request->user()?->subscribed()) {
-            // Redirect user to billing page and ask them to subscribe...
-            return redirect('/billing');
-        }
-
-        return $next($request);
-    }
-}
-```
-
-Once the middleware has been defined, you may assign it to a route:
-
-```php
-use App\Http\Middleware\Subscribed;
-
-Route::get('/dashboard', function () {
-    // ...
-})->middleware([Subscribed::class]);
-```
-
-<a name="quickstart-allowing-customers-to-manage-their-billing-plan"></a>
-#### Allowing Customers to Manage Their Billing Plan
-
-Of course, customers may want to change their subscription plan to another product or "tier". The easiest way to allow this is by directing customers to Stripe's [Customer Billing Portal](https://stripe.com/docs/no-code/customer-portal), which provides a hosted user interface that allows customers to download invoices, update their payment method, and change subscription plans.
-
-First, define a link or button within your application that directs users to a Laravel route which we will utilize to initiate a Billing Portal session:
-
-```blade
-<a href="{{ route('billing') }}">
-    Billing
-</a>
-```
-
-Next, let's define the route that initiates a Stripe Customer Billing Portal session and redirects the user to the Portal. The `redirectToBillingPortal` method accepts the URL that users should be returned to when exiting the Portal:
-
-```php
-use Illuminate\Http\Request;
-
-Route::get('/billing', function (Request $request) {
-    return $request->user()->redirectToBillingPortal(route('dashboard'));
-})->middleware(['auth'])->name('billing');
-```
-
-> [!NOTE]
-> As long as you have configured Cashier's webhook handling, Cashier will automatically keep your application's Cashier-related database tables in sync by inspecting the incoming webhooks from Stripe. So, for example, when a user cancels their subscription via Stripe's Customer Billing Portal, Cashier will receive the corresponding webhook and mark the subscription as "canceled" in your application's database.
-
-<a name="customers"></a>
-## Customers
-
-<a name="retrieving-customers"></a>
-### Retrieving Customers
-
-You can retrieve a customer by their Stripe ID using the `Cashier::findBillable` method. This method will return an instance of the billable model:
-
-```php
-use Laravel\Cashier\Cashier;
-
-$user = Cashier::findBillable($stripeId);
-```
-
-<a name="creating-customers"></a>
-### Creating Customers
-
-Occasionally, you may wish to create a Stripe customer without beginning a subscription. You may accomplish this using the `createAsStripeCustomer` method:
-
-```php
-$stripeCustomer = $user->createAsStripeCustomer();
-```
-
-Once the customer has been created in Stripe, you may begin a subscription at a later date. You may provide an optional `$options` array to pass in any additional [customer creation parameters that are supported by the Stripe API](https://stripe.com/docs/api/customers/create):
-
-```php
-$stripeCustomer = $user->createAsStripeCustomer($options);
-```
-
-You may use the `asStripeCustomer` method if you want to return the Stripe customer object for a billable model:
-
-```php
-$stripeCustomer = $user->asStripeCustomer();
-```
-
-The `createOrGetStripeCustomer` method may be used if you would like to retrieve the Stripe customer object for a given billable model but are not sure whether the billable model is already a customer within Stripe. This method will create a new customer in Stripe if one does not already exist:
-
-```php
-$stripeCustomer = $user->createOrGetStripeCustomer();
-```
-
-<a name="updating-customers"></a>
-### Updating Customers
-
-Occasionally, you may wish to update the Stripe customer directly with additional information. You may accomplish this using the `updateStripeCustomer` method. This method accepts an array of [customer update options supported by the Stripe API](https://stripe.com/docs/api/customers/update):
-
-```php
-$stripeCustomer = $user->updateStripeCustomer($options);
-```
-
-<a name="balances"></a>
-### Balances
-
-Stripe allows you to credit or debit a customer's "balance". Later, this balance will be credited or debited on new invoices. To check the customer's total balance you may use the `balance` method that is available on your billable model. The `balance` method will return a formatted string representation of the balance in the customer's currency:
-
-```php
-$balance = $user->balance();
-```
-
-To credit a customer's balance, you may provide a value to the `creditBalance` method. If you wish, you may also provide a description:
-
-```php
-$user->creditBalance(500, 'Premium customer top-up.');
-```
-
-Providing a value to the `debitBalance` method will debit the customer's balance:
-
-```php
-$user->debitBalance(300, 'Bad usage penalty.');
-```
-
-The `applyBalance` method will create new customer balance transactions for the customer. You may retrieve these transaction records using the `balanceTransactions` method, which may be useful in order to provide a log of credits and debits for the customer to review:
-
-```php
-// Retrieve all transactions...
-$transactions = $user->balanceTransactions();
-
-foreach ($transactions as $transaction) {
-    // Transaction amount...
-    $amount = $transaction->amount(); // $2.31
-
-    // Retrieve the related invoice when available...
-    $invoice = $transaction->invoice();
-}
-```
-
-<a name="tax-ids"></a>
-### Tax IDs
-
-Cashier offers an easy way to manage a customer's tax IDs. For example, the `taxIds` method may be used to retrieve all of the [tax IDs](https://stripe.com/docs/api/customer_tax_ids/object) that are assigned to a customer as a collection:
-
-```php
-$taxIds = $user->taxIds();
-```
-
-You can also retrieve a specific tax ID for a customer by its identifier:
-
-```php
-$taxId = $user->findTaxId('txi_belgium');
-```
-
-You may create a new Tax ID by providing a valid [type](https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-type) and value to the `createTaxId` method:
-
-```php
-$taxId = $user->createTaxId('eu_vat', 'BE0123456789');
-```
-
-The `createTaxId` method will immediately add the VAT ID to the customer's account. [Verification of VAT IDs is also done by Stripe](https://stripe.com/docs/invoicing/customer/tax-ids#validation); however, this is an asynchronous process. You can be notified of verification updates by subscribing to the `customer.tax_id.updated` webhook event and inspecting [the VAT IDs `verification` parameter](https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-verification). For more information on handling webhooks, please consult the [documentation on defining webhook handlers](#handling-stripe-webhooks).
-
-You may delete a tax ID using the `deleteTaxId` method:
-
-```php
-$user->deleteTaxId('txi_belgium');
-```
-
-<a name="syncing-customer-data-with-stripe"></a>
-### Syncing Customer Data With Stripe
-
-Typically, when your application's users update their name, email address, or other information that is also stored by Stripe, you should inform Stripe of the updates. By doing so, Stripe's copy of the information will be in sync with your application's.
-
-To automate this, you may define an event listener on your billable model that reacts to the model's `updated` event. Then, within your event listener, you may invoke the `syncStripeCustomerDetails` method on the model:
-
-```php
-use App\Models\User;
-use function Illuminate\Events\queueable;
-
-/**
- * The "booted" method of the model.
- */
-protected static function booted(): void
-{
-    static::updated(queueable(function (User $customer) {
-        if ($customer->hasStripeId()) {
-            $customer->syncStripeCustomerDetails();
-        }
-    }));
-}
-```
-
-Now, every time your customer model is updated, its information will be synced with Stripe. For convenience, Cashier will automatically sync your customer's information with Stripe on the initial creation of the customer.
-
-You may customize the columns used for syncing customer information to Stripe by overriding a variety of methods provided by Cashier. For example, you may override the `stripeName` method to customize the attribute that should be considered the customer's "name" when Cashier syncs customer information to Stripe:
-
-```php
-/**
- * Get the customer name that should be synced to Stripe.
- */
-public function stripeName(): string|null
-{
-    return $this->company_name;
-}
-```
-
-Similarly, you may override the `stripeEmail`, `stripePhone` (20 character maximum), `stripeAddress`, and `stripePreferredLocales` methods. These methods will sync information to their corresponding customer parameters when [updating the Stripe customer object](https://stripe.com/docs/api/customers/update). If you wish to take total control over the customer information sync process, you may override the `syncStripeCustomerDetails` method.
-
-<a name="billing-portal"></a>
-### Billing Portal
-
-Stripe offers [an easy way to set up a billing portal](https://stripe.com/docs/billing/subscriptions/customer-portal) so that your customer can manage their subscription, payment methods, and view their billing history. You can redirect your users to the billing portal by invoking the `redirectToBillingPortal` method on the billable model from a controller or route:
-
-```php
-use Illuminate\Http\Request;
-
-Route::get('/billing-portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal();
-});
-```
-
-By default, when the user is finished managing their subscription, they will be able to return to the `home` route of your application via a link within the Stripe billing portal. You may provide a custom URL that the user should return to by passing the URL as an argument to the `redirectToBillingPortal` method:
-
-```php
-use Illuminate\Http\Request;
-
-Route::get('/billing-portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal(route('billing'));
-});
-```
-
-If you would like to generate the URL to the billing portal without generating an HTTP redirect response, you may invoke the `billingPortalUrl` method:
-
-```php
-$url = $request->user()->billingPortalUrl(route('billing'));
-```
-
-<a name="payment-methods"></a>
-## Payment Methods
-
-<a name="storing-payment-methods"></a>
-### Storing Payment Methods
-
-In order to create subscriptions or perform "one-off" charges with Stripe, you will need to store a payment method and retrieve its identifier from Stripe. The approach used to accomplish this differs based on whether you plan to use the payment method for subscriptions or single charges, so we will examine both below.
-
-<a name="payment-methods-for-subscriptions"></a>
-#### Payment Methods for Subscriptions
-
-When storing a customer's credit card information for future use by a subscription, the Stripe "Setup Intents" API must be used to securely gather the customer's payment method details. A "Setup Intent" indicates to Stripe the intention to charge a customer's payment method. Cashier's `Billable` trait includes the `createSetupIntent` method to easily create a new Setup Intent. You should invoke this method from the route or controller that will render the form which gathers your customer's payment method details:
-
-```php
-return view('update-payment-method', [
-    'intent' => $user->createSetupIntent()
-]);
-```
-
-After you have created the Setup Intent and passed it to the view, you should attach its secret to the element that will gather the payment method. For example, consider this "update payment method" form:
-
-```html
-<input id="card-holder-name" type="text">
-
-<!-- Stripe Elements Placeholder -->
-<div id="card-element"></div>
-
-<button id="card-button" data-secret="{{ $intent->client_secret }}">
-    Update Payment Method
-</button>
-```
-
-Next, the Stripe.js library may be used to attach a [Stripe Element](https://stripe.com/docs/stripe-js) to the form and securely gather the customer's payment details:
-
-```html
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-    const stripe = Stripe('stripe-public-key');
-
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-
-    cardElement.mount('#card-element');
-</script>
-```
-
-Next, the card can be verified and a secure "payment method identifier" can be retrieved from Stripe using [Stripe's `confirmCardSetup` method](https://stripe.com/docs/js/setup_intents/confirm_card_setup):
-
-```js
-const cardHolderName = document.getElementById('card-holder-name');
-const cardButton = document.getElementById('card-button');
-const clientSecret = cardButton.dataset.secret;
-
-cardButton.addEventListener('click', async (e) => {
-    const { setupIntent, error } = await stripe.confirmCardSetup(
-        clientSecret, {
-            payment_method: {
-                card: cardElement,
-                billing_details: { name: cardHolderName.value }
-            }
-        }
-    );
-
-    if (error) {
-        // Display "error.message" to the user...
-    } else {
-        // The card has been verified successfully...
-    }
-});
-```
-
-After the card has been verified by Stripe, you may pass the resulting `setupIntent.payment_method` identifier to your Laravel application, where it can be attached to the customer. The payment method can either be [added as a new payment method](#adding-payment-methods) or [used to update the default payment method](#updating-the-default-payment-method). You can also immediately use the payment method identifier to [create a new subscription](#creating-subscriptions).
-
-> [!NOTE]
-> If you would like more information about Setup Intents and gathering customer payment details please [review this overview provided by Stripe](https://stripe.com/docs/payments/save-and-reuse#php).
-
-<a name="payment-methods-for-single-charges"></a>
-#### Payment Methods for Single Charges
-
-Of course, when making a single charge against a customer's payment method, we will only need to use a payment method identifier once. Due to Stripe limitations, you may not use the stored default payment method of a customer for single charges. You must allow the customer to enter their payment method details using the Stripe.js library. For example, consider the following form:
-
-```html
-<input id="card-holder-name" type="text">
-
-<!-- Stripe Elements Placeholder -->
-<div id="card-element"></div>
-
-<button id="card-button">
-    Process Payment
-</button>
-```
-
-After defining such a form, the Stripe.js library may be used to attach a [Stripe Element](https://stripe.com/docs/stripe-js) to the form and securely gather the customer's payment details:
-
-```html
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-    const stripe = Stripe('stripe-public-key');
-
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-
-    cardElement.mount('#card-element');
-</script>
-```
-
-Next, the card can be verified and a secure "payment method identifier" can be retrieved from Stripe using [Stripe's `createPaymentMethod` method](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method):
-
-```js
-const cardHolderName = document.getElementById('card-holder-name');
-const cardButton = document.getElementById('card-button');
-
-cardButton.addEventListener('click', async (e) => {
-    const { paymentMethod, error } = await stripe.createPaymentMethod(
-        'card', cardElement, {
-            billing_details: { name: cardHolderName.value }
-        }
-    );
-
-    if (error) {
-        // Display "error.message" to the user...
-    } else {
-        // The card has been verified successfully...
-    }
-});
-```
-
-If the card is verified successfully, you may pass the `paymentMethod.id` to your Laravel application and process a [single charge](#simple-charge).
-
-<a name="retrieving-payment-methods"></a>
-### Retrieving Payment Methods
-
-The `paymentMethods` method on the billable model instance returns a collection of `Laravel\Cashier\PaymentMethod` instances:
-
-```php
-$paymentMethods = $user->paymentMethods();
-```
-
-By default, this method will return payment methods of every type. To retrieve payment methods of a specific type, you may pass the `type` as an argument to the method:
-
-```php
-$paymentMethods = $user->paymentMethods('sepa_debit');
-```
-
-To retrieve the customer's default payment method, the `defaultPaymentMethod` method may be used:
-
-```php
-$paymentMethod = $user->defaultPaymentMethod();
-```
-
-You can retrieve a specific payment method that is attached to the billable model using the `findPaymentMethod` method:
-
-```php
-$paymentMethod = $user->findPaymentMethod($paymentMethodId);
-```
-
-<a name="payment-method-presence"></a>
-### Payment Method Presence
-
-To determine if a billable model has a default payment method attached to their account, invoke the `hasDefaultPaymentMethod` method:
-
-```php
-if ($user->hasDefaultPaymentMethod()) {
-    // ...
-}
-```
-
-You may use the `hasPaymentMethod` method to determine if a billable model has at least one payment method attached to their account:
-
-```php
-if ($user->hasPaymentMethod()) {
-    // ...
-}
-```
-
-This method will determine if the billable model has any payment method at all. To determine if a payment method of a specific type exists for the model, you may pass the `type` as an argument to the method:
-
-```php
-if ($user->hasPaymentMethod('sepa_debit')) {
-    // ...
-}
-```
-
-<a name="updating-the-default-payment-method"></a>
-### Updating the Default Payment Method
-
-The `updateDefaultPaymentMethod` method may be used to update a customer's default payment method information. This method accepts a Stripe payment method identifier and will assign the new payment method as the default billing payment method:
-
-```php
-$user->updateDefaultPaymentMethod($paymentMethod);
-```
-
-To sync your default payment method information with the customer's default payment method information in Stripe, you may use the `updateDefaultPaymentMethodFromStripe` method:
-
-```php
-$user->updateDefaultPaymentMethodFromStripe();
-```
-
-> [!WARNING]
-> The default payment method on a customer can only be used for invoicing and creating new subscriptions. Due to limitations imposed by Stripe, it may not be used for single charges.
-
-<a name="adding-payment-methods"></a>
-### Adding Payment Methods
-
-To add a new payment method, you may call the `addPaymentMethod` method on the billable model, passing the payment method identifier:
-
-```php
-$user->addPaymentMethod($paymentMethod);
-```
-
-> [!NOTE]
-> To learn how to retrieve payment method identifiers please review the [payment method storage documentation](#storing-payment-methods).
-
-<a name="deleting-payment-methods"></a>
-### Deleting Payment Methods
-
-To delete a payment method, you may call the `delete` method on the `Laravel\Cashier\PaymentMethod` instance you wish to delete:
-
-```php
-$paymentMethod->delete();
-```
-
-The `deletePaymentMethod` method will delete a specific payment method from the billable model:
-
-```php
-$user->deletePaymentMethod('pm_visa');
-```
-
-The `deletePaymentMethods` method will delete all of the payment method information for the billable model:
-
-```php
-$user->deletePaymentMethods();
-```
-
-By default, this method will delete payment methods of every type. To delete payment methods of a specific type you can pass the `type` as an argument to the method:
-
-```php
-$user->deletePaymentMethods('sepa_debit');
-```
-
-> [!WARNING]
-> If a user has an active subscription, your application should not allow them to delete their default payment method.
-
-<a name="subscriptions"></a>
-## Subscriptions
-
-Subscriptions provide a way to set up recurring payments for your customers. Stripe subscriptions managed by Cashier provide support for multiple subscription prices, subscription quantities, trials, and more.
-
-<a name="creating-subscriptions"></a>
-### Creating Subscriptions
-
-To create a subscription, first retrieve an instance of your billable model, which typically will be an instance of `App\Models\User`. Once you have retrieved the model instance, you may use the `newSubscription` method to create the model's subscription:
-
-```php
-use Illuminate\Http\Request;
-
-Route::post('/user/subscribe', function (Request $request) {
-    $request->user()->newSubscription(
-        'default', 'price_monthly'
-    )->create($request->paymentMethodId);
-
-    // ...
-});
-```
-
-The first argument passed to the `newSubscription` method should be the internal type of the subscription. If your application only offers a single subscription, you might call this `default` or `primary`. This subscription type is only for internal application usage and is not meant to be shown to users. In addition, it should not contain spaces and it should never be changed after creating the subscription. The second argument is the specific price the user is subscribing to. This value should correspond to the price's identifier in Stripe.
-
-The `create` method, which accepts [a Stripe payment method identifier](#storing-payment-methods) or Stripe `PaymentMethod` object, will begin the subscription as well as update your database with the billable model's Stripe customer ID and other relevant billing information.
-
-> [!WARNING]
-> Passing a payment method identifier directly to the `create` subscription method will also automatically add it to the user's stored payment methods.
-
-<a name="collecting-recurring-payments-via-invoice-emails"></a>
-#### Collecting Recurring Payments via Invoice Emails
-
-Instead of collecting a customer's recurring payments automatically, you may instruct Stripe to email an invoice to the customer each time their recurring payment is due. Then, the customer may manually pay the invoice once they receive it. The customer does not need to provide a payment method up front when collecting recurring payments via invoices:
-
-```php
-$user->newSubscription('default', 'price_monthly')->createAndSendInvoice();
-```
-
-The amount of time a customer has to pay their invoice before their subscription is canceled is determined by the `days_until_due` option. By default, this is 30 days; however, you may provide a specific value for this option if you wish:
-
-```php
-$user->newSubscription('default', 'price_monthly')->createAndSendInvoice([], [
-    'days_until_due' => 30
-]);
-```
-
-<a name="subscription-quantities"></a>
-#### Quantities
-
-If you would like to set a specific [quantity](https://stripe.com/docs/billing/subscriptions/quantities) for the price when creating the subscription, you should invoke the `quantity` method on the subscription builder before creating the subscription:
-
-```php
-$user->newSubscription('default', 'price_monthly')
-    ->quantity(5)
-    ->create($paymentMethod);
-```
-
-<a name="additional-details"></a>
-#### Additional Details
-
-If you would like to specify additional [customer](https://stripe.com/docs/api/customers/create) or [subscription](https://stripe.com/docs/api/subscriptions/create) options supported by Stripe, you may do so by passing them as the second and third arguments to the `create` method:
-
-```php
-$user->newSubscription('default', 'price_monthly')->create($paymentMethod, [
-    'email' => $email,
-], [
-    'metadata' => ['note' => 'Some extra information.'],
-]);
-```
-
-<a name="coupons"></a>
-#### Coupons
-
-If you would like to apply a coupon when creating the subscription, you may use the `withCoupon` method:
-
-```php
-$user->newSubscription('default', 'price_monthly')
-    ->withCoupon('code')
-    ->create($paymentMethod);
-```
-
-Or, if you would like to apply a [Stripe promotion code](https://stripe.com/docs/billing/subscriptions/discounts/codes), you may use the `withPromotionCode` method:
-
-```php
-$user->newSubscription('default', 'price_monthly')
-    ->withPromotionCode('promo_code_id')
-    ->create($paymentMethod);
-```
-
-The given promotion code ID should be the Stripe API ID assigned to the promotion code and not the customer facing promotion code. If you need to find a promotion code ID based on a given customer facing promotion code, you may use the `findPromotionCode` method:
-
-```php
-// Find a promotion code ID by its customer facing code...
-$promotionCode = $user->findPromotionCode('SUMMERSALE');
-
-// Find an active promotion code ID by its customer facing code...
-$promotionCode = $user->findActivePromotionCode('SUMMERSALE');
-```
-
-In the example above, the returned `$promotionCode` object is an instance of `Laravel\Cashier\PromotionCode`. This class decorates an underlying `Stripe\PromotionCode` object. You can retrieve the coupon related to the promotion code by invoking the `coupon` method:
-
-```php
-$coupon = $user->findPromotionCode('SUMMERSALE')->coupon();
-```
-
-The coupon instance allows you to determine the discount amount and whether the coupon represents a fixed discount or percentage based discount:
-
-```php
-if ($coupon->isPercentage()) {
-    return $coupon->percentOff().'%'; // 21.5%
-} else {
-    return $coupon->amountOff(); // $5.99
-}
-```
-
-You can also retrieve the discounts that are currently applied to a customer or subscription:
-
-```php
-$discount = $billable->discount();
-
-$discount = $subscription->discount();
-```
-
-The returned `Laravel\Cashier\Discount` instances decorate an underlying `Stripe\Discount` object instance. You may retrieve the coupon related to this discount by invoking the `coupon` method:
-
-```php
-$coupon = $subscription->discount()->coupon();
-```
-
-If you would like to apply a new coupon or promotion code to a customer or subscription, you may do so via the `applyCoupon` or `applyPromotionCode` methods:
-
-```php
-$billable->applyCoupon('coupon_id');
-$billable->applyPromotionCode('promotion_code_id');
-
-$subscription->applyCoupon('coupon_id');
-$subscription->applyPromotionCode('promotion_code_id');
-```
-
-Remember, you should use the Stripe API ID assigned to the promotion code and not the customer facing promotion code. Only one coupon or promotion code can be applied to a customer or subscription at a given time.
-
-For more info on this subject, please consult the Stripe documentation regarding [coupons](https://stripe.com/docs/billing/subscriptions/coupons) and [promotion codes](https://stripe.com/docs/billing/subscriptions/coupons/codes).
-
-<a name="adding-subscriptions"></a>
-#### Adding Subscriptions
-
-If you would like to add a subscription to a customer who already has a default payment method you may invoke the `add` method on the subscription builder:
-
-```php
-use App\Models\User;
-
-$user = User::find(1);
-
-$user->newSubscription('default', 'price_monthly')->add();
-```
-
-<a name="creating-subscriptions-from-the-stripe-dashboard"></a>
-#### Creating Subscriptions From the Stripe Dashboard
-
-You may also create subscriptions from the Stripe dashboard itself. When doing so, Cashier will sync newly added subscriptions and assign them a type of `default`. To customize the subscription type that is assigned to dashboard created subscriptions, [define webhook event handlers](#defining-webhook-event-handlers).
-
-In addition, you may only create one type of subscription via the Stripe dashboard. If your application offers multiple subscriptions that use different types, only one type of subscription may be added through the Stripe dashboard.
-
-Finally, you should always make sure to only add one active subscription per type of subscription offered by your application. If a customer has two `default` subscriptions, only the most recently added subscription will be used by Cashier even though both would be synced with your application's database.
-
-<a name="checking-subscription-status"></a>
-### Checking Subscription Status
-
-Once a customer is subscribed to your application, you may easily check their subscription status using a variety of convenient methods. First, the `subscribed` method returns `true` if the customer has an active subscription, even if the subscription is currently within its trial period. The `subscribed` method accepts the type of the subscription as its first argument:
-
-```php
-if ($user->subscribed('default')) {
-    // ...
-}
-```
-
-The `subscribed` method also makes a great candidate for a [route middleware](/docs/{{version}}/middleware), allowing you to filter access to routes and controllers based on the user's subscription status:
-
-```php
-<?php
-
-namespace App\Http\Middleware;
-
-use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class EnsureUserIsSubscribed
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
-    {
-        if ($request->user() && ! $request->user()->subscribed('default')) {
-            // This user is not a paying customer...
-            return redirect('/billing');
-        }
-
-        return $next($request);
-    }
-}
-```
-
-If you would like to determine if a user is still within their trial period, you may use the `onTrial` method. This method can be useful for determining if you should display a warning to the user that they are still on their trial period:
-
-```php
-if ($user->subscription('default')->onTrial()) {
-    // ...
-}
-```
-
-The `subscribedToProduct` method may be used to determine if the user is subscribed to a given product based on a given Stripe product's identifier. In Stripe, products are collections of prices. In this example, we will determine if the user's `default` subscription is actively sub
+#### Providing Meta Dat
 
 ...[truncated]

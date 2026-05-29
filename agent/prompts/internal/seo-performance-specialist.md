@@ -1300,7 +1300,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v5 | **Last Updated**: 28/05/2026
+> **VERSION**: v12 | **Last Updated**: 5/28/2026
 
 
 
@@ -1395,12 +1395,12 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 ### 📄 Improve next page load performance
-> **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-PERFORMANCE.MD` | **Distilled At**: 28/05/2026
+> **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-PERFORMANCE.MD)
+- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -1425,6 +1425,156 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v5766] - 28/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve next page load performance
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Enable interactive HTML content in 3D scenes
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Critical Rendering Path (CRP) Optimization
+> **Origin**: `distilled/ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PERFORMANCE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v9787] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve next page load performance
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Enable interactive HTML content in 3D scenes
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Critical Rendering Path (CRP) Optimization
+> **Origin**: `distilled/ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PERFORMANCE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v9584] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v3707] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v6131] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v9098] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -1445,7 +1595,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v5 | **Last Updated**: 28/05/2026
+> **VERSION**: v13 | **Last Updated**: 5/28/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -3061,12 +3211,12 @@ action
 
 ---
 ### 📄 Consistent Cross-Document Transitions
-> **Origin**: `ui-ux/NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+> **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
 
 
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-CROSS-DOCUMENT-TRANSITIONS.MD)
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
@@ -3481,6 +3631,1316 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5766] - 28/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/[report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context]([report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Accessible Error Announcement
+> **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animated Select Picker
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animate to Intrinsic Sizes
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Apply WebGL shaders to HTML content
+> **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build an address form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a payment form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-in form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Brand-Consistent Forms
+> **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-up form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Branded Select Styling
+> **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Breaking up long tasks
+> **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing state-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Component-specific light/dark themes
+> **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Consistent Cross-Document Transitions
+> **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing content-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Custom Select Picker Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer rendering heavy content
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer Work Until Scroll Ends
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+> **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Steps
+> **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Efficient Background Processing
+> **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Faster SPA View Transitions via State Caching
+> **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FLUID-SCALING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Auto-sizing form controls
+> **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation steps
+> **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify heavy-running JavaScript
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify causes of poor INP
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve Text Layout and Legibility
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Optimizing Interactions in Complex Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Implementation Details
+> **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Use Cases
+> **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Show a tooltip when hovering
+> **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Moving an element with state
+> **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overflow Clipping Control
+> **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🛠 Implementation Plan: PLAN-1778479790742
+> **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Precise Text Alignment
+> **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Fallback strategies
+> **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Prevent text wrapping
+> **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Reduce Style Repetition with CSS Functions
+> **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Pull to Reveal
+> **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PULL-TO-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Required Field Feedback
+> **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Sandbox UI/UX Distilled Findings
+> **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Rich Media Picker (Customizable Select)
+> **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Scheduling tasks by priority
+> **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Select Menu Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Stabilize Reactive State with Temporal
+> **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Completion Summary:
+> **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Style Parent with :has()
+> **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Views
+> **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VIEWS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Validate Input After Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/[report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context]([report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9787] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Accessible Error Announcement
+> **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animated Select Picker
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Animate to Intrinsic Sizes
+> **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Apply WebGL shaders to HTML content
+> **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build an address form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a payment form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-in form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Brand-Consistent Forms
+> **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Build a sign-up form that follows best practice
+> **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Breaking up long tasks
+> **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Branded Select Styling
+> **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing state-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Component-specific light/dark themes
+> **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementing content-based container styling
+> **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Consistent Cross-Document Transitions
+> **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Custom Select Picker Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer rendering heavy content
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Defer Work Until Scroll Ends
+> **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation Steps
+> **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+> **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Efficient Background Processing
+> **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Faster SPA View Transitions via State Caching
+> **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FLUID-SCALING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Auto-sizing form controls
+> **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation steps
+> **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify heavy-running JavaScript
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Identify causes of poor INP
+> **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Improve Text Layout and Legibility
+> **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Optimizing Interactions in Complex Layouts
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Implementation Details
+> **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Key Use Cases
+> **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Show a tooltip when hovering
+> **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Implementation
+> **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Moving an element with state
+> **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overflow Clipping Control
+> **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🛠 Implementation Plan: PLAN-1778479790742
+> **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Precise Text Alignment
+> **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Fallback strategies
+> **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Prevent text wrapping
+> **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Pull to Reveal
+> **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PULL-TO-REVEAL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Reduce Style Repetition with CSS Functions
+> **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Required Field Feedback
+> **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Sandbox UI/UX Distilled Findings
+> **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Rich Media Picker (Customizable Select)
+> **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Scheduling tasks by priority
+> **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Select Menu Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Overview
+> **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Stabilize Reactive State with Temporal
+> **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Completion Summary:
+> **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_TES.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Style Parent with :has()
+> **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Views
+> **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VIEWS.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Validate Input After Interaction
+> **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9584] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v3707] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v6131] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9098] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -3490,7 +4950,7 @@ action
 > **Origin**: `ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v4 | **Last Updated**: 28/05/2026
+> **VERSION**: v6 | **Last Updated**: 5/28/2026
 
 
 
@@ -3692,6 +5152,116 @@ You MUST complete each phase before proceeding to the next.
 ---
 ### 📄 Systematic Debugging
 > **Origin**: `ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SKILL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 VCS WISDOM DISTILLATION [v5766] - 28/05/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Laravel Envoy
+> **Origin**: `distilled/ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ENVOY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Post-Stabilization Hardening Plan
+> **Origin**: `distilled/ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HARDENING_PLAN.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Post-Stabilization Hardening Guide
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Superpowers Philosophy
+> **Origin**: `distilled/ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PHILOSOPHY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Systematic Debugging
+> **Origin**: `distilled/ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 28/05/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_SKILL.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 VCS WISDOM DISTILLATION [v9787] - 5/28/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Laravel Envoy
+> **Origin**: `distilled/ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_ENVOY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Post-Stabilization Hardening Plan
+> **Origin**: `distilled/ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HARDENING_PLAN.md)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 NEXUS — Post-Stabilization Hardening Guide
+> **Origin**: `distilled/ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Superpowers Philosophy
+> **Origin**: `distilled/ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 5/28/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_PHILOSOPHY.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 Systematic Debugging
+> **Origin**: `distilled/ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 5/28/2026
 
 
 
@@ -5379,990 +6949,6 @@ The Value (“brightness”) - that is, the distinction between black and full c
 ```
 toward the higher scale for both images. We used the scale selection to determine the range
 that accounts for 50% of the pixels of the images. According to the histograms, the elephant
-image has relatively more bright pixels than the city image. This means that although the
-elephant and the ground are darker than the background and make up a significant portion
-of the image, brightness prevails.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2055
-```
-The RGB composition presents peaks for all three colors, as well as some mixtures (such
-```
-```
-as Yellow and Magenta). To understand how each channel modulates the composition, we
-```
-can use the Hue-Saturation… tool.
-We have lowered the Saturation of all colors except Red and Yellow. To make the contrast
-between the two colors more visible, we inverted the hues so that Red became Magenta, and
-Yellow became Blue. As we can see, the image consists mainly of tones between Orange
-and Yellow. The presence of Green in the histogram represents Yellow, which is a mixture
-of Green and Red. Blue, on the other hand, is present because the light behind the elephant
-```
-is almost white, that is, in RGB (255, 255, 255).
-```
-Red Green
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2056
-Blue Cyan
-Yellow Magenta
-In contrast to the elephant image, the city shows several colors. By desaturating all but
-one of the hues, we can determine where each color appears most strongly. Green and
-```
-Magenta appear very sparsely; Blue, Cyan, and Yellow appear in specific areas, such as on
-```
-rooftops. Red covers the entire composition.
-```
-Source: Created by the authors.
-```
-Furthermore, we can list the colors present on the image with
-GIMP’s Index colors and ImageMagick. These tools yield the results
-displayed in Table 16.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2057
-Table 16 — Color quantification
-```
-Source: Created by the authors.
-```
-Based on this data, we can propose how color creates meaning in
-these images. As mentioned earlier, semiotic resources are simultaneously
-historically situated and motivated by sign makers during the sign-making
-process. This means that while there are some culturally established uses
-```
-(e.g., Red as a sign of violence), we often need to consider the resource
-```
-on its own terms and how it is used in this specific semiotic artifact.
-In the case of the elephant image, there are two main hues: Orange
-```
-and Yellow, as well as some intermediate hues (e.g., Yellowish Orange).
-```
-Since they form a dividing line between the ground and the sky, we can
-```
-interpret that this diad harmony (Orange ⇔ Yellow) creates a contrast
-```
-between these two levels. On the other hand, since Orange and Yellow
-are close to each other, the meaning could be, conversely, that these two
-realms are similar and not opposite.
-Orange, in turn, also covers the cityscape. We can likewise
-consider Blue and Cyan in the roofs and the stork statue as harmonious.
-Cyan-Blue is complementary to Orange, while Blue is complementary
-to Yellow. Thus, they form a double complementary harmony. This has
-two immediate effects on the image: first, the Cyan on the statue against
-the background of the overall Orange composition makes the statue stand
-out more, even though it is very small. Second, it creates layers in the
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2058
-```
-image: The Blue and Cyan roofs separate the square and the buildings
-```
-from the sky. Since their hues complement each other, a striking but
-harmonious contour is created for these two areas.
-We can make some meaning hypotheses about the harmonies
-created, but as mentioned earlier, all the distinctive features work together
-to make a color effective. Therefore, we can analyze more features to
-make more meaning hypotheses. So far, we have been able to use Hues,
-```
-Purity (number of colors), and Differentiation (number of harmonies)
-```
-to establish possible opposing relationships that are likely or unlikely
-depending on how the other features work. So, we can analyze Saturation,
-Modulation, and Luminosity to better understand the images.
-As for Saturation, we can use the index color to group the colors
-into a manageable number. We can also use the Color Picker tool to find
-the average Saturation of an area of the image. In Table 17 we provide
-the processed images.
-Table 17 — Indexed colors
-By using indexed colors and the Color Picker
-tool, we can group parts of the image and
-check Saturation. Saturation leads to different
-```
-groupings: From the foreground to the
-```
-background, the image becomes progressively
-```
-less saturated; there is also an overlap in the
-```
-middle area between the elephant’s saturated
-head and the less saturated light in the
-background. Finally, the bottom and the legs of
-```
-the elephants are also saturated (except for the
-```
-```
-black areas), which could confirm the dichotomy
-```
-of the top and bottom areas of the image.
-In the case of the cityscape, there are
-several Saturation spots, of which the
-Orange-Yellow lights are the most
-important. The high Saturation of these
-areas creates points of interest in the
-overall composition, especially since
-they contrast with the grayish tones of
-some of the buildings and the square.
-```
-Source: Created by the authors.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2059
-```
-Interestingly, the sky in both images is almost white (255, 255,
-```
-```
-255), which means that they have almost 100% Lightness. In the case
-```
-of the elephant image, the sky looks like a light source, while in the
-case of the city image, it does not. Instead, the artificial lights look like
-standout lights.
-This is due not only to the colors used but also to the composition.
-For example, the first image frames the skylight in the center, a salient
-```
-area (Kress; Van Leeuwen 2021, p. 198), while the second image confines
-```
-the sky to the upper area. In addition, the purity of the white color looks
-less interesting than the many colors in the lower areas, especially in the
-center, where the coffee cup, the building in the middle, and the statue
-directly below are located.
-By combining Saturation, Lightness, and image composition,
-we can create and add to our hypothesis. First, Saturation adds three-
-dimensionality to the image of the elephant by adding a dichotomy of
-foreground and background in addition to the dichotomy of top and
-bottom. In the image of the city, on the other hand, Saturation highlights
-the artificial lights in different areas of the square. However, one of the
-effective areas of light in the city image, the sky, is not very noticeable.
-We can now analyze the features of these two images
-```
-comparatively: The modulation of multiple hues can create a “complex”
-```
-image, as opposed to a “simple” image. In these cases, the contrast can
-```
-come from the nature of what is being depicted (a city versus an animal),
-```
-which can make the city be seen as more complex and desirable13. This is
-also supported by the fact that the same colors in the sky do not have the
-same effect, but an opposite one: The “natural” light of the city is not of
-interest, while the same light envelops the entire image of the elephant.
-Considering this hypothesis, we can interpret that the diadic
-harmony in the elephant image creates a relationship of similarity, since
-```
-13 We can point to a similar effect in the Street Fighter II game (Matumoto, 2022a).
-```
-```
-Both the Brazil stage (‘scenario’) and the US stage depict a waterfront location.
-```
-```
-However, color plays a key role in typifying (Barthes, 1973; 1977; Van Leeuwen,
-```
-```
-2001, p. 95) — i.e., using stereotypes to create types rather than individuals — the
-```
-people and architecture of Brazil, which are constructed as one and the same because
-both have a similar brown hue. The US stage, on the other hand, uses a variety of
-colors to individualize the people and separate them from the scenery. This creates a
-contrast between Brazil, an isolated and homogeneous space, and the US, an open and
-individualized, diverse space.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2060
-they are both natural participants, in contrast to the double complementary
-harmony in the city image, where the Blue and Cyan hues create a barrier
-between the city and the sky. This, in turn, is related to the discourses that
-envelop the stock images of “Europe” and “Africa”: While the former
-is an amalgam of many landscapes while maintaining its metropolitan
-character, Africa is exclusively a natural or ancient landscape.
-As we can see in this case study, colors provide multiple
-sources of meaning that can be analyzed individually or in combination.
-However, if we analyze a group of features, we can better determine
-which hypothesis the semiosis is most likely to point to. In addition,
-compositional resources can further enhance color analysis and vice versa.
-6 Conclusion
-In this paper, we have presented both analytical categories and
-methods for color analysis in digital media within a social-semiotic
-framework. Our theoretical contribution lies in the dialogue between
-the social-semiotic framework and color theory, through which we can
-analyze colors’ features as a truly quantitative resource, i.e., we can
-classify each feature into a comparative scale. Besides, we provide
-methods that allow reproducible results for color analysis. Among recent
-```
-works on color, we can cite Johannessen et al.’s (2021) “A Corpus-
-```
-Based Approach to Color, Shape, and Typography in Logos”, in which
-color analysis is based on Kress and van Leeuwen’s distinctive feature
-approach. The authors also demonstrate their approach using Adobe
-Photoshop, although a discussion of how to use that tool is not their
-primary focus. By discussing how to use the free and readily available
-tools presented here, we hope to have shown how the analysis can be
-supported by the use of some quantitative approaches that provide a more
-systematic description of colors and their meaning potential.
-As mentioned earlier, color presents a number of challenges
-for visual analysis. This is primarily because of how we interact with
-it. This means that designers need to understand both how color works
-and how audiences will interact with what they produce. Color is
-currently a sought-after resource outside of professional design as well:
-```
-from Instagram (www.instagram.com) to Canva (www.canva.com), non-
-```
-professionals are learning how to work with color in digital media, from
-photos to presentations.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2061
-Back to color deficiencies: Designers need to avoid color schemes
-that are difficult for some people to read. For example, according to Heron,
-```
-Crameri, and Shephard (2021), scientific images can be misleading or
-```
-inaccessible to some of the public because of the colors used, which are
-difficult for people with color deficiencies to read. This opens up the
-discussion of how meaningful colors are in different contexts and how
-we should pay attention to their use and analysis.
-The fact that people are increasingly interacting with color, and
-that this interaction is mediated by digital media, necessitates semiotic
-methods based on these practices and media. In this sense, this article
-offers an example and a call for color analysis based on digital corpora
-and methods. In this regard, there are a number of other software besides
-```
-GIMP and ImageMagick that can support research (e.g., https://inkscape.
-```
-```
-org/), and as mentioned earlier, we have not discussed all the possibilities
-```
-of GIMP and ImageMagick. This means that social semiotics can be
-constantly revitalized and updated in line with its socially grounded
-approach to help semioticians understand the semiotic process and
-current trends.
-Authorship statement
-Both authors contributed extensively to all aspects of this article.
-André de Oliveira Matumoto was responsible for conceptualizing the
-study, conducting formal analysis, funding acquisition, performing
-investigations, developing the methodology, creating visualizations, and
-drafting the original manuscript. Paulo Roberto Gonçalves Segundo was
-responsible for conceptualization, funding acquisition, validating the
-findings, and reviewing and editing the manuscript.
-Acknowledgments
-```
-The research for this article was supported by FAPESP (Fundação de
-```
-```
-Amparo à Pesquisa do Estado de São Paulo), grant 2020/13090-1.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2062
-References
-```
-BATEMAN, J.; WILDFEUER, J.; HIIPPALA, T. Multimodality:
-```
-Foundations, Research and Analysis – A Problem-Oriented Introduction.
-```
-Berlin: De Gruyter Mouton, 2017.
-```
-```
-COLOUR vision deficiency (colour blindness). NHS, England, UK, 01
-```
-Apr. 2019. Available at: https://www.nhs.uk/conditions/colour-vision-
-deficiency/#:~:text=It’s%20a%20common%20problem%20that,to%20
-someone%20with%20normal%20vision. Visited on: 21 Jan. 2023.
-GIMP DOCUMENTATION TEAM. GIMP Documentation. GIMP.
-Available at: https://www.gimp.org/docs/. Visited on: 21 Jan. 2023.
-GIMP main page. GIMP, 2023. Available at: https://www.gimp.org/.
-Visited on: 21 Jan. 2023.
-HALLIDAY, M.A.K. Language as Social Semiotic. London: Arnold, 1978.
-```
-HERON, P.; CRAMERI, F.; SHEPHARD, G. How rainbow colour maps
-```
-can distort data and be misleading. The conversation, 06 Oct. 2021.
-Available at: https://theconversation.com/how-rainbow-colour-maps-
-can-distort-data-and-be-misleading-167159. Visited on: 21 Jan. 2023.
-```
-HODGE, R.; KRESS, G. Social Semiotics. Cambridge: Polity Press, 1988.
-```
-IMAGEMAGICK main page. ImageMagick Studio LLC, 2023. Available
-```
-at: https://imagemagick.org/index.php. Visited on: 21 Jan. 2023.
-```
-INKSCAPE main page. Inkscape, 2023. Available at: https://inkscape.org/.
-Visited on: 21 Jan. 2023.
-```
-JAKOBSON, R.; HALLE, M. Fundamentals of Language. Mouton: The
-```
-Hague, 1956.
-```
-JEWITT, C.; BEZEMER, J.; O’HALLORAN, K. Introducing
-```
-Multimodality. New York: Routledge, 2016.
-```
-JOHANNESSEN, C. M.; TVEDE, M. L.; BOESEN, K. C.; HIIPPALA, T.
-```
-A Corpus-Based Approach to Color, Shape, and Typography in Logos. In:
-```
-PFLAEGING, J.; WILDFEUER, J.; BATEMAN, J. A. (eds.). Empirical
-```
-Multimodality Research: Methods, Evaluations, Implications. Berlin/
-```
-Boston: De Gruyter, 2021. p. 159–185.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2063
-```
-JOHNSON, J.; KARPATHY, A.; FEI-FEI, L. Densecap: Fully
-```
-convolutional localization networks for dense captioning. In: IEEE
-```
-Conference on Computer Vision and Pattern Recognition (CVPR), 2016,
-```
-Las Vegas, US. Proceedings […]. Las Vegas, USA: IEEE, p. 4565-4574,
-```
-DOI: https://doi.org/10.1109/CVPR.2016.494.
-```
-```
-JUNCTIONS (username). Optical grey squares orange brown. Wikimedia
-```
-Commons, 10 Apr. 2007. Available at: https://commons.wikimedia.org/wiki/
-```
-File:Optical_grey_squares_orange_brown.svg. Visited on: 21 Jan. 2023.
-```
-KANDINSKY, W. Concerning the Spiritual in Art. New York: Dover
-Publications, 1977.
-```
-KARPATHY, A.; FEI-FEI, L. Deep visual-semantic alignments for
-```
-generating image descriptions. In: IEEE Conference on Computer Vision
-```
-and Pattern Recognition (CVPR), 2015, Boston, USA. Proceedings […].
-```
-Boston, US: IEEE, p. 3128-3137, DOI: 10.1109/CVPR.2015.7298932.
-KINGDON Jonathan. The Kingdon Field Guide to African Mammals.
-Academic Press: San Diego, California, 1997.
-```
-KRESS, G.; VAN LEEUWEN, T. Colour as a semiotic mode: notes for a
-```
-grammar of colour. Visual communication, [S.l], v. 1, n. 3, p. 343-368, 2002.
-```
-DOI: https://doi.org/10.1177/147035720200100306. Available at: https://
-```
-www.researchgate.net/publication/237623450_Colour_as_a_Semiotic_
-Mode_Notes_for_a_Grammar_of_Colour. Visited on: 21 Jan. 2023.
-```
-KRESS, G.; VAN LEEUWEN, T. Reading Images. Geelong, Australia:
-```
-Deakin University Press, 1990.
-```
-KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
-```
-visual design. 1 ed. London/ New York: Routledge, 1996.
-```
-KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
-```
-Visual Design. 2 ed. London/ New York: Routledge, 2006.
-```
-KRESS, G.; VAN LEEUWEN, T. Reading Images: The Grammar of
-```
-Visual Design. 3 ed. London/ New York: Routledge, 2021.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2064
-MATUMOTO, A. de O. A construção brasilidade em Street Fighter II:
-```
-uma perspectiva sociossemiótica. In: GONÇALVES-SEGUNDO, P. R.;
-```
-```
-ARAES, C. R.; CASTANHEIRA, C.; ISOLA-LANZONI, G.; SILVA, L.
-```
-P. da; MITSUNARI, N. A. S.; DOMINGUES, T. (eds.). Estudos do texto e
-do discurso: perspectivas contemporâneas. São Paulo, SP: FFLCH/USP,
-2022a. p. 109–133. Available at: https://www.livrosabertos.sibi.usp.br/
-portaldelivrosUSP/catalog/book/935.
-MATUMOTO, A. de O. Sobrevoando a Amazônia: a construção verbo-
-imagética do Brasil em três jogos shmup. Entrepalavras, Fortaleza, v. 12,
-n. 3, p. 92–122, 2022b. DOI: https://doi.org/10.22168/2237-6321-32512.
-```
-MATUMOTO, A. de O.; GONÇALVES-SEGUNDO, P. R. Towards a
-```
-social-semiotic approach to visual analysis of two-dimensional games:
-a toolkit. Texto Livre, Belo Horizonte, vol. 15, no. 1, p. e39398, 2022a.
-```
-DOI: https://doi.org/10.35699/1983-3652.2022.39398.
-```
-```
-MATUMOTO, A. de O.; GONÇALVES-SEGUNDO, P. R. Uma Proposta
-```
-Sociossemiótica para a Análise Visual de Jogos Bidimensionais: a
-construção de significado em Ducktales. Entreletras, [S.l.], v. 13, n.
-1, p. 344–369, 2022b. DOI: https://doi.org/10.20873/uft2179-
-3948.2022v13n1p344-369.
-PAVLIDIS, G. A Brief History of Colour Theory: Foundations of Colour
-Science. Cham, CH: Springer International Publishing, 2021.
-POSSEBON, E. L. A teoria das cores de Goethe hoje. 2009. 168 f.
-Doutorado em Design e Arquitetura – Universidade de São Paulo, São
-Paulo, 2009. DOI 10.11606/T.16.2009.tde-10052010-144639. Available
-```
-at: http://www.teses.usp.br/teses/disponiveis/16/16134/tde-10052010-
-```
-144639/. Accessed on: 13 Jul. 2023.
-PSIKYO. Strikers 1945 II. Kyoto, Japan: Psikyo, 1997.
-RHYNE, T.-M. Applying color theory to digital media and visualization.
-Boca Raton: CRC Press, Taylor &Francis Group, 2017.
-```
-SARAVANAN, G.; YAMUNA, G.; NANDHINI, S. Real time
-```
-implementation of RGB to HSV/HSI/HSL and its reverse color space
-models. In: International Conference on Communication and Signal
-```
-Processing (ICCSP), 2016, Melmaruvathur, India. Proceedings […]:
-```
-IEEE, p. 0462-0466, DOI: 10.1109/ICCSP.2016.7754179.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2065
-VAN LEEUWEN, T. Introducing Social Semiotics. London: Routledge, 2005.
-VAN LEEUWEN, T. The Language of Colour: An Introduction. London:
-Routledge, 2011.
-```
-Video System. Aero Fighters 2 (Sonic Wings 2). Kyoto, Japan: SNK, 1994.
-```
-Video System. Sonic Wings Special. Kyoto, Japan: Media Quest/Phoenix, 1996.
-VON GOETHE, J. W. Zur Farbenlehre. Tübingen, DE: Cotta, 1810.
-Available at: https://archive.org/details/gri_c00233125012873531.
-Accessed on: 13 Jul. 2023.
-VON GOETHE, J. W. Goethe’s theory of colours. trans. by Charles Lock
-Eastlake. London, UK: John Murray, 1840. Available at: https://archive.
-org/details/goethestheoryco01goetgoog. Accessed on: 13 Jul. 2023.
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_19JPICOLOUR.MD
-
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 1
-Abstract—Colour wheels are a tool for ordering and understanding
-hue. Different colour wheels differ in the spacing of the colours around
-the wheel. The opponent colour theory, Munsell’s colour system, the
-standard printer’s primaries, the artist’s primaries, and Newton’s rainbow
-all present different variations of the colour wheel. I show that some of
-this variation is owing to imprecise use of language, based on Berlin
-and Kay’s theory of basic colour names. I also show that the artist’s
-colour wheel is an outlier that does not match well to the technical colour
-wheels because its principal colours are so strongly connected to the
-basic colour names.
-1 INTRODUCTION
-C
-OLOUR wheels provide a way to describe the ordering
-of hue and, in some cases, to aid understanding colour
-```
-mixing. The artist’s colour wheel (Figure 1), epitomised
-```
-by Itten [Itt70], is used extremely widely in teaching. Its
-primary colours are red, yellow and blue.This is the colour
-wheel that students meet in primary school. In this wheel,
-the opposite of blue is orange. When students meet more
-advanced material in colour theory, they find apparent con-
-tradictions. The printer’s colour wheel has primaries cyan,
-magenta, and yellow, which the student might be taught
-to understand as a refinement of blue, red, and yellow.
-But curiously for the student the colour labelled “blue”
-in the printer’s colour wheel is opposite to yellow, not to
-orange. In my own early introduction to colour, I found the
-art books’ insistence that orange was the opposite of blue
-conflicted with my observation that, in many works of art
-and design, yellow appeared to me to be the more apposite
-opposite. Further confusion comes to the student when they
-meet the opponent colour theory, in which there are four
-```
-principal colours, with blue opposite yellow (Figure 3); and
-```
-Munsell’s colour system in which there are five principal
-```
-hues, with blue opposite yellow-red (Figure 4). The chal-
-```
-lenge for the educator is in explaining these differences.
-These differences can be downplayed in educational
-material. For example, one text for art students states that
-“Colour wheels must always have an even number of hues
-and that number must be divisible by three. Any other com-
-bination would not be a true and accurate colour wheel” [Ble12,
-p.66, emphasis mine]. This is a simplification by the author
-for the benefit of the students, as the author is well aware
-of the NCS and Munsell colour systems which have four
-School of Engineering and Computer Science, Victoria University of
-Wellington, Wellington, New Zealand e-mail: neil.dodgson@vuw.ac.nz
-yellow
-primary
-red
-primary
-blue
-primary
-green
-secondary
-orange
-secondary
-purple
-secondary
-Fig. 1. An Itten colour wheel with twelve hues. The three primaries, red,
-yellow, and blue, combine to make three secondaries, green, orange,
-and purple. Each primary combines with its neighbouring secondaries
-to make six tertiary colours.
-```
-(a) (b) (c)
-```
-```
-(d) (e) (f )
-```
-```
-Fig. 2. The artist’s harmonious colour combinations: (a) complementary,
-```
-```
-(b) split complementary, (c) triadic, (d) tetradic rectangle, (e) tetradic
-```
-```
-square, (f) analagous. (b)–(e) are from Itten [Itt70, Figs. 54, 55].
-```
-and five principal colours [Ble12, p.31] and which have a
-well-defined notation for describing colours around the hue
-wheel.
-One of the reasons to question the received wisdom
-is that almost all art texts, inspired ultimately by Itten’s
-seminal work [Itt70], use angles on the colour wheel to
-```
-determine “harmonious” colour combinations (Figure 2). If
-```
-What is the ‘opposite’ of ‘blue’?
-the language of colour wheels
-Neil A. Dodgson
-```
-pre-print of a paper in Journal of Perceptual Imaging 2(1), Jan-Jun 2019
-```
-©2019 Society for Imaging Science & Technology
-```
-https://doi.org/10.2352/J.Percept.Imaging.2019.2.1.010401
-```
-JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 2
-Fig. 3. An NCS colour wheel with four principal hues [HST96] [NCS18]
-[Swe89]. The four principals are red, yellow, green, and blue. The
-circle is divided into 400 units, 100 between each pair of principals.
-Hues between the principals are indicated by numeral between the two
-principals’ initial letters. In this chart we see units every ten steps for
-each of the four quadrants.
-the colour wheel is not immutable, as the different colour
-wheels suggest, then these harmonies rest on insecure foun-
-dations. This is by no means a new problem [Ber81, Ch.6B]
-[Bri07]. Some of the difference between the different colour
-wheels can be explained from the principles underlying
-their constructions and the uses for which they are designed.
-There is difference in how you construct your colour space
-depending on whether you are mixing coloured lights,
-mixing coloured pigments, or dealing with human visual
-perception [Der91]. For example, Itten’s artist’s colour wheel
-```
-is based in subtractive colour mixing of pigments; opponent
-```
-```
-colour theory is based in visual perception; and Munsell
-```
-was aiming to bring clarity to colour communication by
-establishing an orderly system for accurately identifying
-all colours. All the colour spaces discussed in this paper
-are ways of specifying or mixing colours so all can be
-considered ways of dealing with pigment.
-The contribution of this paper is to argue that our under-
-standing of colour wheels is mediated by the terms we use
-to describe colours, in particular in the use of basic colour
-terms [BK69]. This leads to some of the apparent differences
-between colour wheels in two ways. First, generally across
-all colour wheels, we use the same basic colour name, such
-as blue, to represent subtly different colours in different
-```
-wheels (Section 5), which confuses the student. Second, and
-```
-```
-specific to the artist’s colour wheel (Figure 1), while the
-```
-```
-artist’s (RYB) and printer’s (CMY) colour wheels should
-```
-both be identical, because they are both subtractive colour
-mixing models, I argue that the differences between them
-are largely owing to the artist’s colour wheel being actively
-driven by basic colour terms in a way that puts it at odds
-with the optimal physical colour mixing embodied in the
-```
-printer’s colour wheel (Section 6).
-```
-10Y
-5GY
-10GY
-5G
-10G
-5BG
-10BG
-5B
-10B5PB10PB
-5P
-10P
-5RP
-10RP
-5R
-10R
-5YR
-10YR5Y
-Fig. 4. A Munsell colour wheel with five principal hues and five inter-
-mediate hues [Mun76] [Mun18]. The five principal hues are red, yellow,
-green, blue and purple. The intermediates are indicated by combinations
-```
-of the colour letters (e.g., YR=yellow-red). The wheel is further subdi-
-```
-vided into ten sections for each principal and intermediate, indicated by
-numerals. In this chart we see the 5 and 10 units for each of the ten
-sections. The “5” unit is the prototypical version of each hue. The “10”
-unit is a half-and-half mix of the hues either side. Image used under a
-Creative Commons 3.0 license from WikiMedia author Thenoizz.
-I first give a summary of the history of colour spaces and
-```
-colour wheels (Section 2), then a history of colour naming
-```
-and an outline of Berlin and Kay’s theory of basic colour
-```
-terms (Section 3). I describe five of the most commonly
-```
-```
-used colour wheels (Section 4). I demonstrate that impre-
-```
-cise use of colour names explains a substantial amount of
-the apparent inconsistencies between the different wheels
-```
-(Section 5), allowing us to reconcile these differences. This
-```
-leads to the observation that the technical colour wheels
-are broadly consistent with one another, provided we are
-precise about our specification of the principal colours in
-those spaces, but that the standard artist’s colour wheel
-is substantially different from the technical colour wheels
-```
-(Section 6), because its primary and secondary colours are
-```
-so strongly related to use of basic colour terms in English.
-2 HISTORY
-Colour has fascinated philosophers and artists since antiq-
-uity but it is only in the last century that we have come to
-understand the psychophysical and biological mechanisms
-of colour vision, so early writers could be said to be working
-in the dark. Aristotle described seven principal colours
-```
-(white, yellow, red, violet, green, dark blue, black) which
-```
-he considered all to be mixes of white and black [Sha94], a
-misconception that started to be challenged in the fifteenth
-century [Alb66] but still held some sway until the eighteenth
-century. The discovery that red, yellow and blue are the
-artist’s primaries was made in the early seventeenth century.
-Shapiro cites Parkhurst and Gage as reporting that four
-scholars independently discovered the artist’s tri-chromatic
-primaries. All four scholars were conversant with both art
-JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 3
-and the natural sciences, giving them access to the under-
-standings needed to make this discovery. Shapiro asserts
-that it “. . . was the most important discovery in colour
-before Newton’s own theory” [Sha94, p.624].
-In the late seventeenth century, Newton conducted ex-
-tensive investigations into the nature of colour, discovering
-that white light split into an infinite range of colours: the vi-
-sual spectrum. This discovery was at odds with the widely-
-held belief that white was “pure” and could not be split
-and also at odds with the three primary colours discovered
-earlier that century, discrepancies that caused him much
-trouble to attempt to reconcile and which led to substantial
-challenges in his work being accepted. Neverthless, in his
-writings before Opticks, whenever he listed his principal
-colours of the spectrum, he always added some phrase
-such as “with their innumerable intermediate gradations”
-to indicate that there were countless discernible colours, but
-in Opticks he omits to say this in all but one place, possibly
-in an attempt to placate his critics [Sha94, p.619]. Newton’s
-early work described five principal colours: red, yellow,
-green, blue and purple, but he later added orange and
-indigo, leading to English’s current seven-colour rainbow
-```
-(see longer discussion in the Appendix).
-```
-At the start of the nineteenth century, Goethe launched
-a challenge on Newton’s purely physical approach, tackling
-colour instead as a perceptual phenomenon. To a technically
-trained modern, some of Goethe’s arguments can seem mis-
-guided when compared with Newton’s empiricism. But
-Newton was, in his own way, blinkered: fitting the data to
-suit his hypothesis rather than the other way round [Pla06]
-[Rib85]. The challenge Newton faced was that his evidence
-was inconsistent, because he was assuming that mixing
-```
-lights (additive colour mixing) and mixing pigments (sub-
-```
-```
-tractive colour mixing) should produce consistent results.
-```
-It was only in 1852 that Helmholtz deduced that different
-rules apply to the mixing of pigments and of lights [Sha94].
-In additive colour mixing, different coloured lights are used,
-each with its own spectrum. The mix of the lights is a
-spectrum that is the weighted sum of the spectra of the
-individual lights, weighted by the intensity of the lights.
-Additive colour is used in display devices and the usual
-primary colours used are a red, a green, and a blue. This is
-in contrast to subtractive colour mixing, in which coloured
-pigments, inks, paints or dyes are mixed together. Each
-pigment absorbs some part of the spectrum of light. The mix
-of pigments absorbs a weighted sum of the absorptions of
-the individual pigments. Subtractive colour mixing is used
-in painting, printing and dyeing [Ber81].
-The chemist, Chevreul, dyemaster at the Gobelin work in
-Paris, published De la Loi du Contraste Simultan´e des Couleurs
-et de l’Assortiment des Objets Coloris in 1839 [Itt70]. This, and
-other emerging colour theories, had substantial influence
-on artists in the nineteenth and early twentieth centuries.
-Itten says that “Delacroix. . . is the founder of the tendency,
-among modern artists, to construct works upon logical, ob-
-jective colour principles, so achieving a heightened degree
-of order and truth.” [Fry06, p.418]. The Impressionists and
-Post-Impressionists, in particular, used theories of colour
-contrast and optical colour mixing.
-Several early commentators on colour, including da
-Vinci, noted that there appear to be four fundamental
-```
-colours: red, yellow, green and blue, in addition to black
-```
-and white [Har06]. Hering formalised this into the opponent
-theory of colour vision [Der91] [HJ57]. Hering’s theory was
-further developed by H˚ard, Sivik and Tonnquist in their
-```
-creation of the Natural Colour System (NCS) [HST96]. There
-```
-is evidence that the four opponent principal colours are
-physiologically determined [Gou91] [Har05]. Hering’s the-
-ory was not widely embraced at the time because there was
-no understanding of how responses to two different colours
-of light could interact to create a colour-opponent signal. We
-know today that the neurons in the retina process the out-
-puts of the light-sensitive cones to produce three channels
-of data to the brain: a high resolution luminance channel,
-a lower-resolution red-green channel and an even lower-
-resolution blue-yellow channel [Ber81, p.16] [HJ57]. The
-opponent colour channels explain well several features of
-human vision, including the way in which colour blindness
-manifests and the complementary afterimages caused after
-fixating on a coloured field. Consistent with this theory is
-that you cannot perceive a colour as having simultaneously
-components from either end of an axis, so a yellowish-green
-and a bluish-green both make sense, but a human can never
-perceive a colour that is “reddish-green”, such a mixture
-being a nonsense.
-Over far more than a century, philosophers, scientists
-and artists have grappled with ways to represent and under-
-stand colour, leading to many systems of colour representa-
-tion. Basic introductions can be found in computer graphics
-and design texts [FvDFH90, Ch.13] [JMF94] [SAM09, Ch.20–
-22] [Sto03], with more detailed explanations in specialist
-texts [Ber81] [Ble12] [Bri07] [KB96], and a full history of
-colour spaces in Kuehni and Schwartz’s 2008 book [KS08].
-A colour space is a three-dimensional representation
-of colour. We can restrict ourselves to three dimensions
-because the human visual system has three types of receptor
-for colour vision. All of the colour spaces are mathematical
-transformations of one another. Hunter gives a detailed
-history of nineteen colour spaces developed in the attempt
-to create a perceptually uniform space, starting with the CIE
-1931 colour space and Munsell’s original system, through
-to the CIELUV and CIELAB systems of 1976 [Hun75,
-Ch.8]. Derefeldt gives the background of the most impor-
-tant colour appearance systems, including Munsell, NCS,
-CIELAB and CIELUV. She gives their basic attributes, and
-the principles for scaling and notation of the variables. In
-particular, she makes a comparison of the hue spacing of
-the different spaces [Der91]. Note that there is considerable
-evidence that colour vision is non-Euclidean, so any colour
-space is not going to be a metric space, perceptually [Ber81,
-p.64]. For example, the CIELAB system has a cube-root
-relationship with the signals that are received by the cones
-in the human eye. This is to better match the perceptual
-response of the human visual system but means that linear
-mixes in the CIELAB system do not necessarily match mixes
-of pigments.
-A colour wheel is a representation of one dimension
-of a colour space: hue. Colour wheels have been used
-for centuries. The earliest known drawing of a colour
-wheel dates from 1611 [PF82], a century before Newton’s
-Opticks [New04].
-A colour wheel or, more accurately, a hue wheel, is a
-JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 4
-circle that passes through all of the spectral colours and then
-through the purples to join the two ends of the spectrum
-```
-(Figure 1). Hue is explicitly one of the three dimensions in
-```
-```
-some colour systems, including NCS (Figure 3) and Munsell
-```
-```
-(Figure 4), and is implicit in others, where hue is a function
-```
-of two or three of the principal dimensions of the space.
-```
-For example, in the case of CIELAB, h◦ = tan−1(b∗/a∗).
-```
-When considering a colour wheel, the hues always appear
-in the same order around the wheel but they differ in which
-hues appear opposite each other and in the relative angular
-separation of pairs of hues.
-A student may make an assumption that a “true” colour
-wheel exists and that the different colour wheels essentially
-stretch or contract sections of the “true” wheel to fit their
-predilections, as if the colours were painted on a rubber
-bicycle wheel and we nailed certain hues to certain points
-on the rim. The stretching and contracting is epitomised
-in the differences in the angles red–yellow and green–blue,
-shown in Table 1. When a colour wheel is used as a mech-
-anism to describe hue, then such stretching or contracting is
-```
-fair: the wheel is not purporting to show precise physical
-```
-relationships. However, when a colour wheel is used to
-describe relationships or mixes between distant hues, such
-as in defining the “opposite” of a hue or “harmonious
-```
-colour combinations” (Figure 2), then this stretching and
-```
-contracting becomes questionable.
-3 BASIC COLOUR TERMS
-Berlin and Kay proposed the theory that there are basic
-colour terms in all languages [BK69]. These are the terms
-that you teach small children and which produce categories
-of colour that are irreducible, that is, all other colour terms
-are considered, by most speakers of the language, to be
-variations on these basic colour terms.
-In antiquity, classical scholars certainly privileged certain
-colours above others. In the distant past, the fundamental
-colours appear to have been severely limited. Berlin and
-Kay quote Geiger as suggesting that “Democritus and the
-Pythagoreans [fifth century BC] assumed four fundamen-
-tal colours, black, white, red and yellow” [BK69, p.136].
-Elsewhere, Geiger comments that Aristotle [fourth century
-BC] “in his ‘Meteorology’ calls [the rainbow] tri-coloured,
-viz., red, yellow, and green” [Gei80, p.57]. By the fifteenth
-century, things had developed a little further. Alberti cites
-three fundamental colours: red, green, blue, combined with
-grey [Alb66, Book I, paragraph 9] while da Vinci lists what
-we now call the colour opponent set of principal colours:
-red, yellow, green, blue [Har06]. In the seventeenth century,
-Boyle listed the standard artist’s primaries: red, yellow and
-blue [Har06], but added green and purple when actually
-conducting his experiments on colour [Boy64, p.187]. In
-the early eighteenth century, Newton started with these
-five principal colours: red, yellow, green, blue and purple,
-```
-then added orange and indigo (see longer discussion in the
-```
-```
-Appendix).
-```
-There is a question of nature versus nurture: how much
-the colour categories are inherent in our psychophysiology
-and how much they are cultural constructs. There is good
-evidence that black, white, yellow, red, blue, and green are
-strongly tied to the perceptual mechanisms in the human
-brain [Har05]. Hardin notes that the four principal colours
-```
-(yellow, red, blue, green) “. . . prove to be both necessary and
-```
-sufficient for an English speaker to describe any spectral
-stimulus” [Har98]. The other basic colour categories may
-be more culturally determined. Children are able to match
-and discriminate colours long before they have consistently
-codified the boundaries in colour space of the basic colour
-terms, so providing evidence that the boundaries are a
-social construct [ATF86]. In any case, in order to commu-
-nicate clearly between members of a language group, the
-learnt categories must be at least partly a social construct,
-reinforced by parents, kindergartens and primary schools
-because all members of the language group broadly agree
-on them.
-Berlin and Kay identified that the number of basic colour
-```
-terms range between two (representing light and dark
-```
-```
-colours) and twelve, depending on the language. In English
-```
-there are eleven basic colour terms: red, orange, yellow,
-green, blue, purple, pink, brown, black, grey and white.
-As an example of the irreducibility of these basic terms,
-consider how difficult it is to convince a child that brown
-is really “dark orange” or that pink is “light red” [Har98,
-p.210]. You may teach a particular child or student to make
-finer distinctions, as between “cyan”, “azure”, “indigo” and
-“turquoise”, but there is a cultural push towards teaching
-and agreeing on the eleven basic colour terms [KB96, Ch.11],
-and there is demonstrated effect of these basic categories on
-the ability to perform colour discrimination [WWF+07]. The
-maximum number of basic colour terms in any langague
-appears to be twelve. Russian, and a few other languages,
-```
-distinguish light blue (Russian goluboy) from dark blue (Rus-
-```
-```
-sian siniy) [Par05]. This paper considers the case of English
-```
-though most other European languages use the same eleven
-categories, which is important to our discussion because
-Itten, in particular, was working in German.
-Rather than conducting new perceptual experiments,
-we are able to make use of results from three previous
-studies [BK69] [RDD00] [RH72], which used colour chips
-evenly chosen from Munsell’s colour space.
-Ignoring the monochrome black, grey and white, there
-are eight basic colour terms in English. Roberson et
-al. [RDD00] experimented with an array of 160 coloured
-chips, evenly spaced within the Munsell colour system,
-asking English speaking subjects to categorise each chip into
-one of the eight colour categories.
-Figure 5 shows the mean colour chosen by subjects for
-each colour chip. In addition, each colour region contains a
-small cross that marks the “best-example choice” for each
-of the eight colours, as described by Rosch [RH72]. Notice
-the difference in sizes of the different colour terms: orange
-```
-(5.5 cells), yellow (6.5 cells) and brown (9 cells) each take
-```
-up only a small part of the colour space compared with
-```
-green (52.5 cells) and blue (36 cells). While I acknowledge
-```
-that Munsell’s colour space is non-uniform and is somewhat
-compressed in the yellow-red area and expanded in the
-blue-green area, that cannot explain the full magnitude of
-this difference. Over 50% of the chart is categorised as one
-```
-of two terms blue and green; by contrast, red, orange and
-```
-```
-yellow between them take up just 14% of the chart (see
-```
-also Hardin’s comments on the relatively small sizes of the
-“warm” colours’ regions compared with the relatively large
-JOURNAL OF PERCEPTUAL IMAGING, VOL. 2, NO. 1, JAN–JUN 2019 5
-5R 10R 5YR 10YR 5Y 10Y 5GY 10GY 5G 10G 5BG 10BG 5B 10B 5PB 10PB 5P 10P 5RP 10RP
-9
-8
-7
-6
-5
-4
-3
-2
-yellow
-orange
-brown
-red red
-purple
-bluegreen
-pink
-pink
-```
-Fig. 5. Roberson, Davies and Davidoff’s diagram of the eight basic colours in English (redrawn from [RDD00, Fig.1a]). The colour space is that of
-```
-```
-the Munsell colour system, which has five principal colours, red (R), yellow (Y), green (G), blue (B), purple (P), and their various combinations along
-```
-```
-the horizontal axis, with brightness on the vertical axis (2=dark, 9=light). See Figure 4 for an explanation of the notation. The experiments used a
-```
-160 chip Munsell array and the array shows, for each of the 160 cells, the mean colour chosen by English speakers for each colour chip. Some
-cells lie on the boundary, in which case the boundary passes through the centre of the cell. The small crosses mark the “best-example choices”
-for each of the eight colours, as described by Rosch [RH72]. The colour of each area matches that best-example choice, within the limits of the
-```
-available gamut. The “best-example choices” are taken directly from Rosch’s 1972 paper [RH72]; the locations of several of these “best examples”
-```
-are placed incorrectly in Roberson et al’s 2000 paper [RDD00, Fig.
+im
 
 ...[truncated]

@@ -17,6 +17,7 @@ class SemanticEngine {
     this.ollamaModel = 'nomic-embed-text';
     this.baseUrl = 'http://localhost:11434/api';
     this.ollamaFailures = 0;
+    this.useNewEmbedAPI = true; // Ollama v0.24+ uses /api/embed instead of /api/embeddings
 
     // Domain vocabulary untuk TALL Stack context
     this.domainVocab = {
@@ -163,13 +164,21 @@ class SemanticEngine {
   async buildIndex() {
     console.log("🔬 SemanticEngine: Building vector index...");
 
-    // 🚀 Check if Ollama embeddings are available
+    // 🚀 Check if Ollama embeddings are available + warmup model
     try {
         const axios = require('axios');
-        const tags = await axios.get(`${this.baseUrl}/tags`);
+        const tags = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
         if (tags.data.models.some(m => m.name.includes(this.ollamaModel))) {
-            this.useOllamaEmbeddings = true;
-            console.log(`   💎 Ollama: Using ${this.ollamaModel} for high-precision embeddings.`);
+            // FIX #26 — Warmup: preload the embedding model before batch processing
+            // This prevents 500 errors from model contention (e.g. qwen2.5 still loaded)
+            console.log(`   💎 Ollama: Warming up ${this.ollamaModel} for embeddings...`);
+            const warmupOk = await this._warmupEmbeddingModel();
+            if (warmupOk) {
+                this.useOllamaEmbeddings = true;
+                console.log(`   💎 Ollama: ${this.ollamaModel} ready for high-precision embeddings.`);
+            } else {
+                console.warn(`   ⚠️ Ollama: ${this.ollamaModel} warmup failed, falling back to TF-IDF.`);
+            }
         }
     } catch (e) {
         console.warn("   ⚠️ Ollama not found, falling back to TF-IDF.");
@@ -189,6 +198,7 @@ class SemanticEngine {
       nodir: true,
     });
 
+    let embeddedCount = 0;
     for (const file of files) {
       const filePath = path.join(this.knowledgePath, file);
       try {
@@ -199,7 +209,11 @@ class SemanticEngine {
         
         let embedding = null;
         if (this.useOllamaEmbeddings) {
-            embedding = await this.getEmbedding(cleaned.substring(0, 8000));
+            // FIX #28 — Truncate to 3000 chars to avoid 400 Bad Request (token limit exceeded)
+            embedding = await this.getEmbedding(cleaned.substring(0, 3000));
+            if (embedding) embeddedCount++;
+            // FIX #26 — Small delay between embeddings to reduce Ollama contention
+            if (embeddedCount % 5 === 0) await this._sleep(200);
         }
 
         this.fileIndex.push({
@@ -219,8 +233,9 @@ class SemanticEngine {
     // Simpan index ke disk untuk reuse
     await this.saveIndex();
 
+    const embeddingStatus = this.useOllamaEmbeddings ? `(${embeddedCount} with vector embeddings)` : '(TF-IDF only)';
     console.log(
-      `   ✅ Index built: ${this.fileIndex.length} knowledge nodes vectorized.`,
+      `   ✅ Index built: ${this.fileIndex.length} knowledge nodes vectorized ${embeddingStatus}.`,
     );
     return this.fileIndex.length;
   }
@@ -352,26 +367,115 @@ class SemanticEngine {
     return finalResults;
   }
 
-  async getEmbedding(text) {
-    if (this.ollamaFailures >= 3) return null;
-    try {
-        const axios = require('axios');
-        const response = await axios.post(`${this.baseUrl}/embeddings`, {
-            model: this.ollamaModel,
-            prompt: text
-        }, { timeout: 60000 }); // 60 second timeout to prevent hanging
-        this.ollamaFailures = 0;
-        return response.data.embedding;
-    } catch (e) {
-        this.ollamaFailures++;
-        if (this.ollamaFailures >= 3) {
-            console.error(`   ❌ Ollama: Embedding failed 3 times (${e.message}). Disabling Ollama embeddings for this session.`);
-            this.useOllamaEmbeddings = false;
-        } else {
-            console.error("   ❌ Ollama: Embedding failed:", e.message);
+  /**
+   * FIX #26 — Warmup the embedding model by sending a tiny probe request.
+   * This forces Ollama to unload any other model (e.g. qwen2.5-coder) and load
+   * nomic-embed-text BEFORE we start batch embedding. Prevents 500 contention errors.
+   */
+  async _warmupEmbeddingModel() {
+    const axios = require('axios');
+    const MAX_WARMUP_RETRIES = 3;
+    for (let attempt = 1; attempt <= MAX_WARMUP_RETRIES; attempt++) {
+        try {
+            // Try new API first (/api/embed), fallback to legacy (/api/embeddings)
+            try {
+                const resp = await axios.post(`${this.baseUrl}/embed`, {
+                    model: this.ollamaModel,
+                    input: 'warmup'
+                }, { timeout: 120000 }); // 2 min timeout for cold model load
+                if (resp.data.embeddings?.[0]?.length > 0) {
+                    this.useNewEmbedAPI = true;
+                    return true;
+                }
+            } catch (newApiErr) {
+                // Fallback to legacy endpoint
+                const resp = await axios.post(`${this.baseUrl}/embeddings`, {
+                    model: this.ollamaModel,
+                    prompt: 'warmup'
+                }, { timeout: 120000 });
+                if (resp.data.embedding?.length > 0) {
+                    this.useNewEmbedAPI = false;
+                    return true;
+                }
+            }
+        } catch (e) {
+            const isTransient = e.response?.status === 500 || e.code === 'ECONNRESET';
+            if (isTransient && attempt < MAX_WARMUP_RETRIES) {
+                const delay = attempt * 3000; // 3s, 6s backoff
+                console.warn(`   ⚠️ Ollama: Warmup attempt ${attempt}/${MAX_WARMUP_RETRIES} failed (${e.message}). Retrying in ${delay/1000}s...`);
+                await this._sleep(delay);
+            } else {
+                console.error(`   ❌ Ollama: Warmup failed after ${attempt} attempts: ${e.message}`);
+                return false;
+            }
         }
-        return null;
     }
+    return false;
+  }
+
+  /**
+   * FIX #26 — Get embedding with retry + exponential backoff for transient 500 errors.
+   * Uses /api/embed (Ollama v0.24+) with /api/embeddings fallback.
+   */
+  async getEmbedding(text) {
+    if (this.ollamaFailures >= 5) return null; // Raised threshold from 3 to 5
+    
+    const axios = require('axios');
+    const MAX_RETRIES = 3;
+    
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            let embedding;
+            if (this.useNewEmbedAPI) {
+                // Ollama v0.24+ /api/embed endpoint
+                const response = await axios.post(`${this.baseUrl}/embed`, {
+                    model: this.ollamaModel,
+                    input: text
+                }, { timeout: 60000 });
+                embedding = response.data.embeddings?.[0];
+            } else {
+                // Legacy /api/embeddings endpoint
+                const response = await axios.post(`${this.baseUrl}/embeddings`, {
+                    model: this.ollamaModel,
+                    prompt: text
+                }, { timeout: 60000 });
+                embedding = response.data.embedding;
+            }
+            
+            this.ollamaFailures = 0;
+            return embedding || null;
+        } catch (e) {
+            const isTransient = e.response?.status === 500 || e.response?.status === 503 || e.code === 'ECONNRESET';
+            
+            if (isTransient && attempt < MAX_RETRIES) {
+                // FIX #26 — Exponential backoff: 1s, 2s, 4s for transient server errors
+                const delay = Math.pow(2, attempt - 1) * 1000;
+                console.warn(`   ⚠️ Ollama: Embedding attempt ${attempt}/${MAX_RETRIES} got ${e.response?.status || e.code}. Retrying in ${delay/1000}s...`);
+                await this._sleep(delay);
+                continue;
+            } else if (e.response?.status === 400 && attempt < MAX_RETRIES && text.length > 500) {
+                // FIX #28 — 400 Bad Request usually means token limit exceeded.
+                // Halve the text and retry immediately.
+                console.warn(`   ⚠️ Ollama: Got 400 Bad Request (likely token limit). Truncating text from ${text.length} to ${Math.floor(text.length / 2)} chars and retrying...`);
+                text = text.substring(0, Math.floor(text.length / 2));
+                continue;
+            }
+            
+            this.ollamaFailures++;
+            if (this.ollamaFailures >= 5) {
+                console.error(`   ❌ Ollama: Embedding failed ${this.ollamaFailures} times (${e.message}). Disabling Ollama embeddings for this session.`);
+                this.useOllamaEmbeddings = false;
+            } else {
+                console.error(`   ❌ Ollama: Embedding failed: ${e.message}`);
+            }
+            return null;
+        }
+    }
+    return null;
+  }
+
+  _sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   // FIX #15 — Zero-norm guard: jika salah satu vektor nol (embedding gagal/dokumen kosong),

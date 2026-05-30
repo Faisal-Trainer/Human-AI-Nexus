@@ -170,7 +170,7 @@ class SemanticEngine {
         const tags = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
         if (tags.data.models.some(m => m.name.includes(this.ollamaModel))) {
             // FIX #26 — Warmup: preload the embedding model before batch processing
-            // This prevents 500 errors from model contention (e.g. qwen2.5 still loaded)
+            // This prevents 500 errors from model contention (e.g. qwen3:30b still loaded)
             console.log(`   💎 Ollama: Warming up ${this.ollamaModel} for embeddings...`);
             const warmupOk = await this._warmupEmbeddingModel();
             if (warmupOk) {
@@ -369,7 +369,7 @@ class SemanticEngine {
 
   /**
    * FIX #26 — Warmup the embedding model by sending a tiny probe request.
-   * This forces Ollama to unload any other model (e.g. qwen2.5-coder) and load
+   * This forces Ollama to unload any other model (e.g. qwen3:30b) and load
    * nomic-embed-text BEFORE we start batch embedding. Prevents 500 contention errors.
    */
   async _warmupEmbeddingModel() {

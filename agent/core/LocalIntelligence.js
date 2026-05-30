@@ -1,6 +1,7 @@
 // agent/core/LocalIntelligence.js
 // NEXUS Local AI Interface v3.0 — Powered by node-llama-cpp
 // Enables autonomous code review and reasoning without cloud costs
+// Model: qwen3:30b (updated from qwen2.5-coder:1.5b)
 // ⛔ GUARDRAIL v3.0: Task whitelist + output validation + circuit breaker enforced
 
 // Variabel untuk dynamic import module ESM
@@ -39,8 +40,8 @@ class LocalIntelligence {
 
     this.isAvailable = false;
 
-    // ⛔ HARD LIMIT: Disesuaikan untuk memori laptop (Ryzen 2500U)
-    this.MAX_TOKENS = 16384;
+    // ⛔ HARD LIMIT: Disesuaikan untuk qwen3:30b (lebih besar dari qwen2.5-coder:1.5b)
+    this.MAX_TOKENS = 32768;
     this.MAX_OUTPUT_LENGTH = 20000;
 
     // Availability TTL cache: hindari race condition pada singleton

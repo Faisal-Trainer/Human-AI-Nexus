@@ -1,5 +1,5 @@
 # 🧠 NEXUS KNOWLEDGE HUB: Master Index
-> **Generated At**: 2026-05-29 09:57:01 (UTC+8) | **Total Knowledge Nodes**: 464
+> **Generated At**: 2026-05-30 07:34:49 (UTC+8) | **Total Knowledge Nodes**: 468
 
 | Rack | Knowledge Node | Size (KB) | Last Updated |
 | :--- | :--- | :--- | :--- |
@@ -94,11 +94,11 @@
 | `archived/vcs` | [NEXUS_README.MD](archived/vcs/NEXUS_README.MD) | 0.6 | 5/27/2026 |
 | `archived/vcs` | [NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD](archived/vcs/NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD) | 3.0 | 5/26/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_API.md](distilled/academics/NEXUS_DISTILLATION_API.md) | 8.8 | 5/28/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 8.3 | 5/29/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 5.3 | 5/29/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 13.7 | 5/29/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 8.8 | 5/30/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 5.7 | 5/30/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 14.1 | 5/30/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_TDD.md](distilled/academics/NEXUS_DISTILLATION_TDD.md) | 16.7 | 5/28/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 119.6 | 5/29/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 120.3 | 5/30/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_VCS.md](distilled/academics/NEXUS_DISTILLATION_VCS.md) | 8.3 | 5/28/2026 |
 | `distilled/api` | [NEXUS_API-CALLING.MD](distilled/api/NEXUS_API-CALLING.MD) | 2.3 | 5/26/2026 |
 | `distilled/api` | [NEXUS_CONCURRENCY.MD](distilled/api/NEXUS_CONCURRENCY.MD) | 4.3 | 5/27/2026 |
@@ -111,16 +111,18 @@
 | `distilled/api` | [NEXUS_MESSAGE-PASSING.MD](distilled/api/NEXUS_MESSAGE-PASSING.MD) | 4.3 | 5/26/2026 |
 | `distilled/api` | [NEXUS_MIX.MD](distilled/api/NEXUS_MIX.MD) | 1.6 | 5/27/2026 |
 | `distilled/api` | [NEXUS_NEXUS EKSTERNAL BOUNDARY.MD](distilled/api/NEXUS_NEXUS EKSTERNAL BOUNDARY.MD) | 5.4 | 5/26/2026 |
+| `distilled/api` | [NEXUS_NODE_MCP_SERVER.MD](distilled/api/NEXUS_NODE_MCP_SERVER.MD) | 29.5 | 5/30/2026 |
 | `distilled/api` | [NEXUS_PERSISTENT-TOP-LAYER-UI.MD](distilled/api/NEXUS_PERSISTENT-TOP-LAYER-UI.MD) | 2.4 | 5/26/2026 |
 | `distilled/api` | [NEXUS_POPUP-UI.MD](distilled/api/NEXUS_POPUP-UI.MD) | 2.5 | 5/26/2026 |
+| `distilled/api` | [NEXUS_PYTHON_MCP_SERVER.MD](distilled/api/NEXUS_PYTHON_MCP_SERVER.MD) | 25.4 | 5/30/2026 |
 | `distilled/api` | [NEXUS_SIDE-PANEL.MD](distilled/api/NEXUS_SIDE-PANEL.MD) | 4.6 | 5/26/2026 |
 | `distilled/api` | [NEXUS_TES-2 13 MEI.MD](distilled/api/NEXUS_TES-2 13 MEI.MD) | 1.0 | 5/26/2026 |
 | `distilled/audit` | [NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD](distilled/audit/NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD) | 3.1 | 5/10/2026 |
 | `distilled/audit` | [NEXUS_AUDIT_V320_AUTONOMOUS_READINESS.MD](distilled/audit/NEXUS_AUDIT_V320_AUTONOMOUS_READINESS.MD) | 2.4 | 5/10/2026 |
-| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-10.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md) | 1.2 | 5/29/2026 |
-| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-13.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md) | 0.7 | 5/29/2026 |
+| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-10.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md) | 1.2 | 5/30/2026 |
+| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-13.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md) | 0.7 | 5/30/2026 |
 | `distilled/audit` | [NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD](distilled/audit/NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD) | 18.1 | 5/19/2026 |
-| `distilled/audit` | [NEXUS_SESSION_HISTORY_ARCHIVE.MD](distilled/audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD) | 2.5 | 5/29/2026 |
+| `distilled/audit` | [NEXUS_SESSION_HISTORY_ARCHIVE.MD](distilled/audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD) | 2.5 | 5/30/2026 |
 | `distilled/database` | [NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD](distilled/database/NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD) | 86.1 | 5/26/2026 |
 | `distilled/database` | [NEXUS_1436+MANUSCRIPT.MD](distilled/database/NEXUS_1436+MANUSCRIPT.MD) | 24.1 | 5/26/2026 |
 | `distilled/database` | [NEXUS_1471-2288-10-12.MD](distilled/database/NEXUS_1471-2288-10-12.MD) | 56.9 | 5/26/2026 |
@@ -365,6 +367,7 @@
 | `distilled/security` | [NEXUS_LIFECYCLE.MD](distilled/security/NEXUS_LIFECYCLE.MD) | 7.4 | 5/27/2026 |
 | `distilled/security` | [NEXUS_LOGGING.MD](distilled/security/NEXUS_LOGGING.MD) | 23.3 | 5/27/2026 |
 | `distilled/security` | [NEXUS_MCP.MD](distilled/security/NEXUS_MCP.MD) | 90.0 | 5/27/2026 |
+| `distilled/security` | [NEXUS_MCPBESTPRACTICE.MD](distilled/security/NEXUS_MCPBESTPRACTICE.MD) | 7.8 | 5/30/2026 |
 | `distilled/security` | [NEXUS_MIDDLEWARE.MD](distilled/security/NEXUS_MIDDLEWARE.MD) | 19.4 | 5/27/2026 |
 | `distilled/security` | [NEXUS_MIGRATIONS.MD](distilled/security/NEXUS_MIGRATIONS.MD) | 57.7 | 5/27/2026 |
 | `distilled/security` | [NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md](distilled/security/NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md) | 10.2 | 5/26/2026 |
@@ -440,6 +443,7 @@
 | `distilled/tdd` | [NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_INTELLIGENT_CRUD_AUDITOR_SESSION_HISTORY_ARCHIVE.MD) | 11.5 | 5/7/2026 |
 | `distilled/tdd` | [NEXUS_INTEREST-TRIGGERED-ACTION-PREVIEWS.MD](distilled/tdd/NEXUS_INTEREST-TRIGGERED-ACTION-PREVIEWS.MD) | 4.3 | 5/26/2026 |
 | `distilled/tdd` | [NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_LIVEWIRE_REACTIVE_VALIDATOR_SESSION_HISTORY_ARCHIVE.MD) | 7.2 | 5/7/2026 |
+| `distilled/tdd` | [NEXUS_MCPBUILDER.MD](distilled/tdd/NEXUS_MCPBUILDER.MD) | 9.6 | 5/30/2026 |
 | `distilled/tdd` | [NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_MEMORY_CONSISTENCY_TEST_SESSION_HISTORY_ARCHIVE.MD) | 7.0 | 5/7/2026 |
 | `distilled/tdd` | [NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_MULTI-AGENT_DEBUGGING_SYSTEM_SESSION_HISTORY_ARCHIVE.MD) | 7.2 | 5/7/2026 |
 | `distilled/tdd` | [NEXUS_POSITION-AWARE-TOOLTIPS.MD](distilled/tdd/NEXUS_POSITION-AWARE-TOOLTIPS.MD) | 6.2 | 5/26/2026 |

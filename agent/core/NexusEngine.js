@@ -187,6 +187,27 @@ class NexusEngine {
         return this.skillRegistry;
     }
 
+    async discoverAgents() {
+        this.log('🤖 Discovering Agent Registry...', 'info');
+        const agentRegistry = {};
+        const scanDir = async (dir, prefix = '') => {
+            if (!(await fs.pathExists(dir))) return;
+            const entries = await fs.readdir(dir, { withFileTypes: true });
+            for (const entry of entries) {
+                const fullPath = path.join(dir, entry.name);
+                if (entry.isDirectory()) {
+                    await scanDir(fullPath, prefix ? `${prefix}/${entry.name}` : entry.name);
+                } else if (entry.name.endsWith('.md')) {
+                    const category = prefix || 'uncategorized';
+                    if (!agentRegistry[category]) agentRegistry[category] = [];
+                    agentRegistry[category].push(entry.name.replace('.md', ''));
+                }
+            }
+        };
+        await scanDir(this.agentPath);
+        return agentRegistry;
+    }
+
     async readMemory() {
         this.log('🧠 Accessing Memory HUB...', 'info');
         try {

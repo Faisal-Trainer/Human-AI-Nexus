@@ -12,7 +12,7 @@ async function main() {
     const command = args[0];
 
     // If command is engine-level, delegate to Nexus Engine (agent/main.js)
-    const engineCommands = ['run', 'audit', 'skills', 'harvest', 'refactor', 'update-skills', 'distill', 'forge', 'think', 'review', 'status', 'dlq', 'sandbox', 'help'];
+    const engineCommands = ['run', 'audit', 'skills', 'agents', 'harvest', 'refactor', 'update-skills', 'distill', 'forge', 'think', 'review', 'status', 'dlq', 'sandbox', 'help'];
     
     if (engineCommands.includes(command) || (args.includes('nexus') && args.includes('run'))) {
         const cleanArgs = args.filter(a => a !== 'nexus');

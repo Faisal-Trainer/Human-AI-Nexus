@@ -131,6 +131,14 @@ async function main() {
             });
             rl.close();
             break;
+        case 'agents':
+            const agentRegistry = await engine.discoverAgents();
+            console.log('\n🤖 Nexus Agent Registry:');
+            Object.entries(agentRegistry).forEach(([cat, agents]) => {
+                console.log(`- \x1b[35m${cat.toUpperCase()}\x1b[0m: ${agents.join(', ')}`);
+            });
+            rl.close();
+            break;
         case 'harvest':
             const sourcePath = flags.target;
             if (!sourcePath) {
@@ -281,6 +289,7 @@ Usage:
   nexus refactor      - [Protocol 1] Mass Refactor from Golden to HUB
   nexus update-skills - [Protocol 2] Mass Update from HUB to Skills
   nexus skills        - List available agent skills
+  nexus agents        - List available internal and external agents
   nexus distill       - Distill and standardize the HUB (NEXUS_ prefix)
   nexus forge <name> <file> - Forge a new machine from wisdom file
   nexus think <query> - Ask local AI for architectural advice

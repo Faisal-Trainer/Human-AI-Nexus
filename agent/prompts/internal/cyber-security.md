@@ -1281,7 +1281,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v19 | **Last Updated**: 5/29/2026
+> **VERSION**: v20 | **Last Updated**: 5/30/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -4777,6 +4777,1812 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0111] - 5/30/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
+
+# Node/TypeScript MCP Server Implementation Guide
+> **VERSION**: v2 | **Last Updated**: 5/30/2026
+
+
+
+## Overview
+
+This document provides Node/TypeScript-specific best practices and examples for implementing MCP servers using the MCP TypeScript SDK. It covers project structure, server setup, tool registration patterns, input validation with Zod, error handling, and complete working examples.
+
+---
+
+## Quick Reference
+
+### Key Imports
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import express from "express";
+import { z } from "zod";
+```
+
+### Server Initialization
+
+```typescript
+const server = new McpServer({
+  name: "service-mcp-server",
+  version: "1.0.0",
+});
+```
+
+### Tool Registration Pattern
+
+```typescript
+server.registerTool(
+  "tool_name",
+  {
+    title: "Tool Display Name",
+    description: "What the tool does",
+    inputSchema: { param: z.string() },
+    outputSchema: { result: z.string() },
+  },
+  async ({ param }) => {
+    const output = { result: `Processed: ${param}` };
+    return {
+      content: [{ type: "text", text: JSON.stringify(output) }],
+      structuredContent: output, // Modern pattern for structured data
+    };
+  },
+);
+```
+
+---
+
+## MCP TypeScript SDK
+
+The official MCP TypeScript SDK provides:
+
+- `McpServer` class for server initialization
+- `registerTool` method for tool registration
+- Zod schema integration for runtime input validation
+- Type-safe tool handler implementations
+
+**IMPORTANT - Use Modern APIs Only:**
+
+- **DO use**: `server.registerTool()`, `server.registerResource()`, `server.registerPrompt()`
+- **DO NOT use**: Old deprecated APIs such as `server.tool()`, `server.setRequestHandler(ListToolsRequestSchema, ...)`, or manual handler registration
+- The `register*` methods provide better type safety, automatic schema handling, and are the recommended approach
+
+See the MCP SDK documentation in the references for complete details.
+
+## Server Naming Convention
+
+Node/TypeScript MCP servers must follow this naming pattern:
+
+- **Format**: `{service}-mcp-server` (lowercase with hyphens)
+- **Examples**: `github-mcp-server`, `jira-mcp-server`, `stripe-mcp-server`
+
+The name should be:
+
+- General (not tied to specific features)
+- Descriptive of the service/API being integrated
+- Easy to infer from the task description
+- Without version numbers or dates
+
+## Project Structure
+
+Create the following structure for Node/TypeScript MCP servers:
+
+```
+{service}-mcp-server/
+├── package.json
+├── tsconfig.json
+├── [README.md](../security/NEXUS_README.MD)
+├── src/
+│   ├── index.ts          # Main entry point with McpServer initialization
+│   ├── types.ts          # TypeScript type definitions and interfaces
+│   ├── tools/            # Tool implementations (one file per domain)
+│   ├── services/         # API clients and shared utilities
+│   ├── schemas/          # Zod validation schemas
+│   └── constants.ts      # Shared constants (API_URL, CHARACTER_LIMIT, etc.)
+└── dist/                 # Built JavaScript files (entry point: dist/index.js)
+```
+
+## Tool Implementation
+
+### Tool Naming
+
+Use snake_case for tool names (e.g., "search_users", "create_project", "get_channel_info") with clear, action-oriented names.
+
+**Avoid Naming Conflicts**: Include the service context to prevent overlaps:
+
+- Use "slack_send_message" instead of just "send_message"
+- Use "github_create_issue" instead of just "create_issue"
+- Use "asana_list_tasks" instead of just "list_tasks"
+
+### Tool Structure
+
+Tools are registered using the `registerTool` method with the following requirements:
+
+- Use Zod schemas for runtime input validation and type safety
+- The `description` field must be explicitly provided - JSDoc comments are NOT automatically extracted
+- Explicitly provide `title`, `description`, `inputSchema`, and `annotations`
+- The `inputSchema` must be a Zod schema object (not a JSON schema)
+- Type all parameters and return values explicitly
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+
+const server = new McpServer({
+  name: "example-mcp",
+  version: "1.0.0",
+});
+
+// Zod schema for input validation
+const UserSearchInputSchema = z
+  .object({
+    query: z
+      .string()
+      .min(2, "Query must be at least 2 characters")
+      .max(200, "Query must not exceed 200 characters")
+      .describe("Search string to match against names/emails"),
+    limit: z
+      .number()
+      .int()
+      .min(1)
+      .max(100)
+      .default(20)
+      .describe("Maximum results to return"),
+    offset: z
+      .number()
+      .int()
+      .min(0)
+      .default(0)
+      .describe("Number of results to skip for pagination"),
+    response_format: z
+      .nativeEnum(ResponseFormat)
+      .default(ResponseFormat.MARKDOWN)
+      .describe(
+        "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+      ),
+  })
+  .strict();
+
+// Type definition from Zod schema
+type UserSearchInput = z.infer<typeof UserSearchInputSchema>;
+
+server.registerTool(
+  "example_search_users",
+  {
+    title: "Search Example Users",
+    description: `Search for users in the Example system by name, email, or team.
+
+This tool searches across all user profiles in the Example platform, supporting partial matches and various search filters. It does NOT create or modify users, only searches existing ones.
+
+Args:
+  - query (string): Search string to match against names/emails
+  - limit (number): Maximum results to return, between 1-100 (default: 20)
+  - offset (number): Number of results to skip for pagination (default: 0)
+  - response_format ('markdown' | 'json'): Output format (default: 'markdown')
+
+Returns:
+  For JSON format: Structured data with schema:
+  {
+    "total": number,           // Total number of matches found
+    "count": number,           // Number of results in this response
+    "offset": number,          // Current pagination offset
+    "users": [
+      {
+        "id": string,          // User ID (e.g., "U123456789")
+        "name": string,        // Full name (e.g., "John Doe")
+        "email": string,       // Email address
+        "team": string,        // Team name (optional)
+        "active": boolean      // Whether user is active
+      }
+    ],
+    "has_more": boolean,       // Whether more results are available
+    "next_offset": number      // Offset for next page (if has_more is true)
+  }
+
+Examples:
+  - Use when: "Find all marketing team members" -> params with query="team:marketing"
+  - Use when: "Search for John's account" -> params with query="john"
+  - Don't use when: You need to create a user (use example_create_user instead)
+
+Error Handling:
+  - Returns "Error: Rate limit exceeded" if too many requests (429 status)
+  - Returns "No users found matching '<query>'" if search returns empty`,
+    inputSchema: UserSearchInputSchema,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
+  },
+  async (params: UserSearchInput) => {
+    try {
+      // Input validation is handled by Zod schema
+      // Make API request using validated parameters
+      const data = await makeApiRequest<any>("users/search", "GET", undefined, {
+        q: params.query,
+        limit: params.limit,
+        offset: params.offset,
+      });
+
+      const users = data.users || [];
+      const total = data.total || 0;
+
+      if (!users.length) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `No users found matching '${params.query}'`,
+            },
+          ],
+        };
+      }
+
+      // Prepare structured output
+      const output = {
+        total,
+        count: users.length,
+        offset: params.offset,
+        users: users.map((user: any) => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          ...(user.team ? { team: user.team } : {}),
+          active: user.active ?? true,
+        })),
+        has_more: total > params.offset + users.length,
+        ...(total > params.offset + users.length
+          ? {
+              next_offset: params.offset + users.length,
+            }
+          : {}),
+      };
+
+      // Format text representation based on requested format
+      let textContent: string;
+      if (params.response_format === ResponseFormat.MARKDOWN) {
+        const lines = [
+          `# User Search Results: '${params.query}'`,
+          "",
+          `Found ${total} users (showing ${users.length})`,
+          "",
+        ];
+        for (const user of users) {
+          lines.push(`## ${user.name} (${user.id})`);
+          lines.push(`- **Email**: ${user.email}`);
+          if (user.team) lines.push(`- **Team**: ${user.team}`);
+          lines.push("");
+        }
+        textContent = lines.join("\n");
+      } else {
+        textContent = JSON.stringify(output, null, 2);
+      }
+
+      return {
+        content: [{ type: "text", text: textContent }],
+        structuredContent: output, // Modern pattern for structured data
+      };
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: handleApiError(error),
+          },
+        ],
+      };
+    }
+  },
+);
+```
+
+## Zod Schemas for Input Validation
+
+Zod provides runtime type validation:
+
+```typescript
+import { z } from "zod";
+
+// Basic schema with validation
+const CreateUserSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .max(100, "Name must not exceed 100 characters"),
+    email: z.string().email("Invalid email format"),
+    age: z
+      .number()
+      .int("Age must be a whole number")
+      .min(0, "Age cannot be negative")
+      .max(150, "Age cannot be greater than 150"),
+  })
+  .strict(); // Use .strict() to forbid extra fields
+
+// Enums
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+const SearchSchema = z.object({
+  response_format: z
+    .nativeEnum(ResponseFormat)
+    .default(ResponseFormat.MARKDOWN)
+    .describe("Output format"),
+});
+
+// Optional fields with defaults
+const PaginationSchema = z.object({
+  limit: z
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .default(20)
+    .describe("Maximum results to return"),
+  offset: z
+    .number()
+    .int()
+    .min(0)
+    .default(0)
+    .describe("Number of results to skip"),
+});
+```
+
+## Response Format Options
+
+Support multiple output formats for flexibility:
+
+```typescript
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+const inputSchema = z.object({
+  query: z.string(),
+  response_format: z
+    .nativeEnum(ResponseFormat)
+    .default(ResponseFormat.MARKDOWN)
+    .describe(
+      "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+    ),
+});
+```
+
+**Markdown format**:
+
+- Use headers, lists, and formatting for clarity
+- Convert timestamps to human-readable format
+- Show display names with IDs in parentheses
+- Omit verbose metadata
+- Group related information logically
+
+**JSON format**:
+
+- Return complete, structured data suitable for programmatic processing
+- Include all available fields and metadata
+- Use consistent field names and types
+
+## Pagination Implementation
+
+For tools that list resources:
+
+```typescript
+const ListSchema = z.object({
+  limit: z.number().int().min(1).max(100).default(20),
+  offset: z.number().int().min(0).default(0),
+});
+
+async function listItems(params: z.infer<typeof ListSchema>) {
+  const data = await apiRequest(params.limit, params.offset);
+
+  const response = {
+    total: data.total,
+    count: data.items.length,
+    offset: params.offset,
+    items: data.items,
+    has_more: data.total > params.offset + data.items.length,
+    next_offset:
+      data.total > params.offset + data.items.length
+        ? params.offset + data.items.length
+        : undefined,
+  };
+
+  return JSON.stringify(response, null, 2);
+}
+```
+
+## Character Limits and Truncation
+
+Add a CHARACTER_LIMIT constant to prevent overwhelming responses:
+
+```typescript
+// At module level in constants.ts
+export const CHARACTER_LIMIT = 25000; // Maximum response size in characters
+
+async function searchTool(params: SearchInput) {
+  let result = generateResponse(data);
+
+  // Check character limit and truncate if needed
+  if (result.length > CHARACTER_LIMIT) {
+    const truncatedData = data.slice(0, Math.max(1, data.length / 2));
+    response.data = truncatedData;
+    response.truncated = true;
+    response.truncation_message =
+      `Response truncated from ${data.length} to ${truncatedData.length} items. ` +
+      `Use 'offset' parameter or add filters to see more results.`;
+    result = JSON.stringify(response, null, 2);
+  }
+
+  return result;
+}
+```
+
+## Error Handling
+
+Provide clear, actionable error messages:
+
+```typescript
+import axios, { AxiosError } from "axios";
+
+function handleApiError(error: unknown): string {
+  if (error instanceof AxiosError) {
+    if (error.response) {
+      switch (error.response.status) {
+        case 404:
+          return "Error: Resource not found. Please check the ID is correct.";
+        case 403:
+          return "Error: Permission denied. You don't have access to this resource.";
+        case 429:
+          return "Error: Rate limit exceeded. Please wait before making more requests.";
+        default:
+          return `Error: API request failed with status ${error.response.status}`;
+      }
+    } else if (error.code === "ECONNABORTED") {
+      return "Error: Request timed out. Please try again.";
+    }
+  }
+  return `Error: Unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`;
+}
+```
+
+## Shared Utilities
+
+Extract common functionality into reusable functions:
+
+```typescript
+// Shared API request function
+async function makeApiRequest<T>(
+  endpoint: string,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  data?: any,
+  params?: any,
+): Promise<T> {
+  try {
+    const response = await axios({
+      method,
+      url: `${API_BASE_URL}/${endpoint}`,
+      data,
+      params,
+      timeout: 30000,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+```
+
+## Async/Await Best Practices
+
+Always use async/await for network requests and I/O operations:
+
+```typescript
+// Good: Async network request
+async function fetchData(resourceId: string): Promise<ResourceData> {
+  const response = await axios.get(`${API_URL}/resource/${resourceId}`);
+  return response.data;
+}
+
+// Bad: Promise chains
+function fetchData(resourceId: string): Promise<ResourceData> {
+  return axios
+    .get(`${API_URL}/resource/${resourceId}`)
+    .then((response) => response.data); // Harder to read and maintain
+}
+```
+
+## TypeScript Best Practices
+
+1. **Use Strict TypeScript**: Enable strict mode in tsconfig.json
+2. **Define Interfaces**: Create clear interface definitions for all data structures
+3. **Avoid `any`**: Use proper types or `unknown` instead of `any`
+4. **Zod for Runtime Validation**: Use Zod schemas to validate external data
+5. **Type Guards**: Create type guard functions for complex type checking
+6. **Error Handling**: Always use try-catch with proper error type checking
+7. **Null Safety**: Use optional chaining (`?.`) and nullish coalescing (`??`)
+
+```typescript
+// Good: Type-safe with Zod and interfaces
+interface UserResponse {
+  id: string;
+  name: string;
+  email: string;
+  team?: string;
+  active: boolean;
+}
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  team: z.string().optional(),
+  active: z.boolean(),
+});
+
+type User = z.infer<typeof UserSchema>;
+
+async function getUser(id: string): Promise<User> {
+  const data = await apiCall(`/users/${id}`);
+  return UserSchema.parse(data); // Runtime validation
+}
+
+// Bad: Using any
+async function getUser(id: string): Promise<any> {
+  return await apiCall(`/users/${id}`); // No type safety
+}
+```
+
+## Package Configuration
+
+### package.json
+
+```json
+{
+  "name": "{service}-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for {Service} API integration",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
+```
+
+### tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+## Complete Example
+
+```typescript
+#!/usr/bin/env node
+/**
+ * MCP Server for Example Service.
+ *
+ * This server provides tools to interact with Example API, including user search,
+ * project management, and data export capabilities.
+ */
+
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import axios, { AxiosError } from "axios";
+
+// Constants
+const API_BASE_URL = "https://api.example.com/v1";
+const CHARACTER_LIMIT = 25000;
+
+// Enums
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+// Zod schemas
+const UserSearchInputSchema = z
+  .object({
+    query: z
+      .string()
+      .min(2, "Query must be at least 2 characters")
+      .max(200, "Query must not exceed 200 characters")
+      .describe("Search string to match against names/emails"),
+    limit: z
+      .number()
+      .int()
+      .min(1)
+      .max(100)
+      .default(20)
+      .describe("Maximum results to return"),
+    offset: z
+      .number()
+      .int()
+      .min(0)
+      .default(0)
+      .describe("Number of results to skip for pagination"),
+    response_format: z
+      .nativeEnum(ResponseFormat)
+      .default(ResponseFormat.MARKDOWN)
+      .describe(
+        "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+      ),
+  })
+  .strict();
+
+type UserSearchInput = z.infer<typeof UserSearchInputSchema>;
+
+// Shared utility functions
+async function makeApiRequest<T>(
+  endpoint: string,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  data?: any,
+  params?: any,
+): Promise<T> {
+  try {
+    const response = await axios({
+      method,
+      url: `${API_BASE_URL}/${endpoint}`,
+      data,
+      params,
+      timeout: 30000,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function handleApiError(error: unknown): string {
+  if (error instanceof AxiosError) {
+    if (error.response) {
+      switch (error.response.status) {
+        case 404:
+          return "Error: Resource not found. Please check the ID is correct.";
+        case 403:
+          return "Error: Permission denied. You don't have access to this resource.";
+        case 429:
+          return "Error: Rate limit exceeded. Please wait before making more requests.";
+        default:
+          return `Error: API request failed with status ${error.response.status}`;
+      }
+    } else if (error.code === "ECONNABORTED") {
+      return "Error: Request timed out. Please try again.";
+    }
+  }
+  return `Error: Unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`;
+}
+
+// Create MCP server instance
+const server = new McpServer({
+  name: "example-mcp",
+  version: "1.0.0",
+});
+
+// Register tools
+server.registerTool(
+  "example_search_users",
+  {
+    title: "Search Example Users",
+    description: `[Full description as shown above]`,
+    inputSchema: UserSearchInputSchema,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
+  },
+  async (params: UserSearchInput) => {
+    // Implementation as shown above
+  },
+);
+
+// Main function
+// For stdio (local):
+async function runStdio() {
+  if (!process.env.EXAMPLE_API_KEY) {
+    console.error("ERROR: EXAMPLE_API_KEY environment variable is required");
+    process.exit(1);
+  }
+
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("MCP server running via stdio");
+}
+
+// For streamable HTTP (remote):
+async function runHTTP() {
+  if (!process.env.EXAMPLE_API_KEY) {
+    console.error("ERROR: EXAMPLE_API_KEY environment variable is required");
+    process.exit(1);
+  }
+
+  const app = express();
+  app.use(express.json());
+
+  app.post("/mcp", async (req, res) => {
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true,
+    });
+    res.on("close", () => transport.close());
+    await server.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+  });
+
+  const port = parseInt(process.env.PORT || "3000");
+  app.listen(port, () => {
+    console.error(`MCP server running on http://localhost:${port}/mcp`);
+  });
+}
+
+// Choose transport based on environment
+const transport = process.env.TRANSPORT || "stdio";
+if (transport === "http") {
+  runHTTP().catch((error) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
+} else {
+  runStdio().catch((error) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
+}
+```
+
+---
+
+## Advanced MCP Features
+
+### Resource Registration
+
+Expose data as resources for efficient, URI-based access:
+
+```typescript
+import { ResourceTemplate } from "@modelcontextprotocol/sdk/types.js";
+
+// Register a resource with URI template
+server.registerResource(
+  {
+    uri: "file://documents/{name}",
+    name: "Document Resource",
+    description: "Access documents by name",
+    mimeType: "text/plain",
+  },
+  async (uri: string) => {
+    // Extract parameter from URI
+    const match = uri.match(/^file:\/\/documents\/(.+)$/);
+    if (!match) {
+      throw new Error("Invalid URI format");
+    }
+
+    const documentName = match[1];
+    const content = await loadDocument(documentName);
+
+    return {
+      contents: [
+        {
+          uri,
+          mimeType: "text/plain",
+          text: content,
+        },
+      ],
+    };
+  },
+);
+
+// List available resources dynamically
+server.registerResourceList(async () => {
+  const documents = await getAvailableDocuments();
+  return {
+    resources: documents.map((doc) => ({
+      uri: `file://documents/${doc.name}`,
+      name: doc.name,
+      mimeType: "text/plain",
+      description: doc.description,
+    })),
+  };
+});
+```
+
+**When to use Resources vs Tools:**
+
+- **Resources**: For data access with simple URI-based parameters
+- **Tools**: For complex operations requiring validation and business logic
+- **Resources**: When data is relatively static or template-based
+- **Tools**: When operations have side effects or complex workflows
+
+### Transport Options
+
+The TypeScript SDK supports two main transport mechanisms:
+
+#### Streamable HTTP (Recommended for Remote Servers)
+
+```typescript
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import express from "express";
+
+const app = express();
+app.use(express.json());
+
+app.post("/mcp", async (req, res) => {
+  // Create new transport for each request (stateless, prevents request ID collisions)
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true,
+  });
+
+  res.on("close", () => transport.close());
+
+  await server.connect(transport);
+  await transport.handleRequest(req, res, req.body);
+});
+
+app.listen(3000);
+```
+
+#### stdio (For Local Integrations)
+
+```typescript
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
+```
+
+**Transport selection:**
+
+- **Streamable HTTP**: Web services, remote access, multiple clients
+- **stdio**: Command-line tools, local development, subprocess integration
+
+### Notification Support
+
+Notify clients when server state changes:
+
+```typescript
+// Notify when tools list changes
+server.notification({
+  method: "notifications/tools/list_changed",
+});
+
+// Notify when resources change
+server.notification({
+  method: "notifications/resources/list_changed",
+});
+```
+
+Use notifications sparingly - only when server capabilities genuinely change.
+
+---
+
+## Code Best Practices
+
+### Code Composability and Reusability
+
+Your implementation MUST prioritize composability and code reuse:
+
+1. **Extract Common Functionality**:
+   - Create reusable helper functions for operations used across multiple tools
+   - Build shared API clients for HTTP requests instead of duplicating code
+   - Centralize error handling logic in utility functions
+   - Extract business logic into dedicated functions that can be composed
+   - Extract shared markdown or JSON field selection & formatting functionality
+
+2. **Avoid Duplication**:
+   - NEVER copy-paste similar code between tools
+   - If you find yourself writing similar logic twice, extract it into a function
+   - Common operations like pagination, filtering, field selection, and formatting should be shared
+   - Authentication/authorization logic should be centralized
+
+## Building and Running
+
+Always build your TypeScript code before running:
+
+```bash
+# Build the project
+npm run build
+
+# Run the server
+npm start
+
+# Development with auto-reload
+npm run dev
+```
+
+Always ensure `npm run build` completes successfully before considering the implementation complete.
+
+## Quality Checklist
+
+Before finalizing your Node/TypeScript MCP server implementation, ensure:
+
+### Strategic Design
+
+- [ ] Tools enable complete workflows, not just API endpoint wrappers
+- [ ] Tool names reflect natural task subdivisions
+- [ ] Response formats optimize for agent context efficiency
+- [ ] Human-readable identifiers used where appropriate
+- [ ] Error messages guide agents toward correct usage
+
+### Implementation Quality
+
+- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
+- [ ] All tools registered using `registerTool` with complete configuration
+- [ ] All tools include `title`, `description`, `inputSchema`, and `annotations`
+- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+- [ ] All tools use Zod schemas for runtime input validation with `.strict()` enforcement
+- [ ] All Zod schemas have proper constraints and descriptive error messages
+- [ ] All tools have comprehensive descriptions with explicit input/output types
+- [ ] Descriptions include return value examples and complete schema documentation
+- [ ] Error messages are clear, actionable, and educational
+
+### TypeScript Quality
+
+- [ ] TypeScript interfaces are defined for all data structures
+- [ ] Strict TypeScript is enabled in tsconfig.json
+- [ ] No use of `any` type - use `unknown` or proper types instead
+- [ ] All async functions have explicit Promise<T> return types
+- [ ] Error handling uses proper type guards (e.g., `axios.isAxiosError`, `z.ZodError`)
+
+### Advanced Features (where applicable)
+
+- [ ] Resources registered for appropriate data endpoints
+- [ ] Appropriate transport configured (stdio or streamable HTTP)
+- [ ] Notifications implemented for dynamic server capabilities
+- [ ] Type-safe with SDK interfaces
+
+### Project Configuration
+
+- [ ] Package.json includes all necessary dependencies
+- [ ] Build script produces working JavaScript in dist/ directory
+- [ ] Main entry point is properly configured as dist/index.js
+- [ ] Server name follows format: `{service}-mcp-server`
+- [ ] tsconfig.json properly configured with strict mode
+
+### Code Quality
+
+- [ ] Pagination is properly implemented where applicable
+- [ ] Large responses check CHARACTER_LIMIT constant and truncate with clear messages
+- [ ] Filtering options are provided for potentially large result sets
+- [ ] All network operations handle timeouts and connection errors gracefully
+- [ ] Common functionality is extracted into reusable functions
+- [ ] Return types are consistent across similar operations
+
+### Testing and Build
+
+- [ ] `npm run build` completes successfully without errors
+- [ ] dist/index.js created and executable
+- [ ] Server runs: `node dist/index.js --help`
+- [ ] All imports resolve correctly
+- [ ] Sample tool calls work as expected
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_PYTHON_MCP_SERVER.MD
+
+# Python MCP Server Implementation Guide
+> **VERSION**: v2 | **Last Updated**: 5/30/2026
+
+
+
+## Overview
+
+This document provides Python-specific best practices and examples for implementing MCP servers using the MCP Python SDK. It covers server setup, tool registration patterns, input validation with Pydantic, error handling, and complete working examples.
+
+---
+
+## Quick Reference
+
+### Key Imports
+
+```python
+from mcp.server.fastmcp import FastMCP
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+from typing import Optional, List, Dict, Any
+from enum import Enum
+import httpx
+```
+
+### Server Initialization
+
+```python
+mcp = FastMCP("service_mcp")
+```
+
+### Tool Registration Pattern
+
+```python
+@mcp.tool(name="tool_name", annotations={...})
+async def tool_function(params: InputModel) -> str:
+    # Implementation
+    pass
+```
+
+---
+
+## MCP Python SDK and FastMCP
+
+The official MCP Python SDK provides FastMCP, a high-level framework for building MCP servers. It provides:
+
+- Automatic description and inputSchema generation from function signatures and docstrings
+- Pydantic model integration for input validation
+- Decorator-based tool registration with `@mcp.tool`
+
+**For complete SDK documentation, use WebFetch to load:**
+`https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/[README.md](../security/NEXUS_README.MD)`
+
+## Server Naming Convention
+
+Python MCP servers must follow this naming pattern:
+
+- **Format**: `{service}_mcp` (lowercase with underscores)
+- **Examples**: `github_mcp`, `jira_mcp`, `stripe_mcp`
+
+The name should be:
+
+- General (not tied to specific features)
+- Descriptive of the service/API being integrated
+- Easy to infer from the task description
+- Without version numbers or dates
+
+## Tool Implementation
+
+### Tool Naming
+
+Use snake_case for tool names (e.g., "search_users", "create_project", "get_channel_info") with clear, action-oriented names.
+
+**Avoid Naming Conflicts**: Include the service context to prevent overlaps:
+
+- Use "slack_send_message" instead of just "send_message"
+- Use "github_create_issue" instead of just "create_issue"
+- Use "asana_list_tasks" instead of just "list_tasks"
+
+### Tool Structure with FastMCP
+
+Tools are defined using the `@mcp.tool` decorator with Pydantic models for input validation:
+
+```python
+from pydantic import BaseModel, Field, ConfigDict
+from mcp.server.fastmcp import FastMCP
+
+# Initialize the MCP server
+mcp = FastMCP("example_mcp")
+
+# Define Pydantic model for input validation
+class ServiceToolInput(BaseModel):
+    '''Input model for service tool operation.'''
+    model_config = ConfigDict(
+        str_strip_whitespace=True,  # Auto-strip whitespace from strings
+        validate_assignment=True,    # Validate on assignment
+        extra='forbid'              # Forbid extra fields
+    )
+
+    param1: str = Field(..., description="First parameter description (e.g., 'user123', 'project-abc')", min_length=1, max_length=100)
+    param2: Optional[int] = Field(default=None, description="Optional integer parameter with constraints", ge=0, le=1000)
+    tags: Optional[List[str]] = Field(default_factory=list, description="List of tags to apply", max_items=10)
+
+@mcp.tool(
+    name="service_tool_name",
+    annotations={
+        "title": "Human-Readable Tool Title",
+        "readOnlyHint": True,     # Tool does not modify environment
+        "destructiveHint": False,  # Tool does not perform destructive operations
+        "idempotentHint": True,    # Repeated calls have no additional effect
+        "openWorldHint": False     # Tool does not interact with external entities
+    }
+)
+async def service_tool_name(params: ServiceToolInput) -> str:
+    '''Tool description automatically becomes the 'description' field.
+
+    This tool performs a specific operation on the service. It validates all inputs
+    using the ServiceToolInput Pydantic model before processing.
+
+    Args:
+        params (ServiceToolInput): Validated input parameters containing:
+            - param1 (str): First parameter description
+            - param2 (Optional[int]): Optional parameter with default
+            - tags (Optional[List[str]]): List of tags
+
+    Returns:
+        str: JSON-formatted response containing operation results
+    '''
+    # Implementation here
+    pass
+```
+
+## Pydantic v2 Key Features
+
+- Use `model_config` instead of nested `Config` class
+- Use `field_validator` instead of deprecated `validator`
+- Use `model_dump()` instead of deprecated `dict()`
+- Validators require `@classmethod` decorator
+- Type hints are required for validator methods
+
+```python
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+
+class CreateUserInput(BaseModel):
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True
+    )
+
+    name: str = Field(..., description="User's full name", min_length=1, max_length=100)
+    email: str = Field(..., description="User's email address", pattern=r'^[\w\.-]+@[\w\.-]+\.\w+$')
+    age: int = Field(..., description="User's age", ge=0, le=150)
+
+    @field_validator('email')
+    @classmethod
+    def validate_email(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Email cannot be empty")
+        return v.lower()
+```
+
+## Response Format Options
+
+Support multiple output formats for flexibility:
+
+```python
+from enum import Enum
+
+class ResponseFormat(str, Enum):
+    '''Output format for tool responses.'''
+    MARKDOWN = "markdown"
+    JSON = "json"
+
+class UserSearchInput(BaseModel):
+    query: str = Field(..., description="Search query")
+    response_format: ResponseFormat = Field(
+        default=ResponseFormat.MARKDOWN,
+        description="Output format: 'markdown' for human-readable or 'json' for machine-readable"
+    )
+```
+
+**Markdown format**:
+
+- Use headers, lists, and formatting for clarity
+- Convert timestamps to human-readable format (e.g., "2024-01-15 10:30:00 UTC" instead of epoch)
+- Show display names with IDs in parentheses (e.g., "@john.doe (U123456)")
+- Omit verbose metadata (e.g., show only one profile image URL, not all sizes)
+- Group related information logically
+
+**JSON format**:
+
+- Return complete, structured data suitable for programmatic processing
+- Include all available fields and metadata
+- Use consistent field names and types
+
+## Pagination Implementation
+
+For tools that list resources:
+
+```python
+class ListInput(BaseModel):
+    limit: Optional[int] = Field(default=20, description="Maximum results to return", ge=1, le=100)
+    offset: Optional[int] = Field(default=0, description="Number of results to skip for pagination", ge=0)
+
+async def list_items(params: ListInput) -> str:
+    # Make API request with pagination
+    data = await api_request(limit=params.limit, offset=params.offset)
+
+    # Return pagination info
+    response = {
+        "total": data["total"],
+        "count": len(data["items"]),
+        "offset": params.offset,
+        "items": data["items"],
+        "has_more": data["total"] > params.offset + len(data["items"]),
+        "next_offset": params.offset + len(data["items"]) if data["total"] > params.offset + len(data["items"]) else None
+    }
+    return json.dumps(response, indent=2)
+```
+
+## Error Handling
+
+Provide clear, actionable error messages:
+
+```python
+def _handle_api_error(e: Exception) -> str:
+    '''Consistent error formatting across all tools.'''
+    if isinstance(e, httpx.HTTPStatusError):
+        if e.response.status_code == 404:
+            return "Error: Resource not found. Please check the ID is correct."
+        elif e.response.status_code == 403:
+            return "Error: Permission denied. You don't have access to this resource."
+        elif e.response.status_code == 429:
+            return "Error: Rate limit exceeded. Please wait before making more requests."
+        return f"Error: API request failed with status {e.response.status_code}"
+    elif isinstance(e, httpx.TimeoutException):
+        return "Error: Request timed out. Please try again."
+    return f"Error: Unexpected error occurred: {type(e).__name__}"
+```
+
+## Shared Utilities
+
+Extract common functionality into reusable functions:
+
+```python
+# Shared API request function
+async def _make_api_request(endpoint: str, method: str = "GET", **kwargs) -> dict:
+    '''Reusable function for all API calls.'''
+    async with httpx.AsyncClient() as client:
+        response = await client.request(
+            method,
+            f"{API_BASE_URL}/{endpoint}",
+            timeout=30.0,
+            **kwargs
+        )
+        response.raise_for_status()
+        return response.json()
+```
+
+## Async/Await Best Practices
+
+Always use async/await for network requests and I/O operations:
+
+```python
+# Good: Async network request
+async def fetch_data(resource_id: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{API_URL}/resource/{resource_id}")
+        response.raise_for_status()
+        return response.json()
+
+# Bad: Synchronous request
+def fetch_data(resource_id: str) -> dict:
+    response = requests.get(f"{API_URL}/resource/{resource_id}")  # Blocks
+    return response.json()
+```
+
+## Type Hints
+
+Use type hints throughout:
+
+```python
+from typing import Optional, List, Dict, Any
+
+async def get_user(user_id: str) -> Dict[str, Any]:
+    data = await fetch_user(user_id)
+    return {"id": data["id"], "name": data["name"]}
+```
+
+## Tool Docstrings
+
+Every tool must have comprehensive docstrings with explicit type information:
+
+```python
+async def search_users(params: UserSearchInput) -> str:
+    '''
+    Search for users in the Example system by name, email, or team.
+
+    This tool searches across all user profiles in the Example platform,
+    supporting partial matches and various search filters. It does NOT
+    create or modify users, only searches existing ones.
+
+    Args:
+        params (UserSearchInput): Validated input parameters containing:
+            - query (str): Search string to match against names/emails (e.g., "john", "@example.com", "team:marketing")
+            - limit (Optional[int]): Maximum results to return, between 1-100 (default: 20)
+            - offset (Optional[int]): Number of results to skip for pagination (default: 0)
+
+    Returns:
+        str: JSON-formatted string containing search results with the following schema:
+
+        Success response:
+        {
+            "total": int,           # Total number of matches found
+            "count": int,           # Number of results in this response
+            "offset": int,          # Current pagination offset
+            "users": [
+                {
+                    "id": str,      # User ID (e.g., "U123456789")
+                    "name": str,    # Full name (e.g., "John Doe")
+                    "email": str,   # Email address (e.g., "john@example.com")
+                    "team": str     # Team name (e.g., "Marketing") - optional
+                }
+            ]
+        }
+
+        Error response:
+        "Error: <error message>" or "No users found matching '<query>'"
+
+    Examples:
+        - Use when: "Find all marketing team members" -> params with query="team:marketing"
+        - Use when: "Search for John's account" -> params with query="john"
+        - Don't use when: You need to create a user (use example_create_user instead)
+        - Don't use when: You have a user ID and need full details (use example_get_user instead)
+
+    Error Handling:
+        - Input validation errors are handled by Pydantic model
+        - Returns "Error: Rate limit exceeded" if too many requests (429 status)
+        - Returns "Error: Invalid API authentication" if API key is invalid (401 status)
+        - Returns formatted list of results or "No users found matching 'query'"
+    '''
+```
+
+## Complete Example
+
+See below for a complete Python MCP server example:
+
+```python
+#!/usr/bin/env python3
+'''
+MCP Server for Example Service.
+
+This server provides tools to interact with Example API, including user search,
+project management, and data export capabilities.
+'''
+
+from typing import Optional, List, Dict, Any
+from enum import Enum
+import httpx
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+from mcp.server.fastmcp import FastMCP
+
+# Initialize the MCP server
+mcp = FastMCP("example_mcp")
+
+# Constants
+API_BASE_URL = "https://api.example.com/v1"
+
+# Enums
+class ResponseFormat(str, Enum):
+    '''Output format for tool responses.'''
+    MARKDOWN = "markdown"
+    JSON = "json"
+
+# Pydantic Models for Input Validation
+class UserSearchInput(BaseModel):
+    '''Input model for user search operations.'''
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True
+    )
+
+    query: str = Field(..., description="Search string to match against names/emails", min_length=2, max_length=200)
+    limit: Optional[int] = Field(default=20, description="Maximum results to return", ge=1, le=100)
+    offset: Optional[int] = Field(default=0, description="Number of results to skip for pagination", ge=0)
+    response_format: ResponseFormat = Field(default=ResponseFormat.MARKDOWN, description="Output format")
+
+    @field_validator('query')
+    @classmethod
+    def validate_query(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Query cannot be empty or whitespace only")
+        return v.strip()
+
+# Shared utility functions
+async def _make_api_request(endpoint: str, method: str = "GET", **kwargs) -> dict:
+    '''Reusable function for all API calls.'''
+    async with httpx.AsyncClient() as client:
+        response = await client.request(
+            method,
+            f"{API_BASE_URL}/{endpoint}",
+            timeout=30.0,
+            **kwargs
+        )
+        response.raise_for_status()
+        return response.json()
+
+def _handle_api_error(e: Exception) -> str:
+    '''Consistent error formatting across all tools.'''
+    if isinstance(e, httpx.HTTPStatusError):
+        if e.response.status_code == 404:
+            return "Error: Resource not found. Please check the ID is correct."
+        elif e.response.status_code == 403:
+            return "Error: Permission denied. You don't have access to this resource."
+        elif e.response.status_code == 429:
+            return "Error: Rate limit exceeded. Please wait before making more requests."
+        return f"Error: API request failed with status {e.response.status_code}"
+    elif isinstance(e, httpx.TimeoutException):
+        return "Error: Request timed out. Please try again."
+    return f"Error: Unexpected error occurred: {type(e).__name__}"
+
+# Tool definitions
+@mcp.tool(
+    name="example_search_users",
+    annotations={
+        "title": "Search Example Users",
+        "readOnlyHint": True,
+        "destructiveHint": False,
+        "idempotentHint": True,
+        "openWorldHint": True
+    }
+)
+async def example_search_users(params: UserSearchInput) -> str:
+    '''Search for users in the Example system by name, email, or team.
+
+    [Full docstring as shown above]
+    '''
+    try:
+        # Make API request using validated parameters
+        data = await _make_api_request(
+            "users/search",
+            params={
+                "q": params.query,
+                "limit": params.limit,
+                "offset": params.offset
+            }
+        )
+
+        users = data.get("users", [])
+        total = data.get("total", 0)
+
+        if not users:
+            return f"No users found matching '{params.query}'"
+
+        # Format response based on requested format
+        if params.response_format == ResponseFormat.MARKDOWN:
+            lines = [f"# User Search Results: '{params.query}'", ""]
+            lines.append(f"Found {total} users (showing {len(users)})")
+            lines.append("")
+
+            for user in users:
+                lines.append(f"## {user['name']} ({user['id']})")
+                lines.append(f"- **Email**: {user['email']}")
+                if user.get('team'):
+                    lines.append(f"- **Team**: {user['team']}")
+                lines.append("")
+
+            return "\n".join(lines)
+
+        else:
+            # Machine-readable JSON format
+            import json
+            response = {
+                "total": total,
+                "count": len(users),
+                "offset": params.offset,
+                "users": users
+            }
+            return json.dumps(response, indent=2)
+
+    except Exception as e:
+        return _handle_api_error(e)
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+---
+
+## Advanced FastMCP Features
+
+### Context Parameter Injection
+
+FastMCP can automatically inject a `Context` parameter into tools for advanced capabilities like logging, progress reporting, resource reading, and user interaction:
+
+```python
+from mcp.server.fastmcp import FastMCP, Context
+
+mcp = FastMCP("example_mcp")
+
+@mcp.tool()
+async def advanced_search(query: str, ctx: Context) -> str:
+    '''Advanced tool with context access for logging and progress.'''
+
+    # Report progress for long operations
+    await ctx.report_progress(0.25, "Starting search...")
+
+    # Log information for debugging
+    await ctx.log_info("Processing query", {"query": query, "timestamp": datetime.now()})
+
+    # Perform search
+    results = await search_api(query)
+    await ctx.report_progress(0.75, "Formatting results...")
+
+    # Access server configuration
+    server_name = ctx.fastmcp.name
+
+    return format_results(results)
+
+@mcp.tool()
+async def interactive_tool(resource_id: str, ctx: Context) -> str:
+    '''Tool that can request additional input from users.'''
+
+    # Request sensitive information when needed
+    api_key = await ctx.elicit(
+        prompt="Please provide your API key:",
+        input_type="password"
+    )
+
+    # Use the provided key
+    return await api_call(resource_id, api_key)
+```
+
+**Context capabilities:**
+
+- `ctx.report_progress(progress, message)` - Report progress for long operations
+- `ctx.log_info(message, data)` / `ctx.log_error()` / `ctx.log_debug()` - Logging
+- `ctx.elicit(prompt, input_type)` - Request input from users
+- `ctx.fastmcp.name` - Access server configuration
+- `ctx.read_resource(uri)` - Read MCP resources
+
+### Resource Registration
+
+Expose data as resources for efficient, template-based access:
+
+```python
+@mcp.resource("file://documents/{name}")
+async def get_document(name: str) -> str:
+    '''Expose documents as MCP resources.
+
+    Resources are useful for static or semi-static data that doesn't
+    require complex parameters. They use URI templates for flexible access.
+    '''
+    document_path = f"./docs/{name}"
+    with open(document_path, "r") as f:
+        return f.read()
+
+@mcp.resource("config://settings/{key}")
+async def get_setting(key: str, ctx: Context) -> str:
+    '''Expose configuration as resources with context.'''
+    settings = await load_settings()
+    return json.dumps(settings.get(key, {}))
+```
+
+**When to use Resources vs Tools:**
+
+- **Resources**: For data access with simple parameters (URI templates)
+- **Tools**: For complex operations with validation and business logic
+
+### Structured Output Types
+
+FastMCP supports multiple return types beyond strings:
+
+```python
+from typing import TypedDict
+from dataclasses import dataclass
+from pydantic import BaseModel
+
+# TypedDict for structured returns
+class UserData(TypedDict):
+    id: str
+    name: str
+    email: str
+
+@mcp.tool()
+async def get_user_typed(user_id: str) -> UserData:
+    '''Returns structured data - FastMCP handles serialization.'''
+    return {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+
+# Pydantic models for complex validation
+class DetailedUser(BaseModel):
+    id: str
+    name: str
+    email: str
+    created_at: datetime
+    metadata: Dict[str, Any]
+
+@mcp.tool()
+async def get_user_detailed(user_id: str) -> DetailedUser:
+    '''Returns Pydantic model - automatically generates schema.'''
+    user = await fetch_user(user_id)
+    return DetailedUser(**user)
+```
+
+### Lifespan Management
+
+Initialize resources that persist across requests:
+
+```python
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def app_lifespan():
+    '''Manage resources that live for the server's lifetime.'''
+    # Initialize connections, load config, etc.
+    db = await connect_to_database()
+    config = load_configuration()
+
+    # Make available to all tools
+    yield {"db": db, "config": config}
+
+    # Cleanup on shutdown
+    await db.close()
+
+mcp = FastMCP("example_mcp", lifespan=app_lifespan)
+
+@mcp.tool()
+async def query_data(query: str, ctx: Context) -> str:
+    '''Access lifespan resources through context.'''
+    db = ctx.request_context.lifespan_state["db"]
+    results = await db.query(query)
+    return format_results(results)
+```
+
+### Transport Options
+
+FastMCP supports two main transport mechanisms:
+
+```python
+# stdio transport (for local tools) - default
+if __name__ == "__main__":
+    mcp.run()
+
+# Streamable HTTP transport (for remote servers)
+if __name__ == "__main__":
+    mcp.run(transport="streamable_http", port=8000)
+```
+
+**Transport selection:**
+
+- **stdio**: Command-line tools, local integrations, subprocess execution
+- **Streamable HTTP**: Web services, remote access, multiple clients
+
+---
+
+## Code Best Practices
+
+### Code Composability and Reusability
+
+Your implementation MUST prioritize composability and code reuse:
+
+1. **Extract Common Functionality**:
+   - Create reusable helper functions for operations used across multiple tools
+   - Build shared API clients for HTTP requests instead of duplicating code
+   - Centralize error handling logic in utility functions
+   - Extract business logic into dedicated functions that can be composed
+   - Extract shared markdown or JSON field selection & formatting functionality
+
+2. **Avoid Duplication**:
+   - NEVER copy-paste similar code between tools
+   - If you find yourself writing similar logic twice, extract it into a function
+   - Common operations like pagination, filtering, field selection, and formatting should be shared
+   - Authentication/authorization logic should be centralized
+
+### Python-Specific Best Practices
+
+1. **Use Type Hints**: Always include type annotations for function parameters and return values
+2. **Pydantic Models**: Define clear Pydantic models for all input validation
+3. **Avoid Manual Validation**: Let Pydantic handle input validation with constraints
+4. **Proper Imports**: Group imports (standard library, third-party, local)
+5. **Error Handling**: Use specific exception types (httpx.HTTPStatusError, not generic Exception)
+6. **Async Context Managers**: Use `async with` for resources that need cleanup
+7. **Constants**: Define module-level constants in UPPER_CASE
+
+## Quality Checklist
+
+Before finalizing your Python MCP server implementation, ensure:
+
+### Strategic Design
+
+- [ ] Tools enable complete workflows, not just API endpoint wrappers
+- [ ] Tool names reflect natural task subdivisions
+- [ ] Response formats optimize for agent context efficiency
+- [ ] Human-readable identifiers used where appropriate
+- [ ] Error messages guide agents toward correct usage
+
+### Implementation Quality
+
+- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
+- [ ] All tools have descriptive names and documentation
+- [ ] Return types are consistent across similar operations
+- [ ] Error handling is implemented for all external calls
+- [ ] Server name follows format: `{service}_mcp`
+- [ ] All network operations use async/await
+- [ ] Common functionality is extracted into reusable functions
+- [ ] Error messages are clear, actionable, and educational
+- [ ] Outputs are properly validated and formatted
+
+### Tool Configuration
+
+- [ ] All tools implement 'name' and 'annotations' in the decorator
+- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+- [ ] All tools use Pydantic BaseModel for input validation with Field() definitions
+- [ ] All Pydantic Fields have explicit types and descriptions with constraints
+- [ ] All tools have comprehensive docstrings with explicit input/output types
+- [ ] Docstrings include complete schema structure for dict/JSON returns
+- [ ] Pydantic models handle input validation (no manual validation needed)
+
+### Advanced Features (where applicable)
+
+- [ ] Context injection used for logging, progress, or elicitation
+- [ ] Resources registered for appropriate data endpoints
+- [ ] Lifespan management implemented for persistent connections
+- [ ] Structured output types used (TypedDict, Pydantic models)
+- [ ] Appropriate transport configured (stdio or streamable HTTP)
+
+### Code Quality
+
+- [ ] File includes proper imports including Pydantic imports
+- [ ] Pagination is properly implemented where applicable
+- [ ] Filtering options are provided for potentially large result sets
+- [ ] All async functions are properly defined with `async def`
+- [ ] HTTP client usage follows async patterns with proper context managers
+- [ ] Type hints are used throughout the code
+- [ ] Constants are defined at module level in UPPER_CASE
+
+### Testing
+
+- [ ] Server runs successfully: `python your_server.py --help`
+- [ ] All imports resolve correctly
+- [ ] Sample tool calls work as expected
+- [ ] Error scenarios handled gracefully
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_AI-SDK.MD
 
 # Laravel AI SDK
@@ -5681,1771 +7487,6 @@ class RefundsAgent implements Agent, CanActAsTool, HasTools
     use Promptable;
 
     /**
-     * Get the instructions that the agent should follow.
-     */
-    public function instructions(): string
-    {
-        return 'You are a refunds specialist. Use order details and the refund policy to give concise eligibility guidance.';
-    }
-
-    /**
-     * Get the agent's tool name.
-     */
-    public function name(): string
-    {
-        return 'refunds_specialist';
-    }
-
-    /**
-     * Get the agent's tool description.
-     */
-    public function description(): string
-    {
-        return 'Determine whether an order is eligible for a refund and explain the next step.';
-    }
-
-    /**
-     * Get the tools available to the agent.
-     *
-     * @return Tool[]
-     */
-    public function tools(): iterable
-    {
-        return [
-            new LookupOrder,
-        ];
-    }
-}
-```
-
-If a sub-agent does not implement `CanActAsTool`, Laravel will use the agent's class basename as the tool name and a generic description that asks the parent agent to pass a clear, self-contained task description. Each sub-agent invocation runs in isolation and does not receive the parent agent's conversation history.
-
-<a name="middleware"></a>
-### Middleware
-
-Agents support middleware, allowing you to intercept and modify prompts before they are sent to the provider. Middleware can be created using the `make:agent-middleware` Artisan command:
-
-```shell
-php artisan make:agent-middleware LogPrompts
-```
-
-The generated middleware will be placed in your application's `app/Ai/Middleware` directory. To add middleware to an agent, implement the `HasMiddleware` interface and define a `middleware` method that returns an array of middleware classes:
-
-```php
-<?php
-
-namespace App\Ai\Agents;
-
-use App\Ai\Middleware\LogPrompts;
-use Laravel\Ai\Contracts\Agent;
-use Laravel\Ai\Contracts\HasMiddleware;
-use Laravel\Ai\Promptable;
-
-class SalesCoach implements Agent, HasMiddleware
-{
-    use Promptable;
-
-    // ...
-
-    /**
-     * Get the agent's middleware.
-     */
-    public function middleware(): array
-    {
-        return [
-            new LogPrompts,
-        ];
-    }
-}
-```
-
-Each middleware class should define a `handle` method that receives the `AgentPrompt` and a `Closure` to pass the prompt to the next middleware:
-
-```php
-<?php
-
-namespace App\Ai\Middleware;
-
-use Closure;
-use Laravel\Ai\Prompts\AgentPrompt;
-
-class LogPrompts
-{
-    /**
-     * Handle the incoming prompt.
-     */
-    public function handle(AgentPrompt $prompt, Closure $next)
-    {
-        Log::info('Prompting agent', ['prompt' => $prompt->prompt]);
-
-        return $next($prompt);
-    }
-}
-```
-
-You may use the `then` method on the response to execute code after the agent has finished processing. This works for both synchronous and streaming responses:
-
-```php
-public function handle(AgentPrompt $prompt, Closure $next)
-{
-    return $next($prompt)->then(function (AgentResponse $response) {
-        Log::info('Agent responded', ['text' => $response->text]);
-    });
-}
-```
-
-<a name="anonymous-agents"></a>
-### Anonymous Agents
-
-Sometimes you may want to quickly interact with a model without creating a dedicated agent class. You can create an ad-hoc, anonymous agent using the `agent` function:
-
-```php
-use function Laravel\Ai\{agent};
-
-$response = agent(
-    instructions: 'You are an expert at software development.',
-    messages: [],
-    tools: [],
-)->prompt('Tell me about Laravel')
-```
-
-Anonymous agents may also produce structured output:
-
-```php
-use Illuminate\Contracts\JsonSchema\JsonSchema;
-
-use function Laravel\Ai\{agent};
-
-$response = agent(
-    schema: fn (JsonSchema $schema) => [
-        'number' => $schema->integer()->required(),
-    ],
-)->prompt('Generate a random number less than 100')
-```
-
-<a name="agent-configuration"></a>
-### Agent Configuration
-
-You may configure text generation options for an agent using PHP attributes. The following attributes are available:
-
-- `MaxSteps`: The maximum number of steps the agent may take when using tools.
-- `MaxTokens`: The maximum number of tokens the model may generate.
-- `Model`: The model the agent should use.
-- `Provider`: The AI provider (or providers for failover) to use for the agent.
-- `Temperature`: The sampling temperature to use for generation (0.0 to 1.0).
-- `Timeout`: The HTTP timeout in seconds for agent requests (default: 60).
-- `TopP`: The nucleus sampling probability to use for generation (0.0 to 1.0).
-- `UseCheapestModel`: Use the provider's cheapest text model for cost optimization.
-- `UseSmartestModel`: Use the provider's most capable text model for complex tasks.
-
-```php
-<?php
-
-namespace App\Ai\Agents;
-
-use Laravel\Ai\Attributes\MaxSteps;
-use Laravel\Ai\Attributes\MaxTokens;
-use Laravel\Ai\Attributes\Model;
-use Laravel\Ai\Attributes\Provider;
-use Laravel\Ai\Attributes\Temperature;
-use Laravel\Ai\Attributes\Timeout;
-use Laravel\Ai\Attributes\TopP;
-use Laravel\Ai\Contracts\Agent;
-use Laravel\Ai\Enums\Lab;
-use Laravel\Ai\Promptable;
-
-#[Provider(Lab::Anthropic)]
-#[Model('claude-haiku-4-5-20251001')]
-#[MaxSteps(10)]
-#[MaxTokens(4096)]
-#[Temperature(0.7)]
-#[Timeout(120)]
-#[TopP(0.9)]
-class SalesCoach implements Agent
-{
-    use Promptable;
-
-    // ...
-}
-```
-
-The `UseCheapestModel` and `UseSmartestModel` attributes allow you to automatically select the most cost-effective or most capable model for a given provider without specifying a model name. This is useful when you want to optimize for cost or capability across different providers:
-
-```php
-use Laravel\Ai\Attributes\UseCheapestModel;
-use Laravel\Ai\Attributes\UseSmartestModel;
-use Laravel\Ai\Contracts\Agent;
-use Laravel\Ai\Promptable;
-
-#[UseCheapestModel]
-class SimpleSummarizer implements Agent
-{
-    use Promptable;
-
-    // Will use the cheapest model (e.g., Haiku)...
-}
-
-#[UseSmartestModel]
-class ComplexReasoner implements Agent
-{
-    use Promptable;
-
-    // Will use the most capable model (e.g., Opus)...
-}
-```
-
-> [!NOTE]
-> The underlying model selected by `UseCheapestModel` and `UseSmartestModel` may change between releases of the Laravel AI SDK as providers release new models. Switching models can introduce behavioral changes, deprecated parameters, and significant cost differences. If you need a stable, predictable model and pricing, specify the model explicitly using the `Model` attribute.
-
-<a name="provider-options"></a>
-### Provider Options
-
-If your agent needs to pass provider-specific options (such as OpenAI reasoning effort or penalty settings), implement the `HasProviderOptions` contract and define a `providerOptions` method:
-
-```php
-<?php
-
-namespace App\Ai\Agents;
-
-use Laravel\Ai\Contracts\Agent;
-use Laravel\Ai\Contracts\HasProviderOptions;
-use Laravel\Ai\Enums\Lab;
-use Laravel\Ai\Promptable;
-
-class SalesCoach implements Agent, HasProviderOptions
-{
-    use Promptable;
-
-    // ...
-
-    /**
-     * Get provider-specific generation options.
-     */
-    public function providerOptions(Lab|string $provider): array
-    {
-        return match ($provider) {
-            Lab::OpenAI => [
-                'reasoning' => ['effort' => 'low'],
-                'frequency_penalty' => 0.5,
-                'presence_penalty' => 0.3,
-            ],
-            Lab::Anthropic => [
-                'thinking' => ['budget_tokens' => 1024],
-                'cache_control' => ['type' => 'ephemeral'],
-            ],
-            default => [],
-        };
-    }
-}
-```
-
-The `providerOptions` method receives the provider currently being used (`Lab` enum or string), allowing you to return different options per provider. This is especially useful when using [failover](#failover), since each fallback provider can receive its own configuration.
-
-The Anthropic example above also enables [prompt caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) via `cache_control`.
-
-<a name="images"></a>
-## Images
-
-The `Laravel\Ai\Image` class may be used to generate images using the `openai`, `gemini`, or `xai` providers:
-
-```php
-use Laravel\Ai\Image;
-
-$image = Image::of('A donut sitting on the kitchen counter')->generate();
-
-$rawContent = (string) $image;
-```
-
-The `square`, `portrait`, and `landscape` methods may be used to control the aspect ratio of the image, while the `quality` method may be used to guide the model on final image quality (`high`, `medium`, `low`). The `timeout` method may be used to specify the HTTP timeout in seconds:
-
-```php
-use Laravel\Ai\Image;
-
-$image = Image::of('A donut sitting on the kitchen counter')
-    ->quality('high')
-    ->landscape()
-    ->timeout(120)
-    ->generate();
-```
-
-You may attach reference images using the `attachments` method:
-
-```php
-use Laravel\Ai\Files;
-use Laravel\Ai\Image;
-
-$image = Image::of('Update this photo of me to be in the style of an impressionist painting.')
-    ->attachments([
-        Files\Image::fromStorage('photo.jpg'),
-        // Files\Image::fromPath('/home/laravel/photo.jpg'),
-        // Files\Image::fromUrl('https://example.com/photo.jpg'),
-        // $request->file('photo'),
-    ])
-    ->landscape()
-    ->generate();
-```
-
-Generated images may be easily stored on the default disk configured in your application's `config/filesystems.php` configuration file:
-
-```php
-$image = Image::of('A donut sitting on the kitchen counter');
-
-$path = $image->store();
-$path = $image->storeAs('image.jpg');
-$path = $image->storePublicly();
-$path = $image->storePubliclyAs('image.jpg');
-```
-
-Image generation may also be queued:
-
-```php
-use Laravel\Ai\Image;
-use Laravel\Ai\Responses\ImageResponse;
-
-Image::of('A donut sitting on the kitchen counter')
-    ->portrait()
-    ->queue()
-    ->then(function (ImageResponse $image) {
-        $path = $image->store();
-
-        // ...
-    });
-```
-
-<a name="audio"></a>
-## Audio
-
-The `Laravel\Ai\Audio` class may be used to generate audio from the given text:
-
-```php
-use Laravel\Ai\Audio;
-
-$audio = Audio::of('I love coding with Laravel.')->generate();
-
-$rawContent = (string) $audio;
-```
-
-You may also generate audio from a string using the `toAudio` method available via Laravel's `Stringable` class:
-
-```php
-use Illuminate\Support\Str;
-
-$audio = Str::of('I love coding with Laravel.')->toAudio();
-```
-
-The `male`, `female`, and `voice` methods may be used to determine the voice of the generated audio:
-
-```php
-$audio = Audio::of('I love coding with Laravel.')
-    ->female()
-    ->generate();
-
-$audio = Audio::of('I love coding with Laravel.')
-    ->voice('voice-id-or-name')
-    ->generate();
-```
-
-Similarly, the `instructions` method may be used to dynamically coach the model on how the generated audio should sound:
-
-```php
-$audio = Audio::of('I love coding with Laravel.')
-    ->female()
-    ->instructions('Said like a pirate')
-    ->generate();
-```
-
-Generated audio may be easily stored on the default disk configured in your application's `config/filesystems.php` configuration file:
-
-```php
-$audio = Audio::of('I love coding with Laravel.')->generate();
-
-$path = $audio->store();
-$path = $audio->storeAs('audio.mp3');
-$path = $audio->storePublicly();
-$path = $audio->storePubliclyAs('audio.mp3');
-```
-
-Audio generation may also be queued:
-
-```php
-use Laravel\Ai\Audio;
-use Laravel\Ai\Responses\AudioResponse;
-
-Audio::of('I love coding with Laravel.')
-    ->queue()
-    ->then(function (AudioResponse $audio) {
-        $path = $audio->store();
-
-        // ...
-    });
-```
-
-<a name="transcription"></a>
-## Transcriptions
-
-The `Laravel\Ai\Transcription` class may be used to generate a transcript of the given audio:
-
-```php
-use Laravel\Ai\Transcription;
-
-$transcript = Transcription::fromPath('/home/laravel/audio.mp3')->generate();
-$transcript = Transcription::fromStorage('audio.mp3')->generate();
-$transcript = Transcription::fromUpload($request->file('audio'))->generate();
-
-return (string) $transcript;
-```
-
-The `diarize` method may be used to indicate you would like the response to include the diarized transcript in addition to the raw text transcript, allowing you to access the segmented transcript by speaker:
-
-```php
-$transcript = Transcription::fromStorage('audio.mp3')
-    ->diarize()
-    ->generate();
-```
-
-Transcription generation may also be queued:
-
-```php
-use Laravel\Ai\Transcription;
-use Laravel\Ai\Responses\TranscriptionResponse;
-
-Transcription::fromStorage('audio.mp3')
-    ->queue()
-    ->then(function (TranscriptionResponse $transcript) {
-        // ...
-    });
-```
-
-<a name="embeddings"></a>
-## Embeddings
-
-You may easily generate vector embeddings for any given string using the new `toEmbeddings` method available via Laravel's `Stringable` class:
-
-```php
-use Illuminate\Support\Str;
-
-$embeddings = Str::of('Napa Valley has great wine.')->toEmbeddings();
-```
-
-Alternatively, you may use the `Embeddings` class to generate embeddings for multiple inputs at once:
-
-```php
-use Laravel\Ai\Embeddings;
-
-$response = Embeddings::for([
-    'Napa Valley has great wine.',
-    'Laravel is a PHP framework.',
-])->generate();
-
-$response->embeddings; // [[0.123, 0.456, ...], [0.789, 0.012, ...]]
-```
-
-You may specify the dimensions and provider for the embeddings:
-
-```php
-$response = Embeddings::for(['Napa Valley has great wine.'])
-    ->dimensions(1536)
-    ->generate(Lab::OpenAI, 'text-embedding-3-small');
-```
-
-<a name="querying-embeddings"></a>
-### Querying Embeddings
-
-Once you have generated embeddings, you will typically store them in a `vector` column in your database for later querying. Laravel provides native support for vector columns on PostgreSQL via the `pgvector` extension. To get started, define a `vector` column in your migration, specifying the number of dimensions:
-
-```php
-Schema::ensureVectorExtensionExists();
-
-Schema::create('documents', function (Blueprint $table) {
-    $table->id();
-    $table->string('title');
-    $table->text('content');
-    $table->vector('embedding', dimensions: 1536);
-    $table->timestamps();
-});
-```
-
-You may also add a vector index to speed up similarity searches. When calling `index` on a vector column, Laravel will automatically create an HNSW index with cosine distance:
-
-```php
-$table->vector('embedding', dimensions: 1536)->index();
-```
-
-On your Eloquent model, you should cast the vector column to an `array`:
-
-```php
-protected function casts(): array
-{
-    return [
-        'embedding' => 'array',
-    ];
-}
-```
-
-To query for similar records, use the `whereVectorSimilarTo` method. This method filters results by a minimum cosine similarity (between `0.0` and `1.0`, where `1.0` is identical) and orders the results by similarity:
-
-```php
-use App\Models\Document;
-
-$documents = Document::query()
-    ->whereVectorSimilarTo('embedding', $queryEmbedding, minSimilarity: 0.4)
-    ->limit(10)
-    ->get();
-```
-
-The `$queryEmbedding` may be an array of floats or a plain string. When a string is given, Laravel will automatically generate embeddings for it:
-
-```php
-$documents = Document::query()
-    ->whereVectorSimilarTo('embedding', 'best wineries in Napa Valley')
-    ->limit(10)
-    ->get();
-```
-
-If you need more control, you may use the lower-level `whereVectorDistanceLessThan`, `selectVectorDistance`, and `orderByVectorDistance` methods independently:
-
-```php
-$documents = Document::query()
-    ->select('*')
-    ->selectVectorDistance('embedding', $queryEmbedding, as: 'distance')
-    ->whereVectorDistanceLessThan('embedding', $queryEmbedding, maxDistance: 0.3)
-    ->orderByVectorDistance('embedding', $queryEmbedding)
-    ->limit(10)
-    ->get();
-```
-
-If you would like to give an agent the ability to perform similarity searches as a tool, check out the [Similarity Search](#similarity-search) tool documentation.
-
-> [!NOTE]
-> Vector queries are currently only supported on PostgreSQL connections using the `pgvector` extension.
-
-<a name="caching-embeddings"></a>
-### Caching Embeddings
-
-Embedding generation can be cached to avoid redundant API calls for identical inputs. To enable caching, set the `ai.caching.embeddings.cache` configuration option to `true`:
-
-```php
-'caching' => [
-    'embeddings' => [
-        'cache' => true,
-        'store' => env('CACHE_STORE', 'database'),
-        // ...
-    ],
-],
-```
-
-When caching is enabled, embeddings are cached for 30 days. The cache key is based on the provider, model, dimensions, and input content, ensuring that identical requests return cached results while different configurations generate fresh embeddings.
-
-You may also enable caching for a specific request using the `cache` method, even when global caching is disabled:
-
-```php
-$response = Embeddings::for(['Napa Valley has great wine.'])
-    ->cache()
-    ->generate();
-```
-
-You may specify a custom cache duration in seconds:
-
-```php
-$response = Embeddings::for(['Napa Valley has great wine.'])
-    ->cache(seconds: 3600) // Cache for 1 hour
-    ->generate();
-```
-
-The `toEmbeddings` Stringable method also accepts a `cache` argument:
-
-```php
-// Cache with default duration...
-$embeddings = Str::of('Napa Valley has great wine.')->toEmbeddings(cache: true);
-
-// Cache for a specific duration...
-$embeddings = Str::of('Napa Valley has great wine.')->toEmbeddings(cache: 3600);
-```
-
-<a name="reranking"></a>
-## Reranking
-
-Reranking allows you to reorder a list of documents based on their relevance to a given query. This is useful for improving search results by using semantic understanding:
-
-The `Laravel\Ai\Reranking` class may be used to rerank documents:
-
-```php
-use Laravel\Ai\Reranking;
-
-$response = Reranking::of([
-    'Django is a Python web framework.',
-    'Laravel is a PHP web application framework.',
-    'React is a JavaScript library for building user interfaces.',
-])->rerank('PHP frameworks');
-
-// Access the top result...
-$response->first()->document; // "Laravel is a PHP web application framework."
-$response->first()->score;    // 0.95
-$response->first()->index;    // 1 (original position)
-```
-
-The `limit` method may be used to restrict the number of results returned:
-
-```php
-$response = Reranking::of($documents)
-    ->limit(5)
-    ->rerank('search query');
-```
-
-<a name="reranking-collections"></a>
-### Reranking Collections
-
-For convenience, Laravel collections may be reranked using the `rerank` macro. The first argument specifies which field(s) to use for reranking, and the second argument is the query:
-
-```php
-// Rerank by a single field...
-$posts = Post::all()
-    ->rerank('body', 'Laravel tutorials');
-
-// Rerank by multiple fields (sent as JSON)...
-$reranked = $posts->rerank(['title', 'body'], 'Laravel tutorials');
-
-// Rerank using a closure to build the document...
-$reranked = $posts->rerank(
-    fn ($post) => $post->title.': '.$post->body,
-    'Laravel tutorials'
-);
-```
-
-You may also limit the number of results and specify a provider:
-
-```php
-$reranked = $posts->rerank(
-    by: 'content',
-    query: 'Laravel tutorials',
-    limit: 10,
-    provider: Lab::Cohere
-);
-```
-
-<a name="files"></a>
-## Files
-
-The `Laravel\Ai\Files` class or the individual file classes may be used to store files with your AI provider for later use in conversations. This is useful for large documents or files you want to reference multiple times without re-uploading:
-
-```php
-use Laravel\Ai\Files\Document;
-use Laravel\Ai\Files\Image;
-
-// Store a file from a local path...
-$response = Document::fromPath('/home/laravel/document.pdf')->put();
-$response = Image::fromPath('/home/laravel/photo.jpg')->put();
-
-// Store a file that is stored on a filesystem disk...
-$response = Document::fromStorage('document.pdf', disk: 'local')->put();
-$response = Image::fromStorage('photo.jpg', disk: 'local')->put();
-
-// Store a file that is stored on a remote URL...
-$response = Document::fromUrl('https://example.com/document.pdf')->put();
-$response = Image::fromUrl('https://example.com/photo.jpg')->put();
-
-return $response->id;
-```
-
-You may also store raw content or uploaded files:
-
-```php
-use Laravel\Ai\Files;
-use Laravel\Ai\Files\Document;
-
-// Store raw content...
-$stored = Document::fromString('Hello, World!', 'text/plain')->put();
-
-// Store an uploaded file...
-$stored = Document::fromUpload($request->file('document'))->put();
-```
-
-Once a file has been stored, you may reference the file when generating text via agents instead of re-uploading the file:
-
-```php
-use App\Ai\Agents\SalesCoach;
-use Laravel\Ai\Files;
-
-$response = (new SalesCoach)->prompt(
-    'Analyze the attached sales transcript...'
-    attachments: [
-        Files\Document::fromId('file-id') // Attach a stored document...
-    ]
-);
-```
-
-To retrieve a previously stored file, use the `get` method on a file instance:
-
-```php
-use Laravel\Ai\Files\Document;
-
-$file = Document::fromId('file-id')->get();
-
-$file->id;
-$file->mimeType();
-```
-
-To delete a file from the provider, use the `delete` method:
-
-```php
-Document::fromId('file-id')->delete();
-```
-
-By default, the `Files` class uses the default AI provider configured in your application's `config/ai.php` configuration file. For most operations, you may specify a different provider using the `provider` argument:
-
-```php
-$response = Document::fromPath(
-    '/home/laravel/document.pdf'
-)->put(provider: Lab::Anthropic);
-```
-
-<a name="using-stored-files-in-conversations"></a>
-### Using Stored Files in Conversations
-
-Once a file has been stored with a provider, you may reference it in agent conversations using the `fromId` method on the `Document` or `Image` classes:
-
-```php
-use App\Ai\Agents\DocumentAnalyzer;
-use Laravel\Ai\Files;
-use Laravel\Ai\Files\Document;
-
-$stored = Document::fromPath('/path/to/report.pdf')->put();
-
-$response = (new DocumentAnalyzer)->prompt(
-    'Summarize this document.',
-    attachments: [
-        Document::fromId($stored->id),
-    ],
-);
-```
-
-Similarly, stored images may be referenced using the `Image` class:
-
-```php
-use Laravel\Ai\Files;
-use Laravel\Ai\Files\Image;
-
-$stored = Image::fromPath('/path/to/photo.jpg')->put();
-
-$response = (new ImageAnalyzer)->prompt(
-    'What is in this image?',
-    attachments: [
-        Image::fromId($stored->id),
-    ],
-);
-```
-
-<a name="vector-stores"></a>
-## Vector Stores
-
-Vector stores allow you to create searchable collections of files that can be used for retrieval-augmented generation (RAG). The `Laravel\Ai\Stores` class provides methods for creating, retrieving, and deleting vector stores:
-
-```php
-use Laravel\Ai\Stores;
-
-// Create a new vector store...
-$store = Stores::create('Knowledge Base');
-
-// Create a store with additional options...
-$store = Stores::create(
-    name: 'Knowledge Base',
-    description: 'Documentation and reference materials.',
-    expiresWhenIdleFor: days(30),
-);
-
-return $store->id;
-```
-
-To retrieve an existing vector store by its ID, use the `get` method:
-
-```php
-use Laravel\Ai\Stores;
-
-$store = Stores::get('store_id');
-
-$store->id;
-$store->name;
-$store->fileCounts;
-$store->ready;
-```
-
-To delete a vector store, use the `delete` method on the `Stores` class or the store instance:
-
-```php
-use Laravel\Ai\Stores;
-
-// Delete by ID...
-Stores::delete('store_id');
-
-// Or delete via a store instance...
-$store = Stores::get('store_id');
-
-$store->delete();
-```
-
-<a name="adding-files-to-stores"></a>
-### Adding Files to Stores
-
-Once you have a vector store, you may add [files](#files) to it using the `add` method. Files added to a store are automatically indexed for semantic searching using the [file search provider tool](#file-search):
-
-```php
-use Laravel\Ai\Files\Document;
-use Laravel\Ai\Stores;
-
-$store = Stores::get('store_id');
-
-// Add a file that has already been stored with the provider...
-$document = $store->add('file_id');
-$document = $store->add(Document::fromId('file_id'));
-
-// Or, store and add a file in one step...
-$document = $store->add(Document::fromPath('/path/to/document.pdf'));
-$document = $store->add(Document::fromStorage('manual.pdf'));
-$document = $store->add($request->file('document'));
-
-$document->id;
-$document->fileId;
-```
-
-> **Note:** Typically, when adding previously stored files to vector stores, the returned document ID will match the file's previously assigned ID; however, some vector storage providers may return a new, different "document ID". Therefore, it's recommended that you always store both IDs in your database for future reference.
-
-You may attach metadata to files when adding them to a store. This metadata can later be used to filter search results when using the [file search provider tool](#file-search):
-
-```php
-$store->add(Document::fromPath('/path/to/document.pdf'), metadata: [
-    'author' => 'Taylor Otwell',
-    'department' => 'Engineering',
-    'year' => 2026,
-]);
-```
-
-To remove a file from a store, use the `remove` method:
-
-```php
-$store->remove('file_id');
-```
-
-Removing a file from a vector store does not remove it from the provider's [file storage](#files). To remove a file from the vector store and delete it permanently from file storage, use the `deleteFile` argument:
-
-```php
-$store->remove('file_abc123', deleteFile: true);
-```
-
-<a name="failover"></a>
-## Failover
-
-When prompting or generating other media, you may provide an array of providers / models to automatically failover to a backup provider / model if a service interruption or rate limit is encountered on the primary provider:
-
-```php
-use App\Ai\Agents\SalesCoach;
-use Laravel\Ai\Image;
-
-$response = (new SalesCoach)->prompt(
-    'Analyze this sales transcript...',
-    provider: [Lab::OpenAI, Lab::Anthropic],
-);
-
-$image = Image::of('A donut sitting on the kitchen counter')
-    ->generate(provider: [Lab::Gemini, Lab::xAI]);
-```
-
-<a name="testing"></a>
-## Testing
-
-<a name="testing-agents"></a>
-### Agents
-
-To fake an agent's responses during tests, call the `fake` method on the agent class. You may optionally provide an array of responses or a closure:
-
-```php
-use App\Ai\Agents\SalesCoach;
-use Laravel\Ai\Prompts\AgentPrompt;
-
-// Automatically generate a fixed response for every prompt...
-SalesCoach::fake();
-
-// Provide a list of prompt responses...
-SalesCoach::fake([
-    'First response',
-    'Second response',
-]);
-
-// Dynamically handle prompt responses based on the incoming prompt...
-SalesCoach::fake(function (AgentPrompt $prompt) {
-    return 'Response for: '.$prompt->prompt;
-});
-```
-
-> **Note:** When `Agent::fake()` is invoked on an agent that returns structured output, Laravel will automatically generate fake data that matches your agent's defined output schema.
-
-After prompting the agent, you may make assertions about the prompts that were received:
-
-```php
-use Laravel\Ai\Prompts\AgentPrompt;
-
-SalesCoach::assertPrompted('Analyze this...');
-
-SalesCoach::assertPrompted(function (AgentPrompt $prompt) {
-    return $prompt->contains('Analyze');
-});
-
-SalesCoach::assertNotPrompted('Missing prompt');
-
-SalesCoach::assertNeverPrompted();
-```
-
-For queued agent invocations, use the queued assertion methods:
-
-```php
-use Laravel\Ai\QueuedAgentPrompt;
-
-SalesCoach::assertQueued('Analyze this...');
-
-SalesCoach::assertQueued(function (QueuedAgentPrompt $prompt) {
-    return $prompt->contains('Analyze');
-});
-
-SalesCoach::assertNotQueued('Missing prompt');
-
-SalesCoach::assertNeverQueued();
-```
-
-To ensure all agent invocations have a corresponding fake response, you may use `preventStrayPrompts`. If an agent is invoked without a defined fake response, an exception will be thrown:
-
-```php
-SalesCoach::fake()->preventStrayPrompts();
-```
-
-<a name="testing-images"></a>
-### Images
-
-Image generations may be faked by invoking the `fake` method on the `Image` class. Once image has been faked, various assertions may be performed against the recorded image generation prompts:
-
-```php
-use Laravel\Ai\Image;
-use Laravel\Ai\Prompts\ImagePrompt;
-use Laravel\Ai\Prompts\QueuedImagePrompt;
-
-// Automatically generate a fixed response for every prompt...
-Image::fake();
-
-// Provide a list of prompt responses...
-Image::fake([
-    base64_encode($firstImage),
-    base64_encode($secondImage),
-]);
-
-// Dynamically handle prompt responses based on the incoming prompt...
-Image::fake(function (ImagePrompt $prompt) {
-    return base64_encode('...');
-});
-```
-
-After generating images, you may make assertions about the prompts that were received:
-
-```php
-Image::assertGenerated(function (ImagePrompt $prompt) {
-    return $prompt->contains('sunset') && $prompt->isLandscape();
-});
-
-Image::assertNotGenerated('Missing prompt');
-
-Image::assertNothingGenerated();
-```
-
-For queued image generations, use the queued assertion methods:
-
-```php
-Image::assertQueued(
-    fn (QueuedImagePrompt $prompt) => $prompt->contains('sunset')
-);
-
-Image::assertNotQueued('Missing prompt');
-
-Image::assertNothingQueued();
-```
-
-To ensure all image generations have a corresponding fake response, you may use `preventStrayImages`. If an image is generated without a defined fake response, an exception will be thrown:
-
-```php
-Image::fake()->preventStrayImages();
-```
-
-<a name="testing-audio"></a>
-### Audio
-
-Audio generations may be faked by invoking the `fake` method on the `Audio` class. Once audio has been faked, various assertions may be performed against the recorded audio generation prompts:
-
-```php
-use Laravel\Ai\Audio;
-use Laravel\Ai\Prompts\AudioPrompt;
-use Laravel\Ai\Prompts\QueuedAudioPrompt;
-
-// Automatically generate a fixed response for every prompt...
-Audio::fake();
-
-// Provide a list of prompt responses...
-Audio::fake([
-    base64_encode($firstAudio),
-    base64_encode($secondAudio),
-]);
-
-// Dynamically handle prompt responses based on the incoming prompt...
-Audio::fake(function (AudioPrompt $prompt) {
-    return base64_encode('...');
-});
-```
-
-After generating audio, you may make assertions about the prompts that were received:
-
-```php
-Audio::assertGenerated(function (AudioPrompt $prompt) {
-    return $prompt->contains('Hello') && $prompt->isFemale();
-});
-
-Audio::assertNotGenerated('Missing prompt');
-
-Audio::assertNothingGenerated();
-```
-
-For queued audio generations, use the queued assertion methods:
-
-```php
-Audio::assertQueued(
-    fn (QueuedAudioPrompt $prompt) => $prompt->contains('Hello')
-);
-
-Audio::assertNotQueued('Missing prompt');
-
-Audio::assertNothingQueued();
-```
-
-To ensure all audio generations have a corresponding fake response, you may use `preventStrayAudio`. If audio is generated without a defined fake response, an exception will be thrown:
-
-```php
-Audio::fake()->preventStrayAudio();
-```
-
-<a name="testing-transcriptions"></a>
-### Transcriptions
-
-Transcription generations may be faked by invoking the `fake` method on the `Transcription` class. Once transcription has been faked, various assertions may be performed against the recorded transcription generation prompts:
-
-```php
-use Laravel\Ai\Transcription;
-use Laravel\Ai\Prompts\TranscriptionPrompt;
-use Laravel\Ai\Prompts\QueuedTranscriptionPrompt;
-
-// Automatically generate a fixed response for every prompt...
-Transcription::fake();
-
-// Provide a list of prompt responses...
-Transcription::fake([
-    'First transcription text.',
-    'Second transcription text.',
-]);
-
-// Dynamically handle prompt responses based on the incoming prompt...
-Transcription::fake(function (TranscriptionPrompt $prompt) {
-    return 'Transcribed text...';
-});
-```
-
-After generating transcriptions, you may make assertions about the prompts that were received:
-
-```php
-Transcription::assertGenerated(function (TranscriptionPrompt $prompt) {
-    return $prompt->language === 'en' && $prompt->isDiarized();
-});
-
-Transcription::assertNotGenerated(
-    fn (TranscriptionPrompt $prompt) => $prompt->language === 'fr'
-);
-
-Transcription::assertNothingGenerated();
-```
-
-For queued transcription generations, use the queued assertion methods:
-
-```php
-Transcription::assertQueued(
-    fn (QueuedTranscriptionPrompt $prompt) => $prompt->isDiarized()
-);
-
-Transcription::assertNotQueued(
-    fn (QueuedTranscriptionPrompt $prompt) => $prompt->language === 'fr'
-);
-
-Transcription::assertNothingQueued();
-```
-
-To ensure all transcription generations have a corresponding fake response, you may use `preventStrayTranscriptions`. If a transcription is generated without a defined fake response, an exception will be thrown:
-
-```php
-Transcription::fake()->preventStrayTranscriptions();
-```
-
-<a name="testing-embeddings"></a>
-### Embeddings
-
-Embeddings generations may be faked by invoking the `fake` method on the `Embeddings` class. Once embeddings has been faked, various assertions may be performed against the recorded embeddings generation prompts:
-
-```php
-use Laravel\Ai\Embeddings;
-use Laravel\Ai\Prompts\EmbeddingsPrompt;
-use Laravel\Ai\Prompts\QueuedEmbeddingsPrompt;
-
-// Automatically generate fake embeddings of the proper dimensions for every prompt...
-Embeddings::fake();
-
-// Provide a list of prompt responses...
-Embeddings::fake([
-    [$firstEmbeddingVector],
-    [$secondEmbeddingVector],
-]);
-
-// Dynamically handle prompt responses based on the incoming prompt...
-Embeddings::fake(function (EmbeddingsPrompt $prompt) {
-    return array_map(
-        fn () => Embeddings::fakeEmbedding($prompt->dimensions),
-        $prompt->inputs
-    );
-});
-```
-
-After generating embeddings, you may make assertions about the prompts that were received:
-
-```php
-Embeddings::assertGenerated(function (EmbeddingsPrompt $prompt) {
-    return $prompt->contains('Laravel') && $prompt->dimensions === 1536;
-});
-
-Embeddings::assertNotGenerated(
-    fn (EmbeddingsPrompt $prompt) => $prompt->contains('Other')
-);
-
-Embeddings::assertNothingGenerated();
-```
-
-For queued embeddings generations, use the queued assertion methods:
-
-```php
-Embeddings::assertQueued(
-    fn (QueuedEmbeddingsPrompt $prompt) => $prompt->contains('Laravel')
-);
-
-Embeddings::assertNotQueued(
-    fn (QueuedEmbeddingsPrompt $prompt) => $prompt->contains('Other')
-);
-
-Embeddings::assertNothingQueued();
-```
-
-To ensure all embeddings generations have a corresponding fake response, you may use `preventStrayEmbeddings`. If embeddings are generated without a defined fake response, an exception will be thrown:
-
-```php
-Embeddings::fake()->preventStrayEmbeddings();
-```
-
-<a name="testing-reranking"></a>
-### Reranking
-
-Reranking operations may be faked by invoking the `fake` method on the `Reranking` class:
-
-```php
-use Laravel\Ai\Reranking;
-use Laravel\Ai\Prompts\RerankingPrompt;
-use Laravel\Ai\Responses\Data\RankedDocument;
-
-// Automatically generate a fake reranked responses...
-Reranking::fake();
-
-// Provide custom responses...
-Reranking::fake([
-    [
-        new RankedDocument(index: 0, document: 'First', score: 0.95),
-        new RankedDocument(index: 1, document: 'Second', score: 0.80),
-    ],
-]);
-```
-
-After reranking, you may make assertions about the operations that were performed:
-
-```php
-Reranking::assertReranked(function (RerankingPrompt $prompt) {
-    return $prompt->contains('Laravel') && $prompt->limit === 5;
-});
-
-Reranking::assertNotReranked(
-    fn (RerankingPrompt $prompt) => $prompt->contains('Django')
-);
-
-Reranking::assertNothingReranked();
-```
-
-<a name="testing-files"></a>
-### Files
-
-File operations may be faked by invoking the `fake` method on the `Files` class:
-
-```php
-use Laravel\Ai\Files;
-
-Files::fake();
-```
-
-Once file operations have been faked, you may make assertions about the uploads and deletions that occurred:
-
-```php
-use Laravel\Ai\Contracts\Files\StorableFile;
-use Laravel\Ai\Files\Document;
-
-// Store files...
-Document::fromString('Hello, Laravel!', mimeType: 'text/plain')
-    ->as('hello.txt')
-    ->put();
-
-// Make assertions...
-Files::assertStored(fn (StorableFile $file) =>
-    (string) $file === 'Hello, Laravel!' &&
-        $file->mimeType() === 'text/plain';
-);
-
-Files::assertNotStored(fn (StorableFile $file) =>
-    (string) $file === 'Hello, World!'
-);
-
-Files::assertNothingStored();
-```
-
-For asserting against file deletions, you may pass a file ID:
-
-```php
-Files::assertDeleted('file-id');
-Files::assertNotDeleted('file-id');
-Files::assertNothingDeleted();
-```
-
-<a name="testing-vector-stores"></a>
-### Vector Stores
-
-Vector store operations may be faked by invoking the `fake` method on the `Stores` class. Faking stores will also fake [file operations](#files) automatically:
-
-```php
-use Laravel\Ai\Stores;
-
-Stores::fake();
-```
-
-Once store operations have been faked, you may make assertions about the stores that were created or deleted:
-
-```php
-use Laravel\Ai\Stores;
-
-// Create store...
-$store = Stores::create('Knowledge Base');
-
-// Make assertions...
-Stores::assertCreated('Knowledge Base');
-
-Stores::assertCreated(fn (string $name, ?string $description) =>
-    $name === 'Knowledge Base'
-);
-
-Stores::assertNotCreated('Other Store');
-
-Stores::assertNothingCreated();
-```
-
-For asserting against store deletions, you may provide the store ID:
-
-```php
-Stores::assertDeleted('store_id');
-Stores::assertNotDeleted('other_store_id');
-Stores::assertNothingDeleted();
-```
-
-To assert files were added or removed from a store, use the assertion methods on a given `Store` instance:
-
-```php
-Stores::fake();
-
-$store = Stores::get('store_id');
-
-// Add / remove files...
-$store->add('added_id');
-$store->remove('removed_id');
-
-// Make assertions...
-$store->assertAdded('added_id');
-$store->assertRemoved('removed_id');
-
-$store->assertNotAdded('other_file_id');
-$store->assertNotRemoved('other_file_id');
-```
-
-If a file is stored in the provider's [file storage](#files) and added to a vector store in the same request, you may not know the file's provider ID. In this case, you can pass a closure to the `assertAdded` method to assert against the content of the added file:
-
-```php
-use Laravel\Ai\Contracts\Files\StorableFile;
-use Laravel\Ai\Files\Document;
-
-$store->add(Document::fromString('Hello, World!', 'text/plain')->as('hello.txt'));
-
-$store->assertAdded(fn (StorableFile $file) => $file->name() === 'hello.txt');
-$store->assertAdded(fn (StorableFile $file) => $file->content() === 'Hello, World!');
-```
-
-<a name="events"></a>
-## Events
-
-The Laravel AI SDK dispatches a variety of [events](/docs/{{version}}/events), including:
-
-- `AddingFileToStore`
-- `AgentPrompted`
-- `AgentStreamed`
-- `AudioGenerated`
-- `CreatingStore`
-- `EmbeddingsGenerated`
-- `FileAddedToStore`
-- `FileDeleted`
-- `FileRemovedFromStore`
-- `FileStored`
-- `GeneratingAudio`
-- `GeneratingEmbeddings`
-- `GeneratingImage`
-- `GeneratingTranscription`
-- `ImageGenerated`
-- `InvokingTool`
-- `PromptingAgent`
-- `RemovingFileFromStore`
-- `Reranked`
-- `Reranking`
-- `StoreCreated`
-- `StoringFile`
-- `StreamingAgent`
-- `ToolInvoked`
-- `TranscriptionGenerated`
-
-You can listen to any of these events to log or store AI SDK usage information.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: ['confidence' => $schema->string()->enum(['low', 'medium', 'high', security, database, ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_PASSKEY-MANAGEMENT.MD
-
-# Passkey Management Guide
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-This guide details how to enable users to view, rename, and delete their registered passkeys while keeping saved credentials perfectly synchronized between the server and the user's password managers using the Signal API.
-
-## Server-Side Operations
-
-Your backend database layer and endpoints MUST support common CRUD actions for registered credentials. Decoupled from framework-specific libraries, the server exposes endpoints to:
-
-1.  **List all user credentials**: Fetch all `StoredPasskeyCredential` records matching the signed-in user's ID.
-2.  **Update credential names**: Accept a new custom string name for a specific credential ID and persist the update.
-3.  **Delete credentials**: Remove a specific credential ID from the database.
-
-```javascript
-// Node.js routing example for credential CRUD
-router.get('/api/credentials', checkUserAuthenticated, async (req, res) => {
-  const list = await db.findCredentialsByUserId(req.user.id);
-  return res.json(list);
-});
-
-router.put('/api/credential/:id', checkUserAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const cred = await db.findCredentialById(id);
-  if (!cred || cred.passkeyUserId !== req.user.id) {
-    return res.status(404).json({ error: 'Credential not found.' });
-  }
-  cred.name = name;
-  await db.saveCredential(cred);
-  return res.json(cred);
-});
-
-router.delete('/api/credential/:id', checkUserAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  const cred = await db.findCredentialById(id);
-  if (!cred || cred.passkeyUserId !== req.user.id) {
-    return res.status(404).json({ error: 'Credential not found.' });
-  }
-  await db.deleteCredential(id);
-  return res.json({ success: true });
-});
-```
-
-## Client-Side Management UI
-
-Render a dedicated settings panel allowing users to easily audit and manage their registered authentication options:
-
-1.  **Display saved list**: Fetch list from your endpoint and render individual credential rows. If the response is empty, render a helpful empty-state message (e.g., "No passkeys found").
-2.  **Map AAGUID Metadata**: For each passkey, lookup its `aaguid` property against your local registry to render its provider details. See [Determine the passkey provider from AAGUID](#aaguid) section for more details.
-3.  **Per-Item UI Requirements**: Every row inside the list container MUST render:
-    *   **Provider Icon**: AAGUID-derived image or data URI.
-    *   **Provider/Custom Name**: AAGUID-derived name or user-renamed string.
-    *   **Registration Date**: The database-persisted raw epoch timestamp `registeredAt` formatted to a human-readable date for client display.
-    *   **Last Used Date**: The database-persisted raw epoch timestamp `lastUsedAt` formatted to a human-readable date (if present) for client display.
-    *   **Rename Button**: Triggers a rename text input modal.
-    *   **Delete Button**: Triggers deletion.
-4.  **Conditional "Create Passkey" Button**:
-    *  Offer a prominent "Create passkey" registration trigger button on the management page. Before rendering this UI element, the page MUST feature-detect capabilities using `PublicKeyCredential.getClientCapabilities()` to verify platform authenticator is supported. If passkeys are unsupported, hide this button and gracefully encourage standard MFA enrollments instead.
-    *  Allow registering a security key by omitting `authenticatorSelection.authenticatorAttachment` on `navigator.credentials.create()` call.
-
-## Signal API Synchronization
-
-The Signal API lets the application communicate credential states to password managers, keeping the user's synced vaults and your backend database in lockstep.
-
-*   **Parameter Encoding Rule**:
-    *  All `userId` and credential ID parameters passed to Signal API methods (`signalAllAcceptedCredentials`, `signalCurrentUserDetails`) MUST be **Base64URL-encoded strings**.
-*   **Initiating Page Load Sync**:
-    *  The application MUST invoke `signalAllAcceptedCredentials()` automatically in a `DOMContentLoaded` page load event listener.
-*   **Management Updates Sync**:
-    *  The application MUST invoke `signalAllAcceptedCredentials()` immediately within your delete credential click handler post-fetch.
-    *  The application MUST invoke `signalCurrentUserDetails()` immediately within your username or display name rename click handler post-fetch.
-
-```javascript
-// Client-side management synchronization ES module
-import { listFetch, renameFetch, deleteFetch } from './api.js';
-
-// Base64URL-encoded User ID string (illustration only)
-const base64UrlUserId = "M2YPl-KGnA8";
-
-async function syncAcceptedCredentials(currentCredentialsList) {
-  try {
-    const credentialIds = currentCredentialsList.map(c => c.id); // Map of Base64URL credential ID strings
-    
-    await PublicKeyCredential.signalAllAcceptedCredentials({
-      rpId, // RP ID must match the one defined on the server
-      userId: base64UrlUserId, // User ID Base64URL-encoded string
-      allAcceptedCredentialIds: credentialIds
-    });
-  } catch (e) {
-    console.error('SignalAllAcceptedCredentials sync failure:', e);
-  }
-}
-
-async function loadManagementPanel() {
-  const response = await listFetch();
-  const list = await response.json();
-  
-  renderUI(list);
-  // Sync on page load
-  await syncAcceptedCredentials(list);
-}
-
-async function performDelete(credentialId) {
-  const response = await deleteFetch(credentialId);
-  if (response.ok) {
-    const updatedResponse = await listFetch();
-    const updatedList = await updatedResponse.json();
-    
-    renderUI(updatedList);
-    // Sync after deletion
-    await syncAcceptedCredentials(updatedList);
-  }
-}
-
-async function performRename(rpId, userId, updatedName, updatedDisplayName) {
-  const response = await renameFetch({ name: updatedName, displayName: updatedDisplayName });
-  if (response.ok) {
-    try {
-      await PublicKeyCredential.signalCurrentUserDetails({
-        rpId, // RP ID must match the one defined on the server
-        userId, // Base64URL-encoded user ID
-        name: updatedName, // Updated username
-        displayName: updatedDisplayName // Updated display name
-      });
-    } catch (e) {
-      console.error('SignalCurrentUserDetails sync failure:', e);
-    }
-  }
-}
-```
-
-## Determine the passkey provider from AAGUID {: #aaguid }
-
-An AAGUID (Authenticator Attestation Globally Unique Identifier) is a 128-bit identifier that represents the model of the authenticator, not a specific instance. It is included in the authenticator data during passkey registration and can be used to determine which passkey provider (e.g. Google Password Manager, iCloud Keychain, 1Password) created a credential.
-
-AAGUID should only be used to help users with passkey management. It can be modified unless cryptographically attested, which platform passkeys currently don't support.
-
-### 1. AAGUID Registry
-
-A community-maintained JSON mapping of AAGUIDs to provider names and icons is available at:
-
-```
-https://raw.githubusercontent.com/passkeydeveloper/passkey-authenticator-aaguids/refs/heads/main/combined_aaguid.json
-```
-
-Each entry has the following schema:
-
-```json
-{
-  "<aaguid-uuid>": {
-    "name": "Provider Name",
-    "icon_light": "data:image/png;base64,...",
-    "icon_dark": "data:image/png;base64,..."
-  }
-}
-```
-
-### 2. Using AAGUID After Registration
-
-After verifying a registration response, read the `aaguid` from the registration result and look it up against the registry to populate the credential's `name` and `providerIcon`:
-
-Before looking up the AAGUID in the registry, check if it equals `'00000000-0000-0000-0000-000000000000'`. If so, skip the registry lookup and set `name` to a fallback (e.g. device name from user-agent, or "Unknown passkey provider") and `providerIcon` to `undefined`. Only look up the registry for non-zeroed AAGUIDs.
-
-```javascript
-import aaguids from './aaguids.json' with { type: 'json' };
-
-const { aaguid } = registrationInfo;
-if (aaguid === '00000000-0000-0000-0000-000000000000') {
-  // use the device name as the passkey provider based on
-  // the information derived from the user agent string,
-  // or just say "Unknown passkey provider"
-} else {
-  const provider = aaguids[aaguid];
-  const credential = {
-    // ...other fields
-    aaguid,
-    name: provider?.name || 'Unknown passkey provider',
-    providerIcon: provider?.icon_light,
-  };
-}
-```
-
-## Fallback Strategies
-
-### Passkey feature detection fallback
-
-Baseline status for the api.PublicKeyCredential.getClientCapabilities_static capability: Newly available. It's been Baseline since 2025-02-06.
-Supported by: Chrome 133 (Feb 2025), Edge 133 (Feb 2025), Firefox 135 (Feb 2025), and Safari 17.4 (Mar 2024).
-
-Always install 'webauthn-polyfills' and import it in the context.
-Consider as long as  `PublicKeyCredential` is supported, `PublicKeyCredential.getClientCapabilities` is also supported. 
-
-```js 
-import 'webauthn-polyfills';
-``` 
-
-### Signal API Synchronization Fallback
-
-Web authentication signal methods has limited availability.
-Supported by: Chrome 132 (Jan 2025), Edge 132 (Jan 2025), and Safari 26 (Sep 2025).
-Unsupported in: Firefox.
-If the browser does not support `PublicKeyCredential.parseRequestOptionsFromJSON`, use the 'webauthn-polyfills': 
-  
-```html 
-<script type="module"> 
-  if (!PublicKeyCredential.parseRequestOptionsFromJSON) { 
-     await import('https://unpkg.com/webauthn-polyfills'); 
-   } 
- </script> 
- ``` 
-
-This will also add support for `PublicKeyCredential.prototype.toJSON`.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [determine the passkey provider from aaguid, security, database, ui-ux, tdd, api]
-
-### 📘 KNOWLEDGE: NEXUS_BILLING.MD
-
-# Laravel Cashier (Stripe)
-> **VERSION**: v2 | **Last Updated**: 27/05/2026
-
-
-
-- [Introduction](#introduction)
-- [Upgrading Cashier](#upgrading-cashier)
-- [Installation](#installation)
-- [Configuration](#configuration)
-    - [Billable Model](#billable-model)
-    - [API Keys](#api-keys)
-    - [Currency Configuration](#currency-configuration)
-    - [Tax Configuration](#tax-configuration)
-    - [Logging](#logging)
-    - [Using Custom Models](#using-custom-models)
-- [Quickstart](#quickstart)
-    - [Selling Products](#quickstart-selling-products)
-    - [Selling Subscriptions](#quickstart-selling-subscriptions)
-- [Customers](#customers)
-    - [Retrieving Customers](#retrieving-customers)
-    - [Creating Customers](#creating-customers)
-    - [Updating Customers](#updating-customers)
-    - [Balances](#balances)
-    - [Tax IDs](#tax-ids)
-    - [Syncing Customer Data With Stripe](#syncing-customer-data-with-stripe)
-    - [Billing Portal](#billing-portal)
-- [Payment Methods](#payment-methods)
-    - [Storing Payment Methods](#storing-payment-methods)
-    - [Retrieving Payment Methods](#retrieving-payment-methods)
-    - [Payment Method Presence](#payment-method-presence)
-    - [Updating the Default Payment Method](#updating-the-default-payment-method)
-    - [Adding Payment Methods](#adding-payment-methods)
-    - [Deleting Payment Methods](#deleting-payment-methods)
-- [Subscriptions](#subscriptions)
-    - [Creating Subscriptions](#creating-subscriptions)
-    - [Checking Subscription Status](#checking-subscription-status)
-    - [Changing Prices](#changing-prices)
-    - [Subscription Quantity](#subscription-quantity)
-    - [Subscriptions With Multiple Products](#subscriptions-with-multiple-products)
-    - [Multiple Subscriptions](#multiple-subscriptions)
-    - [Usage Based Billing](#usage-based-billing)
-    - [Subscription Taxes](#subscription-taxes)
-    - [Subscription Anchor Date](#subscription-anchor-date)
-    - [Canceling Subscriptions](#cancelling-subscriptions)
-    - [Resuming Subscriptions](#resuming-subscriptions)
-- [Subscription Trials](#subscription-trials)
-    - [With Payment Method Up Front](#with-payment-method-up-front)
-    - [Without Payment Method Up Front](#without-payment-method-up-front)
-    - [Extending Trials](#extending-trials)
-- [Handling Stripe Webhooks](#handling-stripe-webhooks)
-    - [Defining Webhook Event Handlers](#defining-webhook-event-handlers)
-    - [Verifying Webhook Signatures](#verifying-webhook-signatures)
-- [Single Charges](#single-charges)
-    - [Simple Charge](#simple-charge)
-    - [Charge With Invoice](#charge-with-invoice)
-    - [Creating Payment Intents](#creating-payment-intents)
-    - [Refunding Charges](#refunding-charges)
-- [Invoices](#invoices)
-    - [Retrieving Invoices](#retrieving-invoices)
-    - [Upcoming Invoices](#upcoming-invoices)
-    - [Previewing Subscription Invoices](#previewing-subscription-invoices)
-    - [Generating Invoice PDFs](#generating-invoice-pdfs)
-- [Checkout](#checkout)
-    - [Product Checkouts](#product-checkouts)
-    - [Single Charge Checkouts](#single-charge-checkouts)
-    - [Subscription Checkouts](#subscription-checkouts)
-    - [Collecting Tax IDs](#collecting-tax-ids)
-    - [Guest Checkouts](#guest-checkouts)
-- [Handling Failed Payments](#handling-failed-payments)
-    - [Confirming Payments](#confirming-payments)
-- [Strong Customer Authentication (SCA)](#strong-customer-authentication)
-    - [Payments Requiring Additional Confirmation](#payments-requiring-additional-confirmation)
-    - [Off-session Payment Notifications](#off-session-payment-notifications)
-- [Stripe SDK](#stripe-sdk)
-- [Testing](#testing)
-
-<a name="introduction"></a>
-## Introduction
-
-[Laravel Cashier Stripe](https://github.com/laravel/cashier-stripe) provides an expressive, fluent interface to [Stripe's](https://stripe.com) subscription billing services. It handles almost all of the boilerplate subscription billing code you are dreading writing. In addition to basic subscription management, Cashier can handle coupons, swapping subscription, subscription "quantities", cancellation grace periods, and even generate invoice PDFs.
-
-<a name="upgrading-cashier"></a>
-## Upgrading Cashier
-
-When upgrading to a new version of Cashier, it's important that you carefully review [the upgrade guide](https://github.com/laravel/cashier-stripe/blob/16.x/[UPGRADE.md](../security/NEXUS_UPGRADE.MD)).
-
-> [!WARNING]
-> To prevent breaking changes, Cashier uses a fixed Stripe API version. Cashier 16 utilizes Stripe API version `2025-06-30.basil`. The Stripe API version will be updated on minor releases in order to make use of new Stripe features and improvements.
-
-<a name="installation"></a>
-## Installation
-
-First, install the Cashier package for Stripe using the Composer package manager:
-
-```shell
-composer require laravel/cashier
-```
-
-After installing the package, publish Cashier's migrations using the `vendor:publish` Artisan command:
-
-```shell
-php artisan vendor:publish --tag="cashier-migrations"
-```
-
-Then, migrate your database:
-
-```shell
-php artisan migrate
-```
-
-Cashier's migrations will add several columns to your `users` table. They will also create a new `subscriptions` table to hold all of your customer's subscriptions and a `subscription_items` table for subscriptions with multiple prices.
-
-If you wish, you can also publish Cashier's configuration file using the `vendor:publish` Artisan command:
-
-```shell
-php artisan vendor:publish --tag="cashier-config"
-```
-
-Lastly, to ensure Cashier properly handles all Stripe events, remember to [configure Cashier's webhook handling](#handling-stripe-webhooks).
-
-> [!WARNING]
-> Stripe recommends that any column used for storing Stripe identifiers should be case-sensitive. Therefore, you should ensure the column collation for the `stripe_id` column is set to `utf8_bin` when using MySQL. More information regarding this can be found in the [Stripe documentation](https://stripe.com/docs/upgrades#what-changes-does-stripe-consider-to-be-backwards-compatible).
-
-<a name="configuration"></a>
-## Configuration
-
-<a name="billable-model"></a>
-### Billable Model
-
-Before using Cashier, add the `Billable` trait to your billable model definition. Typically, this will be the `App\Models\User` model. This trait provides various methods to allow you to perform common billing tasks, such as creating subscriptions, applying coupons, and updating payment method information:
-
-```php
-use Laravel\Cashier\Billable;
-
-class User extends Authenticatable
-{
-    use Billable;
-}
-```
-
-Cashier assumes your billable model will be the `App\Models\User` class that ships with Laravel. If you wish to change this you may specify a different model via the `useCustomerModel` method. This method should typically be called in the `boot` method of your `AppServiceProvider` class:
-
-```php
-use App\Models\Cashier\User;
-use Laravel\Cashier\Cashier;
-
-/**
- * Bootstrap any application services.
- */
-public function boot(): void
-{
-    Cashier::useCustomerModel(User::class);
-}
-```
-
-> [!WARNING]
-> If you're using a model other than Laravel's supplied `App\Models\User` model, you'll need to publish and alter the [Cashier migrations](#installation) provided to match your alternative model's table name.
-
-<a name="api-keys"></a>
-### API Keys
-
-Next, you should configure your Stripe API keys in your application's `.env` file. You can retrieve your Stripe API keys from the Stripe control panel:
-
-```ini
-STRIPE_KEY=your-stripe-key
-STRIPE_SECRET=your-stripe-secret
-STRIPE_WEBHOOK_SECRET=your-stripe-webhook-secret
-```
-
-> [!WARNING]
-> You should ensure that the `STRIPE_WEBHOOK_SECRET` environment variable is defined in your application's `.env` file, as this variable is used to ensure that incoming webhooks are actually from Stripe.
-
-<a name="currency-configuration"></a>
-### Currency Configuration
-
-The default Cashier currency is United States Dollars (USD). You can change the default currency by setting the `CASHIER_CURRENCY` environment variable within your application's `.env` file:
-
-```ini
-CASHIER_CURRENCY=eur
-```
-
-In addition to configuring Cashier's currency, you may also specify a locale to be used when formatting money values for display on invoices. Internally, Cashier utilizes [PHP's `NumberFormatter` class](https://www.php.net/manual/en/class.numberformatter.php) to set the currency locale:
-
-```ini
-CASHIER_CURRENCY_LOCALE=nl_BE
-```
-
-> [!WARNING]
-> In order to use locales other than `en`, ensure the `ext-intl` PHP extension is installed and configured on your server.
-
-<a name="tax-configuration"></a>
+     * Get the instructions that t
 
 ...[truncated]

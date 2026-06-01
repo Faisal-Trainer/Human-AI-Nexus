@@ -1300,7 +1300,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v18 | **Last Updated**: 5/29/2026
+> **VERSION**: v19 | **Last Updated**: 5/30/2026
 
 
 
@@ -1665,6 +1665,21 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v0111] - 5/30/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -1685,7 +1700,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v19 | **Last Updated**: 5/29/2026
+> **VERSION**: v20 | **Last Updated**: 5/30/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5181,6 +5196,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0111] - 5/30/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -5511,6 +5551,1787 @@ You MUST complete each phase before proceeding to the next.
 
 ---
 
+### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
+
+# Node/TypeScript MCP Server Implementation Guide
+> **VERSION**: v2 | **Last Updated**: 5/30/2026
+
+
+
+## Overview
+
+This document provides Node/TypeScript-specific best practices and examples for implementing MCP servers using the MCP TypeScript SDK. It covers project structure, server setup, tool registration patterns, input validation with Zod, error handling, and complete working examples.
+
+---
+
+## Quick Reference
+
+### Key Imports
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import express from "express";
+import { z } from "zod";
+```
+
+### Server Initialization
+
+```typescript
+const server = new McpServer({
+  name: "service-mcp-server",
+  version: "1.0.0",
+});
+```
+
+### Tool Registration Pattern
+
+```typescript
+server.registerTool(
+  "tool_name",
+  {
+    title: "Tool Display Name",
+    description: "What the tool does",
+    inputSchema: { param: z.string() },
+    outputSchema: { result: z.string() },
+  },
+  async ({ param }) => {
+    const output = { result: `Processed: ${param}` };
+    return {
+      content: [{ type: "text", text: JSON.stringify(output) }],
+      structuredContent: output, // Modern pattern for structured data
+    };
+  },
+);
+```
+
+---
+
+## MCP TypeScript SDK
+
+The official MCP TypeScript SDK provides:
+
+- `McpServer` class for server initialization
+- `registerTool` method for tool registration
+- Zod schema integration for runtime input validation
+- Type-safe tool handler implementations
+
+**IMPORTANT - Use Modern APIs Only:**
+
+- **DO use**: `server.registerTool()`, `server.registerResource()`, `server.registerPrompt()`
+- **DO NOT use**: Old deprecated APIs such as `server.tool()`, `server.setRequestHandler(ListToolsRequestSchema, ...)`, or manual handler registration
+- The `register*` methods provide better type safety, automatic schema handling, and are the recommended approach
+
+See the MCP SDK documentation in the references for complete details.
+
+## Server Naming Convention
+
+Node/TypeScript MCP servers must follow this naming pattern:
+
+- **Format**: `{service}-mcp-server` (lowercase with hyphens)
+- **Examples**: `github-mcp-server`, `jira-mcp-server`, `stripe-mcp-server`
+
+The name should be:
+
+- General (not tied to specific features)
+- Descriptive of the service/API being integrated
+- Easy to infer from the task description
+- Without version numbers or dates
+
+## Project Structure
+
+Create the following structure for Node/TypeScript MCP servers:
+
+```
+{service}-mcp-server/
+├── package.json
+├── tsconfig.json
+├── [README.md](../security/NEXUS_README.MD)
+├── src/
+│   ├── index.ts          # Main entry point with McpServer initialization
+│   ├── types.ts          # TypeScript type definitions and interfaces
+│   ├── tools/            # Tool implementations (one file per domain)
+│   ├── services/         # API clients and shared utilities
+│   ├── schemas/          # Zod validation schemas
+│   └── constants.ts      # Shared constants (API_URL, CHARACTER_LIMIT, etc.)
+└── dist/                 # Built JavaScript files (entry point: dist/index.js)
+```
+
+## Tool Implementation
+
+### Tool Naming
+
+Use snake_case for tool names (e.g., "search_users", "create_project", "get_channel_info") with clear, action-oriented names.
+
+**Avoid Naming Conflicts**: Include the service context to prevent overlaps:
+
+- Use "slack_send_message" instead of just "send_message"
+- Use "github_create_issue" instead of just "create_issue"
+- Use "asana_list_tasks" instead of just "list_tasks"
+
+### Tool Structure
+
+Tools are registered using the `registerTool` method with the following requirements:
+
+- Use Zod schemas for runtime input validation and type safety
+- The `description` field must be explicitly provided - JSDoc comments are NOT automatically extracted
+- Explicitly provide `title`, `description`, `inputSchema`, and `annotations`
+- The `inputSchema` must be a Zod schema object (not a JSON schema)
+- Type all parameters and return values explicitly
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+
+const server = new McpServer({
+  name: "example-mcp",
+  version: "1.0.0",
+});
+
+// Zod schema for input validation
+const UserSearchInputSchema = z
+  .object({
+    query: z
+      .string()
+      .min(2, "Query must be at least 2 characters")
+      .max(200, "Query must not exceed 200 characters")
+      .describe("Search string to match against names/emails"),
+    limit: z
+      .number()
+      .int()
+      .min(1)
+      .max(100)
+      .default(20)
+      .describe("Maximum results to return"),
+    offset: z
+      .number()
+      .int()
+      .min(0)
+      .default(0)
+      .describe("Number of results to skip for pagination"),
+    response_format: z
+      .nativeEnum(ResponseFormat)
+      .default(ResponseFormat.MARKDOWN)
+      .describe(
+        "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+      ),
+  })
+  .strict();
+
+// Type definition from Zod schema
+type UserSearchInput = z.infer<typeof UserSearchInputSchema>;
+
+server.registerTool(
+  "example_search_users",
+  {
+    title: "Search Example Users",
+    description: `Search for users in the Example system by name, email, or team.
+
+This tool searches across all user profiles in the Example platform, supporting partial matches and various search filters. It does NOT create or modify users, only searches existing ones.
+
+Args:
+  - query (string): Search string to match against names/emails
+  - limit (number): Maximum results to return, between 1-100 (default: 20)
+  - offset (number): Number of results to skip for pagination (default: 0)
+  - response_format ('markdown' | 'json'): Output format (default: 'markdown')
+
+Returns:
+  For JSON format: Structured data with schema:
+  {
+    "total": number,           // Total number of matches found
+    "count": number,           // Number of results in this response
+    "offset": number,          // Current pagination offset
+    "users": [
+      {
+        "id": string,          // User ID (e.g., "U123456789")
+        "name": string,        // Full name (e.g., "John Doe")
+        "email": string,       // Email address
+        "team": string,        // Team name (optional)
+        "active": boolean      // Whether user is active
+      }
+    ],
+    "has_more": boolean,       // Whether more results are available
+    "next_offset": number      // Offset for next page (if has_more is true)
+  }
+
+Examples:
+  - Use when: "Find all marketing team members" -> params with query="team:marketing"
+  - Use when: "Search for John's account" -> params with query="john"
+  - Don't use when: You need to create a user (use example_create_user instead)
+
+Error Handling:
+  - Returns "Error: Rate limit exceeded" if too many requests (429 status)
+  - Returns "No users found matching '<query>'" if search returns empty`,
+    inputSchema: UserSearchInputSchema,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
+  },
+  async (params: UserSearchInput) => {
+    try {
+      // Input validation is handled by Zod schema
+      // Make API request using validated parameters
+      const data = await makeApiRequest<any>("users/search", "GET", undefined, {
+        q: params.query,
+        limit: params.limit,
+        offset: params.offset,
+      });
+
+      const users = data.users || [];
+      const total = data.total || 0;
+
+      if (!users.length) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `No users found matching '${params.query}'`,
+            },
+          ],
+        };
+      }
+
+      // Prepare structured output
+      const output = {
+        total,
+        count: users.length,
+        offset: params.offset,
+        users: users.map((user: any) => ({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          ...(user.team ? { team: user.team } : {}),
+          active: user.active ?? true,
+        })),
+        has_more: total > params.offset + users.length,
+        ...(total > params.offset + users.length
+          ? {
+              next_offset: params.offset + users.length,
+            }
+          : {}),
+      };
+
+      // Format text representation based on requested format
+      let textContent: string;
+      if (params.response_format === ResponseFormat.MARKDOWN) {
+        const lines = [
+          `# User Search Results: '${params.query}'`,
+          "",
+          `Found ${total} users (showing ${users.length})`,
+          "",
+        ];
+        for (const user of users) {
+          lines.push(`## ${user.name} (${user.id})`);
+          lines.push(`- **Email**: ${user.email}`);
+          if (user.team) lines.push(`- **Team**: ${user.team}`);
+          lines.push("");
+        }
+        textContent = lines.join("\n");
+      } else {
+        textContent = JSON.stringify(output, null, 2);
+      }
+
+      return {
+        content: [{ type: "text", text: textContent }],
+        structuredContent: output, // Modern pattern for structured data
+      };
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: handleApiError(error),
+          },
+        ],
+      };
+    }
+  },
+);
+```
+
+## Zod Schemas for Input Validation
+
+Zod provides runtime type validation:
+
+```typescript
+import { z } from "zod";
+
+// Basic schema with validation
+const CreateUserSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .max(100, "Name must not exceed 100 characters"),
+    email: z.string().email("Invalid email format"),
+    age: z
+      .number()
+      .int("Age must be a whole number")
+      .min(0, "Age cannot be negative")
+      .max(150, "Age cannot be greater than 150"),
+  })
+  .strict(); // Use .strict() to forbid extra fields
+
+// Enums
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+const SearchSchema = z.object({
+  response_format: z
+    .nativeEnum(ResponseFormat)
+    .default(ResponseFormat.MARKDOWN)
+    .describe("Output format"),
+});
+
+// Optional fields with defaults
+const PaginationSchema = z.object({
+  limit: z
+    .number()
+    .int()
+    .min(1)
+    .max(100)
+    .default(20)
+    .describe("Maximum results to return"),
+  offset: z
+    .number()
+    .int()
+    .min(0)
+    .default(0)
+    .describe("Number of results to skip"),
+});
+```
+
+## Response Format Options
+
+Support multiple output formats for flexibility:
+
+```typescript
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+const inputSchema = z.object({
+  query: z.string(),
+  response_format: z
+    .nativeEnum(ResponseFormat)
+    .default(ResponseFormat.MARKDOWN)
+    .describe(
+      "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+    ),
+});
+```
+
+**Markdown format**:
+
+- Use headers, lists, and formatting for clarity
+- Convert timestamps to human-readable format
+- Show display names with IDs in parentheses
+- Omit verbose metadata
+- Group related information logically
+
+**JSON format**:
+
+- Return complete, structured data suitable for programmatic processing
+- Include all available fields and metadata
+- Use consistent field names and types
+
+## Pagination Implementation
+
+For tools that list resources:
+
+```typescript
+const ListSchema = z.object({
+  limit: z.number().int().min(1).max(100).default(20),
+  offset: z.number().int().min(0).default(0),
+});
+
+async function listItems(params: z.infer<typeof ListSchema>) {
+  const data = await apiRequest(params.limit, params.offset);
+
+  const response = {
+    total: data.total,
+    count: data.items.length,
+    offset: params.offset,
+    items: data.items,
+    has_more: data.total > params.offset + data.items.length,
+    next_offset:
+      data.total > params.offset + data.items.length
+        ? params.offset + data.items.length
+        : undefined,
+  };
+
+  return JSON.stringify(response, null, 2);
+}
+```
+
+## Character Limits and Truncation
+
+Add a CHARACTER_LIMIT constant to prevent overwhelming responses:
+
+```typescript
+// At module level in constants.ts
+export const CHARACTER_LIMIT = 25000; // Maximum response size in characters
+
+async function searchTool(params: SearchInput) {
+  let result = generateResponse(data);
+
+  // Check character limit and truncate if needed
+  if (result.length > CHARACTER_LIMIT) {
+    const truncatedData = data.slice(0, Math.max(1, data.length / 2));
+    response.data = truncatedData;
+    response.truncated = true;
+    response.truncation_message =
+      `Response truncated from ${data.length} to ${truncatedData.length} items. ` +
+      `Use 'offset' parameter or add filters to see more results.`;
+    result = JSON.stringify(response, null, 2);
+  }
+
+  return result;
+}
+```
+
+## Error Handling
+
+Provide clear, actionable error messages:
+
+```typescript
+import axios, { AxiosError } from "axios";
+
+function handleApiError(error: unknown): string {
+  if (error instanceof AxiosError) {
+    if (error.response) {
+      switch (error.response.status) {
+        case 404:
+          return "Error: Resource not found. Please check the ID is correct.";
+        case 403:
+          return "Error: Permission denied. You don't have access to this resource.";
+        case 429:
+          return "Error: Rate limit exceeded. Please wait before making more requests.";
+        default:
+          return `Error: API request failed with status ${error.response.status}`;
+      }
+    } else if (error.code === "ECONNABORTED") {
+      return "Error: Request timed out. Please try again.";
+    }
+  }
+  return `Error: Unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`;
+}
+```
+
+## Shared Utilities
+
+Extract common functionality into reusable functions:
+
+```typescript
+// Shared API request function
+async function makeApiRequest<T>(
+  endpoint: string,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  data?: any,
+  params?: any,
+): Promise<T> {
+  try {
+    const response = await axios({
+      method,
+      url: `${API_BASE_URL}/${endpoint}`,
+      data,
+      params,
+      timeout: 30000,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+```
+
+## Async/Await Best Practices
+
+Always use async/await for network requests and I/O operations:
+
+```typescript
+// Good: Async network request
+async function fetchData(resourceId: string): Promise<ResourceData> {
+  const response = await axios.get(`${API_URL}/resource/${resourceId}`);
+  return response.data;
+}
+
+// Bad: Promise chains
+function fetchData(resourceId: string): Promise<ResourceData> {
+  return axios
+    .get(`${API_URL}/resource/${resourceId}`)
+    .then((response) => response.data); // Harder to read and maintain
+}
+```
+
+## TypeScript Best Practices
+
+1. **Use Strict TypeScript**: Enable strict mode in tsconfig.json
+2. **Define Interfaces**: Create clear interface definitions for all data structures
+3. **Avoid `any`**: Use proper types or `unknown` instead of `any`
+4. **Zod for Runtime Validation**: Use Zod schemas to validate external data
+5. **Type Guards**: Create type guard functions for complex type checking
+6. **Error Handling**: Always use try-catch with proper error type checking
+7. **Null Safety**: Use optional chaining (`?.`) and nullish coalescing (`??`)
+
+```typescript
+// Good: Type-safe with Zod and interfaces
+interface UserResponse {
+  id: string;
+  name: string;
+  email: string;
+  team?: string;
+  active: boolean;
+}
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  team: z.string().optional(),
+  active: z.boolean(),
+});
+
+type User = z.infer<typeof UserSchema>;
+
+async function getUser(id: string): Promise<User> {
+  const data = await apiCall(`/users/${id}`);
+  return UserSchema.parse(data); // Runtime validation
+}
+
+// Bad: Using any
+async function getUser(id: string): Promise<any> {
+  return await apiCall(`/users/${id}`); // No type safety
+}
+```
+
+## Package Configuration
+
+### package.json
+
+```json
+{
+  "name": "{service}-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for {Service} API integration",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
+```
+
+### tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+## Complete Example
+
+```typescript
+#!/usr/bin/env node
+/**
+ * MCP Server for Example Service.
+ *
+ * This server provides tools to interact with Example API, including user search,
+ * project management, and data export capabilities.
+ */
+
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import axios, { AxiosError } from "axios";
+
+// Constants
+const API_BASE_URL = "https://api.example.com/v1";
+const CHARACTER_LIMIT = 25000;
+
+// Enums
+enum ResponseFormat {
+  MARKDOWN = "markdown",
+  JSON = "json",
+}
+
+// Zod schemas
+const UserSearchInputSchema = z
+  .object({
+    query: z
+      .string()
+      .min(2, "Query must be at least 2 characters")
+      .max(200, "Query must not exceed 200 characters")
+      .describe("Search string to match against names/emails"),
+    limit: z
+      .number()
+      .int()
+      .min(1)
+      .max(100)
+      .default(20)
+      .describe("Maximum results to return"),
+    offset: z
+      .number()
+      .int()
+      .min(0)
+      .default(0)
+      .describe("Number of results to skip for pagination"),
+    response_format: z
+      .nativeEnum(ResponseFormat)
+      .default(ResponseFormat.MARKDOWN)
+      .describe(
+        "Output format: 'markdown' for human-readable or 'json' for machine-readable",
+      ),
+  })
+  .strict();
+
+type UserSearchInput = z.infer<typeof UserSearchInputSchema>;
+
+// Shared utility functions
+async function makeApiRequest<T>(
+  endpoint: string,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  data?: any,
+  params?: any,
+): Promise<T> {
+  try {
+    const response = await axios({
+      method,
+      url: `${API_BASE_URL}/${endpoint}`,
+      data,
+      params,
+      timeout: 30000,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function handleApiError(error: unknown): string {
+  if (error instanceof AxiosError) {
+    if (error.response) {
+      switch (error.response.status) {
+        case 404:
+          return "Error: Resource not found. Please check the ID is correct.";
+        case 403:
+          return "Error: Permission denied. You don't have access to this resource.";
+        case 429:
+          return "Error: Rate limit exceeded. Please wait before making more requests.";
+        default:
+          return `Error: API request failed with status ${error.response.status}`;
+      }
+    } else if (error.code === "ECONNABORTED") {
+      return "Error: Request timed out. Please try again.";
+    }
+  }
+  return `Error: Unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`;
+}
+
+// Create MCP server instance
+const server = new McpServer({
+  name: "example-mcp",
+  version: "1.0.0",
+});
+
+// Register tools
+server.registerTool(
+  "example_search_users",
+  {
+    title: "Search Example Users",
+    description: `[Full description as shown above]`,
+    inputSchema: UserSearchInputSchema,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: true,
+    },
+  },
+  async (params: UserSearchInput) => {
+    // Implementation as shown above
+  },
+);
+
+// Main function
+// For stdio (local):
+async function runStdio() {
+  if (!process.env.EXAMPLE_API_KEY) {
+    console.error("ERROR: EXAMPLE_API_KEY environment variable is required");
+    process.exit(1);
+  }
+
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("MCP server running via stdio");
+}
+
+// For streamable HTTP (remote):
+async function runHTTP() {
+  if (!process.env.EXAMPLE_API_KEY) {
+    console.error("ERROR: EXAMPLE_API_KEY environment variable is required");
+    process.exit(1);
+  }
+
+  const app = express();
+  app.use(express.json());
+
+  app.post("/mcp", async (req, res) => {
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true,
+    });
+    res.on("close", () => transport.close());
+    await server.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+  });
+
+  const port = parseInt(process.env.PORT || "3000");
+  app.listen(port, () => {
+    console.error(`MCP server running on http://localhost:${port}/mcp`);
+  });
+}
+
+// Choose transport based on environment
+const transport = process.env.TRANSPORT || "stdio";
+if (transport === "http") {
+  runHTTP().catch((error) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
+} else {
+  runStdio().catch((error) => {
+    console.error("Server error:", error);
+    process.exit(1);
+  });
+}
+```
+
+---
+
+## Advanced MCP Features
+
+### Resource Registration
+
+Expose data as resources for efficient, URI-based access:
+
+```typescript
+import { ResourceTemplate } from "@modelcontextprotocol/sdk/types.js";
+
+// Register a resource with URI template
+server.registerResource(
+  {
+    uri: "file://documents/{name}",
+    name: "Document Resource",
+    description: "Access documents by name",
+    mimeType: "text/plain",
+  },
+  async (uri: string) => {
+    // Extract parameter from URI
+    const match = uri.match(/^file:\/\/documents\/(.+)$/);
+    if (!match) {
+      throw new Error("Invalid URI format");
+    }
+
+    const documentName = match[1];
+    const content = await loadDocument(documentName);
+
+    return {
+      contents: [
+        {
+          uri,
+          mimeType: "text/plain",
+          text: content,
+        },
+      ],
+    };
+  },
+);
+
+// List available resources dynamically
+server.registerResourceList(async () => {
+  const documents = await getAvailableDocuments();
+  return {
+    resources: documents.map((doc) => ({
+      uri: `file://documents/${doc.name}`,
+      name: doc.name,
+      mimeType: "text/plain",
+      description: doc.description,
+    })),
+  };
+});
+```
+
+**When to use Resources vs Tools:**
+
+- **Resources**: For data access with simple URI-based parameters
+- **Tools**: For complex operations requiring validation and business logic
+- **Resources**: When data is relatively static or template-based
+- **Tools**: When operations have side effects or complex workflows
+
+### Transport Options
+
+The TypeScript SDK supports two main transport mechanisms:
+
+#### Streamable HTTP (Recommended for Remote Servers)
+
+```typescript
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import express from "express";
+
+const app = express();
+app.use(express.json());
+
+app.post("/mcp", async (req, res) => {
+  // Create new transport for each request (stateless, prevents request ID collisions)
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined,
+    enableJsonResponse: true,
+  });
+
+  res.on("close", () => transport.close());
+
+  await server.connect(transport);
+  await transport.handleRequest(req, res, req.body);
+});
+
+app.listen(3000);
+```
+
+#### stdio (For Local Integrations)
+
+```typescript
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
+```
+
+**Transport selection:**
+
+- **Streamable HTTP**: Web services, remote access, multiple clients
+- **stdio**: Command-line tools, local development, subprocess integration
+
+### Notification Support
+
+Notify clients when server state changes:
+
+```typescript
+// Notify when tools list changes
+server.notification({
+  method: "notifications/tools/list_changed",
+});
+
+// Notify when resources change
+server.notification({
+  method: "notifications/resources/list_changed",
+});
+```
+
+Use notifications sparingly - only when server capabilities genuinely change.
+
+---
+
+## Code Best Practices
+
+### Code Composability and Reusability
+
+Your implementation MUST prioritize composability and code reuse:
+
+1. **Extract Common Functionality**:
+   - Create reusable helper functions for operations used across multiple tools
+   - Build shared API clients for HTTP requests instead of duplicating code
+   - Centralize error handling logic in utility functions
+   - Extract business logic into dedicated functions that can be composed
+   - Extract shared markdown or JSON field selection & formatting functionality
+
+2. **Avoid Duplication**:
+   - NEVER copy-paste similar code between tools
+   - If you find yourself writing similar logic twice, extract it into a function
+   - Common operations like pagination, filtering, field selection, and formatting should be shared
+   - Authentication/authorization logic should be centralized
+
+## Building and Running
+
+Always build your TypeScript code before running:
+
+```bash
+# Build the project
+npm run build
+
+# Run the server
+npm start
+
+# Development with auto-reload
+npm run dev
+```
+
+Always ensure `npm run build` completes successfully before considering the implementation complete.
+
+## Quality Checklist
+
+Before finalizing your Node/TypeScript MCP server implementation, ensure:
+
+### Strategic Design
+
+- [ ] Tools enable complete workflows, not just API endpoint wrappers
+- [ ] Tool names reflect natural task subdivisions
+- [ ] Response formats optimize for agent context efficiency
+- [ ] Human-readable identifiers used where appropriate
+- [ ] Error messages guide agents toward correct usage
+
+### Implementation Quality
+
+- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
+- [ ] All tools registered using `registerTool` with complete configuration
+- [ ] All tools include `title`, `description`, `inputSchema`, and `annotations`
+- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+- [ ] All tools use Zod schemas for runtime input validation with `.strict()` enforcement
+- [ ] All Zod schemas have proper constraints and descriptive error messages
+- [ ] All tools have comprehensive descriptions with explicit input/output types
+- [ ] Descriptions include return value examples and complete schema documentation
+- [ ] Error messages are clear, actionable, and educational
+
+### TypeScript Quality
+
+- [ ] TypeScript interfaces are defined for all data structures
+- [ ] Strict TypeScript is enabled in tsconfig.json
+- [ ] No use of `any` type - use `unknown` or proper types instead
+- [ ] All async functions have explicit Promise<T> return types
+- [ ] Error handling uses proper type guards (e.g., `axios.isAxiosError`, `z.ZodError`)
+
+### Advanced Features (where applicable)
+
+- [ ] Resources registered for appropriate data endpoints
+- [ ] Appropriate transport configured (stdio or streamable HTTP)
+- [ ] Notifications implemented for dynamic server capabilities
+- [ ] Type-safe with SDK interfaces
+
+### Project Configuration
+
+- [ ] Package.json includes all necessary dependencies
+- [ ] Build script produces working JavaScript in dist/ directory
+- [ ] Main entry point is properly configured as dist/index.js
+- [ ] Server name follows format: `{service}-mcp-server`
+- [ ] tsconfig.json properly configured with strict mode
+
+### Code Quality
+
+- [ ] Pagination is properly implemented where applicable
+- [ ] Large responses check CHARACTER_LIMIT constant and truncate with clear messages
+- [ ] Filtering options are provided for potentially large result sets
+- [ ] All network operations handle timeouts and connection errors gracefully
+- [ ] Common functionality is extracted into reusable functions
+- [ ] Return types are consistent across similar operations
+
+### Testing and Build
+
+- [ ] `npm run build` completes successfully without errors
+- [ ] dist/index.js created and executable
+- [ ] Server runs: `node dist/index.js --help`
+- [ ] All imports resolve correctly
+- [ ] Sample tool calls work as expected
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
+### 📘 KNOWLEDGE: NEXUS_PYTHON_MCP_SERVER.MD
+
+# Python MCP Server Implementation Guide
+> **VERSION**: v2 | **Last Updated**: 5/30/2026
+
+
+
+## Overview
+
+This document provides Python-specific best practices and examples for implementing MCP servers using the MCP Python SDK. It covers server setup, tool registration patterns, input validation with Pydantic, error handling, and complete working examples.
+
+---
+
+## Quick Reference
+
+### Key Imports
+
+```python
+from mcp.server.fastmcp import FastMCP
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+from typing import Optional, List, Dict, Any
+from enum import Enum
+import httpx
+```
+
+### Server Initialization
+
+```python
+mcp = FastMCP("service_mcp")
+```
+
+### Tool Registration Pattern
+
+```python
+@mcp.tool(name="tool_name", annotations={...})
+async def tool_function(params: InputModel) -> str:
+    # Implementation
+    pass
+```
+
+---
+
+## MCP Python SDK and FastMCP
+
+The official MCP Python SDK provides FastMCP, a high-level framework for building MCP servers. It provides:
+
+- Automatic description and inputSchema generation from function signatures and docstrings
+- Pydantic model integration for input validation
+- Decorator-based tool registration with `@mcp.tool`
+
+**For complete SDK documentation, use WebFetch to load:**
+`https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/[README.md](../security/NEXUS_README.MD)`
+
+## Server Naming Convention
+
+Python MCP servers must follow this naming pattern:
+
+- **Format**: `{service}_mcp` (lowercase with underscores)
+- **Examples**: `github_mcp`, `jira_mcp`, `stripe_mcp`
+
+The name should be:
+
+- General (not tied to specific features)
+- Descriptive of the service/API being integrated
+- Easy to infer from the task description
+- Without version numbers or dates
+
+## Tool Implementation
+
+### Tool Naming
+
+Use snake_case for tool names (e.g., "search_users", "create_project", "get_channel_info") with clear, action-oriented names.
+
+**Avoid Naming Conflicts**: Include the service context to prevent overlaps:
+
+- Use "slack_send_message" instead of just "send_message"
+- Use "github_create_issue" instead of just "create_issue"
+- Use "asana_list_tasks" instead of just "list_tasks"
+
+### Tool Structure with FastMCP
+
+Tools are defined using the `@mcp.tool` decorator with Pydantic models for input validation:
+
+```python
+from pydantic import BaseModel, Field, ConfigDict
+from mcp.server.fastmcp import FastMCP
+
+# Initialize the MCP server
+mcp = FastMCP("example_mcp")
+
+# Define Pydantic model for input validation
+class ServiceToolInput(BaseModel):
+    '''Input model for service tool operation.'''
+    model_config = ConfigDict(
+        str_strip_whitespace=True,  # Auto-strip whitespace from strings
+        validate_assignment=True,    # Validate on assignment
+        extra='forbid'              # Forbid extra fields
+    )
+
+    param1: str = Field(..., description="First parameter description (e.g., 'user123', 'project-abc')", min_length=1, max_length=100)
+    param2: Optional[int] = Field(default=None, description="Optional integer parameter with constraints", ge=0, le=1000)
+    tags: Optional[List[str]] = Field(default_factory=list, description="List of tags to apply", max_items=10)
+
+@mcp.tool(
+    name="service_tool_name",
+    annotations={
+        "title": "Human-Readable Tool Title",
+        "readOnlyHint": True,     # Tool does not modify environment
+        "destructiveHint": False,  # Tool does not perform destructive operations
+        "idempotentHint": True,    # Repeated calls have no additional effect
+        "openWorldHint": False     # Tool does not interact with external entities
+    }
+)
+async def service_tool_name(params: ServiceToolInput) -> str:
+    '''Tool description automatically becomes the 'description' field.
+
+    This tool performs a specific operation on the service. It validates all inputs
+    using the ServiceToolInput Pydantic model before processing.
+
+    Args:
+        params (ServiceToolInput): Validated input parameters containing:
+            - param1 (str): First parameter description
+            - param2 (Optional[int]): Optional parameter with default
+            - tags (Optional[List[str]]): List of tags
+
+    Returns:
+        str: JSON-formatted response containing operation results
+    '''
+    # Implementation here
+    pass
+```
+
+## Pydantic v2 Key Features
+
+- Use `model_config` instead of nested `Config` class
+- Use `field_validator` instead of deprecated `validator`
+- Use `model_dump()` instead of deprecated `dict()`
+- Validators require `@classmethod` decorator
+- Type hints are required for validator methods
+
+```python
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+
+class CreateUserInput(BaseModel):
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True
+    )
+
+    name: str = Field(..., description="User's full name", min_length=1, max_length=100)
+    email: str = Field(..., description="User's email address", pattern=r'^[\w\.-]+@[\w\.-]+\.\w+$')
+    age: int = Field(..., description="User's age", ge=0, le=150)
+
+    @field_validator('email')
+    @classmethod
+    def validate_email(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Email cannot be empty")
+        return v.lower()
+```
+
+## Response Format Options
+
+Support multiple output formats for flexibility:
+
+```python
+from enum import Enum
+
+class ResponseFormat(str, Enum):
+    '''Output format for tool responses.'''
+    MARKDOWN = "markdown"
+    JSON = "json"
+
+class UserSearchInput(BaseModel):
+    query: str = Field(..., description="Search query")
+    response_format: ResponseFormat = Field(
+        default=ResponseFormat.MARKDOWN,
+        description="Output format: 'markdown' for human-readable or 'json' for machine-readable"
+    )
+```
+
+**Markdown format**:
+
+- Use headers, lists, and formatting for clarity
+- Convert timestamps to human-readable format (e.g., "2024-01-15 10:30:00 UTC" instead of epoch)
+- Show display names with IDs in parentheses (e.g., "@john.doe (U123456)")
+- Omit verbose metadata (e.g., show only one profile image URL, not all sizes)
+- Group related information logically
+
+**JSON format**:
+
+- Return complete, structured data suitable for programmatic processing
+- Include all available fields and metadata
+- Use consistent field names and types
+
+## Pagination Implementation
+
+For tools that list resources:
+
+```python
+class ListInput(BaseModel):
+    limit: Optional[int] = Field(default=20, description="Maximum results to return", ge=1, le=100)
+    offset: Optional[int] = Field(default=0, description="Number of results to skip for pagination", ge=0)
+
+async def list_items(params: ListInput) -> str:
+    # Make API request with pagination
+    data = await api_request(limit=params.limit, offset=params.offset)
+
+    # Return pagination info
+    response = {
+        "total": data["total"],
+        "count": len(data["items"]),
+        "offset": params.offset,
+        "items": data["items"],
+        "has_more": data["total"] > params.offset + len(data["items"]),
+        "next_offset": params.offset + len(data["items"]) if data["total"] > params.offset + len(data["items"]) else None
+    }
+    return json.dumps(response, indent=2)
+```
+
+## Error Handling
+
+Provide clear, actionable error messages:
+
+```python
+def _handle_api_error(e: Exception) -> str:
+    '''Consistent error formatting across all tools.'''
+    if isinstance(e, httpx.HTTPStatusError):
+        if e.response.status_code == 404:
+            return "Error: Resource not found. Please check the ID is correct."
+        elif e.response.status_code == 403:
+            return "Error: Permission denied. You don't have access to this resource."
+        elif e.response.status_code == 429:
+            return "Error: Rate limit exceeded. Please wait before making more requests."
+        return f"Error: API request failed with status {e.response.status_code}"
+    elif isinstance(e, httpx.TimeoutException):
+        return "Error: Request timed out. Please try again."
+    return f"Error: Unexpected error occurred: {type(e).__name__}"
+```
+
+## Shared Utilities
+
+Extract common functionality into reusable functions:
+
+```python
+# Shared API request function
+async def _make_api_request(endpoint: str, method: str = "GET", **kwargs) -> dict:
+    '''Reusable function for all API calls.'''
+    async with httpx.AsyncClient() as client:
+        response = await client.request(
+            method,
+            f"{API_BASE_URL}/{endpoint}",
+            timeout=30.0,
+            **kwargs
+        )
+        response.raise_for_status()
+        return response.json()
+```
+
+## Async/Await Best Practices
+
+Always use async/await for network requests and I/O operations:
+
+```python
+# Good: Async network request
+async def fetch_data(resource_id: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{API_URL}/resource/{resource_id}")
+        response.raise_for_status()
+        return response.json()
+
+# Bad: Synchronous request
+def fetch_data(resource_id: str) -> dict:
+    response = requests.get(f"{API_URL}/resource/{resource_id}")  # Blocks
+    return response.json()
+```
+
+## Type Hints
+
+Use type hints throughout:
+
+```python
+from typing import Optional, List, Dict, Any
+
+async def get_user(user_id: str) -> Dict[str, Any]:
+    data = await fetch_user(user_id)
+    return {"id": data["id"], "name": data["name"]}
+```
+
+## Tool Docstrings
+
+Every tool must have comprehensive docstrings with explicit type information:
+
+```python
+async def search_users(params: UserSearchInput) -> str:
+    '''
+    Search for users in the Example system by name, email, or team.
+
+    This tool searches across all user profiles in the Example platform,
+    supporting partial matches and various search filters. It does NOT
+    create or modify users, only searches existing ones.
+
+    Args:
+        params (UserSearchInput): Validated input parameters containing:
+            - query (str): Search string to match against names/emails (e.g., "john", "@example.com", "team:marketing")
+            - limit (Optional[int]): Maximum results to return, between 1-100 (default: 20)
+            - offset (Optional[int]): Number of results to skip for pagination (default: 0)
+
+    Returns:
+        str: JSON-formatted string containing search results with the following schema:
+
+        Success response:
+        {
+            "total": int,           # Total number of matches found
+            "count": int,           # Number of results in this response
+            "offset": int,          # Current pagination offset
+            "users": [
+                {
+                    "id": str,      # User ID (e.g., "U123456789")
+                    "name": str,    # Full name (e.g., "John Doe")
+                    "email": str,   # Email address (e.g., "john@example.com")
+                    "team": str     # Team name (e.g., "Marketing") - optional
+                }
+            ]
+        }
+
+        Error response:
+        "Error: <error message>" or "No users found matching '<query>'"
+
+    Examples:
+        - Use when: "Find all marketing team members" -> params with query="team:marketing"
+        - Use when: "Search for John's account" -> params with query="john"
+        - Don't use when: You need to create a user (use example_create_user instead)
+        - Don't use when: You have a user ID and need full details (use example_get_user instead)
+
+    Error Handling:
+        - Input validation errors are handled by Pydantic model
+        - Returns "Error: Rate limit exceeded" if too many requests (429 status)
+        - Returns "Error: Invalid API authentication" if API key is invalid (401 status)
+        - Returns formatted list of results or "No users found matching 'query'"
+    '''
+```
+
+## Complete Example
+
+See below for a complete Python MCP server example:
+
+```python
+#!/usr/bin/env python3
+'''
+MCP Server for Example Service.
+
+This server provides tools to interact with Example API, including user search,
+project management, and data export capabilities.
+'''
+
+from typing import Optional, List, Dict, Any
+from enum import Enum
+import httpx
+from pydantic import BaseModel, Field, field_validator, ConfigDict
+from mcp.server.fastmcp import FastMCP
+
+# Initialize the MCP server
+mcp = FastMCP("example_mcp")
+
+# Constants
+API_BASE_URL = "https://api.example.com/v1"
+
+# Enums
+class ResponseFormat(str, Enum):
+    '''Output format for tool responses.'''
+    MARKDOWN = "markdown"
+    JSON = "json"
+
+# Pydantic Models for Input Validation
+class UserSearchInput(BaseModel):
+    '''Input model for user search operations.'''
+    model_config = ConfigDict(
+        str_strip_whitespace=True,
+        validate_assignment=True
+    )
+
+    query: str = Field(..., description="Search string to match against names/emails", min_length=2, max_length=200)
+    limit: Optional[int] = Field(default=20, description="Maximum results to return", ge=1, le=100)
+    offset: Optional[int] = Field(default=0, description="Number of results to skip for pagination", ge=0)
+    response_format: ResponseFormat = Field(default=ResponseFormat.MARKDOWN, description="Output format")
+
+    @field_validator('query')
+    @classmethod
+    def validate_query(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("Query cannot be empty or whitespace only")
+        return v.strip()
+
+# Shared utility functions
+async def _make_api_request(endpoint: str, method: str = "GET", **kwargs) -> dict:
+    '''Reusable function for all API calls.'''
+    async with httpx.AsyncClient() as client:
+        response = await client.request(
+            method,
+            f"{API_BASE_URL}/{endpoint}",
+            timeout=30.0,
+            **kwargs
+        )
+        response.raise_for_status()
+        return response.json()
+
+def _handle_api_error(e: Exception) -> str:
+    '''Consistent error formatting across all tools.'''
+    if isinstance(e, httpx.HTTPStatusError):
+        if e.response.status_code == 404:
+            return "Error: Resource not found. Please check the ID is correct."
+        elif e.response.status_code == 403:
+            return "Error: Permission denied. You don't have access to this resource."
+        elif e.response.status_code == 429:
+            return "Error: Rate limit exceeded. Please wait before making more requests."
+        return f"Error: API request failed with status {e.response.status_code}"
+    elif isinstance(e, httpx.TimeoutException):
+        return "Error: Request timed out. Please try again."
+    return f"Error: Unexpected error occurred: {type(e).__name__}"
+
+# Tool definitions
+@mcp.tool(
+    name="example_search_users",
+    annotations={
+        "title": "Search Example Users",
+        "readOnlyHint": True,
+        "destructiveHint": False,
+        "idempotentHint": True,
+        "openWorldHint": True
+    }
+)
+async def example_search_users(params: UserSearchInput) -> str:
+    '''Search for users in the Example system by name, email, or team.
+
+    [Full docstring as shown above]
+    '''
+    try:
+        # Make API request using validated parameters
+        data = await _make_api_request(
+            "users/search",
+            params={
+                "q": params.query,
+                "limit": params.limit,
+                "offset": params.offset
+            }
+        )
+
+        users = data.get("users", [])
+        total = data.get("total", 0)
+
+        if not users:
+            return f"No users found matching '{params.query}'"
+
+        # Format response based on requested format
+        if params.response_format == ResponseFormat.MARKDOWN:
+            lines = [f"# User Search Results: '{params.query}'", ""]
+            lines.append(f"Found {total} users (showing {len(users)})")
+            lines.append("")
+
+            for user in users:
+                lines.append(f"## {user['name']} ({user['id']})")
+                lines.append(f"- **Email**: {user['email']}")
+                if user.get('team'):
+                    lines.append(f"- **Team**: {user['team']}")
+                lines.append("")
+
+            return "\n".join(lines)
+
+        else:
+            # Machine-readable JSON format
+            import json
+            response = {
+                "total": total,
+                "count": len(users),
+                "offset": params.offset,
+                "users": users
+            }
+            return json.dumps(response, indent=2)
+
+    except Exception as e:
+        return _handle_api_error(e)
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+---
+
+## Advanced FastMCP Features
+
+### Context Parameter Injection
+
+FastMCP can automatically inject a `Context` parameter into tools for advanced capabilities like logging, progress reporting, resource reading, and user interaction:
+
+```python
+from mcp.server.fastmcp import FastMCP, Context
+
+mcp = FastMCP("example_mcp")
+
+@mcp.tool()
+async def advanced_search(query: str, ctx: Context) -> str:
+    '''Advanced tool with context access for logging and progress.'''
+
+    # Report progress for long operations
+    await ctx.report_progress(0.25, "Starting search...")
+
+    # Log information for debugging
+    await ctx.log_info("Processing query", {"query": query, "timestamp": datetime.now()})
+
+    # Perform search
+    results = await search_api(query)
+    await ctx.report_progress(0.75, "Formatting results...")
+
+    # Access server configuration
+    server_name = ctx.fastmcp.name
+
+    return format_results(results)
+
+@mcp.tool()
+async def interactive_tool(resource_id: str, ctx: Context) -> str:
+    '''Tool that can request additional input from users.'''
+
+    # Request sensitive information when needed
+    api_key = await ctx.elicit(
+        prompt="Please provide your API key:",
+        input_type="password"
+    )
+
+    # Use the provided key
+    return await api_call(resource_id, api_key)
+```
+
+**Context capabilities:**
+
+- `ctx.report_progress(progress, message)` - Report progress for long operations
+- `ctx.log_info(message, data)` / `ctx.log_error()` / `ctx.log_debug()` - Logging
+- `ctx.elicit(prompt, input_type)` - Request input from users
+- `ctx.fastmcp.name` - Access server configuration
+- `ctx.read_resource(uri)` - Read MCP resources
+
+### Resource Registration
+
+Expose data as resources for efficient, template-based access:
+
+```python
+@mcp.resource("file://documents/{name}")
+async def get_document(name: str) -> str:
+    '''Expose documents as MCP resources.
+
+    Resources are useful for static or semi-static data that doesn't
+    require complex parameters. They use URI templates for flexible access.
+    '''
+    document_path = f"./docs/{name}"
+    with open(document_path, "r") as f:
+        return f.read()
+
+@mcp.resource("config://settings/{key}")
+async def get_setting(key: str, ctx: Context) -> str:
+    '''Expose configuration as resources with context.'''
+    settings = await load_settings()
+    return json.dumps(settings.get(key, {}))
+```
+
+**When to use Resources vs Tools:**
+
+- **Resources**: For data access with simple parameters (URI templates)
+- **Tools**: For complex operations with validation and business logic
+
+### Structured Output Types
+
+FastMCP supports multiple return types beyond strings:
+
+```python
+from typing import TypedDict
+from dataclasses import dataclass
+from pydantic import BaseModel
+
+# TypedDict for structured returns
+class UserData(TypedDict):
+    id: str
+    name: str
+    email: str
+
+@mcp.tool()
+async def get_user_typed(user_id: str) -> UserData:
+    '''Returns structured data - FastMCP handles serialization.'''
+    return {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+
+# Pydantic models for complex validation
+class DetailedUser(BaseModel):
+    id: str
+    name: str
+    email: str
+    created_at: datetime
+    metadata: Dict[str, Any]
+
+@mcp.tool()
+async def get_user_detailed(user_id: str) -> DetailedUser:
+    '''Returns Pydantic model - automatically generates schema.'''
+    user = await fetch_user(user_id)
+    return DetailedUser(**user)
+```
+
+### Lifespan Management
+
+Initialize resources that persist across requests:
+
+```python
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def app_lifespan():
+    '''Manage resources that live for the server's lifetime.'''
+    # Initialize connections, load config, etc.
+    db = await connect_to_database()
+    config = load_configuration()
+
+    # Make available to all tools
+    yield {"db": db, "config": config}
+
+    # Cleanup on shutdown
+    await db.close()
+
+mcp = FastMCP("example_mcp", lifespan=app_lifespan)
+
+@mcp.tool()
+async def query_data(query: str, ctx: Context) -> str:
+    '''Access lifespan resources through context.'''
+    db = ctx.request_context.lifespan_state["db"]
+    results = await db.query(query)
+    return format_results(results)
+```
+
+### Transport Options
+
+FastMCP supports two main transport mechanisms:
+
+```python
+# stdio transport (for local tools) - default
+if __name__ == "__main__":
+    mcp.run()
+
+# Streamable HTTP transport (for remote servers)
+if __name__ == "__main__":
+    mcp.run(transport="streamable_http", port=8000)
+```
+
+**Transport selection:**
+
+- **stdio**: Command-line tools, local integrations, subprocess execution
+- **Streamable HTTP**: Web services, remote access, multiple clients
+
+---
+
+## Code Best Practices
+
+### Code Composability and Reusability
+
+Your implementation MUST prioritize composability and code reuse:
+
+1. **Extract Common Functionality**:
+   - Create reusable helper functions for operations used across multiple tools
+   - Build shared API clients for HTTP requests instead of duplicating code
+   - Centralize error handling logic in utility functions
+   - Extract business logic into dedicated functions that can be composed
+   - Extract shared markdown or JSON field selection & formatting functionality
+
+2. **Avoid Duplication**:
+   - NEVER copy-paste similar code between tools
+   - If you find yourself writing similar logic twice, extract it into a function
+   - Common operations like pagination, filtering, field selection, and formatting should be shared
+   - Authentication/authorization logic should be centralized
+
+### Python-Specific Best Practices
+
+1. **Use Type Hints**: Always include type annotations for function parameters and return values
+2. **Pydantic Models**: Define clear Pydantic models for all input validation
+3. **Avoid Manual Validation**: Let Pydantic handle input validation with constraints
+4. **Proper Imports**: Group imports (standard library, third-party, local)
+5. **Error Handling**: Use specific exception types (httpx.HTTPStatusError, not generic Exception)
+6. **Async Context Managers**: Use `async with` for resources that need cleanup
+7. **Constants**: Define module-level constants in UPPER_CASE
+
+## Quality Checklist
+
+Before finalizing your Python MCP server implementation, ensure:
+
+### Strategic Design
+
+- [ ] Tools enable complete workflows, not just API endpoint wrappers
+- [ ] Tool names reflect natural task subdivisions
+- [ ] Response formats optimize for agent context efficiency
+- [ ] Human-readable identifiers used where appropriate
+- [ ] Error messages guide agents toward correct usage
+
+### Implementation Quality
+
+- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
+- [ ] All tools have descriptive names and documentation
+- [ ] Return types are consistent across similar operations
+- [ ] Error handling is implemented for all external calls
+- [ ] Server name follows format: `{service}_mcp`
+- [ ] All network operations use async/await
+- [ ] Common functionality is extracted into reusable functions
+- [ ] Error messages are clear, actionable, and educational
+- [ ] Outputs are properly validated and formatted
+
+### Tool Configuration
+
+- [ ] All tools implement 'name' and 'annotations' in the decorator
+- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
+- [ ] All tools use Pydantic BaseModel for input validation with Field() definitions
+- [ ] All Pydantic Fields have explicit types and descriptions with constraints
+- [ ] All tools have comprehensive docstrings with explicit input/output types
+- [ ] Docstrings include complete schema structure for dict/JSON returns
+- [ ] Pydantic models handle input validation (no manual validation needed)
+
+### Advanced Features (where applicable)
+
+- [ ] Context injection used for logging, progress, or elicitation
+- [ ] Resources registered for appropriate data endpoints
+- [ ] Lifespan management implemented for persistent connections
+- [ ] Structured output types used (TypedDict, Pydantic models)
+- [ ] Appropriate transport configured (stdio or streamable HTTP)
+
+### Code Quality
+
+- [ ] File includes proper imports including Pydantic imports
+- [ ] Pagination is properly implemented where applicable
+- [ ] Filtering options are provided for potentially large result sets
+- [ ] All async functions are properly defined with `async def`
+- [ ] HTTP client usage follows async patterns with proper context managers
+- [ ] Type hints are used throughout the code
+- [ ] Constants are defined at module level in UPPER_CASE
+
+### Testing
+
+- [ ] Server runs successfully: `python your_server.py --help`
+- [ ] All imports resolve correctly
+- [ ] Sample tool calls work as expected
+- [ ] Error scenarios handled gracefully
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD
 
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
@@ -5588,1427 +7409,6 @@ Com base nesses procedimentos metodológicos, a abordagem de traços distintivos
 revista através das contribuições de Rhyne. Finalmente, como um estudo de caso, as
 categorias são aplicadas em duas stock images.
 ```
-Palavras-chave: semiótica social; teoria das cores; gramática do design visual.
-```
-Recebido em 31 de janeiro de 2023.
-Aceito em 28 de agosto de 2023.
-1 Introduction
-People’s interest in understanding colors can be traced back to the
-5th century B.C., at least in Western civilization. The works of Alcmaeon
-of Croton are among the earliest evidence of the ancient Greeks’ attempts
-```
-to understand visuo-spatial perception (Pavlidis, 2021, p. 7). In the
-```
-millennia between Alcmaeon and modern society, many thinkers from
-a wide variety of perspectives have put forward theories about colors.
-Among them, we highlight two whose importance is still felt today: Isaac
-```
-Newton (1642-1726/27) and Johann Wolfgang von Goethe (1749-1832).
-```
-Newton is known, among other things, for his studies of light and color
-```
-(Pavlidis, 2021, p. 35-38), from which he derived the idea that colored
-```
-lights can be combined to produce other colors, as well as the claim that
-```
-white light is produced by combining different colors (Rhyne, 2017, p.
-```
-```
-3). Goethe, in turn, was also engaged in the study of colors outside of his
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2011
-```
-literary works. In Zur Farbenlehre1 (1810), he created the basis for the
-```
-```
-Red, Yellow, and Blue color model (Rhyne, 2017, p. 9), which is often
-```
-taught in elementary schools. He also opposed Newton’s color theory,
-focusing instead on a qualitative model that considered perception and
-```
-the psychological and physiological effects of colors (Rhyne, 2017, p.
-```
-```
-9; Pavlidis, 2021, p. 44). In this sense,
-```
-Goethe rejected the ‘sterilised’ approach of a theory of colour,
-in which colour is deprived of its sensation, and is treated as an
-objective phenomenon even without the need for an observer to
-experience it. He was deeply certain that talking about colour has
-no meaning outside of the context of its perception, through the
-```
-active sensation of vision (Pavlidis, 2021, p. 45).
-```
-We do not consider inconsistent the studies of color meaning
-and effects and the studies of its materiality2. Instead, we conceive these
-approaches as complementary. In this article, we will draw upon the social
-```
-semiotic approach (Hodge; Kress, 1988) to discuss color as a meaning-
-```
-making resource. As such, we move closer to Goethe’s conception of
-color, since we cannot ignore the role of the observer in the semiotic
-process. At the same time, social semiotics places importance on the
-```
-materiality and affordances of the semiotic resources (Jewitt; Bezemer;
-```
-```
-O’halloran, 2016, p. 160).
-```
-It bears mentioning that the relation between materiality and
-perception can be quite complex. Bateman, Wildfeuer and Hiippala
-```
-(2017, p. 27) discuss that the immediate relation between the semiotic
-```
-1 In 1840, Charles Eastlake translated the book into English and called it Theory of
-Colours. It is worth noting that Eastlake omitted the parts where Goethe opposed
-```
-Newton’s observations (Possebon, 2009, p. 28-30; Rhyne, 2017, p. 11).
-```
-2 To return to Goethe’s proposal, although he opposed the scientific paradigm of his
-time, he also conducted experiments on color phenomena. In one of them, which sparked
-his opposition to Newton’s approach, he claimed that “Newton’s prismatic experiment
-was erroneous in that there is no green colour directly exiting a prism, but green is
-rather a composition of yellow and blue only after some distance from the prism, where
-```
-the two colours overlap” (Pavlidis, 2023, p. 44). However, “his observation is false
-```
-and depends on the topology of the experiment and typical light effects at boundaries”
-```
-(2023, p. 44). Similarly, Eastlake emphasized that Goethe would have received more
-```
-praise from the scientific community had he let others try to reconcile his findings with
-```
-current theory rather than attacking it so directly (1840, p. ix).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2012
-modes and resources and sensory channels is misleading. The authors
-point out that understanding the material qualities of the object does
-```
-not necessarily give us an understanding of how we perceive it (2017,
-```
-p. 27). For example, when we hear a sound, we receive a variety of
-information outside of its physical properties: space, direction, distance,
-etc. Conversely, as we will show in this paper, our perception may not
-be able to comprehend many material properties of semiotic resources,
-in our case colors.
-Therefore, we will discuss the meaning-making potential of
-colors, considering the fact that there are many aspects that may elude
-our perception. We consider colors as both quantitative and qualitative
-phenomena. Our proposal may help researchers systematize the analysis
-of colors as a visual resource, especially when it comes to digital media.
-To do so, we will first discuss how social semiotics, one of many
-approaches that attempt to systematize a perspective on colors, has
-historically analyzed them.
-One cannot overestimate the importance of Gunther Kress’
-contributions to the social-semiotic approach to multimodality. Together
-with Theo van Leeuwen, they discussed fundamental concepts and tools
-that are still productive for the analysis of different modes and media.
-Reading Images, written in 1990, was one of the first systematic attempts
-to understand the complexity of meaning in images. The book was
-aimed at teachers and focused on children’s drawings and illustrations
-```
-in textbooks (Kress; Van Leeuwen, 1996, p. vi). The authors expanded
-```
-their scope and wrote the first edition of Reading Images: The Grammar
-of Visual Design in 1996.
-As the name implies, the authors intended to create a grammar for
-the visual mode to “describe the way in which we depicted people, places
-and things combine in visual ‘statements’ of greater or lesser complexity
-```
-and extension” (Kress; Van Leeuwen, 1996, p. 1). The second edition
-```
-of the book was published in 2006 and the third edition in 2021, with
-each edition adding to and expanding the authors’ categories for visual
-grammar analysis. In this article, we will focus specifically on how Kress
-and van Leeuwen conceptualize color analysis.
-In the first edition of Reading Images: The Grammar of Visual
-```
-Design (1996, p. 165), the authors discuss color primarily as a modality
-```
-```
-marker under the categories of Saturation (a scale from full color to black
-```
-```
-and white), Differentiation (a scale from diversity to monochrome), and
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2013
-```
-Modulation (a scale from a diversity of shades of the same color to the
-```
-```
-use of a single shade). Color also appears briefly in the discussion of
-```
-the materiality of meaning: In discussing the potential for meaning in
-brushstrokes, the authors cite, among other things, the use of color by
-```
-Wassily Kandinsky and Pieter Mondrian (1996, p. 236).
-```
-Prior to the second publication of Reading Images, Kress and van
-Leeuwen published the article “Colour as a Semiotic Mode: Notes for a
-```
-Grammar of Colour” (2002), which laid the foundation for their approach
-```
-to color. As in their visual grammar, the authors introduce the possibility
-```
-of a grammar of color (2002, p. 343). To this end, Kress and van Leeuwen
-```
-discuss the meaning-making potential of color based on Halliday’s
-```
-(1978) metafunctions and provide a brief overview of the history of color
-```
-```
-studies. Following Kandinsky (1977), the authors distinguish two types
-```
-```
-of affordances3 for color: association (or provenance) and the distinctive
-```
-```
-features of color (2002, p. 355).
-```
-Association refers to the meanings culturally and socially ascribed
-```
-to colors (Kress; Van Leeuwen, 2002, p. 355). For example, Red may
-```
-be associated with love, fire, or violence. These meanings come from
-the interests and use that sign makers have historically given to colors
-```
-(Jewitt, Bezemer; O’halloran, 2016, p. 156-7), and as such we understand
-```
-them even when they appear outside their original context. This in turn
-limits the way we interpret color.
-While the affordances of a colour may be limitless in theory, in
-practice they are not, and a plausible interpretation can usually be
-agreed on, provided the context of production and interpretation
-```
-is taken into account (Kress; Van Leeuwen, 2002, p. 355).
-```
-The second affordance is a set of distinctive features based on
-```
-Jakobson and Halle’s (1956) phonology. For example, if we paint a heart
-```
-with a pale Red color, we may interpret it differently from a bright Red
-heart. We may view the former as “sickly” or “fading,” as if it were a
-perishing love, while we may view the latter as full of life.
-In the second edition of Reading Images, color appears as a
-modality marker and in a separate section on the meaning of materiality
-3 The potential uses of a semiotic resource are based on its material features and on
-```
-the perception of the sign makers (Jewitt; Bezemer; O’halloran, 2016, p. 155; Van
-```
-```
-Leeuwen, 2005, p. 273;).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2014
-```
-rather than under brushstroke analysis (Kress; Van Leeuwen, 2006, p. 225-
-```
-```
-238). Following their proposal in the 2002 article, Kress and van Leeuwen
-```
-present their distinctive feature approach to color and its possibilities.
-In the third edition of Reading Images, the framework given in
-the second edition and in Kress and van Leeuwen’s 2002 article is largely
-maintained. Although the authors mention some digital media such as
-Microsoft PowerPoint, referring to an earlier work by van Leeuwen
-```
-(Van Leeuwen, 2011), most examples still refer mainly to paintings and
-```
-print media.
-A fundamental aspect of social semiotics that the authors
-emphasize is the impact that technology has on the meaning-making
-```
-process, particularly on “graphically realized semiotics” (Kress; Van
-```
-```
-Leeuwen, 2021, p. 227). Conversely, there are several digital methods
-```
-for multimodal analysis. For example, Bateman, Wildfeuer, and Hiippala
-discuss several tools for multimodal analysis in their book Multimodality
-```
-(2017), including computational methods such as neural networks for
-```
-```
-image description, color recognition, and labeling (Johnson; Karpathy;
-```
-```
-Fei-Fei, 2016, Karpathy; Fei-Fei, 2015).
-```
-Similarly, in this article, we will discuss how color theory
-and graphic design software can assist social-semiotics researchers,
-particularly in small-scale research. To this end, we rely primarily
-```
-on Rhyne’s (2017) propositions for color analysis in digital media.
-```
-We consider that the author’s detailed discussion of color theory is
-compatible with Kress and van Leeuwen’s distinctive feature approach
-and can greatly improve the analysis of digital corpora. We also present
-methods for visual analysis using the free and open source software GIMP
-```
-(gimp.org) and ImageMagick ( i magemagick.org/). We selected both
-```
-```
-software based on previous works (Matumoto, 2022a, 2022b; Matumoto;
-```
-```
-Gonçalves-Segundo, 2022a, 2022b) and chose to discuss replicable and
-```
-free methods for accessibility reasons.
-We organized the article as follows: First, we discuss the
-distinctive features approach as proposed by Kress and van Leeuwen
-```
-(2002; 2021). Then, we introduce some analytic categories as proposed by
-```
-```
-Rhyne (2017), the software GIMP and ImageMagick tools, and how they
-```
-allow us to visualize the author’s claims. We then apply the categories in
-a case study of two stock images, followed by the concluding remarks.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2015
-2 The distinctive feature approach to color
-As mentioned earlier, we ground our considerations on the
-```
-social-semiotic framework (Hodge; Kress, 1988), in particular on the
-```
-```
-Grammar of Visual Design and its contributions to color analysis (Kress;
-```
-```
-Van Leeuwen, 2002; 2021). Building on Rhyne’s (2017) work, we intend
-```
-to extend Kress and van Leeuwen’s categories to the analysis of digital
-media and provide methods for color analysis.
-```
-Kress and van Leeuwen’s distinctive feature approach (2002;
-```
-```
-2021, p. 244-9) aims to analyze the meaning potential of colors based on
-```
-their material properties, such as Hue and Saturation. Table 1 summarizes
-the properties of colors:
-Table 1 – Color distinctive features
-Distinctive
-feature Description
-```
-Value Refers to the scale from “maximally light (white) to maximally dark(black)” (Kress; Van Leeuwen, 2021, p. 245).
-```
-```
-Saturation Refers to the scale from saturated, or pure, colors to the softest anddullest colors (Kress; Van Leeuwen, 2021, p. 245).
-```
-```
-Purity Refers to the scale from color purity, such as bright Red, to color hybridity,such as Orange-red, a mixture (Kress; Van Leeuwen, 2021, p. 245).
-```
-Modulation
-Refers to the scale from fully modulated colors, such as the many
-```
-shades of Blue, to flat colors, such as a single shade of Blue (Kress; Van
-```
-```
-Leeuwen, 2021, p. 245).
-```
-```
-Transparency Refers to the scale from transparency to opacity (Kress; Van Leeuwen,2021, p. 246).
-```
-```
-Luminosity Refers to the ability of a color to glow, to ‘stand out’ by itself (Kress;Van Leeuwen, 2021, p. 246-7).
-```
-```
-Differentiation Refers to the scale from monochromatic registers to a varied palette(Kress; Van Leeuwen, 2021, p. 247).
-```
-Hue
-```
-Refers to “the scale from Blue to Red” (Kress; Van Leeuwen, 247-
-```
-```
-8). Broadly speaking, it refers to what we often consider as the colors
-```
-themselves, such as red, blue, green, etc.
-```
-Source: Created by the authors.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2016
-These features are a robust set of categories for color analysis,
-and as the authors note, it is important to keep in mind the fact that all
-these features work together and therefore the meaning potential of a
-```
-particular color (or set of colors) depends on the configuration of the
-```
-```
-individual features (Kress; Van Leeuwen, 2021, p. 247). Moreover, signs
-```
-```
-function as “complex constellations” (Bateman; Wildfeuer; Hiippala,
-```
-```
-2017, p. 116). This means that the composition and the participants4
-```
-represented are as important as the colors used to represent them. From
-a social-semiotic point of view, we should always consider the context
-for the creation of the image and the relationship between the semiotic
-```
-choices and the discourses and ideologies (i.e., the association that results
-```
-```
-from the semiotic choices).
-```
-Returning to our example of the two hearts painted Red, we
-can confirm that our meaning hypothesis is based on the Red hue, its
-Saturation, the associations we attribute to these features, and the fact that
-we have drawn a heart, often associated with love. If we were to draw
-a campfire or a bloody landscape instead, we would no longer associate
-```
-Red with love (but with fire and violence), but we might still interpret
-```
-```
-Saturation in a similar way (for example, as a signifier of intensity).
-```
-Thus, as Kress and van Leeuwen noted, the possibilities of colors
-are not unlimited: They arise from culturally recognized uses, physical
-properties, and the way we perceive colors. Given the interplay of
-these aspects, especially perception, color analysis can be particularly
-challenging because what a color “is” may not be readily recognized in
-its entirety. This is noteworthy when we consider the way the authors
-formulate their categories:
-These distinctive features indicate, as in Jakobson and Halle’s
-```
-(1956) distinctive feature phonology, a quality which is visual
-```
-rather than acoustic, and is not systematized, as in phonology, as
-```
-structural oppositions but as values on a range of scales (Kress;
-```
-```
-Van Leeuwen, 2002, p. 355).
-```
-```
-In contrast to the phonology of Jakobson and Halle (1956), Kress
-```
-and van Leeuwen consider that each feature are values on a scale, such as
-```
-“light to dark,” rather than oppositions (such as [+voiced] and [-voiced]).
-```
-```
-4 A generic term for people, places, and things represented in the semiosis (Kress; Van
-```
-```
-Leeuwen, 2021, p. 45, 113–5).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2017
-However, the authors do not provide specific measures to determine, for
-```
-example, what is “maximally light” or “maximally black” (Kress; Van
-```
-```
-Leeuwen, 2002, p. 355).
-```
-This means that the analyzes may depend largely on perception,
-which does not always provide the most accurate representation of
-```
-the colors of the image (Figure 1). In addition, in some cases only a
-```
-few particularly salient colors are fully discernible, which can turn the
-categories into contrasts rather than scales. For example, different screens
-```
-(e.g., computer monitors and cell phone screens) can slightly alter the
-```
-colors displayed, which can affect how we interact with colors and, more
-importantly, how we analyze them.
-Figure 1 – Hue examples
-```
-Source: Created by the authors.
-```
-Figure 1 shows four sets of colors that we have created using
-```
-four color wheels based on Rhyne (2017, p. 33). The first is the original
-```
-```
-file, while the other three simulate color deficiencies (from left to right):
-```
-Protanope, Deuteranope, and Tritanope. To most people, all four wheels
-will look different, while some people5 will have difficulty perceiving
-the differences between the first wheel and the other three.
-Even outside of color deficiency, other factors can affect color
-perception, such as lighting conditions, positioning of the color, or what
-we focused on previously. This is particularly noticeable in optical
-illusions, such as the example in Figure 2.
-```
-5 According with the NHS (National Health Service), 1 in 12 men are and 1 in 200
-```
-women have some type of color vision deficiency.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2018
-Figure 2 – Optical illusion
-```
-Source: Wikimedia commons (2007).
-```
-The two Orange spots are the same color, but we perceive them
-```
-differently (we might say one is darker than the other). Unlike the naked
-```
-eye, software such as GIMP, as we will demonstrate, can show us not
-only that they are the same, but also what they are in terms of Saturation,
-Brightness, and so on.
-These factors illustrate the complexity of color and color analysis.
-Kress and van Leeuwen’s scale approach is one way to account for the
-idiosyncrasies of color, although it does not present specific methods
-for accurately analyzing color data. However, we should remember not
-to downplay the role of perception in the semiotic process. Most people
-```
-who interact with images (whether on the internet or on print media)
-```
-will not have these tools to properly measure what color is. Designers,
-however, have a deep understanding of how color works and how to
-use it to convey what they want to communicate. Just as Kress and van
-```
-Leeuwen (2021, p. 238) inform us about the deeply material history of
-```
-color, we argue in this article that to understand the current semiotics
-of color, we must understand the processes by which they are created.
-With this in mind, we propose categories and methods that allow
-us to quantify and systematize the properties of color, particularly in
-digital media. With the aid of color theory, we can better understand
-what colors are and how they work. Using GIMP and ImageMagick, we
-can describe the various parameters that make up colors. Thus, we can
-effectively use the distinctive feature’s scales to analyze the meaning
-potential of colors. Therefore, our proposal introduces concepts and
-methods currently used by sign makers, which allows us to generate
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2019
-hypotheses based on tools used in the semiotic process. This opens the
-door to comparable and reproducible results for color analysis, which is
-particularly useful for understanding the use of color by different groups
-in different contexts.
-3 Basic concepts of color theory
-From the perspective of color theory, the concept of the color
-```
-model is particularly important. According to Rhyne (2017, p. 1), a color
-```
-model is “a structured system for creating a full range of colors from a
-small set of defined primary colors.” Also,
-There are three fundamental models of color theory. […] these
-```
-models are as follows: (1) the Red, Green, and Blue (RGB) color
-```
-model of lights and display originally explored by Isaac Newton in
-```
-1666; (2) the Cyan, Magenta, Yellow, and Key Black (CMYK) model
-```
-for printing in color originally patented by Jacob Christoph Le Blon in
-```
-1719; and (3) the Red, Yellow, Blue painters model fully summarized
-```
-```
-by Johann Wolfgang von Goethe in 1810 (Rhyne, 2017, p. 1).
-```
-In Table 2, we briefly summarize these three models:
-Table 2 – The color models
-Color
-model Description Visual representation
-RGB
-“The RGB color model assembles the
-primary lights of Red, Green, and Blue
-together in various combinations to
-produce a broad range of colors […].
-The RGB color model is termed as
-an additive color model in which the
-combination of the Red, Green, and Blue
-primary lights produces White light […]
-The RGB color model is used in various
-technologies producing color images,
-such as conventional photography and
-the display of images in electronic
-```
-systems” (Rhyne, 2017, p. 1).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2020
-Color
-model Description Visual representation
-CMYK
-“The CMYK color model is designed to
-support color printing on White article.
-The CMYK color model is termed as
-a subtractive color model in which the
-starting point begins with a White or
-light surface. Color pigments Reduce the
-reflection of the original White light. The
-color inks thus subtract from the original
-White surface. Typical output devices
-for the CMYK color model include
-color inkjet, laser, and dye-sublimation
-```
-printers” (Rhyne, 2017, p. 5).
-```
-RYB
-“The RYB color model is a subtractive
-color model for mixing painting
-pigments […]. Starting with White
-paper, RYB color pigments when
-combined together yield Black, similar
-to the CMYK color model […] The
-RYB color model is used in the arts and
-```
-arts education” (Rhyne, 2017, p. 7).
-```
-```
-Source: Created by the authors. Images adapted from Rhyne (2017, p. 2).
-```
-Since we will be using a digital corpus, we will focus mainly
-on the RGB system. First, we can visually represent colors on a color
-```
-wheel, which we can use to analyze how hues relate to each other (Rhyne,
-```
-```
-2017, p. 79). We can represent the RGB and CYMK models with the
-```
-same color wheel6, while the RYB model is different from the two, as
-shown in Figure 3:
-6 As seen in the visual representations in Table 2, the RGB and CYMK models are
-complementary, since their primary and complementary colors are the same but inverted
-```
-for each model (Rhyne, 2017, p. 82).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2021
-Figure 3 – Color wheels
-Color wheels for RGB and CYMK Color wheel for RYB
-```
-Source: Adapted on Rhyne (2017, p. 83).
-```
-Both wheels present hues7, tints, tones, and shades. In the outer
-area are the hues, the purest, most saturated colors. Tints are hues mixed
-with white and are placed next to them. Tones are mixed with gray and
-are placed in-between tints and shades, hues mixed with black. The
-```
-innermost region is the neutral gray (Rhyne, 2017, p. 83-5).
-```
-The color wheel allows us to detect color harmonies. Kress and
-```
-van Leeuwen (2021, p. 238) mention the concept but do not elaborate
-```
-on it. Harmonies are a way to systematize how colors can work well
-```
-together based on a main (or key) color (Rhyne, 2017, p. 86). In Table
-```
-3, we present the possible color harmonies for both color wheels, using
-Red as the main color:
-Table 3 – Color harmonies
-Color Harmony RGB/CYMKcolor wheels RYB color wheel
-```
-Monochromatic: a harmony
-```
-between a hue and its tints,
-```
-tones, and shades (RHYNE,
-```
-```
-2017, p. 87).
-```
-7 We will utilize the term “hue” to refer to one of color’s distinctive feature as well as
-to pure colors.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2022
-Color Harmony RGB/CYMKcolor wheels RYB color wheel
-```
-Analogous: a harmony
-```
-between three colors adjacent
-to each other, of which the
-middle one is the main color
-```
-(Rhyne, 2017, p. 88).
-```
-```
-Complementary: a harmony
-```
-between one color and the
-color opposite to it in the color
-```
-wheel (Rhyne, 2017, p. 89).
-```
-Split complementary: a
-harmony between the
-main color and the two
-colors adjacent to its
-complementary color
-```
-(Rhyne, 2017, p. 90).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2023
-Color Harmony RGB/CYMKcolor wheels RYB color wheel
-Analogous complementary:
-a harmony between
-the key color and an
-analogous harmony of
-its complementary color
-```
-(Rhyne, 2017, p. 89).
-```
-Double complementary:
-a harmony between two
-adjacent colors and their
-respective complementary
-```
-colors (Rhyne, 2017, p. 92).
-```
-Tetrad-Rectangular: a
-harmony between four
-equally distant colors
-```
-(Rhyne, 2017, p. 93).
-```
-Tetrad-Square: a harmony
-between four equally distant
-colors, three steps from each
-```
-other (Rhyne, 2017, p. 94-5).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2024
-Color Harmony RGB/CYMKcolor wheels RYB color wheel
-```
-Diad: a harmony between two
-```
-colors, two steps from each
-```
-other (Rhyne, 2017, p. 95).
-```
-```
-Triad: a harmony between
-```
-three equally distant colors
-```
-(Rhyne, 2017, p. 96).
-```
-```
-Source: Created by the authors. Images based on Rhyne (2017).
-```
-In addition, the color wheel provides a visual representation of
-```
-warm and cool colors (Figure 4), which also influences the relationship
-```
-between colors and their potential for meaning:
-The color wheel can be divided into warm and cool colors. In
-general, Green, Blue, and Purple are defined as cool colors, while
-Yellow, Orange, and Red are grouped as warm colors. Warm colors
-tend to advance and expand in space. Cool colors tend to recede
-and contract in space. White, Gray, and Black are considered to
-be neutral in this regard. As a result, colors can have physiological
-```
-and psychological effects on people (Rhyne, 2017, p. 85).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2025
-Figure 4 – Cool and Warm colors
-```
-Source: Adapted from Rhyne (2017, p. 86).
-```
-The meaning-making potential that arises from color harmonies
-and the dichotomy of cool and warm colors is expansive. For example,
-complementary harmonies can be linked with associative affordances,
-```
-such as Red contrasting with Blue and Cyan (e.g., in a contrast between
-```
-```
-fire and water). They can also lead to what we might call “emergent
-```
-meanings,” or new possibilities based on the properties of colors. For
-```
-example, in Matumoto (2022b), we discussed how the games Aero
-```
-```
-Fighters 2 (VIDEO SYSTEM, 1994), Sonic Wings 2 (VIDEO SYSTEM,
-```
-```
-1996), and Strikers 1945 II (PSIKYO, 1997) use color harmonies to make
-```
-Brazil stand out among the other countries, reinforcing the representation
-of Brazil as a forest in contrast to the representation of most other
-countries in the game.
-Cool and warm colors evoke associative meanings simply by
-their names. They also have practical uses, for example in interior design:
-warm colors are perceived as closer, while cool colors are perceived as
-further away. We can use this to make a room seem more inviting, cozy, or
-spacious and relaxing, depending on the “temperature” of the color used.
-```
-Apart from the color wheel, we can represent web colors (colors
-```
-```
-for digital applications) by their RGB values or in hexadecimal format
-```
-```
-(HEX triplet) (Rhyne, 2017, p. 66). RGB values refer to the values of
-```
-```
-Red, Green, and Blue, from 0 (lowest value) to 255 (highest value), that
-```
-each color has for each of these three parameters. The HEX triplet “is a
-six-digit and three-byte hexadecimal number used to represent a color”
-WarmWarm
-Cool Cool
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2026
-```
-(Rhyne, 2017, p. 67). See Table 4 for a range of colors and their RGB
-```
-values and HEX triplets.
-Table 4 – Examples of RGB values and HEX triplets
-Color RGB values Hex triplets
-255, 0, 0 #FF0000
-0, 255, 0 #00FF00
-0, 0, 255 #0000FF
-255, 0, 100 #FF0064
-0, 100, 0 #006400
-50, 150, 255 #3296FF
-100, 90, 90 #645A5A
-255, 255, 255 #FFFFFF
-0, 0, 0 #000000
-```
-Source: Created by the authors.
-```
-We represent the RGB notation of a color as three values separated
-by commas. The first refers to the value of Red, the middle to the value of
-Green, and the last to the value of Blue. This means that the RGB color
-```
-space includes a total of 16,777,216 colors (or 256 to the 3 rd power). In
-```
-Table 4, we have modulated different values of each parameter to create
-nine RGB configurations. The first three are each pure Red, Green, and
-Blue, while the next three are mixtures. The seventh has no dominance
-between the three parameters, resulting in a grayish color. The last two
-have equal values for all three parameters but do not result in gray. This
-is because the lowest possible RGB values result in pure black, while the
-highest result in White. The HEX triplets represent the same information,
-but in a way that is easier for computers to process 8: the first two digits
-refer to Red, the middle two to Green, and the last two to Blue.
-```
-8 Cf. Rhyne (2017, p. 67) for a summary of how to read HEX triplets.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2027
-4 Analyzing colors with GIMP and ImageMagick
-An in-depth analysis based on RGB values and HEX triplets
-makes it possible to precisely locate the colors under investigation. For
-this purpose, the Color Picker Tool 9 in GIMP can be used to collect this
-```
-type of data (Table 5).
-```
-Table 5 – Color picker tool on GIMP
-Image Description
-```
-In the Toolbox of GIMP (on the left side of
-```
-```
-the program) we will find several tools10,
-```
-```
-including the color picker tool (highlighted
-```
-```
-by a gray box).
-```
-When we select it, the cursor turns into
-an eyedropper and crosshairs. If we click
-on the place where the crosshairs point, a
-small window will open.
-9 Whenever we introduce a new tool or option, we will provide a link to the GIMP
-Team Documentation Page, which describes the tool and how to use it.
-10 Tools with a small triangle in the bottom-right corner are swappable with a related
-tool by right-clicking its icon. In the color picker’s case, we can swap it for the measure
-tool, which functions similarly to a ruler.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2028
-Image Description
-In this window, we will find several
-pieces of information. In the columns, the
-researcher can choose which color model
-to display. In this case, the left column is
-the HSV color space and the right column
-is the RGB model. HEX refers to the HEX
-triplet, and finally, X and Y refer to the
-coordinates of the selected pixel. Pixels are
-the smallest units in digital images.
-We return to Figure 2 to verify that the
-two Orange spots are indeed made up of
-the same color. The difference between the
-```
-examined pixels is their positions (X and
-```
-```
-Y values).
-```
-If we want to sample more than one point
-```
-(or pixel) of the image, we can select the
-```
-sample average option in the Tool options,
-which are located under the Toolbox by
-default. The Radius options refer to the
-area that will be sampled by the tool.
-When this option is selected, GIMP
-displays the average color of the selected
-area instead of the exact pixel selected.
-```
-Source: Created by the authors.
-```
-Using the color picker tool of GIMP, we can identify specific
-colors in the composition or select a group of colors to determine the
-overall color in a specific area of the image. This means that we do not
-have to consider colors as a comparative category, in the sense that Hue,
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2029
-Saturation, Brightness, etc. are understandable and quantifiable on their
-own, not in comparison to the rest of the composition.
-```
-The HSV (Hue, Saturation, and Value) and the HSL (Hue,
-```
-```
-Saturation, and Lightness) are three-dimensional representations of the
-```
-```
-RGB color model11 (Rhyne, 2017, p. 58). In Table 6, we briefly discuss
-```
-the individual parameters:
-Table 6 – HSV and HSL color spaces
-Parameter Description
-Hue
-Refers to color gradations shown in a circle that begins and ends at the
-color Red, at 0 degrees. The color wheel shown earlier follows this
-organization, and starting from Red, Cyan, for example, is at 180 degrees,
-```
-directly opposite to Red (Rhyne, 2017, p. 61).
-```
-Saturation
-Refers to the distinction between a particular hue and the neutral gray in
-the center of the color wheel, where no hue dominates. For this reason, the
-purest and most saturated colors on the color wheel are in the outer areas
-```
-farthest from the center (Rhyne, 2017, p. 61).
-```
-Value
-Refers to the brightness of a particular hue and varies with Saturation in
-the HSV color space. It ranges from 0%, pure black, to 100%, colors are
-```
-present (Rhyne, 2017, p. 62).
-```
-Lightness
-Refers to the degree of illumination of a given Hue in the HSL color
-space. It ranges from 0%, or no light, to 100%, or full illumination
-```
-(Rhyne, 2017, p. 62).
-```
-```
-Source: Created by the authors.
-```
-If we return to the example in Table 5, we find in the left column
-the HSV description of the Orange used in the image: for Hue, it is 38.5º
-```
-(Figure 5) of Red; for Saturation, it is 100, since it is a pure color; and
-```
-finally, for Value, it is 82%, which means that it is not a totally light color.
-As for Lightness, we can use the following mathematical formulas
-```
-to calculate the Lightness of a color (Saravana; Yamuna, 2016, p. 464):
-```
-```
-11 Cf. Rhyne (2017, p. 63-66) for a discussion regarding both models and their visual
-```
-representations.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2030
-The first three equations convert the RGB values from a scale
-of 0..255 to a scale of 0..1. We will again use the example from Figure
-2. Since we need the maximum and minimum values of RGB, we omit
-```
-Green and use only Red (209/255 = 0.81) and Blue (0/255 = 0). We can
-```
-now use these values in the last equation:
-This gives us ≈ 41%. So the Lightness of #D18600 is 41%. For
-```
-comparison, #FFFFFF (pure white) has a Lightness of 100% and #000000
-```
-```
-(pure black) has a Lightness of 0%.
-```
-Figure 5 – Diagram of hue or color wheel
-```
-Source: Adapted from Rhyne (2017, p. 61).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2031
-Furthermore, the FG/BG Color tool allows us to visualize and
-```
-edit these data (Table 7).
-```
-Table 7 — FG/BG Color
-The FG/BG Color menu contains several relevant data points. By default, on the right side,
-we can check the RGB and HSV values of the color, both on a scale from 0 to 100 and on a
-scale from 0 to 255. The “HTML Notation” refers to the HEX triplet of the color. Note that
-```
-it has no hashtag (#) at the beginning.
-```
-On the left, GIMP displays a visual representation of the image’s Saturation by default. The
-Hue scale is in the thinner colored column, while the Saturation and Value scale is shown
-in the rectangle right next to it. The value increases on the Y-axis, while the Saturation
-```
-increases on the X-axis. For example, in the upper left corner (in white) is 0 for Saturation
-```
-and 100 for Value, while in the lower right corner is 100 for Saturation and 0 for Value.
-The currently displayed color is the Orange from Figure 2, indicated by the crosshairs on
-the rectangle and the line on the thinner column.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2032
-GIMP presents four other visual representations: CYMK, Watercolors, Wheel, and Palette.
-In this article, we will focus on the wheel representation.
-The outer ring represents Hues that vary on a 360-degree scale. The inner triangle, in
-turn, represents Saturation and Value. Saturation scales vertically, while Value scales
-horizontally.
-This visual representation is particularly useful for determining color harmonies.
-```
-Source: Created by the authors.
-```
-One last parameter that the color picker tool of GIMP displays is
-the Alpha channels. For some images, it is possible to display a range from
-```
-transparency (0%) to total opacity (100%). For example, images in jpg
-```
-```
-(Joint Photographic Experts Group) format do not support transparency
-```
-and instead show a color, often white, in the background, while images
-```
-in png (Portable Network Graphic) format can (Table 8).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2033
-Table 8 – jpg vs. png
-Saved in the jpg. format, the image
-displays the missing part as white.
-```
-Saved in the png. format (and with the
-```
-```
-alpha channels enabled), the image
-```
-displays the missing part as transparency
-```
-(shown as a gray pattern).
-```
-```
-Source: Created by the authors.
-```
-Transparency is not limited to alpha channels, but it is important
-to note that we can analyze it via GIMP just as we can the other color
-features.
-For a more comprehensive color analysis, we can use the
-histogram from GIMP. A histogram is a graphical representation of
-```
-the distribution of data for a given variable. The Histogram (found in
-```
-```
-Windows → Dockable dialogues12) represents “the statistical distribution
-```
-```
-of color values” (GIMP Documentation Team, 2023, s.p.) and provides
-```
-```
-options for Value (brightness distribution), Red, Green, and Blue
-```
-```
-(intensity distribution per RGB channel), and alpha (opacity distribution).
-```
-In Table 9 we discuss the histogram based on a stock image.
-12 Whenever we show a tool’s path, we will highlight it in gray. The path will start from
-the menu bar on GIMP’s upper part. We will also highlight options present in GIMP.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2034
-Table 9 — Histogram in GIMP
-We will use an image from the Microsoft 365 library. The image shows a colorful
-arrangement of fruits and vegetables.
-We can see the full histogram in the figure above. For simplicity, we divided the window
-into three parts, described as follows.
-```
-In the upper area (red) we can change which channels the histogram displays (Value, Red,
-```
-```
-Green, Blue) and the display mode: linear, which is useful for photos, or logarithmic, which
-```
-```
-is useful for images that “contain substantial areas of constant color” (GIMP Documentation
-```
-```
-Team, 2023, s.p.). We can also change the histogram display from linear to perceptual
-```
-space. Here we will use the perceptual space and the linear display.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2035
-```
-In the middle (Green) we see the actual histogram. On the left, we show how it appears on
-```
-```
-GIMP, while on the right we show the same data as a graph. The horizontal axis (X) scales
-```
-```
-from 0 (black) to 255 (white). In this example, we used “value” as the variable. This means
-```
-```
-that we have a scale from the lowest to the highest Value (“brightness”). The vertical axis
-```
-```
-(Y) shows the number of pixels for a given value. For example, 4% of the pixels of the
-```
-image have a Value of 255, which means they have the maximum brightness.
-If we need to check how many pixels are in the range of a value, we can select a section of the
-histogram. In the example above, we select the range from 102 to 153 of Value. The range is
-highlighted in white and below it the exact selection is displayed numerically.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2036
-If we select the RGB option, GIMP shows the Red, Green, and Blue channels and how
-they overlap. White are the areas where all three overlap, while the Red, Green, and Blue
-areas show where these colors do not overlap. GIMP also shows the overlap of two colors:
-Red + Blue = Magenta
-Red + Green = Yellow
-Blue + Green = Cyan
-It is worth mentioning that these values are not the colors themselves, but their respective
-parameters of Red, Green, and Blue individually. This means that, for example, for a color
-```
-composed of (100, 0, 255), each parameter is plotted in the histogram.
-```
-In the case of the image, Red is particularly present at the upper end of the scale, while
-Blue is most present at the lower end of the scale. Green accents can also be seen in the
-```
-middle of the scale. Thus, we can see that Red and hues close to it (yellow, orange etc.)
-```
-are substantially more saturated than other hues. This is due to the fact that, overall, red
-```
-composition (closer to 255) is more prevalent than Green or Blue, a fact that may not be
-```
-easily discernible with mere perception.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2037
-Finally, in the lower area, we will find various statistics and other information. In Pixels,
-GIMP shows the number of pixels in the image, while Count shows how many pixels are in
-the selected area. Percentile refers to the percentage of pixels in the selected range.
-Median refers to the middle value in the selected range, while mean indicates the average
-value. Finally, Std dev refers to the standard deviation of the selected range or how
-```
-homogeneous the distribution of values in the selected range is (GIMP Documentation
-```
-```
-Team, 2023, s.p.), which can be used in research as an indicator of the color purity of the
-```
-composition.
-GIMP automatically converts its values to a number from 0 to 1, to the thousandth digit.
-These values represent the scale from 0 to 255 — the scale visually represented by the
-histogram. For example, 0.369 corresponds to 94.095 on a scale of 255, which means that
-```
-the RGB value of the image averages 94 (out of 255).
-```
-The standard deviation, simply put, indicates how much is the average dispersion from the
-mean. In our case, it is 0.296. If we were to plot the data on a graph, for example, we could
-```
-calculate one standard deviation below the mean (0.369 - 0.296 = 0.073) and one standard
-```
-```
-deviation above the mean (0.369 + 0.296 = 0.665), which would give us an interval of
-```
-0.073 ≤ x ≤ 0.665.
-Thus, the higher the standard deviation, the higher the hybridity of the colors, whether from
-```
-the total set (RGB) or for each channel individually.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2038
-```
-To visualize how each channel affects the image, we can use the Hue-Saturation tool (Colors
-```
-```
-→ Hue-Saturation...). The GIMP tool lets you edit the Hue, Lightness, and Saturation of
-```
-```
-the primary RGB colors and the complementary colors (Cyan, Magenta, and Yellow).
-```
-This allows us to locate areas of interest for each color. It should be noted, however, that
-depending on the colors used, we may also select colors that fall between a primary and
-a complementary color. In the image to the left, we desaturated all colors except for the
-Yellow hue, whose Saturation was set to maximum. This highlights the Yellow areas and
-some colors between Green and Yellow, and between Yellow and Red. If we do the same
-process but saturate Red and Green to the maximum, we can see how they relate to Yellow.
-```
-Source: Created by the authors.
-```
-The histogram can give us a quick overview of the image and
-its dominant channels. It can also be used in conjunction with the Select
-by color and the Fuzzy selection tools, both of which are included in
-the Toolbox. These tools allow us to select a specific color in the image:
-The first tool selects all instances of a particular color, while the second
-selects a delimited area where the color occurs. In the histogram, GIMP
-```
-shows how many pixels (both in count and percentile) are allotted to
-```
-the selected color. These tools also have a threshold option. By default,
-this is set to 0, which means the tool will only select the exact color we
-clicked on. If we increase the threshold, GIMP will average and select
-colors similar to the selected one, as shown in Table 10.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2039
-Table 10 – Select by color tool
-We have highlighted both tools in the figure above with a dark box. We can change them by
-right-clicking on their icons. The magic wand icon points to the Fuzzy selection tool, while
-the square icon points to the Select by Color tool.
-Both tools offer almost identical options. Relevant to this article is the threshold scale
-mentioned earlier and the drop-down menu directly below it. In it, the researcher can
-choose which parameter GIMP should use to select colors, such as Red, Green, and Blue
-values. By default, the “Composite” parameter is used, which takes into account the overall
-composition of the color.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2040
-When the Histogram tab is open, we can right-click on the image and go to Select →
-```
-All (Select all), which will select all pixels in the image. In our example, the image has
-```
-1,906,128 pixels.
-```
-We then use the Select by Color tool (with a threshold of 75) and click on a Yellow pixel in
-```
-```
-the image. The selected area is outlined with dashed lines. The histogram (in pixels) shows
-```
-how many pixels we have selected. In our case, it is 193,011 pixels, or about 10% of the
-entire image.
-```
-Source: Created by the authors.
-```
-Another important tool for color analysis is the Palette Import
-```
-and Editor (Windows → Palettes). GIMP allows the researcher to import
-```
-colors from any image and in this way create a palette based on the
-imported colors. In Table 11 we briefly describe the process.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2041
-Table 11 — Importing palettes in GIMP
-If we right-click on one of the palettes preloaded with GIMP, the Import Palette... option
-is displayed.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2042
-In the Import New Palette menu, we can import from an already created palette or from an
-```
-image (second option).
-```
-```
-In the import options we can choose how many colors the palette should contain (up to
-```
-```
-10,000), how many columns the palette should display, and finally we can group colors
-```
-with the Interval option. Although the limit is 10,000, it may not be possible to load all
-colors. Since a small change in the parameters will change the color, the image may
-contain several similar colors, which GIMP will add to the palette individually. Therefore,
-increasing the interval value will display an average color generated from a set of similar
-```
-colors (GIMP Documentation Team, 2023, s.p.).
-```
-```
-In the Colorcube Analysis (Colors → Info → Colorcube Analysis), GIMP shows how
-```
-many unique colors are present in the image. The software detects 388,632 unique colors
-in our image, which far exceeds the maximum capacity of the palette.
-Therefore, we can convert the image — most likely in RGB format — to index colors
-```
-(Image → Mode → Indexed...), which limits the colors to a maximum of 256.
-```
-Since GIMP tries to calculate an average value for the color of the image, it may change
-significantly. It is also important to note that due to the averaging of the image, the colors
-displayed may not exactly match the original colors, so it is not an accurate representation,
-but an overall view of the colors in the image.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2043
-In our example, we converted the image to 256-indexed colors and then back to RGB.
-We then created a 256-color palette. If we double-click on the created palette, the palette
-editor window will open. In it, we can change the number of columns displayed and, most
-importantly, check the data of each color. If we double-click on one of the colors, the Edit
-Palette window will open, which looks exactly like the FG/BG Color window. Note that
-changes made in the Edit Palette Color will affect the created palette.
-```
-Source: Created by the authors.
-```
-Depending on the quality and/or complexity of the image, the
-palette may be more or less indicative of the overall color composition of
-the image. Another option is the Colour wheel analysis plugin by Rebecca
-```
-(username rbreu), who also provides instructions for installing and using
-```
-the plugin. We used this tool to create Figure 6 based on our example:
-Figure 6 – Color wheel of the image
-RGB Index color Full-color wheel
-```
-Source: Created by the authors.
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2044
-The plugin maps the colors on a color wheel, which allows us to
-determine the color harmonies present in the image. As we can see, the
-image uses colors from almost all hues except Blue and its adjacent hues.
-It is worth mentioning that this refers to the image as a whole, so all the
-elements depicted are taken into account. GIMP allows us to delete parts
-```
-of the image, which can be productive for color analysis (Figure 7). There
-```
-are several ways to achieve this, for example, using Fuzzy Selection and
-Select by Color tools or the Paths and Free Selection tools.
-Figure 7 — Purple areas vs non-Purple areas
-```
-Source: Created by the authors.
-```
-For a quantitative approach to color, GIMP offers the possibility
-to export a text file of the generated histogram. Under Color → Info
-→ Export Histogram... there are several options for displaying the
-```
-information in a comma separated values (CSV) file. Table 12 describes
-```
-the Export Histogram option and its output file.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2045
-Table 12 – Export histogram in GIMP
-In histogram file, the user can select the location of the file.
-“Bucket Size” “lets you control the number of values considered as similar and counted in
-the same ‘bucket’. A higher bucket size will produce fewer buckets, and thus fewer rows
-```
-in the exported file” (GIMP Documentation Team, 2023, s.p.).
-```
-```
-Sample Average produces either a histogram of all image layers (“yes”) or only the current
-```
-```
-layer (“no”).
-```
-```
-There are three options for the output format: Pixel count (pixels per bucket), normalized
-```
-```
-(pixels per bucket divided by the pixel count of the image), and percent, which does the
-```
-```
-same as normalized but displays the values as percentages (GIMP Documentation Team,
-```
-```
-2023, s.p.).
-```
-Range Start Value Red Green Blue
-0 9336 36513 84317 216677
-16 39960 46834 52292 94719
-32 37441 50903 43448 63539
-48 41285 48659 41558 67666
-64 36605 32875 53648 35025
-240 90709 90030 3251 2502
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2046
-We can access the output file with programs like Microsoft Notepad or Notepad++, which
-is open source and free, but also with spreadsheet programs like Microsoft Excel. In the
-example on the right, we created the file with a bucket size of 16 and a Percent output.
-“Range start” refers to the value from 0 to 255 for each of the parameters. For example, the
-penultimate row with a “Range Start” value of 48 refers to the 49th bucket and includes all
-pixels between the values 48 and 63. Therefore, the last four numbers in row 48 in order
-mean that “41,285 pixels have a value between 48 and 63,” “48,659 pixels have a Red value
-from 48 to 63,” “41,558 pixels have a Green value from 48 to 63,” and “67,666 pixels have
-```
-a Blue value from 48 to 63” (GIMP Documentation Team, 2023, s.p.). The last row ranges
-```
-from 240-255, the most saturated colors. As can be seen, Red is the representative channel
-in this range.
-```
-Source: Created by the authors.
-```
-Depending on the resolution of the image, trying to determine the
-colors individually may be overwhelming with this tool. Alternatively,
-ImageMagick can be used to determine exactly what colors are present
-in an image and how pronounced they are, allowing the user to determine
-which colors are dominant.
-Table 13 shows how to list the color composition of an image.
-Table 13 – Color composition using ImageMagick
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2047
-In Microsoft Windows, we can access the folder of the image. In the top bar Windows shows
-the path of the folder/file. On the left side, there is an icon for the folder. When we click on it,
-we can type “cmd” and press Enter. A window with a command prompt will open.
-It lists the path to the folder of the image. We can then type: magick image.ext -format
-%c histogram:info:- > list.txt 13. image.ext refers to the file name and extension of the
-```
-image (png., jpg., webM., etc.), while list.txt refers to a plain text file containing the color
-```
-information.
-The filename in our example is 01, and its extension is .png. So the string becomes magick
-01.png -format %c histogram:info:- > list.txt. After a few seconds, a file named “list.txt”
-appears in the image’s folder.
-```
-127: (0,0,0) #000000 black
-```
-```
-30: (0,0,2) #000002 srgb(0,0,2)
-```
-```
-14: (0,0,4) #000004 srgb(0,0,4)
-```
-```
-13: (0,0,5) #000005 srgb(0,0,5)
-```
-```
-5: (0,0,7) #000007 srgb(0,0,7)
-```
-```
-2: (0,0,8) #000008 srgb(0,0,8)
-```
-```
-4: (0,0,9) #000009 srgb(0,0,9)
-```
-```
-243: (0,1,0) #000100 srgb(0,1,0)
-```
-```
-11: (0,1,2) #000102 srgb(0,1,2)
-```
-```
-6: (0,1,3) #000103 srgb(0,1,3)
-```
-```
-6: (0,1,4) #000104 srgb(0,1,4)
-```
-```
-9: (0,1,5) #000105 srgb(0,1,5)
-```
-We can open the file with the standard Windows software Notepad or other text editors
-like Notepad++.
-In the file, each line corresponds to a color in the following format: first, how many pixels
-```
-correspond to the color; its RGB parameters; its HEX triplet value; and finally, its srgba value14.
-```
-As it is, ImageMagick has mapped 388,577 colors. Most of them contribute little to the
-overall image, corresponding to less than 100 pixels out of 1,906,128. This is because,
-```
-for example, a color characterized in RGB parameters as (224, 111, 232) is different from
-```
-```
-(224, 108, 232). Although they are hardly noticeable, ImageMagick considers them as
-```
-different and therefore counts them as separate entries.
-13 Code presented by user chas_prinz on Reddit https://www.reddit.com/r/GIMP/
-comments/rn8fyn/getting_colour_percentages_for_a_colour_indexed/
-14 sRGB, or standard RGB, is a color space created in 1996 by Microsoft and Hewlett-
-```
-Packard Company (RHYNE, 2017, p. 40).
-```
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2048
-So we can use index colors to Reduce the number of colors and group these similar colors.
-We will now use 256 colors. Although the document is clearer this way, it can still be
-cumbersome to read.
-To better analyze and organize the data, both on an RGB and index color basis, we can use
-Microsoft Excel. First, we can open the file in a text editor, use the Find and Replace function
-```
-(Ctrl+F), go to the Replace tab, and replace all “:” (colon) with nothing (leave “Replace
-```
-```
-with” blank15). When we copy and paste the text lines, Excel will automatically divide them
-```
-into different rows. We recommend leaving the first row blank. If the pasted data is in a
-single column, we can select all the rows and go to Data → Text to Columns. We first select
-Delimited, then click Next. Select “Space” from the Delimiters menu and then click Next and
-Finish. Excel will automatically split the data into columns. In the first row, we can now label
-```
-each column (e.g. “Number of Pixels”, “RGB”, “HEX”, etc.). Select the labels and go to Data
-```
-→ Filter. Excel now allows the researcher to filter the data, for example, by highest to lowest
-pixel count. This allows the researcher to determine, for example, which colors are dominant
-in the composition and better analyze the use of color in the image.
-15 We can also use the find and replace function on Microsoft Excel. However, Excel
-can incorrectly interpret the colon due to how to software reads data. It will then change
-the data shown.
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2049
-In our example, we can see that in the index colors, the following are the five most common
-```
-colors in the image: (16,7,5), (14,20,4), (0,0,0), (34,22,8), (217,170,0). Excel can automatically
-```
-sum the selected values. If we select the number of pixel values for these five colors, Excel
-will show in the lower right corner that they total 50,432 pixels. If we then select the entire
-column, Excel displays 1,906,128, the same number shown by GIMP. Using these values, we
-can see that the five predominant colors account for about 2.6% of the entire image.
-We can then import this data into GIMP and create a palette for the dominant colors. Here
-we will select the 24 dominant colors from the image. First, we write a header in software
-like Notepad++ as follows:
-GIMP Palette
-#
-After the hashtag, we need to insert the RGB values of the colors. These values must not
-be between parentheses and must be separated by a comma and a space. To speed up the
-process, we can use Find and Replace to remove the parentheses and 
+Palavras-chave: semiótica social; teoria das cores; gramática do
 
 ...[truncated]

@@ -853,16 +853,16 @@
     "tags": [
       "database"
     ],
-    "last_updated": "5/30/2026",
-    "checksum": "b0da6568392884ab2885f0d83f1091cfa6b5d2725e394b7ff71cdc24873ad77f"
+    "last_updated": "6/1/2026",
+    "checksum": "1630ce97d113afd0a7b5bd5e8685932391e5f307977e8700379f0b86461ce64a"
   },
   {
     "node": "NEXUS_DISTILLATION_OTHER.md",
     "path": "distilled/academics/NEXUS_DISTILLATION_OTHER.md",
     "rack": "distilled/academics",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "551ee3d37e151f5c51a92f388e0faf209b8c956179f2c920545fb3966b9387da"
+    "last_updated": "6/1/2026",
+    "checksum": "8387a8de80f13527de1b39c11caf74307bab2ae7545c9d010fbc28f1366b7698"
   },
   {
     "node": "NEXUS_DISTILLATION_PERFORMANCE.md",
@@ -871,8 +871,8 @@
     "tags": [
       "performance"
     ],
-    "last_updated": "5/30/2026",
-    "checksum": "4106484e1a03a5a1d9427deb0d1a95841319da96dbc3631c397e95b8abfa5f74"
+    "last_updated": "6/1/2026",
+    "checksum": "e218ffdcdda85034c97ea3da768db64acd74aee9ae96c8bd75786d26b21f2515"
   },
   {
     "node": "NEXUS_DISTILLATION_TDD.md",
@@ -903,8 +903,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "5/30/2026",
-    "checksum": "adca62cb3acd1193b4e051aa0b58fe527ee6f5d5ceac071d98ee2f1b2d0b0230"
+    "last_updated": "6/1/2026",
+    "checksum": "8252b0e06ef0e2e19a54be065d774162cb1e3d882684989f465c38c8cab74199"
   },
   {
     "node": "NEXUS_DISTILLATION_VCS.md",
@@ -917,6 +917,20 @@
     ],
     "last_updated": "5/28/2026",
     "checksum": "eb6e0cb866550a6f6b5b561990fe28b5e70f5331ff17d39cf67df2fd2d78c317"
+  },
+  {
+    "node": "NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD",
+    "path": "distilled/api/NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD",
+    "rack": "distilled/api",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "241f1cb5cdf056e29fd21333fabe926c1b4392cb1e2d2254e08c8f3719af1cc4"
   },
   {
     "node": "NEXUS_API-CALLING.MD",
@@ -1081,6 +1095,19 @@
     "checksum": "95eda025cf56a1bc23353a034d113fd37de9477503f9dd1fb9ceb4bb382d225d"
   },
   {
+    "node": "NEXUS_README.MD",
+    "path": "distilled/api/NEXUS_README.MD",
+    "rack": "distilled/api",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "1adabe8fc4526d5f697df3dbb5dfe848bc872c46fd4a5128a15eb3d67e1e3fc3"
+  },
+  {
     "node": "NEXUS_SIDE-PANEL.MD",
     "path": "distilled/api/NEXUS_SIDE-PANEL.MD",
     "rack": "distilled/api",
@@ -1091,6 +1118,16 @@
     "checksum": "8e5ac6696076d098f9912e253bedee098ee33b0a6aaf0626fdcd71a19f07dc51"
   },
   {
+    "node": "NEXUS_SKILL.MD",
+    "path": "distilled/api/NEXUS_SKILL.MD",
+    "rack": "distilled/api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "81aab149d0d1cacc09eada7aca7090914b81c116d8f4cff35dd0acfb50504760"
+  },
+  {
     "node": "NEXUS_TES-2 13 MEI.MD",
     "path": "distilled/api/NEXUS_TES-2 13 MEI.MD",
     "rack": "distilled/api",
@@ -1099,6 +1136,27 @@
     ],
     "last_updated": "5/26/2026",
     "checksum": "6edcd762464b0e1d7eee361432e6125c57477dc7e7040c92df597ad2ba66c859"
+  },
+  {
+    "node": "NEXUS_TEST-PRESSURE-1.MD",
+    "path": "distilled/api/NEXUS_TEST-PRESSURE-1.MD",
+    "rack": "distilled/api",
+    "tags": [
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "9a74b1f4db3cc8c415540650c5c21e342056b032e2989d49d6452ebe1b042905"
+  },
+  {
+    "node": "NEXUS_TESTING-ANTI-PATTERNS.MD",
+    "path": "distilled/api/NEXUS_TESTING-ANTI-PATTERNS.MD",
+    "rack": "distilled/api",
+    "tags": [
+      "tdd",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "5aefc71f774e75ef38c1e3d47ae2bf07afc61e1ca028b321969e51614dc817bd"
   },
   {
     "node": "NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD",
@@ -1133,16 +1191,16 @@
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "5fe3f8c6c44a20159b2d9ea1035a8a80d58cb68d9c043f04d1dee6048bfd94d9"
+    "last_updated": "6/1/2026",
+    "checksum": "1012e8ada95278d6b17bd9bcd6711ec517682d5ea97fa76408f4958633c384df"
   },
   {
     "node": "NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "e47ef7012b3e0f56a0fa745ed9b56526b53b56f86d4e8d24c38b0cffc82b4dc6"
+    "last_updated": "6/1/2026",
+    "checksum": "1c77f59eb8e534a98f29ef747a815cf2225aa2a9ff35abd98330e73f5941af80"
   },
   {
     "node": "NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD",
@@ -1167,8 +1225,8 @@
     "tags": [
       "audit"
     ],
-    "last_updated": "5/30/2026",
-    "checksum": "ff43555b61e8ff8201da7d2236278060ad6d7b154dfc332c8a14236cfd3cee66"
+    "last_updated": "6/1/2026",
+    "checksum": "280793eee4cdf455c7d454bbd5cd45b09f941ecd7e6b507c65d68f4144c36e72"
   },
   {
     "node": "NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD",
@@ -1226,6 +1284,21 @@
     ],
     "last_updated": "5/26/2026",
     "checksum": "fadc6c22d8d83899fa32d9694bfcc09794426c602de3ac7afcf6bd9020a6a48e"
+  },
+  {
+    "node": "NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR-DESIGN.MD",
+    "path": "distilled/database/NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR-DESIGN.MD",
+    "rack": "distilled/database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "51bae7d85b549cb4d488aa0c9c3be711f92d5c7022ed2862afd54236b889eaf7"
   },
   {
     "node": "NEXUS_596-ARTICLE TEXT-4777-5556-10-20250717.MD",
@@ -1394,6 +1467,16 @@
     "checksum": "ddd04339324a7867d3f59868b68ba1c254c742a4ae82da3340510ac4ca181533"
   },
   {
+    "node": "NEXUS_COPILOT-TOOLS.MD",
+    "path": "distilled/database/NEXUS_COPILOT-TOOLS.MD",
+    "rack": "distilled/database",
+    "tags": [
+      "database"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "8898afb1f335d9f1ece1311ff77b8b4a78a8e32e79f1844fdb4a67ffb3891ec7"
+  },
+  {
     "node": "NEXUS_CSS-LAYOUT.MD",
     "path": "distilled/database/NEXUS_CSS-LAYOUT.MD",
     "rack": "distilled/database",
@@ -1429,6 +1512,18 @@
     ],
     "last_updated": "5/27/2026",
     "checksum": "0329ed48099ea23ecc5e40ba8686d165234575bab8c0af7ee0af1ec68947b14d"
+  },
+  {
+    "node": "NEXUS_DESIGN.MD",
+    "path": "distilled/database/NEXUS_DESIGN.MD",
+    "rack": "distilled/database",
+    "tags": [
+      "database",
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "640c65b1246900ffa33c38afed870601bef59e90e8bc84c9455d21ce83d32f6b"
   },
   {
     "node": "NEXUS_DISTILLATION_DATABASE.md",
@@ -3093,6 +3188,355 @@
     "checksum": "ec2f5cb5db38643cf8572a30d803fcf12344c1f305a939a9b508bb22b79995ce"
   },
   {
+    "node": "NEXUS_2025-11-22-OPENCODE-SUPPORT-DESIGN.MD",
+    "path": "distilled/other/NEXUS_2025-11-22-OPENCODE-SUPPORT-DESIGN.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "e0c0a3cb82437b61b35edd8bff8c08f8d09780e145c140b126286ac04e957b7c"
+  },
+  {
+    "node": "NEXUS_2025-11-22-OPENCODE-SUPPORT-IMPLEMENTATION.MD",
+    "path": "distilled/other/NEXUS_2025-11-22-OPENCODE-SUPPORT-IMPLEMENTATION.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "1e01e7b6dfd1219269a40aba9ed78337fcb0e6a8f66392c4e736d286046438b1"
+  },
+  {
+    "node": "NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR.MD",
+    "path": "distilled/other/NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "7fbd38d538361a8a8de5789d99a59f7868431af2067042c2e095d0fc620578ac"
+  },
+  {
+    "node": "NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER-DESIGN.MD",
+    "path": "distilled/other/NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER-DESIGN.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "a53b0f55b0383b1969557195e6e68db24277b50f694cf9714653dc3784f3c98e"
+  },
+  {
+    "node": "NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER.MD",
+    "path": "distilled/other/NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "a4868fc979801c1607df9f24bed96da378a5ea838f4f07c08de2faef6d69c3c6"
+  },
+  {
+    "node": "NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY-DESIGN.MD",
+    "path": "distilled/other/NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY-DESIGN.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "d094c6a31793a9efa5a3fc9776a2f63310485805f651ecbcbc03064d040873d7"
+  },
+  {
+    "node": "NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY.MD",
+    "path": "distilled/other/NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "882c0b6b24dd4212a4c3d6c2d2cc2c33c2b97086fee4b03be84f1ec8009a3ebc"
+  },
+  {
+    "node": "NEXUS_2026-04-06-WORKTREE-ROTOTILL-DESIGN.MD",
+    "path": "distilled/other/NEXUS_2026-04-06-WORKTREE-ROTOTILL-DESIGN.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "1d96d04dae4bad36ea68c12f3b28e599c6990fa596f839fcf31f3c5f00ecc910"
+  },
+  {
+    "node": "NEXUS_2026-04-06-WORKTREE-ROTOTILL.MD",
+    "path": "distilled/other/NEXUS_2026-04-06-WORKTREE-ROTOTILL.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "5e692d1ba6d6ba70c72faa600eb655697a97998b972891f955ca635890fc575b"
+  },
+  {
+    "node": "NEXUS_AGENTS.MD",
+    "path": "distilled/other/NEXUS_AGENTS.MD",
+    "rack": "distilled/other",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "6ebdb617a8104a7756d0cf36578ab01103dc9f07e4dc6feb751296b9c402faf7"
+  },
+  {
+    "node": "NEXUS_ANTHROPIC-BEST-PRACTICES.MD",
+    "path": "distilled/other/NEXUS_ANTHROPIC-BEST-PRACTICES.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "laravel",
+      "saas",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "063ae5fb984e5f55eed9e99f6210697c8012ac9dcd0f1c0a0a408c722f2f1c0d"
+  },
+  {
+    "node": "NEXUS_CLAUDE.MD",
+    "path": "distilled/other/NEXUS_CLAUDE.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "322d22388a515d8aea76c3b492c72a810c4e695c06a08e7b64e82e7cd1f10bf7"
+  },
+  {
+    "node": "NEXUS_CODEX-TOOLS.MD",
+    "path": "distilled/other/NEXUS_CODEX-TOOLS.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "tdd",
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "fb7ed6ebbd69d29edb2d2e361fb97aea6ac8cd4f89aef4f191089bc0c076579b"
+  },
+  {
+    "node": "NEXUS_CODE_OF_CONDUCT.MD",
+    "path": "distilled/other/NEXUS_CODE_OF_CONDUCT.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "d46d92d762df311f2bcea1ce6b4e119d2d765ed444fe1505fd479a79f4b70aa6"
+  },
+  {
+    "node": "NEXUS_CREATION-LOG.MD",
+    "path": "distilled/other/NEXUS_CREATION-LOG.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "298fb450f96bf5b2c40e390c18f22c68b120de3f2277f423888b2fb51674bfa8"
+  },
+  {
+    "node": "NEXUS_DESIGN.MD",
+    "path": "distilled/other/NEXUS_DESIGN.MD",
+    "rack": "distilled/other",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "a78c95627d801c1b3e1cad71c13dc56de2fb4584b29f9886b7fdcfd32feaebeb"
+  },
+  {
+    "node": "NEXUS_GEMINI.MD",
+    "path": "distilled/other/NEXUS_GEMINI.MD",
+    "rack": "distilled/other",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "0823da8b7277f8b623746d57c0bee75fda02e4c832fe57843e644d0fe633abbc"
+  },
+  {
+    "node": "NEXUS_PERSUASION-PRINCIPLES.MD",
+    "path": "distilled/other/NEXUS_PERSUASION-PRINCIPLES.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "9b2508e1babc7484360188a35ff565b89a0c4ba58bff33a808eff548379cc581"
+  },
+  {
+    "node": "NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD",
+    "path": "distilled/other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD",
+    "rack": "distilled/other",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "6fce2aa83c63715697e9dd86050c820716100b91efbd9f12bab8477ecc060256"
+  },
+  {
+    "node": "NEXUS_PLAN.MD",
+    "path": "distilled/other/NEXUS_PLAN.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "cf057545e029edc1c6c3928e7938f0f02573eb63b09474ec31c333fa0e9c1211"
+  },
+  {
+    "node": "NEXUS_README.MD",
+    "path": "distilled/other/NEXUS_README.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "0d9677f14d8194787ff63b16ef7048b9152a0aa1598b4b39f9748090526604a2"
+  },
+  {
+    "node": "NEXUS_README.OPENCODE.MD",
+    "path": "distilled/other/NEXUS_README.OPENCODE.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "491d3c5e902f33f8dfa1ff53c2ee58b085fef686b7a37a02b2f2621ed8147b6b"
+  },
+  {
+    "node": "NEXUS_RELEASE-NOTES.MD",
+    "path": "distilled/other/NEXUS_RELEASE-NOTES.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "laravel",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "847e674e5d2a80ee216c040bd37ca596e6497c3ac3d0c852693b2bfb85de63a6"
+  },
+  {
+    "node": "NEXUS_ROOT-CAUSE-TRACING.MD",
+    "path": "distilled/other/NEXUS_ROOT-CAUSE-TRACING.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "security",
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "eab6c81e0fab2706838a603ddb3c0d6c7577d33494a9ec085ec501fcd4b45dab"
+  },
+  {
+    "node": "NEXUS_SKILL.MD",
+    "path": "distilled/other/NEXUS_SKILL.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "ui-ux",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "70836d4824e30d90a56e14a677fd292b9a2ba02b0d69cfd7356c44dace0666ca"
+  },
+  {
+    "node": "NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD",
+    "path": "distilled/other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD",
+    "rack": "distilled/other",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "12cb5ed58aef41b8da6fbb505547c71ca3f5658c83b66ca6e556c936308b3189"
+  },
+  {
+    "node": "NEXUS_TEST-PRESSURE-2.MD",
+    "path": "distilled/other/NEXUS_TEST-PRESSURE-2.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "saas"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "be8f9769abb4db16da0317fd1fbf8e7f4ac3fee94b7ebaff2160cf2ab6b136b6"
+  },
+  {
+    "node": "NEXUS_VISUAL-COMPANION.MD",
+    "path": "distilled/other/NEXUS_VISUAL-COMPANION.MD",
+    "rack": "distilled/other",
+    "tags": [
+      "database",
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "e0856debad85bd2cee3246fa5cd1bc6fc3477f59d10ee04936e32dc7fb169848"
+  },
+  {
+    "node": "NEXUS_2026-01-17-VISUAL-BRAINSTORMING.MD",
+    "path": "distilled/performance/NEXUS_2026-01-17-VISUAL-BRAINSTORMING.MD",
+    "rack": "distilled/performance",
+    "tags": [
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "d8923e8d020ea0d1bf910646629212d060bb49927e2b0ef7999a7eededb7fb90"
+  },
+  {
     "node": "NEXUS_BATCH-ANALYTICS-EVENTS.MD",
     "path": "distilled/performance/NEXUS_BATCH-ANALYTICS-EVENTS.MD",
     "rack": "distilled/performance",
@@ -3259,6 +3703,14 @@
     ],
     "last_updated": "5/26/2026",
     "checksum": "34e98d399e44f9d65a361b5ac79b840da6645ee21569d39a4f055916fd20aa6c"
+  },
+  {
+    "node": "NEXUS_SPEC-REVIEWER-PROMPT.MD",
+    "path": "distilled/performance/NEXUS_SPEC-REVIEWER-PROMPT.MD",
+    "rack": "distilled/performance",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "631980e472eec5394de8b89b69d432e54fd3f7f523ecf9afa7eb4cda0c9b2baf"
   },
   {
     "node": "NEXUS_SUPPORT-GLOBAL-CALENDAR-SYSTEMS.MD",
@@ -3596,6 +4048,16 @@
     "checksum": "c5bcfee8a3d4e2f8bd5490ed0fd976714a6e672d03d2c12d6f1728e5b6d33075"
   },
   {
+    "node": "NEXUS_CLAUDE_MD_TESTING.MD",
+    "path": "distilled/security/NEXUS_CLAUDE_MD_TESTING.MD",
+    "rack": "distilled/security",
+    "tags": [
+      "security"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "c0971aec2826d344cfc128c76fc0703d1f135364ae91eefa4f7da58f508baaf6"
+  },
+  {
     "node": "NEXUS_COLOR RESEARCH   APPLICATION - 2024 - GAO - COLOR PALETTE GENERATION FROM DIGITAL IMAGES  A REVIEW.MD",
     "path": "distilled/security/NEXUS_COLOR RESEARCH   APPLICATION - 2024 - GAO - COLOR PALETTE GENERATION FROM DIGITAL IMAGES  A REVIEW.MD",
     "rack": "distilled/security",
@@ -3610,6 +4072,14 @@
     ],
     "last_updated": "5/26/2026",
     "checksum": "83726e9d6fb8cc9bc8f7b83f7169b3cdec621570ff28883fa5ba8e1598d56637"
+  },
+  {
+    "node": "NEXUS_CONDITION-BASED-WAITING.MD",
+    "path": "distilled/security/NEXUS_CONDITION-BASED-WAITING.MD",
+    "rack": "distilled/security",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26"
   },
   {
     "node": "NEXUS_CONFIGURATION.MD",
@@ -4000,6 +4470,14 @@
     ],
     "last_updated": "5/27/2026",
     "checksum": "cc4484374cad121eb3250b2506893ad7cd9f92cbd6915a6a187285bd33290d01"
+  },
+  {
+    "node": "NEXUS_GEMINI-TOOLS.MD",
+    "path": "distilled/security/NEXUS_GEMINI-TOOLS.MD",
+    "rack": "distilled/security",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "a66092fb2dd2c69b6b6d1098feaf456614521fd7b887cf7cb4160c8040ed1d62"
   },
   {
     "node": "NEXUS_HASHING.MD",
@@ -4506,6 +4984,14 @@
     "checksum": "5cb6dc432ded959c945ed394affca22944c507b36dde0ba8d047eb4da4daf9d1"
   },
   {
+    "node": "NEXUS_POLYGLOT-HOOKS.MD",
+    "path": "distilled/security/NEXUS_POLYGLOT-HOOKS.MD",
+    "rack": "distilled/security",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "7926e2be95aeb1045862d958103e77b17cb74f076e67082cde8443cd66641ee3"
+  },
+  {
     "node": "NEXUS_PRECOGNITION.MD",
     "path": "distilled/security/NEXUS_PRECOGNITION.MD",
     "rack": "distilled/security",
@@ -4897,6 +5383,17 @@
     "checksum": "0f04f4c1b2c388b5d63e660696a721bd674a519dafd47c5c36214fcd36f3d67c"
   },
   {
+    "node": "NEXUS_TEST-PRESSURE-3.MD",
+    "path": "distilled/security/NEXUS_TEST-PRESSURE-3.MD",
+    "rack": "distilled/security",
+    "tags": [
+      "security",
+      "tdd"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "85dd57fed499698b7d7842bfe606764dfc917c03a4a554d5e1d7b544dbdd7261"
+  },
+  {
     "node": "NEXUS_TESTING.MD",
     "path": "distilled/security/NEXUS_TESTING.MD",
     "rack": "distilled/security",
@@ -5039,6 +5536,33 @@
     "checksum": "b27ee9c403ff63743baf7d366502b8c91fd2f07c958538db96a366820f04a519"
   },
   {
+    "node": "NEXUS_2025-11-28-SKILLS-IMPROVEMENTS-FROM-USER-FEEDBACK.MD",
+    "path": "distilled/tdd/NEXUS_2025-11-28-SKILLS-IMPROVEMENTS-FROM-USER-FEEDBACK.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "security",
+      "database",
+      "ui-ux",
+      "tdd",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "36e3429d12ba12936d8c2a7aa79ffe66656d05b2362a7e7decdef76a9027d0ba"
+  },
+  {
+    "node": "NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM.MD",
+    "path": "distilled/tdd/NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "ui-ux",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "f7e18aea1cb886205d095263b917f1dbec62262b768b330fc7a96c8ac39668be"
+  },
+  {
     "node": "NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
     "path": "distilled/tdd/NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
     "rack": "distilled/tdd",
@@ -5129,6 +5653,31 @@
     "checksum": "474d377c221a87a593f74b0f36c453eb9471c1dbbb66e371b089fa0facc30887"
   },
   {
+    "node": "NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD",
+    "path": "distilled/tdd/NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "tdd"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "c0a1e802ebf9866b4d52ca4d706e63c4d9e646ccd17eabe92d6fda9fb99b9e2c"
+  },
+  {
+    "node": "NEXUS_CODE-REVIEWER.MD",
+    "path": "distilled/tdd/NEXUS_CODE-REVIEWER.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "database",
+      "ui-ux",
+      "performance",
+      "tdd",
+      "vcs",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "0c475c5c05eba967dcf10861152c413b32c8b1097d19c9385788234f83f11677"
+  },
+  {
     "node": "NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
     "path": "distilled/tdd/NEXUS_CODE_GENERATION_SAFETY_TEST_(FORGE)_SESSION_HISTORY_ARCHIVE.MD",
     "rack": "distilled/tdd",
@@ -5149,6 +5698,19 @@
     ],
     "last_updated": "5/27/2026",
     "checksum": "cb119edb75eb7210133df9b386bf7eea92a8009c57a9d5757ef3dfd1203998c7"
+  },
+  {
+    "node": "NEXUS_DEFENSE-IN-DEPTH.MD",
+    "path": "distilled/tdd/NEXUS_DEFENSE-IN-DEPTH.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "security",
+      "ui-ux",
+      "tdd",
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "f9446721133486a3410f13ed923cb087cfa36d0b9c6db093045f9bb7cacc7637"
   },
   {
     "node": "NEXUS_DYNAMIC-SIBLING-ANIMATIONS.MD",
@@ -5227,6 +5789,17 @@
     ],
     "last_updated": "5/26/2026",
     "checksum": "c1278e9d974211c1a916aa2cbdf9eae31e662705da56375388e3d5c1de167597"
+  },
+  {
+    "node": "NEXUS_IMPLEMENTER-PROMPT.MD",
+    "path": "distilled/tdd/NEXUS_IMPLEMENTER-PROMPT.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "tdd",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "194d21ea3d82a5b1f38509b6efdb04c445b78f6fd7e84025492341d9e6ba7f4b"
   },
   {
     "node": "NEXUS_INSTRUCTIONS.MD",
@@ -5338,10 +5911,14 @@
     "path": "distilled/tdd/NEXUS_SKILL.MD",
     "rack": "distilled/tdd",
     "tags": [
-      "tdd"
+      "security",
+      "database",
+      "ui-ux",
+      "tdd",
+      "vcs"
     ],
-    "last_updated": "5/27/2026",
-    "checksum": "2a1809aede980edba1e99518ae3b9f15c959feafa30aa6b79e80267f3cb71d2d"
+    "last_updated": "6/1/2026",
+    "checksum": "09d0fb448023ccacf4d8ad6c3896c60873153f96db638bd5de8eb548b9bec7d1"
   },
   {
     "node": "NEXUS_STABILIZATION_RECORD.MD",
@@ -5376,6 +5953,39 @@
     ],
     "last_updated": "5/7/2026",
     "checksum": "b1ebd8534acb456458c28017714bd5b7f32a6cdb3d25144f0283c5cbce9d57d4"
+  },
+  {
+    "node": "NEXUS_TEST-ACADEMIC.MD",
+    "path": "distilled/tdd/NEXUS_TEST-ACADEMIC.MD",
+    "rack": "distilled/tdd",
+    "tags": [],
+    "last_updated": "5/30/2026",
+    "checksum": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486"
+  },
+  {
+    "node": "NEXUS_TESTING-SKILLS-WITH-SUBAGENTS.MD",
+    "path": "distilled/tdd/NEXUS_TESTING-SKILLS-WITH-SUBAGENTS.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "tdd",
+      "vcs",
+      "saas",
+      "api"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "14dedd795009d0e9e6147657c7b443f0e12f3ff1eb33276991fad428d25c5566"
+  },
+  {
+    "node": "NEXUS_TESTING.MD",
+    "path": "distilled/tdd/NEXUS_TESTING.MD",
+    "rack": "distilled/tdd",
+    "tags": [
+      "security",
+      "tdd",
+      "vcs"
+    ],
+    "last_updated": "6/1/2026",
+    "checksum": "28623dd594734fcf6c22cab50a6eba09be3ed49966d60121541a24a661438707"
   },
   {
     "node": "NEXUS_AUDIT_SUMMARY_AUDIT-1778411549826.MD",

@@ -1,5 +1,5 @@
 # Creation Log: Systematic Debugging Skill
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -7,7 +7,7 @@ Reference example of extracting, structuring, and bulletproofing a critical skil
 
 ## Source Material
 
-Extracted debugging framework from `~/.claude/CLAUDE.md`:
+Extracted debugging framework from `~/.claude/[CLAUDE.md](NEXUS_CLAUDE.MD)`:
 - 4-phase systematic process (Investigation → Pattern Analysis → Hypothesis → Implementation)
 - Core mandate: ALWAYS find root cause, NEVER fix symptoms
 - Rules designed to resist time pressure and rationalization
@@ -25,7 +25,7 @@ Extracted debugging framework from `~/.claude/CLAUDE.md`:
 - Repetitive variations of same rule
 - Narrative explanations (condensed to principles)
 
-## Structure Following skill-creation/SKILL.md
+## Structure Following skill-creation/[SKILL.md](../tdd/NEXUS_SKILL.MD)
 
 1. **Rich when_to_use** - Included symptoms and anti-patterns
 2. **Type: technique** - Concrete process with steps

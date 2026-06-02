@@ -854,7 +854,7 @@
       "database"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "1630ce97d113afd0a7b5bd5e8685932391e5f307977e8700379f0b86461ce64a"
+    "checksum": "ec3171ed8e21e94bd1ccc53c00e0e377b986889429e8b36b8e7d6ce1c5337e03"
   },
   {
     "node": "NEXUS_DISTILLATION_OTHER.md",
@@ -862,7 +862,7 @@
     "rack": "distilled/academics",
     "tags": [],
     "last_updated": "6/1/2026",
-    "checksum": "8387a8de80f13527de1b39c11caf74307bab2ae7545c9d010fbc28f1366b7698"
+    "checksum": "f4b4bb1841447ea17fb1107c99bb3f8cc4468bd8808e7a56041540b64c032588"
   },
   {
     "node": "NEXUS_DISTILLATION_PERFORMANCE.md",
@@ -872,7 +872,7 @@
       "performance"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "e218ffdcdda85034c97ea3da768db64acd74aee9ae96c8bd75786d26b21f2515"
+    "checksum": "2be904665d7eb8d3d961cee70686e4e32f815bdcae5a82a692dcbe7fa8d0405c"
   },
   {
     "node": "NEXUS_DISTILLATION_TDD.md",
@@ -904,7 +904,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "8252b0e06ef0e2e19a54be065d774162cb1e3d882684989f465c38c8cab74199"
+    "checksum": "45a02e93a976a79dfbbee063193a5b8fd0440b5157041f171424b0f3e6fb848d"
   },
   {
     "node": "NEXUS_DISTILLATION_VCS.md",
@@ -930,7 +930,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "241f1cb5cdf056e29fd21333fabe926c1b4392cb1e2d2254e08c8f3719af1cc4"
+    "checksum": "a53d4ffff8f1ee5ae981c243df4b73a891b1bbfaced29ccbe68d2d071a5c2741"
   },
   {
     "node": "NEXUS_API-CALLING.MD",
@@ -1192,7 +1192,7 @@
     "rack": "distilled/audit",
     "tags": [],
     "last_updated": "6/1/2026",
-    "checksum": "1012e8ada95278d6b17bd9bcd6711ec517682d5ea97fa76408f4958633c384df"
+    "checksum": "c2801c95667705b3602726bf8cebfb437cef3eca2ffc7dfec30ab101f5b96f93"
   },
   {
     "node": "NEXUS_DISTILLATION_LOGS_2026-05-13.md",
@@ -1200,7 +1200,7 @@
     "rack": "distilled/audit",
     "tags": [],
     "last_updated": "6/1/2026",
-    "checksum": "1c77f59eb8e534a98f29ef747a815cf2225aa2a9ff35abd98330e73f5941af80"
+    "checksum": "0d2bacc294d65e63ef4981cbabcd6103acda37f461612e36ad1ddd228f94e849"
   },
   {
     "node": "NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD",
@@ -1298,7 +1298,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "51bae7d85b549cb4d488aa0c9c3be711f92d5c7022ed2862afd54236b889eaf7"
+    "checksum": "5653264e830ca147e1aa540abd34056a790026ddf918601415db5ce5f3ca6938"
   },
   {
     "node": "NEXUS_596-ARTICLE TEXT-4777-5556-10-20250717.MD",
@@ -3199,7 +3199,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "e0c0a3cb82437b61b35edd8bff8c08f8d09780e145c140b126286ac04e957b7c"
+    "checksum": "41bf925d1dd368d7b69969d4429a1f98aaa87e282c15e63e4ae7a5e0e03bc542"
   },
   {
     "node": "NEXUS_2025-11-22-OPENCODE-SUPPORT-IMPLEMENTATION.MD",
@@ -3212,7 +3212,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "1e01e7b6dfd1219269a40aba9ed78337fcb0e6a8f66392c4e736d286046438b1"
+    "checksum": "bd9ba52fe411a336148e446d914f982fe74f8bd543ae671ea8475d0af6948381"
   },
   {
     "node": "NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR.MD",
@@ -3226,7 +3226,7 @@
       "vcs"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "7fbd38d538361a8a8de5789d99a59f7868431af2067042c2e095d0fc620578ac"
+    "checksum": "244525351c9a2f0463661af66700e5680bf3649829b4c035ae5a153ae6d80509"
   },
   {
     "node": "NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER-DESIGN.MD",
@@ -3238,7 +3238,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "a53b0f55b0383b1969557195e6e68db24277b50f694cf9714653dc3784f3c98e"
+    "checksum": "4ac0d6195d4b441cb4f4d59f1cf032947b173c19d089547566e1bab9ec9a4d32"
   },
   {
     "node": "NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER.MD",
@@ -3251,7 +3251,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "a4868fc979801c1607df9f24bed96da378a5ea838f4f07c08de2faef6d69c3c6"
+    "checksum": "e5d3b572dde9f2eec8b078e22fbc830be980fff5867f775b5114f6da3a4ddc79"
   },
   {
     "node": "NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY-DESIGN.MD",
@@ -3265,7 +3265,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "d094c6a31793a9efa5a3fc9776a2f63310485805f651ecbcbc03064d040873d7"
+    "checksum": "d5242273a5abb36ba737450b431e91ea4701c25af8184aec01a854bde7ed6379"
   },
   {
     "node": "NEXUS_2026-03-23-CODEX-APP-COMPATIBILITY.MD",
@@ -3277,7 +3277,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "882c0b6b24dd4212a4c3d6c2d2cc2c33c2b97086fee4b03be84f1ec8009a3ebc"
+    "checksum": "fb132faad82876647d04b13277095e9b5b23e10017ef483d7b26ebda87355384"
   },
   {
     "node": "NEXUS_2026-04-06-WORKTREE-ROTOTILL-DESIGN.MD",
@@ -3291,7 +3291,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "1d96d04dae4bad36ea68c12f3b28e599c6990fa596f839fcf31f3c5f00ecc910"
+    "checksum": "c1844d5461350c68fc90a21024f34fbdd17f09999ce1d698301484430d609907"
   },
   {
     "node": "NEXUS_2026-04-06-WORKTREE-ROTOTILL.MD",
@@ -3304,15 +3304,15 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "5e692d1ba6d6ba70c72faa600eb655697a97998b972891f955ca635890fc575b"
+    "checksum": "9595192518d3d2711a6b8ee736ca50756f19e8786ab9d18f500fb78719ada318"
   },
   {
     "node": "NEXUS_AGENTS.MD",
     "path": "distilled/other/NEXUS_AGENTS.MD",
     "rack": "distilled/other",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "6ebdb617a8104a7756d0cf36578ab01103dc9f07e4dc6feb751296b9c402faf7"
+    "last_updated": "6/1/2026",
+    "checksum": "be6ab2da30c9124202f9547887aa90e04c558a8b67c31f9e476b48d38249c697"
   },
   {
     "node": "NEXUS_ANTHROPIC-BEST-PRACTICES.MD",
@@ -3330,7 +3330,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "063ae5fb984e5f55eed9e99f6210697c8012ac9dcd0f1c0a0a408c722f2f1c0d"
+    "checksum": "72ff7184f49f475f4b96957af3e3bcabde6e47a525555d9e81bf6e40ac497f58"
   },
   {
     "node": "NEXUS_CLAUDE.MD",
@@ -3377,7 +3377,7 @@
       "tdd"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "298fb450f96bf5b2c40e390c18f22c68b120de3f2277f423888b2fb51674bfa8"
+    "checksum": "f50717209d86c43100afe9b953feb5ba479677b098eeca7d4ae8f2ceae28e320"
   },
   {
     "node": "NEXUS_DESIGN.MD",
@@ -3392,8 +3392,8 @@
     "path": "distilled/other/NEXUS_GEMINI.MD",
     "rack": "distilled/other",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "0823da8b7277f8b623746d57c0bee75fda02e4c832fe57843e644d0fe633abbc"
+    "last_updated": "6/1/2026",
+    "checksum": "565bd173cfc446d6f5791bd1f9caf0a3859c281f87efaaa328665ab78610ebd6"
   },
   {
     "node": "NEXUS_PERSUASION-PRINCIPLES.MD",
@@ -3425,7 +3425,7 @@
       "tdd"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "cf057545e029edc1c6c3928e7938f0f02573eb63b09474ec31c333fa0e9c1211"
+    "checksum": "c166f7621edd3c160b4abcffc3b9c39ea62e8ed20aac65a218630532cb965e21"
   },
   {
     "node": "NEXUS_README.MD",
@@ -3438,7 +3438,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "0d9677f14d8194787ff63b16ef7048b9152a0aa1598b4b39f9748090526604a2"
+    "checksum": "062b4201f0fbb93372da43246bc66d872a0b3e60480ca7510885f8fa75d38a8a"
   },
   {
     "node": "NEXUS_README.OPENCODE.MD",
@@ -3448,7 +3448,7 @@
       "vcs"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "491d3c5e902f33f8dfa1ff53c2ee58b085fef686b7a37a02b2f2621ed8147b6b"
+    "checksum": "7b6bff9a7b8311d1ceb781cebd3ded53734d683489c097b327ba9ccf80fbfdca"
   },
   {
     "node": "NEXUS_RELEASE-NOTES.MD",
@@ -3465,7 +3465,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "847e674e5d2a80ee216c040bd37ca596e6497c3ac3d0c852693b2bfb85de63a6"
+    "checksum": "322fce5ca80af27f806aa2483bf7d94b4a447793ba004d5b2a03aebb0d35788e"
   },
   {
     "node": "NEXUS_ROOT-CAUSE-TRACING.MD",
@@ -3488,7 +3488,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "70836d4824e30d90a56e14a677fd292b9a2ba02b0d69cfd7356c44dace0666ca"
+    "checksum": "624bf4d19b8455e6198904a5a0d84993d676a65cb7b02424746286176a220962"
   },
   {
     "node": "NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD",
@@ -3534,7 +3534,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "d8923e8d020ea0d1bf910646629212d060bb49927e2b0ef7999a7eededb7fb90"
+    "checksum": "ee28d952948355ce4a2e67488895150639128fe5b6b1a07723fc8b0a58f459e7"
   },
   {
     "node": "NEXUS_BATCH-ANALYTICS-EVENTS.MD",
@@ -4055,7 +4055,7 @@
       "security"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "c0971aec2826d344cfc128c76fc0703d1f135364ae91eefa4f7da58f508baaf6"
+    "checksum": "0237c716dc14078f56050644c8df3ef1b72229ae916c423465bc59982ab8b235"
   },
   {
     "node": "NEXUS_COLOR RESEARCH   APPLICATION - 2024 - GAO - COLOR PALETTE GENERATION FROM DIGITAL IMAGES  A REVIEW.MD",
@@ -4476,8 +4476,8 @@
     "path": "distilled/security/NEXUS_GEMINI-TOOLS.MD",
     "rack": "distilled/security",
     "tags": [],
-    "last_updated": "5/30/2026",
-    "checksum": "a66092fb2dd2c69b6b6d1098feaf456614521fd7b887cf7cb4160c8040ed1d62"
+    "last_updated": "6/1/2026",
+    "checksum": "6540efd8d3be14a706076566f2681aa7cc7bc16e7c92d9f2ddd28a4190430065"
   },
   {
     "node": "NEXUS_HASHING.MD",
@@ -5547,7 +5547,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "36e3429d12ba12936d8c2a7aa79ffe66656d05b2362a7e7decdef76a9027d0ba"
+    "checksum": "f18fb8149c6916c3ba7ac177a894f093187121119ffd013e929946bb360f5780"
   },
   {
     "node": "NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM.MD",
@@ -5560,7 +5560,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "f7e18aea1cb886205d095263b917f1dbec62262b768b330fc7a96c8ac39668be"
+    "checksum": "aac16ceee14e97b8a460e88f49cb603888b6f4c32489a814d62ae3ae6ffe3fad"
   },
   {
     "node": "NEXUS_ADAPTIVE_STRATEGY_AGENT_SESSION_HISTORY_ARCHIVE.MD",
@@ -5660,7 +5660,7 @@
       "tdd"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "c0a1e802ebf9866b4d52ca4d706e63c4d9e646ccd17eabe92d6fda9fb99b9e2c"
+    "checksum": "bc0343abd321cb1c35b732cc5b086435c9b0468a108f1e8a58cd7740d35fa06c"
   },
   {
     "node": "NEXUS_CODE-REVIEWER.MD",
@@ -5918,7 +5918,7 @@
       "vcs"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "09d0fb448023ccacf4d8ad6c3896c60873153f96db638bd5de8eb548b9bec7d1"
+    "checksum": "430a194cec25c8af9ec55ef1ca7b3abe55d886ece4c9c5056fb50dd723826721"
   },
   {
     "node": "NEXUS_STABILIZATION_RECORD.MD",
@@ -5973,7 +5973,7 @@
       "api"
     ],
     "last_updated": "6/1/2026",
-    "checksum": "14dedd795009d0e9e6147657c7b443f0e12f3ff1eb33276991fad428d25c5566"
+    "checksum": "f926903802e976c524674000817745efb7e99ea88b342345e98c9a5127ee1531"
   },
   {
     "node": "NEXUS_TESTING.MD",

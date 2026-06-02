@@ -1,5 +1,5 @@
 # OpenCode Support Implementation Plan
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -37,7 +37,7 @@ const path = require('path');
  * description: Use when [condition] - [what it does]
  * ---
  *
- * @param {string} filePath - Path to SKILL.md file
+ * @param {string} filePath - Path to [SKILL.md](../tdd/NEXUS_SKILL.MD) file
  * @returns {{name: string, description: string}}
  */
 function extractFrontmatter(filePath) {
@@ -109,7 +109,7 @@ Add before `module.exports`:
 
 ```javascript
 /**
- * Find all SKILL.md files in a directory recursively.
+ * Find all [SKILL.md](../tdd/NEXUS_SKILL.MD) files in a directory recursively.
  *
  * @param {string} dir - Directory to search
  * @param {string} sourceType - 'personal' or 'superpowers' for namespacing
@@ -130,8 +130,8 @@ function findSkillsInDir(dir, sourceType, maxDepth = 3) {
             const fullPath = path.join(currentDir, entry.name);
 
             if (entry.isDirectory()) {
-                // Check for SKILL.md in this directory
-                const skillFile = path.join(fullPath, 'SKILL.md');
+                // Check for [SKILL.md](../tdd/NEXUS_SKILL.MD) in this directory
+                const skillFile = path.join(fullPath, '[SKILL.md](../tdd/NEXUS_SKILL.MD)');
                 if (fs.existsSync(skillFile)) {
                     const { name, description } = extractFrontmatter(skillFile);
                     skills.push({
@@ -207,7 +207,7 @@ function resolveSkillPath(skillName, superpowersDir, personalDir) {
     // Try personal skills first (unless explicitly superpowers:)
     if (!forceSuperpowers && personalDir) {
         const personalPath = path.join(personalDir, actualSkillName);
-        const personalSkillFile = path.join(personalPath, 'SKILL.md');
+        const personalSkillFile = path.join(personalPath, '[SKILL.md](../tdd/NEXUS_SKILL.MD)');
         if (fs.existsSync(personalSkillFile)) {
             return {
                 skillFile: personalSkillFile,
@@ -220,7 +220,7 @@ function resolveSkillPath(skillName, superpowersDir, personalDir) {
     // Try superpowers skills
     if (superpowersDir) {
         const superpowersPath = path.join(superpowersDir, actualSkillName);
-        const superpowersSkillFile = path.join(superpowersPath, 'SKILL.md');
+        const superpowersSkillFile = path.join(superpowersPath, '[SKILL.md](../tdd/NEXUS_SKILL.MD)');
         if (fs.existsSync(superpowersSkillFile)) {
             return {
                 skillFile: superpowersSkillFile,
@@ -835,7 +835,7 @@ Create your own skills in `~/.config/opencode/skills/`:
 mkdir -p ~/.config/opencode/skills/my-skill
 ```
 
-Create `~/.config/opencode/skills/my-skill/SKILL.md`:
+Create `~/.config/opencode/skills/my-skill/[SKILL.md](../tdd/NEXUS_SKILL.MD)`:
 
 ```markdown
 ---
@@ -869,7 +869,7 @@ git pull
 
 1. Verify skills directory exists: `ls ~/.config/opencode/superpowers/skills`
 2. Use `find_skills` tool to see what's discovered
-3. Check file structure: each skill should have a `SKILL.md` file
+3. Check file structure: each skill should have a `[SKILL.md](../tdd/NEXUS_SKILL.MD)` file
 
 ### Tool mapping issues
 
@@ -902,7 +902,7 @@ git commit -m "docs: add opencode installation guide"
 ### Task 14: Update Main README
 
 **Files:**
-- Modify: `README.md`
+- Modify: `[README.md](../security/NEXUS_README.MD)`
 
 **Step 1: Add OpenCode section**
 
@@ -924,13 +924,13 @@ Superpowers works with [OpenCode.ai](https://opencode.ai) through a native JavaS
 
 **Step 2: Verify formatting**
 
-Run: `grep -A 10 "### OpenCode" README.md`
+Run: `grep -A 10 "### OpenCode" [README.md](../security/NEXUS_README.MD)`
 Expected: Shows the section you added
 
 **Step 3: Commit**
 
 ```bash
-git add README.md
+git add [README.md](../security/NEXUS_README.MD)
 git commit -m "docs: add opencode support to readme"
 ```
 
@@ -939,7 +939,7 @@ git commit -m "docs: add opencode support to readme"
 ### Task 15: Update Release Notes
 
 **Files:**
-- Modify: `RELEASE-NOTES.md`
+- Modify: `[RELEASE-NOTES.md](NEXUS_RELEASE-NOTES.MD)`
 
 **Step 1: Add entry for OpenCode support**
 
@@ -968,13 +968,13 @@ At the top of the file (after the header), add:
 
 **Step 2: Verify formatting**
 
-Run: `head -30 RELEASE-NOTES.md`
+Run: `head -30 [RELEASE-NOTES.md](NEXUS_RELEASE-NOTES.MD)`
 Expected: Shows your new section
 
 **Step 3: Commit**
 
 ```bash
-git add RELEASE-NOTES.md
+git add [RELEASE-NOTES.md](NEXUS_RELEASE-NOTES.MD)
 git commit -m "docs: add opencode support to release notes"
 ```
 
@@ -1061,7 +1061,7 @@ Expected: Shows all commits from this implementation
 Create a completion summary showing:
 - Total commits made
 - Files created: `lib/skills-core.js`, `.opencode/plugin/superpowers.js`, `.opencode/INSTALL.md`
-- Files modified: `.codex/superpowers-codex`, `README.md`, `RELEASE-NOTES.md`
+- Files modified: `.codex/superpowers-codex`, `[README.md](../security/NEXUS_README.MD)`, `[RELEASE-NOTES.md](NEXUS_RELEASE-NOTES.MD)`
 - Testing performed: Codex commands verified
 - Ready for: Testing with actual OpenCode installation
 

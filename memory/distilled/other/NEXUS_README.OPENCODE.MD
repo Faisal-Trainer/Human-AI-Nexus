@@ -1,5 +1,5 @@
 # Superpowers for OpenCode
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -64,7 +64,7 @@ Create your own skills in `~/.config/opencode/skills/`:
 mkdir -p ~/.config/opencode/skills/my-skill
 ```
 
-Create `~/.config/opencode/skills/my-skill/SKILL.md`:
+Create `~/.config/opencode/skills/my-skill/[SKILL.md](../tdd/NEXUS_SKILL.MD)`:
 
 ```markdown
 ---
@@ -146,7 +146,7 @@ Then use the installed package path in `opencode.json`:
 
 1. Use OpenCode's `skill` tool to list available skills
 2. Check that the plugin is loading (see above)
-3. Each skill needs a `SKILL.md` file with valid YAML frontmatter
+3. Each skill needs a `[SKILL.md](../tdd/NEXUS_SKILL.MD)` file with valid YAML frontmatter
 
 ### Bootstrap not appearing
 

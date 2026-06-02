@@ -1,5 +1,5 @@
 # Document Review System Design
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -16,7 +16,7 @@ Both follow the iterative loop pattern used by implementation reviews.
 
 **Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.
 
-**Location:** `skills/brainstorming/spec-document-reviewer-prompt.md`
+**Location:** `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
 
 **What it checks for:**
 
@@ -49,7 +49,7 @@ Both follow the iterative loop pattern used by implementation reviews.
 
 **Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.
 
-**Location:** `skills/writing-plans/plan-document-reviewer-prompt.md`
+**Location:** `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
 
 **What it checks for:**
 
@@ -131,12 +131,12 @@ Tasks and steps use checkbox syntax:
 ## Files to Change
 
 **New files:**
-- `skills/brainstorming/spec-document-reviewer-prompt.md`
-- `skills/writing-plans/plan-document-reviewer-prompt.md`
+- `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
+- `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
 
 **Modified files:**
-- `skills/brainstorming/SKILL.md` - add review loop after spec written
-- `skills/writing-plans/SKILL.md` - add chunk-by-chunk review loop, update task syntax examples
+- `skills/brainstorming/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add review loop after spec written
+- `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add chunk-by-chunk review loop, update task syntax examples
 
 
 ---

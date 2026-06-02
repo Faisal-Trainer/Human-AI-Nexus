@@ -1,11 +1,11 @@
 # Visual Brainstorming Refactor: Browser Displays, Terminal Commands
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
 **Date:** 2026-02-19
 **Status:** Approved
-**Scope:** `lib/brainstorm-server/`, `skills/brainstorming/visual-companion.md`, `tests/brainstorm-server/`
+**Scope:** `lib/brainstorm-server/`, `skills/brainstorming/[visual-companion.md](../other/NEXUS_VISUAL-COMPANION.MD)`, `tests/brainstorm-server/`
 
 ## Problem
 
@@ -114,7 +114,7 @@ The current regex anchors on `<div class="feedback-footer">`, which is being rem
 **Remove from `window.brainstorm` API:**
 - `brainstorm.sendToClaude` — no longer exists
 
-### `visual-companion.md` (skill instructions)
+### `[visual-companion.md](../other/NEXUS_VISUAL-COMPANION.MD)` (skill instructions)
 
 **Rewrite "The Loop" section** to the non-blocking flow described above. Remove all references to:
 - `wait-for-feedback.sh`
@@ -148,7 +148,7 @@ Tests that need updating:
 
 The server code (`index.js`, `helper.js`, `frame-template.html`) is fully platform-agnostic — pure Node.js and browser JavaScript. No Claude Code-specific references. Already proven to work on Codex via background terminal interaction.
 
-The skill instructions (`visual-companion.md`) are the platform-adaptive layer. Each platform's Claude uses its own tools to start the server, read `.events`, etc. The non-blocking model works naturally across platforms since it doesn't depend on any platform-specific blocking primitive.
+The skill instructions (`[visual-companion.md](../other/NEXUS_VISUAL-COMPANION.MD)`) are the platform-adaptive layer. Each platform's Claude uses its own tools to start the server, read `.events`, etc. The non-blocking model works naturally across platforms since it doesn't depend on any platform-specific blocking primitive.
 
 ## What This Enables
 

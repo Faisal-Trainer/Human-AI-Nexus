@@ -1,5 +1,5 @@
 # Skills Improvements from User Feedback
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -570,46 +570,46 @@ Slightly more complex prompt, but faster end-to-end.
 1. **verification-before-completion: Configuration change verification**
    - Clear addition, doesn't change existing content
    - Addresses high-impact problem (false confidence in tests)
-   - File: `skills/verification-before-completion/SKILL.md`
+   - File: `skills/verification-before-completion/[SKILL.md](NEXUS_SKILL.MD)`
 
 2. **testing-anti-patterns: Mock-interface drift**
    - Adds new anti-pattern, doesn't modify existing
    - Addresses high-impact problem (runtime crashes)
-   - File: `skills/testing-anti-patterns/SKILL.md`
+   - File: `skills/testing-anti-patterns/[SKILL.md](NEXUS_SKILL.MD)`
 
 3. **requesting-code-review: Explicit file reading**
    - Simple addition to template
    - Fixes concrete problem (reviewers can't find files)
-   - File: `skills/requesting-code-review/SKILL.md`
+   - File: `skills/requesting-code-review/[SKILL.md](NEXUS_SKILL.MD)`
 
 ### Phase 2: Moderate Changes (Test Carefully)
 
 4. **subagent-driven-development: Process hygiene**
    - Adds new section, doesn't change workflow
    - Addresses medium-high impact (test reliability)
-   - File: `skills/subagent-driven-development/SKILL.md`
+   - File: `skills/subagent-driven-development/[SKILL.md](NEXUS_SKILL.MD)`
 
 5. **subagent-driven-development: Self-reflection**
    - Changes prompt template (higher risk)
    - But documented to catch bugs
-   - File: `skills/subagent-driven-development/SKILL.md`
+   - File: `skills/subagent-driven-development/[SKILL.md](NEXUS_SKILL.MD)`
 
 6. **subagent-driven-development: Skills reading requirement**
    - Adds prompt overhead
    - But ensures skills are actually used
-   - File: `skills/subagent-driven-development/SKILL.md`
+   - File: `skills/subagent-driven-development/[SKILL.md](NEXUS_SKILL.MD)`
 
 ### Phase 3: Optimization (Validate First)
 
 7. **subagent-driven-development: Lean context option**
    - Adds complexity (two approaches)
    - Needs validation that it doesn't cause confusion
-   - File: `skills/subagent-driven-development/SKILL.md`
+   - File: `skills/subagent-driven-development/[SKILL.md](NEXUS_SKILL.MD)`
 
 8. **subagent-driven-development: Allow implementer to fix**
    - Changes workflow (higher risk)
    - Optimization, not bug fix
-   - File: `skills/subagent-driven-development/SKILL.md`
+   - File: `skills/subagent-driven-development/[SKILL.md](NEXUS_SKILL.MD)`
 
 ---
 

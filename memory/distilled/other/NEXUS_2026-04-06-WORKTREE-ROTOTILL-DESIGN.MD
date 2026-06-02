@@ -1,5 +1,5 @@
 # Worktree Rototill: Detect-and-Defer
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -26,7 +26,7 @@ For harnesses without native support (Codex CLI, OpenCode, Copilot standalone), 
 2. Continue providing worktree support for harnesses that lack it
 3. Fix three known bugs in finishing-a-development-branch (#940, #999, #238)
 4. Make worktree creation opt-in rather than mandatory (#991)
-5. Replace hardcoded `CLAUDE.md` references with platform-neutral language (#1049)
+5. Replace hardcoded `[CLAUDE.md](NEXUS_CLAUDE.MD)` references with platform-neutral language (#1049)
 
 ## Non-Goals
 
@@ -53,7 +53,7 @@ Whoever creates the worktree owns its cleanup. If the harness created it, superp
 
 ## Design
 
-### 1. `using-git-worktrees` SKILL.md Rewrite
+### 1. `using-git-worktrees` [SKILL.md](../tdd/NEXUS_SKILL.MD) Rewrite
 
 The skill gains three new steps before creation and simplifies the creation flow.
 
@@ -115,7 +115,7 @@ When no native tool is available, create a worktree manually.
 **Directory selection** (priority order):
 1. Check for existing `.worktrees/` or `worktrees/` directory — if found, use it. If both exist, `.worktrees/` wins.
 2. Check for existing `~/.config/superpowers/worktrees/<project>/` directory — if found, use it (backward compatibility with legacy global path).
-3. Check the project's agent instruction file (CLAUDE.md, GEMINI.md, AGENTS.md, .cursorrules, or equivalent) for a worktree directory preference.
+3. Check the project's agent instruction file ([CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), [AGENTS.md](NEXUS_AGENTS.MD), .cursorrules, or equivalent) for a worktree directory preference.
 4. Default to `.worktrees/`.
 
 No interactive directory selection prompt. The global path (`~/.config/superpowers/worktrees/`) is no longer offered as a choice to new users, but existing worktrees at that location are detected and used for backward compatibility.
@@ -156,7 +156,7 @@ Regardless of which path created the workspace (Step 0 detected existing, Step 1
 - **Step 3:** Auto-detect and run project setup (`npm install`, `cargo build`, `pip install`, `go mod download`, etc.)
 - **Step 4:** Run the test suite. If tests fail, report failures and ask whether to proceed.
 
-### 2. `finishing-a-development-branch` SKILL.md Rewrite
+### 2. `finishing-a-development-branch` [SKILL.md](../tdd/NEXUS_SKILL.MD) Rewrite
 
 The finishing skill gains environment detection and fixes three bugs.
 
@@ -266,9 +266,9 @@ Remove the stale claim "should be run in a dedicated worktree (created by brains
 
 ### 4. Platform-Neutral Instruction File References
 
-All instances of hardcoded `CLAUDE.md` in worktree-related skills are replaced with:
+All instances of hardcoded `[CLAUDE.md](NEXUS_CLAUDE.MD)` in worktree-related skills are replaced with:
 
-> "your project's agent instruction file (CLAUDE.md, GEMINI.md, AGENTS.md, .cursorrules, or equivalent)"
+> "your project's agent instruction file ([CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), [AGENTS.md](NEXUS_AGENTS.MD), .cursorrules, or equivalent)"
 
 This applies to directory preference checks in Step 1b.
 
@@ -276,9 +276,9 @@ This applies to directory preference checks in Step 1b.
 
 | Bug | Problem | Fix | Location |
 |-----|---------|-----|----------|
-| #940 | Option 2 prose says "Then: Cleanup worktree (Step 5)" but quick reference says keep it. Step 5 says "For Options 1, 2, 4" but Common Mistakes says "Options 1 and 4 only." | Remove cleanup from Option 2. Step 5 applies to Options 1 and 4 only. | finishing SKILL.md |
-| #999 | Option 1 deletes branch before removing worktree. `git branch -d` can fail because worktree still references the branch. | Reorder to: merge → verify tests → remove worktree → delete branch. Merge must succeed before anything is removed. | finishing SKILL.md |
-| #238 | `git worktree remove` fails silently if CWD is inside the worktree being removed. | Add CWD guard: `cd` to main repo root before `git worktree remove`. | finishing SKILL.md |
+| #940 | Option 2 prose says "Then: Cleanup worktree (Step 5)" but quick reference says keep it. Step 5 says "For Options 1, 2, 4" but Common Mistakes says "Options 1 and 4 only." | Remove cleanup from Option 2. Step 5 applies to Options 1 and 4 only. | finishing [SKILL.md](../tdd/NEXUS_SKILL.MD) |
+| #999 | Option 1 deletes branch before removing worktree. `git branch -d` can fail because worktree still references the branch. | Reorder to: merge → verify tests → remove worktree → delete branch. Merge must succeed before anything is removed. | finishing [SKILL.md](../tdd/NEXUS_SKILL.MD) |
+| #238 | `git worktree remove` fails silently if CWD is inside the worktree being removed. | Add CWD guard: `cd` to main repo root before `git worktree remove`. | finishing [SKILL.md](../tdd/NEXUS_SKILL.MD) |
 
 ## Issues Resolved
 
@@ -333,7 +333,7 @@ Both skill files contain sections beyond the core steps that need updating durin
 
 - **Frontmatter** (`name`, `description`): Update to reflect detect-and-defer behavior
 - **Quick Reference tables**: Rewrite to match new step structure and bug fixes
-- **Common Mistakes sections**: Update or remove items that reference old behavior (e.g., "Skip CLAUDE.md check" is now wrong)
+- **Common Mistakes sections**: Update or remove items that reference old behavior (e.g., "Skip [CLAUDE.md](NEXUS_CLAUDE.MD) check" is now wrong)
 - **Red Flags sections**: Update to reflect new priorities (e.g., "Never create a worktree when Step 0 detects existing isolation")
 - **Integration sections**: Update cross-references between skills
 

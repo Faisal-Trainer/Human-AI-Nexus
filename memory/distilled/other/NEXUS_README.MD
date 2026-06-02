@@ -1,5 +1,5 @@
 # Superpowers
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -128,7 +128,7 @@ already use it in another harness.
   Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md
   ```
 
-- Detailed docs: [docs/README.opencode.md](docs/README.opencode.md)
+- Detailed docs: [docs/README.opencode.md](docs/[README.opencode.md](NEXUS_README.OPENCODE.MD))
 
 ### Cursor
 
@@ -217,7 +217,7 @@ The general contribution process for Superpowers is below. Keep in mind that we 
 4. Follow the `writing-skills` skill for creating and testing new and modified skills
 5. Submit a PR, being sure to fill in the pull request template.
 
-See `skills/writing-skills/SKILL.md` for the complete guide.
+See `skills/writing-skills/[SKILL.md](../tdd/NEXUS_SKILL.MD)` for the complete guide.
 
 ## Updating
 

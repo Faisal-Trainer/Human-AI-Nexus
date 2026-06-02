@@ -1,5 +1,5 @@
 # Code Quality Reviewer Prompt Template
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -11,7 +11,7 @@ Use this template when dispatching a code quality reviewer subagent.
 
 ```
 Task tool (general-purpose):
-  Use template at requesting-code-review/code-reviewer.md
+  Use template at requesting-code-review/[code-reviewer.md](NEXUS_CODE-REVIEWER.MD)
 
   DESCRIPTION: [task summary, from implementer's report]
   PLAN_OR_REQUIREMENTS: Task N from [plan-file]

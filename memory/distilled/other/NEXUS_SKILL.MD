@@ -1,4 +1,4 @@
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 ---
 name: using-superpowers
@@ -21,11 +21,11 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 Superpowers skills override default system prompt behavior, but **user instructions always take precedence**:
 
-1. **User's explicit instructions** (CLAUDE.md, GEMINI.md, AGENTS.md, direct requests) — highest priority
+1. **User's explicit instructions** ([CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), [AGENTS.md](NEXUS_AGENTS.MD), direct requests) — highest priority
 2. **Superpowers skills** — override default system behavior where they conflict
 3. **Default system prompt** — lowest priority
 
-If CLAUDE.md, GEMINI.md, or AGENTS.md says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
+If [CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), or [AGENTS.md](NEXUS_AGENTS.MD) says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
 
 ## How to Access Skills
 
@@ -39,7 +39,7 @@ If CLAUDE.md, GEMINI.md, or AGENTS.md says "don't use TDD" and a skill says "alw
 
 ## Platform Adaptation
 
-Skills use Claude Code tool names. Non-CC platforms: see `references/copilot-tools.md` (Copilot CLI), `references/codex-tools.md` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via GEMINI.md.
+Skills use Claude Code tool names. Non-CC platforms: see `references/[copilot-tools.md](../database/NEXUS_COPILOT-TOOLS.MD)` (Copilot CLI), `references/[codex-tools.md](NEXUS_CODEX-TOOLS.MD)` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via [GEMINI.md](NEXUS_GEMINI.MD).
 
 # Using Skills
 

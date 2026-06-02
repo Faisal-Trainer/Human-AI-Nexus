@@ -1,5 +1,5 @@
 # Superpowers Release Notes
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -8,7 +8,7 @@
 ### Removals
 
 - **Legacy slash commands removed** — `/brainstorm`, `/execute-plan`, and `/write-plan` are gone. They were deprecated stubs that did nothing but tell the user to invoke the corresponding skill. Invoke `superpowers:brainstorming`, `superpowers:executing-plans`, and `superpowers:writing-plans` directly instead. (#1188)
-- **`superpowers:code-reviewer` named agent removed** — the agent was the plugin's only named agent and was used by exactly two skills, while every other reviewer/implementer subagent in the repo dispatches `general-purpose` with a prompt template alongside its skill. The agent's persona and checklist have been merged into `skills/requesting-code-review/code-reviewer.md` as a self-contained Task-dispatch template. Anyone dispatching `Task (superpowers:code-reviewer)` should switch to `Task (general-purpose)` with the prompt template instead. (PR #1299)
+- **`superpowers:code-reviewer` named agent removed** — the agent was the plugin's only named agent and was used by exactly two skills, while every other reviewer/implementer subagent in the repo dispatches `general-purpose` with a prompt template alongside its skill. The agent's persona and checklist have been merged into `skills/requesting-code-review/[code-reviewer.md](../tdd/NEXUS_CODE-REVIEWER.MD)` as a self-contained Task-dispatch template. Anyone dispatching `Task (superpowers:code-reviewer)` should switch to `Task (general-purpose)` with the prompt template instead. (PR #1299)
 - **Integration sections removed from skills** — these were a legacy of the time before agents had native skills systems and didn't help with steering.
 
 ### Worktree Skills Rewrite
@@ -24,7 +24,7 @@
 
 ### Contributor Guidelines for AI Agents
 
-Two new sections at the top of `CLAUDE.md` (symlinked to `AGENTS.md`) speak directly to AI agents. An audit of the last 100 closed PRs against this repo showed a 94% rejection rate driven by AI-generated slop: agents that didn't read the PR template, opened duplicates, fabricated problem descriptions, or pushed fork- or domain-specific changes upstream.
+Two new sections at the top of `[CLAUDE.md](NEXUS_CLAUDE.MD)` (symlinked to `[AGENTS.md](NEXUS_AGENTS.MD)`) speak directly to AI agents. An audit of the last 100 closed PRs against this repo showed a 94% rejection rate driven by AI-generated slop: agents that didn't read the PR template, opened duplicates, fabricated problem descriptions, or pushed fork- or domain-specific changes upstream.
 
 - **Pre-submission checklist** — read the PR template, search for existing PRs, verify a real problem exists, confirm the change belongs in core, and show the human partner the complete diff before submitting.
 - **What we will not accept** — third-party dependencies, "compliance" rewrites of skill content, project-specific configuration, bulk PRs, speculative fixes, domain-specific skills, fork-specific changes, fabricated content, and bundled unrelated changes.
@@ -36,7 +36,7 @@ New `sync-to-codex-plugin` script mirrors superpowers into the OpenAI Codex plug
 
 - Clones the fork fresh into a temp directory per run, regenerates overlays inline, and opens a PR; auto-detects upstream from the script's own location and preflights `rsync`/`git`/`gh auth`/`python3`.
 - `--bootstrap` flag for first-time setup; `EXCLUDES` patterns anchored to source root; `assets/` excluded.
-- Mirrors `CODE_OF_CONDUCT.md`; drops the `agents/openai.yaml` overlay.
+- Mirrors `[CODE_OF_CONDUCT.md](NEXUS_CODE_OF_CONDUCT.MD)`; drops the `agents/openai.yaml` overlay.
 - Seeds `interface.defaultPrompt` in the mirrored `plugin.json`. (PR #1180 by @arittr)
 - Codex plugin files are committed to the source repo so the sync script uses canonical versions; Codex marketplace metadata is preserved.
 
@@ -48,12 +48,12 @@ New `sync-to-codex-plugin` script mirrors superpowers into the OpenAI Codex plug
 
 ### Code Review Consolidation
 
-`requesting-code-review` is now self-contained: the persona, checklist, and dispatch template live in `skills/requesting-code-review/code-reviewer.md` and the skill dispatches `Task (general-purpose)` directly. (PR #1299)
+`requesting-code-review` is now self-contained: the persona, checklist, and dispatch template live in `skills/requesting-code-review/[code-reviewer.md](../tdd/NEXUS_CODE-REVIEWER.MD)` and the skill dispatches `Task (general-purpose)` directly. (PR #1299)
 
-- **Single source of truth** — the persona/checklist that previously lived in both `agents/code-reviewer.md` and the skill's placeholder template (and drifted independently) is now one file.
-- **`subagent-driven-development` follows suit** — its `code-quality-reviewer-prompt.md` now dispatches `Task (general-purpose)` instead of the named agent.
+- **Single source of truth** — the persona/checklist that previously lived in both `agents/[code-reviewer.md](../tdd/NEXUS_CODE-REVIEWER.MD)` and the skill's placeholder template (and drifted independently) is now one file.
+- **`subagent-driven-development` follows suit** — its `[code-quality-reviewer-prompt.md](../tdd/NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD)` now dispatches `Task (general-purpose)` instead of the named agent.
 - **Behavioral test added** — `tests/claude-code/test-requesting-code-review.sh` plants real bugs (SQL injection, plaintext password handling, credential logging) into a tiny project and asserts the dispatched reviewer flags every planted issue at Critical/Important severity and refuses to approve the diff.
-- **Codex and Copilot workaround docs trimmed** — the "Named agent dispatch" sections in `references/codex-tools.md` and `references/copilot-tools.md` documented how to flatten a named agent into a generic dispatch. With no named agents shipping, the workaround is unnecessary; both sections were dropped.
+- **Codex and Copilot workaround docs trimmed** — the "Named agent dispatch" sections in `references/[codex-tools.md](NEXUS_CODEX-TOOLS.MD)` and `references/[copilot-tools.md](../database/NEXUS_COPILOT-TOOLS.MD)` documented how to flatten a named agent into a generic dispatch. With no named agents shipping, the workaround is unnecessary; both sections were dropped.
 
 ### Subagent-Driven Development
 
@@ -92,7 +92,7 @@ New `sync-to-codex-plugin` script mirrors superpowers into the OpenAI Codex plug
 ### GitHub Copilot CLI Support
 
 - **SessionStart context injection** — Copilot CLI v1.0.11 added support for `additionalContext` in sessionStart hook output. The session-start hook now detects the `COPILOT_CLI` environment variable and emits the SDK-standard `{ "additionalContext": "..." }` format, giving Copilot CLI users the full superpowers bootstrap at session start. (Original fix by @culinablaz in PR #910)
-- **Tool mapping** — added `references/copilot-tools.md` with the full Claude Code to Copilot CLI tool equivalence table
+- **Tool mapping** — added `references/[copilot-tools.md](../database/NEXUS_COPILOT-TOOLS.MD)` with the full Claude Code to Copilot CLI tool equivalence table
 - **Skill and README updates** — added Copilot CLI to the `using-superpowers` skill's platform instructions and README installation section
 
 ### OpenCode Fixes
@@ -118,7 +118,7 @@ The subagent review loop (dispatching a fresh agent to review plans/specs) doubl
 ### Bug Fixes
 
 - **Owner-PID lifecycle fixes** — the brainstorm server's owner-PID monitoring had two bugs causing false shutdowns within 60 seconds: (1) EPERM from cross-user PIDs (Tailscale SSH, etc.) was treated as "process dead", and (2) on WSL the grandparent PID resolves to a short-lived subprocess that exits before the first lifecycle check. Fixed by treating EPERM as "alive" and validating the owner PID at startup — if it's already dead, monitoring is disabled and the server relies on the 30-minute idle timeout. This also removes the Windows/MSYS2-specific carve-out from `start-server.sh` since the server now handles it generically. (#879)
-- **writing-skills** — corrected false claim that SKILL.md frontmatter supports "only two fields"; now says "two required fields" and links to the agentskills.io specification for all supported fields (PR #882 by @arittr)
+- **writing-skills** — corrected false claim that [SKILL.md](../tdd/NEXUS_SKILL.MD) frontmatter supports "only two fields"; now says "two required fields" and links to the agentskills.io specification for all supported fields (PR #882 by @arittr)
 
 ### Codex App Compatibility
 
@@ -213,9 +213,9 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 
 **Gemini CLI extension**
 
-- Native Gemini CLI extension support via `gemini-extension.json` and `GEMINI.md` at repo root
-- `GEMINI.md` @imports `using-superpowers` skill and tool mapping table at session start
-- Gemini CLI tool mapping reference (`skills/using-superpowers/references/gemini-tools.md`) — translates Claude Code tool names (Read, Write, Edit, Bash, etc.) to Gemini CLI equivalents (read_file, write_file, replace, etc.)
+- Native Gemini CLI extension support via `gemini-extension.json` and `[GEMINI.md](NEXUS_GEMINI.MD)` at repo root
+- `[GEMINI.md](NEXUS_GEMINI.MD)` @imports `using-superpowers` skill and tool mapping table at session start
+- Gemini CLI tool mapping reference (`skills/using-superpowers/references/[gemini-tools.md](../security/NEXUS_GEMINI-TOOLS.MD)`) — translates Claude Code tool names (Read, Write, Edit, Bash, etc.) to Gemini CLI equivalents (read_file, write_file, replace, etc.)
 - Documents Gemini CLI limitations: no subagent support, skills fall back to `executing-plans`
 - Extension root at repo root for cross-platform compatibility (avoids Windows symlink issues)
 - Install instructions added to README
@@ -224,7 +224,7 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 
 **Multi-platform brainstorm server launch**
 
-- Per-platform launch instructions in visual-companion.md: Claude Code (default mode), Codex (auto-foreground via `CODEX_CI`), Gemini CLI (`--foreground` with `is_background`), and fallback for other environments
+- Per-platform launch instructions in [visual-companion.md](NEXUS_VISUAL-COMPANION.MD): Claude Code (default mode), Codex (auto-foreground via `CODEX_CI`), Gemini CLI (`--foreground` with `is_background`), and fallback for other environments
 - Server now writes startup JSON to `$SCREEN_DIR/.server-info` so agents can find the URL and port even when stdout is hidden by background execution
 
 **Brainstorm server dependencies bundled**
@@ -293,7 +293,7 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 
 **Specs and plans directory restructured**
 
-- Specs (brainstorming output) now save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Specs (brainstorming output) now save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-[design.md](NEXUS_DESIGN.MD)`
 - Plans (writing-plans output) now save to `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
 - User preferences for spec/plan locations override these defaults
 - All internal skill references, test files, and example paths updated to match
@@ -318,7 +318,7 @@ Removed the "execute 3 tasks then stop for review" pattern. Plans now execute co
 Optional browser-based companion for brainstorming sessions. When a topic would benefit from visuals, the brainstorming skill offers to show mockups, diagrams, comparisons, and other content in a browser window alongside terminal conversation.
 
 - `lib/brainstorm-server/` — WebSocket server with browser helper library, session management scripts, and dark/light themed frame template ("Superpowers Brainstorming" with GitHub link)
-- `skills/brainstorming/visual-companion.md` — Progressive disclosure guide for server workflow, screen authoring, and feedback collection
+- `skills/brainstorming/[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)` — Progressive disclosure guide for server workflow, screen authoring, and feedback collection
 - Brainstorming skill adds a visual companion decision point to its process flow: after exploring project context, the skill evaluates whether upcoming questions involve visual content and offers the companion in its own message
 - Per-question decision: even after accepting, each question is evaluated for whether browser or terminal is more appropriate
 - Integration tests in `tests/brainstorm-server/`
@@ -327,8 +327,8 @@ Optional browser-based companion for brainstorming sessions. When a topic would 
 
 Automated review loops for spec and plan documents using subagent dispatch:
 
-- `skills/brainstorming/spec-document-reviewer-prompt.md` — Reviewer checks completeness, consistency, architecture, and YAGNI
-- `skills/writing-plans/plan-document-reviewer-prompt.md` — Reviewer checks spec alignment, task decomposition, file structure, and file size
+- `skills/brainstorming/[spec-document-reviewer-prompt.md](NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)` — Reviewer checks completeness, consistency, architecture, and YAGNI
+- `skills/writing-plans/[plan-document-reviewer-prompt.md](NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)` — Reviewer checks spec alignment, task decomposition, file structure, and file size
 - Brainstorming dispatches spec reviewer after writing the design doc
 - Writing-plans includes chunk-based plan review loop after each section
 - Review loops repeat until approved or escalate after 5 iterations
@@ -357,11 +357,11 @@ Design-for-isolation and file-size-awareness guidance added to brainstorming, wr
 
 Added explicit priority ordering to using-superpowers:
 
-1. User's explicit instructions (CLAUDE.md, AGENTS.md, direct requests) — highest priority
+1. User's explicit instructions ([CLAUDE.md](NEXUS_CLAUDE.MD), [AGENTS.md](NEXUS_AGENTS.MD), direct requests) — highest priority
 2. Superpowers skills — override default system behavior
 3. Default system prompt — lowest priority
 
-If CLAUDE.md or AGENTS.md says "don't use TDD" and a skill says "always use TDD," the user's instructions win.
+If [CLAUDE.md](NEXUS_CLAUDE.MD) or [AGENTS.md](NEXUS_AGENTS.MD) says "don't use TDD" and a skill says "always use TDD," the user's instructions win.
 
 **SUBAGENT-STOP gate**
 
@@ -369,7 +369,7 @@ Added `<SUBAGENT-STOP>` block to using-superpowers. Subagents dispatched for spe
 
 **Multi-platform improvements**
 
-- Codex tool mapping moved to progressive disclosure reference file (`references/codex-tools.md`)
+- Codex tool mapping moved to progressive disclosure reference file (`references/[codex-tools.md](NEXUS_CODEX-TOOLS.MD)`)
 - Platform Adaptation pointer added so non-Claude-Code platforms can find tool equivalents
 - Plan headers now address "agentic workers" instead of "Claude" specifically
 - Collab feature requirement documented in `docs/README.codex.md`
@@ -504,7 +504,7 @@ OpenCode's official documentation uses `~/.config/opencode/plugins/` (plural). O
 
 Changes:
 - Renamed `.opencode/plugin/` to `.opencode/plugins/` in repo structure
-- Updated all installation docs (INSTALL.md, README.opencode.md) across all platforms
+- Updated all installation docs (INSTALL.md, [README.opencode.md](NEXUS_README.OPENCODE.MD)) across all platforms
 - Updated test scripts to match
 
 **OpenCode: Fixed symlink instructions (#339, #342)**
@@ -614,22 +614,22 @@ Other subagent workflow improvements:
 - Plan read once at start, extracted to TodoWrite
 
 New prompt templates in `skills/subagent-driven-development/`:
-- `implementer-prompt.md` - Includes self-review checklist, encourages questions
-- `spec-reviewer-prompt.md` - Skeptical verification against requirements
-- `code-quality-reviewer-prompt.md` - Standard code review
+- `[implementer-prompt.md](../tdd/NEXUS_IMPLEMENTER-PROMPT.MD)` - Includes self-review checklist, encourages questions
+- `[spec-reviewer-prompt.md](../performance/NEXUS_SPEC-REVIEWER-PROMPT.MD)` - Skeptical verification against requirements
+- `[code-quality-reviewer-prompt.md](../tdd/NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD)` - Standard code review
 
 **Debugging techniques consolidated with tools**
 
 `systematic-debugging` now bundles supporting techniques and tools:
-- `root-cause-tracing.md` - Trace bugs backward through call stack
-- `defense-in-depth.md` - Add validation at multiple layers
-- `condition-based-waiting.md` - Replace arbitrary timeouts with condition polling
+- `[root-cause-tracing.md](NEXUS_ROOT-CAUSE-TRACING.MD)` - Trace bugs backward through call stack
+- `[defense-in-depth.md](../tdd/NEXUS_DEFENSE-IN-DEPTH.MD)` - Add validation at multiple layers
+- `[condition-based-waiting.md](../security/NEXUS_CONDITION-BASED-WAITING.MD)` - Replace arbitrary timeouts with condition polling
 - `find-polluter.sh` - Bisection script to find which test creates pollution
 - `condition-based-waiting-example.ts` - Complete implementation from real debugging session
 
 **Testing anti-patterns reference**
 
-`test-driven-development` now includes `testing-anti-patterns.md` covering:
+`test-driven-development` now includes `[testing-anti-patterns.md](../api/NEXUS_TESTING-ANTI-PATTERNS.MD)` covering:
 - Testing mock behavior instead of real behavior
 - Adding test-only methods to production classes
 - Mocking without understanding dependencies
@@ -675,7 +675,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 
 - **render-graphs.js** - Tool to extract DOT diagrams from skills and render to SVG
 - **Rationalizations table** in using-superpowers - Scannable format including new entries: "I need more context first", "Let me explore first", "This feels productive"
-- **docs/testing.md** - Guide to testing skills with Claude Code integration tests
+- **docs/[testing.md](../tdd/NEXUS_TESTING.MD)** - Guide to testing skills with Claude Code integration tests
 
 ---
 
@@ -715,7 +715,7 @@ Description changed to imperative: "You MUST use this before any creative work�
   - Project-local skills support (`.opencode/skills/`)
   - Shared core module (`lib/skills-core.js`) for code reuse with Codex
   - Automated test suite with proper isolation (`tests/opencode/`)
-  - Platform-specific documentation (`docs/README.opencode.md`, `docs/README.codex.md`)
+  - Platform-specific documentation (`docs/[README.opencode.md](NEXUS_README.OPENCODE.MD)`, `docs/README.codex.md`)
 
 ### Changed
 
@@ -767,7 +767,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 - Clean skill display: shows name/description without raw frontmatter
 - Helpful context: shows supporting files directory for each skill
 - Tool mapping for Codex: TodoWrite→update_plan, subagents→manual fallback, etc.
-- Bootstrap integration with minimal AGENTS.md for automatic startup
+- Bootstrap integration with minimal [AGENTS.md](NEXUS_AGENTS.MD) for automatic startup
 - Complete installation guide and bootstrap instructions specific to Codex
 
 **Key differences from Claude Code integration:**
@@ -796,7 +796,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 The Skill tool is the proper mechanism for invoking skills in Claude Code. This update corrects the bootstrap instructions to guide agents toward the correct tool.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Changed tool references from Read to Skill
+- Updated: `skills/using-superpowers/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - Changed tool references from Read to Skill
 
 ## v3.2.2 (2025-10-21)
 
@@ -818,7 +818,7 @@ The Skill tool is the proper mechanism for invoking skills in Claude Code. This 
 These changes address observed agent behavior where they rationalize around skill usage despite clear instructions. The forceful language and pre-emptive counter-arguments aim to make non-compliance harder.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Added three layers of enforcement to prevent skill-skipping rationalization
+- Updated: `skills/using-superpowers/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - Added three layers of enforcement to prevent skill-skipping rationalization
 
 ## v3.2.1 (2025-10-20)
 
@@ -832,9 +832,9 @@ These changes address observed agent behavior where they rationalize around skil
 - Fixes #55
 
 ### Files Changed
-- New: `agents/code-reviewer.md` - Agent definition with review checklist and output format
-- Updated: `skills/requesting-code-review/SKILL.md` - References to `superpowers:code-reviewer`
-- Updated: `skills/subagent-driven-development/SKILL.md` - References to `superpowers:code-reviewer`
+- New: `agents/[code-reviewer.md](../tdd/NEXUS_CODE-REVIEWER.MD)` - Agent definition with review checklist and output format
+- Updated: `skills/requesting-code-review/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - References to `superpowers:code-reviewer`
+- Updated: `skills/subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - References to `superpowers:code-reviewer`
 
 ## v3.2.0 (2025-10-18)
 
@@ -842,7 +842,7 @@ These changes address observed agent behavior where they rationalize around skil
 
 **Design documentation in brainstorming workflow**
 - Added Phase 4: Design Documentation to brainstorming skill
-- Design documents now written to `docs/plans/YYYY-MM-DD-<topic>-design.md` before implementation
+- Design documents now written to `docs/plans/YYYY-MM-DD-<topic>-[design.md](NEXUS_DESIGN.MD)` before implementation
 - Restores functionality from original brainstorming command that was lost during skill conversion
 - Documents written before worktree setup and implementation planning
 - Tested with subagent to verify compliance under time pressure
@@ -859,7 +859,7 @@ These changes address observed agent behavior where they rationalize around skil
 ### Improvements
 
 **Design vs implementation plan naming**
-- Design documents use `-design.md` suffix to prevent filename collisions
+- Design documents use `-[design.md](NEXUS_DESIGN.MD)` suffix to prevent filename collisions
 - Implementation plans continue using existing `YYYY-MM-DD-<feature-name>.md` format
 - Both stored in `docs/plans/` directory with clear naming distinction
 
@@ -890,8 +890,8 @@ These changes address observed agent behavior where they rationalize around skil
 - Restructured Key Principles as scannable table
 
 **Anthropic best practices integration**
-- Added `skills/writing-skills/anthropic-best-practices.md` - Official Anthropic skill authoring guide
-- Referenced in writing-skills SKILL.md for comprehensive guidance
+- Added `skills/writing-skills/[anthropic-best-practices.md](NEXUS_ANTHROPIC-BEST-PRACTICES.MD)` - Official Anthropic skill authoring guide
+- Referenced in writing-skills [SKILL.md](../tdd/NEXUS_SKILL.MD) for comprehensive guidance
 - Provides patterns for progressive disclosure, workflows, and evaluation
 
 ### Improvements
@@ -915,7 +915,7 @@ These changes address observed agent behavior where they rationalize around skil
 
 ### Bug Fixes
 
-- **Re-added missing command redirects** - Restored `commands/brainstorm.md` and `commands/write-plan.md` that were accidentally removed in v3.0 migration
+- **Re-added missing command redirects** - Restored `commands/brainstorm.md` and `commands/write-[plan.md](NEXUS_PLAN.MD)` that were accidentally removed in v3.0 migration
 - Fixed `defense-in-depth` name mismatch (was `Defense-in-Depth-Validation`)
 - Fixed `receiving-code-review` name mismatch (was `Code-Review-Reception`)
 - Fixed `commands/brainstorm.md` reference to correct skill name
@@ -1027,7 +1027,7 @@ If you have an existing installation:
 - Complete rewrite with imperative tone (v4.0.0)
 - Front-loaded critical rules
 - Added "Why" explanations for all workflows
-- Always includes /SKILL.md suffix in references
+- Always includes /[SKILL.md](../tdd/NEXUS_SKILL.MD) suffix in references
 - Clearer distinction between rigid rules and flexible patterns
 
 **writing-skills**
@@ -1046,7 +1046,7 @@ If you have an existing installation:
 ### Tools Improvements
 
 **find-skills**
-- Now outputs full paths with /SKILL.md suffix
+- Now outputs full paths with /[SKILL.md](../tdd/NEXUS_SKILL.MD) suffix
 - Makes paths directly usable with Read tool
 - Updated help text
 
@@ -1105,9 +1105,9 @@ If you have an existing installation:
 **Modified:**
 - `hooks/session-start.sh` - Use skills from ~/.config/superpowers/skills
 - `commands/brainstorm.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
-- `commands/write-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
-- `commands/execute-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
-- `README.md` - Complete rewrite for new architecture
+- `commands/write-[plan.md](NEXUS_PLAN.MD)` - Updated paths to SUPERPOWERS_SKILLS_ROOT
+- `commands/execute-[plan.md](NEXUS_PLAN.MD)` - Updated paths to SUPERPOWERS_SKILLS_ROOT
+- `[README.md](../security/NEXUS_README.MD)` - Complete rewrite for new architecture
 
 ### Commit History
 
@@ -1164,7 +1164,7 @@ The plugin handles everything automatically.
 
 - Skills repository is now at https://github.com/obra/superpowers-skills
 - Fork → Branch → PR workflow
-- See skills/meta/writing-skills/SKILL.md for TDD approach to documentation
+- See skills/meta/writing-skills/[SKILL.md](../tdd/NEXUS_SKILL.MD) for TDD approach to documentation
 
 ## Known Issues
 

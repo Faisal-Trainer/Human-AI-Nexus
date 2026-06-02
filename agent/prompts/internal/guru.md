@@ -1619,7 +1619,7 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v16 | **Last Updated**: 5/30/2026
+> **VERSION**: v18 | **Last Updated**: 6/1/2026
 
 
 
@@ -1880,9 +1880,39 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 DATABASE WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_OTHER.MD
 
-> **VERSION**: v14 | **Last Updated**: 5/30/2026
+> **VERSION**: v16 | **Last Updated**: 6/1/2026
 
 
 
@@ -2080,6 +2110,36 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 OTHER WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_PERFORMANCE.MD
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -2119,7 +2179,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v19 | **Last Updated**: 5/30/2026
+> **VERSION**: v21 | **Last Updated**: 6/1/2026
 
 
 
@@ -2490,6 +2550,36 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/30/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
 
 
 
@@ -3037,7 +3127,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v20 | **Last Updated**: 5/30/2026
+> **VERSION**: v22 | **Last Updated**: 6/1/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6558,6 +6648,56 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -6888,6 +7028,152 @@ You MUST complete each phase before proceeding to the next.
 
 ---
 
+### 📘 KNOWLEDGE: NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD
+
+# Document Review System Design
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
+
+
+
+## Overview
+
+Add two new review stages to the superpowers workflow:
+
+1. **Spec Document Review** - After brainstorming, before writing-plans
+2. **Plan Document Review** - After writing-plans, before implementation
+
+Both follow the iterative loop pattern used by implementation reviews.
+
+## Spec Document Reviewer
+
+**Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.
+
+**Location:** `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**What it checks for:**
+
+| Category | What to Look For |
+|----------|------------------|
+| Completeness | TODOs, placeholders, "TBD", incomplete sections |
+| Coverage | Missing error handling, edge cases, integration points |
+| Consistency | Internal contradictions, conflicting requirements |
+| Clarity | Ambiguous requirements |
+| YAGNI | Unrequested features, over-engineering |
+
+**Output format:**
+```
+## Spec Review
+
+**Status:** Approved | Issues Found
+
+**Issues (if any):**
+- [Section X]: [issue] - [why it matters]
+
+**Recommendations (advisory):**
+- [suggestions that don't block approval]
+```
+
+**Review loop:** Issues found -> brainstorming agent fixes -> re-review -> repeat until approved.
+
+**Dispatch mechanism:** Use the Task tool with `subagent_type: general-purpose`. The reviewer prompt template provides the full prompt. The brainstorming skill's controller dispatches the reviewer.
+
+## Plan Document Reviewer
+
+**Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.
+
+**Location:** `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**What it checks for:**
+
+| Category | What to Look For |
+|----------|------------------|
+| Completeness | TODOs, placeholders, incomplete tasks |
+| Spec Alignment | Plan covers spec requirements, no scope creep |
+| Task Decomposition | Tasks atomic, clear boundaries |
+| Task Syntax | Checkbox syntax on tasks and steps |
+| Chunk Size | Each chunk under 1000 lines |
+
+**Chunk definition:** A chunk is a logical grouping of tasks within the plan document, delimited by `## Chunk N: <name>` headings. The writing-plans skill creates these boundaries based on logical phases (e.g., "Foundation", "Core Features", "Integration"). Each chunk should be self-contained enough to review independently.
+
+**Spec alignment verification:** The reviewer receives both:
+1. The plan document (or current chunk)
+2. The path to the spec document for reference
+
+The reviewer reads both and compares requirements coverage.
+
+**Output format:** Same as spec reviewer, but scoped to the current chunk.
+
+**Review process (chunk-by-chunk):**
+1. Writing-plans creates chunk N
+2. Controller dispatches plan-document-reviewer with chunk N content and spec path
+3. Reviewer reads chunk and spec, returns verdict
+4. If issues: writing-plans agent fixes chunk N, goto step 2
+5. If approved: proceed to chunk N+1
+6. Repeat until all chunks approved
+
+**Dispatch mechanism:** Same as spec reviewer - Task tool with `subagent_type: general-purpose`.
+
+## Updated Workflow
+
+```
+brainstorming -> spec -> SPEC REVIEW LOOP -> writing-plans -> plan -> PLAN REVIEW LOOP -> implementation
+```
+
+**Spec Review Loop:**
+1. Spec complete
+2. Dispatch reviewer
+3. If issues: fix -> goto 2
+4. If approved: proceed
+
+**Plan Review Loop:**
+1. Chunk N complete
+2. Dispatch reviewer for chunk N
+3. If issues: fix -> goto 2
+4. If approved: next chunk or implementation
+
+## Markdown Task Syntax
+
+Tasks and steps use checkbox syntax:
+
+```markdown
+- [ ] ### Task 1: Name
+
+- [ ] **Step 1:** Description
+  - File: path
+  - Command: cmd
+```
+
+## Error Handling
+
+**Review loop termination:**
+- No hard iteration limit - loops continue until reviewer approves
+- If loop exceeds 5 iterations, the controller should surface this to the human for guidance
+- The human can choose to: continue iterating, approve with known issues, or abort
+
+**Disagreement handling:**
+- Reviewers are advisory - they flag issues but don't block
+- If the agent believes reviewer feedback is incorrect, it should explain why in its fix
+- If disagreement persists after 3 iterations on the same issue, surface to human
+
+**Malformed reviewer output:**
+- Controller should validate reviewer output has required fields (Status, Issues if applicable)
+- If malformed, re-dispatch reviewer with a note about expected format
+- After 2 malformed responses, surface to human
+
+## Files to Change
+
+**New files:**
+- `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
+- `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**Modified files:**
+- `skills/brainstorming/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add review loop after spec written
+- `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add chunk-by-chunk review loop, update task syntax examples
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, performance, tdd, vcs, api]
+
 ### 📘 KNOWLEDGE: NEXUS_API-CALLING.MD
 
 # Calling External APIs from Extensions
@@ -7197,343 +7483,6 @@ async function highlightEmails(elements) {
 ```
 
 - Use `MutationObserver` for dynamic pages (SPAs, infinite scroll)
-- Namespace your CSS classes to avoid conflicts (e.g., `myext-highlight`)
-- Use Shadow DOM for complex UI injected into pages
-- Clean up on removal: `chrome.runtime.onMessage` listeners persist until the content script context is destroyed
-- Use `TreeWalker` or `document.createNodeIterator` instead of regex on `innerHTML` for finding text in the DOM — this is more reliable and doesn't break event listeners
-
-## `run_at` Timing
-
-| Value | When |
-|-------|------|
-| `document_start` | Before DOM is constructed (useful for blocking) |
-| `document_idle` | After DOM is ready but before all resources load (default, recommended) |
-| `document_end` | After DOM is complete but before images/subframes |
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_CSP-SANDBOX.MD
-
-# CSP & Sandboxed Code Execution
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-## Extension CSP Restrictions
-
-Chrome Extensions enforce a strict Content Security Policy that cannot be relaxed for extension
-pages (popup, side panel, options, new tab, etc.).
-
-Blocked by default:
-- `eval()`, `new Function()`, `setTimeout("string")`
-- Inline `<script>` tags
-- Inline event handlers (`onclick="..."`, `onload="..."`, etc.)
-- `javascript:` URLs
-
-## HTML Best Practices
-
-```html
-<!-- ❌ BAD: Inline script -->
-<script>
-  document.getElementById('btn').onclick = () => alert('hi');
-</script>
-
-<!-- ❌ BAD: Inline event handler -->
-<button onclick="doThing()">Click</button>
-
-<!-- ✅ GOOD: External script file -->
-<script src="popup.js"></script>
-```
-
-In `popup.js`:
-```js
-document.getElementById('btn').addEventListener('click', () => {
-  // Handle click
-});
-```
-
-## Executing User Code (Code Playground Pattern)
-
-If you need to execute arbitrary code (e.g., a CodePen-like playground), you MUST use one of these
-approaches. **Extension CSP completely blocks `eval()`, `new Function()`, and inline scripts in
-normal extension pages.** There is no way around this — you need sandboxing.
-
-### Option 1: Sandboxed Page in Manifest (Recommended)
-
-Declare a sandboxed page in manifest.json. Sandboxed pages have a relaxed CSP that allows
-`eval()` and inline scripts, but they cannot access chrome.* APIs.
-
-```json
-{
-  "sandbox": {
-    "pages": ["sandbox.html"]
-  }
-}
-```
-
-Use an iframe in your extension page to embed the sandbox:
-
-```html
-<!-- playground.html (extension page) -->
-<iframe id="preview" src="sandbox.html"></iframe>
-```
-
-**CRITICAL:** Communication between the extension page and the sandboxed iframe MUST use
-`postMessage`. You CANNOT access `iframe.contentDocument` or `iframe.contentWindow.document`
-directly — this will throw:
-
-```
-SecurityError: Blocked a frame with origin "chrome-extension://..." from accessing a cross-origin frame.
-```
-
-Correct pattern:
-
-```js
-// playground.js — send code to sandbox
-const iframe = document.getElementById('preview');
-iframe.contentWindow.postMessage({
-  html: htmlCode,
-  css: cssCode,
-  js: jsCode
-}, '*');
-
-// sandbox.js — receive and execute
-window.addEventListener('message', (event) => {
-  const { html, css, js } = event.data;
-  // Clear previous content
-  document.body.innerHTML = '';
-  document.head.querySelectorAll('style.user-style').forEach(s => s.remove());
-
-  // Apply HTML
-  const container = document.createElement('div');
-  container.innerHTML = html;
-  document.body.appendChild(container);
-
-  // Apply CSS
-  const style = document.createElement('style');
-  style.className = 'user-style';
-  style.textContent = css;
-  document.head.appendChild(style);
-
-  // Execute JS (eval is allowed in sandbox!)
-  try {
-    eval(js);
-  } catch (e) {
-    const errEl = document.createElement('pre');
-    errEl.style.color = 'red';
-    errEl.textContent = e.message;
-    document.body.appendChild(errEl);
-  }
-});
-```
-
-### Option 2: Blob URL in iframe
-
-Create a self-contained HTML document via blob URL:
-
-```js
-function updatePreview(htmlCode, cssCode, jsCode) {
-  const html = `
-<!DOCTYPE html>
-<html>
-<head><style>${cssCode}</style></head>
-<body>
-  ${htmlCode}
-  <script>${jsCode}<\/script>
-</body>
-</html>
-`;
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const iframe = document.getElementById('preview');
-  // Revoke previous URL
-  if (iframe.dataset.blobUrl) URL.revokeObjectURL(iframe.dataset.blobUrl);
-  iframe.dataset.blobUrl = url;
-  iframe.src = url;
-}
-```
-
-### Option 3: srcdoc Attribute
-
-```js
-const iframe = document.getElementById('preview');
-iframe.srcdoc = `
-  <!DOCTYPE html>
-  <style>${cssCode}</style>
-  ${htmlCode}
-  <script>${jsCode}<\/script>
-`;
-```
-
-Both blob URLs and srcdoc create a separate origin, so they bypass the extension's CSP.
-However, they also cannot access chrome.* APIs, and you cannot access their DOM directly
-from the extension page (same cross-origin restriction as sandbox).
-
-### What NOT to Do
-
-```js
-// ❌ WILL FAIL: Trying to set iframe content directly
-iframe.contentDocument.open();
-iframe.contentDocument.write(html);
-iframe.contentDocument.close();
-
-// ❌ WILL FAIL: Accessing cross-origin sandbox DOM
-const doc = iframe.contentWindow.document;
-doc.body.innerHTML = html;
-
-// ❌ WILL FAIL: eval in a normal extension page
-eval(userCode); // CSP blocks this
-```
-
-## CSP for Remote Resources
-
-Extension pages cannot load remote scripts by default. If you need external libraries:
-
-1. **Bundle them** — download and include in your extension
-2. **Use chrome.scripting to inject into web pages** — web pages have their own CSP
-
-For content scripts injected into web pages, the web page's CSP does NOT apply to the
-content script's own code. Content scripts run in an isolated world.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_DECLARATIVE-NET-REQUEST.MD
-
-# Declarative Net Request (Content Filtering)
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-## Setup
-
-```json
-{
-  "permissions": ["declarativeNetRequest"],
-  "declarative_net_request": {
-    "rule_resources": [{
-      "id": "ruleset_1",
-      "enabled": true,
-      "path": "rules/rules.json"
-    }]
-  }
-}
-```
-
-Add `"declarativeNetRequestFeedback"` permission to use `onRuleMatchedDebug` (dev only).
-
-## Rule Format
-
-`rules/rules.json`:
-```json
-[
-  {
-    "id": 1,
-    "priority": 1,
-    "action": { "type": "block" },
-    "condition": {
-      "urlFilter": "doubleclick.net",
-      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame"]
-    }
-  },
-  {
-    "id": 2,
-    "priority": 1,
-    "action": { "type": "block" },
-    "condition": {
-      "urlFilter": "google-analytics.com",
-      "resourceTypes": ["script", "xmlhttprequest"]
-    }
-  }
-]
-```
-
-### Rule Fields
-
-- `id`: Unique integer per rule
-- `priority`: Higher priority rules win conflicts
-- `action.type`: `"block"`, `"redirect"`, `"allow"`, `"modifyHeaders"`, `"allowAllRequests"`, `"upgradeScheme"`
-- `condition.urlFilter`: Pattern matching (supports `*`, `||`, `|`, `^`)
-- `condition.resourceTypes`: Array of resource types to match
-
-### URL Filter Patterns
-
-| Pattern | Matches |
-|---------|---------|
-| `"doubleclick.net"` | Any URL containing "doubleclick.net" |
-| `"||doubleclick.net"` | Domain starts with doubleclick.net |
-| `"||example.com/ads/*"` | Specific path pattern |
-| `*://*.tracking.com/*` | Subdomain matching |
-
-### Resource Types
-
-`main_frame`, `sub_frame`, `stylesheet`, `script`, `image`, `font`, `object`, `xmlhttprequest`,
-`ping`, `csp_report`, `media`, `websocket`, `webtransport`, `webbundle`, `other`
-
-## Dynamic Rules (runtime)
-
-```js
-// Add rules at runtime
-await chrome.declarativeNetRequest.updateDynamicRules({
-  addRules: [{
-    id: 1000,
-    priority: 1,
-    action: { type: 'block' },
-    condition: { urlFilter: 'ads.example.com' }
-  }],
-  removeRuleIds: [] // IDs to remove
-});
-```
-
-## Tracking Blocked Requests
-
-`onRuleMatchedDebug` only works in dev (unpacked) and requires `declarativeNetRequestFeedback`:
-
-```js
-chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((info) => {
-  // info.request, info.rule
-});
-```
-
-For production, count via `webRequest` (observe only) or maintain counts with `webNavigation`:
-
-```js
-// Alternative: Use webRequest to observe (requires host_permissions)
-chrome.webRequest.onBeforeRequest.addListener(
-  (details) => {
-    // Count requests to known tracking domains
-    if (isTrackerDomain(new URL(details.url).hostname)) {
-      incrementBlockCount(details.tabId);
-    }
-  },
-  { urls: ["<all_urls>"] }
-);
-```
-
-## Limits
-
-- Static rules: 30,000 guaranteed per extension, plus an additional 300,000 from a pool shared between extensions
-- Dynamic rules: 30,000
-- Session rules: 5,000
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_DEPRIORITIZE-BACKGROUND-FETCHES.MD
-
-# Deprioritize background fetches
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-When a page performs multiple simultaneous network requests, they often compete for the same bandwidth. Non-critical data such as analytics, logging, or background synchronization should be deprioritized so that user-initiated or critical data fetches can complete more quickly.
-
-## How to implement
-
-1. **Identify background requests**: Determine which `fetch
+- Namespace your CSS classes to avoid c
 
 ...[truncated]

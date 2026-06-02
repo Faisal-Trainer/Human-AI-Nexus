@@ -1,5 +1,5 @@
 # Svelte Todo List - Implementation Plan
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -7,7 +7,7 @@ Execute this plan using the `superpowers:subagent-driven-development` skill.
 
 ## Context
 
-Building a todo list app with Svelte. See `design.md` for full specification.
+Building a todo list app with Svelte. See `[design.md](NEXUS_DESIGN.MD)` for full specification.
 
 ## Tasks
 
@@ -213,7 +213,7 @@ Add Playwright tests for full user flows.
 Document the project.
 
 **Do:**
-- Create `README.md` with:
+- Create `[README.md](../security/NEXUS_README.MD)` with:
   - Project description
   - Setup: `npm install`
   - Development: `npm run dev`

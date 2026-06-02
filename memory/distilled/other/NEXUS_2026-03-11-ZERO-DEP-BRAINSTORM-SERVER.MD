@@ -1,5 +1,5 @@
 # Zero-Dependency Brainstorm Server Implementation Plan
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -11,7 +11,7 @@
 
 **Tech Stack:** Node.js built-ins only: `http`, `crypto`, `fs`, `path`
 
-**Spec:** `docs/superpowers/specs/2026-03-11-zero-dep-brainstorm-server-design.md`
+**Spec:** `docs/superpowers/specs/[2026-03-11-zero-dep-brainstorm-server-design.md](NEXUS_2026-03-11-ZERO-DEP-BRAINSTORM-SERVER-[DESIGN.MD](NEXUS_DESIGN.MD))`
 
 **Existing tests:** `tests/brainstorm-server/ws-protocol.test.js` (unit), `tests/brainstorm-server/server.test.js` (integration)
 

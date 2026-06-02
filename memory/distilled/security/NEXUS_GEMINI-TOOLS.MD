@@ -1,4 +1,7 @@
 # Gemini CLI Tool Mapping
+> **VERSION**: v1 | **Last Updated**: 6/1/2026
+
+
 
 Skills use Claude Code tool names. When you encounter these in a skill, use your platform equivalent:
 
@@ -24,10 +27,10 @@ When a skill says to dispatch a named agent type, use `@generalist` with the ful
 
 | Skill instruction | Gemini CLI equivalent |
 |-------------------|----------------------|
-| `Task tool (superpowers:implementer)` | `@generalist` with the filled `implementer-prompt.md` template |
-| `Task tool (superpowers:spec-reviewer)` | `@generalist` with the filled `spec-reviewer-prompt.md` template |
+| `Task tool (superpowers:implementer)` | `@generalist` with the filled `[implementer-prompt.md](../tdd/NEXUS_IMPLEMENTER-PROMPT.MD)` template |
+| `Task tool (superpowers:spec-reviewer)` | `@generalist` with the filled `[spec-reviewer-prompt.md](../performance/NEXUS_SPEC-REVIEWER-PROMPT.MD)` template |
 | `Task tool (superpowers:code-reviewer)` | `@code-reviewer` (bundled agent) or `@generalist` with the filled review prompt |
-| `Task tool (superpowers:code-quality-reviewer)` | `@generalist` with the filled `code-quality-reviewer-prompt.md` template |
+| `Task tool (superpowers:code-quality-reviewer)` | `@generalist` with the filled `[code-quality-reviewer-prompt.md](../tdd/NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD)` template |
 | `Task tool (general-purpose)` with inline prompt | `@generalist` with your inline prompt |
 
 ### Prompt filling
@@ -45,7 +48,7 @@ These tools are available in Gemini CLI but have no Claude Code equivalent:
 | Tool | Purpose |
 |------|---------|
 | `list_directory` | List files and subdirectories |
-| `save_memory` | Persist facts to GEMINI.md across sessions |
+| `save_memory` | Persist facts to [GEMINI.md](../other/NEXUS_GEMINI.MD) across sessions |
 | `ask_user` | Request structured input from the user |
 | `tracker_create_task` | Rich task management (create, update, list, visualize) |
 | `enter_plan_mode` / `exit_plan_mode` | Switch to read-only research mode before making changes |

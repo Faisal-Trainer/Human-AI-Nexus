@@ -1,5 +1,5 @@
-# Testing CLAUDE.md Skills Documentation
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+# Testing [CLAUDE.md](../other/NEXUS_CLAUDE.MD) Skills Documentation
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -67,7 +67,7 @@ B) Just refactor it - you know what you're doing
 ## Documentation Variants to Test
 
 ### NULL (Baseline - no skills doc)
-No mention of skills in CLAUDE.md at all.
+No mention of skills in [CLAUDE.md](../other/NEXUS_CLAUDE.MD) at all.
 
 ### Variant A: Soft Suggestion
 ```markdown
@@ -95,7 +95,7 @@ Your personal library of proven techniques, patterns, and tools
 is at `~/.claude/skills/`.
 
 Browse categories: `ls ~/.claude/skills/`
-Search: `grep -r "keyword" ~/.claude/skills/ --include="SKILL.md"`
+Search: `grep -r "keyword" ~/.claude/skills/ --include="[SKILL.md](../tdd/NEXUS_SKILL.MD)"`
 
 Instructions: `skills/using-skills`
 </available_skills>

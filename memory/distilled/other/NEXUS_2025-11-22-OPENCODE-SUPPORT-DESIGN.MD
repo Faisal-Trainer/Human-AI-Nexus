@@ -1,5 +1,5 @@
 # OpenCode Support Design
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -52,7 +52,7 @@ Extract common functionality from `.codex/superpowers-codex` into shared module:
 // lib/skills-core.js
 module.exports = {
   extractFrontmatter(filePath),      // Parse name + description from YAML
-  findSkillsInDir(dir, maxDepth),    // Recursive SKILL.md discovery
+  findSkillsInDir(dir, maxDepth),    // Recursive [SKILL.md](../tdd/NEXUS_SKILL.MD) discovery
   findAllSkills(dirs),                // Scan multiple directories
   resolveSkillPath(skillName, dirs), // Handle shadowing (personal > core)
   checkForUpdates(repoDir)           // Git fetch/status check

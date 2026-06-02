@@ -1,5 +1,5 @@
 # Worktree Rototill Implementation Plan
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -11,7 +11,7 @@
 
 **Tech Stack:** Markdown (skill files), bash (test scripts), Claude Code CLI (`claude -p` for headless testing)
 
-**Spec:** `docs/superpowers/specs/2026-04-06-worktree-rototill-design.md`
+**Spec:** `docs/superpowers/specs/[2026-04-06-worktree-rototill-design.md](NEXUS_2026-04-06-WORKTREE-ROTOTILL-[DESIGN.MD](NEXUS_DESIGN.MD))`
 
 ---
 
@@ -21,9 +21,9 @@ Step 1a is the load-bearing assumption of the entire design. If agents don't pre
 
 **Files:**
 - Create: `tests/claude-code/test-worktree-native-preference.sh`
-- Read: `skills/using-git-worktrees/SKILL.md` (current version, for RED baseline)
+- Read: `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` (current version, for RED baseline)
 - Read: `tests/claude-code/test-helpers.sh` (for `run_claude`, `assert_contains`, etc.)
-- Read: `skills/writing-skills/testing-skills-with-subagents.md` (TDD framework)
+- Read: `skills/writing-skills/[testing-skills-with-subagents.md](../tdd/NEXUS_TESTING-SKILLS-WITH-SUBAGENTS.MD)` (TDD framework)
 
 **This task is a gate.** If the GREEN phase fails after 2 REFACTOR iterations, STOP. Do not proceed to Task 2. Report back — the creation approach needs redesign.
 
@@ -34,7 +34,7 @@ Create the test script that will run scenarios both WITHOUT and WITH the updated
 ```bash
 #!/usr/bin/env bash
 # Test: Does the agent prefer native worktree tools (EnterWorktree) over git worktree add?
-# Framework: RED-GREEN-REFACTOR per testing-skills-with-subagents.md
+# Framework: RED-GREEN-REFACTOR per [testing-skills-with-subagents.md](../tdd/NEXUS_TESTING-SKILLS-WITH-SUBAGENTS.MD)
 #
 # RED:   Current skill has no native tool preference. Agent should use git worktree add.
 # GREEN: Updated skill has Step 1a. Agent should use EnterWorktree on Claude Code.
@@ -200,18 +200,18 @@ git worktree add on Claude Code. Must pass before skill rewrite."
 
 ---
 
-### Task 2: Rewrite `using-git-worktrees` SKILL.md
+### Task 2: Rewrite `using-git-worktrees` [SKILL.md](../tdd/NEXUS_SKILL.MD)
 
 Full rewrite of the creation skill. Replaces the existing file entirely.
 
 **Files:**
-- Modify: `skills/using-git-worktrees/SKILL.md` (full rewrite, 219 lines → ~210 lines)
+- Modify: `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` (full rewrite, 219 lines → ~210 lines)
 
 **Depends on:** Task 1 GREEN passing.
 
-- [ ] **Step 1: Write the complete new SKILL.md**
+- [ ] **Step 1: Write the complete new [SKILL.md](../tdd/NEXUS_SKILL.MD)**
 
-Replace the entire contents of `skills/using-git-worktrees/SKILL.md` with:
+Replace the entire contents of `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` with:
 
 ```markdown
 ---
@@ -454,14 +454,14 @@ Ready to implement <feature-name>
 
 - [ ] **Step 2: Verify the file reads correctly**
 
-Run: `wc -l skills/using-git-worktrees/SKILL.md`
+Run: `wc -l skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)`
 
 Expected: Approximately 200-220 lines. Scan for any markdown formatting issues.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add skills/using-git-worktrees/SKILL.md
+git add skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)
 git commit -m "feat: rewrite using-git-worktrees with detect-and-defer (PRI-974)
 
 Step 0: GIT_DIR != GIT_COMMON detection (skip if already isolated)
@@ -474,16 +474,16 @@ Platform-neutral instruction file references (#1049)"
 
 ---
 
-### Task 3: Rewrite `finishing-a-development-branch` SKILL.md
+### Task 3: Rewrite `finishing-a-development-branch` [SKILL.md](../tdd/NEXUS_SKILL.MD)
 
 Full rewrite of the finishing skill. Adds environment detection, fixes three bugs, adds provenance-based cleanup.
 
 **Files:**
-- Modify: `skills/finishing-a-development-branch/SKILL.md` (full rewrite, 201 lines → ~220 lines)
+- Modify: `skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` (full rewrite, 201 lines → ~220 lines)
 
-- [ ] **Step 1: Write the complete new SKILL.md**
+- [ ] **Step 1: Write the complete new [SKILL.md](../tdd/NEXUS_SKILL.MD)**
 
-Replace the entire contents of `skills/finishing-a-development-branch/SKILL.md` with:
+Replace the entire contents of `skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` with:
 
 ```markdown
 ---
@@ -748,14 +748,14 @@ git worktree prune  # Self-healing: clean up any stale registrations
 
 - [ ] **Step 2: Verify the file reads correctly**
 
-Run: `wc -l skills/finishing-a-development-branch/SKILL.md`
+Run: `wc -l skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)`
 
 Expected: Approximately 210-230 lines.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add skills/finishing-a-development-branch/SKILL.md
+git add skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)
 git commit -m "feat: rewrite finishing-a-development-branch with detect-and-defer (PRI-974)
 
 Step 2: environment detection (GIT_DIR != GIT_COMMON) before presenting menu
@@ -774,13 +774,13 @@ Stale worktree pruning after removal (git worktree prune)"
 One-line changes to three files that reference `using-git-worktrees`.
 
 **Files:**
-- Modify: `skills/executing-plans/SKILL.md:68`
-- Modify: `skills/subagent-driven-development/SKILL.md:268`
-- Modify: `skills/writing-plans/SKILL.md:16`
+- Modify: `skills/executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD):68`
+- Modify: `skills/subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD):268`
+- Modify: `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD):16`
 
 - [ ] **Step 1: Update executing-plans integration line**
 
-In `skills/executing-plans/SKILL.md`, change line 68 from:
+In `skills/executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)`, change line 68 from:
 
 ```markdown
 - **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
@@ -794,7 +794,7 @@ to:
 
 - [ ] **Step 2: Update subagent-driven-development integration line**
 
-In `skills/subagent-driven-development/SKILL.md`, change line 268 from:
+In `skills/subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD)`, change line 268 from:
 
 ```markdown
 - **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
@@ -808,7 +808,7 @@ to:
 
 - [ ] **Step 3: Update writing-plans context line**
 
-In `skills/writing-plans/SKILL.md`, change line 16 from:
+In `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)`, change line 16 from:
 
 ```markdown
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
@@ -823,7 +823,7 @@ to:
 - [ ] **Step 4: Commit all three**
 
 ```bash
-git add skills/executing-plans/SKILL.md skills/subagent-driven-development/SKILL.md skills/writing-plans/SKILL.md
+git add skills/executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD) skills/subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD) skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)
 git commit -m "fix: update worktree integration references across skills (PRI-974)
 
 Remove REQUIRED language from executing-plans and subagent-driven-development.
@@ -839,8 +839,8 @@ Verify the full rewritten skills work together. Run the existing test suite plus
 
 **Files:**
 - Read: `tests/claude-code/run-skill-tests.sh`
-- Read: `skills/using-git-worktrees/SKILL.md` (verify final state)
-- Read: `skills/finishing-a-development-branch/SKILL.md` (verify final state)
+- Read: `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` (verify final state)
+- Read: `skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` (verify final state)
 
 - [ ] **Step 1: Run existing test suite**
 
@@ -856,9 +856,9 @@ Expected: PASS — agent still uses EnterWorktree with the final skill text (not
 
 - [ ] **Step 3: Manual verification — read both rewritten skills end-to-end**
 
-Read `skills/using-git-worktrees/SKILL.md` and `skills/finishing-a-development-branch/SKILL.md` in their entirety. Check:
+Read `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` and `skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` in their entirety. Check:
 
-1. No references to old behavior (hardcoded `CLAUDE.md`, interactive directory prompt, "REQUIRED" language)
+1. No references to old behavior (hardcoded `[CLAUDE.md](NEXUS_CLAUDE.MD)`, interactive directory prompt, "REQUIRED" language)
 2. Step numbering is consistent within each file
 3. Quick Reference tables match the prose
 4. Integration sections cross-reference correctly

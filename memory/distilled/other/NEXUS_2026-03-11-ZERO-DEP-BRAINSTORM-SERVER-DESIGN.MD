@@ -1,5 +1,5 @@
 # Zero-Dependency Brainstorm Server
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -105,7 +105,7 @@ Debounce per-filename with ~100ms timeout to prevent duplicate events (common on
 - `frame-template.html` — no changes
 - `start-server.sh` — one-line update: `index.js` to `server.js`
 - `stop-server.sh` — no changes
-- `visual-companion.md` — no changes
+- `[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)` — no changes
 - All existing server behavior and external contract
 
 ## Platform Compatibility

@@ -1,5 +1,5 @@
 # Visual Brainstorming Refactor Implementation Plan
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -11,7 +11,7 @@
 
 **Tech Stack:** Node.js (Express, ws, chokidar), vanilla HTML/CSS/JS
 
-**Spec:** `docs/superpowers/specs/2026-02-19-visual-brainstorming-refactor-design.md`
+**Spec:** `docs/superpowers/specs/[2026-02-19-visual-brainstorming-refactor-design.md](../database/NEXUS_2026-02-19-VISUAL-BRAINSTORMING-REFACTOR-[DESIGN.MD](NEXUS_DESIGN.MD))`
 
 ---
 
@@ -23,7 +23,7 @@
 | `lib/brainstorm-server/frame-template.html` | Modify | Template: remove feedback footer, add content placeholder + selection indicator |
 | `lib/brainstorm-server/helper.js` | Modify | Client JS: remove send/feedback functions, narrow to click capture + indicator updates |
 | `lib/brainstorm-server/wait-for-feedback.sh` | Delete | No longer needed |
-| `skills/brainstorming/visual-companion.md` | Modify | Skill instructions: rewrite loop to non-blocking flow |
+| `skills/brainstorming/[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)` | Modify | Skill instructions: rewrite loop to non-blocking flow |
 | `tests/brainstorm-server/server.test.js` | Modify | Tests: update for new template structure and helper.js API |
 
 ---
@@ -366,7 +366,7 @@ Search the codebase:
 grep -r "wait-for-feedback" /Users/drewritter/prime-rad/superpowers/ --include="*.js" --include="*.md" --include="*.sh" --include="*.json"
 ```
 
-Expected references: only `visual-companion.md` (rewritten in Task 6) and possibly release notes (historical, leave as-is).
+Expected references: only `[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)` (rewritten in Task 6) and possibly release notes (historical, leave as-is).
 
 - [ ] **Step 2: Delete the file**
 
@@ -390,10 +390,10 @@ git commit -m "Delete wait-for-feedback.sh: replaced by .events file"
 
 ---
 
-### Task 6: Rewrite `visual-companion.md`
+### Task 6: Rewrite `[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)`
 
 **Files:**
-- Modify: `skills/brainstorming/visual-companion.md`
+- Modify: `skills/brainstorming/[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)`
 
 - [ ] **Step 1: Update "How It Works" description (line 18)**
 
@@ -481,8 +481,8 @@ Remove the helper.js reference description about "JS API" — the API is now min
 - [ ] **Step 7: Commit**
 
 ```bash
-git add skills/brainstorming/visual-companion.md
-git commit -m "Rewrite visual-companion.md for non-blocking browser-displays-terminal-commands flow"
+git add skills/brainstorming/[visual-companion.md](NEXUS_VISUAL-COMPANION.MD)
+git commit -m "Rewrite [visual-companion.md](NEXUS_VISUAL-COMPANION.MD) for non-blocking browser-displays-terminal-commands flow"
 ```
 
 ---

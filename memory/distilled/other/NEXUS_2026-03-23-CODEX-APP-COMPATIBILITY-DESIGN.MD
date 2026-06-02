@@ -1,5 +1,5 @@
 # Codex App Compatibility: Worktree and Finishing Skill Adaptation
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
 
 
 
@@ -64,7 +64,7 @@ Why `git-dir != git-common-dir` instead of checking `show-toplevel`:
 
 ## Changes
 
-### 1. `using-git-worktrees/SKILL.md` — Add Step 0 (~12 lines)
+### 1. `using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` — Add Step 0 (~12 lines)
 
 New section between "Overview" and "Directory Selection Process":
 
@@ -89,7 +89,7 @@ After reporting in Step 0, STOP. Do not continue to Directory Selection or Creat
 
 **Everything else unchanged:** Directory Selection, Safety Verification, Creation Steps, Project Setup, Baseline Tests, Quick Reference, Common Mistakes, Red Flags.
 
-### 2. `finishing-a-development-branch/SKILL.md` — Add Step 1.5 + cleanup guard (~20 lines)
+### 2. `finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` — Add Step 1.5 + cleanup guard (~20 lines)
 
 **Step 1.5: Detect Environment** (after Step 1 "Verify Tests", before Step 2 "Determine Base Branch")
 
@@ -142,7 +142,7 @@ Otherwise, check and remove as today. Note: the existing Step 5 text says "For O
 
 **Everything else unchanged:** Options 1-4 logic, Quick Reference, Common Mistakes, Red Flags.
 
-### 3. `subagent-driven-development/SKILL.md` and `executing-plans/SKILL.md` — 1 line edit each
+### 3. `subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD)` and `executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` — 1 line edit each
 
 Both skills have an identical Integration section line. Change from:
 ```
@@ -155,7 +155,7 @@ To:
 
 **Everything else unchanged:** Dispatch/review loop, prompt templates, model selection, status handling, red flags.
 
-### 4. `codex-tools.md` — Add environment detection docs (~15 lines)
+### 4. `[codex-tools.md](NEXUS_CODEX-TOOLS.MD)` — Add environment detection docs (~15 lines)
 
 Two new sections at the end:
 
@@ -198,9 +198,9 @@ names, commit messages, and PR descriptions for the user to copy.
 
 ## What Does NOT Change
 
-- `implementer-prompt.md`, `spec-reviewer-prompt.md`, `code-quality-reviewer-prompt.md` — subagent prompts untouched
-- `executing-plans/SKILL.md` — only the 1-line Integration description changes (same as `subagent-driven-development`); all runtime behavior is unchanged
-- `dispatching-parallel-agents/SKILL.md` — no worktree or finishing operations
+- `[implementer-prompt.md](../tdd/NEXUS_IMPLEMENTER-PROMPT.MD)`, `[spec-reviewer-prompt.md](../performance/NEXUS_SPEC-REVIEWER-PROMPT.MD)`, `[code-quality-reviewer-prompt.md](../tdd/NEXUS_CODE-QUALITY-REVIEWER-PROMPT.MD)` — subagent prompts untouched
+- `executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` — only the 1-line Integration description changes (same as `subagent-driven-development`); all runtime behavior is unchanged
+- `dispatching-parallel-agents/[SKILL.md](../tdd/NEXUS_SKILL.MD)` — no worktree or finishing operations
 - `.codex/INSTALL.md` — installation process unchanged
 - The 4-option finishing menu — preserved exactly for Claude Code and Codex CLI
 - The full worktree creation flow — preserved exactly for non-worktree environments
@@ -210,11 +210,11 @@ names, commit messages, and PR descriptions for the user to copy.
 
 | File | Change |
 |---|---|
-| `skills/using-git-worktrees/SKILL.md` | +12 lines (Step 0) |
-| `skills/finishing-a-development-branch/SKILL.md` | +20 lines (Step 1.5 + cleanup guard) |
-| `skills/subagent-driven-development/SKILL.md` | 1 line edit |
-| `skills/executing-plans/SKILL.md` | 1 line edit |
-| `skills/using-superpowers/references/codex-tools.md` | +15 lines |
+| `skills/using-git-worktrees/[SKILL.md](../tdd/NEXUS_SKILL.MD)` | +12 lines (Step 0) |
+| `skills/finishing-a-development-branch/[SKILL.md](../tdd/NEXUS_SKILL.MD)` | +20 lines (Step 1.5 + cleanup guard) |
+| `skills/subagent-driven-development/[SKILL.md](../tdd/NEXUS_SKILL.MD)` | 1 line edit |
+| `skills/executing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` | 1 line edit |
+| `skills/using-superpowers/references/[codex-tools.md](NEXUS_CODEX-TOOLS.MD)` | +15 lines |
 
 ~50 lines added/changed across 5 files. Zero new files. Zero breaking changes.
 

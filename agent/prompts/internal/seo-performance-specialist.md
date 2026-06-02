@@ -1300,7 +1300,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v19 | **Last Updated**: 5/30/2026
+> **VERSION**: v21 | **Last Updated**: 6/1/2026
 
 
 
@@ -1680,6 +1680,36 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -1700,7 +1730,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v20 | **Last Updated**: 5/30/2026
+> **VERSION**: v22 | **Last Updated**: 6/1/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5221,6 +5251,56 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5667] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v1483] - 6/1/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -5550,6 +5630,152 @@ You MUST complete each phase before proceeding to the next.
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
+### 📘 KNOWLEDGE: NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD
+
+# Document Review System Design
+> **VERSION**: v2 | **Last Updated**: 6/1/2026
+
+
+
+## Overview
+
+Add two new review stages to the superpowers workflow:
+
+1. **Spec Document Review** - After brainstorming, before writing-plans
+2. **Plan Document Review** - After writing-plans, before implementation
+
+Both follow the iterative loop pattern used by implementation reviews.
+
+## Spec Document Reviewer
+
+**Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.
+
+**Location:** `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**What it checks for:**
+
+| Category | What to Look For |
+|----------|------------------|
+| Completeness | TODOs, placeholders, "TBD", incomplete sections |
+| Coverage | Missing error handling, edge cases, integration points |
+| Consistency | Internal contradictions, conflicting requirements |
+| Clarity | Ambiguous requirements |
+| YAGNI | Unrequested features, over-engineering |
+
+**Output format:**
+```
+## Spec Review
+
+**Status:** Approved | Issues Found
+
+**Issues (if any):**
+- [Section X]: [issue] - [why it matters]
+
+**Recommendations (advisory):**
+- [suggestions that don't block approval]
+```
+
+**Review loop:** Issues found -> brainstorming agent fixes -> re-review -> repeat until approved.
+
+**Dispatch mechanism:** Use the Task tool with `subagent_type: general-purpose`. The reviewer prompt template provides the full prompt. The brainstorming skill's controller dispatches the reviewer.
+
+## Plan Document Reviewer
+
+**Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.
+
+**Location:** `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**What it checks for:**
+
+| Category | What to Look For |
+|----------|------------------|
+| Completeness | TODOs, placeholders, incomplete tasks |
+| Spec Alignment | Plan covers spec requirements, no scope creep |
+| Task Decomposition | Tasks atomic, clear boundaries |
+| Task Syntax | Checkbox syntax on tasks and steps |
+| Chunk Size | Each chunk under 1000 lines |
+
+**Chunk definition:** A chunk is a logical grouping of tasks within the plan document, delimited by `## Chunk N: <name>` headings. The writing-plans skill creates these boundaries based on logical phases (e.g., "Foundation", "Core Features", "Integration"). Each chunk should be self-contained enough to review independently.
+
+**Spec alignment verification:** The reviewer receives both:
+1. The plan document (or current chunk)
+2. The path to the spec document for reference
+
+The reviewer reads both and compares requirements coverage.
+
+**Output format:** Same as spec reviewer, but scoped to the current chunk.
+
+**Review process (chunk-by-chunk):**
+1. Writing-plans creates chunk N
+2. Controller dispatches plan-document-reviewer with chunk N content and spec path
+3. Reviewer reads chunk and spec, returns verdict
+4. If issues: writing-plans agent fixes chunk N, goto step 2
+5. If approved: proceed to chunk N+1
+6. Repeat until all chunks approved
+
+**Dispatch mechanism:** Same as spec reviewer - Task tool with `subagent_type: general-purpose`.
+
+## Updated Workflow
+
+```
+brainstorming -> spec -> SPEC REVIEW LOOP -> writing-plans -> plan -> PLAN REVIEW LOOP -> implementation
+```
+
+**Spec Review Loop:**
+1. Spec complete
+2. Dispatch reviewer
+3. If issues: fix -> goto 2
+4. If approved: proceed
+
+**Plan Review Loop:**
+1. Chunk N complete
+2. Dispatch reviewer for chunk N
+3. If issues: fix -> goto 2
+4. If approved: next chunk or implementation
+
+## Markdown Task Syntax
+
+Tasks and steps use checkbox syntax:
+
+```markdown
+- [ ] ### Task 1: Name
+
+- [ ] **Step 1:** Description
+  - File: path
+  - Command: cmd
+```
+
+## Error Handling
+
+**Review loop termination:**
+- No hard iteration limit - loops continue until reviewer approves
+- If loop exceeds 5 iterations, the controller should surface this to the human for guidance
+- The human can choose to: continue iterating, approve with known issues, or abort
+
+**Disagreement handling:**
+- Reviewers are advisory - they flag issues but don't block
+- If the agent believes reviewer feedback is incorrect, it should explain why in its fix
+- If disagreement persists after 3 iterations on the same issue, surface to human
+
+**Malformed reviewer output:**
+- Controller should validate reviewer output has required fields (Status, Issues if applicable)
+- If malformed, re-dispatch reviewer with a note about expected format
+- After 2 malformed responses, surface to human
+
+## Files to Change
+
+**New files:**
+- `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
+- `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
+
+**Modified files:**
+- `skills/brainstorming/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add review loop after spec written
+- `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add chunk-by-chunk review loop, update task syntax examples
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, performance, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
@@ -7247,168 +7473,6 @@ if __name__ == "__main__":
 Your implementation MUST prioritize composability and code reuse:
 
 1. **Extract Common Functionality**:
-   - Create reusable helper functions for operations used across multiple tools
-   - Build shared API clients for HTTP requests instead of duplicating code
-   - Centralize error handling logic in utility functions
-   - Extract business logic into dedicated functions that can be composed
-   - Extract shared markdown or JSON field selection & formatting functionality
-
-2. **Avoid Duplication**:
-   - NEVER copy-paste similar code between tools
-   - If you find yourself writing similar logic twice, extract it into a function
-   - Common operations like pagination, filtering, field selection, and formatting should be shared
-   - Authentication/authorization logic should be centralized
-
-### Python-Specific Best Practices
-
-1. **Use Type Hints**: Always include type annotations for function parameters and return values
-2. **Pydantic Models**: Define clear Pydantic models for all input validation
-3. **Avoid Manual Validation**: Let Pydantic handle input validation with constraints
-4. **Proper Imports**: Group imports (standard library, third-party, local)
-5. **Error Handling**: Use specific exception types (httpx.HTTPStatusError, not generic Exception)
-6. **Async Context Managers**: Use `async with` for resources that need cleanup
-7. **Constants**: Define module-level constants in UPPER_CASE
-
-## Quality Checklist
-
-Before finalizing your Python MCP server implementation, ensure:
-
-### Strategic Design
-
-- [ ] Tools enable complete workflows, not just API endpoint wrappers
-- [ ] Tool names reflect natural task subdivisions
-- [ ] Response formats optimize for agent context efficiency
-- [ ] Human-readable identifiers used where appropriate
-- [ ] Error messages guide agents toward correct usage
-
-### Implementation Quality
-
-- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
-- [ ] All tools have descriptive names and documentation
-- [ ] Return types are consistent across similar operations
-- [ ] Error handling is implemented for all external calls
-- [ ] Server name follows format: `{service}_mcp`
-- [ ] All network operations use async/await
-- [ ] Common functionality is extracted into reusable functions
-- [ ] Error messages are clear, actionable, and educational
-- [ ] Outputs are properly validated and formatted
-
-### Tool Configuration
-
-- [ ] All tools implement 'name' and 'annotations' in the decorator
-- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
-- [ ] All tools use Pydantic BaseModel for input validation with Field() definitions
-- [ ] All Pydantic Fields have explicit types and descriptions with constraints
-- [ ] All tools have comprehensive docstrings with explicit input/output types
-- [ ] Docstrings include complete schema structure for dict/JSON returns
-- [ ] Pydantic models handle input validation (no manual validation needed)
-
-### Advanced Features (where applicable)
-
-- [ ] Context injection used for logging, progress, or elicitation
-- [ ] Resources registered for appropriate data endpoints
-- [ ] Lifespan management implemented for persistent connections
-- [ ] Structured output types used (TypedDict, Pydantic models)
-- [ ] Appropriate transport configured (stdio or streamable HTTP)
-
-### Code Quality
-
-- [ ] File includes proper imports including Pydantic imports
-- [ ] Pagination is properly implemented where applicable
-- [ ] Filtering options are provided for potentially large result sets
-- [ ] All async functions are properly defined with `async def`
-- [ ] HTTP client usage follows async patterns with proper context managers
-- [ ] Type hints are used throughout the code
-- [ ] Constants are defined at module level in UPPER_CASE
-
-### Testing
-
-- [ ] Server runs successfully: `python your_server.py --help`
-- [ ] All imports resolve correctly
-- [ ] Sample tool calls work as expected
-- [ ] Error scenarios handled gracefully
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD
-
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.
-```
-eISSN: 2237-2083 | DOI: 10.17851/2237-2083.31.4.2009-2065
-```
-A Social-Semiotic Approach to Color Analysis in Digital Media:
-Theory and Practice
-Uma abordagem sociossemiótica para análise de cores
-em mídias digitais: teoria e prática
-André de Oliveira Matumoto
-```
-Universidade de São Paulo (USP), São Paulo, São Paulo / Brasil
-```
-andrematumoto@usp.br
-```
-https://orcid.org/0000-0003-3544-3576
-```
-Paulo Roberto Gonçalves-Segundo
-```
-Universidade de São Paulo (USP), São Paulo, São Paulo / Brasil
-```
-paulosegundo@usp.br
-```
-https://orcid.org/0000-0002-5592-8098
-```
-```
-Abstract: This article aims to discuss the study of color from a social-semiotic
-```
-perspective. The article begins with an overview of Gunther Kress and Theo van
-Leeuwen’s distinctive feature approach to color in their Grammar of Visual Design
-```
-(2021) and concludes that the authors base their claims primarily on paintings and
-```
-print media, which may skew the categories toward analog media. Drawing on color
-```
-theory, mainly the contributions of Rhyne (2017), this article argues that social-semiotic
-```
-analyzes can benefit from systematized and quantitative categories for color analysis,
-especially for digital media corpora. The article introduces several analytic categories,
-such as color harmony and the RGB color space, that are relevant to understanding
-how color works in digital spaces. The paper proposes the use of the free and open
-source software GIMP and ImageMagick for a qualitative and quantitative approach
-to the distinctive features of color and for a better understanding of the complexity
-of colors and their meaning potential. Based on these methodological procedures, the
-distinctive feature approach is revised with Rhyne’s contribution. Finally, the categories
-are applied to two stock images as a case study.
-```
-Keywords: social semiotics; color theory; grammar of visual design.
-```
-```
-Resumo: Este artigo visa discutir o estudo da cor a partir da abordagem sociossemiótica.
-```
-Começando com uma visão geral da abordagem da cor por Gunther Kress e Theo
-Rev. Estud. Ling., Belo Horizonte, v. 31, n. 4, p. 2009-2065, 2023.2010
-```
-van Leeuwen, na sua Gramática de design visual (2021), conclui-se que os autores
-```
-baseiam as suas constatações principalmente em pinturas e mídias impressas, o que
-pode enviesar as categorias em direção aos meios analógicos. Baseado na teoria
-```
-das cores, principalmente nas contribuições de Rhyne (2017), o artigo argumenta
-```
-que as análises que partem da semiótica social podem se beneficiar de categorias
-especializadas para a análise da cor, principalmente para corpora de meios digitais.
-O artigo introduz uma série de categorias analíticas, tais como a harmonia de cores
-e o espaço de cor RGB, que são relevantes para compreender como funciona a cor
-nos espaços digitais. Para demonstrar as categorias aqui apresentadas, são utilizados
-os softwares gratuitos e de código aberto GIMP e ImageMagick. Eles permitem uma
-abordagem qualitativa e quantitativa das características distintivas da cor e permitem
-uma melhor compreensão da complexidade das cores e do seu potencial de significado.
-Com base nesses procedimentos metodológicos, a abordagem de traços distintivos é
-revista através das contribuições de Rhyne. Finalmente, como um estudo de caso, as
-categorias são aplicadas em duas stock images.
-```
-Palavras-chave: semiótica social; teoria das cores; gramática do
+   - Create reusable helper functions for operations used acr
 
 ...[truncated]

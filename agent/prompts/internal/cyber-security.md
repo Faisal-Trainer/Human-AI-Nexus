@@ -3,19 +3,21 @@
 Anda adalah spesialis keamanan internal Nexus Engine.
 
 ## Otoritas CRUD
+
 - **C/R**: YES
 - **U/D**: NO
 
 ## Fokus
+
 - Enkripsi, sanitasi data, dan keamanan repository.
 - Mendeteksi kebocoran kredensial dan celah keamanan sistem.
 
 ## 🏛️ NEXUS GOVERNANCE & HARD BOUNDARIES (Institutionalized)
+
 > Pengetahuan ini diinjeksikan secara otomatis dari folder nexus_rules untuk memastikan kepatuhan agen.
 
-
-
 ### 📜 RULE: BASH_COMMANDS.md
+
 # 🐧 Nexus Engine: Bash Command Guide
 
 Panduan ini ditujukan bagi pengembang yang menggunakan lingkungan **Bash** (Linux, macOS, atau Git Bash di Windows) untuk berinteraksi dengan Nexus Engine.
@@ -84,8 +86,8 @@ _Verified by Nexus Orchestrator | Last Update: April 2026_
 
 ---
 
-
 ### 📜 RULE: DEV_COMMANDS.md
+
 # 🛡️ Nexus Engine: Developer Quick Start & Commands
 
 Panduan ini dirancang khusus untuk tim pengembang yang bekerja langsung di dalam repositori **NEXUS AI** atau ingin mengintegrasikan engine ke dalam alur kerja lokal mereka.
@@ -95,6 +97,7 @@ Panduan ini dirancang khusus untuk tim pengembang yang bekerja langsung di dalam
 Jika perintah `nexus` global bermasalah (misal: `MODULE_NOT_FOUND`), gunakan eksekusi `node` secara langsung dari folder root engine.
 
 ### 1. Siklus Standar (SDLC)
+
 ```powershell
 # Menjalankan siklus penuh (Audit -> Plan -> Execute)
 nexus run
@@ -107,14 +110,18 @@ nexus run --yes
 ```
 
 ### 2. Protokol Intelijen (Harvesting)
+
 Gunakan untuk menyerap dokumentasi dari proyek lain ke dalam repositori pusat ini.
+
 ```powershell
 # Harvest dari proyek target (gunakan path absolut)
 nexus harvest "C:/xampp/htdocumentation/docs/NAMA_PROYEK"
 ```
 
 ### 3. Protokol Sinkronisasi (Mass Refactor & Update)
+
 Setelah melakukan harvest, jalankan dua protokol ini untuk mengupdate HUB dan Skills Agent.
+
 ```powershell
 # Protocol 1: Golden -> HUB (memory/long_term/)
 nexus refactor
@@ -124,6 +131,7 @@ nexus update-skills
 ```
 
 ### 4. Manajemen & Bantuan
+
 ```powershell
 # Melihat daftar seluruh keahlian (Skill) Agent yang tersedia
 nexus skills
@@ -139,11 +147,11 @@ nexus dell
 
 ## 🚩 Parameter & Flags Tambahan
 
-| Flag | Pilihan | Deskripsi |
-| :--- | :--- | :--- |
+| Flag            | Pilihan                   | Deskripsi                                                        |
+| :-------------- | :------------------------ | :--------------------------------------------------------------- |
 | `--mode` / `-m` | `learning` \| `efficient` | `learning` (default) untuk edukasi, `efficient` untuk kecepatan. |
-| `--root` / `-r` | `[path]` | Menentukan direktori target untuk audit/eksekusi. |
-| `--yes` / `-y` | *(Boolean)* | Bypass persetujuan manual (Gunakan dengan hati-hati). |
+| `--root` / `-r` | `[path]`                  | Menentukan direktori target untuk audit/eksekusi.                |
+| `--yes` / `-y`  | _(Boolean)_               | Bypass persetujuan manual (Gunakan dengan hati-hati).            |
 
 ---
 
@@ -159,12 +167,13 @@ nexus dell
     `nexus run --yes`
 
 ---
-*Status: Verified by Nexus Orchestrator | Update: 29 April 2026*
+
+_Status: Verified by Nexus Orchestrator | Update: 29 April 2026_
 
 ---
 
-
 ### 📜 RULE: INTERNAL_WORKFLOW.md
+
 # ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v3.0 — Autonomous Evolution)
 
 Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemeliharaan sistem, dan evolusi fisik mesin Nexus AI.
@@ -172,60 +181,66 @@ Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemelihara
 ---
 
 ## ⚡ 1. Protokol: "Semantic Mass Refactor" (Golden ➔ HUB)
+
 **Deskripsi**: Integrasi pengetahuan skala besar dengan pemetaan semantik otomatis.
 
-*   **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
-*   **Algoritma Kerja**:
-    1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
-    2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
-    3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
+- **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
+- **Algoritma Kerja**:
+  1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
+  2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
+  3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
 
 ---
 
 ## ⚡ 2. Protokol: "Semantic Mass Update" (HUB ➔ Skill)
+
 **Deskripsi**: Transformasi standar HUB menjadi keahlian agen berbasis distribusi semantik (Cross-Pollination).
 
-*   **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
-*   **Algoritma Kerja**:
-    1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
-    2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
-    3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
+- **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
+- **Algoritma Kerja**:
+  1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
+  2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
+  3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
 
 ---
 
 ## ⚡ 3. Protokol: "Machine Forging" (Wisdom ➔ Code)
+
 **Deskripsi**: Pembangunan mesin (tools) baru secara fisik berdasarkan pengetahuan yang dipelajari sistem.
 
-*   **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
-*   **Aktor**: `Machinist Forge`.
-*   **Algoritma Kerja**:
-    1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
-    2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
-    3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
+- **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
+- **Aktor**: `Machinist Forge`.
+- **Algoritma Kerja**:
+  1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
+  2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
+  3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
 
 ---
 
 ## ⚡ 4. Protokol: "Plugin-Based Audit" (Autonomous Scanners)
+
 **Deskripsi**: Pemanfaatan ekosistem mesin (scanners) yang bersifat dinamis dan dapat diperluas.
 
-*   **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
-*   **Algoritma Kerja**:
-    1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
-    2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
+- **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
+- **Algoritma Kerja**:
+  1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
+  2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
 
 ---
 
 ## ⚡ 5. Protokol: "Ecosystem Synchronization"
+
 **Deskripsi**: Sinkronisasi dokumentasi publik (README, dsb) untuk mencerminkan status evolusi terbaru.
 
 ---
-*Status: Protokol v3.0 Aktif (Autonomous Evolution)*
-*Target: Zero Flaws & Physical Self-Evolution*
+
+_Status: Protokol v3.0 Aktif (Autonomous Evolution)_
+_Target: Zero Flaws & Physical Self-Evolution_
 
 ---
 
-
 ### 📜 RULE: NEXUS INTERNAL CORE — HARD BOUNDARY & SYSTEM CONSTRAINT.md
+
 # NEXUS INTERNAL CORE — HARD BOUNDARY & SYSTEM CONSTRAINT
 
 ## ⚠️ PURPOSE (INTERNAL CORE ONLY)
@@ -505,8 +520,8 @@ Internal Core dianggap selesai jika:
 
 ---
 
-
 ### 📜 RULE: NEXUS eksternal boundary.md
+
 # 🧱 AI Agent Documentation System — Boundary Definition
 
 ## 1. 🎯 Tujuan Utama (Scope Inti)
@@ -801,8 +816,8 @@ Bukan:
 
 ---
 
-
 ### 📜 RULE: NEXUS_EXTERNAL_PIPELINE_RECAP.md
+
 # 🌐 Rekapitulasi Pipeline Eksternal Nexus AI (Ecosystem Integration)
 
 Dokumen ini menjelaskan alur kerja Nexus AI saat berinteraksi dengan proyek eksternal (Local Development). Ini adalah jembatan antara **Engine Pusat** dan **Implementasi Proyek Spesifik**.
@@ -810,9 +825,11 @@ Dokumen ini menjelaskan alur kerja Nexus AI saat berinteraksi dengan proyek ekst
 ---
 
 ## 🔗 1. Global CLI Interaction (Bridge Protocol)
+
 Nexus AI beroperasi sebagai perintah global yang terhubung secara dinamis ke kode sumber utama melalui protokol linking.
 
 **Alur Kerja:**
+
 1.  **Engine Linking**: Menggunakan `npm link` di folder pusat (`NEXUS AI`) untuk mendaftarkan command `nexus` secara global.
 2.  **Project Integration**: Menggunakan `npm link human-ai-nexus` di folder proyek target (seperti F-Novel) untuk menggunakan versi pengembangan terbaru secara real-time.
 3.  **Dynamic Execution**: Command `nexus run` secara otomatis mendeteksi root project dan menyesuaikan perilaku berdasarkan struktur folder yang ditemukan.
@@ -820,33 +837,40 @@ Nexus AI beroperasi sebagai perintah global yang terhubung secara dinamis ke kod
 ---
 
 ## 🔍 2. Specialist Audit (External Scan)
+
 Saat fase Audit dimulai pada proyek eksternal, Engine mengerahkan Agent Spesialis untuk melakukan pemindaian mendalam.
 
 **Komponen Utama:**
--   **Cyber Security**: Memeriksa kebocoran `.env`, kerentanan autentikasi, dan konfigurasi keamanan.
--   **UX Engineer**: Memastikan konsistensi desain, penggunaan variabel CSS/Tailwind, dan estetika premium.
--   **SEO & Performance**: Audit WebP, optimasi query database, dan skor aksesibilitas.
--   **VCS Architect**: Menjaga kesehatan repository, `.gitignore`, dan alur branching.
+
+- **Cyber Security**: Memeriksa kebocoran `.env`, kerentanan autentikasi, dan konfigurasi keamanan.
+- **UX Engineer**: Memastikan konsistensi desain, penggunaan variabel CSS/Tailwind, dan estetika premium.
+- **SEO & Performance**: Audit WebP, optimasi query database, dan skor aksesibilitas.
+- **VCS Architect**: Menjaga kesehatan repository, `.gitignore`, dan alur branching.
 
 ---
 
 ## 🛡️ 3. TDD Iron Laws Enforcement (External Guard)
+
 Nexus AI memaksakan standar kualitas tinggi pada proyek eksternal melalui `TDDGuard`.
 
 **Protokol Keamanan:**
--   **Test-Required Modification**: Setiap perubahan pada kode produksi WAJIB memiliki test pendukung.
--   **Exemption Management**: Jika test belum tersedia, file target harus didaftarkan di `TDD_LIST.md` atau `documentation/planning/TDD_LIST.md` agar Engine diizinkan melakukan modifikasi fisik.
--   **Violation Block**: Engine akan menghentikan eksekusi secara otomatis jika mendeteksi modifikasi pada file tanpa bukti perencanaan TDD.
+
+- **Test-Required Modification**: Setiap perubahan pada kode produksi WAJIB memiliki test pendukung.
+- **Exemption Management**: Jika test belum tersedia, file target harus didaftarkan di `TDD_LIST.md` atau `documentation/planning/TDD_LIST.md` agar Engine diizinkan melakukan modifikasi fisik.
+- **Violation Block**: Engine akan menghentikan eksekusi secara otomatis jika mendeteksi modifikasi pada file tanpa bukti perencanaan TDD.
 
 **Agent Pendukung:**
--   **TDD Guard Agent**: [tdd-guard.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/agent/external/engineering/tdd-guard.md) — Bertugas mengelola daftar pengecualian dan memastikan kepatuhan hukum TDD.
+
+- **TDD Guard Agent**: [tdd-guard.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/agent/external/engineering/tdd-guard.md) — Bertugas mengelola daftar pengecualian dan memastikan kepatuhan hukum TDD.
 
 ---
 
 ## 🛠️ 4. External Path Awareness (Structure Detection)
+
 Nexus AI didesain untuk mengenali berbagai struktur proyek secara cerdas.
 
 **Prioritas Deteksi Folder:**
+
 1.  **Documentation-First**: Mencari folder `documentation/` di root proyek untuk menyimpan audit, planning, dan knowledge.
 2.  **Nexus-Embedded**: Mencari folder `nexus/` jika folder dokumentasi tidak ditemukan.
 3.  **Root-Fallback**: Jika keduanya tidak ada, Engine akan beroperasi langsung di root folder namun memberikan peringatan untuk standarisasi.
@@ -854,9 +878,11 @@ Nexus AI didesain untuk mengenali berbagai struktur proyek secara cerdas.
 ---
 
 ## 📋 5. Implementation Planning & Auto-Fix
+
 Engine tidak hanya menemukan masalah, tetapi juga merencanakan dan mengeksekusi solusi.
 
 **Proses:**
+
 1.  **Plan Generation**: Membuat file `PLAN-*.json` dan `.md` yang berisi daftar tugas terperinci.
 2.  **Auto-Action Injection**: Tugas tertentu (seperti mengamankan `.env`) secara otomatis disuntikkan dengan aksi fisik (`FILE_APPEND`, `FILE_REPLACE`).
 3.  **Atomic Execution**: Menggunakan `Modifier.js` untuk menerapkan perubahan langsung ke file proyek eksternal setelah lolos verifikasi TDD.
@@ -866,28 +892,34 @@ Engine tidak hanya menemukan masalah, tetapi juga merencanakan dan mengeksekusi 
 ## 🧐 Analisis Integrasi Eksternal
 
 ### Kekuatan Saat Ini:
--   **Zero-Config Detection**: Engine sangat fleksibel dalam mengenali struktur folder proyek yang berbeda.
--   **Real-time Development**: Berkat `npm link`, setiap pembaruan logika di Engine pusat langsung tersedia di seluruh proyek yang terhubung.
--   **Compliance-First**: TDD Guard memastikan pengembang (dan AI) tidak melakukan perubahan sembarangan.
+
+- **Zero-Config Detection**: Engine sangat fleksibel dalam mengenali struktur folder proyek yang berbeda.
+- **Real-time Development**: Berkat `npm link`, setiap pembaruan logika di Engine pusat langsung tersedia di seluruh proyek yang terhubung.
+- **Compliance-First**: TDD Guard memastikan pengembang (dan AI) tidak melakukan perubahan sembarangan.
 
 ### Rekomendasi (External Roadmap):
+
 1.  **Remote Harvesting**: Mengembangkan kemampuan untuk memanen pengetahuan dari repository remote tanpa harus melakukan cloning lokal.
 2.  **External Skill Injection**: Memungkinkan proyek eksternal memiliki "Custom Skills" yang hanya berlaku untuk proyek tersebut namun tetap dikelola oleh Orchestrator pusat.
 
 ---
+
 ## 🚀 6. External Pipeline Roadmap (Future Optimizations)
+
 Kelima pilar optimasi saat ini berada dalam fase perencanaan:
+
 1.  **TDD Scaffolding**: [Planning] Otomatisasi pembuatan test.
 2.  **Lainnya**: Skill Injection, Atomic Rollback, Knowledge Distillation, & Shadow Audit.
-Detail lengkap di [EXTERNAL_PIPELINE_ROADMAP.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/documentation/planning/EXTERNAL_PIPELINE_ROADMAP.md).
-
----
-*Generated by Nexus AI | Status: TDD_LAB_FOCUS | Date: 2026-05-01*
+    Detail lengkap di [EXTERNAL_PIPELINE_ROADMAP.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/documentation/planning/EXTERNAL_PIPELINE_ROADMAP.md).
 
 ---
 
+_Generated by Nexus AI | Status: TDD_LAB_FOCUS | Date: 2026-05-01_
+
+---
 
 ### 📜 RULE: NEXUS_INTERNAL_PIPELINE_RECAP.md
+
 # 🏗️ Rekapitulasi Pipeline Internal Nexus AI (Orchestrator)
 
 Dokumen ini menjelaskan alur kerja internal dari folder `agent/core/` untuk memberikan pemahaman menyeluruh tentang bagaimana Nexus AI mengelola data, memori, dan eksekusi.
@@ -916,7 +948,7 @@ Dokumen ini menjelaskan alur kerja internal dari folder `agent/core/` untuk memb
 
 **Fungsi:**
 
-- **Advanced Extraction**: Mengekstraksi bagian *Insights* dan *Recommendations* secara cerdas dari dokumen mentah.
+- **Advanced Extraction**: Mengekstraksi bagian _Insights_ dan _Recommendations_ secara cerdas dari dokumen mentah.
 - **Semantic Tagging**: Menambahkan metadata domain (Security, UI-UX, TDD, dll) secara otomatis ke setiap file HUB.
 - **Semantic Cross-Linking**: Menciptakan tautan (link) otomatis antar dokumen yang memiliki keterkaitan konsep teknis.
 - **Standardization**: Menyeragamkan seluruh nama file di HUB dengan pola `NEXUS_...` menggunakan protokol **Multi-Option Merge**.
@@ -966,7 +998,7 @@ Tiga komponen ini adalah "otot" yang menjalankan perintah teknis dengan presisi 
 
 - **Parallel Specialist Audit**: `NexusEngine` menjalankan auditor secara paralel (Promise.all), meningkatkan kecepatan audit hingga 70%.
 - **Multi-Option Collision Protocol**: Sistem Opsi A/B telah menggantikan logika IF-ELSE di seluruh engine, memberikan fleksibilitas keputusan yang maksimal.
-- **Advanced Distillation Engine**: `Distiller.js` kini mampu melakukan ekstraksi bagian dokumen (Insights/Recommendations) dan penyematan *Contextual Anchors* secara cerdas.
+- **Advanced Distillation Engine**: `Distiller.js` kini mampu melakukan ekstraksi bagian dokumen (Insights/Recommendations) dan penyematan _Contextual Anchors_ secara cerdas.
 - **Semantic Knowledge Indexing**: Sistem kini memiliki kemampuan **Semantic Search** berdasarkan tagging otomatis (Security, UI-UX, dll) untuk pemanggilan pengetahuan yang akurat.
 - **Collision Resolution Automation**: `Modifier.js` telah mendukung resolusi otomatis blok Opsi A/B menjadi kode final.
 - **Autonomous TDD Scaffolding (Phase 4)**: `NexusEngine` secara otomatis men-generate boilerplate test case (JS/PHP) saat mendeteksi pelanggaran TDD.
@@ -976,25 +1008,28 @@ Tiga komponen ini adalah "otot" yang menjalankan perintah teknis dengan presisi 
 ### 🚀 Roadmap Masa Depan (The Next Frontier):
 
 #### ⚡ Phase 5: Predictive Analytics & High-Performance Core
+
 1.  **Predictive Technical Debt Analyzer**: Spesialis auditor baru yang mampu memprediksi akumulasi hutang teknis berdasarkan frekuensi modifikasi file dan kompleksitas kode.
 2.  **C++ Native Distillation Core**: Migrasi modul penyulingan (Distiller) ke C++ untuk pemrosesan dataset pengetahuan skala besar dengan kecepatan native.
 3.  **Visual Audit Integration**: Kemampuan auditor untuk melakukan validasi visual terhadap UI/UX berdasarkan pedoman desain yang tersimpan di HUB.
 
 #### 🛡️ Phase 6: Security & Intelligence Optimization
+
 1.  **Nexus Redactor (Privacy Guard)**: Implementasi filter sensor data sensitif untuk mencegah kebocoran API Keys/Secrets ke dalam memori HUB.
 2.  **Cognitive Feedback Loop**: Mekanisme belajar dari kegagalan verifikasi masa lalu (Anti-Patterns) untuk meningkatkan akurasi perencanaan.
 3.  **Project Namespace Isolation**: Isolasi pengetahuan antar proyek untuk mencegah kontaminasi standar.
 4.  **Hot Memory Indexing**: Prioritas konteks pada temuan audit terbaru untuk respon mesin yang lebih relevan.
 
-*Detail rencana eksekusi: [NEXUS_PIPELINE_OPTIMIZATION_PLAN.md](../planning/NEXUS_PIPELINE_OPTIMIZATION_PLAN.md)*
-
----
-*Generated by Nexus AI | Document Status: ARCHITECT_STRATEGY_LOCKED*
+_Detail rencana eksekusi: [NEXUS_PIPELINE_OPTIMIZATION_PLAN.md](../planning/NEXUS_PIPELINE_OPTIMIZATION_PLAN.md)_
 
 ---
 
+_Generated by Nexus AI | Document Status: ARCHITECT_STRATEGY_LOCKED_
+
+---
 
 ### 📜 RULE: PIPELINE_VISUAL.md
+
 # 📊 Visualisasi Pipeline NEXUS AI
 
 Dokumen ini berisi representasi visual dan penjelasan mendalam mengenai alur kerja **Nexus Engine** dalam mengelola kolaborasi Human-AI.
@@ -1007,32 +1042,32 @@ Dokumen ini berisi representasi visual dan penjelasan mendalam mengenai alur ker
 graph TD
     %% Entry Point
     Start((Start: nexus run)) --> Init[Phase 0: Inisialisasi]
-    
+
     subgraph "Core Engine Loop"
         Init --> Discover[Discover Agents & Skills]
         Discover --> Audit{Phase 1: Audit}
-        
+
         %% Audit Branching
         Audit -- Mode 1: Learning --> SpecAudit[Specialist Agents Scan<br/>Security, UX, SEO, DB]
         Audit -- Mode 2: Efficient --> QuickAudit[Quick Consolidated Scan]
-        
+
         SpecAudit --> AuditRep[Generate Audit Report]
         QuickAudit --> AuditRep
-        
+
         AuditRep --> Plan[Phase 2: Planning]
         Plan --> PlanMD[Generate Implementation Plan<br/>documentation/planning/*.md]
-        
+
         %% Human Intervention
         PlanMD --> Approval{Human Approval?}
         Approval -- No --> PlanMD
         Approval -- Yes / OKE --> Exec[Phase 3: Execution]
-        
+
         %% Execution to Verification
         Exec --> Verify{Phase 4: Verification}
         Verify -- Flaws Found --> Audit
         Verify -- Zero Flaws --> Record[Phase 5: Finalization]
     end
-    
+
     %% Finalization to Memory
     Record --> Summary[Generate Cycle Summary]
     Summary --> Knowledge[(Knowledge Base / HUB)]
@@ -1045,7 +1080,7 @@ graph TD
         Agent[(Agent Library)] -.-> SpecAudit
         Agent -.-> Plan
     end
-    
+
     %% Harvesting Phase (External)
     Harvest((Phase 6: Harvest)) -.-> |Sync Knowledge| Knowledge
 ```
@@ -1055,58 +1090,66 @@ graph TD
 ## 📝 Penjelasan Detail Tiap Fase
 
 ### 🛠️ Phase 0: Inisialisasi (`INIT`)
-*   **Aksi**: Sistem memetakan folder proyek, mendeteksi keberadaan folder `nexus/`, dan menyiapkan lingkungan eksekusi.
-*   **Intel**: Memeriksa `package.json` untuk memastikan seluruh dependensi engine tersedia.
+
+- **Aksi**: Sistem memetakan folder proyek, mendeteksi keberadaan folder `nexus/`, dan menyiapkan lingkungan eksekusi.
+- **Intel**: Memeriksa `package.json` untuk memastikan seluruh dependensi engine tersedia.
 
 ### 🔍 Phase 1: Audit (Scanning & Intelligence)
-*   **Tujuan**: Mengidentifikasi celah keamanan, bug, atau potensi optimasi.
-*   **Mode Kerja**:
-    *   **Learning**: Memberikan edukasi kepada developer melalui laporan spesialis (Cyber, UX, SEO).
-    *   **Efficient**: Fokus pada resolusi cepat dengan laporan tunggal dari PM.
-*   **Guardrails**: Engine dilarang memindai file sensitif tanpa persetujuan eksplisit dari User.
+
+- **Tujuan**: Mengidentifikasi celah keamanan, bug, atau potensi optimasi.
+- **Mode Kerja**:
+  - **Learning**: Memberikan edukasi kepada developer melalui laporan spesialis (Cyber, UX, SEO).
+  - **Efficient**: Fokus pada resolusi cepat dengan laporan tunggal dari PM.
+- **Guardrails**: Engine dilarang memindai file sensitif tanpa persetujuan eksplisit dari User.
 
 ### 📅 Phase 2: Planning (Strategi & Kontrak)
-*   **Tujuan**: Menyusun *Implementation Plan* sebagai kontrak kerja AI.
-*   **Logika**: Mengubah setiap temuan audit menjadi tugas (tasks) yang terukur.
-*   **Output**: File `.md` di folder `documentation/planning/` yang harus ditinjau manusia.
+
+- **Tujuan**: Menyusun _Implementation Plan_ sebagai kontrak kerja AI.
+- **Logika**: Mengubah setiap temuan audit menjadi tugas (tasks) yang terukur.
+- **Output**: File `.md` di folder `documentation/planning/` yang harus ditinjau manusia.
 
 ### 🚀 Phase 3: Execution (Pengerjaan)
-*   **Tujuan**: AI melakukan modifikasi kode atau pembuatan fitur.
-*   **Aturan**: AI hanya diperbolehkan menjalankan perintah yang sesuai dengan *Implementation Plan* yang telah disetujui.
+
+- **Tujuan**: AI melakukan modifikasi kode atau pembuatan fitur.
+- **Aturan**: AI hanya diperbolehkan menjalankan perintah yang sesuai dengan _Implementation Plan_ yang telah disetujui.
 
 ### 🔍 Phase 4: Verification (Quality Control)
-*   **Tujuan**: Validasi hasil kerja.
-*   **Mekanisme**: Membandingkan status proyek terbaru dengan target yang ditetapkan di Phase 1 & 2.
-*   **Zero Flaws**: Jika ditemukan ketidaksesuaian, sistem akan memaksa siklus kembali ke Phase 1.
+
+- **Tujuan**: Validasi hasil kerja.
+- **Mekanisme**: Membandingkan status proyek terbaru dengan target yang ditetapkan di Phase 1 & 2.
+- **Zero Flaws**: Jika ditemukan ketidaksesuaian, sistem akan memaksa siklus kembali ke Phase 1.
 
 ### 📝 Phase 5: Finalization & Records
-*   **Tujuan**: Pencatatan sejarah dan pembaruan pengetahuan.
-*   **Output**: 
-    *   `memory/short_term/`: Log lengkap setiap siklus.
-    *   `memory/long_term/`: Ringkasan pelajaran teknis untuk referensi di masa depan (The HUB).
-    *   **🧠 Universal Nexus Collision Logic (Opsi A maupun Opsi B)**:
-        *   Logika ini adalah standar baku yang diterapkan di seluruh pipeline **HUB (Knowledge)** dan **SKILL**.
-        *   **Kondisi**: Terjadi saat ada kemiripan antara "A" (yang sudah ada) dan "B" (yang baru masuk/direfactor), baik itu berupa teori di HUB maupun instruksi teknis di SKILL.
-        *   **Implementasi di HUB & SKILL**:
-          Opsi A: { Standard_Pattern_A } 
-          Opsi B: { Alternative_Pattern_B }
-          (Opsi Tak Terbatas untuk variasi solusi)
-        *   **Alur Refactoring Universal**:
-            1.  **HUB Refactor**: Menggabungkan variasi dokumentasi fitur di folder `memory/long_term/`.
-            2.  **SKILL Refactor**: Jika di folder `skill/` ditemukan teknik koding baru yang mirip dengan yang lama, keduanya disimpan sebagai **Pilihan Opsi (A/B/dst)** sebagai pilihan strategi bagi agen.
-        *   **Tujuan**: Menjamin bahwa sistem tidak hanya memiliki satu cara kerja, melainkan sebuah **"Decision Tree"** dengan opsi tak terbatas yang kaya bagi AI untuk memilih solusi paling optimal (Context-Aware).
+
+- **Tujuan**: Pencatatan sejarah dan pembaruan pengetahuan.
+- **Output**:
+  - `memory/short_term/`: Log lengkap setiap siklus.
+  - `memory/long_term/`: Ringkasan pelajaran teknis untuk referensi di masa depan (The HUB).
+  - **🧠 Universal Nexus Collision Logic (Opsi A maupun Opsi B)**:
+    - Logika ini adalah standar baku yang diterapkan di seluruh pipeline **HUB (Knowledge)** dan **SKILL**.
+    - **Kondisi**: Terjadi saat ada kemiripan antara "A" (yang sudah ada) dan "B" (yang baru masuk/direfactor), baik itu berupa teori di HUB maupun instruksi teknis di SKILL.
+    - **Implementasi di HUB & SKILL**:
+      Opsi A: { Standard_Pattern_A }
+      Opsi B: { Alternative_Pattern_B }
+      (Opsi Tak Terbatas untuk variasi solusi)
+    - **Alur Refactoring Universal**:
+      1.  **HUB Refactor**: Menggabungkan variasi dokumentasi fitur di folder `memory/long_term/`.
+      2.  **SKILL Refactor**: Jika di folder `skill/` ditemukan teknik koding baru yang mirip dengan yang lama, keduanya disimpan sebagai **Pilihan Opsi (A/B/dst)** sebagai pilihan strategi bagi agen.
+    - **Tujuan**: Menjamin bahwa sistem tidak hanya memiliki satu cara kerja, melainkan sebuah **"Decision Tree"** dengan opsi tak terbatas yang kaya bagi AI untuk memilih solusi paling optimal (Context-Aware).
 
 ### 🌾 Phase 6: Harvesting (Cross-Project Knowledge)
-*   **Tujuan**: Sinkronisasi pengetahuan lintas proyek.
-*   **Aksi**: Mengumpulkan dokumentasi "Emas" dari proyek lain ke dalam `golden/` hub pusat.
+
+- **Tujuan**: Sinkronisasi pengetahuan lintas proyek.
+- **Aksi**: Mengumpulkan dokumentasi "Emas" dari proyek lain ke dalam `golden/` hub pusat.
 
 ---
-*Dokumen ini merupakan bagian dari standar operasional Human-AI Nexus.*
+
+_Dokumen ini merupakan bagian dari standar operasional Human-AI Nexus._
 
 ---
-
 
 ### 📜 RULE: architecture.md
+
 # System Architecture
 
 The Human-AI Nexus is built as a modular orchestration system.
@@ -1117,39 +1160,43 @@ The Human-AI Nexus is built as a modular orchestration system.
 graph TD
     User([User/Human]) -- Approval --> PM[Project Manager Agent]
     User -- Initial Request --> Orc[Nexus Orchestrator]
-    
+
     subgraph "Core Engine"
         Orc -- Trigger --> Audit[Audit Phase]
         Audit -- Results --> Plan[Planning Phase]
         Plan -- Tasks --> Exec[Execution Phase]
         Exec -- Success --> Record[Finalization Phase]
     end
-    
+
     subgraph "Knowledge & Standards"
         Agent[(Agent Library)]
         Skill[(Skill/Standards)]
         Knowledge[(Knowledge Base)]
     end
-    
+
     Audit -.-> Agent
     Plan -.-> Skill
     Record -.-> Knowledge
-    
+
     Record -- Recursive --> Audit
 ```
 
 ## Components
 
 ### 1. Nexus Orchestrator (`NexusEngine.js`)
+
 The central brain that coordinates the flow between phases. It ensures that data from the Audit phase is correctly passed to Planning, and that Execution only happens after approval.
 
 ### 2. Agent Layer
+
 A collection of markdown files in `agent/` that define the persona, responsibilities, and guardrails for different AI agents (e.g., Architect, Engineer, QA).
 
 ### 3. Skill Layer
+
 Technical standards and "best practice" snippets in `skill/` that guide the agents during the Execution phase.
 
 ### 4. Persistence Layer
+
 Folders for `audit`, `planning`, `records`, and `knowledge` that ensure every step of the process is documented and persisted for long-term project memory.
 
 ---
@@ -1160,14 +1207,13 @@ Nexus AI is designed to be highly portable and integrable with existing codebase
 
 - **External Pipeline**: The system intelligently detects and manages project-specific documentation and local AI "brains" inside the project root.
 - **Deep Recaps**: Detailed documentation on how the engine interacts with external environments:
-    - [Internal Pipeline Recap](NEXUS_INTERNAL_PIPELINE_RECAP.md)
-    - [External Pipeline Recap](NEXUS_EXTERNAL_PIPELINE_RECAP.md)
-
+  - [Internal Pipeline Recap](NEXUS_INTERNAL_PIPELINE_RECAP.md)
+  - [External Pipeline Recap](NEXUS_EXTERNAL_PIPELINE_RECAP.md)
 
 ---
 
-
 ### 📜 RULE: getting-started.md
+
 # Getting Started with Human-AI Nexus
 
 Human-AI Nexus is a framework designed to bridge the gap between human intent and AI execution through structured documentation and automated orchestration.
@@ -1175,6 +1221,7 @@ Human-AI Nexus is a framework designed to bridge the gap between human intent an
 ## Installation
 
 ### As a CLI tool
+
 You can install the framework globally or run it via npx:
 
 ```bash
@@ -1186,6 +1233,7 @@ npx @faisal-trainer/human-ai-nexus
 ```
 
 ### For Development
+
 Clone the repository and install dependencies:
 
 ```bash
@@ -1197,12 +1245,12 @@ npm install
 ## Basic Usage
 
 To start a standard workflow cycle (Audit -> Plan -> Execute), run:
-    
+
 ```bash
 npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 ```
 
-*Note: You can also use `npm start` if you are working within the framework source directory.*
+_Note: You can also use `npm start` if you are working within the framework source directory._
 
 ## Core Concepts
 
@@ -1220,33 +1268,41 @@ npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 
 ---
 
-
 ### 📜 RULE: workflow.md
+
 # Nexus Workflow
 
 The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximum quality and traceability.
 
 ## 1. Audit Phase
+
 The system (or specialized agents) scans the current state of the project.
+
 - **Security Guardrails**: The engine will request explicit permission before scanning sensitive files (`.env`, `package.json`, `composer.json`).
 - **Input**: Source code, documentation, and (if permitted) configuration files.
 - **Output**: An Audit Report in `audit/`.
 - **Goal**: Identify gaps, bugs, or opportunities for improvement.
 
 ## 2. Planning Phase
+
 Based on the audit report, a detailed plan is generated.
+
 - **Input**: Audit Report.
 - **Output**: Implementation Plan in `documentation/planning/`.
 - **Human Role**: Review and approve the plan.
 
 ## 3. Execution Phase
+
 Specialized agents execute the tasks defined in the plan.
+
 - **Input**: Approved Implementation Plan.
 - **Action**: Code generation, configuration updates, or content creation.
 - **Constraint**: Agents must follow the standards in `skill/`.
 
 ## 4. Finalization Phase
+
 The results are recorded and the knowledge base is updated.
+
 - **Input**: Execution results.
 - **Output**: Logs in `memory/short_term/` and summaries in `documentation/summary/`.
 - **Loop**: Trigger a new Audit to verify the changes.
@@ -1254,6 +1310,7 @@ The results are recorded and the knowledge base is updated.
 ---
 
 ### Zero Flaws Enforcement
+
 The cycle repeats until an audit results in "Zero Flaws". This ensures that no technical debt or bugs are left behind.
 
 ---

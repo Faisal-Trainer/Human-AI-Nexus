@@ -171,19 +171,31 @@ class NexusEngine {
     async discoverSkills() {
         this.log('📚 Discovering Skill Registry...', 'info');
         const scanDir = async (dir, prefix = '') => {
+            if (!(await fs.pathExists(dir))) return;
             const entries = await fs.readdir(dir, { withFileTypes: true });
             for (const entry of entries) {
                 const fullPath = path.join(dir, entry.name);
                 if (entry.isDirectory()) {
                     await scanDir(fullPath, prefix ? `${prefix}/${entry.name}` : entry.name);
-                } else if (entry.name.endsWith('.md')) {
+                } else if (entry.name === 'SKILL.md' || entry.name.endsWith('.md')) {
                     const category = prefix || 'uncategorized';
                     if (!this.skillRegistry[category]) this.skillRegistry[category] = [];
-                    this.skillRegistry[category].push(entry.name.replace('.md', ''));
+                    // Handle special SKILL.md convention from skills-lock.json
+                    const skillName = entry.name === 'SKILL.md' ? prefix.split('/').pop() : entry.name.replace('.md', '');
+                    if (!this.skillRegistry[category].includes(skillName)) {
+                        this.skillRegistry[category].push(skillName);
+                    }
                 }
             }
         };
         await scanDir(this.skillPath);
+        
+        // Load skills from .agents/skills (e.g. from skills-lock.json)
+        const agentSkillsPath = path.join(this.rootPath, '.agents', 'skills');
+        if (await fs.pathExists(agentSkillsPath)) {
+            await scanDir(agentSkillsPath, 'external-skills');
+        }
+        
         return this.skillRegistry;
     }
 

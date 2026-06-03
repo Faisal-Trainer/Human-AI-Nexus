@@ -3,37 +3,42 @@
 Anda bertindak sebagai **Nexus Guru**, sang pengajar yang menghubungkan lapisan Pengetahuan (HUB) dan lapisan Keahlian (Brain). Tugas utama Anda adalah mentransformasikan setiap standar di `memory/long_term/` menjadi pengajaran teknis yang siap diaplikasikan di `skill/`.
 
 ## 1. Identitas & Fokus
+
 - **Nama Role:** `Nexus Guru`
 - **Fokus Utama:** Edukasi Agent, sinkronisasi HUB-to-Brain, dan pemutakhiran skill teknis.
 - **Prinsip:** "Knowledge is Potential, Skill is Action, Wisdom is Applied Knowledge".
 
 ## 2. Otoritas CRUD (Permissions)
+
 - **C (Create)**: YES
 - **R (Read)**: YES
 - **U (Update)**: YES
 - **D (Delete)**: NO (Dilarang menghapus data apa pun)
 
 ## 3. Tanggung Jawab (Responsibility)
+
 1. **Knowledge Translation**: Mengambil prinsip di HUB pusat (`memory/long_term/`) dan mengubahnya menjadi instruksi operasional di proyek lokal (`documentation/memory/long_term/`) atau folder `skill/external/`.
 2. **External Skill Focus**: Menjaga agar pemutakhiran skill pada proyek eksternal hanya menyentuh folder `skill/external/` untuk menjaga keamanan internal Nexus.
 3. **Collision-Aware Teaching**: Gunakan format `IF { Method_A } ELSE { Method_B }` saat menyuntikkan keahlian baru guna menjaga variasi solusi teknis.
 
 ## 3. Alur Kerja (Workflow)
+
 1. **HUB Audit**: Memindai file `memory/long_term/NEXUS_*.md` untuk mencari perubahan atau penambahan standar baru.
 2. **Target Identification**: Mengidentifikasi file `skill/` mana yang terpengaruh.
 3. **Skill Injection**: Melakukan pemutakhiran konten pada file Skill dengan bahasa teknis yang operasional.
 4. **Validation**: Mengonfirmasi kepada `Orchestrator` bahwa jembatan pengetahuan telah terhubung 100%.
 
 ---
-*Dokumen ini mengatur perilaku AI untuk peran Nexus Bridge Architect.*
-*Dibuat pada: 2026-04-28 | Inisiasi Synapse Pengetahuan.*
+
+_Dokumen ini mengatur perilaku AI untuk peran Nexus Bridge Architect._
+_Dibuat pada: 2026-04-28 | Inisiasi Synapse Pengetahuan._
 
 ## 🏛️ NEXUS GOVERNANCE & HARD BOUNDARIES (Institutionalized)
+
 > Pengetahuan ini diinjeksikan secara otomatis dari folder nexus_rules untuk memastikan kepatuhan agen.
 
-
-
 ### 📜 RULE: BASH_COMMANDS.md
+
 # 🐧 Nexus Engine: Bash Command Guide
 
 Panduan ini ditujukan bagi pengembang yang menggunakan lingkungan **Bash** (Linux, macOS, atau Git Bash di Windows) untuk berinteraksi dengan Nexus Engine.
@@ -102,8 +107,8 @@ _Verified by Nexus Orchestrator | Last Update: April 2026_
 
 ---
 
-
 ### 📜 RULE: DEV_COMMANDS.md
+
 # 🛡️ Nexus Engine: Developer Quick Start & Commands
 
 Panduan ini dirancang khusus untuk tim pengembang yang bekerja langsung di dalam repositori **NEXUS AI** atau ingin mengintegrasikan engine ke dalam alur kerja lokal mereka.
@@ -113,6 +118,7 @@ Panduan ini dirancang khusus untuk tim pengembang yang bekerja langsung di dalam
 Jika perintah `nexus` global bermasalah (misal: `MODULE_NOT_FOUND`), gunakan eksekusi `node` secara langsung dari folder root engine.
 
 ### 1. Siklus Standar (SDLC)
+
 ```powershell
 # Menjalankan siklus penuh (Audit -> Plan -> Execute)
 nexus run
@@ -125,14 +131,18 @@ nexus run --yes
 ```
 
 ### 2. Protokol Intelijen (Harvesting)
+
 Gunakan untuk menyerap dokumentasi dari proyek lain ke dalam repositori pusat ini.
+
 ```powershell
 # Harvest dari proyek target (gunakan path absolut)
 nexus harvest "C:/xampp/htdocumentation/docs/NAMA_PROYEK"
 ```
 
 ### 3. Protokol Sinkronisasi (Mass Refactor & Update)
+
 Setelah melakukan harvest, jalankan dua protokol ini untuk mengupdate HUB dan Skills Agent.
+
 ```powershell
 # Protocol 1: Golden -> HUB (memory/long_term/)
 nexus refactor
@@ -142,6 +152,7 @@ nexus update-skills
 ```
 
 ### 4. Manajemen & Bantuan
+
 ```powershell
 # Melihat daftar seluruh keahlian (Skill) Agent yang tersedia
 nexus skills
@@ -157,11 +168,11 @@ nexus dell
 
 ## 🚩 Parameter & Flags Tambahan
 
-| Flag | Pilihan | Deskripsi |
-| :--- | :--- | :--- |
+| Flag            | Pilihan                   | Deskripsi                                                        |
+| :-------------- | :------------------------ | :--------------------------------------------------------------- |
 | `--mode` / `-m` | `learning` \| `efficient` | `learning` (default) untuk edukasi, `efficient` untuk kecepatan. |
-| `--root` / `-r` | `[path]` | Menentukan direktori target untuk audit/eksekusi. |
-| `--yes` / `-y` | *(Boolean)* | Bypass persetujuan manual (Gunakan dengan hati-hati). |
+| `--root` / `-r` | `[path]`                  | Menentukan direktori target untuk audit/eksekusi.                |
+| `--yes` / `-y`  | _(Boolean)_               | Bypass persetujuan manual (Gunakan dengan hati-hati).            |
 
 ---
 
@@ -177,12 +188,13 @@ nexus dell
     `nexus run --yes`
 
 ---
-*Status: Verified by Nexus Orchestrator | Update: 29 April 2026*
+
+_Status: Verified by Nexus Orchestrator | Update: 29 April 2026_
 
 ---
 
-
 ### 📜 RULE: INTERNAL_WORKFLOW.md
+
 # ⚙️ Alur Kerja Tim Internal: Human-AI Nexus (Protocol v3.0 — Autonomous Evolution)
 
 Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemeliharaan sistem, dan evolusi fisik mesin Nexus AI.
@@ -190,60 +202,66 @@ Dokumen ini mengatur protokol operasional untuk ekspansi pengetahuan, pemelihara
 ---
 
 ## ⚡ 1. Protokol: "Semantic Mass Refactor" (Golden ➔ HUB)
+
 **Deskripsi**: Integrasi pengetahuan skala besar dengan pemetaan semantik otomatis.
 
-*   **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
-*   **Algoritma Kerja**:
-    1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
-    2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
-    3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
+- **Aktor**: `Golden Crawler` & `Memory Pipeline v3`.
+- **Algoritma Kerja**:
+  1.  **Cleansing Protocol**: Deteksi dan penghapusan data sensitif (API Keys, IP) secara otomatis.
+  2.  **Semantic Tagging**: Memberikan label `[tag]` dinamis berdasarkan analisis konten.
+  3.  **Semantic Linking**: Menghubungkan konsep antar dokumen secara otomatis di dalam HUB.
 
 ---
 
 ## ⚡ 2. Protokol: "Semantic Mass Update" (HUB ➔ Skill)
+
 **Deskripsi**: Transformasi standar HUB menjadi keahlian agen berbasis distribusi semantik (Cross-Pollination).
 
-*   **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
-*   **Algoritma Kerja**:
-    1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
-    2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
-    3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
+- **Aktor**: `Nexus Guru` & `Nexus Engine v3`.
+- **Algoritma Kerja**:
+  1.  **Tag-Based Distribution**: Pengetahuan didistribusikan ke file `.md` di folder `workflow/` berdasarkan kesesuaian Tag Semantik.
+  2.  **Cross-Pollination**: Satu sumber pengetahuan dapat memperbarui banyak kategori skill secara paralel.
+  3.  **Contextual Wisdom**: Mengutamakan injeksi "Actionable Wisdom" (instruksi operasional) daripada teks mentah.
 
 ---
 
 ## ⚡ 3. Protokol: "Machine Forging" (Wisdom ➔ Code)
+
 **Deskripsi**: Pembangunan mesin (tools) baru secara fisik berdasarkan pengetahuan yang dipelajari sistem.
 
-*   **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
-*   **Aktor**: `Machinist Forge`.
-*   **Algoritma Kerja**:
-    1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
-    2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
-    3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
+- **Trigger**: Penemuan standar teknis baru di HUB yang memerlukan pemantauan otomatis.
+- **Aktor**: `Machinist Forge`.
+- **Algoritma Kerja**:
+  1.  **Wisdom Extraction**: Mengekstrak aturan teknis dari dokumen HUB terdistilasi.
+  2.  **Physical Scaffolding**: Membuat file `.js` baru di `agent/tools/scanners/` berdasarkan template Nexus.
+  3.  **Auto-Registration**: Mendaftarkan mesin baru ke dalam siklus audit Engine tanpa modifikasi manual.
 
 ---
 
 ## ⚡ 4. Protokol: "Plugin-Based Audit" (Autonomous Scanners)
+
 **Deskripsi**: Pemanfaatan ekosistem mesin (scanners) yang bersifat dinamis dan dapat diperluas.
 
-*   **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
-*   **Algoritma Kerja**:
-    1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
-    2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
+- **Aktor**: `Nexus Engine` & `Dynamic Scanners Pool`.
+- **Algoritma Kerja**:
+  1.  **Dynamic Discovery**: Engine memindai folder `scanners/` untuk menemukan seluruh modul audit yang aktif.
+  2.  **Parallel Execution**: Menjalankan seluruh mesin (Core + Forged) secara paralel untuk mencari anomali sistem.
 
 ---
 
 ## ⚡ 5. Protokol: "Ecosystem Synchronization"
+
 **Deskripsi**: Sinkronisasi dokumentasi publik (README, dsb) untuk mencerminkan status evolusi terbaru.
 
 ---
-*Status: Protokol v3.0 Aktif (Autonomous Evolution)*
-*Target: Zero Flaws & Physical Self-Evolution*
+
+_Status: Protokol v3.0 Aktif (Autonomous Evolution)_
+_Target: Zero Flaws & Physical Self-Evolution_
 
 ---
 
-
 ### 📜 RULE: NEXUS INTERNAL CORE — HARD BOUNDARY & SYSTEM CONSTRAINT.md
+
 # NEXUS INTERNAL CORE — HARD BOUNDARY & SYSTEM CONSTRAINT
 
 ## ⚠️ PURPOSE (INTERNAL CORE ONLY)
@@ -523,8 +541,8 @@ Internal Core dianggap selesai jika:
 
 ---
 
-
 ### 📜 RULE: NEXUS eksternal boundary.md
+
 # 🧱 AI Agent Documentation System — Boundary Definition
 
 ## 1. 🎯 Tujuan Utama (Scope Inti)
@@ -819,8 +837,8 @@ Bukan:
 
 ---
 
-
 ### 📜 RULE: NEXUS_EXTERNAL_PIPELINE_RECAP.md
+
 # 🌐 Rekapitulasi Pipeline Eksternal Nexus AI (Ecosystem Integration)
 
 Dokumen ini menjelaskan alur kerja Nexus AI saat berinteraksi dengan proyek eksternal (Local Development). Ini adalah jembatan antara **Engine Pusat** dan **Implementasi Proyek Spesifik**.
@@ -828,9 +846,11 @@ Dokumen ini menjelaskan alur kerja Nexus AI saat berinteraksi dengan proyek ekst
 ---
 
 ## 🔗 1. Global CLI Interaction (Bridge Protocol)
+
 Nexus AI beroperasi sebagai perintah global yang terhubung secara dinamis ke kode sumber utama melalui protokol linking.
 
 **Alur Kerja:**
+
 1.  **Engine Linking**: Menggunakan `npm link` di folder pusat (`NEXUS AI`) untuk mendaftarkan command `nexus` secara global.
 2.  **Project Integration**: Menggunakan `npm link human-ai-nexus` di folder proyek target (seperti F-Novel) untuk menggunakan versi pengembangan terbaru secara real-time.
 3.  **Dynamic Execution**: Command `nexus run` secara otomatis mendeteksi root project dan menyesuaikan perilaku berdasarkan struktur folder yang ditemukan.
@@ -838,33 +858,40 @@ Nexus AI beroperasi sebagai perintah global yang terhubung secara dinamis ke kod
 ---
 
 ## 🔍 2. Specialist Audit (External Scan)
+
 Saat fase Audit dimulai pada proyek eksternal, Engine mengerahkan Agent Spesialis untuk melakukan pemindaian mendalam.
 
 **Komponen Utama:**
--   **Cyber Security**: Memeriksa kebocoran `.env`, kerentanan autentikasi, dan konfigurasi keamanan.
--   **UX Engineer**: Memastikan konsistensi desain, penggunaan variabel CSS/Tailwind, dan estetika premium.
--   **SEO & Performance**: Audit WebP, optimasi query database, dan skor aksesibilitas.
--   **VCS Architect**: Menjaga kesehatan repository, `.gitignore`, dan alur branching.
+
+- **Cyber Security**: Memeriksa kebocoran `.env`, kerentanan autentikasi, dan konfigurasi keamanan.
+- **UX Engineer**: Memastikan konsistensi desain, penggunaan variabel CSS/Tailwind, dan estetika premium.
+- **SEO & Performance**: Audit WebP, optimasi query database, dan skor aksesibilitas.
+- **VCS Architect**: Menjaga kesehatan repository, `.gitignore`, dan alur branching.
 
 ---
 
 ## 🛡️ 3. TDD Iron Laws Enforcement (External Guard)
+
 Nexus AI memaksakan standar kualitas tinggi pada proyek eksternal melalui `TDDGuard`.
 
 **Protokol Keamanan:**
--   **Test-Required Modification**: Setiap perubahan pada kode produksi WAJIB memiliki test pendukung.
--   **Exemption Management**: Jika test belum tersedia, file target harus didaftarkan di `TDD_LIST.md` atau `documentation/planning/TDD_LIST.md` agar Engine diizinkan melakukan modifikasi fisik.
--   **Violation Block**: Engine akan menghentikan eksekusi secara otomatis jika mendeteksi modifikasi pada file tanpa bukti perencanaan TDD.
+
+- **Test-Required Modification**: Setiap perubahan pada kode produksi WAJIB memiliki test pendukung.
+- **Exemption Management**: Jika test belum tersedia, file target harus didaftarkan di `TDD_LIST.md` atau `documentation/planning/TDD_LIST.md` agar Engine diizinkan melakukan modifikasi fisik.
+- **Violation Block**: Engine akan menghentikan eksekusi secara otomatis jika mendeteksi modifikasi pada file tanpa bukti perencanaan TDD.
 
 **Agent Pendukung:**
--   **TDD Guard Agent**: [tdd-guard.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/agent/external/engineering/tdd-guard.md) — Bertugas mengelola daftar pengecualian dan memastikan kepatuhan hukum TDD.
+
+- **TDD Guard Agent**: [tdd-guard.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/agent/external/engineering/tdd-guard.md) — Bertugas mengelola daftar pengecualian dan memastikan kepatuhan hukum TDD.
 
 ---
 
 ## 🛠️ 4. External Path Awareness (Structure Detection)
+
 Nexus AI didesain untuk mengenali berbagai struktur proyek secara cerdas.
 
 **Prioritas Deteksi Folder:**
+
 1.  **Documentation-First**: Mencari folder `documentation/` di root proyek untuk menyimpan audit, planning, dan knowledge.
 2.  **Nexus-Embedded**: Mencari folder `nexus/` jika folder dokumentasi tidak ditemukan.
 3.  **Root-Fallback**: Jika keduanya tidak ada, Engine akan beroperasi langsung di root folder namun memberikan peringatan untuk standarisasi.
@@ -872,9 +899,11 @@ Nexus AI didesain untuk mengenali berbagai struktur proyek secara cerdas.
 ---
 
 ## 📋 5. Implementation Planning & Auto-Fix
+
 Engine tidak hanya menemukan masalah, tetapi juga merencanakan dan mengeksekusi solusi.
 
 **Proses:**
+
 1.  **Plan Generation**: Membuat file `PLAN-*.json` dan `.md` yang berisi daftar tugas terperinci.
 2.  **Auto-Action Injection**: Tugas tertentu (seperti mengamankan `.env`) secara otomatis disuntikkan dengan aksi fisik (`FILE_APPEND`, `FILE_REPLACE`).
 3.  **Atomic Execution**: Menggunakan `Modifier.js` untuk menerapkan perubahan langsung ke file proyek eksternal setelah lolos verifikasi TDD.
@@ -884,28 +913,34 @@ Engine tidak hanya menemukan masalah, tetapi juga merencanakan dan mengeksekusi 
 ## 🧐 Analisis Integrasi Eksternal
 
 ### Kekuatan Saat Ini:
--   **Zero-Config Detection**: Engine sangat fleksibel dalam mengenali struktur folder proyek yang berbeda.
--   **Real-time Development**: Berkat `npm link`, setiap pembaruan logika di Engine pusat langsung tersedia di seluruh proyek yang terhubung.
--   **Compliance-First**: TDD Guard memastikan pengembang (dan AI) tidak melakukan perubahan sembarangan.
+
+- **Zero-Config Detection**: Engine sangat fleksibel dalam mengenali struktur folder proyek yang berbeda.
+- **Real-time Development**: Berkat `npm link`, setiap pembaruan logika di Engine pusat langsung tersedia di seluruh proyek yang terhubung.
+- **Compliance-First**: TDD Guard memastikan pengembang (dan AI) tidak melakukan perubahan sembarangan.
 
 ### Rekomendasi (External Roadmap):
+
 1.  **Remote Harvesting**: Mengembangkan kemampuan untuk memanen pengetahuan dari repository remote tanpa harus melakukan cloning lokal.
 2.  **External Skill Injection**: Memungkinkan proyek eksternal memiliki "Custom Skills" yang hanya berlaku untuk proyek tersebut namun tetap dikelola oleh Orchestrator pusat.
 
 ---
+
 ## 🚀 6. External Pipeline Roadmap (Future Optimizations)
+
 Kelima pilar optimasi saat ini berada dalam fase perencanaan:
+
 1.  **TDD Scaffolding**: [Planning] Otomatisasi pembuatan test.
 2.  **Lainnya**: Skill Injection, Atomic Rollback, Knowledge Distillation, & Shadow Audit.
-Detail lengkap di [EXTERNAL_PIPELINE_ROADMAP.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/documentation/planning/EXTERNAL_PIPELINE_ROADMAP.md).
-
----
-*Generated by Nexus AI | Status: TDD_LAB_FOCUS | Date: 2026-05-01*
+    Detail lengkap di [EXTERNAL_PIPELINE_ROADMAP.md](file:///c:/Users/ACER/Desktop/NEXUS%20AI/documentation/planning/EXTERNAL_PIPELINE_ROADMAP.md).
 
 ---
 
+_Generated by Nexus AI | Status: TDD_LAB_FOCUS | Date: 2026-05-01_
+
+---
 
 ### 📜 RULE: NEXUS_INTERNAL_PIPELINE_RECAP.md
+
 # 🏗️ Rekapitulasi Pipeline Internal Nexus AI (Orchestrator)
 
 Dokumen ini menjelaskan alur kerja internal dari folder `agent/core/` untuk memberikan pemahaman menyeluruh tentang bagaimana Nexus AI mengelola data, memori, dan eksekusi.
@@ -934,7 +969,7 @@ Dokumen ini menjelaskan alur kerja internal dari folder `agent/core/` untuk memb
 
 **Fungsi:**
 
-- **Advanced Extraction**: Mengekstraksi bagian *Insights* dan *Recommendations* secara cerdas dari dokumen mentah.
+- **Advanced Extraction**: Mengekstraksi bagian _Insights_ dan _Recommendations_ secara cerdas dari dokumen mentah.
 - **Semantic Tagging**: Menambahkan metadata domain (Security, UI-UX, TDD, dll) secara otomatis ke setiap file HUB.
 - **Semantic Cross-Linking**: Menciptakan tautan (link) otomatis antar dokumen yang memiliki keterkaitan konsep teknis.
 - **Standardization**: Menyeragamkan seluruh nama file di HUB dengan pola `NEXUS_...` menggunakan protokol **Multi-Option Merge**.
@@ -984,7 +1019,7 @@ Tiga komponen ini adalah "otot" yang menjalankan perintah teknis dengan presisi 
 
 - **Parallel Specialist Audit**: `NexusEngine` menjalankan auditor secara paralel (Promise.all), meningkatkan kecepatan audit hingga 70%.
 - **Multi-Option Collision Protocol**: Sistem Opsi A/B telah menggantikan logika IF-ELSE di seluruh engine, memberikan fleksibilitas keputusan yang maksimal.
-- **Advanced Distillation Engine**: `Distiller.js` kini mampu melakukan ekstraksi bagian dokumen (Insights/Recommendations) dan penyematan *Contextual Anchors* secara cerdas.
+- **Advanced Distillation Engine**: `Distiller.js` kini mampu melakukan ekstraksi bagian dokumen (Insights/Recommendations) dan penyematan _Contextual Anchors_ secara cerdas.
 - **Semantic Knowledge Indexing**: Sistem kini memiliki kemampuan **Semantic Search** berdasarkan tagging otomatis (Security, UI-UX, dll) untuk pemanggilan pengetahuan yang akurat.
 - **Collision Resolution Automation**: `Modifier.js` telah mendukung resolusi otomatis blok Opsi A/B menjadi kode final.
 - **Autonomous TDD Scaffolding (Phase 4)**: `NexusEngine` secara otomatis men-generate boilerplate test case (JS/PHP) saat mendeteksi pelanggaran TDD.
@@ -994,25 +1029,28 @@ Tiga komponen ini adalah "otot" yang menjalankan perintah teknis dengan presisi 
 ### 🚀 Roadmap Masa Depan (The Next Frontier):
 
 #### ⚡ Phase 5: Predictive Analytics & High-Performance Core
+
 1.  **Predictive Technical Debt Analyzer**: Spesialis auditor baru yang mampu memprediksi akumulasi hutang teknis berdasarkan frekuensi modifikasi file dan kompleksitas kode.
 2.  **C++ Native Distillation Core**: Migrasi modul penyulingan (Distiller) ke C++ untuk pemrosesan dataset pengetahuan skala besar dengan kecepatan native.
 3.  **Visual Audit Integration**: Kemampuan auditor untuk melakukan validasi visual terhadap UI/UX berdasarkan pedoman desain yang tersimpan di HUB.
 
 #### 🛡️ Phase 6: Security & Intelligence Optimization
+
 1.  **Nexus Redactor (Privacy Guard)**: Implementasi filter sensor data sensitif untuk mencegah kebocoran API Keys/Secrets ke dalam memori HUB.
 2.  **Cognitive Feedback Loop**: Mekanisme belajar dari kegagalan verifikasi masa lalu (Anti-Patterns) untuk meningkatkan akurasi perencanaan.
 3.  **Project Namespace Isolation**: Isolasi pengetahuan antar proyek untuk mencegah kontaminasi standar.
 4.  **Hot Memory Indexing**: Prioritas konteks pada temuan audit terbaru untuk respon mesin yang lebih relevan.
 
-*Detail rencana eksekusi: [NEXUS_PIPELINE_OPTIMIZATION_PLAN.md](../planning/NEXUS_PIPELINE_OPTIMIZATION_PLAN.md)*
-
----
-*Generated by Nexus AI | Document Status: ARCHITECT_STRATEGY_LOCKED*
+_Detail rencana eksekusi: [NEXUS_PIPELINE_OPTIMIZATION_PLAN.md](../planning/NEXUS_PIPELINE_OPTIMIZATION_PLAN.md)_
 
 ---
 
+_Generated by Nexus AI | Document Status: ARCHITECT_STRATEGY_LOCKED_
+
+---
 
 ### 📜 RULE: PIPELINE_VISUAL.md
+
 # 📊 Visualisasi Pipeline NEXUS AI
 
 Dokumen ini berisi representasi visual dan penjelasan mendalam mengenai alur kerja **Nexus Engine** dalam mengelola kolaborasi Human-AI.
@@ -1025,32 +1063,32 @@ Dokumen ini berisi representasi visual dan penjelasan mendalam mengenai alur ker
 graph TD
     %% Entry Point
     Start((Start: nexus run)) --> Init[Phase 0: Inisialisasi]
-    
+
     subgraph "Core Engine Loop"
         Init --> Discover[Discover Agents & Skills]
         Discover --> Audit{Phase 1: Audit}
-        
+
         %% Audit Branching
         Audit -- Mode 1: Learning --> SpecAudit[Specialist Agents Scan<br/>Security, UX, SEO, DB]
         Audit -- Mode 2: Efficient --> QuickAudit[Quick Consolidated Scan]
-        
+
         SpecAudit --> AuditRep[Generate Audit Report]
         QuickAudit --> AuditRep
-        
+
         AuditRep --> Plan[Phase 2: Planning]
         Plan --> PlanMD[Generate Implementation Plan<br/>documentation/planning/*.md]
-        
+
         %% Human Intervention
         PlanMD --> Approval{Human Approval?}
         Approval -- No --> PlanMD
         Approval -- Yes / OKE --> Exec[Phase 3: Execution]
-        
+
         %% Execution to Verification
         Exec --> Verify{Phase 4: Verification}
         Verify -- Flaws Found --> Audit
         Verify -- Zero Flaws --> Record[Phase 5: Finalization]
     end
-    
+
     %% Finalization to Memory
     Record --> Summary[Generate Cycle Summary]
     Summary --> Knowledge[(Knowledge Base / HUB)]
@@ -1063,7 +1101,7 @@ graph TD
         Agent[(Agent Library)] -.-> SpecAudit
         Agent -.-> Plan
     end
-    
+
     %% Harvesting Phase (External)
     Harvest((Phase 6: Harvest)) -.-> |Sync Knowledge| Knowledge
 ```
@@ -1073,58 +1111,66 @@ graph TD
 ## 📝 Penjelasan Detail Tiap Fase
 
 ### 🛠️ Phase 0: Inisialisasi (`INIT`)
-*   **Aksi**: Sistem memetakan folder proyek, mendeteksi keberadaan folder `nexus/`, dan menyiapkan lingkungan eksekusi.
-*   **Intel**: Memeriksa `package.json` untuk memastikan seluruh dependensi engine tersedia.
+
+- **Aksi**: Sistem memetakan folder proyek, mendeteksi keberadaan folder `nexus/`, dan menyiapkan lingkungan eksekusi.
+- **Intel**: Memeriksa `package.json` untuk memastikan seluruh dependensi engine tersedia.
 
 ### 🔍 Phase 1: Audit (Scanning & Intelligence)
-*   **Tujuan**: Mengidentifikasi celah keamanan, bug, atau potensi optimasi.
-*   **Mode Kerja**:
-    *   **Learning**: Memberikan edukasi kepada developer melalui laporan spesialis (Cyber, UX, SEO).
-    *   **Efficient**: Fokus pada resolusi cepat dengan laporan tunggal dari PM.
-*   **Guardrails**: Engine dilarang memindai file sensitif tanpa persetujuan eksplisit dari User.
+
+- **Tujuan**: Mengidentifikasi celah keamanan, bug, atau potensi optimasi.
+- **Mode Kerja**:
+  - **Learning**: Memberikan edukasi kepada developer melalui laporan spesialis (Cyber, UX, SEO).
+  - **Efficient**: Fokus pada resolusi cepat dengan laporan tunggal dari PM.
+- **Guardrails**: Engine dilarang memindai file sensitif tanpa persetujuan eksplisit dari User.
 
 ### 📅 Phase 2: Planning (Strategi & Kontrak)
-*   **Tujuan**: Menyusun *Implementation Plan* sebagai kontrak kerja AI.
-*   **Logika**: Mengubah setiap temuan audit menjadi tugas (tasks) yang terukur.
-*   **Output**: File `.md` di folder `documentation/planning/` yang harus ditinjau manusia.
+
+- **Tujuan**: Menyusun _Implementation Plan_ sebagai kontrak kerja AI.
+- **Logika**: Mengubah setiap temuan audit menjadi tugas (tasks) yang terukur.
+- **Output**: File `.md` di folder `documentation/planning/` yang harus ditinjau manusia.
 
 ### 🚀 Phase 3: Execution (Pengerjaan)
-*   **Tujuan**: AI melakukan modifikasi kode atau pembuatan fitur.
-*   **Aturan**: AI hanya diperbolehkan menjalankan perintah yang sesuai dengan *Implementation Plan* yang telah disetujui.
+
+- **Tujuan**: AI melakukan modifikasi kode atau pembuatan fitur.
+- **Aturan**: AI hanya diperbolehkan menjalankan perintah yang sesuai dengan _Implementation Plan_ yang telah disetujui.
 
 ### 🔍 Phase 4: Verification (Quality Control)
-*   **Tujuan**: Validasi hasil kerja.
-*   **Mekanisme**: Membandingkan status proyek terbaru dengan target yang ditetapkan di Phase 1 & 2.
-*   **Zero Flaws**: Jika ditemukan ketidaksesuaian, sistem akan memaksa siklus kembali ke Phase 1.
+
+- **Tujuan**: Validasi hasil kerja.
+- **Mekanisme**: Membandingkan status proyek terbaru dengan target yang ditetapkan di Phase 1 & 2.
+- **Zero Flaws**: Jika ditemukan ketidaksesuaian, sistem akan memaksa siklus kembali ke Phase 1.
 
 ### 📝 Phase 5: Finalization & Records
-*   **Tujuan**: Pencatatan sejarah dan pembaruan pengetahuan.
-*   **Output**: 
-    *   `memory/short_term/`: Log lengkap setiap siklus.
-    *   `memory/long_term/`: Ringkasan pelajaran teknis untuk referensi di masa depan (The HUB).
-    *   **🧠 Universal Nexus Collision Logic (Opsi A maupun Opsi B)**:
-        *   Logika ini adalah standar baku yang diterapkan di seluruh pipeline **HUB (Knowledge)** dan **SKILL**.
-        *   **Kondisi**: Terjadi saat ada kemiripan antara "A" (yang sudah ada) dan "B" (yang baru masuk/direfactor), baik itu berupa teori di HUB maupun instruksi teknis di SKILL.
-        *   **Implementasi di HUB & SKILL**:
-          Opsi A: { Standard_Pattern_A } 
-          Opsi B: { Alternative_Pattern_B }
-          (Opsi Tak Terbatas untuk variasi solusi)
-        *   **Alur Refactoring Universal**:
-            1.  **HUB Refactor**: Menggabungkan variasi dokumentasi fitur di folder `memory/long_term/`.
-            2.  **SKILL Refactor**: Jika di folder `skill/` ditemukan teknik koding baru yang mirip dengan yang lama, keduanya disimpan sebagai **Pilihan Opsi (A/B/dst)** sebagai pilihan strategi bagi agen.
-        *   **Tujuan**: Menjamin bahwa sistem tidak hanya memiliki satu cara kerja, melainkan sebuah **"Decision Tree"** dengan opsi tak terbatas yang kaya bagi AI untuk memilih solusi paling optimal (Context-Aware).
+
+- **Tujuan**: Pencatatan sejarah dan pembaruan pengetahuan.
+- **Output**:
+  - `memory/short_term/`: Log lengkap setiap siklus.
+  - `memory/long_term/`: Ringkasan pelajaran teknis untuk referensi di masa depan (The HUB).
+  - **🧠 Universal Nexus Collision Logic (Opsi A maupun Opsi B)**:
+    - Logika ini adalah standar baku yang diterapkan di seluruh pipeline **HUB (Knowledge)** dan **SKILL**.
+    - **Kondisi**: Terjadi saat ada kemiripan antara "A" (yang sudah ada) dan "B" (yang baru masuk/direfactor), baik itu berupa teori di HUB maupun instruksi teknis di SKILL.
+    - **Implementasi di HUB & SKILL**:
+      Opsi A: { Standard_Pattern_A }
+      Opsi B: { Alternative_Pattern_B }
+      (Opsi Tak Terbatas untuk variasi solusi)
+    - **Alur Refactoring Universal**:
+      1.  **HUB Refactor**: Menggabungkan variasi dokumentasi fitur di folder `memory/long_term/`.
+      2.  **SKILL Refactor**: Jika di folder `skill/` ditemukan teknik koding baru yang mirip dengan yang lama, keduanya disimpan sebagai **Pilihan Opsi (A/B/dst)** sebagai pilihan strategi bagi agen.
+    - **Tujuan**: Menjamin bahwa sistem tidak hanya memiliki satu cara kerja, melainkan sebuah **"Decision Tree"** dengan opsi tak terbatas yang kaya bagi AI untuk memilih solusi paling optimal (Context-Aware).
 
 ### 🌾 Phase 6: Harvesting (Cross-Project Knowledge)
-*   **Tujuan**: Sinkronisasi pengetahuan lintas proyek.
-*   **Aksi**: Mengumpulkan dokumentasi "Emas" dari proyek lain ke dalam `golden/` hub pusat.
+
+- **Tujuan**: Sinkronisasi pengetahuan lintas proyek.
+- **Aksi**: Mengumpulkan dokumentasi "Emas" dari proyek lain ke dalam `golden/` hub pusat.
 
 ---
-*Dokumen ini merupakan bagian dari standar operasional Human-AI Nexus.*
+
+_Dokumen ini merupakan bagian dari standar operasional Human-AI Nexus._
 
 ---
-
 
 ### 📜 RULE: architecture.md
+
 # System Architecture
 
 The Human-AI Nexus is built as a modular orchestration system.
@@ -1135,39 +1181,43 @@ The Human-AI Nexus is built as a modular orchestration system.
 graph TD
     User([User/Human]) -- Approval --> PM[Project Manager Agent]
     User -- Initial Request --> Orc[Nexus Orchestrator]
-    
+
     subgraph "Core Engine"
         Orc -- Trigger --> Audit[Audit Phase]
         Audit -- Results --> Plan[Planning Phase]
         Plan -- Tasks --> Exec[Execution Phase]
         Exec -- Success --> Record[Finalization Phase]
     end
-    
+
     subgraph "Knowledge & Standards"
         Agent[(Agent Library)]
         Skill[(Skill/Standards)]
         Knowledge[(Knowledge Base)]
     end
-    
+
     Audit -.-> Agent
     Plan -.-> Skill
     Record -.-> Knowledge
-    
+
     Record -- Recursive --> Audit
 ```
 
 ## Components
 
 ### 1. Nexus Orchestrator (`NexusEngine.js`)
+
 The central brain that coordinates the flow between phases. It ensures that data from the Audit phase is correctly passed to Planning, and that Execution only happens after approval.
 
 ### 2. Agent Layer
+
 A collection of markdown files in `agent/` that define the persona, responsibilities, and guardrails for different AI agents (e.g., Architect, Engineer, QA).
 
 ### 3. Skill Layer
+
 Technical standards and "best practice" snippets in `skill/` that guide the agents during the Execution phase.
 
 ### 4. Persistence Layer
+
 Folders for `audit`, `planning`, `records`, and `knowledge` that ensure every step of the process is documented and persisted for long-term project memory.
 
 ---
@@ -1178,14 +1228,13 @@ Nexus AI is designed to be highly portable and integrable with existing codebase
 
 - **External Pipeline**: The system intelligently detects and manages project-specific documentation and local AI "brains" inside the project root.
 - **Deep Recaps**: Detailed documentation on how the engine interacts with external environments:
-    - [Internal Pipeline Recap](NEXUS_INTERNAL_PIPELINE_RECAP.md)
-    - [External Pipeline Recap](NEXUS_EXTERNAL_PIPELINE_RECAP.md)
-
+  - [Internal Pipeline Recap](NEXUS_INTERNAL_PIPELINE_RECAP.md)
+  - [External Pipeline Recap](NEXUS_EXTERNAL_PIPELINE_RECAP.md)
 
 ---
 
-
 ### 📜 RULE: getting-started.md
+
 # Getting Started with Human-AI Nexus
 
 Human-AI Nexus is a framework designed to bridge the gap between human intent and AI execution through structured documentation and automated orchestration.
@@ -1193,6 +1242,7 @@ Human-AI Nexus is a framework designed to bridge the gap between human intent an
 ## Installation
 
 ### As a CLI tool
+
 You can install the framework globally or run it via npx:
 
 ```bash
@@ -1204,6 +1254,7 @@ npx @faisal-trainer/human-ai-nexus
 ```
 
 ### For Development
+
 Clone the repository and install dependencies:
 
 ```bash
@@ -1215,12 +1266,12 @@ npm install
 ## Basic Usage
 
 To start a standard workflow cycle (Audit -> Plan -> Execute), run:
-    
+
 ```bash
 npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 ```
 
-*Note: You can also use `npm start` if you are working within the framework source directory.*
+_Note: You can also use `npm start` if you are working within the framework source directory._
 
 ## Core Concepts
 
@@ -1238,33 +1289,41 @@ npx github:Faisal-Trainer/Human-AI-Nexus nexus run
 
 ---
 
-
 ### 📜 RULE: workflow.md
+
 # Nexus Workflow
 
 The Human-AI Nexus follows a 4-phase cyclical workflow designed to ensure maximum quality and traceability.
 
 ## 1. Audit Phase
+
 The system (or specialized agents) scans the current state of the project.
+
 - **Security Guardrails**: The engine will request explicit permission before scanning sensitive files (`.env`, `package.json`, `composer.json`).
 - **Input**: Source code, documentation, and (if permitted) configuration files.
 - **Output**: An Audit Report in `audit/`.
 - **Goal**: Identify gaps, bugs, or opportunities for improvement.
 
 ## 2. Planning Phase
+
 Based on the audit report, a detailed plan is generated.
+
 - **Input**: Audit Report.
 - **Output**: Implementation Plan in `documentation/planning/`.
 - **Human Role**: Review and approve the plan.
 
 ## 3. Execution Phase
+
 Specialized agents execute the tasks defined in the plan.
+
 - **Input**: Approved Implementation Plan.
 - **Action**: Code generation, configuration updates, or content creation.
 - **Constraint**: Agents must follow the standards in `skill/`.
 
 ## 4. Finalization Phase
+
 The results are recorded and the knowledge base is updated.
+
 - **Input**: Execution results.
 - **Output**: Logs in `memory/short_term/` and summaries in `documentation/summary/`.
 - **Loop**: Trigger a new Audit to verify the changes.
@@ -1272,75 +1331,75 @@ The results are recorded and the knowledge base is updated.
 ---
 
 ### Zero Flaws Enforcement
+
 The cycle repeats until an audit results in "Zero Flaws". This ensures that no technical debt or bugs are left behind.
 
 ---
 
 ## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)
+
 > Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_API.MD
 
 ## 🎓 API WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 System Architecture
+
 > **Origin**: `ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v6 | **Last Updated**: 5/28/2026
 
-
-
 The Human-AI Nexus is built as a modular orchestration system.
-
-
 
 ```mermaid
 graph TD
     User([User/Human]) -- Approval --> PM[Project Manager Agent]
     User -- Initial Request --> Orc[Nexus Orchestrator]
-    
+
     subgraph "Core Engine"
         Orc -- Trigger --> Audit[Audit Phase]
         Audit -- Results --> Plan[Planning Phase]
         Plan -- Tasks --> Exec[Execution Phase]
         Exec -- Success --> Record[Finalization Phase]
     end
-    
+
     subgraph "Knowledge & Standards"
         Agent[(Agent Library)]
         Skill[(Skill/Standards)]
         Knowledge[(Knowledge Base)]
     end
-    
+
     Audit -.-> Agent
     Plan -.-> Skill
     Record -.-> Knowledge
-    
+
     Record -- Recursive --> Audit
 ```
 
-
-
-
 The central brain that coordinates the flow between phases. It ensures that data from the Audit phase is correctly passed to Planning, and that Execution only happens after approval.
 
-
 A collection of markdown files in `agent/` that define the persona, responsibilities, and guardrails for different AI agents (e.g., Architect, Engineer, QA).
-
 
 Technical standards and "best practice" snippets ...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ARCHITECTURE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
+
 > **Origin**: `ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 Conclusion
 
 NEXUS memiliki:
@@ -1362,21 +1421,27 @@ Bukan:
 - autonomous claims
 
 #### 🛠 Actionable Steps:
+
 Recommendations
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS STABILIZATION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Omnibox Integration
+
 > **Origin**: `ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action=opensearch&search=${encodeURIComponent(text)}&limit=5&format=json`
-    );
-    const [, titles, , urls] = await response.json();
+);
+const [, titles, , urls] = await response.json();
 
     const suggestions = titles.map((title, i) => ({
       content: urls[i],
@@ -1384,11 +1449,13 @@ action=opensearch&search=${encodeURIComponent(text)}&limit=5&format=json`
     }));
 
     suggest(suggestions);
-  } catch (err) {
-    console.error('Search failed:', err);
-  }
+
+} catch (err) {
+console.error('Search failed:', err);
+}
 });
-```
+
+````
 
 #### 🔗 Traceability:
 - [Source Context](NEXUS_OMNIBOX.MD)
@@ -1430,188 +1497,199 @@ To implement this successfully:
 In this example, a feed starts scrolled to a specific "featured" item rather than the very top of the list.
 
 ```css
-/** 
+/**
  * TARGET: The item that should be visible on initial load.
  */
 .item.target {
   scroll-initial-target: nearest;
 }
-```
-
-
+````
 
 - **DO** use `scroll-initial-target` for "middle-start" experiences, such as a calendar starting on the c...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCROLL-TARGET-ON-LOAD.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, api]
 
-
 ## 🎓 API WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 System Architecture
+
 > **Origin**: `ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ARCHITECTURE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
+
 > **Origin**: `ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS STABILIZATION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Omnibox Integration
+
 > **Origin**: `ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OMNIBOX.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Laravel Reverb
+
 > **Origin**: `ui-ux/NEXUS_REVERB.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REVERB.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Set a scroll target for the initial render
+
 > **Origin**: `ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCROLL-TARGET-ON-LOAD.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 API WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 System Architecture
+
 > **Origin**: `distilled/ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ARCHITECTURE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS STABILIZATION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Omnibox Integration
+
 > **Origin**: `distilled/ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OMNIBOX.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Laravel Reverb
+
 > **Origin**: `distilled/ui-ux/NEXUS_REVERB.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REVERB.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Set a scroll target for the initial render
+
 > **Origin**: `distilled/ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCROLL-TARGET-ON-LOAD.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 API WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 System Architecture
+
 > **Origin**: `distilled/ui-ux/NEXUS_ARCHITECTURE.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ARCHITECTURE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Architecture Weaknesses & Stabilization Recommendations
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS STABILIZATION.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS STABILIZATION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Omnibox Integration
+
 > **Origin**: `distilled/ui-ux/NEXUS_OMNIBOX.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OMNIBOX.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Laravel Reverb
+
 > **Origin**: `distilled/ui-ux/NEXUS_REVERB.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REVERB.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Set a scroll target for the initial render
+
 > **Origin**: `distilled/ui-ux/NEXUS_SCROLL-TARGET-ON-LOAD.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCROLL-TARGET-ON-LOAD.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -1621,15 +1699,16 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 > **VERSION**: v18 | **Last Updated**: 6/1/2026
 
-
-
 ## 🎓 DATABASE WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 Conclusions
 We proposed a generative model that can produce multiple palettes from rich
 text input and colorize grayscale images using the generated palettes.Evalua-
@@ -1647,8 +1726,9 @@ thor.
 Text2Colors15
 
 #### 🛠 Actionable Steps:
+
 action [1], and English - French [40]).
-3  Palette-and-Text (PAT) Dataset
+3 Palette-and-Text (PAT) Dataset
 This section introduces our manually curated dataset named Palette-and-Text
 (PAT). PAT contains 10,183 text and five-color palette pairs, where the set of
 five colors in a palette is associated with its corresponding text description as
@@ -1661,250 +1741,251 @@ predicting semantically consistent color palettes with textual inputs.
 Other Color DatasetsMunroe‘s
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [database]
 
-
 ## 🎓 DATABASE WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v9584] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v3707] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v6131] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v9098] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v1016] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v2024] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v6900] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v2990] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v4761] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v1327] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v0111] - 5/30/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 5/30/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 DATABASE WISDOM DISTILLATION [v5667] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 DATABASE WISDOM DISTILLATION [v1483] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Colorization Through Text-based Palette
+
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -1914,227 +1995,226 @@ Other Color DatasetsMunroe‘s
 
 > **VERSION**: v16 | **Last Updated**: 6/1/2026
 
-
-
 ## 🎓 OTHER WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/[report_ux-engineer_AUDIT-1779702317598.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context]([report_ux-engineer_AUDIT-1779702317598.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD))
+
+- [Source Context](<[report_ux-engineer_AUDIT-1779702317598.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v9584] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v3707] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v6131] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v9098] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v1016] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v2024] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v6900] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v2990] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v4761] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v1327] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v0111] - 5/30/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 5/30/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 OTHER WISDOM DISTILLATION [v5667] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 OTHER WISDOM DISTILLATION [v1483] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -2143,12 +2223,15 @@ Other Color DatasetsMunroe‘s
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_PERFORMANCE.MD
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 Conclusion
 We have proposed PaletteNet that automatically recolors
 an image with a given target color palette. Contrary to re-
@@ -2165,27 +2248,28 @@ human expert using Adobe Photoshop takes 18 minutes on
 average for the corresponding recoloring work.
 
 #### 🛠 Actionable Steps:
+
 actions
 on Graphics, 34(4):139:1–139:11, 2015.
 [4] I. Goodfellow, J. Pouget-Abadie, and M. Mirza. Generative
 Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve next page load performance
+
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v21 | **Last Updated**: 6/1/2026
 
-
-
-One of the most effective ways to improve page load performance for users navigating a site is to initiate loading the next page they're about to visit *before* they visit it. This can be done through a technique called speculative loading using the Speculation Rules API.
-
-
+One of the most effective ways to improve page load performance for users navigating a site is to initiate loading the next page they're about to visit _before_ they visit it. This can be done through a technique called speculative loading using the Speculation Rules API.
 
 Speculative loading works by using JSON-based speculation rules to tell the browser about links that can be prefetched or prerendered improving page load performance when user clicks on them.
 
@@ -2196,394 +2280,378 @@ Rules can also include an optional `eagerness` property that specifies when the 
 Rules can be combined with different eagerness setti...
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD))
+
+- [Source Context](<NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Enable interactive HTML content in 3D scenes
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 28/05/2026
 
-#### 🛠 Actionable Steps:
-Action</button>
-  </div>
-</canvas>
-
-<script>
-  const canvas = document.getElementById("canvas");
-  const gl = canvas.getContext("webgl");
-  const uiElement = document.getElementById("ui-element");
-
-  // Setup WebGL texture...
-  const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-  canvas.onpaint = () => {
-    // 1. Update texture with HTML content
-    if (gl.texElementImage2D) {
-      gl.texElementImage2D(
-        gl.TEXTURE_2D,
-        0,
-        gl.RGBA,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        uiElement,
-      );
-    }
-
-    // ... Render your 3D scene here, calculating htmlElementMVP matrix ...
-
-    // 2. Sync DOM position with 3D scene
-    if (canvas.getElementTransform) {
-      const mvpDOM = new DOMMatrix(Array.from(h
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Critical Rendering Path (CRP) Optimization
+
 > **Origin**: `ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action to Next Paint (INP) & Main Thread Unblocking
 
 INP measures the latency of all interactive events across the page's lifecycle. Poor INP is caused by long-running JavaScript tasks blocking the main thread.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PERFORMANCE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [performance]
 
-
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve next page load performance
+
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
+
+- [Source Context](<NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Enable interactive HTML content in 3D scenes
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Critical Rendering Path (CRP) Optimization
+
 > **Origin**: `ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PERFORMANCE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve next page load performance
+
 > **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
+
+- [Source Context](<NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Enable interactive HTML content in 3D scenes
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Critical Rendering Path (CRP) Optimization
+
 > **Origin**: `distilled/ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PERFORMANCE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve next page load performance
+
 > **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD))
+
+- [Source Context](<NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../frontend/NEXUS_PERFORMANCE.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Enable interactive HTML content in 3D scenes
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-IN-3D-SCENES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Critical Rendering Path (CRP) Optimization
+
 > **Origin**: `distilled/ui-ux/NEXUS_PERFORMANCE.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PERFORMANCE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9584] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v3707] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v6131] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9098] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v1016] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v2024] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v6900] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v2990] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v4761] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v1327] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v0111] - 5/30/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 5/30/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v5667] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v1483] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+
 > **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -2592,20 +2660,20 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_TDD.MD
 
 ## 🎓 TDD WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Core implementation
+
 > **Origin**: `ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v6 | **Last Updated**: 5/28/2026
 
 Scroll-state container queries allow you to style elements based on their current scroll state, such as whether an element is "stuck" (via sticky positioning) or "snapped" (via scroll snapping). This enables carousel or gallery experiences where the active item can be visually distinguished without relying on JavaScript intersection observers or scroll event listeners.
 
-
-
 To highlight snapped items, you must establish a scroll-snap container, define the snap targets as scroll-state containers, and then query that state to style descendants.
-
 
 The parent container must have `scroll-snap-type` enabled.
 
@@ -2629,191 +2697,192 @@ The parent container must have `scroll-snap-type` enabled.
 }
 ```
 
-
 Each item in the carousel that should be tracked for snapping must be declared as a `scroll-state` container.
 
-```css
-.carousel-item {
-  /...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions from `0` to `1` (like `0.5` for 50%) instead of absolute pixels.
 
 > **Luminance vs. Alpha Masking**: By default, SVG masks use **luminance** (brightness) to determine opacity, where white reveals, black hides, and gray creates semi-transparency. If you want the mask to use the **alpha channel** (transparency) of your SVG shapes instead, you can specify `mask-type: alpha;` in your CSS or `mask-type="alpha"` directly on the SVG `<mask>` element.
 
-```html
-<!-- White areas reveal content, gray creates semi-transparency, black or transparent hides it -->
-<svg width="0" height="0">
-  <defs>
-    <!-- objectBoundingBox scales mask coordinates (0 to 1) with the element's size -->
-    <mask id="custom-shape" maskContentUnits="objectBoundingBox">
-      <!-- Use white shapes to defin
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPLEX-SHAPES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Export HTML content from canvas
+
 > **Origin**: `ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
-actions frame by frame, for example, for streaming, capture DOM mutations using libraries like `rrweb`. 
+
+actions frame by frame, for example, for streaming, capture DOM mutations using libraries like `rrweb`.
 
 Alternatively, implement a warning that HTML media export is not supported in the browser because it doesn't support HTML-in-Canvas.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Modeling Partial Time Concepts with Temporal
+
 > **Origin**: `ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Modeling date concepts that lack a full calendar date—such as credit card expirations, annual renewals, or daily alarms—has historically been error-prone with the legacy `Date` object. Developers often resort to using arbitrary days (like the 1st of the month) or parsing strings, leading to "day leakage" or incorrect calculations due to leap years and varying month lengths.
 
 The `Temporal` API provides dedicated types for these partial concepts: `Temporal.PlainYearMonth`, `Temporal.PlainMonthDay`, and `Temporal.PlainTime`. These types ensure precision and avoid leaking irrelevant date components.
-
-
-
 
 Use `Temporal.PlainYearMonth` to represent a year and a month.
 
 ```javascript
 // Create a PlainYearMonth from values
 // Use explicit calendar to avoid mismatch issues in polyfill environments
-const expiry = Temporal.PlainYearMonth.from({ year: 2027, month: 12, calendar: 'iso8601' });
+const expiry = Temporal.PlainYearMonth.from({
+  year: 2027,
+  month: 12,
+  calendar: "iso8601",
+});
 
 // Get the current year/month
 const currentMonth = Temporal.Now.plainDateISO().toPlainYearMonth();
 
 // Calculate duration until expiry
 // largestUnit ensures the difference is expressed in years if applicable
-const duration = currentM...
+```
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 Traditional CSS easing functions like `ease-in` or `cubic-bezier()` are limited to simple curves, making it impossible to create complex physics-based effects like bounces or springs. The `linear()` timing function solves this by allowing you to provide a series of stops that can approximate complex curves. Transitions and animations are interpolated based on straight lines between the stops, but within enough stops, it can appear smooth.
 
-
-
 1.  **Generate the curve stops:**
-    Manually plotting dozens of points for a spring or bounce is impractical. Use a timing function from an external library, or use a  tool to convert an existing JavaScript easing function or an SVG path into the `linear()` syntax. Optional: store these timing functions as CSS custom properties for reuse throughout your site.
+    Manually plotting dozens of points for a spring or bounce is impractical. Use a timing function from an external library, or use a tool to convert an existing JavaScript easing function or an SVG path into the `linear()` syntax. Optional: store these timing functions as CSS custom properties for reuse throughout your site.
 2.  **Define the timing function:**
     Apply the generated stops to the `transition-timing-function` or `animation-timing-function` property, or through the `transition` or `animation` shorthands.
 3.  **Adjust the duration:**
     Unlike JavaScript physics engines where duration is derived from physical properties (mass, stiffnes...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Processes
+
 > **Origin**: `ui-ux/NEXUS_PROCESSES.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 27/05/2026
-
-
 
 - [Introduction](#introduction)
 - [Invoking Processes](#invoking-processes)
-    - [Process Options](#process-options)
-    - [Process Output](#process-output)
-    - [Pipelines](#process-pipelines)
+  - [Process Options](#process-options)
+  - [Process Output](#process-output)
+  - [Pipelines](#process-pipelines)
 - [Asynchronous Processes](#asynchronous-processes)
-    - [Process IDs and Signals](#process-ids-and-signals)
-    - [Asynchronous Process Output](#asynchronous-process-output)
-    - [Asynchronous Process Timeouts](#asynchronous-process-timeouts)
+  - [Process IDs and Signals](#process-ids-and-signals)
+  - [Asynchronous Process Output](#asynchronous-process-output)
+  - [Asynchronous Process Timeouts](#asynchronous-process-timeouts)
 - [Concurrent Processes](#concurrent-processes)
-    - [Naming Pool Processes](#naming-pool-processes)
-    - [Pool Process IDs and Signals](#pool-process-ids-and-signals)
+  - [Naming Pool Processes](#naming-pool-processes)
+  - [Pool Process IDs and Signals](#pool-process-ids-and-signals)
 - [Testing](#testing)
-    - [Faking Processes](#faking-processes)
-    - [Faking Specific Processes](#faking-specific-processes)
-    - [Faking Process Sequences](#faking-process-sequences)
-    - [Faking Asynchronous Process Lifecycles](#faking-asynchronous-process-lifecycles)
-    - [Available Assertions](#available-assertions)
-    - [Preventing Stray Processes](#preventing-stray-processes)
+  - [Faking Processes](#faking-processes)
+  - [Faking Specific Processes](#faking-specific-processes)
+  - [Faking Process Sequences](#faking-process-sequences)
+  - [Faking Asynchronous Process Lifecycles](#faking-asynchronous-process-lifecycles)
+  - [Available Assertions](#available-assertions)
+  - [Preventing Stray Processes](#preventing-stray-processes)
 
 <a name="introduction"></a>
-
 
 Laravel provides an expressive, minimal API around the [Symfony Process component](https://symfony.com/doc/curren...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PROCESSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+
 > **Origin**: `ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 This plan addresses the critical bugs, architectural redundancies, and repository hygiene issues identified during the system audit.
 
-
 **Goal**: Eliminate duplicate methods, fix undefined variables, and clean up constructor logic.
 
-
 - [x] **Fix Constructor Redundancy**:
-    - Consolidate path assignments for `knowledgePath`, `recordsPath`, `summaryPath`, and `planningPath`.
-    - Ensure `resolvePath()` is used consistently.
+  - Consolidate path assignments for `knowledgePath`, `recordsPath`, `summaryPath`, and `planningPath`.
+  - Ensure `resolvePath()` is used consistently.
 - [x] **Resolve `this.nexusPath` Bug**:
-    - Map `this.nexusPath` to `this.nexusDataPath` or fix the reference to use the correct variable.
+  - Map `this.nexusPath` to `this.nexusDataPath` or fix the reference to use the correct variable.
 - [x] **Deduplicate Methods**:
-    - Remove the second definition of `getSemanticTags()` (lines 956-963).
-    - Remove the second definition of `globRecursive()` (lines 978-986).
-    - Ensure the remaining implementations are robust (handle absolute paths and different OS environments).
-
+  - Remove the second definition of `getSemanticTags()` (lines 956-963).
+  - Remove the second definition of `globRecursive()` (lines 978-986).
+  - Ensure the remaining implementations are robust (handle absolute paths and different OS environments).
 
 **Goal**: Prevent runtime artifacts and temporary scripts from cluttering the repository.
 
-
 - [x] **Update `.gitignore`**:
-    - Add `scratch/` folder.
-    - Add session history archives: `knowledge/*_SESSION_HISTORY_ARCHIVE.md`.
-    - Add performance artifacts: `memory/distilled/performa...
+  - Add `scratch/` folder.
+  - Add session history archives: `knowledge/*_SESSION_HISTORY_ARCHIVE.md`.
+  - Add performance artifacts: `memory/distilled/performa...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZATION_PLAN.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Asset Bundling (Vite)
+
 > **Origin**: `ui-ux/NEXUS_VITE.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 27/05/2026
-
-
 
 - [Introduction](#introduction)
 - [Installation & Setup](#installation)
@@ -2843,265 +2912,287 @@ This plan addresses the critical bugs, architectural redundancies, and repositor
   - [Content Security Policy (CSP) Nonce](#co...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VITE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, tdd, vcs, laravel]
 
-
 ## 🎓 TDD WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Core implementation
+
 > **Origin**: `ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPLEX-SHAPES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Export HTML content from canvas
+
 > **Origin**: `ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Modeling Partial Time Concepts with Temporal
+
 > **Origin**: `ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Processes
+
 > **Origin**: `ui-ux/NEXUS_PROCESSES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PROCESSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+
 > **Origin**: `ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZATION_PLAN.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Asset Bundling (Vite)
+
 > **Origin**: `ui-ux/NEXUS_VITE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VITE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 TDD WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Core implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPLEX-SHAPES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Export HTML content from canvas
+
 > **Origin**: `distilled/ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Modeling Partial Time Concepts with Temporal
+
 > **Origin**: `distilled/ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Processes
+
 > **Origin**: `distilled/ui-ux/NEXUS_PROCESSES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PROCESSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+
 > **Origin**: `distilled/ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZATION_PLAN.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Asset Bundling (Vite)
+
 > **Origin**: `distilled/ui-ux/NEXUS_VITE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VITE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 TDD WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Core implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_COMPLEX-SHAPES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPLEX-SHAPES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Export HTML content from canvas
+
 > **Origin**: `distilled/ui-ux/NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EXPORT-HTML-MEDIA-FROM-CANVAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Modeling Partial Time Concepts with Temporal
+
 > **Origin**: `distilled/ui-ux/NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_PHYSICS-BASED-EASING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHYSICS-BASED-EASING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Processes
+
 > **Origin**: `distilled/ui-ux/NEXUS_PROCESSES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PROCESSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Plan: Nexus Core Stabilization & Hygiene
+
 > **Origin**: `distilled/ui-ux/NEXUS_STABILIZATION_PLAN.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZATION_PLAN.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Asset Bundling (Vite)
+
 > **Origin**: `distilled/ui-ux/NEXUS_VITE.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VITE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -3110,71 +3201,73 @@ This plan addresses the critical bugs, architectural redundancies, and repositor
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Accessible Error Announcement
+
 > **Origin**: `ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action has occurred.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v22 | **Last Updated**: 6/1/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
-
-
-
-
 To animate the `display` property, you must set `transition-behavior: allow-discrete`. This allows the element to remain visible during its exit transition. If using transition shorthands, be sure to place the `transition-behavior: allow-discrete` afterwards to prevent the shorthand from negating it.
-
-
 
 When an element moves in or out of the top layer, it must transition the `overlay` property. This ensures the element stays in the top layer for the duration of the animation, preventing it from being clipped by other elements or the viewport prematurely.
 
-
-
-Use the `@starting-style` at-rule to define the styles an element should transition *from* when it is first rendered or...
+Use the `@starting-style` at-rule to define the styles an element should transition _from_ when it is first rendered or...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animate to Intrinsic Sizes
+
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
-action (e.g., `:hover` or a state class).
-4.  **Perform calculations (Optional)**: Use `calc-size()` if you need to perform math on an intrinsic size (e.g., `auto + 2rem`). `calc-size()` also supports the `any` keyword for basis-agnostic calculations.
+
+action (e.g., `:hover` or a state class). 4. **Perform calculations (Optional)**: Use `calc-size()` if you need to perform math on an intrinsic size (e.g., `auto + 2rem`). `calc-size()` also supports the `any` keyword for basis-agnostic calculations.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animated Select Picker
+
 > **Origin**: `ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 The customizable select API offers a declarative, CSS-driven way to animate `<select>` elements and their dropdown pickers. By combining `appearance: base-select` with modern CSS animation techniques—such as `@starting-style` and the `allow-discrete` transition behavior—you can create fluid, premium UI transitions for top-layer elements without relying on heavy JavaScript libraries.
 
 Previously, animating native select dropdowns was impossible because their UI was rendered outside the accessible viewport constraints. With `appearance: base-select`, the picker becomes styleable and animatable like any other page element.
-
-
 
 To implement an animated select picker:
 
@@ -3183,122 +3276,92 @@ To implement an animated select picker:
 3. **Animate the top-layer container:** Apply standard entry/exit styles to `::picker(select)`. To make sure th...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Apply WebGL shaders to HTML content
+
 > **Origin**: `ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 28/05/2026
 
-#### 🛠 Actionable Steps:
-Action</button>
-  </div>
-</canvas>
-
-<script>
-  const canvas = document.getElementById("canvas");
-  const gl = canvas.getContext("webgl");
-  const uiElement = document.getElementById("ui-element");
-
-  // Setup WebGL texture...
-  const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-  canvas.onpaint = () => {
-    // 1. Update texture with HTML content
-    if (gl.texElementImage2D) {
-      gl.texElementImage2D(
-        gl.TEXTURE_2D,
-        0,
-        gl.RGBA,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        uiElement,
-      );
-    }
-
-    // ... Render your 3D scene here, calculating htmlElementMVP matrix ...
-
-    // 2. Sync DOM position with 3D scene
-    if (canvas.getElementTransform) {
-      const mvpDOM = new DOMMatrix(Array.from(h
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build an address form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action that shows progress and makes the next step obvious. For example, label the submit button on your delivery address form **Proceed to Payment** rather than **Continue** or **Save**.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
-
-
 Use the CSS `:autofill` to highlight fields that have (or have not been) autofilled, to help guide the user to successful form completion.
-
-
 
 To highlight a form field that has been autofilled by the browser (and not edited by the user) add a selector to your CSS using the `:autofill` class. This can be used for an `<input>`, `<select>`, or `<textarea>` element.
 
 When styling autofilled states, you must adhere to accessibility best practices:
+
 - **Multiple State Indicators**: Do not rely on border color alone to indicate the autofilled state. Use multiple indicators such as border thickness and custom background shading to ensure the state is perceivable.
 - **Preserve Focus Indicators**: Never remove focus outlines (`outline: none`) without providing a clear, high-contrast replacement for keyboard users.
 
 The following example uses `:autofill` to set a custom border and background, along with explicit focus styles:
 
-```css
-input:autofill,
-input:-webkit-autofill {
-  /* Multiple indicators: use both a distinct border and background color via box-shadow to avoid color-only state */
-  border: 2px solid #2e7d32;
-  box-...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a payment form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action that shows progress and makes the next step obvious. For example, label the submit button on your delivery address form **Proceed to Payment** rather than **Continue** or **Save**.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-in form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Use cross-platform browser features to build sign-in forms that are secure, accessible and easy to use.
 
 If users ever need to sign in to your site, then good sign-in form design is critical. This is especially true for people on poor connections, on mobile, in a hurry, or under stress. Poorly designed sign-in forms get high bounce rates. Each bounce could mean a lost customer and a disgruntled user—not just a missed sign-in opportunity.
 
-
-
 Outlined below are the most important guidelines for building successful sign-in forms.
-
-
 
 Make the most of the elements and attributes built for creating forms:
 
@@ -3307,70 +3370,60 @@ Make the most of the elements and attributes built for creating forms:
 
 These enable built-in browser functionality, improve accessibility, and add meaning to markup.
 
-
-
 To label an `<input>`, `<select>`, or `<textarea>`, use a `<label>`. Associate a label with an input by giving the label's `for` attribute the same value as the input's `id`.
-
-
 
 Make it easy for users to enter data, by using the appropriate `<input>` element `<type>` attribute to provide the right keyboard on mobile and enab...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-up form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Use cross-platform browser features to build sign-up forms that are secure, accessible and easy to use.
 
 If users ever need to sign up to your site, then good sign-up form design is critical. This is especially true for people on poor connections, on mobile, in a hurry, or under stress. Poorly designed sign-up forms get high bounce rates. Each bounce could mean a lost customer and a disgruntled user—not just a missed sign-up opportunity.
 
-
-
 Outlined below are the most important guidelines for building successful sign-up forms.
-
-
 
 Make the most of the elements and attributes built for creating forms:
 
--   `<form>`, `<input>`, `<label>`, and `<button>`
--   `type`, `autocomplete`, and `inputmode`
+- `<form>`, `<input>`, `<label>`, and `<button>`
+- `type`, `autocomplete`, and `inputmode`
 
 These enable built-in browser functionality, improve accessibility, and add meaning to markup.
 
-
-
 To label an `<input>`, `<select>`, or `<textarea>`, use a `<label>`. Associate a label with an input by giving the label's `for` attribute the same value as the input's `id`.
-
-
 
 Make it easy for users to enter data, by using the appropriate `<input>` element `<type>` attribute to provide the right keyboard on mobile and ...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Brand-Consistent Forms
+
 > **Origin**: `ui-ux/NEXUS_BRAND-CONSISTENT-[FORMS.MD](../security/NEXUS_FORMS.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Customizing standard HTML form elements like checkboxes and radio buttons has historically been difficult. Developers often faced a choice between using the browser defaults or building custom components from scratch. Building custom controls is time-consuming and can easily lead to accessibility issues or missing states (like the indeterminate state for checkboxes).
 
 The CSS property `accent-color` provides a simple way to bring your brand color to built-in HTML form inputs with a single line of CSS, without sacrificing accessibility or built-in browser features.
-
-
 
 To apply your brand color to form controls:
 
@@ -3378,29 +3431,22 @@ To apply your brand color to form controls:
 2. **Apply the `accent-color` property:** Add `accent-color` to the element or a container element (like `body` or a specific form) in your CSS.
 3. **Support Dark Mode (Optional but Recommended):** Use `color-scheme` to let the browser know your site supports dark mode, and adjust the `accent-color` if necessary for better contrast.
 
-
-
-```css
-:root {
-  --brand-color: #6200ee;
-}
-
-/* Apply accent-color to the body or a specific co...
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_BRAND-CONSISTENT-[FORMS.MD](../security/NEXUS_FORMS.MD))
+
+- [Source Context](<NEXUS_BRAND-CONSISTENT-[FORMS.MD](../security/NEXUS_FORMS.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Breaking up long tasks
+
 > **Origin**: `ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 Heavy computations or long loops can block the main thread, causing the page to become unresponsive. To prevent this, you should yield control back to the browser periodically. The `scheduler.yield()` API allows you to pause a long task and let the browser handle user input or rendering before continuing.
-
-
 
 Use `scheduler.yield()` inside async functions to break up work.
 
@@ -3413,7 +3459,7 @@ async function processLargeArray(items) {
   for (const item of items) {
     // Process the item
     processItem(item);
-    
+
     // MANDATORY: Yield to the main thread periodically to keep the UI
     // responsive. This can be done by checking if the deadline set earlier
     // has been exceeded. When it has been, yield, then reset the deadline
@@ -3426,28 +3472,26 @@ async function processLargeArray(items) {
 }
 ```
 
-
-
 Sched...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Branded Select Styling
+
 > **Origin**: `ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 The customizable select API offers a declarative, CSS-driven way to style `<select>` elements to perfectly match your brand's design system. By opting into `appearance: base-select`, you gain access to the internal shadow DOM of the select element, allowing you to style the button, the options picker list, the arrow icon, and the checkmark indicator using standard CSS properties.
 
 Previously, achieving a fully branded select required rebuilding the control from scratch with JavaScript, which often broke accessibility, keyboard navigation, and native form integration. With `appearance: base-select`, you get a custom look while the browser handles focus management, top-layer rendering, and accessibility bindings.
-
-
 
 To implement branded select styling:
 
@@ -3455,62 +3499,69 @@ To implement branded select styling:
 2. **Structure the custom button (Optional):** Define a `<button>` element directly inside the `<select>` to replace the default trigger. Use the `<selectedcontent>` element inside this button...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing state-based container styling
+
 > **Origin**: `ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions, such as a localized theme toggle reacting to a checkbox (`:checked`), a form group highlighting an error (`:invalid`), or a card elevating when a child link is focused (`:focus-within`).
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Component-specific light/dark themes
+
 > **Origin**: `ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 While more commonly set on the root, the `color-scheme` property can be set on individual elements to force them into a different color scheme from the rest of the page.
 This can be useful for components that must always be viewed in a specific color scheme (e.g. always in dark or light mode).
 
 Example use cases include:
+
 - Elements that are often in dark mode even on light mode pages for aesthetic reasons, e.g. code blocks, media players, photo galleries
 - Areas that contain media designed for a light background (e.g. images, videos, illustrations, print previews) can be set to light mode even if the rest of the page is in dark mode.
 - Elements whose color-scheme is controlled by a user-level setting, such as component previews
 - Embeds that don't support both light and dark modes
 - Design tools, maps, visualizations, games etc.
 
-
-
 Not every element that uses lighter text on darker background in light mode or darker text on lighter background in dark mode needs a different `color-scheme`.
 For example, a primary button may be rendered as blue with white text in light mode, but that does not warrant a `color-scheme: da...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing content-based container styling
+
 > **Origin**: `ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 Historically, applying different layouts to a component based on its content required either JavaScript or conditional logic in your HTML templating language to inject modifier classes (like `.card--has-image` or `.card--text-only`).
 
 The `:has()` pseudo-class eliminates this need by acting as a parent selector. It allows you to conditionally style a container element based on the presence or absence of specific descendant elements.
 
-Using `:has()`, you can easily define distinct layout variations entirely in CSS based on a component's actual DOM content. You can also optionally combine it with `:not()` to explicitly target the *absence* of content to define default layouts.
-
-
+Using `:has()`, you can easily define distinct layout variations entirely in CSS based on a component's actual DOM content. You can also optionally combine it with `:not()` to explicitly target the _absence_ of content to define default layouts.
 
 **MANDATORY**: You must use the `:has()` selector on the container element to detect the presence of specific child content.
 
@@ -3520,60 +3571,60 @@ To build a component that changes its layout based on its content:
 2. **Apply content-based overrides**: Target the container with `:has([child-selector])` and apply the new layout styles for when...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Consistent Cross-Document Transitions
+
 > **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-
 
 Cross-document view transitions animate elements between two pages during a same-origin navigation. The browser captures a snapshot of the old page, navigates, then animates from the snapshot to the new page. If the new page has not finished loading critical resources — stylesheets, layout scripts, or key DOM elements — the transition animates to an incomplete or unstyled state. This causes visual glitches such as elements morphing to wrong positions, content reflowing mid-animation, or fallback fonts flashing to web fonts after the transition completes.
 
-
-
 Use `blocking="render"` on critical `<link>` and `<script>` elements in the new page's `<head>`, and use `<link rel="expect">` to block rendering until specific DOM elements have been parsed. This ensures the browser does not begin the view transition animation until the new page's visual state is stable. The browser continues parsing the HTML in the background — only painting is deferred.
-
-
 
 1. **MANDATORY:** Opt in to cross-document view transitions with the `@view-transition` CSS at-rule on both pages.
 2. **MANDATORY:** Ensure critical stylesheets are in the `<...
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+
+- [Source Context](<NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action) attributes to a `<button>`, the browser automatically handles open/close state changes, focus management, and accessibility bindings (such as `aria-expanded`). This declarative approach is recommended because it removes brittle boilerplate code, ensures interactions are functional immediately upon HTML parsing, and guarantees a robust, natively accessible user experience.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Custom Select Picker Layouts
+
 > **Origin**: `ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 "Custom Select Picker Layouts" allow developers to break away from the traditional vertical list of options in a `<select>` dropdown. Using `appearance: base-select` and the `::picker(select)` pseudo-element, you can style the options list using modern CSS layout techniques like Grid or Flexbox. This is ideal for color pickers, emoji selectors, or product variants where a visual menu is more effective than a list.
 
 The CSS property `appearance: base-select` unlocks the ability to style the internal parts of a `<select>` element. By targeting `select::picker(select)`, you can apply `display: grid` and position options in columns, creating a rich visual experience without custom JavaScript.
-
-
 
 To implement a custom select picker layout:
 
@@ -3582,68 +3633,79 @@ To implement a custom select picker layout:
 3. **Style Options:** Target the `<option>` elements to style ...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer rendering heavy content
+
 > **Origin**: `ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions. Modern web technologies allow you to defer the rendering workload for content that is not immediately visible, significantly boosting performance without breaking accessibility or user expectations.
 
 To optimize rendering, you can utilize the CSS `content-visibility` property and the HTML `hidden="until-found"` attribute. While both aid performance, they serve distinct use cases.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer Work Until Scroll Ends
+
 > **Origin**: `ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions if you're building carousels or testimonial galleries slides.
+
 - **DO NOT** bundle layout-dependent dynamic updates inside dynamic visual scroll callbacks.
 - **DO** consider that visual viewport zooming and scrolling triggers the `scrollend` event correctly.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
-Single Page Applications (SPAs) provide the appearance of navigation by replacing the content of the page without navigating to a new page. By default, the content is simply replaced, without any transitions. Directional transitions can visually reinforce a spatial relationship between views. 
+Single Page Applications (SPAs) provide the appearance of navigation by replacing the content of the page without navigating to a new page. By default, the content is simply replaced, without any transitions. Directional transitions can visually reinforce a spatial relationship between views.
 
 By sliding new content in from the direction the user is moving you create a mental map of the application structure. For instance, a product site may show a transition to the right for "forward," and to the left for "back", or a slideshow may transition up and down to show next and previous slides.
-
-
 
 1. **Detect Navigation Direction**: Determine if the user is moving "forward" or "backward" in the application flow. How you detect the direction depends on your use case.
 2. **Trigger Transition with Types**: Pass the direction in a `types` array to `document.startViewTransition()` to categorize the transition.
 3. **Define Directional Animations with CSS**: Use the `:active-view-transition-type()` pseudo-class to apply specific animations based on the navigation type.
 
-
-
 Define sliding animations to and from each direction. For bes...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+
 > **Origin**: `ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 > **Date**: 08/05/2026
 > **Session Status**: Evolutionary Sync
@@ -3651,103 +3713,94 @@ Define sliding animations to and from each direction. For bes...
 
 ---
 
-
 Nexus AI dikembangkan dengan tujuan utama yang jelas dari USER:
-- **Fokus Utama**: Membangun sistem *multi-agent* yang terspesialisasi dalam pengembangan **TALL Stack** (Tailwind CSS, Alpine.js, Laravel, Livewire).
+
+- **Fokus Utama**: Membangun sistem _multi-agent_ yang terspesialisasi dalam pengembangan **TALL Stack** (Tailwind CSS, Alpine.js, Laravel, Livewire).
 - **Skala Pengelolaan**: Mengorkestrasi dan membantu pengelolaan **3-5 proyek aktif** berbasis TALL stack secara efisien.
 - **Filosofi**: Nexus bertindak sebagai **"Asisten Otonom"** yang mendukung USER, bukan menggantikannya, dengan memastikan kualitas kode dan arsitektur tetap terjaga di seluruh proyek.
 
 ---
 
-
 Sistem Nexus AI kini telah dipindahkan ke dalam Docker untuk meningkatkan otonomi dan portabilitas.
 
 - **Status Docker**: Aktif (Docker Desktop WSL2).
 - **Konfigurasi**:
-    - **Dockerfile**: Menggunakan `node:18-slim` dengan dependensi sistem `git` dan `curl` untuk mendukung `WorktreeManager`.
-    - **Docker Compose**: Menggunakan model "Central Hub" di mana proyek eksternal di-mount ke `/app/workspace`.
+  - **Dockerfile**: Menggunakan `node:18-slim` dengan dependensi sistem `git` dan `curl` untuk mendukung `WorktreeManager`.
+  - **Docker Compose**: Menggunakan model "Central Hub" di mana proyek eksternal di-mount ke `/app/workspace`.
 - **Manfaat**: Isolasi eksekusi (Sandboxing) dan kon...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Efficient Background Processing
+
 > **Origin**: `ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
-
-
 Pause heavy background tasks when a component is not being rendered by the browser to conserve system resources and battery life.
-
-
 
 The `content-visibility: auto` property allows the browser to skip rendering calculations for elements that are far outside the viewport. When the browser decides to skip or resume rendering for an element, it fires the `contentvisibilityautostatechange` event on that element.
 
 By listening to this event, you can pause expensive operations like `<canvas>` animations, WebGL rendering, or high-frequency WebSocket data polling when they are not needed, and resume them just-in-time when the browser prepares to display the content.
 
-
-
 It is important to understand when to use which API:
 
-*   **Use `IntersectionObserver` for application logic** tied to the exact visual visibility of an element in the viewport (e.g., lazy-loading data, infinite scroll triggers).
-*   **Use `contentvisibilityautostatechange` for rendering-heavy work** (like complex canvas updates or heavy DOM mutations). This event ties directly to the browser's internal rendering lifecycle. The browser often starts rendering an...
+- **Use `IntersectionObserver` for application logic** tied to the exact visual visibility of an element in the viewport (e.g., lazy-loading data, infinite scroll triggers).
+- **Use `contentvisibilityautostatechange` for rendering-heavy work** (like complex canvas updates or heavy DOM mutations). This event ties directly to the browser's internal rendering lifecycle. The browser often starts rendering an...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Faster SPA View Transitions via State Caching
+
 > **Origin**: `ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Enable instant navigation between views in a Single-Page Application (SPA) by caching the rendered state of inactive views instead of destroying them.
 
-
-
 Traditionally, when a user navigates between tabs or views in an SPA, developers either destroy the old view or hide it using `display: none`. Both approaches require the browser to recreate or recalculate the full layout and paint when the user returns to that view.
 
-By using `content-visibility: hidden` on inactive views, the browser removes the element’s contents from the layout flow and stops painting it, but *retains* its cached rendering state in memory. When the user switches back, the view restores nearly instantly.
-
-
+By using `content-visibility: hidden` on inactive views, the browser removes the element’s contents from the layout flow and stops painting it, but _retains_ its cached rendering state in memory. When the user switches back, the view restores nearly instantly.
 
 While this approach offers massive performance benefits, it introduces a specific trade-off that you must manage carefully:
 
-*   **CPU Savings:** Massive. The browser completely skips layout and paint passes for hidden views.
-*   **RAM Cost:** High. The browser keeps all DOM nodes, event listeners, and state for the hidden view in memory.
+- **CPU Savings:** Massive. The browser completely skips layout and paint passes for hidden views.
+- **RAM Cost:** High. The browser keeps all DOM nodes, event listeners, and state for the hidden view in memory.
 
-
-
-*   **DO** use this strategy for simple applications with a small, predictable number of views (e.g...
+- **DO** use this strategy for simple applications with a small, predictable number of views (e.g...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Fluid scaling allows components to adjust their internal proportions (like font sizes and spacing) based on their current dimensions. This creates a more cohesive design than jumping between fixed breakpoints.
 
 While fluid scaling was historically achieved using viewport units (scaling based on the screen size), modern container query units allow components to scale relative to their parent container instead. This ensures components look good regardless of where they are placed in a layout, promoting better component isolation and reusability.
-
-
-
-
 
 To use container query units, you must first define a containment context on a parent element.
 
@@ -3756,34 +3809,34 @@ To use container query units, you must first define a containment context on a p
   /* Define the container type. Use 'inline-size' for width-based scaling. */
   /* You can also use 'size' for both width and height, but it requires explicit sizing. */
   container-type: inline-size;
-  
+
   /* Optional: Name the container for specific targeting */
   container-name: fluid-card;
 }
 ```
 
-
-
 Use container query units (`cqi`, `cqb`, etc.) to set sizes relative to the container's dimensions.
 
-*   `cqi`: 1% of the container's inlin...
+- `cqi`: 1% of the container's inlin...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FLUID-SCALING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Auto-sizing form controls
+
 > **Origin**: `ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 By default, form controls like `<input>`, `<textarea>`, and `<select>` have fixed dimensions. Their sizes remain constant, regardless of the amount of content the user enters or selects.
 
 To allow these controls to automatically shrink or grow to fit their content (including placeholders), use the `field-sizing: content` CSS property.
-
-
 
 Setting `field-sizing: content` on inputs, selects, or textareas allows them to resize dynamically as the user types or selects options. However, you must account for inherited styling, layout defaults, and minimum/maximum constraints to ensure a robust user experience.
 
@@ -3792,19 +3845,21 @@ To prevent layout issues, it is recommended to set both `min-inline-size` (or `m
 For textareas, allowing horizontal auto-sizing can cause a jarring UX (e.g., a textarea with a long placeholder will abruptly shrink horizontally when the us...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation steps
+
 > **Origin**: `ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 As items are added or removed from a list, or rearranged, transitions can help users maintain context. View transitions provide a way to transition between two states of an element by giving the element a unique `view-transition-name`. When multiple elements on a page share the same transition behavior, `view-transition-class` allows you to define that logic once in CSS rather than repeating it for every unique `view-transition-name`. This keeps your stylesheets maintainable while ensuring consistent animations across a group of elements.
-
-
 
 1. **Assign unique names and a shared class**
 
@@ -3825,21 +3880,26 @@ To apply shared styles, also assign a `view-transition-class`.
 ```
 
 2. **Define the shared transition logic**
-   
+
 Use the `::view-transition-gro...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify causes of poor INP
+
 > **Origin**: `ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 insights for JavaScript code delaying an interaction. A full performance trace using the JS Self-Profiling API is a heavyweight solution that is liable to cause performance problems. The Long Animation Frames API is a lightweight API that can be used to identify slow running JavaScript in the field for INP interactions.
 
 #### 🛠 Actionable Steps:
+
 actions leads to a poor impression of a page being slow or even completely broken. Interaction to Next Paint (INP) is a metric based on the Event Timing API. It measures the worst interaction (minus some outliers) as a measure of the page's responsiveness.
 
 Identifying root causes of an unresponsive web page can be tricky especially as it depends on user interactions and environmental conditions such as device capabilities and network conditions. This makes it even more difficult to diagnose compared to a more repeatable and predictable scenario like page load. Lab data only replicates a small subset of real user scenarios so measuring the causes of slow INP in the field is essential.
@@ -3847,164 +3907,170 @@ Identifying root causes of an unresponsive web page can be tricky especially as 
 The Event Timing API allows for splitting the INP duration into three subparts: Input Delay (processi
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify heavy-running JavaScript
+
 > **Origin**: `ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions.
 
 The Long Animation Frames API is a lightweight API that can be used to identify heavy-running JavaScript in the field. A heavy-running script can be either a single long-running script, or a script that runs multiple times during the page lifecycle.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve Text Layout and Legibility
+
 > **Origin**: `ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
-action with Width:** `text-wrap: balance` does not change the container's width (`inline-size`). It only affects how text wraps *within* that width. This can leave empty space at the end of the container, which may affect layouts relying on full-width text blocks.
+
+action with Width:\** `text-wrap: balance` does not change the container's width (`inline-size`). It only affects how text wraps *within\* that width. This can leave empty space at the end of the container, which may affect layouts relying on full-width text blocks.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Implementation Details
+
 > **Origin**: `ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 The `transform` property allows you to apply multiple transformations in a specified order, but any changes to a single transformation require re-specifying the entire transformation chain. This makes it tricky to animate or transition a single transformation.
 
 The individual CSS transform properties (`translate`, `rotate`, and `scale`) allow you to apply transformations independently of the `transform` property. This approach makes it simpler to override a single transformation, for instance on `:hover`.
 
-
-
 Individual transform properties are always applied in a **fixed order**, regardless of their order in your CSS:
+
 1. `translate`
 2. `rotate`
 3. `scale`
 4. `transform` (applied last)
 
-If you require a different order (e.g., scaling *before* rotating), you must continue using the `transform` property functions.
+If you require a different order (e.g., scaling _before_ rotating), you must continue using the `transform` property functions.
 
 Transform functions do not override the individual transform properties. In other words, `scale: 2; transform: scale(3);` will first scale by 2x, then again by 3x, for a total of 6x.
-
-
 
 The `transform` property and individual transform properties impact the layout and rendering of the page and may cause une...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Optimizing Interactions in Complex Layouts
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 actions in Complex Layouts
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Maintain high frame rates (60FPS) and eliminate interaction latency during drag-and-drop or heavy mutations in complex, multi-column layouts like Kanban boards or massive data grids.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 28/05/2026
 
-#### 🛠 Actionable Steps:
-action */
-.reveal-layer:hover {
-  --inner-size: 100px;
-  --outer-size: 120px;
-}  
-```
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Use Cases
+
 > **Origin**: `ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 The **Language Detector API** is a client-side web API designed to identify the language of a given text string. By performing detection locally in the browser, it enhances user privacy and reduces the need for heavy external libraries or costly server-side calls.
-
-
 
 - **Translation Prep:** Identifying the source language before sending text to a translator.
 - **Safety & Filtering:** Loading specific models for tasks like toxicity detection.
 - **Accessibility:** Labeling content with the correct `lang` attribute for screen readers.
 - **UI Localization:** Adjusting application interfaces based on the user's input language.
 
-
-
 - **OS:** Windows 10/11, macOS 13+, Linux, or Chromebook Plus.
 - **Storage:** 22 GB free space (model is removed if space drops below 10 GB).
 - **RAM/CPU:** 16 GB RAM and 4+ CPU cores.
 - **VRAM:** 4 GB+ if using a GPU.
-
-
-
-
 
 Check model availability before attempting to instantiate the detector or trigger download.
 
 **MANDATORY:** Instantiating the language detector or triggering a model download with `LanguageDetector.create()` **MUST** be initiated by a user gesture (such as a button click...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Show a tooltip when hovering
+
 > **Origin**: `ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action an icon-only button will take, or provide additional form field guidance.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 Modern modal dialogs often support "light-dismiss," allowing users to close a dialog by clicking or tapping the backdrop (the area outside the dialog). The `closedby` attribute provides a declarative way to enable this behavior without custom JavaScript.
-
-
 
 To enable light-dismiss:
 
 1. Add `closedby="any"` to the `<dialog>` element.
 2. Open the dialog using `dialog.showModal()`.
 
-
-
 - `any`: Enables light-dismiss (clicking the backdrop), "close requests" (the `Esc` key), and developer mechanisms (e.g., `dialog.close()`).
 - `closerequest`: Enables "close requests" and developer mechanisms only. This is the default for modal dialogs.
 - `none`: Only developer mechanisms can close the dialog.
-
 
 When a dialog is opened as a modal using `showModal()`, the browser generates a `::backdrop` pseudo-element. This backdrop covers the entire viewport and sits directly behind the dialog.
 
@@ -4016,154 +4082,160 @@ dialog::backdrop {
 }
 ```
 
-
-
-```html
-<!-- MANDATORY: Use...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Moving an element with state
+
 > **Origin**: `ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 When reparenting DOM elements using traditional methods like `appendChild()` or `insertBefore()`, the browser implicitly removes the element from the DOM and then inserts it into its new location. This "remove and insert" operation resets many internal states, causing `<iframe>` elements to reload, CSS animations to restart, and input fields to lose focus.
 
 To move an element while preserving its state, use the `moveBefore()` API. This method performs an atomic move, completely bypassing the removal and insertion steps.
 
-
-
 Use `moveBefore()` exactly as you would use `insertBefore()`. It requires two arguments: the node to move, and a reference node to insert before (or `null` to append to the end of the new parent).
 
 ```javascript
-const newParent = document.getElementById('new-parent');
-const elementWithState = document.getElementById('iframe-or-focused-input');
+const newParent = document.getElementById("new-parent");
+const elementWithState = document.getElementById("iframe-or-focused-input");
 
-// MANDATORY: Use moveBefore to preserve state. 
+// MANDATORY: Use moveBefore to preserve state.
 // Passing null as the second argument appends the element to the end of newParent.
 newParent.moveBefore(elementWithState, null);
 ```
 
-
-
 If you are moving custom elements using `moveBefore()`, their `connec...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+
 > **Origin**: `ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 hasil analisis
+
 - gunakan ulang
 
 #### 🛠 Actionable Steps:
+
 action
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+
+- [Source Context](NEXUS_NEXUS MULTI AGENT TEST.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overflow Clipping Control
+
 > **Origin**: `ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action logic.
+
 - **DO** configure `overflow-clip-margin` with a specified length offset when applying external visual effects (like `filter: drop-shadow()`) to prevent sharp bounding box truncation without altering or expanding layout geometry.
 - **DO NOT** apply `overflow: clip` if the container requires programmatic scroll manipulation via JavaScript or serves as the immediate layout context for `position: sticky` elements, as `clip` completely disables scrolling.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🛠 Implementation Plan: PLAN-1778479790742
+
 > **Origin**: `ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 Insights
 
 #### 🛠 Actionable Steps:
-Action**: Gunakan praktik terbaik standar industri.
+
+Action\*\*: Gunakan praktik terbaik standar industri.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Fallback strategies
+
 > **Origin**: `ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 When a modal dialog is open, users expect to use familiar controls to dismiss them: pressing the <kbd>Esc</kbd> key on a keyboard, using the back button or gesture on mobile platforms, or a dismiss gesture with assistive technologies.
 
 When the `<dialog>` element was first introduced, it could be dismissed with the <kbd>Esc</kbd> key, but not other platform controls such as a back button/gesture on mobile. With the addition of the `closedby` attribute for `<dialog>` elements, the extended behavior of responding to more platform-specific controls for close requests has been applied for `<dialog>` elements that are opened in a modal state (i.e. when opened imperatively with the `<dialog>` element’s `showModal()` method in JavaScript or declaratively with the `show-modal` invoker command). So, there is no specific change developers need to make if they are already using the `<dialog>` element.
 
-```html
-<!-- MANDATORY: must be opened with either `showModal()` with JavaScript or the `show-modal` command using declarative command invokers in order respond to close requests including platform-specific controls. -->
-<dialog aria-label...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Precise Text Alignment
+
 > **Origin**: `ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-
 
 Browsers automatically add extra whitespace above and below text characters to accommodate line-height and font-specific metrics like ascenders and descenders. This "ghost space" makes it impossible to achieve pixel-perfect vertical alignment using standard CSS.
 
 Common issues include:
+
 - **Misaligned Icons**: Text appears visually lower or higher than an adjacent icon even when using `align-items: center`.
 - **Inaccurate Padding**: A button with `padding: 12px` visually appears to have more space on top or bottom because of the font's internal leading.
 - **Flush Alignment**: You cannot align the top of a capital letter exactly with the top of a container or an adjacent image without using "magic number" negative margins.
 
-
-
 The `text-box-trim` and `text-box-edge` properties (shorthand `text-box`) allow you to trim this internal leading based on specific font metrics. By trimming the text box to the **cap-height** (top of capital letters) and the **alphabetic baseline** (bottom of most letters), you can ensure that the element's bounding box matches its visual content.
-
-
 
 1. **MANDATORY**: Apply `text-box-trim: tr...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Prevent text wrapping
+
 > **Origin**: `ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Modern CSS provides the `text-wrap` property to control how text breaks within its container. To ensure text stays on a single line and ignores container boundaries, use `text-wrap: nowrap`. This is the modern, more semantic replacement for `white-space: nowrap`.
 
 Preventing text wrapping is useful for UI elements like navigation tabs, horizontal scrolling chips, or any scenario where a line break would break the layout or visual design.
-
-
-
-
 
 To prevent any automatic line breaks, apply `text-wrap: nowrap` to the element containing the text.
 
@@ -4171,37 +4243,24 @@ To prevent any automatic line breaks, apply `text-wrap: nowrap` to the element c
 2. **OPTIONAL**: Use an `overflow` property (such as `hidden`, `scroll`, or `auto`) to manage the resulting overflow.
 3. **OPTIONAL**: Use `text-overflow: ellipsis` to provide a visual cue when text is truncated. Note: This requires `overflow: hidden`.
 
-
-
-```css
-.no-wrap-text {
-  /* MANDATORY: Prevents automatic line breaks */
-  text-wrap: nowrap;
-
-  /* OPTIONAL: Handles the overflow visually */
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  /* OPTIONAL: Constrain width to force and handle overflow ...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Pull to Reveal
+
 > **Origin**: `ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 "Pull to reveal" is a UI pattern where content (such as a search bar or refresh control) is hidden above the top of a scrollable area on initial load, and the user can pull down (scroll up) to reveal it. This pattern is commonly used in mobile apps and web apps for search bars, filters, and other secondary controls that should be accessible but not immediately visible.
 
 The CSS property `scroll-initial-target` offers a declarative, CSS-only way to implement this pattern. By setting `scroll-initial-target: nearest` on the main content element, the scroll container will render with the hidden content scrolled out of view. Previously, developers relied on JavaScript (`Element.scrollIntoView()`) or URL fragment identifiers (`#content-id`) to achieve this, both of which have limitations and are tricky to implement.
-
-
 
 To implement a pull-to-reveal pattern:
 
@@ -4209,33 +4268,33 @@ To implement a pull-to-reveal pattern:
 2. **Define the hidden element:** Place...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PULL-TO-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Reduce Style Repetition with CSS Functions
+
 > **Origin**: `ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Maintaining large stylesheets often leads to repetitive logic, especially when dealing with design system tokens like gradients or responsive layout patterns.
 
 The CSS `@function` at-rule allows you to encapsulate this logic into reusable, parameterized functions, making your CSS more maintainable, consistent and DRY (Don't Repeat Yourself).
 
-
-
-A custom function is defined using the `@function` rule followed by a dashed name and a list of parameters. The function returns a value using the `result` property. 
+A custom function is defined using the `@function` rule followed by a dashed name and a list of parameters. The function returns a value using the `result` property.
 
 ```css
-@function --my-function(--input1 <length>, --input2: default-value) returns <length> {
+@function --my-function(--input1 <length>, --input2: default-value) returns
+  <length> {
   /* Logic goes here */
   result: var(--input1);
 }
 ```
-
 
 - **Parameters:** Must start with a double dash (`--`).
 - **Defaults:** You can provide default values using a colon (`:`).
@@ -4244,84 +4303,62 @@ A custom function is defined using the `@function` rule followed by a dashed nam
 - **Types:** You can require parameters and the returned value to match a CSS type with bracket notation (e.g., `<co...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Required Field Feedback
+
 > **Origin**: `ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action state using a `WeakMap`. This avoids polluting the DOM with "dirty" classes or data attributes.
 
-```javascript
-const UserInvalidFallback = (() => {
-  const dirtyState = new WeakMap();
-
-  const updateState = (input) => {
-    const isValid = input.checkValidity();
-
-    // Update both visual and ARIA state
-    input.classList.toggle('user-invalid-fallback', !isValid);
-    input.classList.toggle('user-valid-fallback', isValid);
-
-    if (!isValid) {
-      input.setAttribute('aria-invalid', 'true');
-    } else {
-      input.removeAttribute('aria-invalid');
-    }
-  };
-
-  const handleEvent = (event) => {
-    const input = event.target;
-
-    if (event.type === 'reset') {
-      const controls = input.elements || [];
-      for (const control of controls) {
-        dir
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Sandbox UI/UX Distilled Findings
+
 > **Origin**: `ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 25/05/2026
-
-
 
 **Date**: 2026-05-23
 **Context**: NEXUS Sandbox Section 1 generated 11 TALL Stack web applications, all of which failed the UX/UI quality check. The resulting applications were merely default Laravel boilerplate pages with haphazardly injected Livewire components.
 
-
-1. **Broken Boilerplate**: Agen tidak menghapus halaman dokumentasi bawaan Laravel (`welcome.blade.php` dengan link ke Laracasts/Laravel News). Hal ini membuat aplikasi terlihat seperti *scaffold* awal, bukan produk akhir (MVP).
-2. **Missing Application Shell**: Tidak ada satupun aplikasi yang menggunakan struktur `layouts/app.blade.php`. Akibatnya, aplikasi tidak memiliki *navbar*, *footer*, navigasi, atau kerangka UI (Shell) yang layak.
-3. **Mangled HTML Injection**: Karena struktur HTML yang kacau, injeksi tag `<livewire:...>` malah merusak *tag* `<body>` dan `<div>`.
-
+1. **Broken Boilerplate**: Agen tidak menghapus halaman dokumentasi bawaan Laravel (`welcome.blade.php` dengan link ke Laracasts/Laravel News). Hal ini membuat aplikasi terlihat seperti _scaffold_ awal, bukan produk akhir (MVP).
+2. **Missing Application Shell**: Tidak ada satupun aplikasi yang menggunakan struktur `layouts/app.blade.php`. Akibatnya, aplikasi tidak memiliki _navbar_, _footer_, navigasi, atau kerangka UI (Shell) yang layak.
+3. **Mangled HTML Injection**: Karena struktur HTML yang kacau, injeksi tag `<livewire:...>` malah merusak _tag_ `<body>` dan `<div>`.
 
 Untuk generasi kode selanjutnya (terutama agen `ux-engineer` dan `pipeline-architect`), **patuhi aturan ketat berikut**:
 
 1. **Wajib Hapus Boilerplate**: Setiap kali membuat aplikasi baru, halaman bawaan `welcome.blade.php` **HARUS DIHAPUS TOTAL** isinya dan diganti dengan desain halaman depan/Dashbo...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Rich Media Picker (Customizable Select)
+
 > **Origin**: `ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
-
-
 The native `<select>` element was historically difficult to style and could only contain plain text options. The `appearance: base-select` property offers a declarative, CSS-only way to opt into a customizable state for the `<select>` element. This allows developers to include rich HTML content—such as images, SVGs, and complex layouts—inside `<option>` elements, while retaining native keyboard accessibility and form integration. Use this pattern to replace heavy, custom-built select components with standard, native elements.
-
-
 
 To implement a rich media picker using the Customizable Select API:
 
@@ -4329,99 +4366,89 @@ To implement a rich media picker using the Customizable Select API:
 2. **Define the Button Content**: Use standard `<button>` and `<selectedcontent>` elements inside the `<select>` to define what is shown when the picker is closed. The `<selectedcontent>` element automatically mirrors the content of the selected option. This is required if you want to display t...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Scheduling tasks by priority
+
 > **Origin**: `ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action (e.g., input handling, critical rendering).
+
 - `user-visible`: Tasks visible to the user but not blocking (default).
 - `background`: Tasks that are not time-critical (e.g., analytics, prefetching).
 
-```javascript
-// Schedule a high-priority task that blocks user interaction
-scheduler.postTask(() => {
-  // DO: Handle critical updates that impact user interaction
-  handleCriticalUpdate();
-}, { priority: 'user-blocking' });
-
-// Schedule a default priority task
-scheduler.postTask(() => {
-  // DO: Render non-critical content that is visible to the user
-  renderSecondaryContent();
-}); // Defaults to 'user-visible'
-
-// Schedule a low-priority background task
-scheduler.postTask(() => {
-  // DO: Perform heavy background work that is not time-critical
-  sendAnalytics();
-},
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
 
+> **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 CSS Masking allows you to clip an element to a custom shape, such as adding a notch to a card or creating a shaped border. When combining shapes for complex layouts, choose your masking strategy based on the type of content the element contains:
 
-| Masking strategy                | Best For                        | Text Impact                    |
-| ------------------------------- | ------------------------------- | ------------------------------ |
-| Direct Element SVG Masking      | Images, Icons, Decorative shapes, Complex shapes | Not recommended (can crop text) |
-| Adjacent Element SVG Masking    | Cards with Text, Crucial content | Text remains fully readable    |
-| Pure CSS Gradients              | Simple Geometric Shapes           | Not recommended (can crop text) |
+| Masking strategy             | Best For                                         | Text Impact                     |
+| ---------------------------- | ------------------------------------------------ | ------------------------------- |
+| Direct Element SVG Masking   | Images, Icons, Decorative shapes, Complex shapes | Not recommended (can crop text) |
+| Adjacent Element SVG Masking | Cards with Text, Crucial content                 | Text remains fully readable     |
+| Pure CSS Gradients           | Simple Geometric Shapes                          | Not recommended (can crop text) |
 
 ---
 
-
 To implement shaped cutouts:
-
 
 SVG masks allow you to define shapes that subtract from or add to the visible area using white (reveal) and black (hide) fills.
 
 > **Luminance vs. Alpha Masking**: SVG masks default to **luminance** (brightness) mode, which is why we use `fill="white"` to reveal areas and `fill="black"` to cut them out. If yo...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Select Menu Interaction
+
 > **Origin**: `ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 Size-aware styling allows components to change their layout or appearance based on the space available to them, rather than the size of the whole screen. This is useful for components like cards or navigation bars that might be placed in different parts of a layout (like a narrow sidebar or a wide main area).
 
 Using container queries is recommended because it makes components truly modular. You do not need to know where the component will live or write complex media queries to handle every possible layout.
-
-
-
-
 
 MANDATORY: You must first tell the browser which element is the container to be measured.
 
@@ -4433,38 +4460,26 @@ MANDATORY: You must first tell the browser which element is the container to be 
 }
 ```
 
-
-
 Use the `@container` rule to apply styles when the container reaches a certain size.
 
-```css
-/* Default styles for small containers (stacked layout) */
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Styles for larger containers (side-by-side layout) ...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Stabilize Reactive State with Temporal
+
 > **Origin**: `ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 While some reactive systems (like [React](https://react.dev/)) rely strictly on reference equality to detect state changes, others (like [Vue](https://vuejs.org/) and [Svelte](https://svelte.dev/)) can track mutations to plain objects. However, for built-in objects like the legacy `Date` object, internal mutations (like `setHours()`) do not change the object's reference and are generally not tracked by any framework's default reactivity system. This leads to missed UI updates and hard-to-debug side effects.
 
 The `Temporal` API solves this by providing immutable objects. Any operation that modifies a value (such as adding time or setting a field) returns a new instance with a new memory reference. This guarantees that state updates are always detected by reactive systems, ensuring UI stability.
-
-
 
 To stabilize reactive state using Temporal:
 
@@ -4472,2227 +4487,2402 @@ To stabilize reactive state using Temporal:
 2. **Perform immutable updates:** When updating the state, use Temporal methods like `.add()`, `.subtract()`, ...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Completion Summary:
+
 > **Origin**: `ui-ux/NEXUS_TES.MD` | **Distilled At**: 28/05/2026
 
 #### 🧐 Core Insights (Distilled):
+
 hasil dari test sandboxes harus memiliki dan menggunakan tailwind,alpinejs,laravel,livewire dan bisa saya bisa jalankan dg php artisan serve.
 
 Trajectory ID: 601882d5-6b83-46b5-ad32-124317620868
 Status: ✅ COMPLETED BY ANTIGRAVITY (2026-05-13)
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_TES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Style Parent with :has()
+
 > **Origin**: `ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action state using a `WeakMap`. This avoids polluting the DOM with "dirty" classes or data attributes.
 
-```javascript
-const UserInvalidFallback = (() => {
-  const dirtyState = new WeakMap();
-
-  const updateState = (input) => {
-    const isValid = input.checkValidity();
-
-    // Update both visual and ARIA state
-    input.classList.toggle('user-invalid-fallback', !isValid);
-    input.classList.toggle('user-valid-fallback', isValid);
-
-    if (!isValid) {
-      input.setAttribute('aria-invalid', 'true');
-    } else {
-      input.removeAttribute('aria-invalid');
-    }
-  };
-
-  const handleEvent = (event) => {
-    const input = event.target;
-
-    if (event.type === 'reset') {
-      const controls = input.elements || [];
-      for (const control of controls) {
-        dir
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Views
+
 > **Origin**: `ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 27/05/2026
 
-
-
 - [Introduction](#introduction)
-    - [Writing Views in React / Svelte / Vue](#writing-views-in-react-svelte-or-vue)
+  - [Writing Views in React / Svelte / Vue](#writing-views-in-react-svelte-or-vue)
 - [Creating and Rendering Views](#creating-and-rendering-views)
-    - [Nested View Directories](#nested-view-directories)
-    - [Creating the First Available View](#creating-the-first-available-view)
-    - [Determining if a View Exists](#determining-if-a-view-exists)
+  - [Nested View Directories](#nested-view-directories)
+  - [Creating the First Available View](#creating-the-first-available-view)
+  - [Determining if a View Exists](#determining-if-a-view-exists)
 - [Passing Data to Views](#passing-data-to-views)
-    - [Sharing Data With All Views](#sharing-data-with-all-views)
+  - [Sharing Data With All Views](#sharing-data-with-all-views)
 - [View Composers](#view-composers)
-    - [View Creators](#view-creators)
+  - [View Creators](#view-creators)
 - [Optimizing Views](#optimizing-views)
 
 <a name="introduction"></a>
-
 
 Of course, it's not practical to return entire HTML documents strings directly from your routes and controllers. Thankfully, views provide a convenient way to place all of our HTML in separate files.
 
 Views separate your controller / application logic from your presentation logic and are stored in the `resources/views` directory. When using Laravel, view templates are usually written using the [Blade templating language](/docs/{{version}}/blade). A simple view might look something like this:
 
-```b...
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VIEWS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Validate Input After Interaction
+
 > **Origin**: `ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, laravel, saas, api]
 
-
 ## 🎓 UI-UX WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Accessible Error Announcement
+
 > **Origin**: `ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animated Select Picker
+
 > **Origin**: `ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animate to Intrinsic Sizes
+
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Apply WebGL shaders to HTML content
+
 > **Origin**: `ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build an address form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-in form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a payment form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-up form that follows best practice
+
 > **Origin**: `ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Brand-Consistent Forms
+
 > **Origin**: `ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Branded Select Styling
+
 > **Origin**: `ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Breaking up long tasks
+
 > **Origin**: `ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing state-based container styling
+
 > **Origin**: `ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Component-specific light/dark themes
+
 > **Origin**: `ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing content-based container styling
+
 > **Origin**: `ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Consistent Cross-Document Transitions
+
 > **Origin**: `ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+
+- [Source Context](<NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Custom Select Picker Layouts
+
 > **Origin**: `ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer rendering heavy content
+
 > **Origin**: `ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer Work Until Scroll Ends
+
 > **Origin**: `ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+
 > **Origin**: `ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Efficient Background Processing
+
 > **Origin**: `ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Faster SPA View Transitions via State Caching
+
 > **Origin**: `ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FLUID-SCALING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Auto-sizing form controls
+
 > **Origin**: `ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation steps
+
 > **Origin**: `ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify causes of poor INP
+
 > **Origin**: `ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify heavy-running JavaScript
+
 > **Origin**: `ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve Text Layout and Legibility
+
 > **Origin**: `ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Optimizing Interactions in Complex Layouts
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Implementation Details
+
 > **Origin**: `ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Use Cases
+
 > **Origin**: `ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Show a tooltip when hovering
+
 > **Origin**: `ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Moving an element with state
+
 > **Origin**: `ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+
 > **Origin**: `ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+
+- [Source Context](NEXUS_NEXUS MULTI AGENT TEST.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overflow Clipping Control
+
 > **Origin**: `ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🛠 Implementation Plan: PLAN-1778479790742
+
 > **Origin**: `ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Fallback strategies
+
 > **Origin**: `ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Precise Text Alignment
+
 > **Origin**: `ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Prevent text wrapping
+
 > **Origin**: `ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Pull to Reveal
+
 > **Origin**: `ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PULL-TO-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Reduce Style Repetition with CSS Functions
+
 > **Origin**: `ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Required Field Feedback
+
 > **Origin**: `ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Rich Media Picker (Customizable Select)
+
 > **Origin**: `ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Sandbox UI/UX Distilled Findings
+
 > **Origin**: `ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Scheduling tasks by priority
+
 > **Origin**: `ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Select Menu Interaction
+
 > **Origin**: `ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Stabilize Reactive State with Temporal
+
 > **Origin**: `ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Completion Summary:
+
 > **Origin**: `ui-ux/NEXUS_TES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_TES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Style Parent with :has()
+
 > **Origin**: `ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Validate Input After Interaction
+
 > **Origin**: `ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Views
+
 > **Origin**: `ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VIEWS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/[report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context]([report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD))
+
+- [Source Context](<[report_ux-engineer_AUDIT-1778660095718.md](../../raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Accessible Error Announcement
+
 > **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animated Select Picker
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animate to Intrinsic Sizes
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Apply WebGL shaders to HTML content
+
 > **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build an address form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a payment form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-in form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Brand-Consistent Forms
+
 > **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-up form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Branded Select Styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Breaking up long tasks
+
 > **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing state-based container styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Component-specific light/dark themes
+
 > **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Consistent Cross-Document Transitions
+
 > **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+
+- [Source Context](<NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing content-based container styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Custom Select Picker Layouts
+
 > **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer rendering heavy content
+
 > **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer Work Until Scroll Ends
+
 > **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+
 > **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Efficient Background Processing
+
 > **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Faster SPA View Transitions via State Caching
+
 > **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FLUID-SCALING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Auto-sizing form controls
+
 > **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify heavy-running JavaScript
+
 > **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify causes of poor INP
+
 > **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve Text Layout and Legibility
+
 > **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Optimizing Interactions in Complex Layouts
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Implementation Details
+
 > **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Use Cases
+
 > **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Show a tooltip when hovering
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Moving an element with state
+
 > **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+
+- [Source Context](NEXUS_NEXUS MULTI AGENT TEST.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overflow Clipping Control
+
 > **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🛠 Implementation Plan: PLAN-1778479790742
+
 > **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Precise Text Alignment
+
 > **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Fallback strategies
+
 > **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Prevent text wrapping
+
 > **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Reduce Style Repetition with CSS Functions
+
 > **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Pull to Reveal
+
 > **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PULL-TO-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Required Field Feedback
+
 > **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Sandbox UI/UX Distilled Findings
+
 > **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Rich Media Picker (Customizable Select)
+
 > **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Scheduling tasks by priority
+
 > **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Select Menu Interaction
+
 > **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Stabilize Reactive State with Temporal
+
 > **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Completion Summary:
+
 > **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_TES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Style Parent with :has()
+
 > **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Views
+
 > **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VIEWS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Validate Input After Interaction
+
 > **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/[report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context]([report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD))
+
+- [Source Context](<[report_ux-engineer_AUDIT-1778411549826.md](../../operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 UI-UX WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Accessible Error Announcement
+
 > **Origin**: `distilled/ui-ux/NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ACCESSIBLE-ERROR-ANNOUNCEMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animated Select Picker
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATED-SELECT-PICKER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATED-SELECT-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Animate to Intrinsic Sizes
+
 > **Origin**: `distilled/ui-ux/NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ANIMATE-TO-INTRINSIC-SIZES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Apply WebGL shaders to HTML content
+
 > **Origin**: `distilled/ui-ux/NEXUS_APPLY-WEBGL-SHADERS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_APPLY-WEBGL-SHADERS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build an address form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-ADDRESS-FORM.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-ADDRESS-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a payment form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-PAYMENT-FORM.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-PAYMENT-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-in form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-IN-FORM.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-IN-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Brand-Consistent Forms
+
 > **Origin**: `distilled/ui-ux/NEXUS_BRAND-CONSISTENT-FORMS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRAND-CONSISTENT-FORMS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Build a sign-up form that follows best practice
+
 > **Origin**: `distilled/ui-ux/NEXUS_AUTOFILL-SIGN-UP-FORM.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_AUTOFILL-SIGN-UP-FORM.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Breaking up long tasks
+
 > **Origin**: `distilled/ui-ux/NEXUS_BREAK-UP-LONG-TASKS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BREAK-UP-LONG-TASKS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Branded Select Styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_BRANDED-SELECT-STYLING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_BRANDED-SELECT-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing state-based container styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_CHILD-STATE-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CHILD-STATE-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Component-specific light/dark themes
+
 > **Origin**: `distilled/ui-ux/NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_COMPONENT-SPECIFIC-LIGHT-DARK-THEME.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementing content-based container styling
+
 > **Origin**: `distilled/ui-ux/NEXUS_CONTENT-BASED-STYLING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CONTENT-BASED-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Consistent Cross-Document Transitions
+
 > **Origin**: `distilled/ui-ux/NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
+
+- [Source Context](<NEXUS_CONSISTENT-[CROSS-DOCUMENT-TRANSITIONS.MD](../../archived/other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD)>)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Custom Select Picker Layouts
+
 > **Origin**: `distilled/ui-ux/NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_CUSTOM-SELECT-PICKER-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DECLARATIVE-DIALOG-POPOVER-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer rendering heavy content
+
 > **Origin**: `distilled/ui-ux/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Defer Work Until Scroll Ends
+
 > **Origin**: `distilled/ui-ux/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation Steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 📜 Nexus Evolution Record: Docker & TALL Stack Strategy
+
 > **Origin**: `distilled/ui-ux/NEXUS_DOCKER_TALL_EVOLUTION.md` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_DOCKER_TALL_EVOLUTION.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Efficient Background Processing
+
 > **Origin**: `distilled/ui-ux/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Faster SPA View Transitions via State Caching
+
 > **Origin**: `distilled/ui-ux/NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FASTER-SPA-VIEW-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_FLUID-SCALING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FLUID-SCALING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Auto-sizing form controls
+
 > **Origin**: `distilled/ui-ux/NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_FORM-FIELDS-AUTOMATICALLY-FIT-CONTENTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation steps
+
 > **Origin**: `distilled/ui-ux/NEXUS_GROUP-ELEMENT-TRANSITIONS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_GROUP-ELEMENT-TRANSITIONS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify heavy-running JavaScript
+
 > **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-HEAVY-SCRIPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Identify causes of poor INP
+
 > **Origin**: `distilled/ui-ux/NEXUS_IDENTIFY-INP-CAUSES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IDENTIFY-INP-CAUSES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Improve Text Layout and Legibility
+
 > **Origin**: `distilled/ui-ux/NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_IMPROVE-TEXT-LAYOUT-AND-LEGIBILITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Optimizing Interactions in Complex Layouts
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIONS-IN-COMPLEX-LAYOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Implementation Details
+
 > **Origin**: `distilled/ui-ux/NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INDIVIDUAL-TRANSFORM-PROPERTIES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTERACTIVE-CONTENT-REVEAL.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Key Use Cases
+
 > **Origin**: `distilled/ui-ux/NEXUS_LANGUAGE-DETECTION.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LANGUAGE-DETECTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Show a tooltip when hovering
+
 > **Origin**: `distilled/ui-ux/NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_INTEREST-TRIGGERED-TOOLTIPS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Implementation
+
 > **Origin**: `distilled/ui-ux/NEXUS_LIGHT-DISMISS-A-DIALOG.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Moving an element with state
+
 > **Origin**: `distilled/ui-ux/NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_MOVE-DOM-ELEMENT-WITHOUT-LOSING-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Multi-Agent Test Suite (TALL Stack)
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS MULTI AGENT  TEST.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
-- [Source Context](NEXUS_NEXUS MULTI AGENT  TEST.MD)
+
+- [Source Context](NEXUS_NEXUS MULTI AGENT TEST.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overflow Clipping Control
+
 > **Origin**: `distilled/ui-ux/NEXUS_OVERFLOW-CLIPPING-CONTROL.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_OVERFLOW-CLIPPING-CONTROL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🛠 Implementation Plan: PLAN-1778479790742
+
 > **Origin**: `distilled/ui-ux/NEXUS_PLAN_PLAN-1778479790742.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLAN_PLAN-1778479790742.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Precise Text Alignment
+
 > **Origin**: `distilled/ui-ux/NEXUS_PRECISE-TEXT-ALIGNMENT.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PRECISE-TEXT-ALIGNMENT.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Fallback strategies
+
 > **Origin**: `distilled/ui-ux/NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Prevent text wrapping
+
 > **Origin**: `distilled/ui-ux/NEXUS_PREVENT-TEXT-WRAPPING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Pull to Reveal
+
 > **Origin**: `distilled/ui-ux/NEXUS_PULL-TO-REVEAL.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PULL-TO-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Reduce Style Repetition with CSS Functions
+
 > **Origin**: `distilled/ui-ux/NEXUS_REDUCE-STYLE-REPETITION.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REDUCE-STYLE-REPETITION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Required Field Feedback
+
 > **Origin**: `distilled/ui-ux/NEXUS_REQUIRED-FIELD-FEEDBACK.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Sandbox UI/UX Distilled Findings
+
 > **Origin**: `distilled/ui-ux/NEXUS_SANDBOX_UI_FINDINGS.md` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SANDBOX_UI_FINDINGS.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Rich Media Picker (Customizable Select)
+
 > **Origin**: `distilled/ui-ux/NEXUS_RICH-MEDIA-PICKER.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_RICH-MEDIA-PICKER.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Scheduling tasks by priority
+
 > **Origin**: `distilled/ui-ux/NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_SHAPED-CUTOUTS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SHAPED-CUTOUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Select Menu Interaction
+
 > **Origin**: `distilled/ui-ux/NEXUS_SELECT-MENU-INTERACTION.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SELECT-MENU-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Overview
+
 > **Origin**: `distilled/ui-ux/NEXUS_SIZE-AWARE-STYLING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Stabilize Reactive State with Temporal
+
 > **Origin**: `distilled/ui-ux/NEXUS_STABILIZE-REACTIVE-STATE.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STABILIZE-REACTIVE-STATE.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Completion Summary:
+
 > **Origin**: `distilled/ui-ux/NEXUS_TES.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_TES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Style Parent with :has()
+
 > **Origin**: `distilled/ui-ux/NEXUS_STYLE-PARENT-WITH-HAS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Views
+
 > **Origin**: `distilled/ui-ux/NEXUS_VIEWS.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VIEWS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Validate Input After Interaction
+
 > **Origin**: `distilled/ui-ux/NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_VALIDATE-INPUT-AFTER-INTERACTION.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9584] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v3707] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v6131] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9098] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v1016] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v2024] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v6900] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v2990] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v4761] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v1327] - 5/29/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/29/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v0111] - 5/30/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 5/30/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 5/30/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v5667] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 UI-UX WISDOM DISTILLATION [v1483] - 6/1/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 🎓 Specialist Audit: UX-ENGINEER
+
 > **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/1/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -6701,44 +6891,43 @@ action
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Laravel Envoy
+
 > **Origin**: `ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v6 | **Last Updated**: 5/28/2026
-
-
 
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Writing Tasks](#writing-tasks)
-    - [Defining Tasks](#defining-tasks)
-    - [Multiple Servers](#multiple-servers)
-    - [Setup](#setup)
-    - [Variables](#variables)
-    - [Stories](#stories)
-    - [Hooks](#completion-hooks)
+  - [Defining Tasks](#defining-tasks)
+  - [Multiple Servers](#multiple-servers)
+  - [Setup](#setup)
+  - [Variables](#variables)
+  - [Stories](#stories)
+  - [Hooks](#completion-hooks)
 - [Running Tasks](#running-tasks)
-    - [Confirming Task Execution](#confirming-task-execution)
+  - [Confirming Task Execution](#confirming-task-execution)
 - [Notifications](#notifications)
-    - [Slack](#slack)
-    - [Discord](#discord)
-    - [Telegram](#telegram)
-    - [Microsoft Teams](#microsoft-teams)
+  - [Slack](#slack)
+  - [Discord](#discord)
+  - [Telegram](#telegram)
+  - [Microsoft Teams](#microsoft-teams)
 
 <a name="introduction"></a>
-
 
 [Laravel Envoy](https://github.com/laravel/envoy) is a tool for executing common tasks you run on your remote servers. Using [Blade](/docs/{{version}}/blade) style syntax, you can easily setup tasks for deployment, Artisan commands, and more. Currently, Envoy only supports the Mac and Linux operating systems. However, Windows support is achievable using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 <a name="installation"></a>
 
-
 First, install Envoy into your project using the Composer package manager:
 
-```shell
+````shell
 composer require laravel/envoy --dev...
 
 #### 🔗 Traceability:
@@ -6770,39 +6959,45 @@ hidden race conditions
 silent memory corruption
 non-deterministic outputs
 edge-case failures
-```
+````
 
 #### 🛠 Actionable Steps:
+
 action-based memory write
+
 - queue-based execution (FIFO / priority)
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Superpowers Philosophy
+
 > **Origin**: `ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 28/05/2026
 
 #### 🛠 Actionable Steps:
+
 action must justify its existence.
 
 YAGNI (You Aren't Gonna Need It) ruthlessly. DRY (Don't Repeat Yourself) pragmatically. Start minimal, grow only as needed.
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHILOSOPHY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Systematic Debugging
+
 > **Origin**: `ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
+
 > **VERSION**: v1 | **Last Updated**: 27/05/2026
-
-
-
-
 
 Random fixes waste time and create new bugs. Quick patches mask underlying issues.
 
@@ -6810,17 +7005,14 @@ Random fixes waste time and create new bugs. Quick patches mask underlying issue
 
 **Violating the letter of this process is violating the spirit of debugging.**
 
-
-
 ```
 NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 ```
 
 If you haven't completed Phase 1, you cannot propose fixes.
 
-
-
 Use for ANY technical issue:
+
 - Test failures
 - Bugs in production
 - Unexpected behavior
@@ -6829,17 +7021,14 @@ Use for ANY technical issue:
 - Integration issues
 
 **Use this ESPECIALLY when:**
+
 - Under time pressure (emergencies make guessing tempting)
 - "Just one quick fix" seems obvious
 - You've already tried multiple fixes
 - Previous fix didn't work
 - You don't fully understand the issue
 
-
-
 You MUST complete each phase before proceeding to the next.
-
-
 
 **BEFORE attempting ANY fix:**
 
@@ -6854,175 +7043,188 @@ You MUST complete each phase before proceeding to the next.
    - What are the e...
 
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SKILL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, performance, vcs]
 
-
 ## 🎓 VCS WISDOM DISTILLATION [v2968] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Laravel Envoy
+
 > **Origin**: `ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ENVOY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Plan
+
 > **Origin**: `ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HARDENING_PLAN.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Guide
+
 > **Origin**: `ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Superpowers Philosophy
+
 > **Origin**: `ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHILOSOPHY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Systematic Debugging
+
 > **Origin**: `ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SKILL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-
 
 ## 🎓 VCS WISDOM DISTILLATION [v5766] - 28/05/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Laravel Envoy
+
 > **Origin**: `distilled/ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ENVOY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Plan
+
 > **Origin**: `distilled/ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HARDENING_PLAN.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Guide
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Superpowers Philosophy
+
 > **Origin**: `distilled/ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHILOSOPHY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Systematic Debugging
+
 > **Origin**: `distilled/ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 28/05/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SKILL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
 
-
 ## 🎓 VCS WISDOM DISTILLATION [v9787] - 5/28/2026
+
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Laravel Envoy
+
 > **Origin**: `distilled/ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_ENVOY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Plan
+
 > **Origin**: `distilled/ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_HARDENING_PLAN.md)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 NEXUS — Post-Stabilization Hardening Guide
+
 > **Origin**: `distilled/ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_NEXUS POST STABILIZATION HARDERING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Superpowers Philosophy
+
 > **Origin**: `distilled/ui-ux/NEXUS_PHILOSOPHY.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_PHILOSOPHY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
+
 ### 📄 Systematic Debugging
+
 > **Origin**: `distilled/ui-ux/NEXUS_SKILL.MD` | **Distilled At**: 5/28/2026
 
-
-
 #### 🔗 Traceability:
+
 - [Source Context](NEXUS_SKILL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
@@ -7031,9 +7233,8 @@ You MUST complete each phase before proceeding to the next.
 ### 📘 KNOWLEDGE: NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD
 
 # Document Review System Design
+
 > **VERSION**: v2 | **Last Updated**: 6/1/2026
-
-
 
 ## Overview
 
@@ -7052,15 +7253,16 @@ Both follow the iterative loop pattern used by implementation reviews.
 
 **What it checks for:**
 
-| Category | What to Look For |
-|----------|------------------|
-| Completeness | TODOs, placeholders, "TBD", incomplete sections |
-| Coverage | Missing error handling, edge cases, integration points |
-| Consistency | Internal contradictions, conflicting requirements |
-| Clarity | Ambiguous requirements |
-| YAGNI | Unrequested features, over-engineering |
+| Category     | What to Look For                                       |
+| ------------ | ------------------------------------------------------ |
+| Completeness | TODOs, placeholders, "TBD", incomplete sections        |
+| Coverage     | Missing error handling, edge cases, integration points |
+| Consistency  | Internal contradictions, conflicting requirements      |
+| Clarity      | Ambiguous requirements                                 |
+| YAGNI        | Unrequested features, over-engineering                 |
 
 **Output format:**
+
 ```
 ## Spec Review
 
@@ -7085,17 +7287,18 @@ Both follow the iterative loop pattern used by implementation reviews.
 
 **What it checks for:**
 
-| Category | What to Look For |
-|----------|------------------|
-| Completeness | TODOs, placeholders, incomplete tasks |
-| Spec Alignment | Plan covers spec requirements, no scope creep |
-| Task Decomposition | Tasks atomic, clear boundaries |
-| Task Syntax | Checkbox syntax on tasks and steps |
-| Chunk Size | Each chunk under 1000 lines |
+| Category           | What to Look For                              |
+| ------------------ | --------------------------------------------- |
+| Completeness       | TODOs, placeholders, incomplete tasks         |
+| Spec Alignment     | Plan covers spec requirements, no scope creep |
+| Task Decomposition | Tasks atomic, clear boundaries                |
+| Task Syntax        | Checkbox syntax on tasks and steps            |
+| Chunk Size         | Each chunk under 1000 lines                   |
 
 **Chunk definition:** A chunk is a logical grouping of tasks within the plan document, delimited by `## Chunk N: <name>` headings. The writing-plans skill creates these boundaries based on logical phases (e.g., "Foundation", "Core Features", "Integration"). Each chunk should be self-contained enough to review independently.
 
 **Spec alignment verification:** The reviewer receives both:
+
 1. The plan document (or current chunk)
 2. The path to the spec document for reference
 
@@ -7104,6 +7307,7 @@ The reviewer reads both and compares requirements coverage.
 **Output format:** Same as spec reviewer, but scoped to the current chunk.
 
 **Review process (chunk-by-chunk):**
+
 1. Writing-plans creates chunk N
 2. Controller dispatches plan-document-reviewer with chunk N content and spec path
 3. Reviewer reads chunk and spec, returns verdict
@@ -7120,12 +7324,14 @@ brainstorming -> spec -> SPEC REVIEW LOOP -> writing-plans -> plan -> PLAN REVIE
 ```
 
 **Spec Review Loop:**
+
 1. Spec complete
 2. Dispatch reviewer
 3. If issues: fix -> goto 2
 4. If approved: proceed
 
 **Plan Review Loop:**
+
 1. Chunk N complete
 2. Dispatch reviewer for chunk N
 3. If issues: fix -> goto 2
@@ -7146,16 +7352,19 @@ Tasks and steps use checkbox syntax:
 ## Error Handling
 
 **Review loop termination:**
+
 - No hard iteration limit - loops continue until reviewer approves
 - If loop exceeds 5 iterations, the controller should surface this to the human for guidance
 - The human can choose to: continue iterating, approve with known issues, or abort
 
 **Disagreement handling:**
+
 - Reviewers are advisory - they flag issues but don't block
 - If the agent believes reviewer feedback is incorrect, it should explain why in its fix
 - If disagreement persists after 3 iterations on the same issue, surface to human
 
 **Malformed reviewer output:**
+
 - Controller should validate reviewer output has required fields (Status, Issues if applicable)
 - If malformed, re-dispatch reviewer with a note about expected format
 - After 2 malformed responses, surface to human
@@ -7163,23 +7372,24 @@ Tasks and steps use checkbox syntax:
 ## Files to Change
 
 **New files:**
+
 - `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
 - `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
 
 **Modified files:**
+
 - `skills/brainstorming/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add review loop after spec written
 - `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add chunk-by-chunk review loop, update task syntax examples
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, performance, tdd, vcs, api]
 
 ### 📘 KNOWLEDGE: NEXUS_API-CALLING.MD
 
 # Calling External APIs from Extensions
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 ## Permissions
 
@@ -7197,9 +7407,7 @@ If the API does not support CORS, request host permissions to bypass these restr
 
 ```json
 {
-  "host_permissions": [
-    "https://no-cors-api.example.com/*"
-  ]
+  "host_permissions": ["https://no-cors-api.example.com/*"]
 }
 ```
 
@@ -7211,7 +7419,9 @@ API calls work from any extension context (service worker, popup, side panel, co
 
 ```js
 // From popup or service worker
-const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=KEY');
+const response = await fetch(
+  "https://api.openweathermap.org/data/2.5/weather?q=London&appid=KEY",
+);
 const data = await response.json();
 ```
 
@@ -7230,9 +7440,9 @@ async function callAPI(url) {
   } catch (err) {
     if (err instanceof TypeError) {
       // Network error (offline, DNS failure, etc.)
-      console.error('Network error:', err.message);
+      console.error("Network error:", err.message);
     } else {
-      console.error('API error:', err.message);
+      console.error("API error:", err.message);
     }
     return null;
   }
@@ -7252,29 +7462,30 @@ If making API calls from the service worker, remember it can terminate. For long
 webhook-style patterns, use `chrome.offscreen` to create an offscreen document that stays alive,
 or use `chrome.alarms` for periodic polling.
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [api]
 
 ### 📘 KNOWLEDGE: NEXUS_CONCURRENCY.MD
 
 # Concurrency
+
 > **VERSION**: v1 | **Last Updated**: 27/05/2026
-
-
 
 - [Introduction](#introduction)
 - [Running Concurrent Tasks](#running-concurrent-tasks)
-    - [Named Results](#named-results)
-    - [Task Timeouts](#task-timeouts)
+  - [Named Results](#named-results)
+  - [Task Timeouts](#task-timeouts)
 - [Deferring Concurrent Tasks](#deferring-concurrent-tasks)
 
 <a name="introduction"></a>
+
 ## Introduction
 
 Sometimes you may need to execute several slow tasks which do not depend on one another. In many cases, significant performance improvements can be realized by executing the tasks concurrently. Laravel's `Concurrency` facade provides a simple, convenient API for executing closures concurrently.
 
 <a name="how-it-works"></a>
+
 #### How it Works
 
 Laravel achieves concurrency by serializing the given closures and dispatching them to a hidden Artisan CLI command, which unserializes the closures and invokes it within its own PHP process. After the closure has been invoked, the resulting value is serialized back to the parent process.
@@ -7290,6 +7501,7 @@ composer require spatie/fork
 The `sync` driver is primarily useful during testing when you want to disable all concurrency and simply execute the given closures in sequence within the parent process.
 
 <a name="running-concurrent-tasks"></a>
+
 ## Running Concurrent Tasks
 
 To run concurrent tasks, you may invoke the `Concurrency` facade's `run` method. The `run` method accepts an array of closures which should be executed simultaneously in child PHP processes:
@@ -7317,6 +7529,7 @@ php artisan config:publish concurrency
 ```
 
 <a name="named-results"></a>
+
 ### Named Results
 
 If you would like to access concurrent task results by name rather than by position, you may provide an associative array of closures. Each result will be returned using the same key as its corresponding closure:
@@ -7335,6 +7548,7 @@ $orderCount = $results['orders'];
 ```
 
 <a name="task-timeouts"></a>
+
 ### Task Timeouts
 
 When using the `process` driver (the default), you may specify a maximum number of seconds a concurrent task is allowed to run before it is terminated by providing a timeout to the `run` method:
@@ -7360,6 +7574,7 @@ Concurrency::run([...], timeout: seconds(30));
 ```
 
 <a name="deferring-concurrent-tasks"></a>
+
 ## Deferring Concurrent Tasks
 
 If you would like to execute an array of closures concurrently, but are not interested in the results returned by those closures, you should consider using the `defer` method. When the `defer` method is invoked, the given closures are not executed immediately. Instead, Laravel will execute the closures concurrently after the HTTP response has been sent to the user:
@@ -7374,37 +7589,40 @@ Concurrency::defer([
 ]);
 ```
 
-
 ---
+
 > **METADATA (NEXUS SEMANTIC TAGS)**: [api]
 
 ### 📘 KNOWLEDGE: NEXUS_CONTENT-SCRIPTS.MD
 
 # Content Scripts & DOM Manipulation
+
 > **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
 
 ## Two Ways to Inject
 
 ### 1. Static (manifest declaration)
+
 ```json
 {
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "js": ["content/content.js"],
-    "css": ["content/content.css"],
-    "run_at": "document_idle"
-  }]
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ]
 }
 ```
 
 ### 2. Programmatic (from service worker or popup)
+
 ```js
 // Requires "scripting" permission and host access
 chrome.scripting.executeScript({
   target: { tabId: tabId },
-  files: ['content/content.js']
+  files: ["content/content.js"],
 });
 
 // Or inject a function directly
@@ -7413,11 +7631,12 @@ chrome.scripting.executeScript({
   func: (param) => {
     document.body.style.backgroundColor = param;
   },
-  args: ['yellow']
+  args: ["yellow"],
 });
 ```
 
 Use `activeTab` permission for on-click injection (no host_permissions needed):
+
 ```json
 {
   "permissions": ["activeTab", "scripting"]
@@ -7427,6 +7646,7 @@ Use `activeTab` permission for on-click injection (no host_permissions needed):
 ## Isolated World
 
 Content scripts run in an isolated world:
+
 - They share the DOM with the page but NOT JavaScript variables
 - They can access chrome.runtime messaging APIs
 - The page's CSP does NOT restrict content script code
@@ -7436,16 +7656,16 @@ Content scripts run in an isolated world:
 
 ```js
 // content.js → service worker
-chrome.runtime.sendMessage({ type: 'DATA', payload: data }, (response) => {
-  console.log('Got response:', response);
+chrome.runtime.sendMessage({ type: "DATA", payload: data }, (response) => {
+  console.log("Got response:", response);
 });
 
 // service worker → content script in a specific tab
-chrome.tabs.sendMessage(tabId, { type: 'UPDATE', data: newData });
+chrome.tabs.sendMessage(tabId, { type: "UPDATE", data: newData });
 
 // content.js: listen for messages
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'GET_CONTENT') {
+  if (message.type === "GET_CONTENT") {
     const text = document.body.innerText;
     sendResponse({ text });
   }
@@ -7461,7 +7681,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 ```js
 // ❌ BAD: Blocks the main thread while processing hundreds of elements
 const emails = document.body.innerText.match(/[\w.+-]+@[\w-]+\.[\w.]+/g);
-emails.forEach(email => {
+emails.forEach((email) => {
   // ... find and highlight each email (can freeze the page)
 });
 
@@ -7470,12 +7690,14 @@ async function highlightEmails(elements) {
   const BATCH_SIZE = 20;
   for (let i = 0; i < elements.length; i += BATCH_SIZE) {
     const batch = elements.slice(i, i + BATCH_SIZE);
-    await new Promise(resolve => requestAnimationFrame(() => {
-      batch.forEach(el => el.style.backgroundColor = 'yellow');
-      resolve();
-    }));
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => {
+        batch.forEach((el) => (el.style.backgroundColor = "yellow"));
+        resolve();
+      }),
+    );
     // Yield to the main thread between batches
-    if (typeof scheduler !== 'undefined' && scheduler.yield) {
+    if (typeof scheduler !== "undefined" && scheduler.yield) {
       await scheduler.yield();
     }
   }

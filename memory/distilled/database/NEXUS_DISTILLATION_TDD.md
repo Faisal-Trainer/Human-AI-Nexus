@@ -27,6 +27,7 @@ To calculate differentials between two events:
 ```javascript
 // 1. Get current time point...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([calculate-event-differentials.md](../tdd/NEXUS_CALCULATE-EVENT-DIFFERENTIALS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -87,6 +88,7 @@ const duration = Temporal.Duration.from({ minutes: 90 });
 // 2. Balance to hours (converts 90 minutes to 1 hour and 30 minutes)
 const balanced = duration.round({ largestUni...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([format-human-readable-durations.md](../tdd/NEXUS_FORMAT-HUMAN-READABLE-DURATIONS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -126,6 +128,7 @@ Use the Popover API to create a tooltip. This creates an implicit anchor connect
 ```html
 <button popovertarget="tooltip" id="anchor" aria-describe...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([position-aware-tooltips.md](../tdd/NEXUS_POSITION-AWARE-TOOLTIPS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)

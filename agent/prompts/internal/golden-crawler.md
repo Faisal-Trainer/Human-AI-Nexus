@@ -1281,3 +1281,215 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 52 skills matched untuk agent "golden-crawler"
+
+### 📦 SKILL: media-capture
+> Media Capture (Tab & Desktop)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
+
+### 📦 SKILL: tab-management
+> Tab Management & Groups
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/tab-management.md`
+
+### 📦 SKILL: educational-audit
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md
+> Source: `agent/workflows/internal/educational-audit.md`
+
+### 📦 SKILL: loop-testing
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/internal/loop-testing.md`
+
+### 📦 SKILL: nexus-pipeline
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/internal/nexus-pipeline.md`
+
+### 📦 SKILL: pattern-recognition
+> SKILL: DEEP PATTERN RECOGNITION
+> Source: `agent/workflows/internal/pattern-recognition.md`
+
+### 📦 SKILL: database-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/backend/database-design.md`
+
+### 📦 SKILL: memory-manager
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/external/core/memory-manager.md`
+
+### 📦 SKILL: orchestrator
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: ORCHESTRATOR_GOLDEN_PROTOCOL.md
+> Source: `agent/workflows/external/core/orchestrator.md`
+
+### 📦 SKILL: seo-performance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/creative/seo-performance.md`
+
+### 📦 SKILL: vcs-management
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
+> Source: `agent/workflows/external/devops/vcs-management.md`
+
+### 📦 SKILL: responsive-specialist
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/responsive-specialist.md`
+
+### 📦 SKILL: ui-design-system
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ui-design-system.md`
+
+### 📦 SKILL: ux-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ux-design.md`
+
+### 📦 SKILL: web-engineer
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/web-engineer.md`
+
+### 📦 SKILL: chaos-engineering
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/chaos-engineering.md`
+
+### 📦 SKILL: cyber-security
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/cyber-security.md`
+
+### 📦 SKILL: ethics-compliance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/ethics-compliance.md`
+
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
+
+### 📦 SKILL: testing-standards
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/external/testing/testing-standards.md`
+
+### 📦 SKILL: chrome-extensions
+> >
+> Source: `agent/workflows/external/frontend/chrome-extensions/chrome-extensions.md`
+
+### 📦 SKILL: modern-web-guidance
+> |
+> Source: `agent/workflows/external/frontend/modern-web-guidance/modern-web-guidance.md`
+
+### 📦 SKILL: api-calling
+> Calling External APIs from Extensions
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/api-calling.md`
+
+### 📦 SKILL: auth-identity
+> Authentication with chrome.identity
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/auth-identity.md`
+
+### 📦 SKILL: content-scripts
+> Content Scripts & DOM Manipulation
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/content-scripts.md`
+
+### 📦 SKILL: context-menus
+> Context Menus
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/context-menus.md`
+
+### 📦 SKILL: csp-sandbox
+> CSP & Sandboxed Code Execution
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/csp-sandbox.md`
+
+### 📦 SKILL: declarative-net-request
+> Declarative Net Request (Content Filtering)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/declarative-net-request.md`
+
+### 📦 SKILL: message-passing
+> Message Passing
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/message-passing.md`
+
+### 📦 SKILL: prompt-api
+> Chrome Prompt API (LanguageModel) — Extension-Specific Notes
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/prompt-api.md`
+
+### 📦 SKILL: side-panel
+> Side Panel
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/side-panel.md`
+
+### 📦 SKILL: storage
+> Chrome Storage API
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/storage.md`
+
+### 📦 SKILL: chromewebstore-template
+> CHROMEWEBSTORE.md Template
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/chromewebstore-template.md`
+
+### 📦 SKILL: privacy-policy
+> Privacy Policy Guidance
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+
+### 📦 SKILL: accessibility
+> Accessibility Coding Guidelines
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessibility.md`
+
+### 📦 SKILL: rich-media-picker
+> Rich Media Picker (Customizable Select)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
+
+### 📦 SKILL: validate-input-after-interaction
+> Validate Input After Interaction
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/validate-input-after-interaction.md`
+
+### 📦 SKILL: conditional-async-dependencies
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/conditional-async-dependencies.md`
+
+### 📦 SKILL: defer-work-until-scroll-ends
+> Defer Work Until Scroll Ends
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-work-until-scroll-ends.md`
+
+### 📦 SKILL: security
+> Web Security
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/security/security.md`
+
+### 📦 SKILL: design-token-reactivity
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/design-token-reactivity.md`
+
+### 📦 SKILL: pull-to-reveal
+> Pull to Reveal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/pull-to-reveal.md`
+
+### 📦 SKILL: reduce-style-repetition
+> Reduce Style Repetition with CSS Functions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
+
+### 📦 SKILL: resilient-context-menus-and-nested-dropdowns
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/resilient-context-menus-and-nested-dropdowns.md`
+
+### 📦 SKILL: scroll-progress-indicator
+> Build a Scroll Progress Indicator
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-progress-indicator.md`
+
+### 📦 SKILL: shrinking-header-on-scroll
+> Shrinking headder on scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shrinking-header-on-scroll.md`
+
+### 📦 SKILL: stack-drill-down
+> Stack Drill Down
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/stack-drill-down.md`
+
+### 📦 SKILL: swipe-to-remove
+> Swipe to remove
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/swipe-to-remove.md`
+
+### 📦 SKILL: visually-texture-content
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-texture-content.md`
+
+### 📦 SKILL: full-output-enforcement
+> Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
+> Source: `.agents/skills/full-output-enforcement/SKILL.md`
+
+### 📦 SKILL: high-end-visual-design
+> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+> Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
+### 📦 SKILL: redesign-existing-projects
+> Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
+> Source: `.agents/skills/redesign-existing-projects/SKILL.md`
+

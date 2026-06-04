@@ -1280,3 +1280,415 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 102 skills matched untuk agent "user-branding"
+
+### 📦 SKILL: user-branding
+> SKILL: USER BRANDING STANDARDS (Personal Branding)
+> Source: `agent/workflows/external/creative/user-branding.md`
+
+### 📦 SKILL: shrinking-header-on-scroll
+> Shrinking headder on scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shrinking-header-on-scroll.md`
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
+
+### 📦 SKILL: web-branding
+> SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/web-branding.md`
+
+### 📦 SKILL: design-token-reactivity
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/design-token-reactivity.md`
+
+### 📦 SKILL: export-html-media-from-canvas
+> Export HTML content from canvas
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/export-html-media-from-canvas.md`
+
+### 📦 SKILL: digital-marketing
+> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/digital-marketing.md`
+
+### 📦 SKILL: devops-specialist
+> SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/devops/devops-specialist.md`
+
+### 📦 SKILL: vcs-management
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
+> Source: `agent/workflows/external/devops/vcs-management.md`
+
+### 📦 SKILL: auth-identity
+> Authentication with chrome.identity
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/auth-identity.md`
+
+### 📦 SKILL: media-capture
+> Media Capture (Tab & Desktop)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
+
+### 📦 SKILL: privacy-policy
+> Privacy Policy Guidance
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+
+### 📦 SKILL: review-checklist
+> Pre-Publish Review Checklist
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/review-checklist.md`
+
+### 📦 SKILL: brand-consistent-forms
+> Brand-Consistent Forms
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/brand-consistent-forms.md`
+
+### 📦 SKILL: branded-select-styling
+> Branded Select Styling
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
+
+### 📦 SKILL: rich-media-picker
+> Rich Media Picker (Customizable Select)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
+
+### 📦 SKILL: passkey-authentication
+> Passkey Authentication Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-authentication.md`
+
+### 📦 SKILL: passkey-conditional-create
+> Passkey Conditional Create (Post-Login Promotion)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-conditional-create.md`
+
+### 📦 SKILL: passkey-management
+> Passkey Management Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
+
+### 📦 SKILL: passkey-reauthentication
+> Passkey Reauthentication Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
+
+### 📦 SKILL: passkey-registration
+> Passkey Registration Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
+
+### 📦 SKILL: passkeys
+> Passkeys Orientation Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkeys.md`
+
+### 📦 SKILL: security
+> Web Security
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/security/security.md`
+
+### 📦 SKILL: adapt-scrollbar-to-contrast-preferences
+> Adapt scrollbar to high-contrast preferences
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/adapt-scrollbar-to-contrast-preferences.md`
+
+### 📦 SKILL: anchor-positioning-tab-underline
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/anchor-positioning-tab-underline.md`
+
+### 📦 SKILL: animate-element-entry-exit
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/animate-element-entry-exit.md`
+
+### 📦 SKILL: animate-to-from-top-layer
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/animate-to-from-top-layer.md`
+
+### 📦 SKILL: animate-to-intrinsic-sizes
+> Animate to Intrinsic Sizes
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/animate-to-intrinsic-sizes.md`
+
+### 📦 SKILL: apply-webgl-shaders
+> Apply WebGL shaders to HTML content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/apply-webgl-shaders.md`
+
+### 📦 SKILL: calculate-event-differentials
+> Calculating Event Differentials with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/calculate-event-differentials.md`
+
+### 📦 SKILL: calculate-with-intrinsic-sizes
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/calculate-with-intrinsic-sizes.md`
+
+### 📦 SKILL: capture-location-agnostic-data
+> Capturing Location-Agnostic Data with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/capture-location-agnostic-data.md`
+
+### 📦 SKILL: carousel-slide-effects
+> Build Carousel Slide Effects
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-slide-effects.md`
+
+### 📦 SKILL: carousel-snap-highlights
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-snap-highlights.md`
+
+### 📦 SKILL: child-state-based-styling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/child-state-based-styling.md`
+
+### 📦 SKILL: complex-shapes
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/complex-shapes.md`
+
+### 📦 SKILL: component-specific-light-dark-theme
+> Component-specific light/dark themes
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/component-specific-light-dark-theme.md`
+
+### 📦 SKILL: consistent-cross-document-transitions
+> Consistent Cross-Document Transitions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/consistent-cross-document-transitions.md`
+
+### 📦 SKILL: content-based-styling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/content-based-styling.md`
+
+### 📦 SKILL: coordinate-global-events
+> Coordinating Global Events with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/coordinate-global-events.md`
+
+### 📦 SKILL: cross-document-transitions
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/cross-document-transitions.md`
+
+### 📦 SKILL: customize-scrollbar-color-and-thickness
+> Customize the color or thickness of a scrollbar
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/customize-scrollbar-color-and-thickness.md`
+
+### 📦 SKILL: dark-mode
+> Dark mode
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dark-mode.md`
+
+### 📦 SKILL: declarative-button-actions
+> Declarative Button Actions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-button-actions.md`
+
+### 📦 SKILL: declarative-dialog-popover-control
+> Overview
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-dialog-popover-control.md`
+
+### 📦 SKILL: deliver-optimized-decorative-images
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/deliver-optimized-decorative-images.md`
+
+### 📦 SKILL: directional-navigation-transitions
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/directional-navigation-transitions.md`
+
+### 📦 SKILL: dynamic-sibling-animations
+> Creating a stagger animation
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dynamic-sibling-animations.md`
+
+### 📦 SKILL: dynamic-sibling-styling
+> Styling siblings based on count and index
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dynamic-sibling-styling.md`
+
+### 📦 SKILL: expose-canvas-content-to-browser-features
+> Expose canvas content to browser features
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/expose-canvas-content-to-browser-features.md`
+
+### 📦 SKILL: flicker-free-client-side-ab-testing
+> Flicker-Free Client-Side A/B Testing
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/flicker-free-client-side-ab-testing.md`
+
+### 📦 SKILL: fluid-scaling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/fluid-scaling.md`
+
+### 📦 SKILL: format-human-readable-durations
+> Formatting Human-Readable Durations with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/format-human-readable-durations.md`
+
+### 📦 SKILL: group-element-transitions
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/group-element-transitions.md`
+
+### 📦 SKILL: improve-text-layout-and-legibility
+> Improve Text Layout and Legibility
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/improve-text-layout-and-legibility.md`
+
+### 📦 SKILL: individual-transform-properties
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/individual-transform-properties.md`
+
+### 📦 SKILL: interactive-content-in-3d-scenes
+> Enable interactive HTML content in 3D scenes
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interactive-content-in-3d-scenes.md`
+
+### 📦 SKILL: interactive-content-reveal
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interactive-content-reveal.md`
+
+### 📦 SKILL: interest-triggered-action-previews
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-action-previews.md`
+
+### 📦 SKILL: interest-triggered-tooltips
+> Show a tooltip when hovering
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-tooltips.md`
+
+### 📦 SKILL: light-dismiss-a-dialog
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/light-dismiss-a-dialog.md`
+
+### 📦 SKILL: manage-recurring-intervals
+> Managing Recurring Intervals with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/manage-recurring-intervals.md`
+
+### 📦 SKILL: model-partial-time-concepts
+> Modeling Partial Time Concepts with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/model-partial-time-concepts.md`
+
+### 📦 SKILL: move-dom-element-without-losing-state
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/move-dom-element-without-losing-state.md`
+
+### 📦 SKILL: navigation-drawer
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/navigation-drawer.md`
+
+### 📦 SKILL: overflow-clipping-control
+> Overflow Clipping Control
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/overflow-clipping-control.md`
+
+### 📦 SKILL: parallax-scroll-effects
+> Build a Parallax Effect on Scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/parallax-scroll-effects.md`
+
+### 📦 SKILL: persistent-app-tours
+> Creating Persistent App Tours
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-app-tours.md`
+
+### 📦 SKILL: persistent-toast-notifications
+> Creating Toast Notifications
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-toast-notifications.md`
+
+### 📦 SKILL: persistent-top-layer-ui
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-top-layer-ui.md`
+
+### 📦 SKILL: physics-based-easing
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/physics-based-easing.md`
+
+### 📦 SKILL: platform-controls-dismiss-dialog
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/platform-controls-dismiss-dialog.md`
+
+### 📦 SKILL: position-aware-tooltips
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/position-aware-tooltips.md`
+
+### 📦 SKILL: precise-text-alignment
+> Precise Text Alignment
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/precise-text-alignment.md`
+
+### 📦 SKILL: prevent-text-wrapping
+> Prevent text wrapping
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/prevent-text-wrapping.md`
+
+### 📦 SKILL: pull-to-reveal
+> Pull to Reveal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/pull-to-reveal.md`
+
+### 📦 SKILL: reduce-style-repetition
+> Reduce Style Repetition with CSS Functions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
+
+### 📦 SKILL: resilient-context-menus-and-nested-dropdowns
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/resilient-context-menus-and-nested-dropdowns.md`
+
+### 📦 SKILL: same-document-transitions
+> Same Document Transitions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/same-document-transitions.md`
+
+### 📦 SKILL: scroll-entry-exit-effects
+> Add entry and exit effects to elements as they enter or exit the scrollport
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-entry-exit-effects.md`
+
+### 📦 SKILL: scroll-position-aware-elements
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-position-aware-elements.md`
+
+### 📦 SKILL: scroll-progress-indicator
+> Build a Scroll Progress Indicator
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-progress-indicator.md`
+
+### 📦 SKILL: scroll-snap-realtime-feedback
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-snap-realtime-feedback.md`
+
+### 📦 SKILL: scroll-snap-state-sync
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-snap-state-sync.md`
+
+### 📦 SKILL: scroll-target-on-load
+> Set a scroll target for the initial render
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-target-on-load.md`
+
+### 📦 SKILL: scrollability-affordance-hints
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scrollability-affordance-hints.md`
+
+### 📦 SKILL: scrollytelling
+> Scrollytelling
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scrollytelling.md`
+
+### 📦 SKILL: search-hidden-content
+> Search hidden content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/search-hidden-content.md`
+
+### 📦 SKILL: shaped-cutouts
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shaped-cutouts.md`
+
+### 📦 SKILL: size-aware-styling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/size-aware-styling.md`
+
+### 📦 SKILL: soft-edge-content-fade
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/soft-edge-content-fade.md`
+
+### 📦 SKILL: stabilize-reactive-state
+> Stabilize Reactive State with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/stabilize-reactive-state.md`
+
+### 📦 SKILL: stack-drill-down
+> Stack Drill Down
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/stack-drill-down.md`
+
+### 📦 SKILL: style-parent-with-has
+> Style Parent with :has()
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/style-parent-with-has.md`
+
+### 📦 SKILL: support-global-calendar-systems
+> Supporting Global Calendar Systems with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/support-global-calendar-systems.md`
+
+### 📦 SKILL: swipe-to-remove
+> Swipe to remove
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/swipe-to-remove.md`
+
+### 📦 SKILL: visually-stable-font-fallbacks
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-stable-font-fallbacks.md`
+
+### 📦 SKILL: visually-stable-mixed-fonts
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-stable-mixed-fonts.md`
+
+### 📦 SKILL: visually-texture-content
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-texture-content.md`
+
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: high-end-visual-design
+> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+> Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
+### 📦 SKILL: industrial-brutalist-ui
+> Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+> Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+

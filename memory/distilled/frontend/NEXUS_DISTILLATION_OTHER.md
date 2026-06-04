@@ -35,6 +35,7 @@ OPTIONAL: Use a `@media (prefers-contrast: more)` block to define dark, distinct
   .scroller {
     /* Use extremely distinct colors like solid black against white ...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([adapt-scrollbar-to-contrast-preferences.md](../other/NEXUS_ADAPT-SCROLLBAR-TO-CONTRAST-PREFERENCES.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -72,6 +73,7 @@ Tether the underline to the active item anchor with a `position-anchor` that mat
 ul::before {
   /* T...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([anchor-positioning-tab-underline.md](../other/NEXUS_ANCHOR-POSITIONING-TAB-UNDERLINE.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -109,6 +111,7 @@ To animate an element when toggling its visibility via an attribute (e.g., `hidd
 
 /* Entry animation: transition FROM these va...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([animate-element-entry-exit.md](../other/NEXUS_ANIMATE-ELEMENT-ENTRY-EXIT.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -144,6 +147,7 @@ let hasConflict = false;
 try {
   // 'reject...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([coordinate-global-events.md](../other/NEXUS_COORDINATE-GLOBAL-[EVENTS.MD](../security/NEXUS_EVENTS.MD)))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -192,6 +196,7 @@ You can target the old and new states of the transition using pseudo-elements to
 @keyframes slide-out {
   to { transform: translateX(-20%); op...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([cross-document-transitions.md](../other/NEXUS_CROSS-DOCUMENT-TRANSITIONS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -244,6 +249,7 @@ action="hide">Got it</button>
 </div>
 ```
 
+`
 #### 🔗 Traceability:
 - [Source Context]([persistent-app-tours.md](../other/NEXUS_PERSISTENT-APP-TOURS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -355,6 +361,7 @@ Place the indicator elements (like shadows, gradients, or arrows) inside the con
 .indicator-bottom {
   bottom...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([scrollability-affordance-hints.md](../other/NEXUS_SCROLLABILITY-AFFORDANCE-HINTS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -394,6 +401,7 @@ You can use a single gradient with multiple color stops to fade both edges.
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   mask-image: linear-gradient(to b...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([soft-edge-content-fade.md](../other/NEXUS_SOFT-EDGE-CONTENT-FADE.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -421,6 +429,7 @@ Apply the property to the element or a parent container. This ensures that if th
 ```css
 .text-conte...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([visually-stable-font-fallbacks.md](../other/NEXUS_VISUALLY-STABLE-FONT-FALLBACKS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -484,6 +493,7 @@ You can generate patterns using CSS gradients. This is self-contained and does n
     linear-gradient(45deg, #000 25%, transparent 25%), 
     linear-gradient(-45deg, #000 25%, transparent 25%), ...
 
+`
 #### 🔗 Traceability:
 - [Source Context]([visually-texture-content.md](../other/NEXUS_VISUALLY-TEXTURE-CONTENT.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)

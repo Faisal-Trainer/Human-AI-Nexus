@@ -1280,3 +1280,63 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 14 skills matched untuk agent "security-architect"
+
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
+
+### 📦 SKILL: educational-audit
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md
+> Source: `agent/workflows/internal/educational-audit.md`
+
+### 📦 SKILL: database-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/backend/database-design.md`
+
+### 📦 SKILL: web3-specialist
+> SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/backend/web3-specialist.md`
+
+### 📦 SKILL: seo-performance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/creative/seo-performance.md`
+
+### 📦 SKILL: chaos-engineering
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/chaos-engineering.md`
+
+### 📦 SKILL: cyber-security
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/cyber-security.md`
+
+### 📦 SKILL: ethics-compliance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/ethics-compliance.md`
+
+### 📦 SKILL: csp-sandbox
+> CSP & Sandboxed Code Execution
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/csp-sandbox.md`
+
+### 📦 SKILL: passkeys
+> Passkeys Orientation Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkeys.md`
+
+### 📦 SKILL: privacy
+> Web Privacy Guidelines for Developers
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/privacy/privacy.md`
+
+### 📦 SKILL: security
+> Web Security
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/security/security.md`
+
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+

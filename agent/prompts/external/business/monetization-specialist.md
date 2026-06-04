@@ -1280,3 +1280,131 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 31 skills matched untuk agent "monetization-specialist"
+
+### 📦 SKILL: monetization-specialist
+> SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/business/monetization-specialist.md`
+
+### 📦 SKILL: language-model
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-model.md`
+
+### 📦 SKILL: knowledge-liaison
+> SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
+> Source: `agent/workflows/internal/knowledge-liaison.md`
+
+### 📦 SKILL: translator
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
+
+### 📦 SKILL: webmcp
+> WebMCP (Web Model Context Protocol)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
+
+### 📦 SKILL: loop-testing
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/internal/loop-testing.md`
+
+### 📦 SKILL: nexus-pipeline
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/internal/nexus-pipeline.md`
+
+### 📦 SKILL: skill-evolution
+> 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)
+> Source: `agent/workflows/internal/skill-evolution.md`
+
+### 📦 SKILL: project-manager
+> SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
+> Source: `agent/workflows/external/core/project-manager.md`
+
+### 📦 SKILL: digital-marketing
+> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/digital-marketing.md`
+
+### 📦 SKILL: vcs-management
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
+> Source: `agent/workflows/external/devops/vcs-management.md`
+
+### 📦 SKILL: ux-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ux-design.md`
+
+### 📦 SKILL: android-dev
+> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
+> Source: `agent/workflows/external/mobile/android-dev.md`
+
+### 📦 SKILL: ios-dev
+> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
+> Source: `agent/workflows/external/mobile/ios-dev.md`
+
+### 📦 SKILL: testing-standards
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/external/testing/testing-standards.md`
+
+### 📦 SKILL: privacy-policy
+> Privacy Policy Guidance
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+
+### 📦 SKILL: review-checklist
+> Pre-Publish Review Checklist
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/review-checklist.md`
+
+### 📦 SKILL: accessibility
+> Accessibility Coding Guidelines
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessibility.md`
+
+### 📦 SKILL: language-detection
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
+
+### 📦 SKILL: summarizer
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/summarizer.md`
+
+### 📦 SKILL: autofill-payment-form
+> Build a payment form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
+
+### 📦 SKILL: calculate-event-differentials
+> Calculating Event Differentials with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/calculate-event-differentials.md`
+
+### 📦 SKILL: flicker-free-client-side-ab-testing
+> Flicker-Free Client-Side A/B Testing
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/flicker-free-client-side-ab-testing.md`
+
+### 📦 SKILL: manage-recurring-intervals
+> Managing Recurring Intervals with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/manage-recurring-intervals.md`
+
+### 📦 SKILL: model-partial-time-concepts
+> Modeling Partial Time Concepts with Temporal
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/model-partial-time-concepts.md`
+
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: gpt-taste
+> Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
+> Source: `.agents/skills/gpt-taste/SKILL.md`
+
+### 📦 SKILL: high-end-visual-design
+> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+> Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
+### 📦 SKILL: huashu-design
+> 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
+> Source: `.agents/skills/huashu-design/SKILL.md`
+
+### 📦 SKILL: imagegen-frontend-web
+> Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
+> Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
+

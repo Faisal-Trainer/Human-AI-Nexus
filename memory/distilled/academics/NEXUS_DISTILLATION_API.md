@@ -109,6 +109,7 @@ action=opensearch&search=${encodeURIComponent(text)}&limit=5&format=json`
 });
 ```
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_OMNIBOX.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)

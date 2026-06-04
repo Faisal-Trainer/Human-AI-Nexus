@@ -157,6 +157,7 @@ input:-webkit-autofill {
   border: 2px solid #2e7d32;
   box-...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_AUTOFILL-HIGHLIGHT-INPUTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -278,6 +279,7 @@ To apply your brand color to form controls:
 
 /* Apply accent-color to the body or a specific co...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_BRAND-CONSISTENT-[FORMS.MD](../security/NEXUS_FORMS.MD))
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -824,6 +826,7 @@ action */
 }  
 ```
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_INTERACTIVE-CONTENT-REVEAL.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -912,6 +915,7 @@ dialog::backdrop {
 ```html
 <!-- MANDATORY: Use...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_LIGHT-DISMISS-A-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1005,6 +1009,7 @@ When the `<dialog>` element was first introduced, it could be dismissed with the
 <!-- MANDATORY: must be opened with either `showModal()` with JavaScript or the `show-modal` command using declarative command invokers in order respond to close requests including platform-specific controls. -->
 <dialog aria-label...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_PLATFORM-CONTROLS-DISMISS-DIALOG.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1075,6 +1080,7 @@ To prevent any automatic line breaks, apply `text-wrap: nowrap` to the element c
 
   /* OPTIONAL: Constrain width to force and handle overflow ...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_PREVENT-TEXT-WRAPPING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1171,6 +1177,7 @@ const UserInvalidFallback = (() => {
       for (const control of controls) {
         dir
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_REQUIRED-FIELD-FEEDBACK.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1251,6 +1258,7 @@ scheduler.postTask(() => {
   sendAnalytics();
 },
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_SCHEDULE-TASKS-BY-PRIORITY.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1338,6 +1346,7 @@ Use the `@container` rule to apply styles when the container reaches a certain s
 
 /* Styles for larger containers (side-by-side layout) ...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_SIZE-AWARE-STYLING.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1413,6 +1422,7 @@ const UserInvalidFallback = (() => {
       for (const control of controls) {
         dir
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_STYLE-PARENT-WITH-HAS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -1447,6 +1457,7 @@ Views separate your controller / application logic from your presentation logic 
 
 ```b...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_VIEWS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)

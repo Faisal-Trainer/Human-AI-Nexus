@@ -1279,3 +1279,99 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 23 skills matched untuk agent "ethics-compliance"
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
+
+### 📦 SKILL: user-branding
+> SKILL: USER BRANDING STANDARDS (Personal Branding)
+> Source: `agent/workflows/external/creative/user-branding.md`
+
+### 📦 SKILL: web-branding
+> SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/web-branding.md`
+
+### 📦 SKILL: ethics-compliance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/ethics-compliance.md`
+
+### 📦 SKILL: brand-consistent-forms
+> Brand-Consistent Forms
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/brand-consistent-forms.md`
+
+### 📦 SKILL: branded-select-styling
+> Branded Select Styling
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
+
+### 📦 SKILL: shrinking-header-on-scroll
+> Shrinking headder on scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shrinking-header-on-scroll.md`
+
+### 📦 SKILL: copywriter
+> SKILL: CONTENT & COPYWRITING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/copywriter.md`
+
+### 📦 SKILL: devops-specialist
+> SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/devops/devops-specialist.md`
+
+### 📦 SKILL: accessibility
+> Accessibility Coding Guidelines
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessibility.md`
+
+### 📦 SKILL: accessible-error-announcement
+> Accessible Error Announcement
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
+
+### 📦 SKILL: language-detection
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
+
+### 📦 SKILL: autofill-address-form
+> Build an address form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-address-form.md`
+
+### 📦 SKILL: autofill-highlight-inputs
+> Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-highlight-inputs.md`
+
+### 📦 SKILL: autofill-payment-form
+> Build a payment form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
+
+### 📦 SKILL: autofill-sign-in-form
+> Build a sign-in form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-sign-in-form.md`
+
+### 📦 SKILL: autofill-sign-up-form
+> Build a sign-up form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-sign-up-form.md`
+
+### 📦 SKILL: rich-media-picker
+> Rich Media Picker (Customizable Select)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
+
+### 📦 SKILL: defer-rendering-heavy-content
+> Defer rendering heavy content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-rendering-heavy-content.md`
+
+### 📦 SKILL: apply-webgl-shaders
+> Apply WebGL shaders to HTML content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/apply-webgl-shaders.md`
+
+### 📦 SKILL: declarative-dialog-popover-control
+> Overview
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-dialog-popover-control.md`
+
+### 📦 SKILL: expose-canvas-content-to-browser-features
+> Expose canvas content to browser features
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/expose-canvas-content-to-browser-features.md`
+
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+

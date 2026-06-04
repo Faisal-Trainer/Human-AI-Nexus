@@ -1282,3 +1282,71 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ---
 
+## 🎯 SKILL REGISTRY (Auto-Injected)
+> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
+> Total: 16 skills matched untuk agent "memory-manager"
+
+### 📦 SKILL: memory-manager
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/external/core/memory-manager.md`
+
+### 📦 SKILL: project-manager
+> SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
+> Source: `agent/workflows/external/core/project-manager.md`
+
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
+
+### 📦 SKILL: chrome-extensions
+> >
+> Source: `agent/workflows/external/frontend/chrome-extensions/chrome-extensions.md`
+
+### 📦 SKILL: api-calling
+> Calling External APIs from Extensions
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/api-calling.md`
+
+### 📦 SKILL: auth-identity
+> Authentication with chrome.identity
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/auth-identity.md`
+
+### 📦 SKILL: content-scripts
+> Content Scripts & DOM Manipulation
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/content-scripts.md`
+
+### 📦 SKILL: context-menus
+> Context Menus
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/context-menus.md`
+
+### 📦 SKILL: declarative-net-request
+> Declarative Net Request (Content Filtering)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/declarative-net-request.md`
+
+### 📦 SKILL: media-capture
+> Media Capture (Tab & Desktop)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
+
+### 📦 SKILL: prompt-api
+> Chrome Prompt API (LanguageModel) — Extension-Specific Notes
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/prompt-api.md`
+
+### 📦 SKILL: side-panel
+> Side Panel
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/side-panel.md`
+
+### 📦 SKILL: storage
+> Chrome Storage API
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/storage.md`
+
+### 📦 SKILL: tab-management
+> Tab Management & Groups
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/tab-management.md`
+
+### 📦 SKILL: chromewebstore-template
+> CHROMEWEBSTORE.md Template
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/chromewebstore-template.md`
+
+### 📦 SKILL: privacy-policy
+> Privacy Policy Guidance
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+

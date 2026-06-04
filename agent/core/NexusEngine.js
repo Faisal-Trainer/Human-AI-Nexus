@@ -567,39 +567,306 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         return `\n# NEXUS COLLISION RESOLVED: ${context}\nOpsi A:\n${existing}\nOpsi B:\n${added}\n`;
     }
 
-    async massUpdateSkills() {
-        this.log('📚 Initiating Semantic Mass Update (HUB ➔ Skills)...', 'info');
-        
-        // 1. Scan memory/distilled/ for all .md files recursively
-        const fg = require('fast-glob');
-        const normalizedPath = this.knowledgePath.replace(/\\/g, '/');
-        const distilledFiles = fg.sync('**/*.{md,MD}', {
-            cwd: normalizedPath,
-            ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
-            onlyFiles: true
+    /**
+     * Extract domain tags from an agent prompt file by analyzing:
+     * - The agent's filename (e.g., 'cyber-security' → ['cyber', 'security'])
+     * - The # ROLE heading
+     * - The ## Fokus / Focus section content
+     * - Known keyword patterns in the first 2000 chars
+     */
+    _extractAgentTags(agentName, promptContent) {
+        const tags = new Set();
+
+        // 1. Tags from filename (split on hyphens)
+        agentName.split('-').forEach(part => {
+            if (part.length > 1) tags.add(part.toLowerCase());
         });
 
-        this.log(`   🔍 Found ${distilledFiles.length} distilled wisdom nodes in HUB.`, 'info');
+        // 2. Tags from ROLE heading
+        const roleMatch = promptContent.match(/^#\s+ROLE:\s*(.+)/mi);
+        if (roleMatch) {
+            roleMatch[1].toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, ' ')
+                .split(/[\s-]+/)
+                .filter(w => w.length > 2)
+                .forEach(w => tags.add(w));
+        }
 
-        // 2. Read all files and extract their content and semantic tags
-        const wisdomNodes = [];
-        for (const file of distilledFiles) {
-            const fullPath = path.join(this.knowledgePath, file);
-            try {
-                const content = await fs.readFile(fullPath, 'utf8');
-                const tags = await this.getSemanticTags(fullPath);
-                wisdomNodes.push({
-                    name: path.basename(file),
-                    content: content,
-                    tags: tags
-                });
-            } catch (err) {
-                this.log(`   ⚠️ Failed to read distilled node ${file}: ${err.message}`, 'warning');
+        // 3. Tags from Focus/Fokus section
+        const focusMatch = promptContent.match(/##\s*(?:\d+\.\s*)?(?:Fokus|Focus(?:\s+(?:Utama|Area))?)\s*\n([\s\S]*?)(?=\n##|\n---|\n$)/i);
+        if (focusMatch) {
+            focusMatch[1].toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, ' ')
+                .split(/[\s-]+/)
+                .filter(w => w.length > 2)
+                .forEach(w => tags.add(w));
+        }
+
+        // 4. Keyword extraction from content (first 2000 chars)
+        const snippet = promptContent.substring(0, 2000).toLowerCase();
+        const DOMAIN_KEYWORDS = [
+            'security', 'cyber', 'auth', 'cryptography', 'protection', 'permission', 'encryption',
+            'database', 'migration', 'eloquent', 'sql', 'query', 'schema', 'model',
+            'documentation', 'readme', 'doc',
+            'tdd', 'testing', 'test', 'sandbox', 'assertion', 'qa',
+            'performance', 'seo', 'speed', 'optimization', 'cache', 'cdn', 'lighthouse',
+            'ui', 'ux', 'frontend', 'blade', 'design', 'tailwind', 'responsive', 'accessibility', 'a11y',
+            'css', 'html', 'javascript', 'typescript', 'react', 'vue', 'angular', 'svelte',
+            'git', 'vcs', 'version', 'branch', 'worktree', 'commit',
+            'laravel', 'livewire', 'inertia', 'filament', 'alpine',
+            'api', 'rest', 'graphql', 'websocket', 'streaming',
+            'docker', 'devops', 'ci', 'deployment', 'nginx', 'apache', 'ssl',
+            'mobile', 'android', 'ios', 'capacitor', 'pwa',
+            'email', 'notification', 'sms', 'whatsapp',
+            'payment', 'midtrans', 'subscription', 'monetization',
+            'image', 'media', 'upload', 'asset', 'optimization',
+            'branding', 'brand', 'creative', 'copywriter', 'marketing',
+            'chrome', 'extension', 'web3', 'blockchain', 'wasm',
+            'redis', 'caching', 'queue', 'job', 'event',
+            'log', 'monitoring', 'sentry', 'error', 'debug',
+            'refactor', 'architecture', 'pattern', 'component',
+            'oauth', 'jwt', 'sanctum', 'passport', 'role',
+            'i18n', 'timezone', 'locale', 'currency',
+            'search', 'algolia', 'elasticsearch', 'fulltext'
+        ];
+        DOMAIN_KEYWORDS.forEach(kw => {
+            if (snippet.includes(kw)) tags.add(kw);
+        });
+
+        // Remove overly generic words
+        ['yang', 'dan', 'untuk', 'dari', 'dengan', 'ini', 'anda', 'akan',
+         'human', 'nexus', 'agent', 'role', 'senior', 'specialist', 'engineer'].forEach(w => tags.delete(w));
+
+        return Array.from(tags);
+    }
+
+    /**
+     * Extract metadata from a skill file (workflow .md or SKILL.md)
+     * Returns { name, description, tags, source }
+     */
+    _extractSkillMeta(filePath, content) {
+        const name = path.basename(filePath, '.md').replace(/^SKILL$/i, path.basename(path.dirname(filePath)));
+        const tags = new Set();
+
+        // 1. Tags from filename and parent directory names
+        const relParts = filePath.replace(/\\/g, '/').split('/');
+        relParts.forEach(part => {
+            part.replace(/\.md$/i, '').split('-').forEach(seg => {
+                if (seg.length > 2) tags.add(seg.toLowerCase());
+            });
+        });
+
+        // 2. Parse YAML frontmatter (for .agents/skills SKILL.md files)
+        let description = '';
+        const fmMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+        if (fmMatch) {
+            const nameMatch = fmMatch[1].match(/^name:\s*(.+)/m);
+            const descMatch = fmMatch[1].match(/^description:\s*(.+)/m);
+            if (nameMatch) {
+                nameMatch[1].trim().split(/[-\s]+/).forEach(w => { if (w.length > 2) tags.add(w.toLowerCase()); });
+            }
+            if (descMatch) {
+                description = descMatch[1].trim();
+                // Extract keywords from description
+                description.toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, ' ')
+                    .split(/[\s-]+/)
+                    .filter(w => w.length > 3)
+                    .forEach(w => tags.add(w));
             }
         }
 
-        // 3. Define Tag-Based Mappings to Agent Prompts
-        const agentMappings = {
+        // 3. Extract from NEXUS SEMANTIC TAGS
+        const tagRegex = />\s*\*\*METADATA\s*\(NEXUS\s*SEMANTIC\s*TAGS\)\*\*:\s*\[(.*?)\]/gi;
+        const tagMatches = [...content.matchAll(tagRegex)];
+        for (const match of tagMatches) {
+            if (match[1]) {
+                match[1].split(',').forEach(t => { const tt = t.trim().toLowerCase(); if (tt.length > 1) tags.add(tt); });
+            }
+        }
+
+        // 4. Extract from first heading for summary if no frontmatter description
+        if (!description) {
+            const headingMatch = content.match(/^#\s+(.+)/m);
+            if (headingMatch) description = headingMatch[1].trim();
+        }
+
+        // 5. Extract meaningful keywords from the first 1000 chars of content
+        const snippet = content.substring(0, 1000).toLowerCase();
+        const SKILL_KEYWORDS = [
+            'security', 'database', 'testing', 'performance', 'seo', 'ui', 'ux', 'frontend', 'backend',
+            'design', 'branding', 'brand', 'css', 'html', 'javascript', 'react', 'tailwind', 'animation',
+            'motion', 'responsive', 'mobile', 'chrome', 'extension', 'devops', 'docker', 'deployment',
+            'api', 'graphql', 'rest', 'websocket', 'laravel', 'livewire', 'blade', 'eloquent',
+            'image', 'visual', 'creative', 'typography', 'layout', 'accessibility', 'a11y',
+            'marketing', 'copywriter', 'monetization', 'payment', 'subscription',
+            'git', 'vcs', 'version', 'architecture', 'pattern', 'component',
+            'email', 'notification', 'search', 'cache', 'redis', 'queue',
+            'web3', 'blockchain', 'wasm', 'pwa', 'android', 'ios',
+            'auth', 'oauth', 'jwt', 'role', 'permission', 'encryption',
+            'monitoring', 'logging', 'error', 'debug', 'refactor',
+            'i18n', 'timezone', 'currency', 'locale'
+        ];
+        SKILL_KEYWORDS.forEach(kw => {
+            if (snippet.includes(kw)) tags.add(kw);
+        });
+
+        // Remove overly generic words
+        ['the', 'and', 'for', 'with', 'that', 'this', 'from', 'your', 'skill', 'nexus', 'human',
+         'yang', 'dan', 'untuk', 'dari', 'dengan'].forEach(w => tags.delete(w));
+
+        return {
+            name: name,
+            description: description.substring(0, 500),
+            tags: Array.from(tags),
+            source: filePath
+        };
+    }
+
+    /**
+     * Scan all skill sources and return an array of skill metadata objects.
+     * Sources: agent/workflows/, .agents/skills/, memory/distilled/
+     */
+    async _scanAllSkillSources() {
+        const fg = require('fast-glob');
+        const skills = [];
+
+        // Source 1: agent/workflows/ (internal + external skill files)
+        const workflowBasePath = this.skillPath;
+        if (await fs.pathExists(workflowBasePath)) {
+            const normalizedWf = workflowBasePath.replace(/\\/g, '/');
+            const wfFiles = fg.sync('**/*.{md,MD}', { cwd: normalizedWf, onlyFiles: true });
+            for (const file of wfFiles) {
+                try {
+                    const fullPath = path.join(workflowBasePath, file);
+                    const content = await fs.readFile(fullPath, 'utf8');
+                    const meta = this._extractSkillMeta(fullPath, content);
+                    meta.sourceType = 'workflow';
+                    meta.relativePath = `agent/workflows/${file}`;
+                    skills.push(meta);
+                } catch (err) {
+                    this.log(`   ⚠️ Failed to read workflow skill ${file}: ${err.message}`, 'warning');
+                }
+            }
+        }
+
+        // Source 2: .agents/skills/ (external SKILL.md files)
+        const externalSkillsPath = path.join(this.rootPath, '.agents', 'skills');
+        if (await fs.pathExists(externalSkillsPath)) {
+            const normalizedExt = externalSkillsPath.replace(/\\/g, '/');
+            // Only scan top-level SKILL.md per skill folder
+            const extDirs = await fs.readdir(externalSkillsPath, { withFileTypes: true });
+            for (const dir of extDirs) {
+                if (!dir.isDirectory()) continue;
+                const skillMdPath = path.join(externalSkillsPath, dir.name, 'SKILL.md');
+                if (await fs.pathExists(skillMdPath)) {
+                    try {
+                        const content = await fs.readFile(skillMdPath, 'utf8');
+                        const meta = this._extractSkillMeta(skillMdPath, content);
+                        meta.sourceType = 'external-skill';
+                        meta.relativePath = `.agents/skills/${dir.name}/SKILL.md`;
+                        skills.push(meta);
+                    } catch (err) {
+                        this.log(`   ⚠️ Failed to read external skill ${dir.name}: ${err.message}`, 'warning');
+                    }
+                }
+            }
+        }
+
+        // Source 3: memory/distilled/ (wisdom nodes)
+        if (await fs.pathExists(this.knowledgePath)) {
+            const normalizedDist = this.knowledgePath.replace(/\\/g, '/');
+            const distilledFiles = fg.sync('**/*.{md,MD}', {
+                cwd: normalizedDist,
+                ignore: ['NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md'],
+                onlyFiles: true
+            });
+            for (const file of distilledFiles) {
+                try {
+                    const fullPath = path.join(this.knowledgePath, file);
+                    const content = await fs.readFile(fullPath, 'utf8');
+                    const meta = this._extractSkillMeta(fullPath, content);
+                    meta.sourceType = 'distilled';
+                    meta.relativePath = `memory/distilled/${file}`;
+                    skills.push(meta);
+                } catch (err) {
+                    this.log(`   ⚠️ Failed to read distilled node ${file}: ${err.message}`, 'warning');
+                }
+            }
+        }
+
+        return skills;
+    }
+
+    /**
+     * Recursively find all agent .md files in a directory.
+     * Returns array of { name, fullPath, relativePath }
+     */
+    async _findAllAgentFiles(dir, prefix = '') {
+        const results = [];
+        if (!(await fs.pathExists(dir))) return results;
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            const relPath = prefix ? `${prefix}/${entry.name}` : entry.name;
+            if (entry.isDirectory()) {
+                const subResults = await this._findAllAgentFiles(fullPath, relPath);
+                results.push(...subResults);
+            } else if (entry.name.endsWith('.md')) {
+                results.push({
+                    name: entry.name.replace('.md', ''),
+                    fullPath: fullPath,
+                    relativePath: relPath
+                });
+            }
+        }
+        return results;
+    }
+
+    async massUpdateSkills() {
+        this.log('📚 Initiating Semantic Mass Update (HUB ➔ Skills + Skill Registry)...', 'info');
+
+        // ═══════════════════════════════════════════════════════════
+        // PHASE 1: Scan all skill sources
+        // ═══════════════════════════════════════════════════════════
+        const allSkills = await this._scanAllSkillSources();
+        const workflowSkills = allSkills.filter(s => s.sourceType === 'workflow');
+        const externalSkills = allSkills.filter(s => s.sourceType === 'external-skill');
+        const distilledSkills = allSkills.filter(s => s.sourceType === 'distilled');
+
+        this.log(`   🔍 Found ${workflowSkills.length} workflow skills, ${externalSkills.length} external skills, ${distilledSkills.length} distilled wisdom nodes.`, 'info');
+
+        // ═══════════════════════════════════════════════════════════
+        // PHASE 2: Discover ALL agent prompt files (recursive)
+        // ═══════════════════════════════════════════════════════════
+        const allAgentFiles = await this._findAllAgentFiles(this.agentPath);
+        this.log(`   🤖 Found ${allAgentFiles.length} agent prompt files.`, 'info');
+
+        // Wildcard agents — these receive ALL skills
+        const WILDCARD_AGENTS = ['guru', 'orchestrator', 'pipeline-architect'];
+
+        let updatedAgentsCount = 0;
+        let totalSkillsInjected = 0;
+
+        // ═══════════════════════════════════════════════════════════
+        // PHASE 3: For each agent, extract tags & match skills
+        // ═══════════════════════════════════════════════════════════
+        const MAX_SKILLS_PER_AGENT = Infinity; // Tanpa batas
+        const MAX_SKILL_SUMMARY_CHARS = 500;
+        const MAX_INJECT_SKILL_KB = 5000; // Tanpa batas (5MB)
+
+        // LEGACY: Read distilled wisdom for DEEP WISDOM INJECTION (preserved)
+        const wisdomNodes = [];
+        for (const skill of distilledSkills) {
+            try {
+                const content = await fs.readFile(skill.source, 'utf8');
+                const tags = await this.getSemanticTags(skill.source);
+                wisdomNodes.push({ name: path.basename(skill.source), content, tags });
+            } catch (err) { /* already logged during scan */ }
+        }
+
+        // Legacy tag mappings for DEEP WISDOM INJECTION (preserved for backward compat)
+        const legacyAgentMappings = {
             'cyber-security': ['security', 'cyber', 'auth', 'cryptography', 'protection', 'htaccess', 'permission'],
             'database-architect': ['database', 'db', 'migration', 'eloquent', 'laravel', 'sql', 'query', 'schema'],
             'documentation-architect': ['documentation', 'doc', 'readme', 'recap'],
@@ -612,61 +879,116 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             'pipeline-architect': ['*']
         };
 
-        // 4. Update prompts in agentPath (agent/prompts/)
-        const promptsDirs = [
-            path.join(this.agentPath, 'internal'),
-            path.join(this.agentPath, 'external')
-        ];
+        for (const agent of allAgentFiles) {
+            let promptContent;
+            try {
+                promptContent = await fs.readFile(agent.fullPath, 'utf8');
+            } catch (err) {
+                this.log(`   ⚠️ Failed to read agent ${agent.name}: ${err.message}`, 'warning');
+                continue;
+            }
 
-        let updatedAgentsCount = 0;
+            const isWildcard = WILDCARD_AGENTS.includes(agent.name);
 
-        for (const dir of promptsDirs) {
-            if (!(await fs.pathExists(dir))) continue;
-            const entries = await fs.readdir(dir, { withFileTypes: true });
+            // ─── NEW: Dynamic Skill Registry Injection ───
+            const agentTags = this._extractAgentTags(agent.name, promptContent);
 
-            for (const entry of entries) {
-                if (entry.isDirectory() || !entry.name.endsWith('.md')) continue;
+            // Match skills (workflow + external) to this agent
+            const nonDistilledSkills = [...workflowSkills, ...externalSkills];
+            let matchedSkills;
+            if (isWildcard) {
+                matchedSkills = nonDistilledSkills;
+            } else {
+                matchedSkills = nonDistilledSkills.filter(skill => {
+                    const overlap = skill.tags.filter(t => agentTags.includes(t));
+                    return overlap.length >= 1;
+                });
+            }
 
-                const agentName = entry.name.replace('.md', '');
-                const agentTags = agentMappings[agentName];
-                if (!agentTags) continue;
+            // Sort by match score (most matching tags first), then limit
+            if (!isWildcard) {
+                matchedSkills.sort((a, b) => {
+                    const scoreA = a.tags.filter(t => agentTags.includes(t)).length;
+                    const scoreB = b.tags.filter(t => agentTags.includes(t)).length;
+                    return scoreB - scoreA;
+                });
+            }
+            if (MAX_SKILLS_PER_AGENT !== Infinity) {
+                matchedSkills = matchedSkills.slice(0, MAX_SKILLS_PER_AGENT);
+            }
 
-                const fullPath = path.join(dir, entry.name);
-                let promptContent = await fs.readFile(fullPath, 'utf8');
-
+            // ─── LEGACY: Deep Wisdom Injection (preserved) ───
+            const legacyTags = legacyAgentMappings[agent.name];
+            let wisdomInjection = '';
+            if (legacyTags && wisdomNodes.length > 0) {
                 const MAX_NODES_PER_AGENT = 30;
                 const MAX_INJECT_KB = 200;
 
                 const matchingWisdom = wisdomNodes.filter(node => {
-                    if (agentTags.includes('*')) return true;
-                    return node.tags.some(tag => agentTags.includes(tag));
+                    if (legacyTags.includes('*')) return true;
+                    return node.tags.some(tag => legacyTags.includes(tag));
                 }).slice(0, MAX_NODES_PER_AGENT);
 
-                if (matchingWisdom.length === 0) continue;
-
-                // Build the new injection content
-                let injectionContent = `## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)\n> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.\n\n`;
-                for (const node of matchingWisdom) {
-                    injectionContent += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
+                if (matchingWisdom.length > 0) {
+                    wisdomInjection = `## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)\n> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.\n\n`;
+                    for (const node of matchingWisdom) {
+                        wisdomInjection += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
+                    }
+                    const injectionKB = Buffer.byteLength(wisdomInjection, 'utf8') / 1024;
+                    if (injectionKB > MAX_INJECT_KB) {
+                        wisdomInjection = wisdomInjection.substring(0, MAX_INJECT_KB * 1024) + '\n\n...[truncated]';
+                        this.log(`   ⚠️ Wisdom injection truncated at ${MAX_INJECT_KB}KB for ${agent.name}`, 'warning');
+                    }
                 }
-
-                const injectionKB = Buffer.byteLength(injectionContent, 'utf8') / 1024;
-                if (injectionKB > MAX_INJECT_KB) {
-                    injectionContent = injectionContent.substring(0, MAX_INJECT_KB * 1024) + '\n\n...[truncated]';
-                    this.log(`⚠️ Injection truncated at ${MAX_INJECT_KB}KB for ${agentName}`, 'warning');
-                }
-
-                // Inject into the prompt file (S7: clean regex)
-                const cleanPrompt = promptContent.replace(/\n*## 🧠 DEEP WISDOM INJECTION[\s\S]*/, '').trimEnd();
-                const newPromptContent = cleanPrompt + '\n\n' + injectionContent;
-
-                await fs.writeFile(fullPath, newPromptContent, 'utf8');
-                this.log(`   ✅ Injected ${matchingWisdom.length} wisdom nodes into agent prompt: ${agentName}`, 'success');
-                updatedAgentsCount++;
             }
+
+            // Skip if nothing to inject
+            if (matchedSkills.length === 0 && !wisdomInjection) continue;
+
+            // ─── Build Skill Registry section ───
+            let skillRegistryContent = '';
+            if (matchedSkills.length > 0) {
+                skillRegistryContent = `## 🎯 SKILL REGISTRY (Auto-Injected)\n> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.\n> Total: ${matchedSkills.length} skills matched untuk agent "${agent.name}"\n\n`;
+                for (const skill of matchedSkills) {
+                    const desc = skill.description ? skill.description.substring(0, MAX_SKILL_SUMMARY_CHARS) : '(No description)';
+                    skillRegistryContent += `### 📦 SKILL: ${skill.name}\n> ${desc}\n> Source: \`${skill.relativePath}\`\n\n`;
+                }
+
+                // Enforce size limit
+                const skillKB = Buffer.byteLength(skillRegistryContent, 'utf8') / 1024;
+                if (skillKB > MAX_INJECT_SKILL_KB) {
+                    skillRegistryContent = skillRegistryContent.substring(0, MAX_INJECT_SKILL_KB * 1024) + '\n\n...[truncated]';
+                    this.log(`   ⚠️ Skill registry truncated at ${MAX_INJECT_SKILL_KB}KB for ${agent.name}`, 'warning');
+                }
+            }
+
+            // ─── Assemble final prompt content ───
+            // Clean out old injected sections
+            let cleanPrompt = promptContent
+                .replace(/\n*## 🎯 SKILL REGISTRY[\s\S]*?(?=\n## 🧠 DEEP WISDOM|$)/, '')
+                .replace(/\n*## 🧠 DEEP WISDOM INJECTION[\s\S]*/, '')
+                .trimEnd();
+
+            // Append new sections
+            let newPromptContent = cleanPrompt;
+            if (skillRegistryContent) {
+                newPromptContent += '\n\n' + skillRegistryContent;
+            }
+            if (wisdomInjection) {
+                newPromptContent += '\n\n' + wisdomInjection;
+            }
+
+            await fs.writeFile(agent.fullPath, newPromptContent, 'utf8');
+
+            const parts = [];
+            if (matchedSkills.length > 0) parts.push(`${matchedSkills.length} skills`);
+            if (wisdomInjection) parts.push('wisdom');
+            this.log(`   ✅ Updated agent: ${agent.name} (${parts.join(' + ')})`, 'success');
+            updatedAgentsCount++;
+            totalSkillsInjected += matchedSkills.length;
         }
 
-        this.log(`✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated successfully.`, 'success');
+        this.log(`✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated, ${totalSkillsInjected} total skill references injected.`, 'success');
     }
 
     async massRefactor() {

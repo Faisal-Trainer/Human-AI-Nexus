@@ -45,6 +45,7 @@ Each item in the carousel that should be tracked for snapping must be declared a
 .carousel-item {
   /...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_CAROUSEL-SNAP-HIGHLIGHTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -66,6 +67,7 @@ actions from `0` to `1` (like `0.5` for 50%) instead of absolute pixels.
     <mask id="custom-shape" maskContentUnits="objectBoundingBox">
       <!-- Use white shapes to defin
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_COMPLEX-SHAPES.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
@@ -113,6 +115,7 @@ const currentMonth = Temporal.Now.plainDateISO().toPlainYearMonth();
 // largestUnit ensures the difference is expressed in years if applicable
 const duration = currentM...
 
+`
 #### 🔗 Traceability:
 - [Source Context](NEXUS_MODEL-PARTIAL-TIME-CONCEPTS.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)

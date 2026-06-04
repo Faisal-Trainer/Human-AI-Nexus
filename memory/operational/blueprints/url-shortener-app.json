@@ -1,74 +1,45 @@
 {
   "project_name": "url-shortener-app",
   "models": [
-    "Url",
-    "User",
-    "ShortLink"
+    "ModelName1",
+    "ModelName2"
   ],
   "schema": {
-    "Url": {
-      "original_url": "string",
-      "short_url": "string",
-      "user_id": "integer",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+    "ModelName1": {
+      "column1": "string",
+      "column2": "text",
+      "column3": "boolean"
     },
-    "User": {
-      "email": "string",
-      "password": "string",
-      "created_at": "datetime",
-      "updated_at": "datetime"
-    },
-    "ShortLink": {
-      "short_url": "string",
-      "target_url": "string",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+    "ModelName2": {
+      "column4": "integer"
     }
   },
   "migrations": [
-    "create_url_table",
-    "create_user_table",
-    "create_short_link_table"
+    "create_table_name1_table",
+    "create_table_name2_table"
   ],
   "livewire_components": [
-    "ShortLinkComponent",
-    "UserComponent"
+    "component-name-1",
+    "component-name-2"
   ],
   "seeders": [
-    "UrlSeeder",
-    "UserSeeder",
-    "ShortLinkSeeder"
+    "ModelName1Seeder",
+    "ModelName2Seeder"
   ],
   "factories": [
-    "UrlFactory",
-    "UserFactory",
-    "ShortLinkFactory"
+    "ModelName1Factory",
+    "ModelName2Factory"
   ],
   "routes": [
     "/dashboard",
-    "/shortlink",
-    "/user"
+    "/modelname1"
   ],
   "pivot_tables": [],
   "relationships": [
     {
-      "model": "Url",
-      "type": "belongsTo",
-      "target": "User",
-      "foreignKey": "user_id"
-    },
-    {
-      "model": "Url",
+      "model": "ModelName1",
       "type": "hasMany",
-      "target": "ShortLink",
-      "foreignKey": "url_id"
-    },
-    {
-      "model": "ShortLink",
-      "type": "belongsTo",
-      "target": "Url",
-      "foreignKey": "url_id"
+      "target": "ModelName2"
     }
   ]
 }

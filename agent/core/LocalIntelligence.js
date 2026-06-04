@@ -35,7 +35,7 @@ class LocalIntelligence {
       path.join(
         process.cwd(),
         "models",
-        "qwen2.5-coder-1.5b-instruct-q4_k_m.gguf",
+        "llama-3.2-1b-instruct-q4_k_m.gguf",
       );
 
     this.isAvailable = false;
@@ -54,7 +54,7 @@ class LocalIntelligence {
     // 🛑 HARD-DISABLED: Forcing local Llama inference because free-tier quota is exhausted.
     // Uncomment the process.env line when quota resets.
     this.geminiApi = null; // process.env.GEMINI_API || null;
-    this.geminiModel = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+    this.geminiModel = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 
     // node-llama-cpp instances
     this.llama = null;
@@ -103,7 +103,7 @@ class LocalIntelligence {
         this.model = await this.llama.loadModel({
           modelPath: this.modelPath,
           // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: 0, // Gunakan CPU murni agar stabil (Ryzen 2500U Vega 8)
+          gpuLayers: 16, // Full GPU offload untuk Llama 3.2 1B (16 layers)
         });
         console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
       }
@@ -243,15 +243,17 @@ class LocalIntelligence {
 
     // ── JALUR SUPER CEPAT: GEMINI CLOUD API ──
     if (this.geminiApi) {
-      console.log(`🧠 LocalIntelligence: Routing task "${taskType}" ke Gemini Cloud API (${this.geminiModel})...`);
+      console.log(
+        `🧠 LocalIntelligence: Routing task "${taskType}" ke Gemini Cloud API (${this.geminiModel})...`,
+      );
       const payload = {
         contents: [
-          { role: "user", parts: [{ text: `${systemPrompt}\n\n${prompt}` }] }
+          { role: "user", parts: [{ text: `${systemPrompt}\n\n${prompt}` }] },
         ],
         generationConfig: {
           temperature: temperature,
           maxOutputTokens: this.MAX_OUTPUT_LENGTH,
-        }
+        },
       };
 
       const MAX_RETRIES = 3;
@@ -259,11 +261,14 @@ class LocalIntelligence {
 
       for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${this.geminiModel}:generateContent?key=${this.geminiApi}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
+          const res = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${this.geminiModel}:generateContent?key=${this.geminiApi}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            },
+          );
 
           // ── Handle 429 rate-limit with retry ──
           if (res.status === 429) {
@@ -271,18 +276,26 @@ class LocalIntelligence {
             let waitSec = 30; // default fallback
             try {
               const errJson = JSON.parse(errBody);
-              const retryInfo = errJson.error?.details?.find(d => d['@type']?.includes('RetryInfo'));
+              const retryInfo = errJson.error?.details?.find((d) =>
+                d["@type"]?.includes("RetryInfo"),
+              );
               if (retryInfo?.retryDelay) {
                 waitSec = Math.ceil(parseFloat(retryInfo.retryDelay));
               }
-            } catch (_) { /* use default wait */ }
+            } catch (_) {
+              /* use default wait */
+            }
 
             if (attempt < MAX_RETRIES) {
-              console.warn(`⏳ LocalIntelligence: Rate limited (429). Waiting ${waitSec}s before retry... (attempt ${attempt}/${MAX_RETRIES})`);
-              await new Promise(r => setTimeout(r, waitSec * 1000));
+              console.warn(
+                `⏳ LocalIntelligence: Rate limited (429). Waiting ${waitSec}s before retry... (attempt ${attempt}/${MAX_RETRIES})`,
+              );
+              await new Promise((r) => setTimeout(r, waitSec * 1000));
               continue;
             }
-            lastError = new Error(`HTTP Error 429: Rate limit exceeded after ${MAX_RETRIES} retries.`);
+            lastError = new Error(
+              `HTTP Error 429: Rate limit exceeded after ${MAX_RETRIES} retries.`,
+            );
             break;
           }
 
@@ -297,13 +310,16 @@ class LocalIntelligence {
         } catch (err) {
           lastError = err;
           // Non-retryable errors break immediately
-          if (!err.message?.includes('429')) {
+          if (!err.message?.includes("429")) {
             break;
           }
         }
       }
 
-      console.error(`❌ LocalIntelligence: API Request gagal:`, lastError.message);
+      console.error(
+        `❌ LocalIntelligence: API Request gagal:`,
+        lastError.message,
+      );
       throw lastError;
     }
 
@@ -315,7 +331,7 @@ class LocalIntelligence {
     );
     const context = await this.model.createContext({
       contextSize: contextSize,
-      threads: 6, // 6 logical cores to keep laptop responsive
+      threads: 0, // 6 logical cores to keep laptop responsive
     });
 
     try {
@@ -324,7 +340,9 @@ class LocalIntelligence {
         systemPrompt: systemPrompt,
       });
 
-      console.log(`🧠 LocalIntelligence: Prompting local model... (Ini akan memakan waktu)`);
+      console.log(
+        `🧠 LocalIntelligence: Prompting local model... (Ini akan memakan waktu)`,
+      );
       responseText = await session.prompt(prompt, {
         temperature: temperature,
         maxTokens: this.MAX_OUTPUT_LENGTH,

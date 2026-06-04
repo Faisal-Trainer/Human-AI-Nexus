@@ -398,24 +398,15 @@ class NexusEngine {
         this.log(`🏗️ Phase 0.5: Blueprint & Scaffolding...`, 'info');
         const readmePath = path.join(this.rootPath, 'README.md');
         const blueprintPath = path.join(this.rootPath, 'NEXUS_BLUEPRINT.json');
-        if (await fs.pathExists(blueprintPath)) return;
 
-        // R-05: Global Blueprint Cache
+        // Opsi A: Selalu regenerate blueprint untuk memastikan arsitektur up-to-date
+        if (await fs.pathExists(blueprintPath)) {
+            this.log(`   🔄 Blueprint exists — regenerating for freshness (Opsi A)...`, 'info');
+        }
+
         const projectName = path.basename(this.rootPath);
         const globalCacheDir = path.join(__dirname, '..', '..', 'memory', 'operational', 'blueprints');
         const cachePath = path.join(globalCacheDir, `${projectName}.json`);
-
-        if (await fs.pathExists(cachePath)) {
-            try {
-                this.log(`   🎁 Found cached blueprint for ${projectName} in global cache.`, 'success');
-                const cachedBlueprint = await fs.readJson(cachePath);
-                await fs.writeJson(blueprintPath, cachedBlueprint, { spaces: 2 });
-                this.log(`   ✅ Blueprint restored from cache.`, 'success');
-                return;
-            } catch (err) {
-                this.log(`   ⚠️ Failed to read cached blueprint: ${err.message}`, 'warning');
-            }
-        }
 
         let readmeContent = '';
         if (await fs.pathExists(readmePath)) {
@@ -435,24 +426,28 @@ ${readmeContent}
 Identify all the essential features this application MUST have based on its name and tags.
 For a 100% complete web app, you must generate a comprehensive architecture.
 
+CRITICAL INSTRUCTION: DO NOT use placeholder names like "ModelName1" or "create_table_name1_table".
+You MUST INVENT REAL, CONTEXT-APPROPRIATE names based on the project.
+For example, if it's an e-commerce app, use "Product", "Order", "Customer". If it's a blog, use "Post", "Comment", "Tag".
+
 Output strictly JSON with this exact structure (do not add any other keys, explanation, or markdown):
 {
   "project_name": "...",
-  "models": ["ModelName1", "ModelName2"],
+  "models": ["User", "YourRealModelName"],
   "schema": {
-    "ModelName1": {
-      "column1": "string",
-      "column2": "text",
-      "column3": "boolean"
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text"
     }
   },
-  "migrations": ["create_table_name1_table", "create_table_name2_table"],
-  "livewire_components": ["component-name-1", "component-name-2"],
-  "seeders": ["ModelName1Seeder", "ModelName2Seeder"],
-  "factories": ["ModelName1Factory", "ModelName2Factory"],
-  "routes": ["/dashboard", "/modelname1"],
+  "migrations": ["create_users_table", "create_your_real_tables_table"],
+  "livewire_components": ["user-profile", "your-real-component"],
+  "seeders": ["UserSeeder", "YourRealModelSeeder"],
+  "factories": ["UserFactory", "YourRealModelFactory"],
+  "routes": ["/dashboard", "/your-real-route"],
   "pivot_tables": [],
-  "relationships": [{"model": "ModelName1", "type": "hasMany", "target": "ModelName2"}]
+  "relationships": [{"model": "User", "type": "hasMany", "target": "YourRealModelName"}]
 }`;
         const response = await localAI.generate(prompt, 'generate_architecture');
         if (!response) return;

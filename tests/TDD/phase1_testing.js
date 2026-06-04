@@ -1,17 +1,16 @@
 // tests/TDD/phase1_testing.js
-// Section 1 — Fundamental CRUD & Auth (9 projects)
-// Pipeline: Copy TALL Template → Configure → Migrate → Nexus Cycle → Harvest
-// Fixed v2.0: Pakai TALL stack template + resetCycleCounter() per project
+// Section 1 — Fundamental CRUD & Auth (10 projects)
+// Pipeline: Fresh Laravel Install → Configure → Blueprint → Migrate → Nexus Cycle → Harvest
+// v3.0: Menggunakan SandboxProjectSetup shared module + Laravel murni dari composer
 
 const fs = require('fs-extra');
 const path = require('path');
-const { execSync } = require('child_process');
 const NexusEngine = require('../../agent/core/NexusEngine');
 const EvolutionPiper = require('../../agent/core/EvolutionPiper');
+const SandboxProjectSetup = require('./SandboxProjectSetup');
 
-const TEMPLATE_SOURCE = path.join(__dirname, '..', 'sandboxes', 'url-shortener');
-const SANDBOXES_DIR   = path.join(__dirname, '..', 'sandboxes');
-const ROOT_PATH       = path.join(__dirname, '..', '..');
+const SANDBOXES_DIR = path.join(__dirname, '..', 'sandboxes');
+const ROOT_PATH     = path.join(__dirname, '..', '..');
 
 const PHASE_1_PROJECTS = [
     { name: 'url-shortener-app',   tags: ['crud', 'auth', 'routing',  'phase-1'] },
@@ -26,146 +25,25 @@ const PHASE_1_PROJECTS = [
     { name: 'personal-portfolio',  tags: ['crud', 'auth', 'basic',    'phase-1'] },
 ];
 
-async function setupTALLProject(project, piper) {
-    const targetPath = path.join(SANDBOXES_DIR, project.name);
-
-    console.log(`\n${'='.repeat(56)}`);
-    console.log(`🧪 [SECTION 1] PROJECT: ${project.name}`);
-    console.log(`🏷️  Tags: ${project.tags.join(', ')}`);
-    console.log(`${'='.repeat(56)}`);
-
-    // ── STEP 1: Backup nexus folder kalau sudah ada knowledge sebelumnya
-    const nexusPath   = path.join(targetPath, 'nexus');
-    const nexusBackup = path.join(targetPath, '_nexus_backup');
-    if (await fs.pathExists(nexusPath)) {
-        console.log(`   💾 Backing up existing nexus knowledge...`);
-        await fs.copy(nexusPath, nexusBackup);
-    }
-
-    // ── STEP 2: Copy TALL stack template (url-shortener sebagai base)
-    console.log(`   📂 Copying TALL stack template...`);
-    const hasDeps = await fs.pathExists(path.join(targetPath, 'node_modules'));
-    const hasVendor = await fs.pathExists(path.join(targetPath, 'vendor'));
-    
-    const tempDeps = path.join(targetPath, '..', `${project.name}_node_modules_temp`);
-    const tempVendor = path.join(targetPath, '..', `${project.name}_vendor_temp`);
-    
-    if (hasDeps) {
-        await fs.rename(path.join(targetPath, 'node_modules'), tempDeps).catch(() => {});
-    }
-    if (hasVendor) {
-        await fs.rename(path.join(targetPath, 'vendor'), tempVendor).catch(() => {});
-    }
-
-    if (await fs.pathExists(targetPath)) {
-        await fs.remove(targetPath).catch(() => {});
-    }
-    await fs.ensureDir(targetPath);
-
-    const orchestratorPath = path.join(ROOT_PATH, 'nexus', 'native', 'sandbox_orchestrator.exe');
-    let nativeCopySuccess = false;
-
-    if (await fs.pathExists(orchestratorPath)) {
-        try {
-            console.log(`   🚀 Invoking C++ Native Sandbox Orchestrator...`);
-            const { execSync } = require('child_process');
-            execSync(`"${orchestratorPath}" setup "${TEMPLATE_SOURCE}" "${targetPath}" "${project.name}"`, { stdio: 'ignore' });
-            nativeCopySuccess = true;
-        } catch (e) {
-            console.warn(`   ⚠️ Native copy failed: ${e.message}. Falling back to JS copy.`);
-        }
-    }
-
-    if (!nativeCopySuccess) {
-        await fs.copy(TEMPLATE_SOURCE, targetPath, {
-            filter: src => {
-                if (src.includes(path.join('url-shortener', 'nexus'))) return false;
-                if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src)) return false;
-                if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
-                return true;
-            }
-        });
-    }
-
-    // Restore node_modules & vendor if they were backed up
-    if (hasDeps && await fs.pathExists(tempDeps)) {
-        await fs.rename(tempDeps, path.join(targetPath, 'node_modules')).catch(() => {});
-    }
-    if (hasVendor && await fs.pathExists(tempVendor)) {
-        await fs.rename(tempVendor, path.join(targetPath, 'vendor')).catch(() => {});
-    }
-
-    // ── STEP 3: Konfigurasi project-spesifik
-    console.log(`   ⚙️  Configuring environment...`);
-    const envPath = path.join(targetPath, '.env');
-    if (await fs.pathExists(envPath)) {
-        let env = await fs.readFile(envPath, 'utf8');
-        env = env.replace(/APP_NAME=.*/g, `APP_NAME=${project.name}`);
-        await fs.writeFile(envPath, env);
-    }
-
-    // ── STEP 4: Restore nexus knowledge kalau ada backup
-    if (await fs.pathExists(nexusBackup)) {
-        console.log(`   🧠 Restoring previous nexus knowledge...`);
-        await fs.copy(nexusBackup, nexusPath);
-        await fs.remove(nexusBackup);
-    } else {
-        await fs.ensureDir(nexusPath);
-    }
-
-    // ── STEP 5: Inject README project-spesifik
-    await fs.writeFile(
-        path.join(targetPath, 'README.md'),
-        `# ${project.name}\nSection 1 (Fundamental CRUD & Auth) — TALL Stack Sandbox.\nTags: ${project.tags.join(', ')}\nGenerated by Nexus Autonomous Pipeline.`
-    );
-
-    // ── STEP 6: Migrate database (fresh + force)
-    console.log(`   🗄️  Migrating SQLite database...`);
-    const dbPath = path.join(targetPath, 'database', 'database.sqlite');
-    await fs.remove(dbPath).catch(() => {});
-    await fs.writeFile(dbPath, '');
-    try {
-        execSync('php artisan migrate:fresh --force', { cwd: targetPath, stdio: 'ignore' });
-        console.log(`   ✅ Database migrated.`);
-    } catch (e) {
-        console.warn(`   ⚠️  Migrate failed (non-fatal): ${e.message.slice(0, 80)}`);
-    }
-
-    // ── STEP 7: Reset cycle counter (guardrail — setiap project = fresh session)
-    piper.resetCycleCounter();
-
-    // ── STEP 8: Nexus Autonomous Cycle
-    console.log(`   🤖 Starting Nexus Autonomous Cycle (mode: learning)...`);
-    const engine = new NexusEngine({ rootPath: targetPath });
-    await engine.runCycle({ mode: 'learning', allowSensitive: true });
-
-    // ── STEP 8.5: Clean Code & Stability Verification Loop (5x)
-    await engine.cleanCodeAndVerify(targetPath);
-
-    // ── STEP 9: Harvest wisdom ke Golden HUB
-    console.log(`   🌾 Harvesting knowledge to Golden HUB...`);
-    await engine.harvest(targetPath);
-
-    console.log(`\n🚀 FULL TALL APP READY - ${project.name}`);
-    console.log(`📁 Path: ${targetPath}`);
-    console.log(`🌐 Akses: http://localhost:8000 (login: admin@example.com / password)`);
-    console.log(`💻 Perintah: npm run serve:tall`);
-    console.log(`✅ [${project.name}] pipeline complete.\n`);
-}
-
 async function runPhase1() {
     console.log('\n╔══════════════════════════════════════════════════════╗');
     console.log('║  🚀 NEXUS — Section 1: Fundamental CRUD & Auth       ║');
-    console.log('║  9 Projects | TALL Stack | Parallel Evolution        ║');
+    console.log('║  10 Projects | Fresh Laravel | Autonomous Pipeline    ║');
     console.log('╚══════════════════════════════════════════════════════╝\n');
 
-    if (!(await fs.pathExists(TEMPLATE_SOURCE))) {
-        console.error(`❌ Template TALL stack tidak ditemukan di:\n   ${TEMPLATE_SOURCE}`);
+    const setup = new SandboxProjectSetup(ROOT_PATH, SANDBOXES_DIR, {
+        sectionLabel: 'SECTION 1',
+        mode: 'learning'
+    });
+
+    // Pastikan template Laravel murni sudah ada
+    const templateReady = await setup.ensureTemplate();
+    if (!templateReady) {
+        console.error('❌ Template Laravel murni tidak tersedia. Tidak bisa melanjutkan.');
         process.exit(1);
     }
 
     const piper = new EvolutionPiper(ROOT_PATH);
-    const engine = new NexusEngine({ rootPath: ROOT_PATH }); // We use main engine for parallel runner
     const total = PHASE_1_PROJECTS.length;
     let success = 0, failed = 0;
     const startTime = Date.now();
@@ -174,7 +52,9 @@ async function runPhase1() {
 
     for (const project of PHASE_1_PROJECTS) {
         try {
-            await setupTALLProject(project, piper);
+            await setup.setupProject(project, piper, {
+                sectionDescription: 'Section 1 (Fundamental CRUD & Auth)'
+            });
             success++;
         } catch (err) {
             console.error(`\n\x1b[31m❌ GAGAL [${project.name}]: ${err.message}\x1b[0m`);

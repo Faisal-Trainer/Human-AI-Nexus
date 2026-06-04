@@ -632,6 +632,29 @@ class ExecutionPhase extends BasePhase {
   async selfHeal(projectPath, attempt) {
     this.log(`      🛠️ Self-Healing Attempt ${attempt}/3...`, "warning");
 
+    // ─── PHASE A: Deterministic Pre-Heal (No AI Required) ───
+    // Fix the most common AI-generated PHP fatal errors using regex patterns.
+    // This runs BEFORE the AI-based healing so we can recover even when
+    // LocalIntelligence is unavailable (VRAM exhaustion, circuit breaker OPEN).
+    const deterministicFixes = await this._deterministicPreHeal(projectPath);
+    if (deterministicFixes > 0) {
+      this.log(
+        `      🔧 Deterministic pre-heal applied ${deterministicFixes} fix(es). Testing if app is now bootable...`,
+        "success",
+      );
+      // Quick smoke test: if deterministic fixes resolved the issue, skip AI healing
+      try {
+        const { execSync } = require("child_process");
+        execSync("php artisan route:list", { cwd: projectPath, stdio: "ignore" });
+        this.log(`      ✅ Deterministic pre-heal resolved the issue!`, "success");
+        await this.updateRecapStatus(`Deterministic pre-heal fixed ${deterministicFixes} pattern(s) on attempt ${attempt}`);
+        return true;
+      } catch (_) {
+        this.log(`      ⚠️ Deterministic fixes applied but app still not bootable. Proceeding to AI healing...`, "warning");
+      }
+    }
+
+    // ─── PHASE B: AI-Based Healing (Requires LocalIntelligence) ───
     const logPath = path.join(projectPath, "storage", "logs", "laravel.log");
     if (!(await fs.pathExists(logPath))) {
       this.log(`         ❌ No laravel.log found to diagnose.`, "error");
@@ -696,8 +719,6 @@ class ExecutionPhase extends BasePhase {
       }
 
       return applied > 0;
-
-      return applied > 0;
     } catch (e) {
       this.log(
         `         ❌ Self-healing unexpected error: ${e.message}`,
@@ -705,6 +726,127 @@ class ExecutionPhase extends BasePhase {
       );
       return false;
     }
+  }
+
+  /**
+   * Deterministic Pre-Heal: Fix common AI-generated PHP fatal errors
+   * using pattern matching — no LocalIntelligence required.
+   * Returns the number of fixes applied.
+   */
+  async _deterministicPreHeal(projectPath) {
+    let totalFixes = 0;
+
+    // Scan all PHP files in app/, routes/, database/ for common fatal patterns
+    const phpFiles = await CoreUtils.globRecursive(projectPath, [
+      "app/**/*.php",
+      "routes/**/*.php",
+      "database/**/*.php",
+    ]);
+
+    for (const filePath of phpFiles) {
+      try {
+        let content = await fs.readFile(filePath, "utf8");
+        const original = content;
+        const relPath = path.relative(projectPath, filePath);
+
+        // ── FIX 1: Duplicate parameter names in closures ──
+        // e.g. function ($request, SomeClass $request) → function (SomeClass $request)
+        content = content.replace(
+          /function\s*\(\$([a-zA-Z_]+),\s*[A-Z][a-zA-Z\\]*\s+\$\1\)/g,
+          (match, paramName) => {
+            const typeMatch = match.match(/,\s*([A-Z][a-zA-Z\\]*)\s+\$/); 
+            const typeName = typeMatch ? typeMatch[1] : "Request";
+            return `function (${typeName} $${paramName})`;
+          }
+        );
+        // Also: function ($param, $param) → function ($param)
+        content = content.replace(
+          /function\s*\(\$([a-zA-Z_]+),\s*\$\1\)/g,
+          "function ($$1)"
+        );
+
+        // ── FIX 2: Invalid/garbled use statements ──
+        // e.g. use Illuminate\Support\Facades\Schema \Illuminate\Support\Facades \Migration;
+        // These have backslash-space patterns that are never valid PHP.
+        content = content.replace(
+          /^use\s+[A-Z][a-zA-Z\\]*\s+\\[A-Z].*$/gm,
+          (line) => {
+            // Try to salvage the first valid use path
+            const firstPath = line.match(/^use\s+([A-Z][a-zA-Z\\]+)/);
+            if (firstPath) {
+              return `use ${firstPath[1].replace(/\s+/g, "")};`;
+            }
+            return `// [NEXUS PRE-HEAL] Removed invalid use statement: ${line}`;
+          }
+        );
+
+        // ── FIX 3: Prompt text / instructions leaked into PHP files ──
+        // Detect lines that look like human-readable instructions after the closing } of a class/function
+        // Pattern: Lines after final }; or } that start with UPPERCASE words and aren't PHP
+        const closingBraceIdx = content.lastIndexOf("};");
+        if (closingBraceIdx > 0) {
+          const afterBrace = content.substring(closingBraceIdx + 2).trim();
+          // If content after }; contains instructional text (starts with uppercase word, no PHP tag)
+          if (afterBrace && /^[A-Z][A-Z ]+:/.test(afterBrace) && !afterBrace.startsWith("<?php")) {
+            content = content.substring(0, closingBraceIdx + 2) + "\n";
+          }
+        }
+
+        // ── FIX 4: Duplicate route parameters ──
+        // e.g. Route::get('/password/reset/{token}/reset/{token}', ...
+        content = content.replace(
+          /(Route::[a-z]+\(['"]\/)([^'"]+)(['"])/g,
+          (match, prefix, routePath, suffix) => {
+            const params = routePath.match(/\{(\w+)\}/g);
+            if (params) {
+              const seen = new Set();
+              let fixedPath = routePath;
+              for (const param of params) {
+                if (seen.has(param)) {
+                  // Replace duplicate with a numbered variant
+                  fixedPath = fixedPath.replace(param, param.replace("}", `_2}`))
+                }
+                seen.add(param);
+              }
+              return prefix + fixedPath + suffix;
+            }
+            return match;
+          }
+        );
+
+        // ── FIX 5: Self-imports (class importing itself) ──
+        // e.g. use App\Models\Shortened; inside Shortened.php
+        const phpClass = path.basename(filePath, ".php");
+        const selfImportRegex = new RegExp(
+          `^use\\s+App\\\\[A-Za-z\\\\]*\\\\${phpClass};\\s*$`,
+          "gm"
+        );
+        if (filePath.includes(`${phpClass}.php`)) {
+          // Only remove if the file defines this class
+          if (content.includes(`class ${phpClass}`)) {
+            content = content.replace(selfImportRegex, "");
+          }
+        }
+
+        // ── FIX 6: Stray closing ?> tag (PSR-12 violation, can cause issues) ──
+        content = content.replace(/\?>\s*$/g, "").trimEnd() + "\n";
+
+        // Write back if changed
+        if (content !== original) {
+          await fs.writeFile(filePath, content, "utf8");
+          totalFixes++;
+          this.log(
+            `      🔧 [Pre-Heal] Fixed patterns in: ${relPath}`,
+            "warning",
+          );
+        }
+      } catch (e) {
+        // Skip files that can't be read/written
+        continue;
+      }
+    }
+
+    return totalFixes;
   }
 }
 

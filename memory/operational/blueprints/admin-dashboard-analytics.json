@@ -1,46 +1,42 @@
 {
-  "project_name": "url-shortener-app",
+  "project_name": "admin-dashboard-analytics",
   "models": [
     "User",
-    "Shortened"
+    "YourRealModelName"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
       "password": "text"
-    },
-    "Shortened": {
-      "id": "integer",
-      "url": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_table"
+    "create_your_real_tables_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-profile"
+    "your-real-component"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedSeeder"
+    "YourRealModelSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedFactory"
+    "YourRealModelFactory"
   ],
   "routes": [
     "/dashboard",
-    "/password-reset-link"
+    "/your-real-route"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "Shortened"
+      "type": "hasMany",
+      "target": "YourRealModelName"
     }
   ]
 }

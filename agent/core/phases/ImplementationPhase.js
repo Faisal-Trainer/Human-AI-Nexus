@@ -222,6 +222,16 @@ class ImplementationPhase extends BasePhase {
     if (response) {
       await fs.ensureDir(cacheDir);
       await fs.writeFile(cacheFile, response, "utf8");
+      
+      // Save dataset for SFT fine-tuning
+      const datasetFile = path.join(cacheDir, `${hash}.json`);
+      const datasetEntry = {
+        prompt,
+        output: response,
+        taskType,
+        timestamp: Date.now()
+      };
+      await fs.writeFile(datasetFile, JSON.stringify(datasetEntry, null, 2), "utf8");
     }
     return response;
   }
@@ -541,7 +551,14 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       const migrationPath = path.join(migrationDir, migrationFilename);
       await fs.ensureDir(migrationDir);
       await fs.writeFile(migrationPath, cleanCode);
-      await this.validatePHPSyntax(migrationPath);
+      const syntaxOk = await this.validatePHPSyntax(migrationPath);
+      if (!syntaxOk) {
+        this.log(
+          `      ⚠️ Syntax error in generated migration. Writing safe fallback for ${migrationFilename}`,
+          "warning",
+        );
+        await fs.writeFile(migrationPath, this._safeFallbackMigration(tableName));
+      }
       this.log(`      ✅ Saved ${migrationFilename}`, "success");
     } else {
       this.log(
@@ -634,7 +651,14 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       );
       await fs.ensureDir(path.dirname(p));
       await fs.writeFile(p, cleanCode);
-      await this.validatePHPSyntax(p);
+      const syntaxOk = await this.validatePHPSyntax(p);
+      if (!syntaxOk) {
+        this.log(
+          `      ⚠️ Syntax error in generated factory. Writing safe fallback for ${factoryName}.php`,
+          "warning",
+        );
+        await fs.writeFile(p, this._safeFallbackFactory(factoryName));
+      }
     }
   }
 
@@ -655,7 +679,14 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       );
       await fs.ensureDir(path.dirname(p));
       await fs.writeFile(p, cleanCode);
-      await this.validatePHPSyntax(p);
+      const syntaxOk = await this.validatePHPSyntax(p);
+      if (!syntaxOk) {
+        this.log(
+          `      ⚠️ Syntax error in generated seeder. Writing safe fallback for ${seederName}.php`,
+          "warning",
+        );
+        await fs.writeFile(p, this._safeFallbackSeeder(seederName));
+      }
     }
   }
 
@@ -670,7 +701,14 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       const cleanCode = this.cleanLLMOutput(response);
       const p = path.join(this.engine.rootPath, "routes", "web.php");
       await fs.writeFile(p, cleanCode);
-      await this.validatePHPSyntax(p);
+      const syntaxOk = await this.validatePHPSyntax(p);
+      if (!syntaxOk) {
+        this.log(
+          `      ⚠️ Syntax error in generated routes. Writing safe fallback for web.php`,
+          "warning",
+        );
+        await fs.writeFile(p, this._safeFallbackRoutes(routesList, blueprint));
+      }
     }
 
     // Also generate API routes if models exist
@@ -687,7 +725,18 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
         const apiP = path.join(this.engine.rootPath, "routes", "api.php");
         await fs.ensureDir(path.dirname(apiP));
         await fs.writeFile(apiP, apiCleanCode);
-        await this.validatePHPSyntax(apiP);
+        const apiSyntaxOk = await this.validatePHPSyntax(apiP);
+        if (!apiSyntaxOk) {
+          this.log(
+            `      ⚠️ Syntax error in generated API routes. Writing safe fallback for api.php`,
+            "warning",
+          );
+          const apiRoutes = models.map((m) => {
+            const ctrl = `App\\Http\\Controllers\\Api\\${m}Controller`;
+            return `Route::apiResource('${this._toSnakePlural(m)}', \\${ctrl}::class);`;
+          }).join("\n");
+          await fs.writeFile(apiP, `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${apiRoutes}\n`);
+        }
       }
     }
   }
@@ -885,6 +934,27 @@ RULES:
   _safeFallbackController(modelName) {
     const varName = modelName.charAt(0).toLowerCase() + modelName.slice(1);
     return `<?php\n\nnamespace App\\Http\\Controllers\\Api;\n\nuse App\\Http\\Controllers\\Controller;\nuse App\\Models\\${modelName};\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Http\\JsonResponse;\n\nclass ${modelName}Controller extends Controller\n{\n    public function index(): JsonResponse { return response()->json(${modelName}::all()); }\n    public function store(Request $request): JsonResponse { return response()->json(${modelName}::create($request->all()), 201); }\n    public function show(${modelName} $${varName}): JsonResponse { return response()->json($${varName}); }\n    public function update(Request $request, ${modelName} $${varName}): JsonResponse { $${varName}->update($request->all()); return response()->json($${varName}); }\n    public function destroy(${modelName} $${varName}): JsonResponse { $${varName}->delete(); return response()->json(null, 204); }\n}\n`;
+  }
+
+  _safeFallbackMigration(tableName) {
+    return `<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    public function up(): void\n    {\n        Schema::create('${tableName}', function (Blueprint $table) {\n            $table->uuid('id')->primary();\n            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();\n            $table->string('name')->nullable();\n            $table->timestamps();\n            $table->softDeletes();\n        });\n    }\n\n    public function down(): void\n    {\n        Schema::dropIfExists('${tableName}');\n    }\n};\n`;
+  }
+
+  _safeFallbackRoutes(routesList, blueprint) {
+    const routeEntries = (routesList || [])
+      .map((r) => `Route::get('${r}', function () { return view('welcome'); });`)
+      .join("\n");
+    return `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\nRoute::get('/', function () {\n    return view('welcome');\n});\n\n${routeEntries}\n`;
+  }
+
+  _safeFallbackFactory(factoryName) {
+    // Extract model name from factory name (e.g. "UserFactory" -> "User")
+    const modelName = factoryName.replace(/Factory$/, "");
+    return `<?php\n\nnamespace Database\\Factories;\n\nuse App\\Models\\${modelName};\nuse Illuminate\\Database\\Eloquent\\Factories\\Factory;\n\nclass ${factoryName} extends Factory\n{\n    protected $model = ${modelName}::class;\n\n    public function definition(): array\n    {\n        return [\n            'name' => fake()->name(),\n        ];\n    }\n}\n`;
+  }
+
+  _safeFallbackSeeder(seederName) {
+    return `<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Seeder;\n\nclass ${seederName} extends Seeder\n{\n    public function run(): void\n    {\n        // Safe fallback: no data seeded\n    }\n}\n`;
   }
 
   async generateLayout(blueprint) {

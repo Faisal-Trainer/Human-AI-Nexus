@@ -324,7 +324,9 @@ class LocalIntelligence {
     }
 
     // ── JALUR LAMBAT: LOCAL NODE-LLAMA-CPP (FALLBACK) ──
-    const contextSize = isBuilderTask ? 8192 : this.MAX_TOKENS;
+    // FIX: Reduced from MAX_TOKENS (32768) to 16384 for non-builder tasks
+    // to prevent VRAM exhaustion that kills the self-healing pipeline.
+    const contextSize = isBuilderTask ? 8192 : 16384;
 
     console.log(
       `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL CPU]...`,

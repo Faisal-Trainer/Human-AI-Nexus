@@ -38,6 +38,15 @@ async function main() {
         return;
     }
 
+    // Custom Dataset Extractor Commands
+    if (command === 'extract-dataset' || command === 'retro-extract') {
+        const scriptName = command === 'extract-dataset' ? 'extract-dataset.js' : 'retro-extract.js';
+        const extractorPath = path.join(__dirname, scriptName);
+        const child = spawn('node', [extractorPath], { stdio: 'inherit' });
+        child.on('exit', (code) => process.exit(code));
+        return;
+    }
+
     if (command === 'dell' || command === 'uninstall') {
         await uninstall(args);
         return;

@@ -9,7 +9,8 @@ class RetroDatasetExtractor {
         // Search in the main agent memory cache where legacy .txt files reside
         this.agentCachePath = path.join(this.rootPath, 'agent', 'memory', 'cache', 'generated_code');
         this.blueprintsPath = path.join(this.rootPath, 'memory', 'operational', 'blueprints');
-        this.outPath = path.join(this.rootPath, 'nexus-retro-dataset.jsonl');
+        this.outPath = path.join(this.rootPath, 'memory', 'datasets', 'nexus-retro-dataset.jsonl');
+        fs.ensureDirSync(path.join(this.rootPath, 'memory', 'datasets'));
         
         // A temporary directory for safe fallbacks to be written to during reconstruction
         this.dummyRoot = path.join(this.rootPath, 'scratch', 'dummy_retro_engine');

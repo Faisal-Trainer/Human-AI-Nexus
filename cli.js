@@ -39,11 +39,17 @@ async function main() {
     }
 
     // Custom Dataset Extractor Commands
-    if (command === 'extract-dataset' || command === 'retro-extract') {
-        const scriptName = command === 'extract-dataset' ? 'extract-dataset.js' : 'retro-extract.js';
-        const extractorPath = path.join(__dirname, scriptName);
-        const child = spawn('node', [extractorPath], { stdio: 'inherit' });
-        child.on('exit', (code) => process.exit(code));
+    if (command === 'extract-dataset') {
+        const DatasetExtractor = require('./agent/tools/DatasetExtractor');
+        const extractor = new DatasetExtractor(__dirname);
+        await extractor.extract();
+        return;
+    }
+
+    if (command === 'retro-extract') {
+        const RetroDatasetExtractor = require('./agent/tools/RetroDatasetExtractor');
+        const extractor = new RetroDatasetExtractor(__dirname);
+        await extractor.extract();
         return;
     }
 

@@ -57,10 +57,6 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 > CSS: Modern Architecture and Performance
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
 
-### 📦 SKILL: autofill-payment-form
-> Build a payment form that follows best practice
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
-
 ### 📦 SKILL: branded-select-styling
 > Branded Select Styling
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
@@ -116,6 +112,10 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: animated-select-picker
 > Animated Select Picker
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/animated-select-picker.md`
+
+### 📦 SKILL: autofill-payment-form
+> Build a payment form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
 
 ### 📦 SKILL: autofill-sign-in-form
 > Build a sign-in form that follows best practice

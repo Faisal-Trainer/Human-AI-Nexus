@@ -2,45 +2,41 @@
   "project_name": "url-shortener-app",
   "models": [
     "User",
-    "Shortened"
+    "Token"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
       "password": "text"
-    },
-    "Shortened": {
-      "id": "integer",
-      "url": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_table"
+    "create_tokens_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-profile"
+    "token-view"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedSeeder"
+    "TokenSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedFactory"
+    "TokenFactory"
   ],
   "routes": [
     "/dashboard",
-    "/password-reset-link"
+    "/tokens"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "Shortened"
+      "type": "hasMany",
+      "target": "Token"
     }
   ]
 }

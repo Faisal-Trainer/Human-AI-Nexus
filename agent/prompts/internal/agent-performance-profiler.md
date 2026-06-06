@@ -57,17 +57,9 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 > Style Parent with :has()
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/style-parent-with-has.md`
 
-### 📦 SKILL: agent-classification
-> SKILL: AGENT CLASSIFICATION & DNA MAPPING
-> Source: `agent/workflows/internal/agent-classification.md`
-
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
 > Source: `agent/workflows/internal/nexus-pipeline.md`
-
-### 📦 SKILL: seo-performance
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/creative/seo-performance.md`
 
 ### 📦 SKILL: ui-design-system
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -156,6 +148,14 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
+
+### 📦 SKILL: seo-performance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/creative/seo-performance.md`
 
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
@@ -416,14 +416,6 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 ### 📦 SKILL: imagegen-frontend-mobile
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
 > Source: `.agents/skills/imagegen-frontend-mobile/SKILL.md`
-
-### 📦 SKILL: copywriter
-> SKILL: CONTENT & COPYWRITING STANDARDS (Human-AI Nexus)
-> Source: `agent/workflows/external/creative/copywriter.md`
-
-### 📦 SKILL: digital-marketing
-> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
-> Source: `agent/workflows/external/creative/digital-marketing.md`
 
 ### 📦 SKILL: ios-dev
 > SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
@@ -732,6 +724,14 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 ### 📦 SKILL: project-manager
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
 > Source: `agent/workflows/external/core/project-manager.md`
+
+### 📦 SKILL: copywriter
+> SKILL: CONTENT & COPYWRITING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/copywriter.md`
+
+### 📦 SKILL: digital-marketing
+> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/digital-marketing.md`
 
 ### 📦 SKILL: devops-specialist
 > SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)

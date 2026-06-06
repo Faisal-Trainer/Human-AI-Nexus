@@ -804,6 +804,8 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         for (const entry of entries) {
             const fullPath = path.join(dir, entry.name);
             const relPath = prefix ? `${prefix}/${entry.name}` : entry.name;
+            if (entry.name.startsWith('_')) continue;
+            
             if (entry.isDirectory()) {
                 const subResults = await this._findAllAgentFiles(fullPath, relPath);
                 results.push(...subResults);

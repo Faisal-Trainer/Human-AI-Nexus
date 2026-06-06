@@ -15,7 +15,7 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 198 skills matched untuk agent "timezone-specialist"
+> Total: 197 skills matched untuk agent "timezone-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -24,14 +24,6 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
 > Source: `agent/workflows/internal/nexus-pipeline.md`
-
-### 📦 SKILL: language-detection
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
-
-### 📦 SKILL: language-model
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-model.md`
 
 ### 📦 SKILL: chrome-extensions
 > >
@@ -45,25 +37,17 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Chrome Storage API
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/storage.md`
 
-### 📦 SKILL: summarizer
+### 📦 SKILL: language-detection
 > (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/summarizer.md`
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
 
-### 📦 SKILL: translator
+### 📦 SKILL: language-model
 > (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-model.md`
 
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/backend/database-design.md`
-
-### 📦 SKILL: responsive-specialist
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/responsive-specialist.md`
-
-### 📦 SKILL: ux-design
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/ux-design.md`
 
 ### 📦 SKILL: modern-web-guidance
 > |
@@ -101,33 +85,21 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Pre-Publish Review Checklist
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/review-checklist.md`
 
-### 📦 SKILL: css-layout
-> CSS Layouts and Responsive Design
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css-layout/css-layout.md`
+### 📦 SKILL: summarizer
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/summarizer.md`
+
+### 📦 SKILL: translator
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
 
 ### 📦 SKILL: branded-select-styling
 > Branded Select Styling
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
 
-### 📦 SKILL: html
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/html/html.md`
-
 ### 📦 SKILL: passkey-management
 > Passkey Management Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
-
-### 📦 SKILL: break-up-long-tasks
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/break-up-long-tasks.md`
-
-### 📦 SKILL: identify-heavy-scripts
-> Identify heavy-running JavaScript
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
-
-### 📦 SKILL: schedule-tasks-by-priority
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md`
 
 ### 📦 SKILL: coordinate-global-events
 > Coordinating Global Events with Temporal
@@ -137,25 +109,25 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
-### 📦 SKILL: gpt-taste
-> Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
-> Source: `.agents/skills/gpt-taste/SKILL.md`
-
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
+
+### 📦 SKILL: responsive-specialist
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/responsive-specialist.md`
 
 ### 📦 SKILL: ui-design-system
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/frontend/ui-design-system.md`
 
+### 📦 SKILL: ux-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ux-design.md`
+
 ### 📦 SKILL: web-engineer
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/frontend/web-engineer.md`
-
-### 📦 SKILL: android-dev
-> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
-> Source: `agent/workflows/external/mobile/android-dev.md`
 
 ### 📦 SKILL: auth-identity
 > Authentication with chrome.identity
@@ -197,6 +169,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > CSS: Modern Architecture and Performance
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
 
+### 📦 SKILL: css-layout
+> CSS Layouts and Responsive Design
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css-layout/css-layout.md`
+
 ### 📦 SKILL: animated-select-picker
 > Animated Select Picker
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/animated-select-picker.md`
@@ -217,6 +193,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Rich Media Picker (Customizable Select)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
 
+### 📦 SKILL: html
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/html/html.md`
+
 ### 📦 SKILL: passkey-registration
 > Passkey Registration Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
@@ -224,6 +204,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: passkeys
 > Passkeys Orientation Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkeys.md`
+
+### 📦 SKILL: break-up-long-tasks
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/break-up-long-tasks.md`
 
 ### 📦 SKILL: calculate-total-foreground-time
 > Calculate total foreground time
@@ -237,9 +221,13 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Reliably measure full-session analytics and telemetry
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/full-session-analytics.md`
 
-### 📦 SKILL: identify-inp-causes
-> Identify causes of poor INP
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-inp-causes.md`
+### 📦 SKILL: identify-heavy-scripts
+> Identify heavy-running JavaScript
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
+
+### 📦 SKILL: schedule-tasks-by-priority
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md`
 
 ### 📦 SKILL: sequence-distributed-events
 > Sequencing Distributed Events
@@ -293,10 +281,6 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Prevent text wrapping
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/prevent-text-wrapping.md`
 
-### 📦 SKILL: reduce-style-repetition
-> Reduce Style Repetition with CSS Functions
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
-
 ### 📦 SKILL: same-document-transitions
 > Same Document Transitions
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/same-document-transitions.md`
@@ -309,21 +293,13 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Supporting Global Calendar Systems with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/support-global-calendar-systems.md`
 
-### 📦 SKILL: brandkit
-> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
-> Source: `.agents/skills/brandkit/SKILL.md`
-
 ### 📦 SKILL: design-taste-frontend
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
 
-### 📦 SKILL: high-end-visual-design
-> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
-> Source: `.agents/skills/high-end-visual-design/SKILL.md`
-
-### 📦 SKILL: huashu-design
-> 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
-> Source: `.agents/skills/huashu-design/SKILL.md`
+### 📦 SKILL: gpt-taste
+> Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
+> Source: `.agents/skills/gpt-taste/SKILL.md`
 
 ### 📦 SKILL: image-to-code
 > Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
@@ -333,17 +309,9 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
 
-### 📦 SKILL: skill-evolution
-> 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)
-> Source: `agent/workflows/internal/skill-evolution.md`
-
-### 📦 SKILL: project-manager
-> SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
-> Source: `agent/workflows/external/core/project-manager.md`
-
-### 📦 SKILL: ios-dev
-> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
-> Source: `agent/workflows/external/mobile/ios-dev.md`
+### 📦 SKILL: android-dev
+> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
+> Source: `agent/workflows/external/mobile/android-dev.md`
 
 ### 📦 SKILL: declarative-net-request
 > Declarative Net Request (Content Filtering)
@@ -409,10 +377,6 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/conditional-async-dependencies.md`
 
-### 📦 SKILL: defer-work-until-scroll-ends
-> Defer Work Until Scroll Ends
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-work-until-scroll-ends.md`
-
 ### 📦 SKILL: detect-initial-visibility-state
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/detect-initial-visibility-state.md`
@@ -424,6 +388,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: faster-spa-view-transitions
 > Faster SPA View Transitions via State Caching
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/faster-spa-view-transitions.md`
+
+### 📦 SKILL: identify-inp-causes
+> Identify causes of poor INP
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-inp-causes.md`
 
 ### 📦 SKILL: improve-next-page-load-performance
 > Improve next page load performance
@@ -553,6 +521,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Pull to Reveal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/pull-to-reveal.md`
 
+### 📦 SKILL: reduce-style-repetition
+> Reduce Style Repetition with CSS Functions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
+
 ### 📦 SKILL: resilient-context-menus-and-nested-dropdowns
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/resilient-context-menus-and-nested-dropdowns.md`
@@ -617,9 +589,21 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-javascript-tools.md`
 
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+
 ### 📦 SKILL: design-taste-frontend-v1
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
+
+### 📦 SKILL: high-end-visual-design
+> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+> Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
+### 📦 SKILL: huashu-design
+> 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
+> Source: `.agents/skills/huashu-design/SKILL.md`
 
 ### 📦 SKILL: imagegen-frontend-mobile
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
@@ -633,10 +617,6 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
 
-### 📦 SKILL: agent-classification
-> SKILL: AGENT CLASSIFICATION & DNA MAPPING
-> Source: `agent/workflows/internal/agent-classification.md`
-
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md
 > Source: `agent/workflows/internal/educational-audit.md`
@@ -645,6 +625,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 > SKILL: DEEP PATTERN RECOGNITION
 > Source: `agent/workflows/internal/pattern-recognition.md`
 
+### 📦 SKILL: skill-evolution
+> 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)
+> Source: `agent/workflows/internal/skill-evolution.md`
+
 ### 📦 SKILL: web3-specialist
 > SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/backend/web3-specialist.md`
@@ -652,6 +636,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: monetization-specialist
 > SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/business/monetization-specialist.md`
+
+### 📦 SKILL: project-manager
+> SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
+> Source: `agent/workflows/external/core/project-manager.md`
 
 ### 📦 SKILL: seo-performance
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
@@ -664,6 +652,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: web-branding
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/web-branding.md`
+
+### 📦 SKILL: ios-dev
+> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
+> Source: `agent/workflows/external/mobile/ios-dev.md`
 
 ### 📦 SKILL: chaos-engineering
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
@@ -700,6 +692,10 @@ Anda bertindak sebagai timezone-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: defer-rendering-heavy-content
 > Defer rendering heavy content
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-rendering-heavy-content.md`
+
+### 📦 SKILL: defer-work-until-scroll-ends
+> Defer Work Until Scroll Ends
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-work-until-scroll-ends.md`
 
 ### 📦 SKILL: interactions-in-complex-layouts
 > Optimizing Interactions in Complex Layouts

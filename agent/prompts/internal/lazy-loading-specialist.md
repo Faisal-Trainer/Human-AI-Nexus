@@ -15,23 +15,15 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 195 skills matched untuk agent "lazy-loading-specialist"
-
-### 📦 SKILL: responsive-specialist
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/responsive-specialist.md`
+> Total: 197 skills matched untuk agent "lazy-loading-specialist"
 
 ### 📦 SKILL: modern-web-guidance
 > |
 > Source: `agent/workflows/external/frontend/modern-web-guidance/modern-web-guidance.md`
 
-### 📦 SKILL: css
-> CSS: Modern Architecture and Performance
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
-
-### 📦 SKILL: css-layout
-> CSS Layouts and Responsive Design
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css-layout/css-layout.md`
+### 📦 SKILL: responsive-specialist
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/responsive-specialist.md`
 
 ### 📦 SKILL: rich-media-picker
 > Rich Media Picker (Customizable Select)
@@ -41,13 +33,17 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/backend/database-design.md`
 
+### 📦 SKILL: css
+> CSS: Modern Architecture and Performance
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
+
+### 📦 SKILL: css-layout
+> CSS Layouts and Responsive Design
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css-layout/css-layout.md`
+
 ### 📦 SKILL: brand-consistent-forms
 > Brand-Consistent Forms
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/brand-consistent-forms.md`
-
-### 📦 SKILL: branded-select-styling
-> Branded Select Styling
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
 
 ### 📦 SKILL: content-based-styling
 > (No description)
@@ -57,9 +53,49 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Export HTML content from canvas
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/export-html-media-from-canvas.md`
 
+### 📦 SKILL: knowledge-liaison
+> SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
+> Source: `agent/workflows/internal/knowledge-liaison.md`
+
+### 📦 SKILL: branded-select-styling
+> Branded Select Styling
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
+
+### 📦 SKILL: html
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/html/html.md`
+
+### 📦 SKILL: performance
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/performance.md`
+
+### 📦 SKILL: resolution-optimized-pseudo-elements
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/resolution-optimized-pseudo-elements.md`
+
+### 📦 SKILL: apply-webgl-shaders
+> Apply WebGL shaders to HTML content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/apply-webgl-shaders.md`
+
+### 📦 SKILL: dark-mode
+> Dark mode
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dark-mode.md`
+
+### 📦 SKILL: deliver-optimized-decorative-images
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/deliver-optimized-decorative-images.md`
+
 ### 📦 SKILL: fluid-scaling
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/fluid-scaling.md`
+
+### 📦 SKILL: shrinking-header-on-scroll
+> Shrinking headder on scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shrinking-header-on-scroll.md`
+
+### 📦 SKILL: style-parent-with-has
+> Style Parent with :has()
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/style-parent-with-has.md`
 
 ### 📦 SKILL: swipe-to-remove
 > Swipe to remove
@@ -73,9 +109,9 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
 
-### 📦 SKILL: knowledge-liaison
-> SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
-> Source: `agent/workflows/internal/knowledge-liaison.md`
+### 📦 SKILL: nexus-pipeline
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/internal/nexus-pipeline.md`
 
 ### 📦 SKILL: ui-design-system
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -89,137 +125,9 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/frontend/web-engineer.md`
 
-### 📦 SKILL: html
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/html/html.md`
-
-### 📦 SKILL: break-up-long-tasks
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/break-up-long-tasks.md`
-
-### 📦 SKILL: identify-heavy-scripts
-> Identify heavy-running JavaScript
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
-
-### 📦 SKILL: optimize-image-priority
-> Optimize image priority
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/optimize-image-priority.md`
-
-### 📦 SKILL: optimize-preload-priority
-> Optimize preload priority
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/optimize-preload-priority.md`
-
-### 📦 SKILL: performance
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/performance.md`
-
-### 📦 SKILL: resolution-optimized-pseudo-elements
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/resolution-optimized-pseudo-elements.md`
-
-### 📦 SKILL: schedule-tasks-by-priority
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md`
-
-### 📦 SKILL: apply-webgl-shaders
-> Apply WebGL shaders to HTML content
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/apply-webgl-shaders.md`
-
-### 📦 SKILL: child-state-based-styling
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/child-state-based-styling.md`
-
-### 📦 SKILL: component-specific-light-dark-theme
-> Component-specific light/dark themes
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/component-specific-light-dark-theme.md`
-
-### 📦 SKILL: dark-mode
-> Dark mode
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dark-mode.md`
-
-### 📦 SKILL: deliver-optimized-decorative-images
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/deliver-optimized-decorative-images.md`
-
-### 📦 SKILL: design-token-reactivity
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/design-token-reactivity.md`
-
-### 📦 SKILL: prevent-text-wrapping
-> Prevent text wrapping
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/prevent-text-wrapping.md`
-
-### 📦 SKILL: reduce-style-repetition
-> Reduce Style Repetition with CSS Functions
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
-
-### 📦 SKILL: resilient-context-menus-and-nested-dropdowns
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/resilient-context-menus-and-nested-dropdowns.md`
-
-### 📦 SKILL: shrinking-header-on-scroll
-> Shrinking headder on scroll
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/shrinking-header-on-scroll.md`
-
-### 📦 SKILL: size-aware-styling
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/size-aware-styling.md`
-
-### 📦 SKILL: style-parent-with-has
-> Style Parent with :has()
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/style-parent-with-has.md`
-
-### 📦 SKILL: brandkit
-> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
-> Source: `.agents/skills/brandkit/SKILL.md`
-
-### 📦 SKILL: gpt-taste
-> Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
-> Source: `.agents/skills/gpt-taste/SKILL.md`
-
-### 📦 SKILL: stitch-design-taste
-> Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
-> Source: `.agents/skills/stitch-design-taste/SKILL.md`
-
-### 📦 SKILL: nexus-pipeline
-> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
-> Source: `agent/workflows/internal/nexus-pipeline.md`
-
-### 📦 SKILL: android-dev
-> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
-> Source: `agent/workflows/external/mobile/android-dev.md`
-
-### 📦 SKILL: ios-dev
-> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
-> Source: `agent/workflows/external/mobile/ios-dev.md`
-
-### 📦 SKILL: content-scripts
-> Content Scripts & DOM Manipulation
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/content-scripts.md`
-
-### 📦 SKILL: icons
-> Generating Extension Icons
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/icons.md`
-
-### 📦 SKILL: media-capture
-> Media Capture (Tab & Desktop)
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
-
 ### 📦 SKILL: popup-ui
 > Popup UI
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/popup-ui.md`
-
-### 📦 SKILL: language-detection
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
-
-### 📦 SKILL: animated-select-picker
-> Animated Select Picker
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/animated-select-picker.md`
-
-### 📦 SKILL: autofill-highlight-inputs
-> Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-highlight-inputs.md`
 
 ### 📦 SKILL: autofill-payment-form
 > Build a payment form that follows best practice
@@ -233,13 +141,9 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Build a sign-up form that follows best practice
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-sign-up-form.md`
 
-### 📦 SKILL: passkey-reauthentication
-> Passkey Reauthentication Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
-
-### 📦 SKILL: calculate-total-foreground-time
-> Calculate total foreground time
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/calculate-total-foreground-time.md`
+### 📦 SKILL: break-up-long-tasks
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/break-up-long-tasks.md`
 
 ### 📦 SKILL: conditional-async-dependencies
 > (No description)
@@ -248,6 +152,178 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: defer-rendering-heavy-content
 > Defer rendering heavy content
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/defer-rendering-heavy-content.md`
+
+### 📦 SKILL: identify-heavy-scripts
+> Identify heavy-running JavaScript
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
+
+### 📦 SKILL: optimize-image-priority
+> Optimize image priority
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/optimize-image-priority.md`
+
+### 📦 SKILL: optimize-preload-priority
+> Optimize preload priority
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/optimize-preload-priority.md`
+
+### 📦 SKILL: schedule-tasks-by-priority
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md`
+
+### 📦 SKILL: carousel-slide-effects
+> Build Carousel Slide Effects
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-slide-effects.md`
+
+### 📦 SKILL: carousel-snap-highlights
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-snap-highlights.md`
+
+### 📦 SKILL: child-state-based-styling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/child-state-based-styling.md`
+
+### 📦 SKILL: component-specific-light-dark-theme
+> Component-specific light/dark themes
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/component-specific-light-dark-theme.md`
+
+### 📦 SKILL: design-token-reactivity
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/design-token-reactivity.md`
+
+### 📦 SKILL: parallax-scroll-effects
+> Build a Parallax Effect on Scroll
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/parallax-scroll-effects.md`
+
+### 📦 SKILL: persistent-app-tours
+> Creating Persistent App Tours
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-app-tours.md`
+
+### 📦 SKILL: prevent-text-wrapping
+> Prevent text wrapping
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/prevent-text-wrapping.md`
+
+### 📦 SKILL: reduce-style-repetition
+> Reduce Style Repetition with CSS Functions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/reduce-style-repetition.md`
+
+### 📦 SKILL: resilient-context-menus-and-nested-dropdowns
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/resilient-context-menus-and-nested-dropdowns.md`
+
+### 📦 SKILL: scroll-progress-indicator
+> Build a Scroll Progress Indicator
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-progress-indicator.md`
+
+### 📦 SKILL: search-hidden-content
+> Search hidden content
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/search-hidden-content.md`
+
+### 📦 SKILL: size-aware-styling
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/size-aware-styling.md`
+
+### 📦 SKILL: brandkit
+> Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
+> Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: gpt-taste
+> Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
+> Source: `.agents/skills/gpt-taste/SKILL.md`
+
+### 📦 SKILL: huashu-design
+> 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
+> Source: `.agents/skills/huashu-design/SKILL.md`
+
+### 📦 SKILL: stitch-design-taste
+> Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
+> Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: seo-performance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/creative/seo-performance.md`
+
+### 📦 SKILL: android-dev
+> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
+> Source: `agent/workflows/external/mobile/android-dev.md`
+
+### 📦 SKILL: ios-dev
+> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
+> Source: `agent/workflows/external/mobile/ios-dev.md`
+
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
+
+### 📦 SKILL: content-scripts
+> Content Scripts & DOM Manipulation
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/content-scripts.md`
+
+### 📦 SKILL: icons
+> Generating Extension Icons
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/icons.md`
+
+### 📦 SKILL: media-capture
+> Media Capture (Tab & Desktop)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
+
+### 📦 SKILL: side-panel
+> Side Panel
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/side-panel.md`
+
+### 📦 SKILL: accessible-error-announcement
+> Accessible Error Announcement
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
+
+### 📦 SKILL: language-detection
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
+
+### 📦 SKILL: highlight-text-ranges
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/highlight-text-ranges.md`
+
+### 📦 SKILL: animated-select-picker
+> Animated Select Picker
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/animated-select-picker.md`
+
+### 📦 SKILL: autofill-address-form
+> Build an address form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-address-form.md`
+
+### 📦 SKILL: autofill-highlight-inputs
+> Use the CSS :autofill pseudo-class to highlight form fields that have been autofilled by the browser and not edited by the user
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-highlight-inputs.md`
+
+### 📦 SKILL: forms
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/forms.md`
+
+### 📦 SKILL: required-field-feedback
+> Required Field Feedback
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/required-field-feedback.md`
+
+### 📦 SKILL: select-menu-interaction
+> Select Menu Interaction
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/select-menu-interaction.md`
+
+### 📦 SKILL: validate-input-after-interaction
+> Validate Input After Interaction
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/validate-input-after-interaction.md`
+
+### 📦 SKILL: passkey-management
+> Passkey Management Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
+
+### 📦 SKILL: passkey-reauthentication
+> Passkey Reauthentication Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
+
+### 📦 SKILL: passkey-registration
+> Passkey Registration Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
+
+### 📦 SKILL: calculate-total-foreground-time
+> Calculate total foreground time
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/calculate-total-foreground-time.md`
 
 ### 📦 SKILL: defer-work-until-scroll-ends
 > Defer Work Until Scroll Ends
@@ -293,17 +369,13 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/calculate-with-intrinsic-sizes.md`
 
-### 📦 SKILL: carousel-slide-effects
-> Build Carousel Slide Effects
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-slide-effects.md`
-
-### 📦 SKILL: carousel-snap-highlights
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/carousel-snap-highlights.md`
-
 ### 📦 SKILL: complex-shapes
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/complex-shapes.md`
+
+### 📦 SKILL: declarative-button-actions
+> Declarative Button Actions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-button-actions.md`
 
 ### 📦 SKILL: dynamic-sibling-animations
 > Creating a stagger animation
@@ -313,6 +385,10 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Styling siblings based on count and index
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/dynamic-sibling-styling.md`
 
+### 📦 SKILL: group-element-transitions
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/group-element-transitions.md`
+
 ### 📦 SKILL: improve-text-layout-and-legibility
 > Improve Text Layout and Legibility
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/improve-text-layout-and-legibility.md`
@@ -321,9 +397,21 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/individual-transform-properties.md`
 
+### 📦 SKILL: interactive-content-in-3d-scenes
+> Enable interactive HTML content in 3D scenes
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interactive-content-in-3d-scenes.md`
+
 ### 📦 SKILL: interactive-content-reveal
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interactive-content-reveal.md`
+
+### 📦 SKILL: interest-triggered-action-previews
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-action-previews.md`
+
+### 📦 SKILL: interest-triggered-tooltips
+> Show a tooltip when hovering
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-tooltips.md`
 
 ### 📦 SKILL: move-dom-element-without-losing-state
 > (No description)
@@ -336,14 +424,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: overflow-clipping-control
 > Overflow Clipping Control
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/overflow-clipping-control.md`
-
-### 📦 SKILL: parallax-scroll-effects
-> Build a Parallax Effect on Scroll
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/parallax-scroll-effects.md`
-
-### 📦 SKILL: persistent-app-tours
-> Creating Persistent App Tours
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-app-tours.md`
 
 ### 📦 SKILL: position-aware-tooltips
 > (No description)
@@ -369,13 +449,13 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-position-aware-elements.md`
 
-### 📦 SKILL: scroll-progress-indicator
-> Build a Scroll Progress Indicator
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-progress-indicator.md`
-
 ### 📦 SKILL: scroll-snap-state-sync
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-snap-state-sync.md`
+
+### 📦 SKILL: scroll-target-on-load
+> Set a scroll target for the initial render
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-target-on-load.md`
 
 ### 📦 SKILL: scrollability-affordance-hints
 > (No description)
@@ -384,10 +464,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: scrollytelling
 > Scrollytelling
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scrollytelling.md`
-
-### 📦 SKILL: search-hidden-content
-> Search hidden content
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/search-hidden-content.md`
 
 ### 📦 SKILL: shaped-cutouts
 > (No description)
@@ -405,13 +481,13 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-texture-content.md`
 
+### 📦 SKILL: webmcp
+> WebMCP (Web Model Context Protocol)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
 ### 📦 SKILL: design-taste-frontend
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
-
-### 📦 SKILL: huashu-design
-> 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
-> Source: `.agents/skills/huashu-design/SKILL.md`
 
 ### 📦 SKILL: imagegen-frontend-mobile
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
@@ -429,9 +505,17 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/web-branding.md`
 
-### 📦 SKILL: security-architect
+### 📦 SKILL: chaos-engineering
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/security-architect.md`
+> Source: `agent/workflows/external/security/chaos-engineering.md`
+
+### 📦 SKILL: cyber-security
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/cyber-security.md`
+
+### 📦 SKILL: ethics-compliance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/ethics-compliance.md`
 
 ### 📦 SKILL: chrome-extensions
 > >
@@ -441,9 +525,17 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Context Menus
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/context-menus.md`
 
+### 📦 SKILL: csp-sandbox
+> CSP & Sandboxed Code Execution
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/csp-sandbox.md`
+
 ### 📦 SKILL: declarative-net-request
 > Declarative Net Request (Content Filtering)
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/declarative-net-request.md`
+
+### 📦 SKILL: devtools
+> DevTools Panels
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/devtools.md`
 
 ### 📦 SKILL: message-passing
 > Message Passing
@@ -456,10 +548,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: prompt-api
 > Chrome Prompt API (LanguageModel) — Extension-Specific Notes
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/prompt-api.md`
-
-### 📦 SKILL: side-panel
-> Side Panel
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/side-panel.md`
 
 ### 📦 SKILL: storage
 > Chrome Storage API
@@ -481,10 +569,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Accessibility Coding Guidelines
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessibility.md`
 
-### 📦 SKILL: accessible-error-announcement
-> Accessible Error Announcement
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
-
 ### 📦 SKILL: language-model
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-model.md`
@@ -497,14 +581,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
 
-### 📦 SKILL: highlight-text-ranges
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/highlight-text-ranges.md`
-
-### 📦 SKILL: autofill-address-form
-> Build an address form that follows best practice
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-address-form.md`
-
 ### 📦 SKILL: custom-select-picker-layouts
 > Custom Select Picker Layouts
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/custom-select-picker-layouts.md`
@@ -513,22 +589,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/form-fields-automatically-fit-contents.md`
 
-### 📦 SKILL: forms
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/forms.md`
-
-### 📦 SKILL: required-field-feedback
-> Required Field Feedback
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/required-field-feedback.md`
-
-### 📦 SKILL: select-menu-interaction
-> Select Menu Interaction
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/select-menu-interaction.md`
-
-### 📦 SKILL: validate-input-after-interaction
-> Validate Input After Interaction
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/validate-input-after-interaction.md`
-
 ### 📦 SKILL: passkey-authentication
 > Passkey Authentication Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-authentication.md`
@@ -536,14 +596,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: passkey-conditional-create
 > Passkey Conditional Create (Post-Login Promotion)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-conditional-create.md`
-
-### 📦 SKILL: passkey-management
-> Passkey Management Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
-
-### 📦 SKILL: passkey-registration
-> Passkey Registration Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
 
 ### 📦 SKILL: passkeys
 > Passkeys Orientation Guide
@@ -585,6 +637,10 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Animate to Intrinsic Sizes
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/animate-to-intrinsic-sizes.md`
 
+### 📦 SKILL: consistent-cross-document-transitions
+> Consistent Cross-Document Transitions
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/consistent-cross-document-transitions.md`
+
 ### 📦 SKILL: coordinate-global-events
 > Coordinating Global Events with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/coordinate-global-events.md`
@@ -597,33 +653,21 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Customize the color or thickness of a scrollbar
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/customize-scrollbar-color-and-thickness.md`
 
-### 📦 SKILL: declarative-button-actions
-> Declarative Button Actions
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-button-actions.md`
+### 📦 SKILL: declarative-dialog-popover-control
+> Overview
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-dialog-popover-control.md`
 
 ### 📦 SKILL: directional-navigation-transitions
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/directional-navigation-transitions.md`
 
+### 📦 SKILL: expose-canvas-content-to-browser-features
+> Expose canvas content to browser features
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/expose-canvas-content-to-browser-features.md`
+
 ### 📦 SKILL: format-human-readable-durations
 > Formatting Human-Readable Durations with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/format-human-readable-durations.md`
-
-### 📦 SKILL: group-element-transitions
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/group-element-transitions.md`
-
-### 📦 SKILL: interactive-content-in-3d-scenes
-> Enable interactive HTML content in 3D scenes
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interactive-content-in-3d-scenes.md`
-
-### 📦 SKILL: interest-triggered-action-previews
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-action-previews.md`
-
-### 📦 SKILL: interest-triggered-tooltips
-> Show a tooltip when hovering
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/interest-triggered-tooltips.md`
 
 ### 📦 SKILL: light-dismiss-a-dialog
 > (No description)
@@ -641,13 +685,13 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/physics-based-easing.md`
 
+### 📦 SKILL: platform-controls-dismiss-dialog
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/platform-controls-dismiss-dialog.md`
+
 ### 📦 SKILL: scroll-snap-realtime-feedback
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-snap-realtime-feedback.md`
-
-### 📦 SKILL: scroll-target-on-load
-> Set a scroll target for the initial render
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/scroll-target-on-load.md`
 
 ### 📦 SKILL: stabilize-reactive-state
 > Stabilize Reactive State with Temporal
@@ -657,9 +701,9 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Supporting Global Calendar Systems with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/support-global-calendar-systems.md`
 
-### 📦 SKILL: webmcp
-> WebMCP (Web Model Context Protocol)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+### 📦 SKILL: agentic-forms
+> (No description)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-forms.md`
 
 ### 📦 SKILL: design-taste-frontend-v1
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
@@ -689,13 +733,13 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/backend/web3-specialist.md`
 
+### 📦 SKILL: monetization-specialist
+> SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/business/monetization-specialist.md`
+
 ### 📦 SKILL: project-manager
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
 > Source: `agent/workflows/external/core/project-manager.md`
-
-### 📦 SKILL: seo-performance
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/creative/seo-performance.md`
 
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
@@ -705,17 +749,9 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
 > Source: `agent/workflows/external/devops/vcs-management.md`
 
-### 📦 SKILL: chaos-engineering
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/chaos-engineering.md`
-
-### 📦 SKILL: cyber-security
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/cyber-security.md`
-
-### 📦 SKILL: ethics-compliance
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/ethics-compliance.md`
+### 📦 SKILL: testing-standards
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/external/testing/testing-standards.md`
 
 ### 📦 SKILL: api-calling
 > Calling External APIs from Extensions
@@ -724,14 +760,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: auth-identity
 > Authentication with chrome.identity
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/auth-identity.md`
-
-### 📦 SKILL: csp-sandbox
-> CSP & Sandboxed Code Execution
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/csp-sandbox.md`
-
-### 📦 SKILL: devtools
-> DevTools Panels
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/devtools.md`
 
 ### 📦 SKILL: service-worker
 > Service Worker Lifetime & State Management
@@ -753,18 +781,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > Capturing Location-Agnostic Data with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/capture-location-agnostic-data.md`
 
-### 📦 SKILL: consistent-cross-document-transitions
-> Consistent Cross-Document Transitions
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/consistent-cross-document-transitions.md`
-
-### 📦 SKILL: declarative-dialog-popover-control
-> Overview
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-dialog-popover-control.md`
-
-### 📦 SKILL: expose-canvas-content-to-browser-features
-> Expose canvas content to browser features
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/expose-canvas-content-to-browser-features.md`
-
 ### 📦 SKILL: flicker-free-client-side-ab-testing
 > Flicker-Free Client-Side A/B Testing
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/flicker-free-client-side-ab-testing.md`
@@ -777,10 +793,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/persistent-top-layer-ui.md`
 
-### 📦 SKILL: platform-controls-dismiss-dialog
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/platform-controls-dismiss-dialog.md`
-
 ### 📦 SKILL: visually-stable-font-fallbacks
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-stable-font-fallbacks.md`
@@ -788,10 +800,6 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: visually-stable-mixed-fonts
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-stable-mixed-fonts.md`
-
-### 📦 SKILL: agentic-forms
-> (No description)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-forms.md`
 
 ### 📦 SKILL: agentic-javascript-tools
 > (No description)

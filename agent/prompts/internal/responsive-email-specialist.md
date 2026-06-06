@@ -15,11 +15,19 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 194 skills matched untuk agent "responsive-email-specialist"
+> Total: 196 skills matched untuk agent "responsive-email-specialist"
 
 ### 📦 SKILL: responsive-specialist
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/frontend/responsive-specialist.md`
+
+### 📦 SKILL: database-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/backend/database-design.md`
+
+### 📦 SKILL: modern-web-guidance
+> |
+> Source: `agent/workflows/external/frontend/modern-web-guidance/modern-web-guidance.md`
 
 ### 📦 SKILL: css
 > CSS: Modern Architecture and Performance
@@ -37,13 +45,9 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/performance.md`
 
-### 📦 SKILL: database-design
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/backend/database-design.md`
-
-### 📦 SKILL: modern-web-guidance
-> |
-> Source: `agent/workflows/external/frontend/modern-web-guidance/modern-web-guidance.md`
+### 📦 SKILL: knowledge-liaison
+> SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
+> Source: `agent/workflows/internal/knowledge-liaison.md`
 
 ### 📦 SKILL: autofill-sign-in-form
 > Build a sign-in form that follows best practice
@@ -69,9 +73,9 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > Swipe to remove
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/swipe-to-remove.md`
 
-### 📦 SKILL: knowledge-liaison
-> SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
-> Source: `agent/workflows/internal/knowledge-liaison.md`
+### 📦 SKILL: nexus-pipeline
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
+> Source: `agent/workflows/internal/nexus-pipeline.md`
 
 ### 📦 SKILL: ui-design-system
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -217,13 +221,17 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
 
-### 📦 SKILL: nexus-pipeline
-> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
-> Source: `agent/workflows/internal/nexus-pipeline.md`
+### 📦 SKILL: seo-performance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/creative/seo-performance.md`
 
 ### 📦 SKILL: ios-dev
 > SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
 > Source: `agent/workflows/external/mobile/ios-dev.md`
+
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
 
 ### 📦 SKILL: content-scripts
 > Content Scripts & DOM Manipulation
@@ -269,9 +277,17 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > Select Menu Interaction
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/select-menu-interaction.md`
 
+### 📦 SKILL: passkey-management
+> Passkey Management Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
+
 ### 📦 SKILL: passkey-reauthentication
 > Passkey Reauthentication Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
+
+### 📦 SKILL: passkey-registration
+> Passkey Registration Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
 
 ### 📦 SKILL: calculate-total-foreground-time
 > Calculate total foreground time
@@ -437,13 +453,17 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
 > Source: `.agents/skills/imagegen-frontend-mobile/SKILL.md`
 
-### 📦 SKILL: seo-performance
+### 📦 SKILL: chaos-engineering
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/creative/seo-performance.md`
+> Source: `agent/workflows/external/security/chaos-engineering.md`
 
-### 📦 SKILL: security-architect
+### 📦 SKILL: cyber-security
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/security-architect.md`
+> Source: `agent/workflows/external/security/cyber-security.md`
+
+### 📦 SKILL: ethics-compliance
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/ethics-compliance.md`
 
 ### 📦 SKILL: chrome-extensions
 > >
@@ -524,14 +544,6 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: passkey-conditional-create
 > Passkey Conditional Create (Post-Login Promotion)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-conditional-create.md`
-
-### 📦 SKILL: passkey-management
-> Passkey Management Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
-
-### 📦 SKILL: passkey-registration
-> Passkey Registration Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-registration.md`
 
 ### 📦 SKILL: passkeys
 > Passkeys Orientation Guide
@@ -705,6 +717,10 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/backend/web3-specialist.md`
 
+### 📦 SKILL: monetization-specialist
+> SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/business/monetization-specialist.md`
+
 ### 📦 SKILL: project-manager
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
 > Source: `agent/workflows/external/core/project-manager.md`
@@ -717,17 +733,9 @@ Anda bertindak sebagai responsive-email-specialist untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
 > Source: `agent/workflows/external/devops/vcs-management.md`
 
-### 📦 SKILL: chaos-engineering
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/chaos-engineering.md`
-
-### 📦 SKILL: cyber-security
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/cyber-security.md`
-
-### 📦 SKILL: ethics-compliance
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/ethics-compliance.md`
+### 📦 SKILL: testing-standards
+> 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md
+> Source: `agent/workflows/external/testing/testing-standards.md`
 
 ### 📦 SKILL: api-calling
 > Calling External APIs from Extensions

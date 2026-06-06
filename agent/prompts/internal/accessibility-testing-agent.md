@@ -21,6 +21,10 @@ Anda bertindak sebagai accessibility-testing-agent untuk ekosistem Nexus AI.
 > Accessible Error Announcement
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/accessibility/accessible-error-announcement.md`
 
+### 📦 SKILL: autofill-payment-form
+> Build a payment form that follows best practice
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
+
 ### 📦 SKILL: brand-consistent-forms
 > Brand-Consistent Forms
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/brand-consistent-forms.md`
@@ -40,10 +44,6 @@ Anda bertindak sebagai accessibility-testing-agent untuk ekosistem Nexus AI.
 ### 📦 SKILL: autofill-address-form
 > Build an address form that follows best practice
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-address-form.md`
-
-### 📦 SKILL: autofill-payment-form
-> Build a payment form that follows best practice
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/autofill-payment-form.md`
 
 ### 📦 SKILL: autofill-sign-in-form
 > Build a sign-in form that follows best practice

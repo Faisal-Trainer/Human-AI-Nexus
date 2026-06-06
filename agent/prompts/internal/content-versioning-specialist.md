@@ -57,10 +57,6 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 > SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/digital-marketing.md`
 
-### 📦 SKILL: vcs-management
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
-> Source: `agent/workflows/external/devops/vcs-management.md`
-
 ### 📦 SKILL: api-calling
 > Calling External APIs from Extensions
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/api-calling.md`
@@ -116,10 +112,6 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
 > Source: `agent/workflows/external/creative/user-branding.md`
-
-### 📦 SKILL: devops-specialist
-> SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
-> Source: `agent/workflows/external/devops/devops-specialist.md`
 
 ### 📦 SKILL: modern-web-guidance
 > |
@@ -285,10 +277,6 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
 
-### 📦 SKILL: agent-classification
-> SKILL: AGENT CLASSIFICATION & DNA MAPPING
-> Source: `agent/workflows/internal/agent-classification.md`
-
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/backend/database-design.md`
@@ -296,6 +284,14 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: web-branding
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/web-branding.md`
+
+### 📦 SKILL: devops-specialist
+> SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/devops/devops-specialist.md`
+
+### 📦 SKILL: vcs-management
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
+> Source: `agent/workflows/external/devops/vcs-management.md`
 
 ### 📦 SKILL: responsive-specialist
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -620,6 +616,10 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: agent-classification
+> SKILL: AGENT CLASSIFICATION & DNA MAPPING
+> Source: `agent/workflows/internal/agent-classification.md`
 
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md

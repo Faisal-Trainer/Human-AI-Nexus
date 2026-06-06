@@ -15,7 +15,7 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 200 skills matched untuk agent "tailwind-architect"
+> Total: 201 skills matched untuk agent "tailwind-architect"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -25,6 +25,14 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/backend/database-design.md`
 
+### 📦 SKILL: responsive-specialist
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/responsive-specialist.md`
+
+### 📦 SKILL: css
+> CSS: Modern Architecture and Performance
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
+
 ### 📦 SKILL: css-layout
 > CSS Layouts and Responsive Design
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css-layout/css-layout.md`
@@ -33,29 +41,33 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
 > Source: `agent/workflows/external/creative/seo-performance.md`
 
-### 📦 SKILL: responsive-specialist
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/responsive-specialist.md`
+### 📦 SKILL: security-architect
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/security-architect.md`
 
 ### 📦 SKILL: modern-web-guidance
 > |
 > Source: `agent/workflows/external/frontend/modern-web-guidance/modern-web-guidance.md`
 
-### 📦 SKILL: css
-> CSS: Modern Architecture and Performance
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/css/css.md`
-
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
 > Source: `agent/workflows/internal/nexus-pipeline.md`
 
+### 📦 SKILL: ui-design-system
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ui-design-system.md`
+
+### 📦 SKILL: ux-design
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/ux-design.md`
+
+### 📦 SKILL: web-engineer
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
+> Source: `agent/workflows/external/frontend/web-engineer.md`
+
 ### 📦 SKILL: cyber-security
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
 > Source: `agent/workflows/external/security/cyber-security.md`
-
-### 📦 SKILL: security-architect
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/security-architect.md`
 
 ### 📦 SKILL: branded-select-styling
 > Branded Select Styling
@@ -117,6 +129,10 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
 > Source: `.agents/skills/gpt-taste/SKILL.md`
 
+### 📦 SKILL: minimalist-ui
+> Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
+> Source: `.agents/skills/minimalist-ui/SKILL.md`
+
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
@@ -125,17 +141,9 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING
 > Source: `agent/workflows/internal/agent-classification.md`
 
-### 📦 SKILL: ui-design-system
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/ui-design-system.md`
-
-### 📦 SKILL: ux-design
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/ux-design.md`
-
-### 📦 SKILL: web-engineer
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
-> Source: `agent/workflows/external/frontend/web-engineer.md`
+### 📦 SKILL: android-dev
+> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
+> Source: `agent/workflows/external/mobile/android-dev.md`
 
 ### 📦 SKILL: chaos-engineering
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
@@ -188,6 +196,10 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 ### 📦 SKILL: passkey-management
 > Passkey Management Guide
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-management.md`
+
+### 📦 SKILL: passkey-reauthentication
+> Passkey Reauthentication Guide
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
 
 ### 📦 SKILL: passkey-registration
 > Passkey Registration Guide
@@ -397,10 +409,6 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
 > Source: `.agents/skills/imagegen-frontend-mobile/SKILL.md`
 
-### 📦 SKILL: minimalist-ui
-> Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
-> Source: `.agents/skills/minimalist-ui/SKILL.md`
-
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 > Source: `.agents/skills/redesign-existing-projects/SKILL.md`
@@ -421,9 +429,9 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/web-branding.md`
 
-### 📦 SKILL: android-dev
-> SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
-> Source: `agent/workflows/external/mobile/android-dev.md`
+### 📦 SKILL: ios-dev
+> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
+> Source: `agent/workflows/external/mobile/ios-dev.md`
 
 ### 📦 SKILL: chrome-extensions
 > >
@@ -532,10 +540,6 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 ### 📦 SKILL: passkey-conditional-create
 > Passkey Conditional Create (Post-Login Promotion)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-conditional-create.md`
-
-### 📦 SKILL: passkey-reauthentication
-> Passkey Reauthentication Guide
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/passkeys/passkey-reauthentication.md`
 
 ### 📦 SKILL: batch-analytics-events
 > Debounce and batch multiple analytics events
@@ -717,9 +721,9 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/devops/devops-specialist.md`
 
-### 📦 SKILL: ios-dev
-> SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
-> Source: `agent/workflows/external/mobile/ios-dev.md`
+### 📦 SKILL: vcs-management
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
+> Source: `agent/workflows/external/devops/vcs-management.md`
 
 ### 📦 SKILL: testing-standards
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: TEST_INSIGHT.md

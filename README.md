@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.3.0 (Ollama Qwen-Ready Edition)
-> **Updated**: 15/05/2026
+> **Version**: v3.3.1 (Performance & Stability Patch)
+> **Updated**: 11/06/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
@@ -34,6 +34,7 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 - [📂 Struktur Folder](#-struktur-folder)
 - [🛠️ Cara Penggunaan & Perintah CLI](#️-cara-penggunaan)
 - [🌟 Prinsip Utama](#-prinsip-utama)
+- [📜 Changelog](CHANGELOG.md)
 - [🤝 Cara Berkontribusi](#-cara-berkontribusi)
 
 ---
@@ -248,4 +249,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 15/05/2026 (v3.3.0 - Ollama Qwen-Ready Edition)_
+_Terakhir Dioptimasi: 11/06/2026 (v3.3.1 - Performance & Stability Patch)_

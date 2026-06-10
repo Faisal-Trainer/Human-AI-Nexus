@@ -1,42 +1,49 @@
 {
-  "project_name": "url-shortener-app",
+  "project_name": "NEXUSURLShortener",
   "models": [
     "User",
-    "YourRealModelName"
+    "URL"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
       "password": "text"
+    },
+    "URL": {
+      "short_code": "string",
+      "long_url": "string",
+      "user_id": "biginteger",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_your_real_tables_table"
+    "create_urls_table"
   ],
   "livewire_components": [
     "user-profile",
-    "your-real-component"
+    "url-shortener"
   ],
   "seeders": [
     "UserSeeder",
-    "YourRealModelSeeder"
+    "URLSeeder"
   ],
   "factories": [
     "UserFactory",
-    "YourRealModelFactory"
+    "URLFactory"
   ],
   "routes": [
     "/dashboard",
-    "/your-real-route"
+    "/url-shortener"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "YourRealModelName"
+      "target": "URL"
     }
   ]
 }

@@ -19,7 +19,7 @@ class EventBus extends EventEmitter {
     super();
     this.setMaxListeners(50); // Support many agents
     this._auditLog = [];
-    this._recentEvents = new Set();
+    this._recentEvents = new Map();
   }
 
   /**
@@ -54,10 +54,16 @@ class EventBus extends EventEmitter {
     // Mencegah dua task berbeda (dengan payload mirip) saling men-drop satu sama lain
     // FIX #8 — Gunakan agent+task_id sebagai key (lebih unik), window 3 detik (lebih aman)
     const dedupKey = `${event}-${payload?.agent || ""}-${payload?.task_id || JSON.stringify(payload)}`;
+    const now = Date.now();
+    
+    // Lazy cleanup: hapus event lama tanpa bikin ribuan timer setTimeout
+    for (const [key, timestamp] of this._recentEvents.entries()) {
+      if (now - timestamp > 3000) this._recentEvents.delete(key);
+    }
+
     if (this._recentEvents.has(dedupKey)) return;
 
-    this._recentEvents.add(dedupKey);
-    setTimeout(() => this._recentEvents.delete(dedupKey), 3000);
+    this._recentEvents.set(dedupKey, now);
 
     // Audit log
     const entry = {

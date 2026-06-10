@@ -51,7 +51,8 @@ class NativeBridge {
     });
   }
 
-  // FIX #03 — Python timeout 120s (AI distillation butuh lebih lama)
+  // FIX #25 — Corrected JSDoc: default timeout is 30s, not 120s
+  // Use higher timeout (e.g. 120000) for long-running AI distillation scripts
   async callPython(scriptPath, args = [], timeoutMs = 30000) {
     return new Promise((resolve, reject) => {
       const proc = spawn(this.pythonPath, [scriptPath, ...args], {

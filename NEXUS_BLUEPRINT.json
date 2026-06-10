@@ -1,157 +1,106 @@
 {
-  "project_name": "NexusAIFramework",
+  "project_name": "NexusAI",
+  "framework": "Node.js AI Orchestration Framework",
+  "description": "Documentation-first framework for human-AI collaborative development with autonomous code generation, semantic memory, and TDD sandbox validation.",
   "models": [],
-  "migrations": [
-    "create_task_table",
-    "create_user_table",
-    "create_agent_table",
-    "create_workflow_table",
-    "create_event_log_table",
-    "create_dead_letter_queue_table",
-    "create_skill_rack_table",
-    "create_memory_pipeline_table",
-    "create_local_intelligence_table",
-    "create_orchestrator_table",
-    "create_worktree_manager_table",
-    "create_root_cause_analyzer_table",
-    "create_laravel_architect_table",
-    "create_tdd_scaffolder_table",
-    "create_nexus_clock_table",
-    "create_semantic_engine_table",
-    "create_local_intelligence_table",
-    "create_agent_registry_table",
-    "create_event_bus_table",
-    "create_resource_monitor_table",
-    "create_memory_governor_table",
-    "create_evolution_piper_table",
-    "create_decision_engine_table",
-    "create_forge_table",
-    "create_think_table",
-    "create_review_table",
-    "create_sandbox_table",
-    "create_management_table"
-  ],
+  "schema": {},
+  "migrations": [],
   "livewire_components": [],
-  "seeders": [
-    "TaskSeeder",
-    "UserSeeder",
-    "AgentSeeder",
-    "WorkflowSeeder",
-    "EventLogSeeder",
-    "DeadLetterQueueSeeder",
-    "SkillRackSeeder",
-    "MemoryPipelineSeeder",
-    "LocalIntelligenceSeeder",
-    "OrchestratorSeeder",
-    "WorktreeManagerSeeder",
-    "RootCauseAnalyzerSeeder",
-    "LaravelArchitectSeeder",
-    "TDDScaffolderSeeder"
-  ],
-  "factories": [
-    "TaskFactory",
-    "UserFactory",
-    "AgentFactory",
-    "WorkflowFactory",
-    "EventLogFactory",
-    "DeadLetterQueueFactory",
-    "SkillRackFactory",
-    "MemoryPipelineFactory",
-    "LocalIntelligenceFactory",
-    "OrchestratorFactory",
-    "WorktreeManagerFactory",
-    "RootCauseAnalyzerFactory",
-    "LaravelArchitectFactory",
-    "TDDScaffolderFactory"
-  ],
+  "seeders": [],
+  "factories": [],
   "routes": [
     "/dashboard",
-    "/task",
-    "/user",
-    "/agent",
-    "/workflow",
-    "/event-log",
-    "/dead-letter-queue",
-    "/skill-rack",
-    "/memory-pipeline",
-    "/local-intelligence",
-    "/orchestrator",
-    "/worktree-manager",
-    "/root-cause-analyzer",
-    "/laravel-architect",
-    "/tdd-scaffolder"
+    "/api/run",
+    "/api/audit",
+    "/api/sandbox",
+    "/api/harvest",
+    "/api/distill",
+    "/api/train"
   ],
   "pivot_tables": [],
   "relationships": [
     {
-      "model": "Task",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "orchestrates",
+      "target": "AuditPhase"
     },
     {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Task"
+      "model": "NexusEngine",
+      "type": "orchestrates",
+      "target": "PlanningPhase"
     },
     {
-      "model": "Agent",
-      "type": "hasMany",
-      "target": "Workflow"
+      "model": "NexusEngine",
+      "type": "orchestrates",
+      "target": "ImplementationPhase"
     },
     {
-      "model": "Workflow",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "orchestrates",
+      "target": "ExecutionPhase"
     },
     {
-      "model": "EventLog",
-      "type": "hasMany",
-      "target": "Agent"
-    },
-    {
-      "model": "DeadLetterQueue",
-      "type": "hasMany",
-      "target": "Agent"
-    },
-    {
-      "model": "SkillRack",
-      "type": "hasMany",
-      "target": "Agent"
-    },
-    {
-      "model": "MemoryPipeline",
-      "type": "hasMany",
-      "target": "Agent"
-    },
-    {
-      "model": "LocalIntelligence",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "orchestrates",
+      "target": "KnowledgePhase"
     },
     {
       "model": "Orchestrator",
-      "type": "hasMany",
-      "target": "Agent"
+      "type": "delegates",
+      "target": "SandboxExecutor"
     },
     {
-      "model": "WorktreeManager",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "Orchestrator",
+      "type": "subscribes_to",
+      "target": "EventBus"
     },
     {
-      "model": "RootCauseAnalyzer",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "uses",
+      "target": "LocalIntelligence"
     },
     {
-      "model": "LaravelArchitect",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "uses",
+      "target": "SemanticEngine"
     },
     {
-      "model": "TDDScaffolder",
-      "type": "hasMany",
-      "target": "Agent"
+      "model": "NexusEngine",
+      "type": "uses",
+      "target": "MemoryGovernor"
     }
+  ],
+  "core_modules": [
+    "NexusEngine",
+    "Orchestrator",
+    "EventBus",
+    "AgentRegistry",
+    "LocalIntelligence",
+    "SemanticEngine",
+    "MemoryGovernor",
+    "MemoryPipeline",
+    "Distiller",
+    "EvolutionPiper",
+    "SandboxExecutor",
+    "DecisionEngine",
+    "ResourceMonitor",
+    "Logger",
+    "Modifier",
+    "Machinist",
+    "NativeBridge",
+    "ModelTrainer"
+  ],
+  "tools": [
+    "TDDGuard",
+    "TDDScaffolder",
+    "Validator",
+    "BugHunter",
+    "SchemaGuard",
+    "QueryOptimizer",
+    "AssetEngine",
+    "AccessibilityScanner",
+    "RootCauseAnalyzer",
+    "DatasetExtractor",
+    "RetroDatasetExtractor"
   ]
 }

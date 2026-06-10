@@ -39,6 +39,9 @@
 - [agent/core/NexusError.js](file://agent/core/NexusError.js)
 - [agent/core/Modifier.js](file://agent/core/Modifier.js)
 - [agent/core/worker/plugin-worker.js](file://agent/core/workers/plugin-worker.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 - [memory/INDEX.md](file://memory/INDEX.md)
 - [memory/INDEX_NEURAL_MAP.md](file://memory/INDEX_NEURAL_MAP.md)
 - [tests/TDD/nexus-engine.test.js](file://tests/TDD/nexus-engine.test.js)
@@ -55,6 +58,15 @@
 - [documentation/mermaid/nexus_pipeline_map.md](file://documentation/mermaid/nexus_pipeline_map.md)
 - [documentation/mermaid/sandbox_pipeline.md](file://documentation/mermaid/sandbox_pipeline.md)
 </cite>
+
+## Update Summary
+**Changes Made**
+- Updated Distiller component analysis to reflect O(n²) complexity reduction through pre-compiled regex optimization
+- Enhanced EventBus documentation with improved error handling and validation mechanisms
+- Added EvolutionPiper reliability improvements including persistent cycle state management
+- Updated AssetEngine documentation to include image processing enhancements and sharp dependency handling
+- Enhanced BugHunter documentation with async I/O improvements and strategy pivot capabilities
+- Updated QueryOptimizer documentation to include regex loop prevention measures
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -93,6 +105,7 @@ B_ne --> O_br["agent/core/NativeBridge.js"]
 B_ne --> P_pr["agent/core/ParallelRunner.js"]
 B_ne --> Q_sx["agent/core/SandboxExecutor.js"]
 B_ne --> R_wt["agent/core/WorktreeManager.js"]
+B_ne --> S_at["agent/tools/*"]
 ```
 
 **Diagram sources**
@@ -114,6 +127,9 @@ B_ne --> R_wt["agent/core/WorktreeManager.js"]
 - [agent/core/ParallelRunner.js](file://agent/core/ParallelRunner.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
 - [agent/core/WorktreeManager.js](file://agent/core/WorktreeManager.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 
 **Section sources**
 - [agent/main.js](file://agent/main.js)
@@ -169,6 +185,13 @@ PR["Parallel Runner"]
 SX["Sandbox Executor"]
 WT["Worktree Manager"]
 end
+subgraph "Specialized Tools"
+AE["AssetEngine"]
+BH["BugHunter"]
+QO["QueryOptimizer"]
+DI["Distiller"]
+EV["EvolutionPiper"]
+end
 NE --> AR
 NE --> MG
 NE --> DE
@@ -184,6 +207,11 @@ OR --> NB
 OR --> PR
 OR --> SX
 OR --> WT
+NE --> AE
+NE --> BH
+NE --> QO
+NE --> DI
+NE --> EV
 ```
 
 **Diagram sources**
@@ -203,6 +231,11 @@ OR --> WT
 - [agent/core/ParallelRunner.js](file://agent/core/ParallelRunner.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
 - [agent/core/WorktreeManager.js](file://agent/core/WorktreeManager.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
 
 ## Detailed Component Analysis
 
@@ -216,6 +249,7 @@ class NexusEngine {
 +dispatch(task)
 +coordinate()
 +getState()
++lazy getters for heavy components
 }
 class AgentRegistry {
 +register(agent)
@@ -343,6 +377,8 @@ class EventBus {
 +publish(event)
 +subscribe(handler)
 +emit(payload)
++validate schema
++deduplicate events
 }
 class NexusClock {
 +tick()
@@ -415,6 +451,9 @@ NE --> PR["ParallelRunner"]
 NE --> SX["SandboxExecutor"]
 NE --> WT["WorktreeManager"]
 NE --> PH["Phases"]
+NE --> AE["AssetEngine"]
+NE --> BH["BugHunter"]
+NE --> QO["QueryOptimizer"]
 ```
 
 **Diagram sources**
@@ -429,6 +468,9 @@ NE --> PH["Phases"]
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
 - [agent/core/WorktreeManager.js](file://agent/core/WorktreeManager.js)
 - [agent/core/phases/BasePhase.js](file://agent/core/phases/BasePhase.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 
 **Section sources**
 - [agent/core/LaravelArchitect.js](file://agent/core/LaravelArchitect.js)
@@ -440,6 +482,179 @@ NE --> PH["Phases"]
 - [agent/core/ParallelRunner.js](file://agent/core/ParallelRunner.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
 - [agent/core/WorktreeManager.js](file://agent/core/WorktreeManager.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
+
+### Distiller Component - Performance Optimizations
+The Distiller component has undergone significant performance optimizations, particularly in its semantic linking algorithm. The most notable improvement addresses O(n²) complexity through pre-compilation of keyword regex patterns.
+
+**Updated** Enhanced semantic linking with O(n) complexity through pre-compiled regex optimization
+
+```mermaid
+flowchart TD
+A["Distiller.applySemanticLinkingJS()"] --> B["Pre-compile keyword→file map ONCE"]
+B --> C["Compile all regex patterns once"]
+C --> D["Sort keywords by length (descending)"]
+D --> E["Process files with pre-compiled regexes"]
+E --> F["Reset regex lastIndex for each use"]
+F --> G["Apply semantic linking efficiently"]
+```
+
+**Diagram sources**
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+
+Key performance improvements:
+- **O(n²) Complexity Reduction**: Pre-compiles regex patterns once instead of creating new regex objects for each file
+- **Keyword Optimization**: Sorts keywords by length to prioritize longer matches first
+- **Cache Persistence**: Maintains link cache for efficient incremental processing
+- **Vector Index Rebuild**: Automatically rebuilds semantic vector indexes after distillation
+
+**Section sources**
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+
+### EventBus Component - Enhanced Error Handling
+The EventBus component now includes comprehensive schema validation and improved error handling mechanisms to ensure reliable event-driven communication.
+
+**Updated** Enhanced error handling and validation with strict event schema enforcement
+
+```mermaid
+sequenceDiagram
+participant Producer as "Event Producer"
+participant EB as "EventBus"
+participant Subscriber as "Event Subscriber"
+Producer->>EB : "publish(event, payload)"
+EB->>EB : "Validate against EVENT_SCHEMA"
+EB->>EB : "Check required fields"
+EB->>EB : "Deduplicate events (3s window)"
+EB->>Subscriber : "emit(event, payload)"
+```
+
+**Diagram sources**
+- [agent/core/EventBus.js](file://agent/core/EventBus.js)
+
+Key improvements:
+- **Schema Validation**: Strict validation against EVENT_SCHEMA registry
+- **Required Field Checking**: Ensures all required fields are present
+- **Event Deduplication**: Prevents duplicate events within 3-second window
+- **Audit Logging**: Comprehensive event audit trail for debugging
+
+**Section sources**
+- [agent/core/EventBus.js](file://agent/core/EventBus.js)
+
+### EvolutionPiper Component - Reliability Improvements
+The EvolutionPiper component now includes persistent cycle state management and enhanced sandbox spawning capabilities for improved reliability.
+
+**Updated** Added persistent cycle state management and improved sandbox reliability
+
+```mermaid
+flowchart TD
+A["EvolutionPiper.checkEvolutionBoundary()"] --> B["Load cycle state from disk"]
+B --> C["Initialize session start time"]
+C --> D["Check cycle limit (25 max)"]
+D --> E["Check session time limit (120 min)"]
+E --> F["Increment cycle counter"]
+F --> G["Persist cycle state atomically"]
+G --> H["Continue evolution cycle"]
+```
+
+**Diagram sources**
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
+
+Key reliability improvements:
+- **Persistent State Management**: Atomic persistence of cycle counters to `.evolution_state.json`
+- **Hard Limits**: Enforced maximum cycles (25) and session time (120 minutes)
+- **Dynamic APP_KEY Generation**: Secure random APP_KEY generation instead of hardcoded values
+- **Enhanced Timeout Handling**: Improved command execution timeouts and error handling
+
+**Section sources**
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
+
+### AssetEngine Component - Image Processing Enhancements
+The AssetEngine component now includes improved image processing capabilities with better error handling and dependency management.
+
+**Updated** Enhanced image processing with sharp dependency validation and better error handling
+
+```mermaid
+flowchart TD
+A["AssetEngine.process()"] --> B["Validate target path exists"]
+B --> C["Check requested action"]
+C --> D["CONVERT_TO_WEBP"]
+D --> E["Try sharp.webp() conversion"]
+E --> F{"sharp available?"}
+F --> |Yes| G["Convert to WebP format"]
+F --> |No| H["Warn about missing sharp dependency"]
+G --> I["Return true"]
+H --> J["Return false with installation guidance"]
+```
+
+**Diagram sources**
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+
+Key enhancements:
+- **Sharp Dependency Validation**: Explicit checks for sharp package availability
+- **Better Error Messages**: Clear guidance for installing sharp dependency
+- **Consistent Return Values**: Proper boolean return values instead of silent failures
+- **Format Support**: Enhanced support for JPG, JPEG, PNG, and WEBP formats
+
+**Section sources**
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+
+### BugHunter Component - Async I/O Improvements
+The BugHunter component has been completely rewritten to use asynchronous I/O operations, preventing event loop blocking and improving system responsiveness.
+
+**Updated** Converted to fully async I/O with proper state management
+
+```mermaid
+flowchart TD
+A["BugHunter.trackAttempt()"] --> B["Async loadLog()"]
+B --> C["Ensure loaded state"]
+C --> D["Get current attempt count"]
+D --> E["Increment attempt counter"]
+E --> F["Async saveLog()"]
+F --> G{"Exceeded MAX_ATTEMPTS?"}
+G --> |Yes| H["Return pivot recommendation"]
+G --> |No| I["Return normal tracking response"]
+```
+
+**Diagram sources**
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+
+Key improvements:
+- **Async I/O Operations**: Complete migration from synchronous to asynchronous file operations
+- **State Management**: Proper loading and saving of attempt logs with error handling
+- **Memory Efficiency**: Uses Map data structure for efficient state tracking
+- **Strategy Pivoting**: Implements 3-Fixes Rule with automatic pivot recommendations
+
+**Section sources**
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+
+### QueryOptimizer Component - Regex Loop Prevention
+The QueryOptimizer component now includes improved regex handling to prevent infinite loops and ensure reliable database migration analysis.
+
+**Updated** Fixed regex loop issues with matchAll() implementation
+
+```mermaid
+flowchart TD
+A["QueryOptimizer.scanMigrations()"] --> B["Find migration files"]
+B --> C["Read migration content"]
+C --> D["Use matchAll() instead of exec() loop"]
+D --> E["Extract foreign key references"]
+E --> F["Check for missing indexes"]
+F --> G["Generate findings report"]
+```
+
+**Diagram sources**
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
+
+Key improvements:
+- **Regex Loop Prevention**: Uses `matchAll()` instead of `exec()` loop to prevent infinite loops
+- **Zero-Length Match Handling**: Properly handles regex patterns that might match zero-length strings
+- **Database Migration Analysis**: Identifies missing indexes in foreign key declarations
+- **Performance Optimization**: More efficient regex processing for large migration files
+
+**Section sources**
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 
 ## Dependency Analysis
 The system exhibits strong cohesion within functional modules and moderate coupling through shared interfaces such as TaskProtocol, EventBus, and MemoryGovernor. Dependencies are primarily unidirectional from Nexus Engine to subsystems, minimizing circular dependencies.
@@ -460,6 +675,11 @@ OR --> NB["NativeBridge"]
 OR --> PR["ParallelRunner"]
 OR --> SX["SandboxExecutor"]
 OR --> WT["WorktreeManager"]
+NE --> AE["AssetEngine"]
+NE --> BH["BugHunter"]
+NE --> QO["QueryOptimizer"]
+NE --> DI["Distiller"]
+NE --> EV["EvolutionPiper"]
 ```
 
 **Diagram sources**
@@ -478,19 +698,34 @@ OR --> WT["WorktreeManager"]
 - [agent/core/ParallelRunner.js](file://agent/core/ParallelRunner.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
 - [agent/core/WorktreeManager.js](file://agent/core/WorktreeManager.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
 
 **Section sources**
 - [agent/core/NexusEngine.js](file://agent/core/NexusEngine.js)
 - [agent/core/Orchestrator.js](file://agent/core/Orchestrator.js)
 
 ## Performance Considerations
-- Concurrency and Parallelism: ParallelRunner enables concurrent task execution, reducing latency for multi-agent workflows.
-- Memory Efficiency: MemoryGovernor and RedisMemory provide scalable persistence and retrieval, with MemoryPipeline optimizing write throughput.
-- Scheduling and Timing: NexusClock and ResourceMonitor support deterministic scheduling and resource-aware execution.
-- Sandboxing: SandboxExecutor isolates potentially unsafe operations, preventing resource contention and improving stability.
-- Monitoring: ResourceMonitor and Logging components provide observability for performance tuning.
+- **Concurrent Processing**: ParallelRunner enables concurrent task execution, reducing latency for multi-agent workflows.
+- **Memory Efficiency**: MemoryGovernor and RedisMemory provide scalable persistence and retrieval, with MemoryPipeline optimizing write throughput.
+- **Scheduling and Timing**: NexusClock and ResourceMonitor support deterministic scheduling and resource-aware execution.
+- **Sandboxing**: SandboxExecutor isolates potentially unsafe operations, preventing resource contention and improving stability.
+- **Monitoring**: ResourceMonitor and Logging components provide observability for performance tuning.
+- **Optimized Distillation**: Distiller now uses pre-compiled regex patterns to reduce semantic linking complexity from O(n²) to O(n).
+- **Async Operations**: All tools now use asynchronous I/O to prevent event loop blocking and improve system responsiveness.
+- **Schema Validation**: EventBus provides strict event validation to prevent malformed events from causing system instability.
 
-[No sources needed since this section provides general guidance]
+**Updated** Enhanced performance through optimized distillation algorithms, async I/O operations, and improved error handling mechanisms
+
+**Section sources**
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+- [agent/core/EventBus.js](file://agent/core/EventBus.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 
 ## Troubleshooting Guide
 Common areas to investigate during troubleshooting:
@@ -498,7 +733,14 @@ Common areas to investigate during troubleshooting:
 - Memory Governor: Confirm memory layer selection and Redis connectivity.
 - Decision Engine: Review decision logs and feedback loops.
 - Orchestrator: Inspect task protocol compliance and event bus subscriptions.
-- Logging and Error Handling: Use Logger and NexusError for diagnostics.
+- Distiller: Check semantic linking performance and vector index rebuilding.
+- EventBus: Verify event schema validation and audit log integrity.
+- EvolutionPiper: Monitor cycle state persistence and sandbox spawning.
+- AssetEngine: Ensure sharp dependency is properly installed for image processing.
+- BugHunter: Check async I/O operations and attempt log persistence.
+- QueryOptimizer: Validate regex pattern matching and migration analysis.
+
+**Updated** Enhanced troubleshooting guidance for new performance optimizations and reliability improvements
 
 **Section sources**
 - [agent/core/Logger.js](file://agent/core/Logger.js)
@@ -507,9 +749,17 @@ Common areas to investigate during troubleshooting:
 - [agent/core/MemoryGovernor.js](file://agent/core/MemoryGovernor.js)
 - [agent/core/DecisionEngine.js](file://agent/core/DecisionEngine.js)
 - [agent/core/Orchestrator.js](file://agent/core/Orchestrator.js)
+- [agent/core/Distiller.js](file://agent/core/Distiller.js)
+- [agent/core/EventBus.js](file://agent/core/EventBus.js)
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
+- [agent/tools/AssetEngine.js](file://agent/tools/AssetEngine.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
+- [agent/tools/QueryOptimizer.js](file://agent/tools/QueryOptimizer.js)
 
 ## Conclusion
-The NEXUS AI core architecture centers on a robust Nexus Engine coordinating specialized agents, intelligent memory management, strategic decision-making, and workflow orchestration. The modular design, event-driven communication, and layered memory architecture enable scalability, maintainability, and adaptability. Infrastructure and deployment considerations emphasize containerization, persistent storage, and observability to support autonomous operation.
+The NEXUS AI core architecture centers on a robust Nexus Engine coordinating specialized agents, intelligent memory management, strategic decision-making, and workflow orchestration. Recent performance optimizations have significantly improved system efficiency, particularly in the Distiller component's semantic linking algorithms, while maintaining the modular design, event-driven communication, and layered memory architecture that enable scalability, maintainability, and adaptability. Infrastructure and deployment considerations emphasize containerization, persistent storage, and observability to support autonomous operation.
+
+**Updated** Enhanced conclusion reflecting recent performance optimizations and reliability improvements across core components
 
 [No sources needed since this section summarizes without analyzing specific files]
 
@@ -520,6 +770,7 @@ The NEXUS AI core architecture centers on a robust Nexus Engine coordinating spe
 - Containerization with Docker and Docker Compose
 - Redis for memory persistence
 - Testing frameworks and CI workflows
+- Sharp library for advanced image processing (optional)
 
 **Section sources**
 - [package.json](file://package.json)
@@ -530,6 +781,9 @@ The NEXUS AI core architecture centers on a robust Nexus Engine coordinating spe
 - Containerized deployment using Docker and Docker Compose
 - Persistent volume for Redis-backed memory
 - Optional CI/CD pipelines for automated testing and publishing
+- Sharp library installation for advanced image processing capabilities
+
+**Updated** Added optional sharp dependency for enhanced image processing
 
 **Section sources**
 - [Dockerfile](file://Dockerfile)
@@ -542,6 +796,10 @@ The NEXUS AI core architecture centers on a robust Nexus Engine coordinating spe
 - Event-driven logging and error handling for auditability
 - Memory governance and semantic indexing for data integrity
 - CI/CD pipelines supporting automated testing and release management
+- Persistent state management for critical system components
+- Async I/O operations to prevent system resource exhaustion
+
+**Updated** Enhanced security and reliability features including persistent state management and async operation improvements
 
 **Section sources**
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
@@ -550,10 +808,16 @@ The NEXUS AI core architecture centers on a robust Nexus Engine coordinating spe
 - [agent/core/SemanticEngine.js](file://agent/core/SemanticEngine.js)
 - [memory/INDEX.md](file://memory/INDEX.md)
 - [memory/INDEX_NEURAL_MAP.md](file://memory/INDEX_NEURAL_MAP.md)
+- [agent/core/EvolutionPiper.js](file://agent/core/EvolutionPiper.js)
+- [agent/tools/BugHunter.js](file://agent/tools/BugHunter.js)
 
 ### Version Compatibility and Standards
 - Architectural guidelines and standards documented in the repository
 - Golden protocols and workflow standards for consistent behavior
+- Performance optimization standards for core component improvements
+- Async I/O best practices for system reliability
+
+**Updated** Added performance optimization and async I/O standards
 
 **Section sources**
 - [documentation/nexus_rules/architecture.md](file://documentation/nexus_rules/architecture.md)
@@ -569,6 +833,10 @@ The NEXUS AI core architecture centers on a robust Nexus Engine coordinating spe
 
 ### Test Coverage and Validation
 - Unit and integration tests validate core components including Nexus Engine, Orchestrator, Memory Governor, and specialized modules.
+- Performance regression tests ensure optimizations maintain system reliability.
+- Async operation validation confirms non-blocking I/O implementations.
+
+**Updated** Enhanced test coverage for performance optimizations and async improvements
 
 **Section sources**
 - [tests/TDD/nexus-engine.test.js](file://tests/TDD/nexus-engine.test.js)

@@ -27,10 +27,16 @@
 - [tests/TDD/runner.js](file://tests/TDD/runner.js)
 - [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
 - [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/phase1_testing.js](file://tests/TDD/phase1_testing.js)
+- [tests/TDD/setup_section2.js](file://tests/TDD/setup_section2.js)
+- [tests/TDD/setup_section3.js](file://tests/TDD/setup_section3.js)
+- [tests/TDD/upgrade_to_tall.js](file://tests/TDD/upgrade_to_tall.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
 - [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
 - [tests/test-vector.js](file://tests/test-vector.js)
 - [e2e/example.spec.js](file://e2e/example.spec.js)
-- [memory/distilled/tdd/NEXUS_TDD_PROJECT_1_LOG.md](file://memory/distilled/tdd/NEXUS_TDD_PROJECT_1_LOG.md)
+- [memory/distilled/tdd/NEXUS_TDD_PROJECT_1_LOG.MD](file://memory/distilled/tdd/NEXUS_TDD_PROJECT_1_LOG.MD)
 - [memory/distilled/tdd/NEXUS_TDD_INSIGHTS.MD](file://memory/distilled/tdd/NEXUS_TDD_INSIGHTS.MD)
 - [memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md](file://memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md)
 - [memory/distilled/database/NEXUS_DATABASE_TESTING.md](file://memory/distilled/database/NEXUS_DATABASE_TESTING.md)
@@ -122,27 +128,39 @@
 - [memory/distilled/core/NEXUS_ORCHESTRATOR_GOLDEN_PROTOCOL.MD](file://memory/distilled/core/NEXUS_ORCHESTRATOR_GOLDEN_PROTOCOL.MD)
 </cite>
 
+## Update Summary
+**Changes Made**
+- Enhanced sandbox project setup with improved template management and DRY architecture
+- Expanded pipeline testing with dynamic section handling for scalable TDD workflows
+- Added resource monitoring and stress management capabilities for production-like testing
+- Implemented unified sandbox project setup module replacing duplicated code across sections
+- Introduced 100-project testing framework with structured section-based testing approach
+
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Project Structure](#project-structure)
 3. [Core Components](#core-components)
 4. [Architecture Overview](#architecture-overview)
 5. [Detailed Component Analysis](#detailed-component-analysis)
-6. [Dependency Analysis](#dependency-analysis)
-7. [Performance Considerations](#performance-considerations)
-8. [Troubleshooting Guide](#troubleshooting-guide)
-9. [Conclusion](#conclusion)
-10. [Appendices](#appendices)
+6. [Enhanced Testing Infrastructure](#enhanced-testing-infrastructure)
+7. [Dynamic Section Handling](#dynamic-section-handling)
+8. [Dependency Analysis](#dependency-analysis)
+9. [Performance Considerations](#performance-considerations)
+10. [Troubleshooting Guide](#troubleshooting-guide)
+11. [Conclusion](#conclusion)
+12. [Appendices](#appendices)
 
 ## Introduction
 This document describes the NEXUS AI testing framework and methodologies. It explains the Test-Driven Development (TDD) implementation, automated testing pipelines, and quality assurance processes. It covers Nexus Engine testing, Orchestrator validation, and Memory Governor testing procedures. It also documents the testing infrastructure including sandbox environments, pipeline tests, and vector-based testing approaches. Finally, it provides guidelines for writing effective tests, continuous integration workflows, and performance testing strategies, along with the tools and best practices used throughout the development lifecycle.
+
+**Updated** Enhanced with improved sandbox project setup capabilities, expanded pipeline testing, and dynamic section handling improvements in TDD testing framework.
 
 ## Project Structure
 The testing system is organized around:
 - CI/CD workflows under .github/workflows
 - Core agent modules under agent/core implementing Nexus Engine, Orchestrator, MemoryGovernor, and related components
-- TDD test suites under tests/TDD
-- Pipeline and sandbox tests under tests/
+- TDD test suites under tests/TDD with enhanced sandbox infrastructure
+- Pipeline and sandbox tests under tests/ with dynamic section handling
 - E2E tests under e2e/
 - Documentation and distilled knowledge under memory/distilled
 
@@ -159,7 +177,17 @@ MG["MemoryGovernor.js"]
 MP["MemoryPipeline.js"]
 SE["SandboxExecutor.js"]
 end
-subgraph "TDD Tests"
+subgraph "Enhanced TDD Infrastructure"
+SPS["SandboxProjectSetup.js"]
+SDS["setup_dynamic_section.js"]
+P1["phase1_testing.js"]
+S2["setup_section2.js"]
+S3["setup_section3.js"]
+UMR["sandbox-master-runner.js"]
+UTT["upgrade_to_tall.js"]
+PDATA["100-projects-data.js"]
+end
+subgraph "Traditional TDD Tests"
 TNE["nexus-engine.test.js"]
 TOR["Orchestrator.test.js"]
 TMG["MemoryGovernor.test.js"]
@@ -168,33 +196,26 @@ TDI["distiller.test.js"]
 TTG["TDDGuard.test.js"]
 TSIM["similarity.test.js"]
 TR["runner.js"]
-TSR["sandbox-master-runner.js"]
-SSP["SandboxProjectSetup.js"]
 end
-subgraph "Other Tests"
+subgraph "Supporting Tests"
 PIP["pipeline_internal_test.js"]
 TV["test-vector.js"]
 E2E["example.spec.js"]
 end
-CI --> TR
-NP --> TR
-TR --> TNE
-TR --> TOR
-TR --> TMG
-TR --> TEP
-TR --> TDI
-TR --> TTG
-TR --> TSIM
-TR --> TSR
-TR --> SSP
-TR --> PIP
-TR --> TV
-TR --> E2E
-NE --> TNE
-OR --> TOR
-MG --> TMG
-MP --> TEP
-SE --> SSP
+CI --> UMR
+NP --> UMR
+UMR --> SDS
+UMR --> P1
+UMR --> S2
+UMR --> S3
+UMR --> UTT
+SDS --> SPS
+P1 --> SPS
+S2 --> SPS
+S3 --> SPS
+SPS --> NE
+SPS --> MP
+SPS --> SE
 ```
 
 **Diagram sources**
@@ -205,6 +226,14 @@ SE --> SSP
 - [agent/core/MemoryGovernor.js](file://agent/core/MemoryGovernor.js)
 - [agent/core/MemoryPipeline.js](file://agent/core/MemoryPipeline.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/phase1_testing.js](file://tests/TDD/phase1_testing.js)
+- [tests/TDD/setup_section2.js](file://tests/TDD/setup_section2.js)
+- [tests/TDD/setup_section3.js](file://tests/TDD/setup_section3.js)
+- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
+- [tests/TDD/upgrade_to_tall.js](file://tests/TDD/upgrade_to_tall.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
 - [tests/TDD/nexus-engine.test.js](file://tests/TDD/nexus-engine.test.js)
 - [tests/TDD/Orchestrator.test.js](file://tests/TDD/Orchestrator.test.js)
 - [tests/TDD/MemoryGovernor.test.js](file://tests/TDD/MemoryGovernor.test.js)
@@ -213,8 +242,6 @@ SE --> SSP
 - [tests/TDD/TDDGuard.test.js](file://tests/TDD/TDDGuard.test.js)
 - [tests/TDD/similarity.test.js](file://tests/TDD/similarity.test.js)
 - [tests/TDD/runner.js](file://tests/TDD/runner.js)
-- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
-- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
 - [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
 - [tests/test-vector.js](file://tests/test-vector.js)
 - [e2e/example.spec.js](file://e2e/example.spec.js)
@@ -232,9 +259,11 @@ SE --> SSP
 - Memory Governor: Manages memory resources and constraints; tested with unit tests and sandbox scenarios.
 - Memory Pipeline: Processes and transforms memory streams; validated in TDD and pipeline tests.
 - Sandbox Executor: Executes isolated tasks; integrated into sandbox master runner and project setup.
-- TDD Tools: Guard, Scaffolder, and Validator support TDD workflows and code quality checks.
-- TDD Runner: Orchestrates test execution across modules and environments.
-- E2E: Playwright-based end-to-end tests for UI and integration scenarios.
+- **Enhanced Sandbox Infrastructure**: Unified SandboxProjectSetup module with improved template management and resource monitoring.
+- **Dynamic Section Handling**: Scalable testing framework supporting 100+ projects across 10 sections with automated resource management.
+- **TDD Tools**: Guard, Scaffolder, and Validator support TDD workflows and code quality checks.
+- **TDD Runner**: Orchestrates test execution across modules and environments.
+- **E2E**: Playwright-based end-to-end tests for UI and integration scenarios.
 
 Key TDD artifacts and references:
 - TDD project logs and insights under memory/distilled/tdd
@@ -256,34 +285,43 @@ Key TDD artifacts and references:
 - [memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md](file://memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md)
 
 ## Architecture Overview
-The testing architecture integrates CI/CD, TDD runners, and modular test suites. The CI workflows trigger the TDD runner, which executes unit tests for Nexus Engine, Orchestrator, Memory Governor, and other components. Pipeline and sandbox tests complement unit tests, while E2E tests validate end-to-end flows.
+The testing architecture integrates CI/CD, TDD runners, and modular test suites. The CI workflows trigger the TDD runner, which executes unit tests for Nexus Engine, Orchestrator, Memory Governor, and other components. Enhanced sandbox infrastructure provides scalable testing across 100+ projects with dynamic section handling and resource monitoring. Pipeline and sandbox tests complement unit tests, while E2E tests validate end-to-end flows.
 
 ```mermaid
 sequenceDiagram
 participant Dev as "Developer"
 participant CI as "CI Workflow"
-participant Runner as "TDD Runner"
+participant Master as "Master Runner"
+participant Dynamic as "Dynamic Section Handler"
+participant Sandbox as "Sandbox Setup"
 participant Unit as "Unit Tests"
 participant Pipe as "Pipeline Tests"
-participant Sand as "Sandbox Tests"
 participant E2E as "E2E Tests"
 Dev->>CI : Push/Pull Request
-CI->>Runner : Invoke test execution
-Runner->>Unit : Run nexus-engine.test.js
-Runner->>Unit : Run Orchestrator.test.js
-Runner->>Unit : Run MemoryGovernor.test.js
-Runner->>Unit : Run EvolutionPiper.test.js
-Runner->>Unit : Run distiller.test.js
-Runner->>Unit : Run TDDGuard.test.js
-Runner->>Unit : Run similarity.test.js
-Runner->>Pipe : Execute pipeline_internal_test.js
-Runner->>Sand : Execute sandbox-master-runner.js
-Runner->>E2E : Execute example.spec.js
-Runner-->>CI : Report results
+CI->>Master : Invoke test execution
+Master->>Dynamic : Handle 10 sections
+Dynamic->>Sandbox : Setup projects with resource monitoring
+Sandbox->>Sandbox : Ensure template availability
+Sandbox->>Sandbox : Install from fresh Laravel template
+Sandbox->>Sandbox : Configure environment & migrate
+Sandbox->>Sandbox : Run Nexus autonomous cycle
+Master->>Unit : Run nexus-engine.test.js
+Master->>Unit : Run Orchestrator.test.js
+Master->>Unit : Run MemoryGovernor.test.js
+Master->>Unit : Run EvolutionPiper.test.js
+Master->>Unit : Run distiller.test.js
+Master->>Unit : Run TDDGuard.test.js
+Master->>Unit : Run similarity.test.js
+Master->>Pipe : Execute pipeline_internal_test.js
+Master->>E2E : Execute example.spec.js
+Master-->>CI : Report results
 ```
 
 **Diagram sources**
 - [.github/workflows/ci.yml](file://.github/workflows/ci.yml)
+- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
 - [tests/TDD/runner.js](file://tests/TDD/runner.js)
 - [tests/TDD/nexus-engine.test.js](file://tests/TDD/nexus-engine.test.js)
 - [tests/TDD/Orchestrator.test.js](file://tests/TDD/Orchestrator.test.js)
@@ -293,7 +331,6 @@ Runner-->>CI : Report results
 - [tests/TDD/TDDGuard.test.js](file://tests/TDD/TDDGuard.test.js)
 - [tests/TDD/similarity.test.js](file://tests/TDD/similarity.test.js)
 - [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
-- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
 - [e2e/example.spec.js](file://e2e/example.spec.js)
 
 ## Detailed Component Analysis
@@ -431,64 +468,6 @@ SIM_Test-->>Runner : Report pass/fail
 **Section sources**
 - [tests/TDD/similarity.test.js](file://tests/TDD/similarity.test.js)
 
-### Sandbox Environment and Master Runner
-Sandbox tests and the master runner coordinate isolated execution environments for robust validation.
-
-```mermaid
-sequenceDiagram
-participant Runner as "TDD Runner"
-participant SSR as "sandbox-master-runner.js"
-participant SSP as "SandboxProjectSetup.js"
-Runner->>SSR : Start sandbox master runner
-SSR->>SSP : Initialize sandbox project
-SSR-->>Runner : Report sandbox results
-```
-
-**Diagram sources**
-- [tests/TDD/runner.js](file://tests/TDD/runner.js)
-- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
-- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
-
-**Section sources**
-- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
-- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
-
-### Pipeline Tests
-Pipeline tests validate internal pipeline behavior and remediation processes.
-
-```mermaid
-sequenceDiagram
-participant Runner as "TDD Runner"
-participant PIP as "pipeline_internal_test.js"
-Runner->>PIP : Execute pipeline tests
-PIP-->>Runner : Report pass/fail
-```
-
-**Diagram sources**
-- [tests/TDD/runner.js](file://tests/TDD/runner.js)
-- [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
-
-**Section sources**
-- [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
-
-### Vector-Based Testing
-Vector-based tests evaluate semantic similarity and retrieval accuracy.
-
-```mermaid
-sequenceDiagram
-participant Runner as "TDD Runner"
-participant TV as "test-vector.js"
-Runner->>TV : Execute vector tests
-TV-->>Runner : Report pass/fail
-```
-
-**Diagram sources**
-- [tests/TDD/runner.js](file://tests/TDD/runner.js)
-- [tests/test-vector.js](file://tests/test-vector.js)
-
-**Section sources**
-- [tests/test-vector.js](file://tests/test-vector.js)
-
 ### E2E Testing
 End-to-end tests use Playwright to validate UI and integration flows.
 
@@ -511,82 +490,200 @@ E2E-->>Runner : Report pass/fail
 - [e2e/example.spec.js](file://e2e/example.spec.js)
 - [playwright.config.js](file://playwright.config.js)
 
+## Enhanced Testing Infrastructure
+
+### Unified Sandbox Project Setup
+The enhanced testing infrastructure centers around the SandboxProjectSetup module, which replaces duplicated setup logic across multiple sections and provides a unified approach to sandbox project creation.
+
+**Key Features:**
+- **Template Management**: Ensures fresh Laravel template availability via Composer
+- **Resource Monitoring**: Integrates with ResourceMonitor for stress-aware execution
+- **Backup/Restore**: Preserves Nexus knowledge between project generations
+- **Blueprint Regeneration**: Always regenerates blueprints for consistency
+- **Performance Optimization**: Reuses node_modules and vendor dependencies when available
+
+```mermaid
+sequenceDiagram
+participant Setup as "SandboxProjectSetup"
+participant Template as "Laravel Template"
+participant FS as "File System"
+participant Engine as "NexusEngine"
+Setup->>Template : Ensure template availability
+Template->>FS : Create fresh Laravel project
+Setup->>FS : Configure .env settings
+Setup->>FS : Restore Nexus knowledge
+Setup->>FS : Generate project README
+Setup->>FS : Remove old blueprint
+Setup->>FS : Migrate SQLite database
+Setup->>Engine : Run autonomous cycle
+Engine-->>Setup : Return results
+Setup-->>Caller : Complete project setup
+```
+
+**Diagram sources**
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
+
+**Section sources**
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
+
+### Dynamic Section Handling
+The testing framework now supports dynamic section handling through setup_dynamic_section.js, enabling scalable testing across 10 different sections with varying project types and complexity levels.
+
+**Dynamic Section Capabilities:**
+- **Scalable Testing**: Supports 100+ projects across 10 sections
+- **Resource Awareness**: Monitors system resources and adjusts execution accordingly
+- **Progress Tracking**: Provides real-time progress indicators and ETA calculations
+- **Error Management**: Comprehensive error logging and recovery mechanisms
+- **Flexible Configuration**: Supports different modes (learning, efficient) per section
+
+```mermaid
+flowchart TD
+A[Start Dynamic Section] --> B{Check Template}
+B --> |Available| C[Initialize Setup]
+B --> |Missing| D[Create Template]
+D --> C
+C --> E[Load Section Data]
+E --> F[Resource Monitor Check]
+F --> |Normal| G[Process Projects]
+F --> |Pause| H[Wait 30s]
+F --> |Throttle| I[Add 10s Delay]
+G --> J[Log Progress]
+J --> K{More Projects?}
+K --> |Yes| F
+K --> |No| L[Complete Section]
+H --> F
+I --> F
+```
+
+**Diagram sources**
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
+
+**Section sources**
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
+
+### Master Runner Architecture
+The sandbox-master-runner.js coordinates execution across all 10 sections, providing a centralized entry point for comprehensive testing workflows.
+
+**Master Runner Features:**
+- **Section Selection**: Run specific sections or all sections
+- **Distillation Support**: Optional knowledge distillation after completion
+- **Progress Reporting**: Comprehensive execution tracking and reporting
+- **Error Handling**: Graceful handling of section failures
+- **Interactive Confirmation**: Safe distillation with user confirmation
+
+**Section sources**
+- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
+
+## Dynamic Section Handling
+
+### Section-Based Testing Framework
+The framework now supports structured testing across 10 distinct sections, each focusing on specific Laravel TALL stack challenges and complexity levels.
+
+**Section Categories:**
+- **Section 1**: Fundamental CRUD & Authentication (10 projects)
+- **Section 2**: Dashboard & Admin Panels (10 projects)
+- **Section 3**: Security & Realtime (11 projects)
+- **Sections 4-10**: Specialized domains with increasing complexity
+
+**Section Configuration:**
+Each section defines its own project list, tags, execution mode, and project characteristics through the 100-projects-data.js configuration.
+
+**Section sources**
+- [tests/TDD/phase1_testing.js](file://tests/TDD/phase1_testing.js)
+- [tests/TDD/setup_section2.js](file://tests/TDD/setup_section2.js)
+- [tests/TDD/setup_section3.js](file://tests/TDD/setup_section3.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
+
+### Upgrade to Fresh Laravel Templates
+The upgrade_to_tall.js script provides backward compatibility by upgrading existing sandbox projects to use fresh Laravel templates instead of the legacy url-shortener approach.
+
+**Upgrade Process:**
+- **Knowledge Preservation**: Backs up and restores Nexus knowledge
+- **Template Migration**: Replaces project structure with fresh Laravel installation
+- **Configuration Updates**: Updates .env files with project-specific settings
+- **Sequential Processing**: Handles upgrades systematically across all Phase 1 projects
+
+**Section sources**
+- [tests/TDD/upgrade_to_tall.js](file://tests/TDD/upgrade_to_tall.js)
+
 ## Dependency Analysis
-The testing system exhibits clear separation of concerns:
-- CI/CD workflows depend on the TDD runner
-- The TDD runner depends on individual test suites
-- Test suites depend on agent core modules
+The testing system exhibits clear separation of concerns with enhanced sandbox infrastructure:
+- CI/CD workflows depend on the master runner
+- The master runner depends on dynamic section handlers and unified sandbox setup
+- Dynamic sections depend on sandbox project setup and resource monitoring
+- Sandbox setup depends on Nexus Engine and template management
+- Individual test suites depend on agent core modules
 - E2E tests depend on Playwright configuration
 
 ```mermaid
 graph LR
-CI[".github/workflows/ci.yml"] --> RUN["tests/TDD/runner.js"]
-NP[".github/workflows/npm-publish.yml"] --> RUN
-RUN --> NE_T["tests/TDD/nexus-engine.test.js"]
-RUN --> OR_T["tests/TDD/Orchestrator.test.js"]
-RUN --> MG_T["tests/TDD/MemoryGovernor.test.js"]
-RUN --> EP_T["tests/TDD/EvolutionPiper.test.js"]
-RUN --> DI_T["tests/TDD/distiller.test.js"]
-RUN --> TG_T["tests/TDD/TDDGuard.test.js"]
-RUN --> SIM_T["tests/TDD/similarity.test.js"]
-RUN --> SR["tests/TDD/sandbox-master-runner.js"]
-RUN --> SP["tests/TDD/SandboxProjectSetup.js"]
-RUN --> PIP["tests/pipeline_internal_test.js"]
-RUN --> TV["tests/test-vector.js"]
-RUN --> E2E["e2e/example.spec.js"]
-NE_T --> NE["agent/core/NexusEngine.js"]
-OR_T --> OR["agent/core/Orchestrator.js"]
-MG_T --> MG["agent/core/MemoryGovernor.js"]
-EP_T --> MP["agent/core/MemoryPipeline.js"]
-SR --> SE["agent/core/SandboxExecutor.js"]
+CI[".github/workflows/ci.yml"] --> MR["tests/TDD/sandbox-master-runner.js"]
+NP[".github/workflows/npm-publish.yml"] --> MR
+MR --> SDS["tests/TDD/setup_dynamic_section.js"]
+MR --> P1["tests/TDD/phase1_testing.js"]
+MR --> S2["tests/TDD/setup_section2.js"]
+MR --> S3["tests/TDD/setup_section3.js"]
+MR --> UTT["tests/TDD/upgrade_to_tall.js"]
+SDS --> SPS["tests/TDD/SandboxProjectSetup.js"]
+P1 --> SPS
+S2 --> SPS
+S3 --> SPS
+SPS --> NE["agent/core/NexusEngine.js"]
+SPS --> MP["agent/core/MemoryPipeline.js"]
+SPS --> SE["agent/core/SandboxExecutor.js"]
+SDS --> RM["agent/core/ResourceMonitor.js"]
+PDATA["tests/TDD/100-projects-data.js"] --> SDS
 ```
 
 **Diagram sources**
 - [.github/workflows/ci.yml](file://.github/workflows/ci.yml)
 - [.github/workflows/npm-publish.yml](file://.github/workflows/npm-publish.yml)
-- [tests/TDD/runner.js](file://tests/TDD/runner.js)
-- [tests/TDD/nexus-engine.test.js](file://tests/TDD/nexus-engine.test.js)
-- [tests/TDD/Orchestrator.test.js](file://tests/TDD/Orchestrator.test.js)
-- [tests/TDD/MemoryGovernor.test.js](file://tests/TDD/MemoryGovernor.test.js)
-- [tests/TDD/EvolutionPiper.test.js](file://tests/TDD/EvolutionPiper.test.js)
-- [tests/TDD/distiller.test.js](file://tests/TDD/distiller.test.js)
-- [tests/TDD/TDDGuard.test.js](file://tests/TDD/TDDGuard.test.js)
-- [tests/TDD/similarity.test.js](file://tests/TDD/similarity.test.js)
 - [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/phase1_testing.js](file://tests/TDD/phase1_testing.js)
+- [tests/TDD/setup_section2.js](file://tests/TDD/setup_section2.js)
+- [tests/TDD/setup_section3.js](file://tests/TDD/setup_section3.js)
+- [tests/TDD/upgrade_to_tall.js](file://tests/TDD/upgrade_to_tall.js)
 - [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
-- [tests/pipeline_internal_test.js](file://tests/pipeline_internal_test.js)
-- [tests/test-vector.js](file://tests/test-vector.js)
-- [e2e/example.spec.js](file://e2e/example.spec.js)
+- [tests/TDD/100-projects-data.js](file://tests/TDD/100-projects-data.js)
 - [agent/core/NexusEngine.js](file://agent/core/NexusEngine.js)
-- [agent/core/Orchestrator.js](file://agent/core/Orchestrator.js)
-- [agent/core/MemoryGovernor.js](file://agent/core/MemoryGovernor.js)
 - [agent/core/MemoryPipeline.js](file://agent/core/MemoryPipeline.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
+- [agent/core/ResourceMonitor.js](file://agent/core/ResourceMonitor.js)
 
 **Section sources**
-- [tests/TDD/runner.js](file://tests/TDD/runner.js)
+- [tests/TDD/sandbox-master-runner.js](file://tests/TDD/sandbox-master-runner.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
 - [agent/core/NexusEngine.js](file://agent/core/NexusEngine.js)
 - [agent/core/Orchestrator.js](file://agent/core/Orchestrator.js)
 - [agent/core/MemoryGovernor.js](file://agent/core/MemoryGovernor.js)
 - [agent/core/MemoryPipeline.js](file://agent/core/MemoryPipeline.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
+- [agent/core/ResourceMonitor.js](file://agent/core/ResourceMonitor.js)
 
 ## Performance Considerations
 - Modular test suites enable selective execution and faster feedback loops.
+- **Enhanced Resource Management**: Dynamic sections implement stress-aware execution with automatic throttling and pausing.
+- **Template Reuse**: SandboxProjectSetup optimizes performance by reusing node_modules and vendor dependencies.
+- **Progressive Scaling**: 100+ project testing framework scales efficiently with resource monitoring.
 - Vector-based and pipeline tests isolate heavy computations for focused evaluation.
 - E2E tests should be minimized and targeted to reduce CI runtime.
 - Use sandbox environments to avoid flakiness and resource contention.
 - Leverage CI caching and parallelism to optimize build and test throughput.
 
-[No sources needed since this section provides general guidance]
-
 ## Troubleshooting Guide
 Common issues and resolutions:
-- Flaky tests: Use deterministic fixtures and sandbox environments; re-run failed tests in isolation.
-- CI failures: Review CI logs and ensure runner dependencies are installed; validate environment variables.
-- E2E instability: Configure Playwright timeouts and retries; ensure browser compatibility.
-- Memory Governor violations: Add assertions for memory limits and resource usage; simulate constrained environments.
-- TDD guard failures: Align code with TDD laws and scaffolding; ensure tests drive implementation.
+- **Flaky tests**: Use deterministic fixtures and sandbox environments; re-run failed tests in isolation.
+- **CI failures**: Review CI logs and ensure runner dependencies are installed; validate environment variables.
+- **E2E instability**: Configure Playwright timeouts and retries; ensure browser compatibility.
+- **Memory Governor violations**: Add assertions for memory limits and resource usage; simulate constrained environments.
+- **TDD guard failures**: Align code with TDD laws and scaffolding; ensure tests drive implementation.
+- **Template creation failures**: Ensure Composer and PHP are installed and accessible in PATH.
+- **Resource monitoring issues**: Verify system resource availability; adjust stress thresholds as needed.
+- **Dynamic section timeouts**: Monitor system resources; consider reducing concurrent project count.
 
 Reference materials:
 - TDD project logs and insights for historical context and lessons learned
@@ -599,9 +696,7 @@ Reference materials:
 - [memory/distilled/core/NEXUS_TDD_IRON_LAWS.md](file://memory/distilled/core/NEXUS_TDD_IRON_LAWS.md)
 
 ## Conclusion
-The NEXUS AI testing framework integrates CI/CD, TDD, and quality assurance practices across Nexus Engine, Orchestrator, Memory Governor, and supporting components. The modular test suites, sandbox environments, and vector-based validations provide robust coverage. Adhering to documented TDD laws and QA standards ensures maintainable, reliable, and high-performance systems.
-
-[No sources needed since this section summarizes without analyzing specific files]
+The NEXUS AI testing framework integrates CI/CD, TDD, and quality assurance practices across Nexus Engine, Orchestrator, Memory Governor, and supporting components. The enhanced modular test suites, unified sandbox infrastructure, and scalable dynamic section handling provide comprehensive coverage for 100+ projects across diverse Laravel TALL stack scenarios. The improved resource monitoring, template management, and DRY architecture ensure maintainable, reliable, and high-performance testing infrastructure.
 
 ## Appendices
 
@@ -616,18 +711,24 @@ The NEXUS AI testing framework integrates CI/CD, TDD, and quality assurance prac
 ### Tools and Frameworks
 - Playwright for E2E testing
 - Node-based TDD runner and test suites
-- Sandbox executor for isolated execution
+- **Enhanced**: Sandbox executor with resource monitoring for isolated execution
+- **New**: Unified SandboxProjectSetup module for template management
+- **New**: Dynamic section handling for scalable testing workflows
 
 **Section sources**
 - [playwright.config.js](file://playwright.config.js)
 - [tests/TDD/runner.js](file://tests/TDD/runner.js)
 - [agent/core/SandboxExecutor.js](file://agent/core/SandboxExecutor.js)
+- [tests/TDD/SandboxProjectSetup.js](file://tests/TDD/SandboxProjectSetup.js)
+- [tests/TDD/setup_dynamic_section.js](file://tests/TDD/setup_dynamic_section.js)
 
 ### Best Practices and Standards
 - TDD Iron Laws and project insights
 - QA standards and zero-flaws principles
 - Database and performance standards
-- Sandbox pipeline and audit reports
+- **Enhanced**: Sandbox pipeline and audit reports with resource monitoring
+- **New**: Dynamic section testing guidelines and scalability considerations
+- **New**: Template management best practices for consistent project generation
 
 **Section sources**
 - [memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md](file://memory/distilled/tdd/NEXUS_TDD_IRON_LAWS.md)

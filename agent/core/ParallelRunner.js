@@ -17,6 +17,8 @@ class ParallelRunner {
         const worker = async () => {
             while (index < items.length) {
                 const currentIndex = index++;
+                // FIX: Stagger antar task paralel agar CPU LLM tidak langsung hit 100% dari 3 thread bersamaan
+                await new Promise(r => setTimeout(r, 500));
                 try {
                     results[currentIndex] = await taskFn(items[currentIndex]);
                 } catch (e) {

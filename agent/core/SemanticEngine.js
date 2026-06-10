@@ -212,8 +212,8 @@ class SemanticEngine {
             // FIX #28 — Truncate to 3000 chars to avoid 400 Bad Request (token limit exceeded)
             embedding = await this.getEmbedding(cleaned.substring(0, 3000));
             if (embedding) embeddedCount++;
-            // FIX #26 — Small delay between embeddings to reduce Ollama contention
-            if (embeddedCount % 5 === 0) await this._sleep(200);
+            // FIX: Tambah delay jadi 1000ms agar Ollama/CPU ada nafas
+            if (embeddedCount % 5 === 0) await this._sleep(1000);
         }
 
         this.fileIndex.push({

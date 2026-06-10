@@ -97,7 +97,7 @@ class LocalIntelligence {
         this.model = await this.llama.loadModel({
           modelPath: this.modelPath,
           // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: 18, // Full GPU offload untuk Llama 3.2 1B (16 layers)
+          gpuLayers: 24, // Full GPU offload untuk Llama 3.2 1B (16 layers)
         });
         console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
       }
@@ -318,16 +318,16 @@ class LocalIntelligence {
     }
 
     // ── JALUR LAMBAT: LOCAL NODE-LLAMA-CPP (FALLBACK) ──
-    // FIX: Reduced from MAX_TOKENS (32768) to 16384 for non-builder tasks
-    // to prevent VRAM exhaustion that kills the self-healing pipeline.
-    const contextSize = isBuilderTask ? 8192 : 16384;
+    // FIX: Diturunkan menjadi 4096 untuk mencegah RAM exhaustion / Swap Thrashing 
+    // pada laptop dengan RAM 8GB, menjaga inference tetap responsif.
+    const contextSize = 4096;
 
     console.log(
       `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL CPU]...`,
     );
     const context = await this.model.createContext({
       contextSize: contextSize,
-      threads: 0, // 6 logical cores to keep laptop responsive
+      threads: 6, // 6 logical cores to keep laptop responsive
     });
 
     try {

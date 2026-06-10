@@ -1,6 +1,8 @@
 /**
  * NexusClock - Centralized Time Management for Human-AI Nexus
  * Enforces UTC+8 for all framework operations to ensure consistency in Docker.
+ * FIX #22 — Note: Manual UTC math is intentional for Docker TZ consistency.
+ * This approach avoids DST issues since UTC+8 has no DST transitions.
  */
 class NexusClock {
     /**

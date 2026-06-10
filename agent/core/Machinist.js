@@ -1,25 +1,31 @@
-const fs = require('fs-extra');
-const path = require('path');
-const NexusClock = require('./NexusClock');
+const fs = require("fs-extra");
+const path = require("path");
+const NexusClock = require("./NexusClock");
 
 // ⛔ PAGAR 3 — PATH WHITELIST: Hanya folder ini yang boleh di-write Machinist
 const FORGE_ALLOWED_PATHS = [
-    'agent/tools/scanners/', // ✅ Scanner plugins — aman
+  "agent/tools/scanners/", // ✅ Scanner plugins — aman
 ];
 
 // ⛔ BLACKLIST ABSOLUT: Tidak pernah boleh disentuh Machinist
 const FORGE_FORBIDDEN_PATHS = [
-    'agent/core/',       // ❌ Core engine
-    'agent/main.js',     // ❌ Entry point
-    'cli.js',            // ❌ CLI
-    'agent/prompts/',    // ❌ Agent prompts (bisa manipulasi behavior)
-    'memory/distilled/', // ❌ Knowledge HUB (hanya lewat Distiller)
+  "agent/core/", // ❌ Core engine
+  "agent/main.js", // ❌ Entry point
+  "cli.js", // ❌ CLI
+  "agent/prompts/", // ❌ Agent prompts (bisa manipulasi behavior)
+  "memory/distilled/", // ❌ Knowledge HUB (hanya lewat Distiller)
 ];
 
 // ⛔ Modul core yang TIDAK boleh di-import oleh scanner yang di-forge
 const FORBIDDEN_CORE_IMPORTS = [
-    'NexusEngine', 'MemoryPipeline', 'Orchestrator', 'EvolutionPiper',
-    'Distiller', 'Machinist', 'RedisMemory', 'LocalIntelligence'
+  "NexusEngine",
+  "MemoryPipeline",
+  "Orchestrator",
+  "EvolutionPiper",
+  "Distiller",
+  "Machinist",
+  "RedisMemory",
+  "LocalIntelligence",
 ];
 
 /**
@@ -28,189 +34,236 @@ const FORBIDDEN_CORE_IMPORTS = [
  * ⛔ GUARDRAIL v2.0: Path whitelist + forbidden import check enforced.
  */
 class Machinist {
-    constructor(rootPath, tddScaffolder) {
-        this.rootPath = rootPath;
-        this.enginePath = path.join(this.rootPath, 'agent/core/NexusEngine.js');
-        this.tddScaffolder = tddScaffolder;
-        this.wisdomPath = path.join(this.rootPath, 'memory', 'distilled');
+  constructor(rootPath, tddScaffolder) {
+    this.rootPath = rootPath;
+    this.enginePath = path.join(this.rootPath, "agent/core/NexusEngine.js");
+    this.tddScaffolder = tddScaffolder;
+    this.wisdomPath = path.join(this.rootPath, "memory", "distilled");
+  }
+
+  /**
+   * ⛔ INTERNAL GUARD: Validate output path sebelum forge.
+   * @param {string} outputPath - Relative path dari rootPath.
+   * @throws {Error} jika path tidak di whitelist atau di blacklist.
+   */
+  _validateForgePath(outputPath) {
+    // Resolve absolute path to prevent ../../ traversal
+    const absoluteResolved = path.resolve(this.rootPath, outputPath);
+    const normalizedPath = path
+      .relative(this.rootPath, absoluteResolved)
+      .replace(/\\/g, "/");
+
+    // Ensure it doesn't escape the rootPath
+    if (normalizedPath.startsWith("..")) {
+      throw new Error(`Machinist: Path traversal detected: ${outputPath}`);
     }
 
-    /**
-     * ⛔ INTERNAL GUARD: Validate output path sebelum forge.
-     * @param {string} outputPath - Relative path dari rootPath.
-     * @throws {Error} jika path tidak di whitelist atau di blacklist.
-     */
-    _validateForgePath(outputPath) {
-        // Resolve absolute path to prevent ../../ traversal
-        const absoluteResolved = path.resolve(this.rootPath, outputPath);
-        const normalizedPath = path.relative(this.rootPath, absoluteResolved)
-                                   .replace(/\\/g, '/');
+    const isAllowed = FORGE_ALLOWED_PATHS.some((p) =>
+      normalizedPath.startsWith(p),
+    );
+    const isForbidden = FORGE_FORBIDDEN_PATHS.some((p) =>
+      normalizedPath.startsWith(p),
+    );
 
-        // Ensure it doesn't escape the rootPath
-        if (normalizedPath.startsWith('..')) {
-            throw new Error(`Machinist: Path traversal detected: ${outputPath}`);
-        }
+    if (!isAllowed || isForbidden) {
+      throw new Error(
+        `🚧 MACHINIST BOUNDARY VIOLATION: ` +
+          `Attempted to forge into forbidden path: "${normalizedPath}". ` +
+          `Forge is restricted to: [${FORGE_ALLOWED_PATHS.join(", ")}]`,
+      );
+    }
+  }
 
-        const isAllowed = FORGE_ALLOWED_PATHS.some(p => normalizedPath.startsWith(p));
-        const isForbidden = FORGE_FORBIDDEN_PATHS.some(p => normalizedPath.startsWith(p));
+  /**
+   * ⛔ INTERNAL GUARD: Validate wisdom source harus dari memory/distilled/.
+   * @param {string} wisdomPath - Path ke file wisdom.
+   * @throws {Error} jika bukan dari HUB resmi.
+   */
+  _validateWisdomSource(wisdomPath) {
+    const absoluteWisdom = path.resolve(wisdomPath);
+    const absoluteHub = path.resolve(this.wisdomPath);
 
-        if (!isAllowed || isForbidden) {
-            throw new Error(
-                `🚧 MACHINIST BOUNDARY VIOLATION: ` +
-                `Attempted to forge into forbidden path: "${normalizedPath}". ` +
-                `Forge is restricted to: [${FORGE_ALLOWED_PATHS.join(', ')}]`
-            );
-        }
+    if (!absoluteWisdom.startsWith(absoluteHub)) {
+      throw new Error(
+        `🚧 MACHINIST BOUNDARY VIOLATION: ` +
+          `Wisdom source must come from memory/distilled/. ` +
+          `Got: "${wisdomPath}"`,
+      );
+    }
+  }
+
+  /**
+   * ⛔ INTERNAL GUARD: Check generated code tidak import modul core.
+   * @param {string} generatedCode - Source code yang akan ditulis.
+   * @param {string} scannerName - Nama scanner untuk pesan error.
+   * @throws {Error} jika ada forbidden import.
+   */
+  _validateGeneratedCode(generatedCode, scannerName) {
+    for (const forbidden of FORBIDDEN_CORE_IMPORTS) {
+      if (generatedCode.includes(forbidden)) {
+        throw new Error(
+          `🚧 MACHINIST BOUNDARY VIOLATION: ` +
+            `Scanner "${scannerName}" tried to import core module: "${forbidden}". ` +
+            `Forged scanners must be fully isolated. Remove the import and retry.`,
+        );
+      }
+    }
+  }
+
+  /**
+   * Machinist 2.0: Analyze findings to identify recurring patterns for skill forging.
+   */
+  analyzePatterns(findings) {
+    const patternMap = new Map();
+    findings.forEach((f) => {
+      const key = f.message.split(":")[0];
+      patternMap.set(key, (patternMap.get(key) || 0) + 1);
+    });
+    return Array.from(patternMap.entries())
+      .filter(([, count]) => count >= 2)
+      .map(([key]) => key);
+  }
+
+  /**
+   * Integrate a new machine into the core engine.
+   */
+  async integrate(name, type = "auditor") {
+    console.log(`🦾 Machinist: Integrating new ${type} component '${name}'...`);
+
+    if (type === "auditor") {
+      console.log(
+        `🦾 Machinist: Dynamic Plugin System Active. '${name}' is registered as a scanner and will be auto-loaded during scan phases.`,
+      );
+      return;
     }
 
-    /**
-     * ⛔ INTERNAL GUARD: Validate wisdom source harus dari memory/distilled/.
-     * @param {string} wisdomPath - Path ke file wisdom.
-     * @throws {Error} jika bukan dari HUB resmi.
-     */
-    _validateWisdomSource(wisdomPath) {
-        const absoluteWisdom = path.resolve(wisdomPath);
-        const absoluteHub = path.resolve(this.wisdomPath);
+    let content = await fs.readFile(this.enginePath, "utf8");
+    const instanceName = name.charAt(0).toLowerCase() + name.slice(1);
+    const relPath =
+      type === "orchestrator" ? `./${name}` : `./../tools/scanners/${name}`;
 
-        if (!absoluteWisdom.startsWith(absoluteHub)) {
-            throw new Error(
-                `🚧 MACHINIST BOUNDARY VIOLATION: ` +
-                `Wisdom source must come from memory/distilled/. ` +
-                `Got: "${wisdomPath}"`
-            );
-        }
+    if (!content.includes(`require('${relPath}')`)) {
+      const requireAnchor = "const Distiller = require('./Distiller');";
+      if (content.includes(requireAnchor)) {
+        content = content.replace(
+          requireAnchor,
+          `${requireAnchor}\nconst ${name} = require('${relPath}');`,
+        );
+      } else {
+        // FIX #24 — Warn instead of silently failing
+        console.warn(
+          `⚠️ Machinist: Require anchor not found in NexusEngine.js. ` +
+            `Dynamic fallback will be used. ` +
+            `If integration fails, manually add: const ${name} = require('${relPath}');`,
+        );
+      }
     }
 
-    /**
-     * ⛔ INTERNAL GUARD: Check generated code tidak import modul core.
-     * @param {string} generatedCode - Source code yang akan ditulis.
-     * @param {string} scannerName - Nama scanner untuk pesan error.
-     * @throws {Error} jika ada forbidden import.
-     */
-    _validateGeneratedCode(generatedCode, scannerName) {
-        for (const forbidden of FORBIDDEN_CORE_IMPORTS) {
-            if (generatedCode.includes(forbidden)) {
-                throw new Error(
-                    `🚧 MACHINIST BOUNDARY VIOLATION: ` +
-                    `Scanner "${scannerName}" tried to import core module: "${forbidden}". ` +
-                    `Forged scanners must be fully isolated. Remove the import and retry.`
-                );
-            }
-        }
+    if (!content.includes(`this.${instanceName} = new ${name}`)) {
+      const initAnchor = "this.distiller = new Distiller(this.knowledgePath);";
+      if (content.includes(initAnchor)) {
+        content = content.replace(
+          initAnchor,
+          `${initAnchor}\n        this.${instanceName} = new ${name}(this.rootPath);`,
+        );
+      } else {
+        // FIX #24 — Warn instead of silently failing
+        console.warn(
+          `⚠️ Machinist: Instantiation anchor not found in NexusEngine.js. ` +
+            `Dynamic fallback will be used. ` +
+            `If integration fails, manually add: this.${instanceName} = new ${name}(this.rootPath);`,
+        );
+      }
     }
 
-    /**
-     * Machinist 2.0: Analyze findings to identify recurring patterns for skill forging.
-     */
-    analyzePatterns(findings) {
-        const patternMap = new Map();
-        findings.forEach(f => {
-            const key = f.message.split(':')[0];
-            patternMap.set(key, (patternMap.get(key) || 0) + 1);
-        });
-        return Array.from(patternMap.entries())
-            .filter(([, count]) => count >= 2)
-            .map(([key]) => key);
+    // FIX #24 — Validate that the file was actually modified
+    const originalContent = await fs.readFile(this.enginePath, "utf8");
+    await fs.writeFile(this.enginePath, content);
+    if (content === originalContent) {
+      console.warn(
+        `⚠️ Machinist: No changes were made to NexusEngine.js for '${name}'. ` +
+          `The integration anchors may have shifted. Manual integration required.`,
+      );
+    } else {
+      console.log(`✅ Machinist: ${name} successfully integrated.`);
+    }
+  }
+
+  /**
+   * Forge a new scanner machine based on HUB knowledge.
+   * ⛔ All three guards run before any file is written.
+   */
+  async forge(name, knowledgeFilePath) {
+    console.log(
+      `🔥 Machinist Forge: Building '${name}' from ${path.basename(knowledgeFilePath)}...`,
+    );
+
+    // ⛔ GUARD 1: Validate wisdom source path
+    this._validateWisdomSource(knowledgeFilePath);
+
+    if (!(await fs.pathExists(knowledgeFilePath))) {
+      throw new Error(`Wisdom not found at ${knowledgeFilePath}`);
     }
 
-    /**
-     * Integrate a new machine into the core engine.
-     */
-    async integrate(name, type = 'auditor') {
-        console.log(`🦾 Machinist: Integrating new ${type} component '${name}'...`);
+    const content = await fs.readFile(knowledgeFilePath, "utf8");
+    const rulesMatch = content.match(
+      /#### (?:Actionable Steps|Core Insights \(Distilled\)):\s*([\s\S]*?)(?=\n#|\n---|\n\Z)/i,
+    );
+    const rules = rulesMatch
+      ? rulesMatch[1]
+          .trim()
+          .split("\n")
+          .map((r) => r.replace(/^[*\-]\s*/, "").trim())
+      : [
+          "Verify general adherence to standards mentioned in knowledge source.",
+        ];
 
-        if (type === 'auditor') {
-            console.log(`🦾 Machinist: Dynamic Plugin System Active. '${name}' is registered as a scanner and will be auto-loaded during scan phases.`);
-            return;
-        }
-
-        let content = await fs.readFile(this.enginePath, 'utf8');
-        const instanceName = name.charAt(0).toLowerCase() + name.slice(1);
-        const relPath = type === 'orchestrator' ? `./${name}` : `./../tools/scanners/${name}`;
-
-        if (!content.includes(`require('${relPath}')`)) {
-            const requireAnchor = "const Distiller = require('./Distiller');";
-            if (content.includes(requireAnchor)) {
-                content = content.replace(
-                    requireAnchor,
-                    `${requireAnchor}\nconst ${name} = require('${relPath}');`
-                );
-            } else {
-                console.log(`⚠️ Machinist: Require anchor not found in NexusEngine.js. Dynamic fallback will be used.`);
-            }
-        }
-
-        if (!content.includes(`this.${instanceName} = new ${name}`)) {
-            const initAnchor = "this.distiller = new Distiller(this.knowledgePath);";
-            if (content.includes(initAnchor)) {
-                content = content.replace(
-                    initAnchor,
-                    `${initAnchor}\n        this.${instanceName} = new ${name}(this.rootPath);`
-                );
-            } else {
-                console.log(`⚠️ Machinist: Instantiation anchor not found in NexusEngine.js. Dynamic fallback will be used.`);
-            }
-        }
-
-        await fs.writeFile(this.enginePath, content);
-        console.log(`✅ Machinist: ${name} successfully integrated.`);
+    if (rules.length === 0 || (rules.length === 1 && rules[0] === "")) {
+      rules[0] =
+        "Verify general adherence to standards mentioned in knowledge source.";
     }
 
-    /**
-     * Forge a new scanner machine based on HUB knowledge.
-     * ⛔ All three guards run before any file is written.
-     */
-    async forge(name, knowledgeFilePath) {
-        console.log(`🔥 Machinist Forge: Building '${name}' from ${path.basename(knowledgeFilePath)}...`);
+    // ⛔ GUARD 2: Validate output path
+    const outputRelPath = `agent/tools/scanners/${this.toKebabCase(name)}.js`;
+    this._validateForgePath(outputRelPath);
 
-        // ⛔ GUARD 1: Validate wisdom source path
-        this._validateWisdomSource(knowledgeFilePath);
+    const scannerPath = path.join(this.rootPath, outputRelPath);
+    const scannerContent = this.getScannerTemplate(
+      name,
+      rules,
+      path.basename(knowledgeFilePath),
+    );
 
-        if (!(await fs.pathExists(knowledgeFilePath))) {
-            throw new Error(`Wisdom not found at ${knowledgeFilePath}`);
-        }
+    // ⛔ GUARD 3: Validate generated code (no core imports)
+    this._validateGeneratedCode(scannerContent, name);
 
-        const content = await fs.readFile(knowledgeFilePath, 'utf8');
-        const rulesMatch = content.match(/#### (?:Actionable Steps|Core Insights \(Distilled\)):\s*([\s\S]*?)(?=\n#|\n---|\n\Z)/i);
-        const rules = rulesMatch
-            ? rulesMatch[1].trim().split('\n').map(r => r.replace(/^[*\-]\s*/, '').trim())
-            : ['Verify general adherence to standards mentioned in knowledge source.'];
+    // All guards passed — safe to write
+    await fs.writeFile(scannerPath, scannerContent);
+    console.log(`   📂 File forged: ${scannerPath}`);
 
-        if (rules.length === 0 || (rules.length === 1 && rules[0] === '')) {
-            rules[0] = 'Verify general adherence to standards mentioned in knowledge source.';
-        }
-
-        // ⛔ GUARD 2: Validate output path
-        const outputRelPath = `agent/tools/scanners/${this.toKebabCase(name)}.js`;
-        this._validateForgePath(outputRelPath);
-
-        const scannerPath = path.join(this.rootPath, outputRelPath);
-        const scannerContent = this.getScannerTemplate(name, rules, path.basename(knowledgeFilePath));
-
-        // ⛔ GUARD 3: Validate generated code (no core imports)
-        this._validateGeneratedCode(scannerContent, name);
-
-        // All guards passed — safe to write
-        await fs.writeFile(scannerPath, scannerContent);
-        console.log(`   📂 File forged: ${scannerPath}`);
-
-        if (this.tddScaffolder) {
-            const relScannerPath = path.relative(this.rootPath, scannerPath);
-            await this.tddScaffolder.generate(relScannerPath);
-            console.log(`   🧪 Auto-TDD: Test scaffolded for ${name}.`);
-        }
-
-        console.log(`✅ Machinist Forge: '${name}' is now alive.`);
+    if (this.tddScaffolder) {
+      const relScannerPath = path.relative(this.rootPath, scannerPath);
+      await this.tddScaffolder.generate(relScannerPath);
+      console.log(`   🧪 Auto-TDD: Test scaffolded for ${name}.`);
     }
 
-    getScannerTemplate(name, rules, source) {
-        const checkPoints = rules.map(r => {
-            const words = r.split(' ').filter(w => w.length > 3);
-            return words.slice(0, 2).join(' ').replace(/[^a-zA-Z0-9 ]/g, '').trim();
-        }).filter(cp => cp.length > 2);
+    console.log(`✅ Machinist Forge: '${name}' is now alive.`);
+  }
 
-        // NOTE: Template deliberately does NOT import any core modules — GUARD 3 enforces this.
-        return `const fs = require('fs-extra');
+  getScannerTemplate(name, rules, source) {
+    const checkPoints = rules
+      .map((r) => {
+        const words = r.split(" ").filter((w) => w.length > 3);
+        return words
+          .slice(0, 2)
+          .join(" ")
+          .replace(/[^a-zA-Z0-9 ]/g, "")
+          .trim();
+      })
+      .filter((cp) => cp.length > 2);
+
+    // NOTE: Template deliberately does NOT import any core modules — GUARD 3 enforces this.
+    return `const fs = require('fs-extra');
 const path = require('path');
 const fg = require('fast-glob');
 
@@ -268,11 +321,11 @@ async function scan(targetPath) {
 
 module.exports = { scan };
 `;
-    }
+  }
 
-    toKebabCase(str) {
-        return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-    }
+  toKebabCase(str) {
+    return str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+  }
 }
 
 module.exports = Machinist;

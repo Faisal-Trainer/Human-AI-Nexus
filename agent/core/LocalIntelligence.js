@@ -1,9 +1,3 @@
-// agent/core/LocalIntelligence.js
-// NEXUS Local AI Interface v3.0 — Powered by node-llama-cpp
-// Enables autonomous code review and reasoning without cloud costs
-// Model: qwen3:30b (updated from qwen2.5-coder:1.5b)
-// ⛔ GUARDRAIL v3.0: Task whitelist + output validation + circuit breaker enforced
-
 // Variabel untuk dynamic import module ESM
 let getLlama;
 let LlamaChatSession;
@@ -35,12 +29,12 @@ class LocalIntelligence {
       path.join(
         process.cwd(),
         "models",
-        "llama-3.2-1b-instruct-q4_k_m.gguf",
+        "qwen2.5-coder-3b-instruct-q4_k_m.gguf",
       );
 
     this.isAvailable = false;
 
-    // ⛔ HARD LIMIT: Disesuaikan untuk qwen3:30b (lebih besar dari qwen2.5-coder:1.5b)
+    // ⛔ HARD LIMIT: Disesuaikan untuk qwen2.5-coder:3b (36 layers, 32K context)
     this.MAX_TOKENS = 32768;
     this.MAX_OUTPUT_LENGTH = 20000;
 
@@ -103,7 +97,7 @@ class LocalIntelligence {
         this.model = await this.llama.loadModel({
           modelPath: this.modelPath,
           // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: 16, // Full GPU offload untuk Llama 3.2 1B (16 layers)
+          gpuLayers: 18, // Full GPU offload untuk Llama 3.2 1B (16 layers)
         });
         console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
       }

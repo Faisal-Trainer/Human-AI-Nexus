@@ -69,6 +69,37 @@ class ImplementationPhase extends BasePhase {
   async bootstrapApplication() {
     const root = this.engine.rootPath;
 
+    // FIX #29 — Bootstrap cache: skip redundant installs if deps haven't changed
+    const bootstrapCachePath = path.join(
+      root,
+      "memory",
+      "cache",
+      "bootstrap_state.json",
+    );
+    let lastBootstrap = null;
+    try {
+      if (await fs.pathExists(bootstrapCachePath)) {
+        lastBootstrap = await fs.readJson(bootstrapCachePath);
+      }
+    } catch (_) {}
+
+    // Check if composer.lock and package-lock.json haven't changed since last bootstrap
+    const composerLockPath = path.join(root, "composer.lock");
+    const packageLockPath = path.join(root, "package-lock.json");
+    let currentHash = "";
+    try {
+      const crypto = require("crypto");
+      const hash = crypto.createHash("md5");
+      if (await fs.pathExists(composerLockPath))
+        hash.update(await fs.readFile(composerLockPath));
+      if (await fs.pathExists(packageLockPath))
+        hash.update(await fs.readFile(packageLockPath));
+      currentHash = hash.digest("hex");
+    } catch (_) {}
+
+    const depsUnchanged =
+      lastBootstrap && lastBootstrap.lock_hash === currentHash;
+
     // Ensure sqlite database exists if DB_CONNECTION is sqlite (standard in Laravel 11)
     const envPath = path.join(root, ".env");
     if (await fs.pathExists(envPath)) {
@@ -108,9 +139,15 @@ class ImplementationPhase extends BasePhase {
         path.join(root, "public", "build", "manifest.json"),
       );
 
+      // FIX #29 — Skip composer install if deps unchanged and vendor exists
       if (!hasVendor) {
         this.log(`      Running 'composer install'...`, "info");
         await this._run("composer", ["install", "--no-interaction"], root);
+      } else if (depsUnchanged) {
+        this.log(
+          `      ✅ Skipping 'composer install' (deps unchanged, lock hash matched).`,
+          "success",
+        );
       } else {
         this.log(
           `      ✅ Skipping 'composer install' (already installed).`,
@@ -170,9 +207,15 @@ class ImplementationPhase extends BasePhase {
         await this._run("php", ["artisan", "migrate", "--force"], root);
       }
 
+      // FIX #29 — Skip npm install if deps unchanged and node_modules exists
       if (!hasNodeModules) {
         this.log(`      Running 'npm install'...`, "info");
         await this._run("npm", ["install"], root);
+      } else if (depsUnchanged) {
+        this.log(
+          `      ✅ Skipping 'npm install' (deps unchanged, lock hash matched).`,
+          "success",
+        );
       } else {
         this.log(
           `      ✅ Skipping 'npm install' (already installed).`,
@@ -189,6 +232,13 @@ class ImplementationPhase extends BasePhase {
           "success",
         );
       }
+
+      // FIX #29 — Save bootstrap state for next cycle
+      await fs.ensureDir(path.dirname(bootstrapCachePath));
+      await fs.writeJson(bootstrapCachePath, {
+        lock_hash: currentHash,
+        bootstrapped_at: Date.now(),
+      });
 
       this.log("✅ Application bootstrapped and ready.", "success");
     } catch (e) {
@@ -222,16 +272,20 @@ class ImplementationPhase extends BasePhase {
     if (response) {
       await fs.ensureDir(cacheDir);
       await fs.writeFile(cacheFile, response, "utf8");
-      
+
       // Save dataset for SFT fine-tuning
       const datasetFile = path.join(cacheDir, `${hash}.json`);
       const datasetEntry = {
         prompt,
         output: response,
         taskType,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
-      await fs.writeFile(datasetFile, JSON.stringify(datasetEntry, null, 2), "utf8");
+      await fs.writeFile(
+        datasetFile,
+        JSON.stringify(datasetEntry, null, 2),
+        "utf8",
+      );
     }
     return response;
   }
@@ -308,7 +362,10 @@ class ImplementationPhase extends BasePhase {
   async generateModel(modelName, blueprint) {
     this.log(`   🧠 Generating Model: ${modelName}...`, "info");
     const tableName = this._toSnakePlural(modelName);
-    const modelSchema = blueprint.schema && blueprint.schema[modelName] ? JSON.stringify(blueprint.schema[modelName], null, 2) : "Guess appropriate columns";
+    const modelSchema =
+      blueprint.schema && blueprint.schema[modelName]
+        ? JSON.stringify(blueprint.schema[modelName], null, 2)
+        : "Guess appropriate columns";
     const prompt = `Write a complete Laravel 11 Eloquent Model class for '${modelName}' following ALL these Laravel conventions:
 
 FILE STRUCTURE:
@@ -401,22 +458,34 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
     const tableName = migrationName
       .replace(/^create_/, "")
       .replace(/_table$/, "");
-    
+
     // Find matching schema
     const models = blueprint.models || [];
     let targetModelName = null;
     for (const m of models) {
       if (this._toSnakePlural(m) === tableName) {
-        targetModelName = m; break;
+        targetModelName = m;
+        break;
       }
     }
-    const modelSchema = targetModelName && blueprint.schema && blueprint.schema[targetModelName] ? JSON.stringify(blueprint.schema[targetModelName], null, 2) : "Guess appropriate columns";
+    const modelSchema =
+      targetModelName && blueprint.schema && blueprint.schema[targetModelName]
+        ? JSON.stringify(blueprint.schema[targetModelName], null, 2)
+        : "Guess appropriate columns";
 
     // Read the database rules SOT
     let databaseRules = "";
     try {
-      databaseRules = await fs.readFile(path.join(this.engine.rootPath, 'memory', 'distilled', 'laravel_database_rules.md'), 'utf8');
-    } catch(e) {}
+      databaseRules = await fs.readFile(
+        path.join(
+          this.engine.rootPath,
+          "memory",
+          "distilled",
+          "laravel_database_rules.md",
+        ),
+        "utf8",
+      );
+    } catch (e) {}
 
     const prompt = `Write a complete Laravel 11 database migration for table '${tableName}' following ALL these Laravel conventions:
 
@@ -529,21 +598,27 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         }
       }
 
+      // FIX #14 — Dynamic timestamp: gunakan tanggal hari ini, bukan hardcoded '2026_06_01'
+      const now = new Date();
+      const datePrefix = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
       const timestamp = Math.floor(Date.now() / 1000);
-      const migrationFilename = `2026_06_01_${timestamp}_${migrationName}.php`;
+      const migrationFilename = `${datePrefix}_${timestamp}_${migrationName}.php`;
       const migrationDir = path.join(
         this.engine.rootPath,
         "database",
-        "migrations"
+        "migrations",
       );
-      
+
       // Prevent duplicate migrations: delete any existing migration that includes this migrationName
       if (await fs.pathExists(migrationDir)) {
         const existingFiles = await fs.readdir(migrationDir);
         for (const file of existingFiles) {
           if (file.includes(migrationName)) {
             await fs.remove(path.join(migrationDir, file));
-            this.log(`      🗑️ Removed old duplicate migration: ${file}`, "warning");
+            this.log(
+              `      🗑️ Removed old duplicate migration: ${file}`,
+              "warning",
+            );
           }
         }
       }
@@ -557,7 +632,10 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
           `      ⚠️ Syntax error in generated migration. Writing safe fallback for ${migrationFilename}`,
           "warning",
         );
-        await fs.writeFile(migrationPath, this._safeFallbackMigration(tableName));
+        await fs.writeFile(
+          migrationPath,
+          this._safeFallbackMigration(tableName),
+        );
       }
       this.log(`      ✅ Saved ${migrationFilename}`, "success");
     } else {
@@ -574,7 +652,9 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       "info",
     );
     const className = this.toPascalCase(componentName);
-    const fullSchema = blueprint.schema ? JSON.stringify(blueprint.schema, null, 2) : "No schema";
+    const fullSchema = blueprint.schema
+      ? JSON.stringify(blueprint.schema, null, 2)
+      : "No schema";
 
     // Generate PHP Class
     const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}. Include public properties and basic methods (like save/delete). 
@@ -731,11 +811,16 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
             `      ⚠️ Syntax error in generated API routes. Writing safe fallback for api.php`,
             "warning",
           );
-          const apiRoutes = models.map((m) => {
-            const ctrl = `App\\Http\\Controllers\\Api\\${m}Controller`;
-            return `Route::apiResource('${this._toSnakePlural(m)}', \\${ctrl}::class);`;
-          }).join("\n");
-          await fs.writeFile(apiP, `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${apiRoutes}\n`);
+          const apiRoutes = models
+            .map((m) => {
+              const ctrl = `App\\Http\\Controllers\\Api\\${m}Controller`;
+              return `Route::apiResource('${this._toSnakePlural(m)}', \\${ctrl}::class);`;
+            })
+            .join("\n");
+          await fs.writeFile(
+            apiP,
+            `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${apiRoutes}\n`,
+          );
         }
       }
     }
@@ -831,7 +916,10 @@ RULES:
       `   📡 Generating API Controller: ${modelName}Controller...`,
       "info",
     );
-    const modelSchema = blueprint.schema && blueprint.schema[modelName] ? JSON.stringify(blueprint.schema[modelName], null, 2) : "{}";
+    const modelSchema =
+      blueprint.schema && blueprint.schema[modelName]
+        ? JSON.stringify(blueprint.schema[modelName], null, 2)
+        : "{}";
     const prompt = `Write a Laravel 11 API Controller. Follow this EXACT template structure:
 
 <?php
@@ -942,7 +1030,9 @@ RULES:
 
   _safeFallbackRoutes(routesList, blueprint) {
     const routeEntries = (routesList || [])
-      .map((r) => `Route::get('${r}', function () { return view('welcome'); });`)
+      .map(
+        (r) => `Route::get('${r}', function () { return view('welcome'); });`,
+      )
       .join("\n");
     return `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\nRoute::get('/', function () {\n    return view('welcome');\n});\n\n${routeEntries}\n`;
   }

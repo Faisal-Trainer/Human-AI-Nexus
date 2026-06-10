@@ -2,7 +2,7 @@
   "project_name": "url-shortener-app",
   "models": [
     "User",
-    "Token"
+    "YourRealModelName"
   ],
   "schema": {
     "User": {
@@ -13,30 +13,30 @@
   },
   "migrations": [
     "create_users_table",
-    "create_tokens_table"
+    "create_your_real_tables_table"
   ],
   "livewire_components": [
     "user-profile",
-    "token-view"
+    "your-real-component"
   ],
   "seeders": [
     "UserSeeder",
-    "TokenSeeder"
+    "YourRealModelSeeder"
   ],
   "factories": [
     "UserFactory",
-    "TokenFactory"
+    "YourRealModelFactory"
   ],
   "routes": [
     "/dashboard",
-    "/tokens"
+    "/your-real-route"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Token"
+      "target": "YourRealModelName"
     }
   ]
 }

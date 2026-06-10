@@ -1,6 +1,6 @@
-const fs = require('fs-extra');
-const path = require('path');
-const NexusClock = require('./NexusClock');
+const fs = require("fs-extra");
+const path = require("path");
+const NexusClock = require("./NexusClock");
 
 /**
  * EvolutionPiper - The Laboratory Manager for Nexus AI.
@@ -8,322 +8,381 @@ const NexusClock = require('./NexusClock');
  * ⛔ GUARDRAIL v2.0: Hard cycle limit + session time limit enforced.
  */
 class EvolutionPiper {
-    constructor(engineOrRootPath) {
-        if (typeof engineOrRootPath === 'string') {
-            this.rootPath = engineOrRootPath;
-            this.engine = null;
+  constructor(engineOrRootPath) {
+    if (typeof engineOrRootPath === "string") {
+      this.rootPath = engineOrRootPath;
+      this.engine = null;
+    } else {
+      this.engine = engineOrRootPath;
+      this.rootPath = engineOrRootPath.rootPath;
+    }
+    this.sandboxPath = path.join(this.rootPath, "tests", "sandboxes");
+
+    // ⛔ HARD LIMIT: Maksimal iterasi per session — TIDAK BOLEH diubah programatik
+    this.MAX_EVOLUTION_CYCLES = 25;
+    this.currentCycle = 0;
+
+    // ⛔ HARD LIMIT: Maksimal waktu eksekusi total (dalam menit)
+    this.MAX_SESSION_MINUTES = 120;
+    this.sessionStartTime = null;
+
+    // FIX #12 — Path untuk persistensi cycle state
+    this._statePath = path.join(
+      this.rootPath,
+      "nexus",
+      ".evolution_state.json",
+    );
+  }
+
+  /**
+   * ⛔ GUARDRAIL: Cek batas sebelum setiap operasi evolusi.
+   * Harus dipanggil di awal setiap spawnSandbox / spawnRealLaravel.
+   */
+  async checkEvolutionBoundary() {
+    // Reload state to ensure multi-instance thread safety
+    await this.loadCycleState();
+
+    // Inisialisasi waktu mulai session pada cycle pertama
+    if (this.currentCycle === 0) {
+      this.sessionStartTime = Date.now();
+    }
+
+    // Cek cycle limit
+    if (this.currentCycle >= this.MAX_EVOLUTION_CYCLES) {
+      throw new Error(
+        `🚧 EVOLUTION BOUNDARY: Reached maximum cycles (${this.MAX_EVOLUTION_CYCLES}). ` +
+          `Manual review required before next phase. ` +
+          `Run 'nexus distill' then reset cycle counter manually.`,
+      );
+    }
+
+    // Cek session time limit
+    if (this.sessionStartTime) {
+      const elapsedMinutes = (Date.now() - this.sessionStartTime) / 60000;
+      if (elapsedMinutes > this.MAX_SESSION_MINUTES) {
+        throw new Error(
+          `🚧 EVOLUTION BOUNDARY: Session exceeded ${this.MAX_SESSION_MINUTES} minutes ` +
+            `(elapsed: ${elapsedMinutes.toFixed(1)} min). ` +
+            `Session paused for resource safety. Restart a new session to continue.`,
+        );
+      }
+    }
+
+    this.currentCycle++;
+    console.log(
+      `🔄 Evolution Cycle: ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}`,
+    );
+    // FIX #12 — Persist setelah increment agar crash tidak reset counter
+    await this.persistCycleState();
+  }
+
+  // FIX #12 — Load cycle state dari disk (panggil di awal session)
+  async loadCycleState() {
+    try {
+      if (await fs.pathExists(this._statePath)) {
+        const state = await fs.readJson(this._statePath);
+        this.currentCycle = state.currentCycle || 0;
+        this.sessionStartTime = state.sessionStartTime || null;
+        console.log(
+          `♻️ EvolutionPiper: Resumed from cycle ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}.`,
+        );
+      }
+    } catch (e) {
+      console.warn(
+        `⚠️ EvolutionPiper: Could not load cycle state: ${e.message}`,
+      );
+    }
+  }
+
+  // FIX #12 — Persist counter ke disk secara atomic
+  async persistCycleState() {
+    try {
+      await fs.ensureDir(path.dirname(this._statePath));
+      const tempPath = `${this._statePath}.tmp`;
+      await fs.writeJson(tempPath, {
+        currentCycle: this.currentCycle,
+        sessionStartTime: this.sessionStartTime,
+      });
+      await fs.rename(tempPath, this._statePath);
+    } catch (e) {
+      console.warn(
+        `⚠️ EvolutionPiper: Could not persist cycle state: ${e.message}`,
+      );
+    }
+  }
+
+  /**
+   * Reset cycle counter — harus dipanggil manual setelah distill selesai.
+   * Tidak bisa dipanggil dari dalam loop evolusi.
+   * FIX #16 — Buat async agar fs.remove bisa di-await dengan benar
+   */
+  async resetCycleCounter() {
+    console.log(
+      `🔁 EvolutionPiper: Cycle counter reset (was ${this.currentCycle}). New session started.`,
+    );
+    this.currentCycle = 0;
+    this.sessionStartTime = null;
+    // FIX #16 — Await fs.remove agar tidak ada orphan file saat crash
+    await fs.remove(this._statePath).catch(() => {});
+  }
+
+  /**
+   * Phase 2: Spawn a new project sandbox with a specific scenario.
+   */
+  async spawnSandbox(name, scenarioType = "chaos") {
+    // ⛔ GUARDRAIL: Wajib cek boundary sebelum spawn
+    await this.checkEvolutionBoundary();
+
+    const targetPath = path.join(this.sandboxPath, name);
+    await fs.ensureDir(targetPath);
+
+    console.log(
+      `🧪 EvolutionPiper: Spawning sandbox [${name}] - Scenario: ${scenarioType}`,
+    );
+
+    const dummyFiles = {
+      chaos: [
+        {
+          name: "app.js",
+          content:
+            'let data = []; setInterval(() => { data.push(new Array(1000000).fill("chaos")); }, 100);',
+        },
+        {
+          name: "README.md",
+          content:
+            "# Project Chaos\nA project designed to test resource limits.",
+        },
+      ],
+      vulnerable: [
+        {
+          name: "db.js",
+          content:
+            'function getUser(id) { return query("SELECT * FROM users WHERE id = " + id); }',
+        },
+        { name: "auth.js", content: 'if (pass == "admin") return true;' },
+      ],
+      crud: [
+        {
+          name: "app/Http/Controllers/ItemController.php",
+          content:
+            '<?php\nnamespace App\\Http\\Controllers;\nclass ItemController extends Controller {\n    public function index() { return view("items.index"); }\n}',
+        },
+        {
+          name: "routes/web.php",
+          content:
+            '<?php\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\\Controllers\\ItemController;\nRoute::resource("items", ItemController::class);',
+        },
+        {
+          name: "database/migrations/create_items_table.php",
+          content:
+            '<?php\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\nreturn new class extends Migration {\n    public function up() {\n        Schema::create("items", function (Blueprint $table) {\n            $table->id();\n            $table->string("name");\n            $table->timestamps();\n        });\n    }\n};',
+        },
+        // FIX #27B — APP_KEY dibuat dinamis, bukan hardcoded di source code
+        {
+          name: ".env",
+          content: `APP_NAME=Laravel\nDB_CONNECTION=sqlite\nAPP_KEY=base64:${require("crypto").randomBytes(32).toString("base64")}`,
+        },
+      ],
+    };
+
+    const files = dummyFiles[scenarioType] || dummyFiles["chaos"];
+
+    for (const file of files) {
+      const filePath = path.join(targetPath, file.name);
+      await fs.ensureDir(path.dirname(filePath));
+      await fs.writeFile(filePath, file.content);
+    }
+
+    // R-06: Generate initial sandbox documentation to feed the harvest phase
+    await this.generateSandboxDocumentation(targetPath, {
+      success: true,
+      files: files.map((f) => f.name),
+      lessons: [
+        `Spawned sandbox with scenario ${scenarioType}.`,
+        `Successfully initialized project layout at ${targetPath}.`,
+      ],
+    });
+
+    return targetPath;
+  }
+
+  /**
+   * Phase 2 (Advanced): Spawn a real Laravel project using Composer.
+   */
+  async spawnRealLaravel(name) {
+    await this.checkEvolutionBoundary();
+    const targetPath = path.join(this.sandboxPath, name);
+
+    console.log(
+      `🧪 EvolutionPiper: Spawning a real Laravel project [${name}] via Composer...`,
+    );
+
+    // Ensure parent directory exists
+    await fs.ensureDir(this.sandboxPath);
+
+    // Step 1: composer create-project
+    await this._spawn(
+      "composer",
+      ["create-project", "laravel/laravel", name, "--no-interaction"],
+      { cwd: this.sandboxPath, timeout: 300000 },
+    );
+
+    // Step 2: Install TALL Stack dependencies
+    await this._spawn(
+      "composer",
+      ["require", "livewire/livewire", "laravel/sanctum", "--no-interaction"],
+      { cwd: targetPath, timeout: 120000 },
+    );
+
+    // Step 3: Install JS assets
+    await this._spawn("npm", ["install"], { cwd: targetPath, timeout: 120000 });
+
+    // R-06: Generate initial sandbox documentation to feed the harvest phase
+    await this.generateSandboxDocumentation(targetPath, {
+      success: true,
+      files: [
+        "composer.json",
+        "package.json",
+        "artisan",
+        "app/Models/User.php",
+      ],
+      lessons: [
+        `Successfully spawned real Laravel project [${name}] via Composer.`,
+        `Configured Livewire and Alpine.js dependencies.`,
+        `Validated native development assets layout.`,
+      ],
+    });
+
+    return targetPath;
+  }
+
+  async _spawn(command, args = [], options = {}) {
+    const { spawn } = require("child_process");
+    return new Promise((resolve, reject) => {
+      let spawnCommand = command;
+      let useShell = true;
+
+      if (process.platform === "win32") {
+        if (command === "php") {
+          useShell = false;
+        } else if (command === "npm") {
+          spawnCommand = "npm.cmd";
+          useShell = false;
+        } else if (command === "npx") {
+          spawnCommand = "npx.cmd";
+          useShell = false;
+        }
+      } else {
+        useShell = false;
+      }
+
+      const proc = spawn(spawnCommand, args, {
+        cwd: options.cwd || this.rootPath,
+        shell: useShell,
+      });
+      let out = "",
+        err = "";
+      const timeoutMs = options.timeout || 300000;
+      const timer = setTimeout(() => {
+        proc.kill();
+        reject(
+          new Error(
+            `Command ${command} ${args.join(" ")} timed out after ${timeoutMs}ms`,
+          ),
+        );
+      }, timeoutMs);
+      proc.stdout.on("data", (d) => (out += d.toString()));
+      proc.stderr.on("data", (d) => (err += d.toString()));
+      proc.on("close", (code) => {
+        clearTimeout(timer);
+        if (code === 0) {
+          resolve(out.trim());
         } else {
-            this.engine = engineOrRootPath;
-            this.rootPath = engineOrRootPath.rootPath;
+          reject(
+            new Error(
+              `Command failed (code ${code}): ${err.trim() || out.trim()}`,
+            ),
+          );
         }
-        this.sandboxPath = path.join(this.rootPath, 'tests', 'sandboxes');
+      });
+      proc.on("error", (e) => {
+        clearTimeout(timer);
+        reject(e);
+      });
+    });
+  }
 
-        // ⛔ HARD LIMIT: Maksimal iterasi per session — TIDAK BOLEH diubah programatik
-        this.MAX_EVOLUTION_CYCLES = 25;
-        this.currentCycle = 0;
+  // R-06: Generate sandbox documentation (harvester payload)
+  async generateSandboxDocumentation(targetPath, buildResult) {
+    const docsPath = path.join(targetPath, "nexus", "memory", "operational");
+    await fs.ensureDir(docsPath);
 
-        // ⛔ HARD LIMIT: Maksimal waktu eksekusi total (dalam menit)
-        this.MAX_SESSION_MINUTES = 120;
-        this.sessionStartTime = null;
-
-        // FIX #12 — Path untuk persistensi cycle state
-        this._statePath = path.join(this.rootPath, 'nexus', '.evolution_state.json');
-    }
-
-    /**
-     * ⛔ GUARDRAIL: Cek batas sebelum setiap operasi evolusi.
-     * Harus dipanggil di awal setiap spawnSandbox / spawnRealLaravel.
-     */
-    async checkEvolutionBoundary() {
-        // Reload state to ensure multi-instance thread safety
-        await this.loadCycleState();
-
-        // Inisialisasi waktu mulai session pada cycle pertama
-        if (this.currentCycle === 0) {
-            this.sessionStartTime = Date.now();
-        }
-
-        // Cek cycle limit
-        if (this.currentCycle >= this.MAX_EVOLUTION_CYCLES) {
-            throw new Error(
-                `🚧 EVOLUTION BOUNDARY: Reached maximum cycles (${this.MAX_EVOLUTION_CYCLES}). ` +
-                `Manual review required before next phase. ` +
-                `Run 'nexus distill' then reset cycle counter manually.`
-            );
-        }
-
-        // Cek session time limit
-        if (this.sessionStartTime) {
-            const elapsedMinutes = (Date.now() - this.sessionStartTime) / 60000;
-            if (elapsedMinutes > this.MAX_SESSION_MINUTES) {
-                throw new Error(
-                    `🚧 EVOLUTION BOUNDARY: Session exceeded ${this.MAX_SESSION_MINUTES} minutes ` +
-                    `(elapsed: ${elapsedMinutes.toFixed(1)} min). ` +
-                    `Session paused for resource safety. Restart a new session to continue.`
-                );
-            }
-        }
-
-        this.currentCycle++;
-        console.log(`🔄 Evolution Cycle: ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}`);
-        // FIX #12 — Persist setelah increment agar crash tidak reset counter
-        await this.persistCycleState();
-    }
-
-    // FIX #12 — Load cycle state dari disk (panggil di awal session)
-    async loadCycleState() {
-        try {
-            if (await fs.pathExists(this._statePath)) {
-                const state = await fs.readJson(this._statePath);
-                this.currentCycle = state.currentCycle || 0;
-                this.sessionStartTime = state.sessionStartTime || null;
-                console.log(`♻️ EvolutionPiper: Resumed from cycle ${this.currentCycle}/${this.MAX_EVOLUTION_CYCLES}.`);
-            }
-        } catch (e) {
-            console.warn(`⚠️ EvolutionPiper: Could not load cycle state: ${e.message}`);
-        }
-    }
-
-    // FIX #12 — Persist counter ke disk secara atomic
-    async persistCycleState() {
-        try {
-            await fs.ensureDir(path.dirname(this._statePath));
-            const tempPath = `${this._statePath}.tmp`;
-            await fs.writeJson(tempPath, {
-                currentCycle: this.currentCycle,
-                sessionStartTime: this.sessionStartTime
-            });
-            await fs.rename(tempPath, this._statePath);
-        } catch (e) {
-            console.warn(`⚠️ EvolutionPiper: Could not persist cycle state: ${e.message}`);
-        }
-    }
-
-    /**
-     * Reset cycle counter — harus dipanggil manual setelah distill selesai.
-     * Tidak bisa dipanggil dari dalam loop evolusi.
-     */
-    // FIX #12 — resetCycleCounter juga hapus file state
-    resetCycleCounter() {
-        console.log(`🔁 EvolutionPiper: Cycle counter reset (was ${this.currentCycle}). New session started.`);
-        this.currentCycle = 0;
-        this.sessionStartTime = null;
-        // Best-effort delete persisted state
-        fs.remove(this._statePath).catch(() => {});
-    }
-
-    /**
-     * Phase 2: Spawn a new project sandbox with a specific scenario.
-     */
-    /**
-     * Phase 2: Spawn a new project sandbox with a specific scenario.
-     */
-    async spawnSandbox(name, scenarioType = 'chaos') {
-        // ⛔ GUARDRAIL: Wajib cek boundary sebelum spawn
-        await this.checkEvolutionBoundary();
-
-        const targetPath = path.join(this.sandboxPath, name);
-        await fs.ensureDir(targetPath);
-        
-        console.log(`🧪 EvolutionPiper: Spawning sandbox [${name}] - Scenario: ${scenarioType}`);
-
-        const dummyFiles = {
-            'chaos': [
-                { name: 'app.js', content: 'let data = []; setInterval(() => { data.push(new Array(1000000).fill("chaos")); }, 100);' },
-                { name: 'README.md', content: '# Project Chaos\nA project designed to test resource limits.' }
-            ],
-            'vulnerable': [
-                { name: 'db.js', content: 'function getUser(id) { return query("SELECT * FROM users WHERE id = " + id); }' },
-                { name: 'auth.js', content: 'if (pass == "admin") return true;' }
-            ],
-            'crud': [
-                { name: 'app/Http/Controllers/ItemController.php', content: '<?php\nnamespace App\\Http\\Controllers;\nclass ItemController extends Controller {\n    public function index() { return view("items.index"); }\n}' },
-                { name: 'routes/web.php', content: '<?php\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\\Controllers\\ItemController;\nRoute::resource("items", ItemController::class);' },
-                { name: 'database/migrations/create_items_table.php', content: '<?php\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\nreturn new class extends Migration {\n    public function up() {\n        Schema::create("items", function (Blueprint $table) {\n            $table->id();\n            $table->string("name");\n            $table->timestamps();\n        });\n    }\n};' },
-                // FIX #27B — APP_KEY dibuat dinamis, bukan hardcoded di source code
-                { name: '.env', content: `APP_NAME=Laravel\nDB_CONNECTION=sqlite\nAPP_KEY=base64:${require('crypto').randomBytes(32).toString('base64')}` }
-            ]
-        };
-
-        const files = dummyFiles[scenarioType] || dummyFiles['chaos'];
-        
-        for (const file of files) {
-            const filePath = path.join(targetPath, file.name);
-            await fs.ensureDir(path.dirname(filePath));
-            await fs.writeFile(filePath, file.content);
-        }
-
-        // R-06: Generate initial sandbox documentation to feed the harvest phase
-        await this.generateSandboxDocumentation(targetPath, {
-            success: true,
-            files: files.map(f => f.name),
-            lessons: [
-                `Spawned sandbox with scenario ${scenarioType}.`,
-                `Successfully initialized project layout at ${targetPath}.`
-            ]
-        });
-
-        return targetPath;
-    }
-
-    /**
-     * Phase 2 (Advanced): Spawn a real Laravel project using Composer.
-     */
-    async spawnRealLaravel(name) {
-        await this.checkEvolutionBoundary();
-        const targetPath = path.join(this.sandboxPath, name);
-        
-        console.log(`🧪 EvolutionPiper: Spawning a real Laravel project [${name}] via Composer...`);
-        
-        // Ensure parent directory exists
-        await fs.ensureDir(this.sandboxPath);
-
-        // Step 1: composer create-project
-        await this._spawn('composer', [
-            'create-project', 'laravel/laravel', name, '--no-interaction'
-        ], { cwd: this.sandboxPath, timeout: 300000 });
-
-        // Step 2: Install TALL Stack dependencies
-        await this._spawn('composer', [
-            'require', 'livewire/livewire', 'laravel/sanctum', '--no-interaction'
-        ], { cwd: targetPath, timeout: 120000 });
-
-        // Step 3: Install JS assets
-        await this._spawn('npm', ['install'], { cwd: targetPath, timeout: 120000 });
-
-        // R-06: Generate initial sandbox documentation to feed the harvest phase
-        await this.generateSandboxDocumentation(targetPath, {
-            success: true,
-            files: [
-                'composer.json',
-                'package.json',
-                'artisan',
-                'app/Models/User.php'
-            ],
-            lessons: [
-                `Successfully spawned real Laravel project [${name}] via Composer.`,
-                `Configured Livewire and Alpine.js dependencies.`,
-                `Validated native development assets layout.`
-            ]
-        });
-
-        return targetPath;
-    }
-
-    async _spawn(command, args = [], options = {}) {
-        const { spawn } = require('child_process');
-        return new Promise((resolve, reject) => {
-            let spawnCommand = command;
-            let useShell = true;
-
-            if (process.platform === 'win32') {
-                if (command === 'php') {
-                    useShell = false;
-                } else if (command === 'npm') {
-                    spawnCommand = 'npm.cmd';
-                    useShell = false;
-                } else if (command === 'npx') {
-                    spawnCommand = 'npx.cmd';
-                    useShell = false;
-                }
-            } else {
-                useShell = false;
-            }
-
-            const proc = spawn(spawnCommand, args, {
-                cwd: options.cwd || this.rootPath,
-                shell: useShell
-            });
-            let out = '', err = '';
-            const timeoutMs = options.timeout || 300000;
-            const timer = setTimeout(() => {
-                proc.kill();
-                reject(new Error(`Command ${command} ${args.join(' ')} timed out after ${timeoutMs}ms`));
-            }, timeoutMs);
-            proc.stdout.on('data', d => out += d.toString());
-            proc.stderr.on('data', d => err += d.toString());
-            proc.on('close', code => {
-                clearTimeout(timer);
-                if (code === 0) {
-                    resolve(out.trim());
-                } else {
-                    reject(new Error(`Command failed (code ${code}): ${err.trim() || out.trim()}`));
-                }
-            });
-            proc.on('error', e => {
-                clearTimeout(timer);
-                reject(e);
-            });
-        });
-    }
-
-    // R-06: Generate sandbox documentation (harvester payload)
-    async generateSandboxDocumentation(targetPath, buildResult) {
-        const docsPath = path.join(targetPath, 'nexus', 'memory', 'operational');
-        await fs.ensureDir(docsPath);
-        
-        const doc = `# Sandbox Build Report
+    const doc = `# Sandbox Build Report
 **Project:** ${path.basename(targetPath)}
 **Date:** ${new Date().toISOString()}
-**Status:** ${buildResult.success ? 'SUCCESS' : 'FAILED'}
+**Status:** ${buildResult.success ? "SUCCESS" : "FAILED"}
 
 ## Files Generated
-${buildResult.files ? buildResult.files.map(f => `- ${f}`).join('\n') : '- None'}
+${buildResult.files ? buildResult.files.map((f) => `- ${f}`).join("\n") : "- None"}
 
 ## Lessons Learned
-${buildResult.lessons ? buildResult.lessons.map(l => `- ${l}`).join('\n') : '- None'}
+${buildResult.lessons ? buildResult.lessons.map((l) => `- ${l}`).join("\n") : "- None"}
 `;
-        await fs.writeFile(path.join(docsPath, 'BUILD_REPORT.md'), doc);
+    await fs.writeFile(path.join(docsPath, "BUILD_REPORT.md"), doc);
+  }
+
+  /**
+   * Phase 5: Harvest logs and wisdom from sandbox back to the main HUB.
+   */
+  async harvestWisdom(name) {
+    const targetPath = path.join(this.sandboxPath, name);
+    const logPath = path.join(targetPath, "memory", "operational");
+    const mainHubPath = path.join(this.rootPath, "memory", "distilled");
+
+    if (await fs.pathExists(logPath)) {
+      console.log(`🌾 EvolutionPiper: Harvesting wisdom from [${name}]...`);
+      const logs = await fs.readdir(logPath);
+      for (const log of logs) {
+        const source = path.join(logPath, log);
+        const destination = path.join(mainHubPath, `EVO_${name}_${log}`);
+        await fs.copy(source, destination);
+      }
+      console.log(`   ✅ Wisdom absorbed into main HUB.`);
     }
 
-    /**
-     * Phase 5: Harvest logs and wisdom from sandbox back to the main HUB.
-     */
-    async harvestWisdom(name) {
-        const targetPath = path.join(this.sandboxPath, name);
-        const logPath = path.join(targetPath, 'memory', 'operational');
-        const mainHubPath = path.join(this.rootPath, 'memory', 'distilled');
-
-        if (await fs.pathExists(logPath)) {
-            console.log(`🌾 EvolutionPiper: Harvesting wisdom from [${name}]...`);
-            const logs = await fs.readdir(logPath);
-            for (const log of logs) {
-                const source = path.join(logPath, log);
-                const destination = path.join(mainHubPath, `EVO_${name}_${log}`);
-                await fs.copy(source, destination);
-            }
-            console.log(`   ✅ Wisdom absorbed into main HUB.`);
-        }
-
-        // R-05: Auto-trigger KnowledgePhase untuk internalisasi
-        if (this.engine) {
-            try {
-                const KnowledgePhase = require('./phases/KnowledgePhase');
-                const knowledgePhase = new KnowledgePhase(this.engine);
-                await knowledgePhase.harvest(targetPath);
-                await knowledgePhase.run(); // distill ke HUB
-                console.log(`   ✅ Knowledge from [${name}] internalized to NEXUS core memory.`);
-            } catch (e) {
-                console.error(`⚠️ EvolutionPiper KnowledgePhase Auto-trigger failed: ${e.message}`);
-            }
-        }
+    // R-05: Auto-trigger KnowledgePhase untuk internalisasi
+    if (this.engine) {
+      try {
+        const KnowledgePhase = require("./phases/KnowledgePhase");
+        const knowledgePhase = new KnowledgePhase(this.engine);
+        await knowledgePhase.harvest(targetPath);
+        await knowledgePhase.run(); // distill ke HUB
+        console.log(
+          `   ✅ Knowledge from [${name}] internalized to NEXUS core memory.`,
+        );
+      } catch (e) {
+        console.error(
+          `⚠️ EvolutionPiper KnowledgePhase Auto-trigger failed: ${e.message}`,
+        );
+      }
     }
+  }
 
-    /**
-     * Get current evolution status.
-     */
-    getStatus() {
-        const elapsedMinutes = this.sessionStartTime
-            ? ((Date.now() - this.sessionStartTime) / 60000).toFixed(1)
-            : 0;
-        return {
-            currentCycle: this.currentCycle,
-            maxCycles: this.MAX_EVOLUTION_CYCLES,
-            remainingCycles: this.MAX_EVOLUTION_CYCLES - this.currentCycle,
-            sessionElapsedMinutes: elapsedMinutes,
-            maxSessionMinutes: this.MAX_SESSION_MINUTES
-        };
-    }
+  /**
+   * Get current evolution status.
+   */
+  getStatus() {
+    const elapsedMinutes = this.sessionStartTime
+      ? ((Date.now() - this.sessionStartTime) / 60000).toFixed(1)
+      : 0;
+    return {
+      currentCycle: this.currentCycle,
+      maxCycles: this.MAX_EVOLUTION_CYCLES,
+      remainingCycles: this.MAX_EVOLUTION_CYCLES - this.currentCycle,
+      sessionElapsedMinutes: elapsedMinutes,
+      maxSessionMinutes: this.MAX_SESSION_MINUTES,
+    };
+  }
 }
 
 module.exports = EvolutionPiper;

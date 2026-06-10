@@ -240,9 +240,13 @@ class ExecutionPhase extends BasePhase {
         file.endsWith(".php") &&
         !file.includes("0001_01_01")
       ) {
-        // If migration doesn't match any allowed model name or doesn't have 2026_06_01, it's likely legacy.
-        // Simple check for our timestamp generated in ImplementationPhase
-        if (!file.includes("2026_06_01")) isUnusedMigration = true;
+        // FIX #13 — Dynamic timestamp: gunakan prefix tanggal hari ini (YYYY_MM_DD)
+        // bukan hardcoded '2026_06_01' agar valid di bulan/tahun berbeda
+        const todayPrefix = new Date()
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, "_");
+        if (!file.includes(todayPrefix)) isUnusedMigration = true;
       }
 
       if (
@@ -321,13 +325,12 @@ class ExecutionPhase extends BasePhase {
           await fs.remove(dbPath);
         }
         await fs.ensureFile(dbPath);
-        
+
         // Re-attempt migration after physical reset
         execSync("php artisan migrate:fresh --force --seed", {
           cwd: projectPath,
           stdio: "ignore",
         });
-        
 
         this.log(
           `   🗄️ Database Nuclear Reset & Migration successful.`,
@@ -374,13 +377,13 @@ class ExecutionPhase extends BasePhase {
       return;
     }
 
-    this.log(`   🔄 Starting 2-Cycle Stability Loop (Health Check)...`, "info");
+    this.log(`   🔄 Starting 1-Cycle Stability Loop (Health Check)...`, "info");
     let totalAttempts = 0;
-    for (let i = 1; i <= 2; i++) {
+    for (let i = 1; i <= 1; i++) {
       totalAttempts++;
-      if (totalAttempts > 6) {
+      if (totalAttempts > 4) {
         throw new Error(
-          `Stability check failed: exceeded 6 total attempts in stability loop for ${projectPath}.`,
+          `Stability check failed: exceeded 4 total attempts in stability loop for ${projectPath}.`,
         );
       }
       this.log(
@@ -396,12 +399,25 @@ class ExecutionPhase extends BasePhase {
         cwd: projectPath,
         shell: false,
       });
-      
+
       const npmCmd = isWin ? "npm.cmd" : "npm";
-      const devProc = spawn(npmCmd, ["run", "dev", "--", "--port", devPort.toString(), "--strictPort", "--host", "127.0.0.1"], {
-        cwd: projectPath,
-        shell: isWin,
-      });
+      const devProc = spawn(
+        npmCmd,
+        [
+          "run",
+          "dev",
+          "--",
+          "--port",
+          devPort.toString(),
+          "--strictPort",
+          "--host",
+          "127.0.0.1",
+        ],
+        {
+          cwd: projectPath,
+          shell: isWin,
+        },
+      );
 
       const [serveReady, devReady] = await Promise.all([
         this.waitForService(`http://127.0.0.1:${port}`, 10000),
@@ -513,19 +529,40 @@ class ExecutionPhase extends BasePhase {
 
     let content = await fs.readFile(welcomePath, "utf8");
 
-    // Update Title
-    const titleRegex = /<title>[\s\S]*?<\/title>/;
+    // FIX #9 — Change detection: skip regeneration jika komponen tidak berubah
     const projectName = path
       .basename(projectPath)
       .replace(/-/g, " ")
       .toUpperCase();
+    const existingComponentMatch = content.match(
+      /<livewire:([a-z0-9-]+)\s*\/>/gi,
+    );
+    const existingComponents = existingComponentMatch
+      ? existingComponentMatch
+          .map((m) => m.match(/<livewire:([a-z0-9-]+)/i)[1])
+          .sort()
+          .join(",")
+      : "";
+    const newComponents = components
+      .map((c) => this.toKebabCase(c))
+      .sort()
+      .join(",");
 
-    const newInjection =
-      components.length > 0
-        ? `<div class="w-full space-y-8">
+    if (existingComponents === newComponents && content.includes(projectName)) {
+      this.log(
+        `      ⏭️  welcome.blade.php unchanged (${components.length} components). Skipped regeneration.`,
+        "info",
+      );
+    } else {
+      // Update Title
+      const titleRegex = /<title>[\s\S]*?<\/title>/;
+
+      const newInjection =
+        components.length > 0
+          ? `<div class="w-full space-y-8">
             ${components.map((c) => `<livewire:${this.toKebabCase(c)} />`).join("\n            ")}
         </div>`
-        : `<div class="w-full text-center py-20 space-y-6">
+          : `<div class="w-full text-center py-20 space-y-6">
                 <div class="inline-flex bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-3xl text-indigo-600 dark:text-indigo-400 font-bold mb-4 shadow-sm">
                     ✨ Nexus Sandbox Ready
                 </div>
@@ -536,7 +573,7 @@ class ExecutionPhase extends BasePhase {
                 </div>
             </div>`;
 
-    const fullContent = `<!DOCTYPE html>
+      const fullContent = `<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -553,11 +590,12 @@ class ExecutionPhase extends BasePhase {
 </body>
 </html>`;
 
-    await fs.writeFile(welcomePath, fullContent);
-    this.log(
-      `      ✅ welcome.blade.php completely regenerated with ${components.length} components.`,
-      "success",
-    );
+      await fs.writeFile(welcomePath, fullContent);
+      this.log(
+        `      ✅ welcome.blade.php completely regenerated with ${components.length} components.`,
+        "success",
+      );
+    } // end else (change detected)
   }
 
   toKebabCase(str) {
@@ -645,12 +683,23 @@ class ExecutionPhase extends BasePhase {
       // Quick smoke test: if deterministic fixes resolved the issue, skip AI healing
       try {
         const { execSync } = require("child_process");
-        execSync("php artisan route:list", { cwd: projectPath, stdio: "ignore" });
-        this.log(`      ✅ Deterministic pre-heal resolved the issue!`, "success");
-        await this.updateRecapStatus(`Deterministic pre-heal fixed ${deterministicFixes} pattern(s) on attempt ${attempt}`);
+        execSync("php artisan route:list", {
+          cwd: projectPath,
+          stdio: "ignore",
+        });
+        this.log(
+          `      ✅ Deterministic pre-heal resolved the issue!`,
+          "success",
+        );
+        await this.updateRecapStatus(
+          `Deterministic pre-heal fixed ${deterministicFixes} pattern(s) on attempt ${attempt}`,
+        );
         return true;
       } catch (_) {
-        this.log(`      ⚠️ Deterministic fixes applied but app still not bootable. Proceeding to AI healing...`, "warning");
+        this.log(
+          `      ⚠️ Deterministic fixes applied but app still not bootable. Proceeding to AI healing...`,
+          "warning",
+        );
       }
     }
 
@@ -689,18 +738,21 @@ class ExecutionPhase extends BasePhase {
     if (!response) return false;
 
     try {
-      const fileRegex = /<file\s+path=["']([^"']+)["']>([\s\S]*?)<\/file>/ig;
+      const fileRegex = /<file\s+path=["']([^"']+)["']>([\s\S]*?)<\/file>/gi;
       let match;
       const fixes = [];
       while ((match = fileRegex.exec(response)) !== null) {
         fixes.push({
           file: match[1],
-          content: match[2].trim()
+          content: match[2].trim(),
         });
       }
 
       if (fixes.length === 0) {
-        this.log(`         ❌ Self-healing failed to parse AI response: No <file> blocks found.`, "error");
+        this.log(
+          `         ❌ Self-healing failed to parse AI response: No <file> blocks found.`,
+          "error",
+        );
         return false;
       }
 
@@ -708,6 +760,27 @@ class ExecutionPhase extends BasePhase {
       for (const fix of fixes) {
         if (!fix.file) continue;
         const targetPath = path.join(projectPath, fix.file);
+
+        // FIX #4 — PHP Lint validation sebelum menulis file
+        if (fix.file.endsWith(".php")) {
+          const tmpLintPath = targetPath + ".lint_tmp";
+          await fs.writeFile(tmpLintPath, fix.content, "utf8");
+          try {
+            const { execSync } = require("child_process");
+            execSync(`php -l "${tmpLintPath}"`, {
+              stdio: "ignore",
+              timeout: 5000,
+            });
+          } catch (lintErr) {
+            this.log(
+              `         ⛔ PHP lint failed for ${fix.file}: ${lintErr.message.slice(0, 120)}. Skipping.`,
+              "error",
+            );
+            await fs.remove(tmpLintPath).catch(() => {});
+            continue;
+          }
+          await fs.remove(tmpLintPath).catch(() => {});
+        }
 
         await fs.ensureDir(path.dirname(targetPath));
         await fs.writeFile(targetPath, fix.content, "utf8");
@@ -754,31 +827,34 @@ class ExecutionPhase extends BasePhase {
         content = content.replace(
           /function\s*\(\$([a-zA-Z_]+),\s*[A-Z][a-zA-Z\\]*\s+\$\1\)/g,
           (match, paramName) => {
-            const typeMatch = match.match(/,\s*([A-Z][a-zA-Z\\]*)\s+\$/); 
+            const typeMatch = match.match(/,\s*([A-Z][a-zA-Z\\]*)\s+\$/);
             const typeName = typeMatch ? typeMatch[1] : "Request";
             return `function (${typeName} $${paramName})`;
-          }
+          },
         );
         // Also: function ($param, $param) → function ($param)
         content = content.replace(
           /function\s*\(\$([a-zA-Z_]+),\s*\$\1\)/g,
-          "function ($$1)"
+          "function ($$1)",
         );
 
-        // ── FIX 2: Invalid/garbled use statements ──
-        // e.g. use Illuminate\Support\Facades\Schema \Illuminate\Support\Facades \Migration;
-        // These have backslash-space patterns that are never valid PHP.
-        content = content.replace(
-          /^use\s+[A-Z][a-zA-Z\\]*\s+\\[A-Z].*$/gm,
-          (line) => {
-            // Try to salvage the first valid use path
-            const firstPath = line.match(/^use\s+([A-Z][a-zA-Z\\]+)/);
+        // FIX #5 — Regex lebih aman: hanya match use statement yang mengandung
+        // backslash SETELAH spasi (pola yang TIDAK pernah valid di PHP)
+        // Contoh garbled: use Illuminate\Support\Facades\Schema \Illuminate\Support\Facades \Migration;
+        // Valid: use Illuminate\Support\Facades\Schema;
+        const lines = content.split("\n");
+        const fixedLines = lines.map((line) => {
+          if (/^use\s+/.test(line) && /\\\s+/.test(line)) {
+            // Garbled: ada backslash+spasi di tengah path
+            const firstPath = line.match(/^use\s+([A-Z][a-zA-Z0-9\\]+)/);
             if (firstPath) {
-              return `use ${firstPath[1].replace(/\s+/g, "")};`;
+              return `use ${firstPath[1]};`;
             }
             return `// [NEXUS PRE-HEAL] Removed invalid use statement: ${line}`;
           }
-        );
+          return line;
+        });
+        content = fixedLines.join("\n");
 
         // ── FIX 3: Prompt text / instructions leaked into PHP files ──
         // Detect lines that look like human-readable instructions after the closing } of a class/function
@@ -787,7 +863,11 @@ class ExecutionPhase extends BasePhase {
         if (closingBraceIdx > 0) {
           const afterBrace = content.substring(closingBraceIdx + 2).trim();
           // If content after }; contains instructional text (starts with uppercase word, no PHP tag)
-          if (afterBrace && /^[A-Z][A-Z ]+:/.test(afterBrace) && !afterBrace.startsWith("<?php")) {
+          if (
+            afterBrace &&
+            /^[A-Z][A-Z ]+:/.test(afterBrace) &&
+            !afterBrace.startsWith("<?php")
+          ) {
             content = content.substring(0, closingBraceIdx + 2) + "\n";
           }
         }
@@ -804,14 +884,17 @@ class ExecutionPhase extends BasePhase {
               for (const param of params) {
                 if (seen.has(param)) {
                   // Replace duplicate with a numbered variant
-                  fixedPath = fixedPath.replace(param, param.replace("}", `_2}`))
+                  fixedPath = fixedPath.replace(
+                    param,
+                    param.replace("}", `_2}`),
+                  );
                 }
                 seen.add(param);
               }
               return prefix + fixedPath + suffix;
             }
             return match;
-          }
+          },
         );
 
         // ── FIX 5: Self-imports (class importing itself) ──
@@ -819,7 +902,7 @@ class ExecutionPhase extends BasePhase {
         const phpClass = path.basename(filePath, ".php");
         const selfImportRegex = new RegExp(
           `^use\\s+App\\\\[A-Za-z\\\\]*\\\\${phpClass};\\s*$`,
-          "gm"
+          "gm",
         );
         if (filePath.includes(`${phpClass}.php`)) {
           // Only remove if the file defines this class

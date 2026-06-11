@@ -97,7 +97,7 @@ class LocalIntelligence {
         this.model = await this.llama.loadModel({
           modelPath: this.modelPath,
           // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: 24, // Full GPU offload untuk Llama 3.2 1B (16 layers)
+          gpuLayers: 30, // Full GPU offload untuk Llama 3.2 1B (16 layers)
         });
         console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
       }
@@ -318,7 +318,7 @@ class LocalIntelligence {
     }
 
     // ── JALUR LAMBAT: LOCAL NODE-LLAMA-CPP (FALLBACK) ──
-    // FIX: Diturunkan menjadi 4096 untuk mencegah RAM exhaustion / Swap Thrashing 
+    // FIX: Diturunkan menjadi 4096 untuk mencegah RAM exhaustion / Swap Thrashing
     // pada laptop dengan RAM 8GB, menjaga inference tetap responsif.
     const contextSize = 4096;
 

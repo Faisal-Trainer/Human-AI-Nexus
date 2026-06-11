@@ -35,7 +35,7 @@ class ModelTrainer {
     const startTime = Date.now();
     const baseModel =
       options.baseModel || "qwen2.5-coder-3b-instruct-q4_k_m.gguf";
-    const outputName = options.outputName || "nexus-custom-q4_k_m.gguf";
+    const outputName = options.outputName || "nexus-1-coder.gguf";
     const rank = options.rank || 16; // LoRA rank (8/16/32/64)
     const epochs = options.epochs || 3;
     const useGpu = options.gpu !== false;

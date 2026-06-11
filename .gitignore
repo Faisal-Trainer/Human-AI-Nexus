@@ -18,6 +18,7 @@ jspm_packages/
 Thumbs.db
 .idea/
 .vscode/
+.qoder/
 *.swp
 *.swo
 *.tmp

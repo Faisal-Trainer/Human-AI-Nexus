@@ -1,5 +1,5 @@
 # 🧠 NEXUS KNOWLEDGE HUB: Master Index
-> **Generated At**: 2026-06-01 09:07:33 (UTC+8) | **Total Knowledge Nodes**: 520
+> **Generated At**: 2026-06-11 14:08:01 (UTC+8) | **Total Knowledge Nodes**: 521
 
 | Rack | Knowledge Node | Size (KB) | Last Updated |
 | :--- | :--- | :--- | :--- |
@@ -93,13 +93,13 @@
 | `archived/vcs` | [NEXUS_PRIVACY-POLICY.MD](archived/vcs/NEXUS_PRIVACY-POLICY.MD) | 4.4 | 5/26/2026 |
 | `archived/vcs` | [NEXUS_README.MD](archived/vcs/NEXUS_README.MD) | 0.6 | 5/27/2026 |
 | `archived/vcs` | [NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD](archived/vcs/NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD) | 3.0 | 5/26/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_API.md](distilled/academics/NEXUS_DISTILLATION_API.md) | 8.8 | 5/28/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 9.7 | 6/1/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 6.5 | 6/1/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 15.1 | 6/1/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_TDD.md](distilled/academics/NEXUS_DISTILLATION_TDD.md) | 16.7 | 5/28/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 121.8 | 6/1/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_VCS.md](distilled/academics/NEXUS_DISTILLATION_VCS.md) | 8.3 | 5/28/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_API.md](distilled/academics/NEXUS_DISTILLATION_API.md) | 8.8 | 6/3/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 10.2 | 6/11/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 7.0 | 6/11/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 15.6 | 6/11/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_TDD.md](distilled/academics/NEXUS_DISTILLATION_TDD.md) | 16.7 | 6/3/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 122.5 | 6/11/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_VCS.md](distilled/academics/NEXUS_DISTILLATION_VCS.md) | 8.3 | 6/3/2026 |
 | `distilled/api` | [NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD](distilled/api/NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD) | 5.0 | 6/1/2026 |
 | `distilled/api` | [NEXUS_API-CALLING.MD](distilled/api/NEXUS_API-CALLING.MD) | 2.3 | 5/26/2026 |
 | `distilled/api` | [NEXUS_CONCURRENCY.MD](distilled/api/NEXUS_CONCURRENCY.MD) | 4.3 | 5/27/2026 |
@@ -124,10 +124,10 @@
 | `distilled/api` | [NEXUS_TESTING-ANTI-PATTERNS.MD](distilled/api/NEXUS_TESTING-ANTI-PATTERNS.MD) | 8.2 | 6/1/2026 |
 | `distilled/audit` | [NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD](distilled/audit/NEXUS_AUDIT_SUMMARY_10_LOOP_SCAN.MD) | 3.1 | 5/10/2026 |
 | `distilled/audit` | [NEXUS_AUDIT_V320_AUTONOMOUS_READINESS.MD](distilled/audit/NEXUS_AUDIT_V320_AUTONOMOUS_READINESS.MD) | 2.4 | 5/10/2026 |
-| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-10.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md) | 1.2 | 6/1/2026 |
-| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-13.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md) | 0.7 | 6/1/2026 |
+| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-10.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md) | 1.2 | 6/11/2026 |
+| `distilled/audit` | [NEXUS_DISTILLATION_LOGS_2026-05-13.md](distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md) | 0.7 | 6/11/2026 |
 | `distilled/audit` | [NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD](distilled/audit/NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD) | 18.1 | 5/19/2026 |
-| `distilled/audit` | [NEXUS_SESSION_HISTORY_ARCHIVE.MD](distilled/audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD) | 2.5 | 6/1/2026 |
+| `distilled/audit` | [NEXUS_SESSION_HISTORY_ARCHIVE.MD](distilled/audit/NEXUS_SESSION_HISTORY_ARCHIVE.MD) | 2.5 | 6/11/2026 |
 | `distilled/database` | [NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD](distilled/database/NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD) | 86.1 | 5/26/2026 |
 | `distilled/database` | [NEXUS_1436+MANUSCRIPT.MD](distilled/database/NEXUS_1436+MANUSCRIPT.MD) | 24.1 | 5/26/2026 |
 | `distilled/database` | [NEXUS_1471-2288-10-12.MD](distilled/database/NEXUS_1471-2288-10-12.MD) | 56.9 | 5/26/2026 |
@@ -152,8 +152,8 @@
 | `distilled/database` | [NEXUS_DESIGN.MD](distilled/database/NEXUS_DESIGN.MD) | 2.5 | 6/1/2026 |
 | `distilled/database` | [NEXUS_DISTILLATION_DATABASE.md](distilled/database/NEXUS_DISTILLATION_DATABASE.md) | 2.5 | 5/26/2026 |
 | `distilled/database` | [NEXUS_DISTILLATION_SECURITY.md](distilled/database/NEXUS_DISTILLATION_SECURITY.md) | 2.2 | 5/27/2026 |
-| `distilled/database` | [NEXUS_DISTILLATION_TDD.md](distilled/database/NEXUS_DISTILLATION_TDD.md) | 7.9 | 5/26/2026 |
-| `distilled/database` | [NEXUS_DISTILLATION_UI-UX.md](distilled/database/NEXUS_DISTILLATION_UI-UX.md) | 71.7 | 5/26/2026 |
+| `distilled/database` | [NEXUS_DISTILLATION_TDD.md](distilled/database/NEXUS_DISTILLATION_TDD.md) | 7.9 | 6/3/2026 |
+| `distilled/database` | [NEXUS_DISTILLATION_UI-UX.md](distilled/database/NEXUS_DISTILLATION_UI-UX.md) | 71.7 | 6/3/2026 |
 | `distilled/database` | [NEXUS_DYNAMIC-SIBLING-STYLING.MD](distilled/database/NEXUS_DYNAMIC-SIBLING-STYLING.MD) | 3.8 | 5/26/2026 |
 | `distilled/database` | [NEXUS_ELOQUENT-RELATIONSHIPS.MD](distilled/database/NEXUS_ELOQUENT-RELATIONSHIPS.MD) | 95.1 | 5/27/2026 |
 | `distilled/database` | [NEXUS_ELOQUENT-RESOURCES.MD](distilled/database/NEXUS_ELOQUENT-RESOURCES.MD) | 42.0 | 5/27/2026 |
@@ -226,7 +226,7 @@
 | `distilled/frontend` | [NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD](distilled/frontend/NEXUS_DEFER-RENDERING-HEAVY-CONTENT.MD) | 6.5 | 5/26/2026 |
 | `distilled/frontend` | [NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD](distilled/frontend/NEXUS_DEFER-WORK-UNTIL-SCROLL-ENDS.MD) | 3.5 | 5/26/2026 |
 | `distilled/frontend` | [NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD](distilled/frontend/NEXUS_DIRECTIONAL-NAVIGATION-TRANSITIONS.MD) | 5.1 | 5/26/2026 |
-| `distilled/frontend` | [NEXUS_DISTILLATION_OTHER.md](distilled/frontend/NEXUS_DISTILLATION_OTHER.md) | 20.1 | 5/28/2026 |
+| `distilled/frontend` | [NEXUS_DISTILLATION_OTHER.md](distilled/frontend/NEXUS_DISTILLATION_OTHER.md) | 20.1 | 6/3/2026 |
 | `distilled/frontend` | [NEXUS_DISTILLATION_UI-UX.md](distilled/frontend/NEXUS_DISTILLATION_UI-UX.md) | 1.6 | 5/25/2026 |
 | `distilled/frontend` | [NEXUS_DOCKER_TALL_EVOLUTION.md](distilled/frontend/NEXUS_DOCKER_TALL_EVOLUTION.md) | 2.6 | 5/26/2026 |
 | `distilled/frontend` | [NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD](distilled/frontend/NEXUS_EFFICIENT-BACKGROUND-PROCESSING.MD) | 5.2 | 5/26/2026 |
@@ -285,6 +285,7 @@
 | `distilled/laravel` | [NEXUS_BILLING.MD](distilled/laravel/NEXUS_BILLING.MD) | 110.7 | 5/27/2026 |
 | `distilled/laravel` | [NEXUS_CONTEXT.MD](distilled/laravel/NEXUS_CONTEXT.MD) | 14.5 | 5/27/2026 |
 | `distilled/laravel` | [NEXUS_DISTILLATION_UI.md](distilled/laravel/NEXUS_DISTILLATION_UI.md) | 1.7 | 5/13/2026 |
+| `distilled/laravel` | [NEXUS_FACTORY_IMPORT_ISSUE.MD](distilled/laravel/NEXUS_FACTORY_IMPORT_ISSUE.MD) | 2.5 | 6/11/2026 |
 | `distilled/laravel` | [NEXUS_HUB_INDEX.md](distilled/laravel/NEXUS_HUB_INDEX.md) | 44.2 | 5/28/2026 |
 | `distilled/laravel` | [NEXUS_MAIL.MD](distilled/laravel/NEXUS_MAIL.MD) | 57.3 | 5/27/2026 |
 | `distilled/laravel` | [NEXUS_NOTIFICATIONS.MD](distilled/laravel/NEXUS_NOTIFICATIONS.MD) | 73.6 | 5/27/2026 |
@@ -305,7 +306,6 @@
 | `distilled/other` | [NEXUS_CODE_OF_CONDUCT.MD](distilled/other/NEXUS_CODE_OF_CONDUCT.MD) | 5.2 | 6/1/2026 |
 | `distilled/other` | [NEXUS_CREATION-LOG.MD](distilled/other/NEXUS_CREATION-LOG.MD) | 4.3 | 6/1/2026 |
 | `distilled/other` | [NEXUS_DESIGN.MD](distilled/other/NEXUS_DESIGN.MD) | 1.9 | 5/30/2026 |
-| `distilled/other` | [NEXUS_GEMINI.MD](distilled/other/NEXUS_GEMINI.MD) | 0.2 | 6/1/2026 |
 | `distilled/other` | [NEXUS_PERSUASION-PRINCIPLES.MD](distilled/other/NEXUS_PERSUASION-PRINCIPLES.MD) | 5.9 | 6/1/2026 |
 | `distilled/other` | [NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD](distilled/other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD) | 1.7 | 5/30/2026 |
 | `distilled/other` | [NEXUS_PLAN.MD](distilled/other/NEXUS_PLAN.MD) | 4.9 | 6/1/2026 |
@@ -344,10 +344,10 @@
 | `distilled/security` | [NEXUS_3243.MD](distilled/security/NEXUS_3243.MD) | 37.3 | 5/26/2026 |
 | `distilled/security` | [NEXUS_ACCESSIBILITY.MD](distilled/security/NEXUS_ACCESSIBILITY.MD) | 24.6 | 5/26/2026 |
 | `distilled/security` | [NEXUS_AGENTIC-FORMS.MD](distilled/security/NEXUS_AGENTIC-FORMS.MD) | 5.3 | 5/26/2026 |
-| `distilled/security` | [NEXUS_AI_Architecture_Analysis.md](distilled/security/NEXUS_AI_Architecture_Analysis.md) | 24.9 | 5/28/2026 |
-| `distilled/security` | [NEXUS_AI_ARCHITECTURE_AUDIT.md](distilled/security/NEXUS_AI_ARCHITECTURE_AUDIT.md) | 30.2 | 5/26/2026 |
+| `distilled/security` | [NEXUS_AI_Architecture_Analysis.md](distilled/security/NEXUS_AI_Architecture_Analysis.md) | 24.9 | 6/3/2026 |
+| `distilled/security` | [NEXUS_AI_ARCHITECTURE_AUDIT.md](distilled/security/NEXUS_AI_ARCHITECTURE_AUDIT.md) | 30.2 | 6/3/2026 |
 | `distilled/security` | [NEXUS_AI_Code_Review.md](distilled/security/NEXUS_AI_Code_Review.md) | 22.1 | 5/26/2026 |
-| `distilled/security` | [NEXUS_AI_v2_Code_Review.md](distilled/security/NEXUS_AI_v2_Code_Review.md) | 23.9 | 5/26/2026 |
+| `distilled/security` | [NEXUS_AI_v2_Code_Review.md](distilled/security/NEXUS_AI_v2_Code_Review.md) | 23.9 | 6/3/2026 |
 | `distilled/security` | [NEXUS_ANALYSIS_SUMMARY.MD](distilled/security/NEXUS_ANALYSIS_SUMMARY.MD) | 7.7 | 5/27/2026 |
 | `distilled/security` | [NEXUS_AUTH-IDENTITY.MD](distilled/security/NEXUS_AUTH-IDENTITY.MD) | 4.2 | 5/26/2026 |
 | `distilled/security` | [NEXUS_AUTHENTICATION.MD](distilled/security/NEXUS_AUTHENTICATION.MD) | 45.6 | 5/27/2026 |
@@ -370,7 +370,7 @@
 | `distilled/security` | [NEXUS_DEPLOYMENT.MD](distilled/security/NEXUS_DEPLOYMENT.MD) | 10.5 | 5/27/2026 |
 | `distilled/security` | [NEXUS_DESIGN-TOKEN-REACTIVITY.MD](distilled/security/NEXUS_DESIGN-TOKEN-REACTIVITY.MD) | 6.0 | 5/26/2026 |
 | `distilled/security` | [NEXUS_DISTILLATION_SECURITY.md](distilled/security/NEXUS_DISTILLATION_SECURITY.md) | 3.2 | 5/26/2026 |
-| `distilled/security` | [NEXUS_DISTILLATION_UI-UX.md](distilled/security/NEXUS_DISTILLATION_UI-UX.md) | 80.6 | 5/27/2026 |
+| `distilled/security` | [NEXUS_DISTILLATION_UI-UX.md](distilled/security/NEXUS_DISTILLATION_UI-UX.md) | 80.7 | 6/3/2026 |
 | `distilled/security` | [NEXUS_DOCUMENTATION.MD](distilled/security/NEXUS_DOCUMENTATION.MD) | 5.1 | 5/27/2026 |
 | `distilled/security` | [NEXUS_DUSK.MD](distilled/security/NEXUS_DUSK.MD) | 76.9 | 5/27/2026 |
 | `distilled/security` | [NEXUS_ELOQUENT-COLLECTIONS.MD](distilled/security/NEXUS_ELOQUENT-COLLECTIONS.MD) | 12.7 | 5/27/2026 |
@@ -411,7 +411,7 @@
 | `distilled/security` | [NEXUS_MCPBESTPRACTICE.MD](distilled/security/NEXUS_MCPBESTPRACTICE.MD) | 7.8 | 5/30/2026 |
 | `distilled/security` | [NEXUS_MIDDLEWARE.MD](distilled/security/NEXUS_MIDDLEWARE.MD) | 19.4 | 5/27/2026 |
 | `distilled/security` | [NEXUS_MIGRATIONS.MD](distilled/security/NEXUS_MIGRATIONS.MD) | 57.7 | 5/27/2026 |
-| `distilled/security` | [NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md](distilled/security/NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md) | 10.2 | 5/26/2026 |
+| `distilled/security` | [NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md](distilled/security/NEXUS_MULTI_AGENT_STABILIZATION_PLAN.md) | 10.2 | 6/3/2026 |
 | `distilled/security` | [NEXUS_NEXUS REVIEW GUARD RAILS.MD](distilled/security/NEXUS_NEXUS REVIEW GUARD RAILS.MD) | 16.8 | 5/26/2026 |
 | `distilled/security` | [NEXUS_NEXUS_PIPELINE_MAP.MD](distilled/security/NEXUS_NEXUS_PIPELINE_MAP.MD) | 15.1 | 5/26/2026 |
 | `distilled/security` | [NEXUS_OCTANE.MD](distilled/security/NEXUS_OCTANE.MD) | 28.9 | 5/27/2026 |
@@ -485,6 +485,7 @@
 | `distilled/tdd` | [NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_FAILURE_RECOVERY_ENGINE_SESSION_HISTORY_ARCHIVE.MD) | 7.0 | 5/7/2026 |
 | `distilled/tdd` | [NEXUS_FORMAT-HUMAN-READABLE-DURATIONS.MD](distilled/tdd/NEXUS_FORMAT-HUMAN-READABLE-DURATIONS.MD) | 4.4 | 5/26/2026 |
 | `distilled/tdd` | [NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_FULL_STACK_INTERACTION_TEST_(TALL_FLOW)_SESSION_HISTORY_ARCHIVE.MD) | 7.7 | 5/7/2026 |
+| `distilled/tdd` | [NEXUS_GEMINI.MD](distilled/tdd/NEXUS_GEMINI.MD) | 0.2 | 6/1/2026 |
 | `distilled/tdd` | [NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD](distilled/tdd/NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD) | 7.2 | 5/7/2026 |
 | `distilled/tdd` | [NEXUS_HYBRID_CORE_ROADMAP.md](distilled/tdd/NEXUS_HYBRID_CORE_ROADMAP.md) | 2.8 | 5/26/2026 |
 | `distilled/tdd` | [NEXUS_IMPLEMENTER-PROMPT.MD](distilled/tdd/NEXUS_IMPLEMENTER-PROMPT.MD) | 4.3 | 6/1/2026 |

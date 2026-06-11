@@ -843,8 +843,8 @@
       "ui-ux",
       "api"
     ],
-    "last_updated": "5/28/2026",
-    "checksum": "cdf14263164bdec7383c588c6cf5b924a5a3c1880197ac1e82e0cb18c42d6b3f"
+    "last_updated": "6/3/2026",
+    "checksum": "40aec848dbf1212c31f47694a3f537a50662f4cd3c1abcdd5328ce403781c1b4"
   },
   {
     "node": "NEXUS_DISTILLATION_DATABASE.md",
@@ -853,16 +853,16 @@
     "tags": [
       "database"
     ],
-    "last_updated": "6/1/2026",
-    "checksum": "ec3171ed8e21e94bd1ccc53c00e0e377b986889429e8b36b8e7d6ce1c5337e03"
+    "last_updated": "6/11/2026",
+    "checksum": "4c055faf3a6d56d7e045e606169ccf18309347939c8f86c4f3381a1caacbd1ae"
   },
   {
     "node": "NEXUS_DISTILLATION_OTHER.md",
     "path": "distilled/academics/NEXUS_DISTILLATION_OTHER.md",
     "rack": "distilled/academics",
     "tags": [],
-    "last_updated": "6/1/2026",
-    "checksum": "f4b4bb1841447ea17fb1107c99bb3f8cc4468bd8808e7a56041540b64c032588"
+    "last_updated": "6/11/2026",
+    "checksum": "efa9c83e4b5860e6d6834b92370e7dfc53321c22a739d21d546f47553a95a7cc"
   },
   {
     "node": "NEXUS_DISTILLATION_PERFORMANCE.md",
@@ -871,8 +871,8 @@
     "tags": [
       "performance"
     ],
-    "last_updated": "6/1/2026",
-    "checksum": "2be904665d7eb8d3d961cee70686e4e32f815bdcae5a82a692dcbe7fa8d0405c"
+    "last_updated": "6/11/2026",
+    "checksum": "313b56ad35cbd21fc7a3af6938bc787b04ec25ef790a0fb95c92a7daa73a531e"
   },
   {
     "node": "NEXUS_DISTILLATION_TDD.md",
@@ -885,8 +885,8 @@
       "vcs",
       "laravel"
     ],
-    "last_updated": "5/28/2026",
-    "checksum": "21d29b30a802e0a7d793f3198700f1e12f5a3626f36fda5ab4b383b5e30a9fc3"
+    "last_updated": "6/3/2026",
+    "checksum": "a1ec1f078334bfd910b8eb7c34b04805dbf244e8257706d052751335ea68e907"
   },
   {
     "node": "NEXUS_DISTILLATION_UI-UX.md",
@@ -903,8 +903,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "6/1/2026",
-    "checksum": "45a02e93a976a79dfbbee063193a5b8fd0440b5157041f171424b0f3e6fb848d"
+    "last_updated": "6/11/2026",
+    "checksum": "88d1cf70fd1e69d57e69cc83ddd81a2d950b587cf23d2f6f79c1c45ef1d85c19"
   },
   {
     "node": "NEXUS_DISTILLATION_VCS.md",
@@ -915,8 +915,8 @@
       "performance",
       "vcs"
     ],
-    "last_updated": "5/28/2026",
-    "checksum": "eb6e0cb866550a6f6b5b561990fe28b5e70f5331ff17d39cf67df2fd2d78c317"
+    "last_updated": "6/3/2026",
+    "checksum": "ba23e968e90c678b83c82abc4a0d22e62c8b9a9531dd604a5ff0de75ea38189d"
   },
   {
     "node": "NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD",
@@ -1191,16 +1191,16 @@
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "6/1/2026",
-    "checksum": "c2801c95667705b3602726bf8cebfb437cef3eca2ffc7dfec30ab101f5b96f93"
+    "last_updated": "6/11/2026",
+    "checksum": "2fa444f10c387ba590a0d037deb26e562ca973412680abfd1971669ddcfe6310"
   },
   {
     "node": "NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "6/1/2026",
-    "checksum": "0d2bacc294d65e63ef4981cbabcd6103acda37f461612e36ad1ddd228f94e849"
+    "last_updated": "6/11/2026",
+    "checksum": "7b75b5e28b5db5a1427cb09e19eeeeccee4a620abea8f432070d3c9dc1fcecf0"
   },
   {
     "node": "NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD",
@@ -1225,8 +1225,8 @@
     "tags": [
       "audit"
     ],
-    "last_updated": "6/1/2026",
-    "checksum": "280793eee4cdf455c7d454bbd5cd45b09f941ecd7e6b507c65d68f4144c36e72"
+    "last_updated": "6/11/2026",
+    "checksum": "e39981041f9234d487171ca98d527cb945326f489dad7e952f6c957268c89b11"
   },
   {
     "node": "NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD",
@@ -1556,8 +1556,8 @@
       "vcs",
       "api"
     ],
-    "last_updated": "5/26/2026",
-    "checksum": "eb966fce3939bd383a50dac6128bf60d6a534537aa9aae1f10ba05d018a2b6ed"
+    "last_updated": "6/3/2026",
+    "checksum": "f69464226cf9e8d6e5f34bdcdd07bc8d39576a5ca4687cee7f0f3b9a4514e047"
   },
   {
     "node": "NEXUS_DISTILLATION_UI-UX.md",
@@ -1571,8 +1571,8 @@
       "vcs",
       "api"
     ],
-    "last_updated": "5/26/2026",
-    "checksum": "61a191524f54836c27b7313dcda28a9079cd7e5513ef71403ef8a7a8ffad8120"
+    "last_updated": "6/3/2026",
+    "checksum": "516f5e222d40c14f4e4789982dabe6bc3a65800b8ce4b28b9b3f16861a792936"
   },
   {
     "node": "NEXUS_DYNAMIC-SIBLING-STYLING.MD",
@@ -2458,8 +2458,8 @@
     "tags": [
       "ui-ux"
     ],
-    "last_updated": "5/28/2026",
-    "checksum": "c3e64850268b18fe352d42bf8aeb118da9ca1c417b33039a0a9397dcde1869c1"
+    "last_updated": "6/3/2026",
+    "checksum": "a0446b8e06df438daa14211d4713e4575a419147deb93112c70bc9b0be360e86"
   },
   {
     "node": "NEXUS_DISTILLATION_UI-UX.md",
@@ -3117,6 +3117,22 @@
     "checksum": "6ed118e97d12219f2b17daf0774db2ea869056157305c808db7fb9c9d0ca8944"
   },
   {
+    "node": "NEXUS_FACTORY_IMPORT_ISSUE.MD",
+    "path": "distilled/laravel/NEXUS_FACTORY_IMPORT_ISSUE.MD",
+    "rack": "distilled/laravel",
+    "tags": [
+      "laravel",
+      "factory",
+      "bug",
+      "import",
+      "ai-hallucination",
+      "database-seeding",
+      "migrate-fresh-error"
+    ],
+    "last_updated": "6/11/2026",
+    "checksum": "d444b3519dbef7a143fe038952809993847160bcd29a595859900cf5368d4d89"
+  },
+  {
     "node": "NEXUS_HUB_INDEX.md",
     "path": "distilled/laravel/NEXUS_HUB_INDEX.md",
     "rack": "distilled/laravel",
@@ -3386,14 +3402,6 @@
     "tags": [],
     "last_updated": "5/30/2026",
     "checksum": "a78c95627d801c1b3e1cad71c13dc56de2fb4584b29f9886b7fdcfd32feaebeb"
-  },
-  {
-    "node": "NEXUS_GEMINI.MD",
-    "path": "distilled/other/NEXUS_GEMINI.MD",
-    "rack": "distilled/other",
-    "tags": [],
-    "last_updated": "6/1/2026",
-    "checksum": "565bd173cfc446d6f5791bd1f9caf0a3859c281f87efaaa328665ab78610ebd6"
   },
   {
     "node": "NEXUS_PERSUASION-PRINCIPLES.MD",
@@ -3868,8 +3876,8 @@
       "vcs",
       "api"
     ],
-    "last_updated": "5/28/2026",
-    "checksum": "0cfe79363aab0d36c6406f49594f8fb1f66a3c6ff1086270e2d1afffa1b621db"
+    "last_updated": "6/3/2026",
+    "checksum": "20d10da8ed940fd8f301c91a4d08bf86a86f775c49732d90e6a851d768b2c710"
   },
   {
     "node": "NEXUS_AI_ARCHITECTURE_AUDIT.md",
@@ -3885,8 +3893,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "5/26/2026",
-    "checksum": "b825ae869db6d6f2997271c4294ad01ba09d7ca24813793478aef1d5b6186824"
+    "last_updated": "6/3/2026",
+    "checksum": "8c62b9eb8b8323e62911f13a155256240ebbf122784634dbf5db5fa81b800b8d"
   },
   {
     "node": "NEXUS_AI_Code_Review.md",
@@ -3918,8 +3926,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "5/26/2026",
-    "checksum": "edf51a39c48a1f2c4f272d436845bd1c4f020b10d6ec6bf6cd41f2596a295466"
+    "last_updated": "6/3/2026",
+    "checksum": "55110adda06e05a7c98033b5d6a9f503defaaeeb6510ff6455508dbcd2a8da9e"
   },
   {
     "node": "NEXUS_ANALYSIS_SUMMARY.MD",
@@ -4231,8 +4239,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "5/27/2026",
-    "checksum": "d851b311b07e05fe603af702ca26bbccfa593df4c981993e17695561f2a826d6"
+    "last_updated": "6/3/2026",
+    "checksum": "0212f2ce9dfa0df44a4ea8096df92e0b9e469375939261afa226a6fca903f931"
   },
   {
     "node": "NEXUS_DOCUMENTATION.MD",
@@ -4811,8 +4819,8 @@
       "vcs",
       "api"
     ],
-    "last_updated": "5/26/2026",
-    "checksum": "fd11584404901c07f91a35498b2fe4e7813afecc70a6cb06de17d731bd5e6db8"
+    "last_updated": "6/3/2026",
+    "checksum": "db165122926881dc3a7fa05c1f14ce813f585fe5a898d00479cf5b6f19be1e80"
   },
   {
     "node": "NEXUS_NEXUS REVIEW GUARD RAILS.MD",
@@ -5767,6 +5775,14 @@
     ],
     "last_updated": "5/7/2026",
     "checksum": "8870128059ae5e25bad6edbcd3ba52c17503f3115e45d9437f905fcd0e06f55e"
+  },
+  {
+    "node": "NEXUS_GEMINI.MD",
+    "path": "distilled/tdd/NEXUS_GEMINI.MD",
+    "rack": "distilled/tdd",
+    "tags": [],
+    "last_updated": "6/1/2026",
+    "checksum": "565bd173cfc446d6f5791bd1f9caf0a3859c281f87efaaa328665ab78610ebd6"
   },
   {
     "node": "NEXUS_GOVERNANCE_ENFORCEMENT_TEST_SESSION_HISTORY_ARCHIVE.MD",

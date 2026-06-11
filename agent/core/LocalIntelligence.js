@@ -82,25 +82,35 @@ class LocalIntelligence {
       }
 
       if (!this.llama || !this.model) {
-        console.log(
-          `🤖 LocalIntelligence: Initializing node-llama-cpp engine...`,
-        );
-        if (!getLlama) {
-          const llamaModule = await import("node-llama-cpp");
-          getLlama = llamaModule.getLlama;
-          LlamaChatSession = llamaModule.LlamaChatSession;
+        if (!this._initPromise) {
+          this._initPromise = (async () => {
+            try {
+              console.log(
+                `🤖 LocalIntelligence: Initializing node-llama-cpp engine...`,
+              );
+              if (!getLlama) {
+                const llamaModule = await import("node-llama-cpp");
+                getLlama = llamaModule.getLlama;
+                LlamaChatSession = llamaModule.LlamaChatSession;
+              }
+              this.llama = await getLlama();
+              console.log(
+                `🤖 LocalIntelligence: Loading model from ${this.modelPath}...`,
+              );
+              const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
+              this.model = await this.llama.loadModel({
+                modelPath: this.modelPath,
+                // Optimasi untuk sistem dengan RAM/VRAM terbatas
+                gpuLayers: isCpuTrain ? 0 : (parseInt(process.env.NEXUS_GPU_LAYERS) || 30),
+              });
+              console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
+            } catch (err) {
+              this._initPromise = null;
+              throw err;
+            }
+          })();
         }
-        this.llama = await getLlama();
-        console.log(
-          `🤖 LocalIntelligence: Loading model from ${this.modelPath}...`,
-        );
-        const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
-        this.model = await this.llama.loadModel({
-          modelPath: this.modelPath,
-          // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: isCpuTrain ? 0 : (parseInt(process.env.NEXUS_GPU_LAYERS) || 30),
-        });
-        console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
+        await this._initPromise;
       }
 
       this.isAvailable = true;

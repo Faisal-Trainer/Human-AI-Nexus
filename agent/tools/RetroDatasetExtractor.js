@@ -117,7 +117,7 @@ class RetroDatasetExtractor {
             }
         }
 
-        outStream.end();
+        await new Promise((resolve) => outStream.end(resolve));
 
         // Clean up dummy root
         await fs.remove(this.dummyRoot);

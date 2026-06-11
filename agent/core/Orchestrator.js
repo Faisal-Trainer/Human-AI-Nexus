@@ -172,6 +172,7 @@ class Orchestrator {
             const timeout = setTimeout(() => {
                 EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
                 EventBus.unsubscribe('TASK_FAILED', onFailed);
+                this.activeTasks.delete(taskId);
                 reject(new Error(`Task ${taskId} timed out after ${timeoutMs}ms — agent: ${agentName}`));
             }, timeoutMs);
 
@@ -180,6 +181,7 @@ class Orchestrator {
                     clearTimeout(timeout);
                     EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
                     EventBus.unsubscribe('TASK_FAILED', onFailed);
+                    this.activeTasks.delete(taskId);
                     resolve(payload.result);
                 }
             };
@@ -189,6 +191,7 @@ class Orchestrator {
                     clearTimeout(timeout);
                     EventBus.unsubscribe('SCANNER_FINISHED', onFinished);
                     EventBus.unsubscribe('TASK_FAILED', onFailed);
+                    this.activeTasks.delete(taskId);
                     reject(new Error(payload.error?.message || 'Task failed permanently.'));
                 }
             };

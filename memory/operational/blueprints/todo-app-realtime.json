@@ -1,7 +1,7 @@
 {
-  "project_name": "todo-app-realtime",
+  "project_name": "Todo-App-Realtime",
   "models": [
-    "Comment",
+    "User",
     "Task"
   ],
   "schema": {
@@ -9,34 +9,40 @@
       "name": "string",
       "email": "string",
       "password": "text"
+    },
+    "Task": {
+      "title": "string",
+      "description": "text",
+      "completed": "boolean",
+      "user_id": "foreign key"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_your_real_tables_table"
+    "create_tasks_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "your-real-component"
+    "task-list",
+    "task-create"
   ],
   "seeders": [
     "UserSeeder",
-    "YourRealModelSeeder"
+    "TaskSeeder"
   ],
   "factories": [
     "UserFactory",
-    "YourRealModelFactory"
+    "TaskFactory"
   ],
   "routes": [
     "/dashboard",
-    "/your-real-route"
+    "/tasks"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Comment"
+      "target": "Task"
     }
   ]
 }

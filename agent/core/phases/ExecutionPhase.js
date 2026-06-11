@@ -240,13 +240,7 @@ class ExecutionPhase extends BasePhase {
         file.endsWith(".php") &&
         !file.includes("0001_01_01")
       ) {
-        // FIX #13 — Dynamic timestamp: gunakan prefix tanggal hari ini (YYYY_MM_DD)
-        // bukan hardcoded '2026_06_01' agar valid di bulan/tahun berbeda
-        const todayPrefix = new Date()
-          .toISOString()
-          .slice(0, 10)
-          .replace(/-/g, "_");
-        if (!file.includes(todayPrefix)) isUnusedMigration = true;
+        // BUG-09 FIX: Removed aggressive date filtering that deletes valid older migrations
       }
 
       if (
@@ -298,7 +292,6 @@ class ExecutionPhase extends BasePhase {
 
     // Run migrate:fresh to avoid table-already-exists collisions between
     // template migrations and generated migrations targeting the same table names.
-    // FIX: execSync declared at function scope so it is accessible in all catch branches.
     const { execSync } = require("child_process");
     const dbPath = path.join(projectPath, "database", "database.sqlite");
 
@@ -344,7 +337,6 @@ class ExecutionPhase extends BasePhase {
     let hasSmokePassed = false;
     this.log(`   🕵️‍♂️ Running Artisan Smoke Test (route:list)...`, "info");
     try {
-      const { execSync } = require("child_process");
       execSync("php artisan route:list", { cwd: projectPath, stdio: "ignore" });
       this.log(`      ✅ Smoke test passed.`, "success");
       hasSmokePassed = true;

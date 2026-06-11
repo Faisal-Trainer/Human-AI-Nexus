@@ -159,13 +159,21 @@ class ModelTrainer {
    */
   async checkPrerequisites(baseModel) {
     const errors = [];
+    const warnings = [];
 
     // Check Python
+    let pythonCmd = null;
     try {
-      await this._exec("python", ["--version"], { timeout: 5000 });
+      const ver = await this._exec("python", ["--version"], { timeout: 5000 });
+      pythonCmd = "python";
+      console.log(`   ${ver.trim()}`);
     } catch (e) {
       try {
-        await this._exec("python3", ["--version"], { timeout: 5000 });
+        const ver = await this._exec("python3", ["--version"], {
+          timeout: 5000,
+        });
+        pythonCmd = "python3";
+        console.log(`   ${ver.trim()}`);
       } catch (e2) {
         errors.push(
           "   ❌ Python not found. Install Python 3.10+ from https://python.org",
@@ -194,16 +202,29 @@ class ModelTrainer {
       errors.push(`   ❌ Requirements file not found: ${reqFile}`);
     }
 
-    // Check Unsloth (Python package)
-    try {
-      await this._exec("python", ["-c", "import unsloth"], { timeout: 10000 });
-    } catch (e) {
-      errors.push(
-        "   ⚠️  Unsloth not installed. Run: pip install -r agent/scripts/train_requirements.txt",
-      );
+    // Check Unsloth (Python package) — WARNING only, not blocking
+    if (pythonCmd) {
+      try {
+        await this._exec(pythonCmd, ["-c", "import unsloth"], {
+          timeout: 15000,
+        });
+        console.log(
+          "   ✅ Unsloth detected (GPU-optimized training available)",
+        );
+      } catch (e) {
+        warnings.push(
+          "   ⚠️  Unsloth not installed. Training will use fallback mode (transformers + peft).",
+        );
+        warnings.push(
+          "   💡 For faster GPU training: pip install -r agent/scripts/train_requirements.txt",
+        );
+      }
     }
 
-    return { ok: errors.length === 0, errors };
+    // Print warnings (non-blocking)
+    for (const w of warnings) console.warn(w);
+
+    return { ok: errors.length === 0, errors, warnings };
   }
 
   /**
@@ -339,13 +360,14 @@ class ModelTrainer {
    */
   async _pythonMerge(baseModel, adapterPath, mergedPath) {
     const pythonCmd = await this._findPython();
+    const hfModelName = this._resolveHfModel(baseModel);
     // FIX: Langsung merge dan quantize ke Q4_K_M dalam 1 langkah (hemat I/O dan RAM ganda)
     // Kita tetap output nama "f16.gguf" sementara agar pipeline tidak pecah, lalu step quantize tinggal me-rename-nya
     const mergeScript = `
 import sys
 try:
     from unsloth import FastLanguageModel
-    model, tokenizer = FastLanguageModel.from_pretrained("${path.join(this.modelsDir, baseModel).replace(/\\/g, "/")}")
+    model, tokenizer = FastLanguageModel.from_pretrained("${hfModelName}")
     model.load_adapter("${adapterPath.replace(/\\/g, "/")}")
     model.save_pretrained_gguf("${mergedPath.replace(/\\/g, "/").replace(".gguf", "")}", tokenizer, quantization_method="q4_k_m")
     print("Merge & Quantize complete")
@@ -361,8 +383,9 @@ except Exception as e:
 
       // Unsloth outputs a file with -unsloth-Q4_K_M.gguf or -q4_k_m.gguf suffix
       const expectedPath1 = mergedPath.replace(".gguf", "") + "-q4_k_m.gguf";
-      const expectedPath2 = mergedPath.replace(".gguf", "") + "-unsloth-Q4_K_M.gguf";
-      
+      const expectedPath2 =
+        mergedPath.replace(".gguf", "") + "-unsloth-Q4_K_M.gguf";
+
       if (await fs.pathExists(expectedPath1)) {
         await fs.move(expectedPath1, mergedPath, { overwrite: true });
         return mergedPath;
@@ -408,17 +431,17 @@ except Exception as e:
    * Fallback Python quantization using Unsloth
    */
   async _pythonQuantize(mergedPath, outputPath) {
-    // FIX: Karena _pythonMerge sekarang sudah langsung meng-output Q4_K_M (disamarkan sbg F16), 
+    // FIX: Karena _pythonMerge sekarang sudah langsung meng-output Q4_K_M (disamarkan sbg F16),
     // kita cukup me-rename filenya saja di step ini. Memangkas proses load 6GB RAM kedua kali!
     try {
-        if (await fs.pathExists(mergedPath)) {
-            await fs.copy(mergedPath, outputPath);
-            return outputPath;
-        }
-        return null;
+      if (await fs.pathExists(mergedPath)) {
+        await fs.move(mergedPath, outputPath, { overwrite: true });
+        return outputPath;
+      }
+      return null;
     } catch (e) {
-        console.error(`   ❌ Rename quantization failed: ${e.message}`);
-        return null;
+      console.error(`   ❌ Rename quantization failed: ${e.message}`);
+      return null;
     }
   }
 
@@ -435,6 +458,26 @@ except Exception as e:
   }
 
   // ── Utility Methods ──
+
+  _resolveHfModel(ggufName) {
+    let nameParts = ggufName.toLowerCase().replace('.gguf', '');
+    for (const suffix of ['-q4_k_m', '-q8_0', '-q4_0', '-q5_k_m', '-q6_k', '-f16', '-q2_k', '-q3_k_m']) {
+      nameParts = nameParts.replace(suffix, '');
+    }
+
+    const mapping = {
+      'qwen2.5-coder-3b-instruct': 'unsloth/Qwen2.5-Coder-3B-Instruct',
+      'qwen2.5-coder-1.5b-instruct': 'Qwen/Qwen2.5-Coder-1.5B-Instruct',
+      'qwen2.5-coder-7b-instruct': 'Qwen/Qwen2.5-Coder-7B-Instruct',
+      'qwen2.5-3b-instruct': 'Qwen/Qwen2.5-3B-Instruct',
+      'qwen2.5-7b-instruct': 'Qwen/Qwen2.5-7B-Instruct',
+      'llama-3.2-1b-instruct': 'meta-llama/Llama-3.2-1B-Instruct',
+      'llama-3.2-3b-instruct': 'meta-llama/Llama-3.2-3B-Instruct',
+      'tinyllama': 'TinyLlama/TinyLlama-1.1B-Chat-v1.0',
+      'mistral-7b-instruct': 'mistralai/Mistral-7B-Instruct-v0.3',
+    };
+    return mapping[nameParts] || ggufName;
+  }
 
   async _findPython() {
     try {
@@ -487,14 +530,27 @@ except Exception as e:
   }
 
   /**
-   * Execute a command with timeout
+   * Execute a command with timeout.
+   * FIX: Use shell:false universally — prevents Windows cmd.exe from mangling
+   * quoted arguments (e.g. python -c "import unsloth").
+   * For .cmd files (npm, npx), resolve the full .cmd name explicitly.
    */
   _exec(command, args = [], options = {}) {
     return new Promise((resolve, reject) => {
       const timeoutMs = options.timeout || 60000;
-      const proc = spawn(command, args, {
+      const isWin = process.platform === "win32";
+
+      // Resolve Windows .cmd commands
+      let spawnCmd = command;
+      if (isWin) {
+        if (command === "npm") spawnCmd = "npm.cmd";
+        else if (command === "npx") spawnCmd = "npx.cmd";
+        else if (command === "pip") spawnCmd = "pip.cmd";
+      }
+
+      const proc = spawn(spawnCmd, args, {
         cwd: options.cwd || this.rootPath,
-        shell: process.platform === "win32",
+        shell: false, // FIX: Never use shell to prevent argument mangling
       });
 
       let stdout = "",
@@ -504,13 +560,16 @@ except Exception as e:
         reject(new Error(`Command timed out after ${timeoutMs}ms`));
       }, timeoutMs);
 
+      if (proc.stdout) proc.stdout.setEncoding("utf8");
+      if (proc.stderr) proc.stderr.setEncoding("utf8");
+
       proc.stdout.on("data", (d) => {
-        stdout += d.toString();
+        stdout += d;
         // Stream training progress to console
         if (command.includes("python")) process.stdout.write(d);
       });
       proc.stderr.on("data", (d) => {
-        stderr += d.toString();
+        stderr += d;
         if (command.includes("python")) process.stderr.write(d);
       });
 

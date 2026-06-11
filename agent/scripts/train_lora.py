@@ -17,6 +17,18 @@ import os
 import sys
 import time
 
+# FIX: Windows terminal encoding — emojis cause UnicodeEncodeError on cp1252
+# Force UTF-8 output on Windows
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        # Fallback: strip all non-ASCII from print
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='ascii', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='ascii', errors='replace')
+
 def parse_args():
     parser = argparse.ArgumentParser(description='NEXUS LoRA Fine-Tuning')
     parser.add_argument('--dataset', required=True, help='Path to JSONL dataset file')
@@ -64,15 +76,15 @@ def load_dataset(dataset_path):
     return records
 
 def format_prompt(record):
-    """Format a record into a training prompt."""
+    """Format a record into a training prompt using ChatML format."""
     instruction = record['instruction']
     input_text = record.get('input', '')
     output = record['output']
 
     if input_text:
-        return f"### Instruction:\n{instruction}\n\n### Input:\n{input_text}\n\n### Response:\n{output}"
+        return f"<|im_start|>user\n{instruction}\n\n{input_text}<|im_end|>\n<|im_start|>assistant\n{output}<|im_end|>"
     else:
-        return f"### Instruction:\n{instruction}\n\n### Response:\n{output}"
+        return f"<|im_start|>user\n{instruction}<|im_end|>\n<|im_start|>assistant\n{output}<|im_end|>"
 
 def train_unsloth(args, records):
     """Train using Unsloth (most efficient for consumer GPUs)."""
@@ -80,8 +92,7 @@ def train_unsloth(args, records):
         from unsloth import FastLanguageModel
         import torch
     except ImportError:
-        print("❌ Unsloth not installed. Run: pip install -r train_requirements.txt")
-        sys.exit(1)
+        raise ImportError("Unsloth not installed. Run: pip install -r train_requirements.txt")
 
     print(f"\n🔬 Starting LoRA Training with Unsloth...")
     print(f"   Model     : {args.model}")
@@ -99,8 +110,9 @@ def train_unsloth(args, records):
 
     # Load model with Unsloth
     print(f"\n   📥 Loading base model...")
+    model_name_hf = resolve_hf_model(args.model)
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=args.model.replace('.gguf', ''),
+        model_name=model_name_hf,
         max_seq_length=args.max_seq_len,
         dtype=dtype,
         load_in_4bit=True if args.gpu and not args.cpu else False,
@@ -206,6 +218,50 @@ def train_unsloth(args, records):
     print(f"   📋 Metadata saved to {args.output}/training_metadata.json")
     return True
 
+def resolve_hf_model(model_path):
+    """Convert a local GGUF file path to the corresponding HuggingFace repo ID.
+    transformers cannot load GGUF files directly — it needs HF format.
+    Returns the HuggingFace repo ID for download, or the local path if it's a HF directory.
+    """
+    import os
+
+    # If it's a local .gguf file, extract the base model name
+    basename = os.path.basename(model_path).lower()
+    if basename.endswith('.gguf'):
+        # Map known GGUF filenames to HuggingFace repo IDs
+        GGUF_TO_HF = {
+            'qwen2.5-coder-3b-instruct': 'Qwen/Qwen2.5-Coder-3B-Instruct',
+            'qwen2.5-coder-1.5b-instruct': 'Qwen/Qwen2.5-Coder-1.5B-Instruct',
+            'qwen2.5-coder-7b-instruct': 'Qwen/Qwen2.5-Coder-7B-Instruct',
+            'qwen2.5-3b-instruct': 'Qwen/Qwen2.5-3B-Instruct',
+            'qwen2.5-7b-instruct': 'Qwen/Qwen2.5-7B-Instruct',
+            'llama-3.2-1b-instruct': 'meta-llama/Llama-3.2-1B-Instruct',
+            'llama-3.2-3b-instruct': 'meta-llama/Llama-3.2-3B-Instruct',
+            'tinyllama': 'TinyLlama/TinyLlama-1.1B-Chat-v1.0',
+            'mistral-7b-instruct': 'mistralai/Mistral-7B-Instruct-v0.3',
+        }
+
+        # Strip quantization suffix (e.g. q4_k_m, q8_0, f16)
+        name_parts = basename.replace('.gguf', '')
+        for quant_suffix in ['-q4_k_m', '-q8_0', '-q4_0', '-q5_k_m', '-q6_k', '-f16', '-q2_k', '-q3_k_m']:
+            name_parts = name_parts.replace(quant_suffix, '')
+
+        hf_repo = GGUF_TO_HF.get(name_parts)
+        if hf_repo:
+            print(f"   ℹ️  GGUF file detected. Using HuggingFace repo: {hf_repo}")
+            print(f"   ℹ️  (Model will be downloaded from HuggingFace Hub on first run)")
+            return hf_repo
+        else:
+            raise ValueError(
+                f"Cannot map GGUF file '{basename}' to a HuggingFace repo.\n"
+                f"   Known models: {', '.join(GGUF_TO_HF.keys())}\n"
+                f"   Please add a mapping in resolve_hf_model() or use --base-model with a HuggingFace repo ID."
+            )
+
+    # Not a .gguf file — assume it's a HF format directory or repo ID
+    return model_path
+
+
 def train_simple(args, records):
     """Fallback: Simple training without Unsloth (CPU-friendly)."""
     try:
@@ -213,13 +269,12 @@ def train_simple(args, records):
         from peft import LoraConfig, get_peft_model
         import torch
     except ImportError:
-        print("❌ transformers/peft not installed. Run: pip install -r train_requirements.txt")
-        sys.exit(1)
+        raise ImportError("transformers/peft not installed. Run: pip install -r train_requirements.txt")
 
     print(f"\n🔬 Starting LoRA Training (Simple mode)...")
 
     # Load tokenizer and model
-    model_name = args.model.replace('.gguf', '')
+    model_name = resolve_hf_model(args.model)
     print(f"   📥 Loading model from {model_name}...")
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)

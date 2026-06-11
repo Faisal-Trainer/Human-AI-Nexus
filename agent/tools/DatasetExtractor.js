@@ -52,7 +52,7 @@ class DatasetExtractor {
             }
         }
 
-        outStream.end();
+        await new Promise((resolve) => outStream.end(resolve));
 
         console.log(`✅ Extraction complete!`);
         console.log(`📂 Dataset saved to: ${this.outPath}`);

@@ -12,19 +12,19 @@
     },
     "Url": {
       "original_url": "string",
-      "shortened_url": "string",
-      "user_id": "integer",
-      "created_at": "timestamp",
-      "updated_at": "timestamp"
+      "short_url": "string",
+      "user_id": "integer"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_urls_table"
+    "create_urls_table",
+    "create_user_urls_table"
   ],
   "livewire_components": [
     "user-profile",
-    "url-list"
+    "url-list",
+    "url-create"
   ],
   "seeders": [
     "UserSeeder",
@@ -37,14 +37,21 @@
   "routes": [
     "/dashboard",
     "/urls",
-    "/url/{shortened_url}"
+    "/urls/create"
   ],
-  "pivot_tables": [],
+  "pivot_tables": [
+    "user_urls"
+  ],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
       "target": "Url"
+    },
+    {
+      "model": "Url",
+      "type": "belongsTo",
+      "target": "User"
     }
   ]
 }

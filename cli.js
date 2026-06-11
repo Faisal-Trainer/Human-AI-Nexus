@@ -38,18 +38,18 @@ async function main() {
     const cleanArgs = args.filter((a) => a !== "nexus");
     const enginePath = path.join(__dirname, "agent", "main.js");
 
-    let command = "bun";
+    let spawnCommand = "bun";
     let spawnArgs = [enginePath, ...cleanArgs];
     let shellOpt = false;
 
     if (process.platform === "win32") {
       // Escape args manually and pass as a single string to avoid DEP0190
-      command = `bun "${enginePath}" ${cleanArgs.map((a) => `"${a}"`).join(" ")}`;
+      spawnCommand = `bun "${enginePath}" ${cleanArgs.map((a) => `"${a}"`).join(" ")}`;
       spawnArgs = [];
       shellOpt = true;
     }
 
-    const child = spawn(command, spawnArgs, {
+    const child = spawn(spawnCommand, spawnArgs, {
       stdio: "inherit",
       shell: shellOpt,
     });
@@ -158,14 +158,13 @@ async function uninstall(args) {
         rl.question(
           "Apakah Anda yakin ingin melanjutkan? (y/N): ",
           (answer) => {
-            rl.close();
             resolve(answer.toLowerCase() === "y");
           },
         );
       });
 
   if (!confirm) {
-    if (!isYes) rl.close();
+    rl.close();
     console.log("Uninstall dibatalkan.");
     return;
   }
@@ -198,6 +197,8 @@ async function uninstall(args) {
     );
   } catch (err) {
     console.error(chalk.red("❌ Gagal melepas Nexus:"), err.message);
+  } finally {
+    rl.close();
   }
 }
 

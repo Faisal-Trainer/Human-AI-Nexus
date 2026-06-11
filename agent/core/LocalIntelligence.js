@@ -94,10 +94,11 @@ class LocalIntelligence {
         console.log(
           `🤖 LocalIntelligence: Loading model from ${this.modelPath}...`,
         );
+        const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
         this.model = await this.llama.loadModel({
           modelPath: this.modelPath,
           // Optimasi untuk sistem dengan RAM/VRAM terbatas
-          gpuLayers: 30, // Full GPU offload untuk Llama 3.2 1B (16 layers)
+          gpuLayers: isCpuTrain ? 0 : (parseInt(process.env.NEXUS_GPU_LAYERS) || 30),
         });
         console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
       }

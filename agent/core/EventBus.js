@@ -53,7 +53,14 @@ class EventBus extends EventEmitter {
     // FIX #18 — Dedup berdasarkan task_id, bukan seluruh payload JSON
     // Mencegah dua task berbeda (dengan payload mirip) saling men-drop satu sama lain
     // FIX #8 — Gunakan agent+task_id sebagai key (lebih unik), window 3 detik (lebih aman)
-    const dedupKey = `${event}-${payload?.agent || ""}-${payload?.task_id || JSON.stringify(payload)}`;
+    let payloadHash = payload?.task_id;
+    if (!payloadHash && payload) {
+        const payloadStr = JSON.stringify(payload);
+        payloadHash = payloadStr.length > 500 
+            ? require('crypto').createHash('md5').update(payloadStr).digest('hex') 
+            : payloadStr;
+    }
+    const dedupKey = `${event}-${payload?.agent || ""}-${payloadHash || ""}`;
     const now = Date.now();
     
     // Lazy cleanup: hapus event lama tanpa bikin ribuan timer setTimeout

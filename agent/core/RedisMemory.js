@@ -9,15 +9,9 @@ const NEXUS_PREFIX = 'nexus:';
 
 class RedisMemory {
     constructor() {
-        this.client = createClient();
+        this.client = null;
         this.isConnected = false;
         this._connectingPromise = null;
-        
-        this.client.on('error', (err) => {
-            console.error('❌ Redis Error:', err.message);
-            this.isConnected = false;
-            this._connectingPromise = null;
-        });
     }
 
     async connect() {
@@ -27,6 +21,14 @@ class RedisMemory {
 
         this._connectingPromise = (async () => {
             try {
+                if (!this.client) {
+                    this.client = createClient();
+                    this.client.on('error', (err) => {
+                        console.error('❌ Redis Error:', err.message);
+                        this.isConnected = false;
+                        this._connectingPromise = null;
+                    });
+                }
                 await this.client.connect();
                 this.isConnected = true;
                 console.log('🚀 Redis: Connected to in-memory memory bank.');

@@ -186,7 +186,7 @@ class NexusEngine {
     this.executionPhase = new ExecutionPhase(this);
     this.knowledgePhase = new KnowledgePhase(this);
 
-    this.initRedis();
+    this.initRedis().catch(err => this.log(`⚠️ Redis init error: ${err.message}`, "warning"));
   }
 
   // FIX #07 — Lazy-init getters: komponen hanya dibuat saat pertama kali diakses
@@ -1690,8 +1690,15 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
   calculateSimilarity(str1, str2) {
     if (!str1 || !str2) return 0;
     if (str1 === str2) return 1;
+    
+    // Fix BUG-13 & BUG-21: Pre-truncate strings by bytes safely to prevent JaroWinklerDistance OOM/hang on huge files
+    const len1 = Buffer.byteLength(str1, 'utf8');
+    const len2 = Buffer.byteLength(str2, 'utf8');
+    const safe1 = len1 > 10000 ? Buffer.from(str1, 'utf8').subarray(0, 10000).toString('utf8') : str1;
+    const safe2 = len2 > 10000 ? Buffer.from(str2, 'utf8').subarray(0, 10000).toString('utf8') : str2;
+
     const natural = require("natural");
-    const rawSimilarity = natural.JaroWinklerDistance(str1, str2);
+    const rawSimilarity = natural.JaroWinklerDistance(safe1, safe2);
     return Math.pow(rawSimilarity, 2);
   }
 }

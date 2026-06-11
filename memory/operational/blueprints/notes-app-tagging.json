@@ -1,0 +1,80 @@
+{
+  "project_name": "notes-app-tagging",
+  "models": [
+    "User",
+    "Tag",
+    "Note",
+    "TagNote"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text"
+    },
+    "Tag": {
+      "name": "string"
+    },
+    "Note": {
+      "title": "string",
+      "content": "text"
+    },
+    "TagNote": {
+      "note_id": "integer",
+      "tag_id": "integer"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_tags_table",
+    "create_notes_table",
+    "create_tag_notes_table"
+  ],
+  "livewire_components": [
+    "user-profile",
+    "notes-list",
+    "note-form",
+    "tag-form"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "TagSeeder",
+    "NoteSeeder",
+    "TagNoteSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "TagFactory",
+    "NoteFactory",
+    "TagNoteFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/notes",
+    "/notes/create",
+    "/notes/edit/{note}",
+    "/tags",
+    "/tags/create",
+    "/tags/edit/{tag}"
+  ],
+  "pivot_tables": [
+    "tag_notes"
+  ],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Note"
+    },
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Tag"
+    },
+    {
+      "model": "Tag",
+      "type": "hasMany",
+      "target": "Note"
+    }
+  ]
+}

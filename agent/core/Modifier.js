@@ -182,10 +182,10 @@ class Modifier {
         let content = await fs.readFile(filePath, 'utf8');
         
         if (!content.includes(traitNamespace)) {
-            content = content.replace(/namespace .*;/g, (match) => `${match}\nuse ${traitNamespace};`);
+            content = content.replace(/namespace\s+[^;]+;/g, (match) => `${match}\nuse ${traitNamespace};`);
         }
         if (!content.includes(`use ${traitName};`)) {
-            content = content.replace(/class .* {/g, (match) => `${match}\n    use ${traitName};`);
+            content = content.replace(/class\s+[^{]+{/g, (match) => `${match}\n    use ${traitName};`);
         }
 
         await fs.writeFile(filePath, content);

@@ -14,11 +14,11 @@ class ParallelRunner {
         const results = new Array(items.length);
         let index = 0;
         
-        const worker = async () => {
+        const worker = async (delay) => {
+            // FIX: Stagger start antar task paralel
+            if (delay > 0) await new Promise(r => setTimeout(r, delay));
             while (index < items.length) {
                 const currentIndex = index++;
-                // FIX: Stagger antar task paralel agar CPU LLM tidak langsung hit 100% dari 3 thread bersamaan
-                await new Promise(r => setTimeout(r, 500));
                 try {
                     results[currentIndex] = await taskFn(items[currentIndex]);
                 } catch (e) {
@@ -30,7 +30,7 @@ class ParallelRunner {
 
         const workers = [];
         for (let i = 0; i < Math.min(limit, items.length); i++) {
-            workers.push(worker());
+            workers.push(worker(i * 500));
         }
 
         await Promise.all(workers);

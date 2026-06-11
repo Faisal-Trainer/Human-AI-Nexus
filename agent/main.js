@@ -3,6 +3,7 @@ const NexusEngine = require("./core/NexusEngine");
 // Menggunakan engine.orchestrator jika perlu akses dari luar
 const path = require("path");
 const readline = require("readline");
+const fs = require("fs-extra");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -48,7 +49,7 @@ async function main() {
   const engine = new NexusEngine({ rootPath: path.resolve(flags.root) });
 
   switch (flags.command) {
-    case "run":
+    case "run": {
       console.log(
         "\x1b[36m%s\x1b[0m",
         '🛡️ Nexus Orchestrator: "Selamat datang di Fase Audit."',
@@ -163,11 +164,13 @@ async function main() {
 
       rl.close();
       break;
-    case "audit":
+    }
+    case "audit": {
       await engine.audit(targetPath);
       rl.close();
       break;
-    case "skills":
+    }
+    case "skills": {
       const registry = await engine.discoverSkills();
       console.log("\n📚 Nexus Skill Registry:");
       Object.entries(registry).forEach(([cat, skills]) => {
@@ -177,7 +180,8 @@ async function main() {
       });
       rl.close();
       break;
-    case "agents":
+    }
+    case "agents": {
       const agentRegistry = await engine.discoverAgents();
       console.log("\n🤖 Nexus Agent Registry:");
       Object.entries(agentRegistry).forEach(([cat, agents]) => {
@@ -187,7 +191,8 @@ async function main() {
       });
       rl.close();
       break;
-    case "harvest":
+    }
+    case "harvest": {
       const sourcePath = flags.target;
       if (!sourcePath) {
         console.log(
@@ -199,15 +204,18 @@ async function main() {
       }
       rl.close();
       break;
-    case "refactor":
+    }
+    case "refactor": {
       await engine.massRefactor();
       rl.close();
       break;
-    case "update-skills":
+    }
+    case "update-skills": {
       await engine.massUpdateSkills();
       rl.close();
       break;
-    case "distill":
+    }
+    case "distill": {
       const rack = args.includes("--rack")
         ? args[args.indexOf("--rack") + 1]
         : null;
@@ -215,7 +223,8 @@ async function main() {
       await engine.distill();
       rl.close();
       break;
-    case "forge":
+    }
+    case "forge": {
       const machineName = args[1];
       const wisdomPath = args[2];
       if (!machineName || !wisdomPath) {
@@ -226,10 +235,12 @@ async function main() {
       }
       rl.close();
       break;
-    case "status":
+    }
+    case "status": {
       await engine.getSystemStatus();
       rl.close();
       break;
+    }
     case "sandbox": {
       // nexus sandbox [--section 1|2|3] [--distill]
       const { spawn: spawnChild } = require("child_process");
@@ -258,17 +269,17 @@ async function main() {
         "\x1b[36m%s\x1b[0m",
         "🧪 Nexus Sandbox Master Runner: Starting...",
       );
-      let command = "bun";
+      let spawnCommand = "bun";
       let sArgs = [runnerPath, ...sandboxArgs];
       let shellOpt = false;
 
       if (process.platform === "win32") {
-        command = `bun "${runnerPath}" ${sandboxArgs.map((a) => `"${a}"`).join(" ")}`;
+        spawnCommand = `bun "${runnerPath}" ${sandboxArgs.map((a) => `"${a}"`).join(" ")}`;
         sArgs = [];
         shellOpt = true;
       }
 
-      const sandboxProc = spawnChild(command, sArgs, {
+      const sandboxProc = spawnChild(spawnCommand, sArgs, {
         stdio: "inherit",
         shell: shellOpt,
       });
@@ -320,7 +331,7 @@ async function main() {
       rl.close();
       break;
     }
-    case "think":
+    case "think": {
       const question = args.slice(1).join(" ");
       if (!question) {
         console.log("Usage: nexus think <your question>");
@@ -333,7 +344,8 @@ async function main() {
       }
       rl.close();
       break;
-    case "review":
+    }
+    case "review": {
       const filePath = args[1];
       if (!filePath) {
         console.log("Usage: nexus review <file_path>");
@@ -351,6 +363,7 @@ async function main() {
       }
       rl.close();
       break;
+    }
     case "train": {
       // nexus train [--rank 16] [--epochs 3] [--base-model model.gguf] [--output name.gguf] [--cpu]
       const ModelTrainer = require("./core/ModelTrainer");

@@ -717,80 +717,93 @@ class ExecutionPhase extends BasePhase {
       "config/**/*.php",
       "resources/views/**/*.blade.php",
     ]);
-    const fileListStr = projectFiles
-      .map((f) => path.relative(projectPath, f))
-      .join("\n- ");
 
-    // FIX: Use full-file-replacement strategy instead of search/replace.
-    // This avoids "can't find exact search string" failures caused by whitespace/indent mismatches.
-    const prompt = `[SYSTEM: SELF-HEALING MODE]\nThe Laravel application crashed. \nERROR LOG:\n${lastError}\n\nPROJECT STRUCTURE:\n- ${fileListStr}\n\nINSTRUCTION for Qwen-2.5:\nAnalyze the stack trace. Identify the root cause. Provide the COMPLETE corrected PHP/Blade code for the affected files.\n\nOUTPUT FORMAT:\nProvide the full corrected code wrapped in file blocks like this:\n\n<file path="relative/path/to/file.php">\n<?php\nnamespace App\\\\Models;\n// full code here\n</file>\n\nRULES:\n- Output ONLY the file blocks.\n- Do not use markdown code fences around the file block.\n- Provide the COMPLETE file content, do not truncate.`;
-
-    const localAI = require("../LocalIntelligence");
-    const response = await localAI.generate(prompt, "suggest_refactor");
-    if (!response) return false;
-
-    try {
-      const fileRegex = /<file\s+path=["']([^"']+)["']>([\s\S]*?)<\/file>/gi;
-      let match;
-      const fixes = [];
-      while ((match = fileRegex.exec(response)) !== null) {
-        fixes.push({
-          file: match[1],
-          content: match[2].trim(),
-        });
+    // Identifikasi file yang bermasalah berdasarkan log error
+    const affectedFiles = [];
+    for (const file of projectFiles) {
+      const relPath = path.relative(projectPath, file).replace(/\\/g, '/');
+      const basename = path.basename(file);
+      // Jika path atau nama file muncul di error log, anggap affected
+      if (lastError.includes(relPath) || lastError.includes(basename)) {
+        affectedFiles.push(file);
       }
+    }
 
-      if (fixes.length === 0) {
-        this.log(
-          `         ❌ Self-healing failed to parse AI response: No <file> blocks found.`,
-          "error",
-        );
-        return false;
-      }
-
-      let applied = 0;
-      for (const fix of fixes) {
-        if (!fix.file) continue;
-        const targetPath = path.join(projectPath, fix.file);
-
-        // FIX #4 — PHP Lint validation sebelum menulis file
-        if (fix.file.endsWith(".php")) {
-          const tmpLintPath = targetPath + ".lint_tmp";
-          await fs.writeFile(tmpLintPath, fix.content, "utf8");
-          try {
-            const { execSync } = require("child_process");
-            execSync(`php -l "${tmpLintPath}"`, {
-              stdio: "ignore",
-              timeout: 5000,
-            });
-          } catch (lintErr) {
-            this.log(
-              `         ⛔ PHP lint failed for ${fix.file}: ${lintErr.message.slice(0, 120)}. Skipping.`,
-              "error",
-            );
-            await fs.remove(tmpLintPath).catch(() => {});
-            continue;
-          }
-          await fs.remove(tmpLintPath).catch(() => {});
-        }
-
-        await fs.ensureDir(path.dirname(targetPath));
-        await fs.writeFile(targetPath, fix.content, "utf8");
-        this.log(
-          `         ✅ Full file replacement applied to ${fix.file}`,
-          "success",
-        );
-        applied++;
-      }
-
-      return applied > 0;
-    } catch (e) {
-      this.log(
-        `         ❌ Self-healing unexpected error: ${e.message}`,
-        "error",
-      );
+    if (affectedFiles.length === 0) {
+      this.log(`         ❌ Self-healing could not identify affected files from the log.`, "error");
       return false;
     }
+
+    this.log(`         🎯 Identified ${affectedFiles.length} affected file(s). Healing 1 by 1...`, "info");
+    const localAI = require("../LocalIntelligence");
+    let applied = 0;
+
+    for (const file of affectedFiles) {
+      const relPath = path.relative(projectPath, file).replace(/\\/g, '/');
+      const originalContent = await fs.readFile(file, "utf8");
+
+      this.log(`         🧠 Analyzing & Healing: ${relPath}`, "warning");
+
+      const prompt = `[SYSTEM: SELF-HEALING MODE]\nThe Laravel application crashed. \nERROR LOG:\n${lastError}\n\nAFFECTED FILE: ${relPath}\n\nORIGINAL CONTENT:\n\`\`\`php\n${originalContent}\n\`\`\`\n\nINSTRUCTION for Qwen-2.5:\nAnalyze the stack trace. Identify the root cause in ${relPath}. Provide the COMPLETE corrected PHP/Blade code for this file.\n\nOUTPUT FORMAT:\nProvide the full corrected code wrapped in file blocks like this:\n\n<file path="${relPath}">\n<?php\n// full code here\n</file>\n\nRULES:\n- Output ONLY the file block.\n- Do not use markdown code fences around the file block.\n- Provide the COMPLETE file content, do not truncate.`;
+
+      const response = await localAI.generate(prompt, "suggest_refactor");
+      if (!response) continue;
+
+      try {
+        const fileRegex = /<file\s+path=["']([^"']+)["']>([\s\S]*?)<\/file>/gi;
+        let match;
+        const fixes = [];
+        while ((match = fileRegex.exec(response)) !== null) {
+          fixes.push({
+            file: match[1],
+            content: match[2].trim(),
+          });
+        }
+
+        if (fixes.length === 0) {
+          this.log(`         ⚠️ AI response did not contain valid <file> block for ${relPath}.`, "warning");
+          continue;
+        }
+
+        for (const fix of fixes) {
+          if (!fix.file) continue;
+          const targetPath = path.join(projectPath, fix.file);
+
+          // FIX #4 — PHP Lint validation sebelum menulis file
+          if (fix.file.endsWith(".php")) {
+            const tmpLintPath = targetPath + ".lint_tmp";
+            await fs.writeFile(tmpLintPath, fix.content, "utf8");
+            try {
+              const { execSync } = require("child_process");
+              execSync(`php -l "${tmpLintPath}"`, {
+                stdio: "ignore",
+                timeout: 5000,
+              });
+            } catch (lintErr) {
+              this.log(
+                `         ⛔ PHP lint failed for ${fix.file}: ${lintErr.message.slice(0, 120)}. Skipping.`,
+                "error",
+              );
+              await fs.remove(tmpLintPath).catch(() => {});
+              continue;
+            }
+            await fs.remove(tmpLintPath).catch(() => {});
+          }
+
+          await fs.ensureDir(path.dirname(targetPath));
+          await fs.writeFile(targetPath, fix.content, "utf8");
+          this.log(
+            `         ✅ Full file replacement applied to ${fix.file}`,
+            "success",
+          );
+          applied++;
+        }
+      } catch (e) {
+        this.log(`         ❌ Self-healing unexpected error on ${relPath}: ${e.message}`, "error");
+      }
+    }
+
+    return applied > 0;
   }
 
   /**

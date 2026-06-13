@@ -2,7 +2,7 @@
   "project_name": "url-shortener-app",
   "models": [
     "User",
-    "Url"
+    "ShortURL"
   ],
   "schema": {
     "User": {
@@ -10,46 +10,45 @@
       "email": "string",
       "password": "text"
     },
-    "Url": {
+    "ShortURL": {
       "original_url": "string",
-      "short_url": "string",
+      "shortened_url": "string",
       "user_id": "integer"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_urls_table",
-    "create_user_urls_table"
+    "create_short_urls_table",
+    "create_user_short_url_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "url-list",
-    "url-create"
+    "short-url-list",
+    "short-url-create"
   ],
   "seeders": [
     "UserSeeder",
-    "UrlSeeder"
+    "ShortURLSeeder",
+    "UserShortURLSeeder"
   ],
   "factories": [
     "UserFactory",
-    "UrlFactory"
+    "ShortURLFactory",
+    "UserShortURLFactory"
   ],
   "routes": [
     "/dashboard",
-    "/urls",
-    "/urls/create"
+    "/short-url",
+    "/short-url/create"
   ],
-  "pivot_tables": [
-    "user_urls"
-  ],
+  "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Url"
+      "target": "ShortURL"
     },
     {
-      "model": "Url",
+      "model": "ShortURL",
       "type": "belongsTo",
       "target": "User"
     }

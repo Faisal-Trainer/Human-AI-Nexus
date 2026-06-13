@@ -65,10 +65,6 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/frontend/web-engineer.md`
 
-### 📦 SKILL: cyber-security
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
-> Source: `agent/workflows/external/security/cyber-security.md`
-
 ### 📦 SKILL: branded-select-styling
 > Branded Select Styling
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/branded-select-styling.md`
@@ -148,6 +144,10 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 ### 📦 SKILL: chaos-engineering
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
 > Source: `agent/workflows/external/security/chaos-engineering.md`
+
+### 📦 SKILL: cyber-security
+> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
+> Source: `agent/workflows/external/security/cyber-security.md`
 
 ### 📦 SKILL: ethics-compliance
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md

@@ -334,11 +334,11 @@ class LocalIntelligence {
     const contextSize = 4096;
 
     console.log(
-      `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL CPU]...`,
+      `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL INFERENCE]...`,
     );
     const context = await this.model.createContext({
       contextSize: contextSize,
-      threads: 6, // 6 logical cores to keep laptop responsive
+      threads: parseInt(process.env.NEXUS_CPU_THREADS) || 6, // Configurable via .env
     });
 
     try {

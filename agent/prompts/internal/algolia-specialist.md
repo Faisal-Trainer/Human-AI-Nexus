@@ -15,7 +15,7 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 192 skills matched untuk agent "algolia-specialist"
+> Total: 190 skills matched untuk agent "algolia-specialist"
 
 ### 📦 SKILL: chrome-extensions
 > >
@@ -32,18 +32,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: chromewebstore-template
 > CHROMEWEBSTORE.md Template
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/chromewebstore-template.md`
-
-### 📦 SKILL: privacy-policy
-> Privacy Policy Guidance
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
-
-### 📦 SKILL: review-checklist
-> Pre-Publish Review Checklist
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/review-checklist.md`
-
-### 📦 SKILL: store-listing
-> Store Listing Tips & Common Rejections
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/store-listing.md`
 
 ### 📦 SKILL: language-model
 > (No description)
@@ -77,6 +65,18 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > Side Panel
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/side-panel.md`
 
+### 📦 SKILL: privacy-policy
+> Privacy Policy Guidance
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+
+### 📦 SKILL: review-checklist
+> Pre-Publish Review Checklist
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/review-checklist.md`
+
+### 📦 SKILL: store-listing
+> Store Listing Tips & Common Rejections
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/store-listing.md`
+
 ### 📦 SKILL: language-detection
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/language-detection.md`
@@ -89,10 +89,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
 
-### 📦 SKILL: identify-heavy-scripts
-> Identify heavy-running JavaScript
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
-
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
@@ -104,10 +100,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
 > Source: `agent/workflows/internal/nexus-pipeline.md`
-
-### 📦 SKILL: digital-marketing
-> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
-> Source: `agent/workflows/external/creative/digital-marketing.md`
 
 ### 📦 SKILL: auth-identity
 > Authentication with chrome.identity
@@ -185,6 +177,10 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > Reliably measure full-session analytics and telemetry
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/full-session-analytics.md`
 
+### 📦 SKILL: identify-heavy-scripts
+> Identify heavy-running JavaScript
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/identify-heavy-scripts.md`
+
 ### 📦 SKILL: schedule-tasks-by-priority
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/performance/schedule-tasks-by-priority.md`
@@ -249,10 +245,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > Supporting Global Calendar Systems with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/support-global-calendar-systems.md`
 
-### 📦 SKILL: image-to-code
-> Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
-> Source: `.agents/skills/image-to-code/SKILL.md`
-
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
@@ -260,10 +252,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
 > Source: `agent/workflows/external/backend/database-design.md`
-
-### 📦 SKILL: user-branding
-> SKILL: USER BRANDING STANDARDS (Personal Branding)
-> Source: `agent/workflows/external/creative/user-branding.md`
 
 ### 📦 SKILL: responsive-specialist
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -573,17 +561,9 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
 > Source: `.agents/skills/gpt-taste/SKILL.md`
 
-### 📦 SKILL: high-end-visual-design
-> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
-> Source: `.agents/skills/high-end-visual-design/SKILL.md`
-
-### 📦 SKILL: imagegen-frontend-web
-> Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
-> Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
-
-### 📦 SKILL: industrial-brutalist-ui
-> Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
-> Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+### 📦 SKILL: image-to-code
+> Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
+> Source: `.agents/skills/image-to-code/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
@@ -609,17 +589,17 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
 > Source: `agent/workflows/external/core/project-manager.md`
 
+### 📦 SKILL: digital-marketing
+> SKILL: DIGITAL MARKETING STANDARDS (Human-AI Nexus)
+> Source: `agent/workflows/external/creative/digital-marketing.md`
+
+### 📦 SKILL: user-branding
+> SKILL: USER BRANDING STANDARDS (Personal Branding)
+> Source: `agent/workflows/external/creative/user-branding.md`
+
 ### 📦 SKILL: web-branding
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
 > Source: `agent/workflows/external/creative/web-branding.md`
-
-### 📦 SKILL: devops-specialist
-> SKILL: DEVOPS & ETHICS STANDARDS (Human-AI Nexus)
-> Source: `agent/workflows/external/devops/devops-specialist.md`
-
-### 📦 SKILL: vcs-management
-> 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
-> Source: `agent/workflows/external/devops/vcs-management.md`
 
 ### 📦 SKILL: android-dev
 > SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
@@ -777,6 +757,10 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
 
+### 📦 SKILL: high-end-visual-design
+> Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
+> Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
 ### 📦 SKILL: huashu-design
 > 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、设计Demo、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、设计探索、做个HTML页面、做个可视化、app原型、iOS原型、移动应用mockup、导出MP4、导出GIF、60fps视频、设计风格、设计方向、设计哲学、配色方案、视觉风格、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、概念解释视频、长视频科普、配音动画、voiceover、narration、TTS+动画、5分钟讲清楚什么是XX。**主干能力**：Junior Designer工作流（先假设+reasoning+placeholder再迭代）、反AI slop清单、React+Babel最佳实践、Tweaks变体切换、Speaker Notes、Starter Compon
 > Source: `.agents/skills/huashu-design/SKILL.md`
@@ -784,4 +768,12 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: imagegen-frontend-mobile
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
 > Source: `.agents/skills/imagegen-frontend-mobile/SKILL.md`
+
+### 📦 SKILL: imagegen-frontend-web
+> Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
+> Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
+
+### 📦 SKILL: industrial-brutalist-ui
+> Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
+> Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
 

@@ -1930,7 +1930,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v21 | **Last Updated**: 6/1/2026
+> **VERSION**: v24 | **Last Updated**: 6/13/2026
 
 
 
@@ -2340,6 +2340,51 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v7580] - 6/11/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/11/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v9003] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v0971] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -2360,7 +2405,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v22 | **Last Updated**: 6/1/2026
+> **VERSION**: v25 | **Last Updated**: 6/13/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5942,6 +5987,81 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v7580] - 6/11/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/11/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/11/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9003] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0971] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -7988,133 +8108,6 @@ async def interactive_tool(resource_id: str, ctx: Context) -> str:
 
 **Context capabilities:**
 
-- `ctx.report_progress(progress, message)` - Report progress for long operations
-- `ctx.log_info(message, data)` / `ctx.log_error()` / `ctx.log_debug()` - Logging
-- `ctx.elicit(prompt, input_type)` - Request input from users
-- `ctx.fastmcp.name` - Access server configuration
-- `ctx.read_resource(uri)` - Read MCP resources
-
-### Resource Registration
-
-Expose data as resources for efficient, template-based access:
-
-```python
-@mcp.resource("file://documents/{name}")
-async def get_document(name: str) -> str:
-    '''Expose documents as MCP resources.
-
-    Resources are useful for static or semi-static data that doesn't
-    require complex parameters. They use URI templates for flexible access.
-    '''
-    document_path = f"./docs/{name}"
-    with open(document_path, "r") as f:
-        return f.read()
-
-@mcp.resource("config://settings/{key}")
-async def get_setting(key: str, ctx: Context) -> str:
-    '''Expose configuration as resources with context.'''
-    settings = await load_settings()
-    return json.dumps(settings.get(key, {}))
-```
-
-**When to use Resources vs Tools:**
-
-- **Resources**: For data access with simple parameters (URI templates)
-- **Tools**: For complex operations with validation and business logic
-
-### Structured Output Types
-
-FastMCP supports multiple return types beyond strings:
-
-```python
-from typing import TypedDict
-from dataclasses import dataclass
-from pydantic import BaseModel
-
-# TypedDict for structured returns
-class UserData(TypedDict):
-    id: str
-    name: str
-    email: str
-
-@mcp.tool()
-async def get_user_typed(user_id: str) -> UserData:
-    '''Returns structured data - FastMCP handles serialization.'''
-    return {"id": user_id, "name": "John Doe", "email": "john@example.com"}
-
-# Pydantic models for complex validation
-class DetailedUser(BaseModel):
-    id: str
-    name: str
-    email: str
-    created_at: datetime
-    metadata: Dict[str, Any]
-
-@mcp.tool()
-async def get_user_detailed(user_id: str) -> DetailedUser:
-    '''Returns Pydantic model - automatically generates schema.'''
-    user = await fetch_user(user_id)
-    return DetailedUser(**user)
-```
-
-### Lifespan Management
-
-Initialize resources that persist across requests:
-
-```python
-from contextlib import asynccontextmanager
-
-@asynccontextmanager
-async def app_lifespan():
-    '''Manage resources that live for the server's lifetime.'''
-    # Initialize connections, load config, etc.
-    db = await connect_to_database()
-    config = load_configuration()
-
-    # Make available to all tools
-    yield {"db": db, "config": config}
-
-    # Cleanup on shutdown
-    await db.close()
-
-mcp = FastMCP("example_mcp", lifespan=app_lifespan)
-
-@mcp.tool()
-async def query_data(query: str, ctx: Context) -> str:
-    '''Access lifespan resources through context.'''
-    db = ctx.request_context.lifespan_state["db"]
-    results = await db.query(query)
-    return format_results(results)
-```
-
-### Transport Options
-
-FastMCP supports two main transport mechanisms:
-
-```python
-# stdio transport (for local tools) - default
-if __name__ == "__main__":
-    mcp.run()
-
-# Streamable HTTP transport (for remote servers)
-if __name__ == "__main__":
-    mcp.run(transport="streamable_http", port=8000)
-```
-
-**Transport selection:**
-
-- **stdio**: Command-line tools, local integrations, subprocess execution
-- **Streamable HTTP**: Web services, remote access, multiple clients
-
----
-
-## Code Best Practices
-
-### Code Composability and Reusability
-
-Your implementation MUST prioritize composability and code reuse:
-
-1. **Extract Common Functionality**:
-   - Create reusable helper functions
+- `ctx.report_progress(progress,
 
 ...[truncated]

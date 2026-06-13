@@ -1,123 +1,566 @@
-> **VERSION**: v2 | **Last Updated**: 6/1/2026
+> **VERSION**: v1 | **Last Updated**: 6/13/2026
 
 ---
-name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+name: livewire-routing
+description: >
+  Panduan lengkap mapping rules untuk Livewire routing dalam stack TALL (Laravel + Livewire + Alpine.js + Tailwind).
+  Gunakan skill ini setiap kali NEXUS AI perlu men-generate atau memvalidasi route definitions yang melibatkan
+  Livewire components — termasuk full-page components, nested layouts, route parameter binding, middleware,
+  named routes, dan integrasi dengan Laravel route model binding. Wajib dikonsultasikan sebelum agent manapun
+  menulis baris `Route::get()` yang mereturn atau me-render Livewire component, atau ketika agent mendeteksi
+  keyword: route, livewire, full-page component, layout, wire:navigate, SPA mode.
 ---
 
-<SUBAGENT-STOP>
-If you were dispatched as a subagent to execute a specific task, skip this skill.
-</SUBAGENT-STOP>
+# Livewire Routing Mapping Rules
 
-<EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
+> **Scope**: Livewire v3 (default target NEXUS). Catatan perbedaan v2 disertakan di bagian akhir.
 
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+---
 
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
-</EXTREMELY-IMPORTANT>
+## 1. Konsep Dasar: Livewire Route vs Blade Route
 
-## Instruction Priority
+Livewire tidak punya router sendiri. Semua routing tetap di **`routes/web.php`** milik Laravel.
+Yang membedakan adalah *apa yang dikembalikan* oleh route closure atau controller.
 
-Superpowers skills override default system prompt behavior, but **user instructions always take precedence**:
+| Tipe Route | Return Value | Kapan Dipakai |
+|---|---|---|
+| Blade biasa | `view('nama-blade')` | Static page, tanpa interaktivitas |
+| Full-page Livewire | `Route::get(...)->uses(NamaComponent::class)` | Satu component = satu halaman penuh |
+| Blade + embedded | `view('nama-blade')` (blade-nya include `<livewire:...>`) | Layout kompleks, banyak component |
 
-1. **User's explicit instructions** ([CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), [AGENTS.md](NEXUS_AGENTS.MD), direct requests) — highest priority
-2. **Superpowers skills** — override default system behavior where they conflict
-3. **Default system prompt** — lowest priority
+---
 
-If [CLAUDE.md](NEXUS_CLAUDE.MD), [GEMINI.md](NEXUS_GEMINI.MD), or [AGENTS.md](NEXUS_AGENTS.MD) says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
+## 2. Full-Page Component Route — Sintaks Wajib
 
-## How to Access Skills
+### 2.1 Cara Benar (Livewire v3)
 
-**In Claude Code:** Use the `Skill` tool. When you invoke a skill, its content is loaded and presented to you—follow it directly. Never use the Read tool on skill files.
+```php
+// routes/web.php
 
-**In Copilot CLI:** Use the `skill` tool. Skills are auto-discovered from installed plugins. The `skill` tool works the same as Claude Code's `Skill` tool.
+use App\Livewire\Pages\Dashboard;
+use App\Livewire\Pages\UserProfile;
 
-**In Gemini CLI:** Skills activate via the `activate_skill` tool. Gemini loads skill metadata at session start and activates the full content on demand.
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
+Route::get('/profile/{user}', UserProfile::class)->name('profile');
+```
 
-**In other environments:** Check your platform's documentation for how skills are loaded.
+**Aturan NEXUS:**
+- Class component harus berada di `App\Livewire\Pages\` untuk full-page components.
+- Non-page components (reusable, embedded) diletakkan di `App\Livewire\` atau subfolder tematik.
+- Selalu gunakan `->name()` pada setiap route — dibutuhkan oleh `wire:navigate` dan `redirect()->route()`.
 
-## Platform Adaptation
+### 2.2 Cara Salah — JANGAN Generate Ini
 
-Skills use Claude Code tool names. Non-CC platforms: see `references/[copilot-tools.md](../database/NEXUS_COPILOT-TOOLS.MD)` (Copilot CLI), `references/[codex-tools.md](NEXUS_CODEX-TOOLS.MD)` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via [GEMINI.md](NEXUS_GEMINI.MD).
+```php
+// ❌ SALAH — return view dari Livewire full-page
+Route::get('/dashboard', function () {
+    return view('livewire.dashboard'); // ini pola lama / v2
+});
 
-# Using Skills
+// ❌ SALAH — memanggil make() secara manual
+Route::get('/dashboard', function () {
+    return app(Dashboard::class)->render();
+});
+```
 
-## The Rule
+---
 
-**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
+## 3. Route Parameter Binding
 
-```dot
-digraph skill_flow {
-    "User message received" [shape=doublecircle];
-    "About to EnterPlanMode?" [shape=doublecircle];
-    "Already brainstormed?" [shape=diamond];
-    "Invoke brainstorming skill" [shape=box];
-    "Might any skill apply?" [shape=diamond];
-    "Invoke Skill tool" [shape=box];
-    "Announce: 'Using [skill] to [purpose]'" [shape=box];
-    "Has checklist?" [shape=diamond];
-    "Create TodoWrite todo per item" [shape=box];
-    "Follow skill exactly" [shape=box];
-    "Respond (including clarifications)" [shape=doublecircle];
+### 3.1 Implicit Binding via `mount()`
 
-    "About to EnterPlanMode?" -> "Already brainstormed?";
-    "Already brainstormed?" -> "Invoke brainstorming skill" [label="no"];
-    "Already brainstormed?" -> "Might any skill apply?" [label="yes"];
-    "Invoke brainstorming skill" -> "Might any skill apply?";
+Ketika route punya parameter `{model}`, Livewire otomatis meneruskannya ke method `mount()`.
 
-    "User message received" -> "Might any skill apply?";
-    "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
-    "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
-    "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
-    "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
-    "Has checklist?" -> "Create TodoWrite todo per item" [label="yes"];
-    "Has checklist?" -> "Follow skill exactly" [label="no"];
-    "Create TodoWrite todo per item" -> "Follow skill exactly";
+```php
+// routes/web.php
+Route::get('/posts/{post}', \App\Livewire\Pages\ShowPost::class)->name('posts.show');
+```
+
+```php
+// app/Livewire/Pages/ShowPost.php
+class ShowPost extends Component
+{
+    public Post $post; // typed property = route model binding otomatis
+
+    public function mount(Post $post): void
+    {
+        $this->post = $post;
+    }
+
+    public function render()
+    {
+        return view('livewire.pages.show-post');
+    }
 }
 ```
 
-## Red Flags
+**Aturan NEXUS:**
+- Typed property (`public Post $post`) mengaktifkan implicit route model binding Laravel secara otomatis.
+- Jika tidak butuh typed binding, gunakan `public int $postId` dan query manual di `mount()`.
+- `mount()` hanya dipanggil **sekali** (saat halaman pertama kali dimuat). Bukan di setiap request Livewire.
 
-These thoughts mean STOP—you're rationalizing:
+### 3.2 Multiple Parameters
 
-| Thought | Reality |
-|---------|---------|
-| "This is just a simple question" | Questions are tasks. Check for skills. |
-| "I need more context first" | Skill check comes BEFORE clarifying questions. |
-| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
-| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
-| "Let me gather information first" | Skills tell you HOW to gather information. |
-| "This doesn't need a formal skill" | If a skill exists, use it. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "This doesn't count as a task" | Action = task. Check for skills. |
-| "The skill is overkill" | Simple things become complex. Use it. |
-| "I'll just do this one thing first" | Check BEFORE doing anything. |
-| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
-| "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
+```php
+Route::get('/teams/{team}/members/{member}', \App\Livewire\Pages\TeamMember::class)
+    ->name('teams.members.show');
+```
 
-## Skill Priority
+```php
+public function mount(Team $team, User $member): void
+{
+    $this->team = $team;
+    $this->member = $member;
+}
+```
 
-When multiple skills could apply, use this order:
+### 3.3 Optional Parameters
 
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
+```php
+Route::get('/search/{category?}', \App\Livewire\Pages\Search::class)->name('search');
+```
 
-"Let's build X" → brainstorming first, then implementation skills.
-"Fix this bug" → debugging first, then domain-specific skills.
+```php
+public function mount(?string $category = null): void
+{
+    $this->category = $category;
+}
+```
 
-## Skill Types
+---
 
-**Rigid** (TDD, debugging): Follow exactly. Don't adapt away discipline.
+## 4. Layout System
 
-**Flexible** (patterns): Adapt principles to context.
+### 4.1 Default Layout (App Layout)
 
-The skill itself tells you which.
+Livewire v3 menggunakan Blade component sebagai layout wrapper. Default layout harus tersedia di:
 
-## User Instructions
+```
+resources/views/components/layouts/app.blade.php
+```
 
-Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+Isi minimal:
+
+```html
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $title ?? config('app.name') }}</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+</head>
+<body>
+    {{ $slot }}
+    @livewireScripts
+</body>
+</html>
+```
+
+### 4.2 Menentukan Layout per Component
+
+```php
+// Cara 1: Attribute di atas class
+#[\Livewire\Attributes\Layout('components.layouts.admin')]
+class AdminDashboard extends Component { ... }
+
+// Cara 2: Di dalam render()
+public function render()
+{
+    return view('livewire.pages.admin-dashboard')
+        ->layout('components.layouts.admin');
+}
+
+// Cara 3: Dengan title dinamis
+public function render()
+{
+    return view('livewire.pages.show-post')
+        ->layout('components.layouts.app')
+        ->title('Judul Artikel - ' . $this->post->title);
+}
+```
+
+**Aturan NEXUS:**
+- Gunakan **Cara 1 (attribute)** sebagai default untuk konsistensi.
+- Layout guest (login, register) → `components.layouts.guest`
+- Layout admin (panel) → `components.layouts.admin` atau gunakan Filament jika ada
+- Layout utama aplikasi → `components.layouts.app`
+
+### 4.3 Slot Sections (Title, Header, dll.)
+
+```php
+// Di component
+public function render()
+{
+    return view('livewire.pages.dashboard')
+        ->layout('components.layouts.app', ['title' => 'Dashboard']);
+}
+```
+
+```html
+<!-- Di layout blade -->
+<title>{{ $title ?? 'Default Title' }}</title>
+```
+
+---
+
+## 5. Middleware pada Livewire Routes
+
+### 5.1 Middleware Standar
+
+```php
+Route::get('/dashboard', Dashboard::class)
+    ->name('dashboard')
+    ->middleware(['auth', 'verified']);
+
+Route::get('/admin', AdminPanel::class)
+    ->name('admin')
+    ->middleware(['auth', 'role:admin']);
+```
+
+### 5.2 Grup Route dengan Middleware
+
+```php
+// routes/web.php
+
+// Guest routes
+Route::middleware('guest')->group(function () {
+    Route::get('/login', \App\Livewire\Pages\Auth\Login::class)->name('login');
+    Route::get('/register', \App\Livewire\Pages\Auth\Register::class)->name('register');
+});
+
+// Authenticated routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\Pages\Dashboard::class)->name('dashboard');
+    Route::get('/profile', \App\Livewire\Pages\Profile::class)->name('profile');
+});
+
+// Admin routes
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/users', \App\Livewire\Pages\Admin\Users::class)->name('users');
+    Route::get('/settings', \App\Livewire\Pages\Admin\Settings::class)->name('settings');
+});
+```
+
+**Aturan NEXUS:**
+- Selalu gunakan group untuk route yang punya middleware sama — jangan repeat middleware per route.
+- Prefix `admin` + name prefix `admin.` harus selalu dipasangkan.
+- Route model binding dengan middleware `can:` diletakkan setelah `auth`.
+
+---
+
+## 6. Nested & Resource-Style Routes
+
+### 6.1 CRUD Pattern untuk Livewire
+
+Livewire tidak butuh `Route::resource()` penuh karena create/edit biasanya handle dalam satu component via modal atau inline form. Pola yang direkomendasikan NEXUS:
+
+```php
+// Index (list + create via modal)
+Route::get('/posts', \App\Livewire\Pages\Posts\Index::class)->name('posts.index');
+
+// Show (detail view)
+Route::get('/posts/{post}', \App\Livewire\Pages\Posts\Show::class)->name('posts.show');
+
+// Edit (dedicated edit page, jika diperlukan)
+Route::get('/posts/{post}/edit', \App\Livewire\Pages\Posts\Edit::class)->name('posts.edit');
+```
+
+### 6.2 Kapan Pakai Dedicated Route vs Modal
+
+| Skenario | Rekomendasi |
+|---|---|
+| Form sederhana (< 5 field) | Modal dalam Index component |
+| Form kompleks / multi-step | Dedicated route `posts.create` / `posts.edit` |
+| Delete action | `wire:confirm` + method dalam Index, **tanpa route** |
+| Bulk action | Method dalam Index component, tanpa route tambahan |
+
+---
+
+## 7. wire:navigate — SPA-like Navigation
+
+### 7.1 Cara Pakai
+
+```html
+<!-- Link biasa dengan prefetch -->
+<a href="{{ route('dashboard') }}" wire:navigate>Dashboard</a>
+
+<!-- Redirect dari PHP -->
+public function save(): void
+{
+    $this->post->save();
+    $this->redirect(route('posts.index'), navigate: true);
+}
+```
+
+### 7.2 Syarat wire:navigate Berfungsi
+
+1. Semua halaman yang di-navigate harus pakai layout yang **sama** (atau compatible).
+2. `@livewireScripts` harus ada di layout — tidak boleh di-inject conditional.
+3. Jangan pakai `wire:navigate` untuk link ke halaman yang butuh full page reload (misal: OAuth redirect, download file).
+
+### 7.3 Aturan NEXUS untuk wire:navigate
+
+```html
+<!-- ✅ Gunakan ini di semua internal navigation -->
+<a href="{{ route('posts.index') }}" wire:navigate>Kembali ke Daftar</a>
+
+<!-- ❌ Jangan ini untuk internal link -->
+<a href="{{ route('posts.index') }}">Kembali ke Daftar</a>
+```
+
+NEXUS **wajib** menambahkan `wire:navigate` di semua `<a>` tag yang mengarah ke route Livewire dalam aplikasi yang sama, kecuali:
+- Link ke external URL
+- Link yang trigger download
+- Link ke route non-Livewire (API, OAuth)
+
+---
+
+## 8. Redirect dari Livewire Component
+
+```php
+// Redirect ke named route
+$this->redirect(route('posts.index'));
+
+// Redirect dengan wire:navigate (SPA mode)
+$this->redirect(route('posts.index'), navigate: true);
+
+// Redirect ke URL
+$this->redirect('/some/url');
+
+// Redirect kembali
+$this->redirectRoute('posts.show', ['post' => $this->post]);
+```
+
+**Jangan gunakan:**
+```php
+// ❌ Ini tidak akan bekerja di Livewire context
+return redirect()->route('posts.index');
+```
+
+---
+
+## 9. URL & Query String
+
+### 9.1 Binding Property ke URL Query String
+
+```php
+use Livewire\Attributes\Url;
+
+class PostIndex extends Component
+{
+    #[Url]
+    public string $search = '';
+
+    #[Url(as: 'p')]
+    public int $page = 1;
+
+    #[Url(history: true)] // push ke browser history
+    public string $tab = 'all';
+}
+```
+
+URL akan otomatis update: `/posts?search=laravel&p=2&tab=published`
+
+### 9.2 Aturan NEXUS untuk Url Attribute
+
+- Pakai `#[Url]` untuk: search, filter, tab, page
+- Pakai `history: true` untuk state yang "layak di-bookmark"
+- Jangan expose field sensitif (user_id, token) via `#[Url]`
+
+---
+
+## 10. Route File Organization (NEXUS Standard)
+
+```php
+// routes/web.php — struktur yang diharapkan NEXUS
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/', \App\Livewire\Pages\Welcome::class)->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes (Guest Only)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
+    Route::get('/login', \App\Livewire\Pages\Auth\Login::class)->name('login');
+    Route::get('/register', \App\Livewire\Pages\Auth\Register::class)->name('register');
+    Route::get('/forgot-password', \App\Livewire\Pages\Auth\ForgotPassword::class)->name('password.request');
+    Route::get('/reset-password/{token}', \App\Livewire\Pages\Auth\ResetPassword::class)->name('password.reset');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\Pages\Dashboard::class)->name('dashboard');
+    Route::get('/profile', \App\Livewire\Pages\Profile::class)->name('profile');
+
+    // Posts
+    Route::get('/posts', \App\Livewire\Pages\Posts\Index::class)->name('posts.index');
+    Route::get('/posts/{post}', \App\Livewire\Pages\Posts\Show::class)->name('posts.show');
+    Route::get('/posts/{post}/edit', \App\Livewire\Pages\Posts\Edit::class)->name('posts.edit');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', \App\Livewire\Pages\Admin\Dashboard::class)->name('dashboard');
+        Route::get('/users', \App\Livewire\Pages\Admin\Users::class)->name('users');
+    });
+```
+
+---
+
+## 11. Folder Structure yang Diharapkan NEXUS
+
+```
+app/
+└── Livewire/
+    ├── Pages/              ← Full-page components (dipasangkan ke route)
+    │   ├── Auth/
+    │   │   ├── Login.php
+    │   │   └── Register.php
+    │   ├── Admin/
+    │   │   └── Dashboard.php
+    │   ├── Posts/
+    │   │   ├── Index.php
+    │   │   ├── Show.php
+    │   │   └── Edit.php
+    │   ├── Dashboard.php
+    │   └── Welcome.php
+    │
+    └── Components/         ← Reusable, embedded components (TIDAK dipasangkan ke route)
+        ├── PostCard.php
+        ├── SearchBar.php
+        └── Modals/
+            └── ConfirmDelete.php
+
+resources/views/
+├── components/
+│   └── layouts/
+│       ├── app.blade.php
+│       ├── guest.blade.php
+│       └── admin.blade.php
+└── livewire/
+    ├── pages/
+    │   ├── auth/
+    │   ├── admin/
+    │   ├── posts/
+    │   └── dashboard.blade.php
+    └── components/
+        └── ...
+```
+
+---
+
+## 12. Checklist Validasi Route (untuk NEXUS agents)
+
+Sebelum finalisasi `routes/web.php`, agent wajib memvalidasi:
+
+- [ ] Semua route full-page menggunakan `ClassName::class`, bukan `view()` atau closure
+- [ ] Semua route punya `->name()`
+- [ ] Middleware digroup — tidak direpeat per route
+- [ ] Admin routes punya prefix `admin` dan name prefix `admin.`
+- [ ] Guest-only routes dibungkus `middleware('guest')`
+- [ ] Auth routes dibungkus `middleware(['auth', 'verified'])`
+- [ ] Route parameter binding menggunakan typed property di `mount()`
+- [ ] Tidak ada `Route::resource()` yang generate method tidak diperlukan
+- [ ] `wire:navigate` ada di semua internal link di blade views
+
+---
+
+## 13. Perbedaan v2 vs v3 (Quick Reference)
+
+| Aspek | Livewire v2 | Livewire v3 |
+|---|---|---|
+| Full-page route | `Route::get('/', NamaComponent::class)` | Sama |
+| Layout directive | `->layout('layouts.app')` | `->layout('components.layouts.app')` atau `#[Layout]` attribute |
+| Layout file path | `resources/views/layouts/app.blade.php` | `resources/views/components/layouts/app.blade.php` |
+| SPA navigation | Tidak ada | `wire:navigate` |
+| URL binding | `->queryString(['search'])` di component | `#[Url]` attribute |
+| Redirect | `$this->redirect(route('...'))` | Sama, tambahan `navigate: true` |
+
+> **NEXUS default target: Livewire v3.** Jangan generate sintaks v2 kecuali project secara eksplisit dinyatakan menggunakan v2.
+
+---
+
+## 14. Contoh Output Lengkap (Reference)
+
+Untuk project dengan fitur **Blog** (CRUD posts), NEXUS harus generate route seperti ini:
+
+```php
+// routes/web.php
+
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', \App\Livewire\Pages\Welcome::class)->name('home');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', \App\Livewire\Pages\Auth\Login::class)->name('login');
+    Route::get('/register', \App\Livewire\Pages\Auth\Register::class)->name('register');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\Pages\Dashboard::class)->name('dashboard');
+
+    // Blog Posts
+    Route::get('/posts', \App\Livewire\Pages\Posts\Index::class)->name('posts.index');
+    Route::get('/posts/{post}', \App\Livewire\Pages\Posts\Show::class)->name('posts.show');
+    Route::get('/posts/{post}/edit', \App\Livewire\Pages\Posts\Edit::class)->name('posts.edit');
+});
+```
+
+Dan component `ShowPost.php`:
+
+```php
+<?php
+
+namespace App\Livewire\Pages\Posts;
+
+use App\Models\Post;
+use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+
+#[Layout('components.layouts.app')]
+#[Title('Detail Post')]
+class Show extends Component
+{
+    public Post $post;
+
+    public function mount(Post $post): void
+    {
+        $this->post = $post;
+    }
+
+    public function render()
+    {
+        return view('livewire.pages.posts.show');
+    }
+}
+```
 
 
 ---
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, vcs, api]
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, vcs, laravel, api]

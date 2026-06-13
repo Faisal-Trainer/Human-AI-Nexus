@@ -157,24 +157,7 @@ class ImplementationPhase extends BasePhase {
 
       // Phase B #8: Auth Scaffolding
       if (!hasBreeze) {
-        this.log(`      Scaffolding Laravel Breeze (Livewire)...`, "info");
-        try {
-          await this._run(
-            "composer",
-            ["require", "laravel/breeze", "--dev", "--no-interaction"],
-            root,
-          );
-          await this._run(
-            "php",
-            ["artisan", "breeze:install", "livewire", "--no-interaction"],
-            root,
-          );
-        } catch (authErr) {
-          this.log(
-            `      ⚠️ Breeze scaffolding skipped/failed: ${authErr.message}`,
-            "warning",
-          );
-        }
+        this.log(`      ⚠️ Laravel Breeze installation skipped per user request.`, "warning");
       } else {
         this.log(
           `      ✅ Skipping Breeze scaffolding (already installed).`,

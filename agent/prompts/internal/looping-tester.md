@@ -2369,7 +2369,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v25 | **Last Updated**: 6/13/2026
+> **VERSION**: v27 | **Last Updated**: 6/13/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6026,6 +6026,56 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9382] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD
 
 # Document Review System Design
@@ -7929,51 +7979,6 @@ Before finalizing your Python MCP server implementation, ensure:
 - [ ] Context injection used for logging, progress, or elicitation
 - [ ] Resources registered for appropriate data endpoints
 - [ ] Lifespan management implemented for persistent connections
-- [ ] Structured output types used (TypedDict, Pydantic models)
-- [ ] Appropriate transport configured (stdio or streamable HTTP)
-
-### Code Quality
-
-- [ ] File includes proper imports including Pydantic imports
-- [ ] Pagination is properly implemented where applicable
-- [ ] Filtering options are provided for potentially large result sets
-- [ ] All async functions are properly defined with `async def`
-- [ ] HTTP client usage follows async patterns with proper context managers
-- [ ] Type hints are used throughout the code
-- [ ] Constants are defined at module level in UPPER_CASE
-
-### Testing
-
-- [ ] Server runs successfully: `python your_server.py --help`
-- [ ] All imports resolve correctly
-- [ ] Sample tool calls work as expected
-- [ ] Error scenarios handled gracefully
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_README.MD
-
-# Claude Code Skills Tests
-> **VERSION**: v1 | **Last Updated**: 6/1/2026
-
-
-
-Automated tests for superpowers skills using Claude Code CLI.
-
-## Overview
-
-This test suite verifies that skills are loaded correctly and Claude follows them as expected. Tests invoke Claude Code in headless mode (`claude -p`) and verify the behavior.
-
-## Requirements
-
-- Claude Code CLI installed and in PATH (`claude --version` should work)
-- Local superpowers plugin installed (see main README for installation)
-
-## Running Tests
-
-### Run all fast tests (recommended):
-```bash
+- [ ] Structured output types used
 
 ...[truncated]

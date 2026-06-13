@@ -1953,7 +1953,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v25 | **Last Updated**: 6/13/2026
+> **VERSION**: v27 | **Last Updated**: 6/13/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5610,6 +5610,56 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9382] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8115,57 +8165,6 @@ public function tools(): iterable
 }
 ```
 
-You may customize the tool's description using the `withDescription` method:
-
-```php
-SimilaritySearch::usingModel(Document::class, 'embedding')
-    ->withDescription('Search the knowledge base for relevant articles.'),
-```
-
-<a name="provider-tools"></a>
-### Provider Tools
-
-Provider tools are special tools implemented natively by AI providers, offering capabilities like web searching, URL fetching, and file searching. Unlike regular tools, provider tools are executed by the provider itself rather than your application.
-
-Provider tools can be returned by your agent's `tools` method.
-
-<a name="web-search"></a>
-#### Web Search
-
-The `WebSearch` provider tool allows agents to search the web for real-time information. This is useful for answering questions about current events, recent data, or topics that may have changed since the model's training cutoff.
-
-**Supported Providers:** Anthropic, OpenAI, Gemini
-
-```php
-use Laravel\Ai\Providers\Tools\WebSearch;
-
-public function tools(): iterable
-{
-    return [
-        new WebSearch,
-    ];
-}
-```
-
-You may configure the web search tool to limit the number of searches or restrict results to specific domains:
-
-```php
-(new WebSearch)->max(5)->allow(['laravel.com', 'php.net']),
-```
-
-To refine search results based on user location, use the `location` method:
-
-```php
-(new WebSearch)->location(
-    city: 'New York',
-    region: 'NY',
-    country: 'US'
-);
-```
-
-<a name="web-fetch"></a>
-#### Web Fetch
-
-The `WebFet
+You may 
 
 ...[truncated]

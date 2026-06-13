@@ -21,6 +21,10 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > >
 > Source: `agent/workflows/external/frontend/chrome-extensions/chrome-extensions.md`
 
+### 📦 SKILL: media-capture
+> Media Capture (Tab & Desktop)
+> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
+
 ### 📦 SKILL: prompt-api
 > Chrome Prompt API (LanguageModel) — Extension-Specific Notes
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/prompt-api.md`
@@ -48,10 +52,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: icons
 > Generating Extension Icons
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/icons.md`
-
-### 📦 SKILL: media-capture
-> Media Capture (Tab & Desktop)
-> Source: `agent/workflows/external/frontend/chrome-extensions/references/extensions/media-capture.md`
 
 ### 📦 SKILL: omnibox
 > Omnibox Integration
@@ -88,6 +88,14 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: translator
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
+
+### 📦 SKILL: rich-media-picker
+> Rich Media Picker (Customizable Select)
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
+
+### 📦 SKILL: export-html-media-from-canvas
+> Export HTML content from canvas
+> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/export-html-media-from-canvas.md`
 
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
@@ -145,10 +153,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/forms.md`
 
-### 📦 SKILL: rich-media-picker
-> Rich Media Picker (Customizable Select)
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/forms/rich-media-picker.md`
-
 ### 📦 SKILL: html
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/html/html.md`
@@ -204,10 +208,6 @@ Anda bertindak sebagai algolia-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: declarative-button-actions
 > Declarative Button Actions
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/declarative-button-actions.md`
-
-### 📦 SKILL: export-html-media-from-canvas
-> Export HTML content from canvas
-> Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/export-html-media-from-canvas.md`
 
 ### 📦 SKILL: format-human-readable-durations
 > Formatting Human-Readable Durations with Temporal

@@ -2465,7 +2465,7 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v21 | **Last Updated**: 6/13/2026
+> **VERSION**: v23 | **Last Updated**: 6/13/2026
 
 
 
@@ -2801,9 +2801,39 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 DATABASE WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v9382] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_OTHER.MD
 
-> **VERSION**: v19 | **Last Updated**: 6/13/2026
+> **VERSION**: v21 | **Last Updated**: 6/13/2026
 
 
 
@@ -3076,6 +3106,36 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 OTHER WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 OTHER WISDOM DISTILLATION [v9382] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_PERFORMANCE.MD
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -3115,7 +3175,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v24 | **Last Updated**: 6/13/2026
+> **VERSION**: v26 | **Last Updated**: 6/13/2026
 
 
 
@@ -3557,6 +3617,36 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v0971] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v9382] - 6/13/2026
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
 ### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
@@ -4111,7 +4201,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v25 | **Last Updated**: 6/13/2026
+> **VERSION**: v27 | **Last Updated**: 6/13/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -7768,6 +7858,56 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v2998] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v9382] - 6/13/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/13/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -8226,130 +8366,6 @@ Tasks and steps use checkbox syntax:
 - If the agent believes reviewer feedback is incorrect, it should explain why in its fix
 - If disagreement persists after 3 iterations on the same issue, surface to human
 
-**Malformed reviewer output:**
-- Controller should validate reviewer output has required fields (Status, Issues if applicable)
-- If malformed, re-dispatch reviewer with a note about expected format
-- After 2 malformed responses, surface to human
-
-## Files to Change
-
-**New files:**
-- `skills/brainstorming/[spec-document-reviewer-prompt.md](../other/NEXUS_SPEC-DOCUMENT-REVIEWER-PROMPT.MD)`
-- `skills/writing-plans/[plan-document-reviewer-prompt.md](../other/NEXUS_PLAN-DOCUMENT-REVIEWER-PROMPT.MD)`
-
-**Modified files:**
-- `skills/brainstorming/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add review loop after spec written
-- `skills/writing-plans/[SKILL.md](../tdd/NEXUS_SKILL.MD)` - add chunk-by-chunk review loop, update task syntax examples
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [ui-ux, performance, tdd, vcs, api]
-
-### 📘 KNOWLEDGE: NEXUS_API-CALLING.MD
-
-# Calling External APIs from Extensions
-> **VERSION**: v1 | **Last Updated**: 26/05/2026
-
-
-
-## Permissions
-
-Ordinarily, fetch requests made by extensions follow normal CORS rules.
-
-To determine if this is sufficient, use `curl` to call the API with a test origin. For example:
-
-```
-curl -H "Origin: https://example.com" -I https://api.openweathermap.org/data/2.5/weather?q=London&appid=KEY`
-```
-
-If the response includes either `*` or `https://example.com` as the value for the `Access-Control-Allow-Origin` header, the API supports CORS.
-
-If the API does not support CORS, request host permissions to bypass these restrictions:
-
-```json
-{
-  "host_permissions": [
-    "https://no-cors-api.example.com/*"
-  ]
-}
-```
-
-**Do NOT use `<all_urls>` just for API calls.** Scope to the specific API domains.
-
-## Where to Make API Calls
-
-API calls work from any extension context (service worker, popup, side panel, content scripts):
-
-```js
-// From popup or service worker
-const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=KEY');
-const data = await response.json();
-```
-
-**Content scripts** can also make fetch calls, but they follow the web page's CORS rules.
-
-## Error Handling Pattern
-
-```js
-async function callAPI(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (err) {
-    if (err instanceof TypeError) {
-      // Network error (offline, DNS failure, etc.)
-      console.error('Network error:', err.message);
-    } else {
-      console.error('API error:', err.message);
-    }
-    return null;
-  }
-}
-```
-
-## API Keys
-
-- Never hardcode API keys in published extensions
-- Use `chrome.storage.local` for user-provided keys
-- For your own backend, use `chrome.identity` to authenticate instead of embedding keys
-- Mark placeholder keys clearly: `const API_KEY = 'YOUR_API_KEY_HERE';`
-
-## Service Worker Considerations
-
-If making API calls from the service worker, remember it can terminate. For long-polling or
-webhook-style patterns, use `chrome.offscreen` to create an offscreen document that stays alive,
-or use `chrome.alarms` for periodic polling.
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [api]
-
-### 📘 KNOWLEDGE: NEXUS_CONCURRENCY.MD
-
-# Concurrency
-> **VERSION**: v1 | **Last Updated**: 27/05/2026
-
-
-
-- [Introduction](#introduction)
-- [Running Concurrent Tasks](#running-concurrent-tasks)
-    - [Named Results](#named-results)
-    - [Task Timeouts](#task-timeouts)
-- [Deferring Concurrent Tasks](#deferring-concurrent-tasks)
-
-<a name="introduction"></a>
-## Introduction
-
-Sometimes you may need to execute several slow tasks which do not depend on one another. In many cases, significant performance improvements can be realized by executing the tasks concurrently. Laravel's `Concurrency` facade provides a simple, convenient API for executing closures concurrently.
-
-<a name="how-it-works"></a>
-#### How it Works
-
-Laravel achieves concurrency by serializing the given closures and dispatching them to a hidden Artisan CLI command, which unserializes the closures and invokes it within its own PHP process. After the closure has been invoked, the resulting value is serialized back to the parent process.
-
-The `Concurrency` facade supports 
+**Malformed review
 
 ...[truncated]

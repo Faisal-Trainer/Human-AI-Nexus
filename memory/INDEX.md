@@ -1,5 +1,5 @@
 # 🧠 NEXUS KNOWLEDGE HUB: Master Index
-> **Generated At**: 2026-06-13 09:11:09 (UTC+8) | **Total Knowledge Nodes**: 522
+> **Generated At**: 2026-06-13 11:38:49 (UTC+8) | **Total Knowledge Nodes**: 524
 
 | Rack | Knowledge Node | Size (KB) | Last Updated |
 | :--- | :--- | :--- | :--- |
@@ -94,11 +94,11 @@
 | `archived/vcs` | [NEXUS_README.MD](archived/vcs/NEXUS_README.MD) | 0.6 | 5/27/2026 |
 | `archived/vcs` | [NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD](archived/vcs/NEXUS_RECORD-NEXUS-INSTALL-UNINSTALL-ANALYSIS.MD) | 3.0 | 5/26/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_API.md](distilled/academics/NEXUS_DISTILLATION_API.md) | 8.8 | 6/3/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 11.1 | 6/13/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 7.8 | 6/13/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 16.6 | 6/13/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_DATABASE.md](distilled/academics/NEXUS_DISTILLATION_DATABASE.md) | 12.0 | 6/13/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_OTHER.md](distilled/academics/NEXUS_DISTILLATION_OTHER.md) | 8.7 | 6/13/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_PERFORMANCE.md](distilled/academics/NEXUS_DISTILLATION_PERFORMANCE.md) | 17.6 | 6/13/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_TDD.md](distilled/academics/NEXUS_DISTILLATION_TDD.md) | 16.7 | 6/3/2026 |
-| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 124.0 | 6/13/2026 |
+| `distilled/academics` | [NEXUS_DISTILLATION_UI-UX.md](distilled/academics/NEXUS_DISTILLATION_UI-UX.md) | 125.4 | 6/13/2026 |
 | `distilled/academics` | [NEXUS_DISTILLATION_VCS.md](distilled/academics/NEXUS_DISTILLATION_VCS.md) | 8.3 | 6/3/2026 |
 | `distilled/api` | [NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD](distilled/api/NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD) | 5.0 | 6/1/2026 |
 | `distilled/api` | [NEXUS_API-CALLING.MD](distilled/api/NEXUS_API-CALLING.MD) | 2.3 | 5/26/2026 |
@@ -193,6 +193,7 @@
 | `distilled/database` | [NEXUS_SEARCH-HIDDEN-CONTENT.MD](distilled/database/NEXUS_SEARCH-HIDDEN-CONTENT.MD) | 6.9 | 5/26/2026 |
 | `distilled/database` | [NEXUS_SEARCH.MD](distilled/database/NEXUS_SEARCH.MD) | 17.4 | 5/27/2026 |
 | `distilled/database` | [NEXUS_SEEDING.MD](distilled/database/NEXUS_SEEDING.MD) | 5.5 | 5/27/2026 |
+| `distilled/database` | [NEXUS_SKILL.MD](distilled/database/NEXUS_SKILL.MD) | 21.7 | 6/13/2026 |
 | `distilled/database` | [NEXUS_SM3503.MD](distilled/database/NEXUS_SM3503.MD) | 26.1 | 5/26/2026 |
 | `distilled/database` | [NEXUS_STACK-DRILL-DOWN.MD](distilled/database/NEXUS_STACK-DRILL-DOWN.MD) | 33.7 | 5/26/2026 |
 | `distilled/database` | [NEXUS_SUMMARIZER.MD](distilled/database/NEXUS_SUMMARIZER.MD) | 6.2 | 5/26/2026 |
@@ -290,6 +291,7 @@
 | `distilled/laravel` | [NEXUS_LIVEWIRE_ROUTING.MD](distilled/laravel/NEXUS_LIVEWIRE_ROUTING.MD) | 1.7 | 6/13/2026 |
 | `distilled/laravel` | [NEXUS_MAIL.MD](distilled/laravel/NEXUS_MAIL.MD) | 57.3 | 5/27/2026 |
 | `distilled/laravel` | [NEXUS_NOTIFICATIONS.MD](distilled/laravel/NEXUS_NOTIFICATIONS.MD) | 73.6 | 5/27/2026 |
+| `distilled/laravel` | [NEXUS_SANDBOX_DEBUG_LOG.MD](distilled/laravel/NEXUS_SANDBOX_DEBUG_LOG.MD) | 3.2 | 6/13/2026 |
 | `distilled/laravel` | [NEXUS_TALL_EVOLUTION_WISDOM.md](distilled/laravel/NEXUS_TALL_EVOLUTION_WISDOM.md) | 1.6 | 5/13/2026 |
 | `distilled/other` | [NEXUS_2025-11-22-OPENCODE-SUPPORT-DESIGN.MD](distilled/other/NEXUS_2025-11-22-OPENCODE-SUPPORT-DESIGN.MD) | 8.8 | 6/1/2026 |
 | `distilled/other` | [NEXUS_2025-11-22-OPENCODE-SUPPORT-IMPLEMENTATION.MD](distilled/other/NEXUS_2025-11-22-OPENCODE-SUPPORT-IMPLEMENTATION.MD) | 27.4 | 6/1/2026 |

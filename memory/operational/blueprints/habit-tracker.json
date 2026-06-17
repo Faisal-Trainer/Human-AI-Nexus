@@ -1,8 +1,8 @@
 {
-  "project_name": "URLShortenerApp",
+  "project_name": "habit-tracker",
   "models": [
     "User",
-    "ShortenedUrl"
+    "Habit"
   ],
   "schema": {
     "User": {
@@ -10,42 +10,46 @@
       "email": "string",
       "password": "text"
     },
-    "ShortenedUrl": {
-      "url": "string",
-      "original_url": "string",
-      "shortened_url": "string"
+    "Habit": {
+      "name": "string",
+      "user_id": "integer",
+      "created_at": "timestamp",
+      "updated_at": "timestamp"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_urls_table"
+    "create_habits_table",
+    "create_user_habit_pivot_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-url-component"
+    "habit-list"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedUrlSeeder"
+    "HabitSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedUrlFactory"
+    "HabitFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened-url"
+    "/habits"
   ],
-  "pivot_tables": [],
+  "pivot_tables": [
+    "user_habit"
+  ],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "ShortenedUrl"
+      "type": "hasMany",
+      "target": "Habit"
     },
     {
-      "model": "ShortenedUrl",
-      "type": "hasMany",
+      "model": "Habit",
+      "type": "belongsTo",
       "target": "User"
     }
   ]

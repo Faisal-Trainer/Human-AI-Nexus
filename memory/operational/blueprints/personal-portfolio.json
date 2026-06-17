@@ -1,8 +1,8 @@
 {
-  "project_name": "URLShortenerApp",
+  "project_name": "personal-portfolio",
   "models": [
     "User",
-    "ShortenedUrl"
+    "Post"
   ],
   "schema": {
     "User": {
@@ -10,43 +10,37 @@
       "email": "string",
       "password": "text"
     },
-    "ShortenedUrl": {
-      "url": "string",
-      "original_url": "string",
-      "shortened_url": "string"
+    "Post": {
+      "title": "string",
+      "content": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_urls_table"
+    "create_posts_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-url-component"
+    "post-form"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedUrlSeeder"
+    "PostSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedUrlFactory"
+    "PostFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened-url"
+    "/post"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "ShortenedUrl"
-    },
-    {
-      "model": "ShortenedUrl",
       "type": "hasMany",
-      "target": "User"
+      "target": "Post"
     }
   ]
 }

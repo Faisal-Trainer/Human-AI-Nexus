@@ -5,7 +5,7 @@ class DatasetExtractor {
     constructor(rootPath) {
         this.rootPath = rootPath;
         // Default to the generated code cache
-        this.cachePath = path.join(this.rootPath, 'agent', 'memory', 'cache', 'generated_code');
+        this.cachePath = path.join(this.rootPath, 'memory', 'cache', 'generated_code');
         this.outPath = path.join(this.rootPath, 'memory', 'datasets', 'nexus-sft-dataset.jsonl');
         fs.ensureDirSync(path.join(this.rootPath, 'memory', 'datasets'));
     }

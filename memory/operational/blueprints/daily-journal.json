@@ -1,50 +1,53 @@
 {
-  "project_name": "URLShortenerApp",
+  "project_name": "daily-journal",
   "models": [
     "User",
-    "ShortenedUrl"
+    "JournalEntry"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
+      "password": "text",
+      "role": "enum('admin', 'user')"
     },
-    "ShortenedUrl": {
-      "url": "string",
-      "original_url": "string",
-      "shortened_url": "string"
+    "JournalEntry": {
+      "user_id": "integer",
+      "title": "string",
+      "content": "text",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_urls_table"
+    "create_journal_entries_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "shortened-url-component"
+    "journal-entry",
+    "user-dashboard"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedUrlSeeder"
+    "JournalEntrySeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedUrlFactory"
+    "JournalEntryFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened-url"
+    "/journal"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "belongsTo",
-      "target": "ShortenedUrl"
+      "target": "JournalEntry"
     },
     {
-      "model": "ShortenedUrl",
+      "model": "JournalEntry",
       "type": "hasMany",
       "target": "User"
     }

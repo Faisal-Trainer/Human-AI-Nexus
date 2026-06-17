@@ -238,26 +238,69 @@ class ImplementationPhase extends BasePhase {
       .createHash("md5")
       .update(prompt + taskType)
       .digest("hex");
-    const cacheDir = path.join(
+
+    // FIX: Use GLOBAL cache directory (NEXUS-AI root level) instead of per-project path.
+    // Per-project cache gets wiped when SandboxProjectSetup removes the project folder.
+    // Global path: <nexus-root>/memory/cache/generated_code/
+    const nexusRoot = path.resolve(__dirname, "..", "..", "..");
+    const globalCacheDir = path.join(
+      nexusRoot,
+      "memory",
+      "cache",
+      "generated_code",
+    );
+    const globalCacheFile = path.join(globalCacheDir, `${hash}.txt`);
+
+    // Also check the backup directory as secondary fallback
+    const backupCacheDir = path.join(
+      nexusRoot,
+      "memory",
+      "cache",
+      "generated_code_backup",
+    );
+    const backupCacheFile = path.join(backupCacheDir, `${hash}.txt`);
+
+    // Check global cache first
+    if (await fs.pathExists(globalCacheFile)) {
+      this.log(`      🎁 Code retrieved from global cache.`, "success");
+      return await fs.readFile(globalCacheFile, "utf8");
+    }
+
+    // Check backup cache as fallback
+    if (await fs.pathExists(backupCacheFile)) {
+      this.log(`      🎁 Code retrieved from backup cache.`, "success");
+      const content = await fs.readFile(backupCacheFile, "utf8");
+      // Promote backup to active global cache for next time
+      await fs.ensureDir(globalCacheDir);
+      await fs.writeFile(globalCacheFile, content, "utf8");
+      return content;
+    }
+
+    // Check per-project cache (legacy compatibility)
+    const localCacheDir = path.join(
       this.engine.rootPath,
       "memory",
       "cache",
       "generated_code",
     );
-    const cacheFile = path.join(cacheDir, `${hash}.txt`);
-
-    if (await fs.pathExists(cacheFile)) {
-      this.log(`      🎁 Code retrieved from template cache.`, "success");
-      return await fs.readFile(cacheFile, "utf8");
+    const localCacheFile = path.join(localCacheDir, `${hash}.txt`);
+    if (await fs.pathExists(localCacheFile)) {
+      this.log(`      🎁 Code retrieved from local project cache.`, "success");
+      const content = await fs.readFile(localCacheFile, "utf8");
+      // Promote to global cache
+      await fs.ensureDir(globalCacheDir);
+      await fs.writeFile(globalCacheFile, content, "utf8");
+      return content;
     }
 
+    // Cache MISS — generate via AI
     const response = await localAI.generate(prompt, taskType);
     if (response) {
-      await fs.ensureDir(cacheDir);
-      await fs.writeFile(cacheFile, response, "utf8");
+      await fs.ensureDir(globalCacheDir);
+      await fs.writeFile(globalCacheFile, response, "utf8");
 
       // Save dataset for SFT fine-tuning
-      const datasetFile = path.join(cacheDir, `${hash}.json`);
+      const datasetFile = path.join(globalCacheDir, `${hash}.json`);
       const datasetEntry = {
         prompt,
         output: response,

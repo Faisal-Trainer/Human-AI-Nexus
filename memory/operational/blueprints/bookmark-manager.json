@@ -1,8 +1,8 @@
 {
-  "project_name": "URLShortenerApp",
+  "project_name": "bookmark-manager",
   "models": [
     "User",
-    "ShortenedUrl"
+    "Bookmark"
   ],
   "schema": {
     "User": {
@@ -10,42 +10,43 @@
       "email": "string",
       "password": "text"
     },
-    "ShortenedUrl": {
-      "url": "string",
-      "original_url": "string",
-      "shortened_url": "string"
+    "Bookmark": {
+      "title": "string",
+      "url": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_urls_table"
+    "create_bookmarks_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-url-component"
+    "bookmark-list"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedUrlSeeder"
+    "BookmarkSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedUrlFactory"
+    "BookmarkFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened-url"
+    "/bookmarks"
   ],
-  "pivot_tables": [],
+  "pivot_tables": [
+    "bookmark_user"
+  ],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "ShortenedUrl"
+      "type": "hasMany",
+      "target": "Bookmark"
     },
     {
-      "model": "ShortenedUrl",
-      "type": "hasMany",
+      "model": "Bookmark",
+      "type": "belongsTo",
       "target": "User"
     }
   ]

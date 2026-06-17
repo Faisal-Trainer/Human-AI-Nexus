@@ -6,8 +6,8 @@ const ImplementationPhase = require('../core/phases/ImplementationPhase');
 class RetroDatasetExtractor {
     constructor(rootPath) {
         this.rootPath = rootPath;
-        // Search in the main agent memory cache where legacy .txt files reside
-        this.agentCachePath = path.join(this.rootPath, 'agent', 'memory', 'cache', 'generated_code');
+        this.nexusDataPath = path.join(this.rootPath, 'memory', 'distilled');
+        this.agentCachePath = path.join(this.rootPath, 'memory', 'cache', 'generated_code');
         this.blueprintsPath = path.join(this.rootPath, 'memory', 'operational', 'blueprints');
         this.outPath = path.join(this.rootPath, 'memory', 'datasets', 'nexus-retro-dataset.jsonl');
         fs.ensureDirSync(path.join(this.rootPath, 'memory', 'datasets'));

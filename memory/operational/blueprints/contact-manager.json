@@ -1,0 +1,43 @@
+{
+  "project_name": "contact-manager",
+  "models": [
+    "User",
+    "Contact"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text",
+      "contacts": "json"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_contacts_table"
+  ],
+  "livewire_components": [
+    "user-profile",
+    "contact-list"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "ContactSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "ContactFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/contacts"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Contact"
+    }
+  ]
+}

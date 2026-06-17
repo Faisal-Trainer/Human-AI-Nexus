@@ -1,61 +1,55 @@
 {
-  "project_name": "todo-app-realtime",
+  "project_name": "expense-tracker",
   "models": [
     "User",
-    "Todo"
+    "Expense"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text",
-      "is_active": "boolean",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "password": "text"
     },
-    "Todo": {
-      "title": "string",
+    "Expense": {
       "description": "string",
-      "priority": "integer",
-      "completed_at": "datetime",
-      "created_by": "integer",
-      "updated_by": "integer",
+      "amount": "double",
+      "user_id": "integer",
       "created_at": "datetime",
       "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_todos_table"
+    "create_expenses_table"
   ],
   "livewire_components": [
     "user-profile",
-    "todo-list"
+    "expense-list",
+    "expense-details"
   ],
   "seeders": [
     "UserSeeder",
-    "TodoSeeder"
+    "ExpenseSeeder"
   ],
   "factories": [
     "UserFactory",
-    "TodoFactory"
+    "ExpenseFactory"
   ],
   "routes": [
     "/dashboard",
-    "/todo-list"
+    "/expenses"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Todo"
+      "target": "Expense"
     },
     {
-      "model": "Todo",
-      "type": "belongsTo",
-      "target": "User",
-      "inverse": true
+      "model": "Expense",
+      "type": "belongsToMany",
+      "target": "Category"
     }
   ]
 }

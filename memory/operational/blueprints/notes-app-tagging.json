@@ -2,8 +2,7 @@
   "project_name": "notes-app-tagging",
   "models": [
     "User",
-    "Note",
-    "Tag"
+    "Note"
   ],
   "schema": {
     "User": {
@@ -13,23 +12,22 @@
     },
     "Note": {
       "title": "string",
-      "content": "string",
+      "content": "text",
       "user_id": "integer",
-      "tags": "json"
-    },
-    "Tag": {
-      "name": "string"
+      "tags": "json",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
     "create_notes_table",
-    "create_tags_table"
+    "create_tags_table",
+    "create_notes_tags_table"
   ],
   "livewire_components": [
-    "note-list",
-    "note-detail",
-    "tag-list"
+    "user-profile",
+    "note-form"
   ],
   "seeders": [
     "UserSeeder",
@@ -43,11 +41,13 @@
   ],
   "routes": [
     "/dashboard",
-    "/notes",
-    "/tags"
+    "/notes/create",
+    "/notes/edit",
+    "/tags/create",
+    "/tags/edit"
   ],
   "pivot_tables": [
-    "note_tags"
+    "notes_tags"
   ],
   "relationships": [
     {
@@ -59,12 +59,7 @@
       "model": "Note",
       "type": "belongsToMany",
       "target": "Tag",
-      "through": "note_tags"
-    },
-    {
-      "model": "Tag",
-      "type": "belongsToMany",
-      "target": "Note"
+      "pivot_table": "notes_tags"
     }
   ]
 }

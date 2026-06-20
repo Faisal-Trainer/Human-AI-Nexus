@@ -1973,7 +1973,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v27 | **Last Updated**: 6/13/2026
+> **VERSION**: v30 | **Last Updated**: 6/20/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5680,6 +5680,81 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5219] - 6/16/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0661] - 6/17/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v3088] - 6/20/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -7604,69 +7679,6 @@ def _handle_api_error(e: Exception) -> str:
         if e.response.status_code == 404:
             return "Error: Resource not found. Please check the ID is correct."
         elif e.response.status_code == 403:
-            return "Error: Permission denied. You don't have access to this resource."
-        elif e.response.status_code == 429:
-            return "Error: Rate limit exceeded. Please wait before making more requests."
-        return f"Error: API request failed with status {e.response.status_code}"
-    elif isinstance(e, httpx.TimeoutException):
-        return "Error: Request timed out. Please try again."
-    return f"Error: Unexpected error occurred: {type(e).__name__}"
-
-# Tool definitions
-@mcp.tool(
-    name="example_search_users",
-    annotations={
-        "title": "Search Example Users",
-        "readOnlyHint": True,
-        "destructiveHint": False,
-        "idempotentHint": True,
-        "openWorldHint": True
-    }
-)
-async def example_search_users(params: UserSearchInput) -> str:
-    '''Search for users in the Example system by name, email, or team.
-
-    [Full docstring as shown above]
-    '''
-    try:
-        # Make API request using validated parameters
-        data = await _make_api_request(
-            "users/search",
-            params={
-                "q": params.query,
-                "limit": params.limit,
-                "offset": params.offset
-            }
-        )
-
-        users = data.get("users", [])
-        total = data.get("total", 0)
-
-        if not users:
-            return f"No users found matching '{params.query}'"
-
-        # Format response based on requested format
-        if params.response_format == ResponseFormat.MARKDOWN:
-            lines = [f"# User Search Results: '{params.query}'", ""]
-            lines.append(f"Found {total} users (showing {len(users)})")
-            lines.append("")
-
-            for user in users:
-                lines.append(f"## {user['name']} ({user['id']})")
-                lines.append(f"- **Email**: {user['email']}")
-                if user.get('team'):
-                    lines.append(f"- **Team**: {user['team']}")
-                lines.append("")
-
-            return "\n".join(lines)
-
-        else:
-            # Machine-readable JSON format
-            import json
-            response = {
-                "total": total,
-                "count": len(users),
-                "offset": params.offset,
-   
+            return "Error: Permission denied. You don't have access to this resour
 
 ...[truncated]

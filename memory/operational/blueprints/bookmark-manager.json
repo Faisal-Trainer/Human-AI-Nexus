@@ -11,13 +11,15 @@
       "password": "text"
     },
     "Bookmark": {
-      "title": "string",
-      "url": "string"
+      "url": "string",
+      "description": "string",
+      "user_id": "integer"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_bookmarks_table"
+    "create_bookmarks_table",
+    "create_user_bookmarks_table"
   ],
   "livewire_components": [
     "user-profile",
@@ -33,11 +35,10 @@
   ],
   "routes": [
     "/dashboard",
-    "/bookmarks"
+    "/bookmark",
+    "/bookmark/create"
   ],
-  "pivot_tables": [
-    "bookmark_user"
-  ],
+  "pivot_tables": [],
   "relationships": [
     {
       "model": "User",

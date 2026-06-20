@@ -8,29 +8,22 @@
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text",
-      "is_active": "boolean",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "password": "text"
     },
     "Todo": {
       "title": "string",
       "description": "string",
-      "priority": "integer",
-      "completed_at": "datetime",
-      "created_by": "integer",
-      "updated_by": "integer",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "status": "boolean"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_todos_table"
+    "create_todos_table",
+    "add_user_id_to_todos_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "todo-list"
+    "todo-list",
+    "your-real-livewire-component"
   ],
   "seeders": [
     "UserSeeder",
@@ -42,7 +35,7 @@
   ],
   "routes": [
     "/dashboard",
-    "/todo-list"
+    "/your-real-route"
   ],
   "pivot_tables": [],
   "relationships": [
@@ -50,12 +43,6 @@
       "model": "User",
       "type": "hasMany",
       "target": "Todo"
-    },
-    {
-      "model": "Todo",
-      "type": "belongsTo",
-      "target": "User",
-      "inverse": true
     }
   ]
 }

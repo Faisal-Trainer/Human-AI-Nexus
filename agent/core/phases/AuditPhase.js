@@ -121,19 +121,24 @@ class AuditPhase extends BasePhase {
         // Autonomous Machine Audit
         this.log('🤖 Activating Autonomous Machine Audit...', 'warning');
         
-        const schemaFindings = await this.engine.schemaGuard.validateModels();
+        const withTimeout = (promise, ms) => Promise.race([
+            promise,
+            new Promise(resolve => setTimeout(() => resolve([]), ms)) // default empty finding on timeout
+        ]);
+        
+        const schemaFindings = await withTimeout(this.engine.schemaGuard.validateModels(), 30000);
         if (schemaFindings.length > 0) {
             consolidatedFindings.push(...schemaFindings.map(f => ({ ...f, message: `[SchemaGuard] ${f.message}` })));
         }
 
-        const queryFindings = await this.engine.queryOptimizer.scanMigrations();
+        const queryFindings = await withTimeout(this.engine.queryOptimizer.scanMigrations(), 30000);
         if (queryFindings.length > 0) {
             consolidatedFindings.push(...queryFindings.map(f => ({ ...f, message: `[QueryOptimizer] ${f.message}` })));
         }
 
         const viewFiles = await CoreUtils.globRecursive(this.engine.rootPath, 'resources/views/**/*.blade.php');
         for (const file of viewFiles.slice(0, 5)) {
-            const a11yFindings = await this.engine.a11yScanner.scan(path.relative(this.engine.rootPath, file));
+            const a11yFindings = await withTimeout(this.engine.a11yScanner.scan(path.relative(this.engine.rootPath, file)), 15000);
             if (a11yFindings.length > 0) {
                 consolidatedFindings.push(...a11yFindings.map(f => ({ ...f, message: `[A11yScanner] ${f.message}` })));
             }

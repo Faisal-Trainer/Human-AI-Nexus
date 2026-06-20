@@ -696,17 +696,28 @@ class ExecutionPhase extends BasePhase {
     }
 
     // ─── PHASE B: AI-Based Healing (Requires LocalIntelligence) ───
-    const logPath = path.join(projectPath, "storage", "logs", "laravel.log");
-    if (!(await fs.pathExists(logPath))) {
-      this.log(`         ❌ No laravel.log found to diagnose.`, "error");
-      return false;
+    let consoleError = "";
+    try {
+      const { execSync } = require("child_process");
+      execSync("php artisan route:list", { cwd: projectPath, stdio: "pipe" });
+    } catch (e) {
+      consoleError = e.stderr ? e.stderr.toString() : e.message;
+      if (!consoleError && e.stdout) consoleError += "\n" + e.stdout.toString();
     }
 
-    const logs = await fs.readFile(logPath, "utf8");
-    const lastError = logs.slice(-3000);
+    const logPath = path.join(projectPath, "storage", "logs", "laravel.log");
+    let logs = "";
+    if (await fs.pathExists(logPath)) {
+      logs = await fs.readFile(logPath, "utf8");
+    }
+
+    let lastError = consoleError;
+    if (logs) {
+      lastError += "\n" + logs.slice(-3000);
+    }
 
     if (!lastError || lastError.trim() === "") {
-      this.log(`         ❌ No clear error found in logs.`, "error");
+      this.log(`         ❌ No clear error found in logs or console.`, "error");
       return false;
     }
 

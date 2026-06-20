@@ -1,5 +1,3 @@
-> **VERSION**: v1 | **Last Updated**: 6/20/2026
-
 ---
 name: laravel-pivot-table
 description: Panduan lengkap dan sangat detail untuk membuat, mengelola, dan menggunakan tabel pivot (pivot table) pada relasi Many-to-Many di framework Laravel. Gunakan skill ini setiap kali user menyebut "tabel pivot", "pivot table", "relasi many-to-many", "belongsToMany", "intermediate table", "tabel perantara", "tabel penghubung", atau butuh bantuan menghubungkan dua model dengan kolom tambahan (extra columns) seperti quantity, role, status pada relasi. Cocok juga dipakai saat user membuat migration untuk relasi many-to-many, attach/detach/sync data relasi, atau butuh contoh kasus nyata seperti relasi User-Role, Product-Order, Student-Course.
@@ -554,7 +552,3 @@ public function updateGrade(Request $request, Student $student, Course $course)
 | Update kolom pivot tertentu | `updateExistingPivot()` |
 | Pivot dengan logika custom | `using(CustomPivot::class)` |
 | Filter berdasarkan kolom pivot | `wherePivot()`, `wherePivotIn()` |
-
-
----
-> **METADATA (NEXUS SEMANTIC TAGS)**: [database, ui-ux, laravel, api]

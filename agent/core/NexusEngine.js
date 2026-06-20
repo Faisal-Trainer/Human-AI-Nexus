@@ -612,7 +612,37 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
   "pivot_tables": [],
   "relationships": [{"model": "User", "type": "hasMany", "target": "YourRealModelName"}]
 }`;
-    const response = await localAI.generate(prompt, "generate_architecture");
+    let response = "";
+    try {
+      this.log(`   🧠 Routing Blueprint generation to Ollama (kimi-k2.6:cloud)...`, "info");
+      const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
+      const payload = {
+        model: "kimi-k2.6:cloud",
+        prompt: `${systemPrompt}\n\n${prompt}`,
+        stream: false,
+        options: { temperature: 0.7, num_ctx: 8192 }
+      };
+      const headers = { "Content-Type": "application/json" };
+      if (process.env.KIMI_API_KEY) {
+        headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
+      }
+      
+      const res = await fetch("http://127.0.0.1:11434/api/generate", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        response = data.response;
+      } else {
+        throw new Error(`Ollama HTTP ${res.status}`);
+      }
+    } catch (e) {
+      this.log(`   ⚠️ Ollama kimi-k2.6:cloud failed: ${e.message}. Falling back to localAI...`, "warning");
+      response = await localAI.generate(prompt, "generate_architecture");
+    }
+
     if (!response) return;
 
     try {

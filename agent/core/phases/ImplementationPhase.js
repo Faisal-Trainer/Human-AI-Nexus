@@ -425,7 +425,8 @@ class ${modelName} extends Model
         'id' => 'string',
     ];
 
-    // RELATIONSHIPS only using BelongsTo, HasMany, BelongsToMany from Eloquent
+    // TODO: Write explicit relationship methods (BelongsTo, HasMany, etc.) based on the schema.
+    // Replace this comment with actual relationship methods.
 }
 
 APPLICATION CONTEXT:
@@ -507,7 +508,8 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
           this.engine.rootPath,
           "memory",
           "distilled",
-          "laravel_database_rules.md",
+          "database",
+          "NEXUS_DISTILLATION_DATABASE.md",
         ),
         "utf8",
       );

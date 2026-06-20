@@ -1920,7 +1920,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v27 | **Last Updated**: 6/13/2026
+> **VERSION**: v30 | **Last Updated**: 6/20/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5627,6 +5627,81 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5219] - 6/16/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0661] - 6/17/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v3088] - 6/20/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8049,89 +8124,6 @@ class RandomNumberGenerator implements Tool
     }
 
     /**
-     * Get the tool's schema definition.
-     */
-    public function schema(JsonSchema $schema): array
-    {
-        return [
-            'min' => $schema->integer()->min(0)->required(),
-            'max' => $schema->integer()->required(),
-        ];
-    }
-}
-```
-
-Once you have defined your tool, you may return it from the `tools` method of any of your agents:
-
-```php
-use App\Ai\Tools\RandomNumberGenerator;
-
-/**
- * Get the tools available to the agent.
- *
- * @return Tool[]
- */
-public function tools(): iterable
-{
-    return [
-        new RandomNumberGenerator,
-    ];
-}
-```
-
-<a name="similarity-search"></a>
-#### Similarity Search
-
-The `SimilaritySearch` tool allows agents to search for documents similar to a given query using vector embeddings stored in your database. This is useful for retrieval-augmented generation (RAG) when you want to give agents access to search your application's data.
-
-The simplest way to create a similarity search tool is using the `usingModel` method with an Eloquent model that has vector embeddings:
-
-```php
-use App\Models\Document;
-use Laravel\Ai\Tools\SimilaritySearch;
-
-public function tools(): iterable
-{
-    return [
-        SimilaritySearch::usingModel(Document::class, 'embedding'),
-    ];
-}
-```
-
-The first argument is the Eloquent model class, and the second argument is the column containing the vector embeddings.
-
-You may also provide a minimum similarity threshold between `0.0` and `1.0` and a closure to customize the query:
-
-```php
-SimilaritySearch::usingModel(
-    model: Document::class,
-    column: 'embedding',
-    minSimilarity: 0.7,
-    limit: 10,
-    query: fn ($query) => $query->where('published', true),
-),
-```
-
-For more control, you may create a similarity search tool with a custom closure that returns the search results:
-
-```php
-use App\Models\Document;
-use Laravel\Ai\Tools\SimilaritySearch;
-
-public function tools(): iterable
-{
-    return [
-        new SimilaritySearch(using: function (string $query) {
-            return Document::query()
-                ->where('user_id', $this->user->id)
-                ->whereVectorSimilarTo('embedding', $query)
-                ->limit(10)
-                ->get();
-        }),
-    ];
-}
-```
-
-You may 
+     * Get the tool's schem
 
 ...[truncated]

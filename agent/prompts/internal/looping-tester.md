@@ -2369,7 +2369,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v27 | **Last Updated**: 6/13/2026
+> **VERSION**: v30 | **Last Updated**: 6/20/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6076,6 +6076,81 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v5219] - 6/16/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/16/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0661] - 6/17/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/17/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 UI-UX WISDOM DISTILLATION [v3088] - 6/20/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/20/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_2026-01-22-DOCUMENT-REVIEW-SYSTEM-DESIGN.MD
 
 # Document Review System Design
@@ -7934,51 +8009,6 @@ Your implementation MUST prioritize composability and code reuse:
 
 1. **Use Type Hints**: Always include type annotations for function parameters and return values
 2. **Pydantic Models**: Define clear Pydantic models for all input validation
-3. **Avoid Manual Validation**: Let Pydantic handle input validation with constraints
-4. **Proper Imports**: Group imports (standard library, third-party, local)
-5. **Error Handling**: Use specific exception types (httpx.HTTPStatusError, not generic Exception)
-6. **Async Context Managers**: Use `async with` for resources that need cleanup
-7. **Constants**: Define module-level constants in UPPER_CASE
-
-## Quality Checklist
-
-Before finalizing your Python MCP server implementation, ensure:
-
-### Strategic Design
-
-- [ ] Tools enable complete workflows, not just API endpoint wrappers
-- [ ] Tool names reflect natural task subdivisions
-- [ ] Response formats optimize for agent context efficiency
-- [ ] Human-readable identifiers used where appropriate
-- [ ] Error messages guide agents toward correct usage
-
-### Implementation Quality
-
-- [ ] FOCUSED IMPLEMENTATION: Most important and valuable tools implemented
-- [ ] All tools have descriptive names and documentation
-- [ ] Return types are consistent across similar operations
-- [ ] Error handling is implemented for all external calls
-- [ ] Server name follows format: `{service}_mcp`
-- [ ] All network operations use async/await
-- [ ] Common functionality is extracted into reusable functions
-- [ ] Error messages are clear, actionable, and educational
-- [ ] Outputs are properly validated and formatted
-
-### Tool Configuration
-
-- [ ] All tools implement 'name' and 'annotations' in the decorator
-- [ ] Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)
-- [ ] All tools use Pydantic BaseModel for input validation with Field() definitions
-- [ ] All Pydantic Fields have explicit types and descriptions with constraints
-- [ ] All tools have comprehensive docstrings with explicit input/output types
-- [ ] Docstrings include complete schema structure for dict/JSON returns
-- [ ] Pydantic models handle input validation (no manual validation needed)
-
-### Advanced Features (where applicable)
-
-- [ ] Context injection used for logging, progress, or elicitation
-- [ ] Resources registered for appropriate data endpoints
-- [ ] Lifespan management implemented for persistent connections
-- [ ] Structured output types used
+3. **Avoid Manual Validation**: Let Pydantic handle input validatio
 
 ...[truncated]

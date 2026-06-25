@@ -1,48 +1,54 @@
 {
   "project_name": "habit-tracker",
-  "models": [
-    "User",
-    "Habit"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Habit", "HabitLog"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "string"
-    },
-    "Habit": {
-      "name": "string",
-      "description": "string",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Habit": { "user_id": "integer", "name": "string", "description": "text", "frequency": "string", "goal": "integer" },
+    "HabitLog": { "habit_id": "integer", "date": "date", "completed": "boolean" }
+  },
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Habit" },
+    { "model": "Habit", "type": "belongsTo", "target": "User" },
+    { "model": "Habit", "type": "hasMany", "target": "HabitLog" },
+    { "model": "HabitLog", "type": "belongsTo", "target": "Habit" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "habit-dashboard",
+        "state": ["habits", "currentWeek"],
+        "events_listened": ["habitLogged", "habitCreated"]
+      },
+      {
+        "name": "habit-tracker-row",
+        "state": ["habit", "logs"],
+        "events_listened": []
+      },
+      {
+        "name": "habit-form",
+        "state": ["name", "description", "frequency", "goal"],
+        "events_listened": []
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "HabitPolicy: User can only manage own habits"
+    ],
+    "validation_rules": {
+      "Habit": ["name:required|string|max:255", "frequency:required|in:daily,weekly,monthly"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_habits_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "habit-card"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "HabitSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "HabitFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/habits"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Habit"
-    }
-  ]
+  "integrations": [],
+  "testing": {
+    "feature_tests": ["CreateHabitTest", "LogHabitCompletionTest"],
+    "unit_tests": ["StreakCalculationTest"]
+  }
 }

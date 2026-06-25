@@ -1,47 +1,54 @@
 {
   "project_name": "daily-journal",
-  "models": [
-    "User",
-    "Post"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Entry", "Mood"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "text"
-    },
-    "Post": {
-      "title": "string",
-      "content": "text",
-      "user_id": "integer"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Mood": { "name": "string", "icon": "string", "color": "string" },
+    "Entry": { "user_id": "integer", "mood_id": "integer", "title": "string", "content": "text", "date": "date" }
+  },
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Entry" },
+    { "model": "Mood", "type": "hasMany", "target": "Entry" },
+    { "model": "Entry", "type": "belongsTo", "target": "User" },
+    { "model": "Entry", "type": "belongsTo", "target": "Mood" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "journal-calendar",
+        "state": ["currentMonth", "entries"],
+        "events_listened": ["entrySaved"]
+      },
+      {
+        "name": "entry-editor",
+        "state": ["title", "content", "date", "mood_id", "isSaving"],
+        "events_listened": []
+      },
+      {
+        "name": "mood-tracker-chart",
+        "state": ["moodData"],
+        "events_listened": ["entrySaved"]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "EntryPolicy: User can only read and write their own journal entries"
+    ],
+    "validation_rules": {
+      "Entry": ["title:required|string|max:255", "content:required|string", "date:required|date"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_posts_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "post-list"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "PostSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "PostFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/posts"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Post"
-    }
-  ]
+  "integrations": [],
+  "testing": {
+    "feature_tests": ["JournalEntryTest", "MoodAnalyticsTest"],
+    "unit_tests": ["EntryDateScopeTest"]
+  }
 }

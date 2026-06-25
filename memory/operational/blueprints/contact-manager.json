@@ -1,57 +1,53 @@
 {
   "project_name": "contact-manager",
-  "models": [
-    "User",
-    "Contact"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Contact", "Group"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "string",
-      "contacts": "hasMany",
-      "pivot_tables": []
-    },
-    "Contact": {
-      "name": "string",
-      "email": "string",
-      "user": "belongsTo"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Contact": { "user_id": "integer", "first_name": "string", "last_name": "string", "email": "string", "phone": "string", "company": "string" },
+    "Group": { "user_id": "integer", "name": "string" }
+  },
+  "pivot_tables": [
+    { "name": "contact_group", "columns": ["contact_id", "group_id"] }
+  ],
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Contact" },
+    { "model": "User", "type": "hasMany", "target": "Group" },
+    { "model": "Contact", "type": "belongsToMany", "target": "Group", "pivot_table": "contact_group" },
+    { "model": "Group", "type": "belongsToMany", "target": "Contact", "pivot_table": "contact_group" },
+    { "model": "Contact", "type": "belongsTo", "target": "User" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "contact-directory",
+        "state": ["contacts", "searchQuery", "filterGroup"],
+        "events_listened": ["contactSaved", "contactDeleted"]
+      },
+      {
+        "name": "contact-form-modal",
+        "state": ["first_name", "last_name", "email", "phone", "groups", "isOpen"],
+        "events_listened": ["openContactForm"]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "ContactPolicy: User can only view and edit their own contacts"
+    ],
+    "validation_rules": {
+      "Contact": ["first_name:required|string", "email:nullable|email", "phone:nullable|string"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_contacts_table",
-    "add_user_contact_pivot_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "contact-list"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "ContactSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "ContactFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/contacts"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Contact",
-      "pivot_table": "user_contact"
-    },
-    {
-      "model": "Contact",
-      "type": "belongsTo",
-      "target": "User",
-      "pivot_table": "user_contact"
-    }
-  ]
+  "integrations": [],
+  "testing": {
+    "feature_tests": ["ContactCrudTest", "ContactGroupAssignmentTest"],
+    "unit_tests": ["ContactSearchScopeTest"]
+  }
 }

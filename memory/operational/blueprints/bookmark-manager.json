@@ -1,47 +1,56 @@
 {
   "project_name": "bookmark-manager",
-  "models": [
-    "User",
-    "Bookmark"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Bookmark", "Category"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "text"
-    },
-    "Bookmark": {
-      "user_id": "integer",
-      "url": "string",
-      "title": "string"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Category": { "name": "string", "user_id": "integer" },
+    "Bookmark": { "user_id": "integer", "category_id": "integer", "url": "string", "title": "string", "description": "text" }
+  },
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Bookmark" },
+    { "model": "User", "type": "hasMany", "target": "Category" },
+    { "model": "Category", "type": "hasMany", "target": "Bookmark" },
+    { "model": "Bookmark", "type": "belongsTo", "target": "Category" },
+    { "model": "Bookmark", "type": "belongsTo", "target": "User" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "bookmark-list",
+        "state": ["bookmarks", "searchQuery", "selectedCategory"],
+        "events_listened": ["bookmarkAdded", "bookmarkDeleted"]
+      },
+      {
+        "name": "bookmark-form",
+        "state": ["url", "title", "description", "category_id"],
+        "events_listened": []
+      },
+      {
+        "name": "category-sidebar",
+        "state": ["categories"],
+        "events_listened": ["categoryAdded"]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "BookmarkPolicy: User can only manage own bookmarks",
+      "CategoryPolicy: User can only manage own categories"
+    ],
+    "validation_rules": {
+      "Bookmark": ["url:required|url", "title:required|string|max:255"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_bookmarks_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "bookmark-list"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "BookmarkSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "BookmarkFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/bookmarks"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Bookmark"
-    }
-  ]
+  "integrations": [],
+  "testing": {
+    "feature_tests": ["ManageBookmarkTest", "CategorizeBookmarkTest"],
+    "unit_tests": ["UrlValidationTest", "BookmarkOwnershipTest"]
+  }
 }

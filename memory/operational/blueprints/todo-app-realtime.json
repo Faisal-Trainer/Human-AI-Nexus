@@ -1,49 +1,54 @@
 {
   "project_name": "todo-app-realtime",
-  "models": [
-    "User",
-    "Task"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Task", "Board"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "text",
-      "tasks": "relation"
-    },
-    "Task": {
-      "title": "string",
-      "description": "string",
-      "completed": "boolean",
-      "user": "relation"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Board": { "user_id": "integer", "name": "string" },
+    "Task": { "board_id": "integer", "title": "string", "description": "text", "completed": "boolean", "order": "integer" }
+  },
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Board" },
+    { "model": "Board", "type": "hasMany", "target": "Task" },
+    { "model": "Board", "type": "belongsTo", "target": "User" },
+    { "model": "Task", "type": "belongsTo", "target": "Board" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "kanban-board",
+        "state": ["board", "tasks"],
+        "events_listened": ["echo:board.{board.id},TaskMoved", "echo:board.{board.id},TaskCreated"]
+      },
+      {
+        "name": "task-item",
+        "state": ["task", "isEditing"],
+        "events_listened": []
+      },
+      {
+        "name": "task-creator",
+        "state": ["title", "board_id"],
+        "events_listened": []
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "BoardPolicy: User can only access and modify own boards and tasks"
+    ],
+    "validation_rules": {
+      "Task": ["title:required|string|max:255", "board_id:required|exists:boards,id"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_tasks_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "task-list"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "TaskSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "TaskFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/tasks"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Task"
-    }
-  ]
+  "integrations": ["Pusher (for real-time WebSockets)"],
+  "testing": {
+    "feature_tests": ["TaskManagementTest", "BoardRealtimeSyncTest"],
+    "unit_tests": ["TaskOrderRebalanceTest"]
+  }
 }

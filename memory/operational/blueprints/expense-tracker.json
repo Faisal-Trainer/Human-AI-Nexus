@@ -1,48 +1,59 @@
 {
   "project_name": "expense-tracker",
-  "models": [
-    "User",
-    "Expense"
-  ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
+  "models": ["User", "Expense", "Category", "Budget"],
   "schema": {
-    "User": {
-      "name": "string",
-      "email": "string",
-      "password": "text"
-    },
-    "Expense": {
-      "description": "string",
-      "amount": "decimal",
-      "category": "string",
-      "user_id": "integer"
+    "User": { "name": "string", "email": "string", "password": "string" },
+    "Category": { "user_id": "integer", "name": "string", "color": "string" },
+    "Budget": { "user_id": "integer", "category_id": "integer", "amount": "decimal", "month": "string" },
+    "Expense": { "user_id": "integer", "category_id": "integer", "amount": "decimal", "description": "string", "date": "date" }
+  },
+  "relationships": [
+    { "model": "User", "type": "hasMany", "target": "Expense" },
+    { "model": "User", "type": "hasMany", "target": "Category" },
+    { "model": "User", "type": "hasMany", "target": "Budget" },
+    { "model": "Category", "type": "hasMany", "target": "Expense" },
+    { "model": "Category", "type": "hasOne", "target": "Budget" },
+    { "model": "Expense", "type": "belongsTo", "target": "User" },
+    { "model": "Expense", "type": "belongsTo", "target": "Category" }
+  ],
+  "presentation_layer": {
+    "layouts": ["app", "guest"],
+    "components": [
+      {
+        "name": "expense-dashboard",
+        "state": ["recentExpenses", "monthlyTotal", "budgetProgress"],
+        "events_listened": ["expenseAdded", "expenseDeleted"]
+      },
+      {
+        "name": "expense-form",
+        "state": ["amount", "description", "category_id", "date"],
+        "events_listened": []
+      },
+      {
+        "name": "budget-manager",
+        "state": ["budgets", "categories"],
+        "events_listened": ["budgetUpdated"]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": ["user"],
+    "policies": [
+      "ExpensePolicy: User can only access own expenses",
+      "CategoryPolicy: User can only access own categories"
+    ],
+    "validation_rules": {
+      "Expense": ["amount:required|numeric|min:0.01", "date:required|date", "category_id:required|exists:categories,id"]
     }
   },
-  "migrations": [
-    "create_users_table",
-    "create_expenses_table"
-  ],
-  "livewire_components": [
-    "user-profile",
-    "expense-list"
-  ],
-  "seeders": [
-    "UserSeeder",
-    "ExpenseSeeder"
-  ],
-  "factories": [
-    "UserFactory",
-    "ExpenseFactory"
-  ],
-  "routes": [
-    "/dashboard",
-    "/expense-list"
-  ],
-  "pivot_tables": [],
-  "relationships": [
-    {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Expense"
-    }
-  ]
+  "integrations": [],
+  "testing": {
+    "feature_tests": ["ExpenseTrackingTest", "BudgetCalculationTest"],
+    "unit_tests": ["MonthlyExpenseAggregationTest"]
+  }
 }

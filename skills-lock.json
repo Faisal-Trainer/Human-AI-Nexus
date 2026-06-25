@@ -108,6 +108,12 @@
       "sourceType": "github",
       "skillPath": "skills/stitch-skill/SKILL.md",
       "computedHash": "acf2921a7e50c06e637f072ba52e36a994cbb44ecbe6e31435bc113b894f5499"
+    },
+    "technical-writing": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "technical-writing/SKILL.md",
+      "computedHash": "custom"
     }
   }
 }

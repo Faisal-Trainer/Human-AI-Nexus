@@ -15,7 +15,7 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 196 skills matched untuk agent "content-versioning-specialist"
+> Total: 197 skills matched untuk agent "content-versioning-specialist"
 
 ### 📦 SKILL: privacy-policy
 > Privacy Policy Guidance
@@ -612,6 +612,10 @@ Anda bertindak sebagai content-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.

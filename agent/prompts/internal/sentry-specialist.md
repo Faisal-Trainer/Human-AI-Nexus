@@ -15,7 +15,7 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 195 skills matched untuk agent "sentry-specialist"
+> Total: 196 skills matched untuk agent "sentry-specialist"
 
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
@@ -796,4 +796,8 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 

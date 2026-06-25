@@ -15,7 +15,7 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 197 skills matched untuk agent "capacitor-specialist"
+> Total: 198 skills matched untuk agent "capacitor-specialist"
 
 ### 📦 SKILL: responsive-specialist
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -804,4 +804,8 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 

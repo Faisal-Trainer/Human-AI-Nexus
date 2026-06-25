@@ -12,10 +12,9 @@
     },
     "Expense": {
       "description": "string",
-      "amount": "double",
-      "user_id": "integer",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "amount": "decimal",
+      "category": "string",
+      "user_id": "integer"
     }
   },
   "migrations": [
@@ -24,8 +23,7 @@
   ],
   "livewire_components": [
     "user-profile",
-    "expense-list",
-    "expense-details"
+    "expense-list"
   ],
   "seeders": [
     "UserSeeder",
@@ -37,7 +35,7 @@
   ],
   "routes": [
     "/dashboard",
-    "/expenses"
+    "/expense-list"
   ],
   "pivot_tables": [],
   "relationships": [
@@ -45,11 +43,6 @@
       "model": "User",
       "type": "hasMany",
       "target": "Expense"
-    },
-    {
-      "model": "Expense",
-      "type": "belongsToMany",
-      "target": "Category"
     }
   ]
 }

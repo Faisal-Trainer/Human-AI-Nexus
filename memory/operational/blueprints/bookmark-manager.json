@@ -11,15 +11,14 @@
       "password": "text"
     },
     "Bookmark": {
+      "user_id": "integer",
       "url": "string",
-      "description": "string",
-      "user_id": "integer"
+      "title": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_bookmarks_table",
-    "create_user_bookmarks_table"
+    "create_bookmarks_table"
   ],
   "livewire_components": [
     "user-profile",
@@ -35,8 +34,7 @@
   ],
   "routes": [
     "/dashboard",
-    "/bookmark",
-    "/bookmark/create"
+    "/bookmarks"
   ],
   "pivot_tables": [],
   "relationships": [
@@ -44,11 +42,6 @@
       "model": "User",
       "type": "hasMany",
       "target": "Bookmark"
-    },
-    {
-      "model": "Bookmark",
-      "type": "belongsTo",
-      "target": "User"
     }
   ]
 }

@@ -1386,7 +1386,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 135 skills matched untuk agent "cyber-security"
+> Total: 136 skills matched untuk agent "cyber-security"
 
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -1924,6 +1924,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
 
+### 📦 SKILL: nexus-blueprint-architect
+> Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
+> Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
@@ -1953,7 +1957,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v30 | **Last Updated**: 6/20/2026
+> **VERSION**: v31 | **Last Updated**: 6/24/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5735,6 +5739,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0983] - 6/24/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 6/24/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 6/24/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8126,37 +8155,6 @@ Tools may be used to give agents additional functionality that they can utilize 
 php artisan make:tool RandomNumberGenerator
 ```
 
-The generated tool will be placed in your application's `app/Ai/Tools` directory. Each tool contains a `handle` method that will be invoked by the agent when it needs to utilize the tool:
-
-```php
-<?php
-
-namespace App\Ai\Tools;
-
-use Illuminate\Contracts\JsonSchema\JsonSchema;
-use Laravel\Ai\Contracts\Tool;
-use Laravel\Ai\Tools\Request;
-use Stringable;
-
-class RandomNumberGenerator implements Tool
-{
-    /**
-     * Get the description of the tool's purpose.
-     */
-    public function description(): Stringable|string
-    {
-        return 'This tool may be used to generate cryptographically secure random numbers.';
-    }
-
-    /**
-     * Execute the tool.
-     */
-    public function handle(Request $request): Stringable|string
-    {
-        return (string) random_int($request['min'], $request['max']);
-    }
-
-    /**
-     * Get the tool's schem
+The generated tool will be placed in your application's `app/Ai/Tools` directory. Each tool contains a `handle` method t
 
 ...[truncated]

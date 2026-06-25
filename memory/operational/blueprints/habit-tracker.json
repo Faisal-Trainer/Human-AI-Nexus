@@ -8,23 +8,22 @@
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
+      "password": "string"
     },
     "Habit": {
       "name": "string",
-      "user_id": "integer",
-      "created_at": "timestamp",
-      "updated_at": "timestamp"
+      "description": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_habits_table",
-    "create_user_habit_pivot_table"
+    "create_habits_table"
   ],
   "livewire_components": [
     "user-profile",
-    "habit-list"
+    "habit-card"
   ],
   "seeders": [
     "UserSeeder",
@@ -38,19 +37,12 @@
     "/dashboard",
     "/habits"
   ],
-  "pivot_tables": [
-    "user_habit"
-  ],
+  "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
       "target": "Habit"
-    },
-    {
-      "model": "Habit",
-      "type": "belongsTo",
-      "target": "User"
     }
   ]
 }

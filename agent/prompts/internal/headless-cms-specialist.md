@@ -15,7 +15,7 @@ Anda bertindak sebagai headless-cms-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 198 skills matched untuk agent "headless-cms-specialist"
+> Total: 200 skills matched untuk agent "headless-cms-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -256,6 +256,10 @@ Anda bertindak sebagai headless-cms-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: image-to-code
 > Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
 > Source: `.agents/skills/image-to-code/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
@@ -804,6 +808,10 @@ Anda bertindak sebagai headless-cms-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
+
+### 📦 SKILL: nexus-blueprint-architect
+> Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
+> Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
 
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.

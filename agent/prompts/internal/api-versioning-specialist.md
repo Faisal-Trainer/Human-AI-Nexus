@@ -15,7 +15,7 @@ Anda bertindak sebagai api-versioning-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 192 skills matched untuk agent "api-versioning-specialist"
+> Total: 193 skills matched untuk agent "api-versioning-specialist"
 
 ### 📦 SKILL: language-model
 > (No description)
@@ -568,6 +568,10 @@ Anda bertindak sebagai api-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: imagegen-frontend-web
 > Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
 > Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.

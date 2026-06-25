@@ -35,6 +35,17 @@ class EvolutionPiper {
   }
 
   /**
+   * Mengubah target direktori sandbox (misal: "web-1.0-training" atau "sandboxes")
+   * @param {string} dirName - Nama folder di dalam tests/
+   */
+  setSandboxDirectory(dirName) {
+    this.sandboxPath = path.join(this.rootPath, "tests", dirName);
+    console.log(`🧪 EvolutionPiper: Sandbox directory set to ${this.sandboxPath}`);
+  }
+
+
+
+  /**
    * ⛔ GUARDRAIL: Cek batas sebelum setiap operasi evolusi.
    * Harus dipanggil di awal setiap spawnSandbox / spawnRealLaravel.
    */

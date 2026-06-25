@@ -12,7 +12,7 @@ async function scan(targetPath) {
   // 1. Scan for hardcoded DB connection strings
   const files = fg.sync("**/*.{js,php,py}", {
     cwd: normalizedTarget,
-    ignore: ["node_modules/**", "vendor/**", "tests/sandboxes/**", "cli.js"],
+    ignore: ["node_modules/**", "vendor/**", "tests/sandboxes/**", "tests/*-training/**", "cli.js"],
   });
   // FIX #27 — Use plain strings instead of base64 "encoding" (security theater)
   // Base64 provides zero security — trivially decoded by anyone
@@ -38,7 +38,7 @@ async function scan(targetPath) {
   // 2. Scan for potentially missing indexes (look for foreign key patterns in migrations/models)
   const dbFiles = fg.sync("**/*.{sql,php,js}", {
     cwd: normalizedTarget,
-    ignore: ["node_modules/**", "vendor/**", "tests/sandboxes/**"],
+    ignore: ["node_modules/**", "vendor/**", "tests/sandboxes/**", "tests/*-training/**"],
   });
   const fkRegex =
     /unsignedBigInteger\(['"]([^'"]+)_id['"]\)|foreign\(['"]([^'"]+)_id['"]\)/gi;

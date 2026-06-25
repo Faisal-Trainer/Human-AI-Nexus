@@ -1,3 +1,5 @@
+> **VERSION**: v1 | **Last Updated**: 6/24/2026
+
 ---
 name: technical-writing
 description: Panduan lengkap untuk menulis dokumentasi teknis proyek software — README, dokumentasi API, dan changelog — dengan struktur dan standar industri yang konsisten. Gunakan skill ini setiap kali user minta dibuatkan "README", "dokumentasi", "docs", "API documentation", "changelog", "release notes", "CHANGELOG.md", "contributing guide", atau saat user baru selesai membuat fitur/endpoint/proyek dan butuh dokumentasinya ditulis. Cocok juga dipakai saat user bertanya cara mendokumentasikan kode, menulis docstring/comment yang baik, atau menyusun dokumentasi versi rilis software.
@@ -427,3 +429,7 @@ Sebelum menganggap dokumentasi selesai, cek ulang:
 | Changelog | Versi, kategori perubahan, tanggal rilis | Keep a Changelog + SemVer |
 | Docstring | Param, return, exception | PHPDoc / JSDoc sesuai bahasa |
 | CONTRIBUTING | Setup, test, standar kode, cara PR | Conventional Commits (opsional) |
+
+
+---
+> **METADATA (NEXUS SEMANTIC TAGS)**: [security, database, vcs, laravel, api]

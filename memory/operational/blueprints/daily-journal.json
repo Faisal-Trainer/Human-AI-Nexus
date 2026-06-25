@@ -2,54 +2,46 @@
   "project_name": "daily-journal",
   "models": [
     "User",
-    "JournalEntry"
+    "Post"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text",
-      "role": "enum('admin', 'user')"
+      "password": "text"
     },
-    "JournalEntry": {
-      "user_id": "integer",
+    "Post": {
       "title": "string",
       "content": "text",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "user_id": "integer"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_journal_entries_table"
+    "create_posts_table"
   ],
   "livewire_components": [
-    "journal-entry",
-    "user-dashboard"
+    "user-profile",
+    "post-list"
   ],
   "seeders": [
     "UserSeeder",
-    "JournalEntrySeeder"
+    "PostSeeder"
   ],
   "factories": [
     "UserFactory",
-    "JournalEntryFactory"
+    "PostFactory"
   ],
   "routes": [
     "/dashboard",
-    "/journal"
+    "/posts"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
-      "type": "belongsTo",
-      "target": "JournalEntry"
-    },
-    {
-      "model": "JournalEntry",
       "type": "hasMany",
-      "target": "User"
+      "target": "Post"
     }
   ]
 }

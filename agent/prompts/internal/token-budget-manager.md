@@ -15,7 +15,7 @@ Anda bertindak sebagai token-budget-manager untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 196 skills matched untuk agent "token-budget-manager"
+> Total: 198 skills matched untuk agent "token-budget-manager"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -800,4 +800,12 @@ Anda bertindak sebagai token-budget-manager untuk ekosistem Nexus AI.
 ### 📦 SKILL: agentic-javascript-tools
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-javascript-tools.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: nexus-blueprint-architect
+> Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
+> Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
 

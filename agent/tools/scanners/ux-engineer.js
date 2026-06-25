@@ -9,7 +9,7 @@ async function scan(targetPath) {
     const findings = [];
     const normalizedTarget = targetPath.replace(/\\/g, '/');
 
-    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
+    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'tests/*-training/**', '.git/**'];
     const files = fg.sync('**/*.{html,jsx,tsx,blade.php,vue,css,scss}', { cwd: normalizedTarget, ignore: IGNORE });
     
     // 1. Scan for hardcoded colors (HEX/RGB) instead of variables

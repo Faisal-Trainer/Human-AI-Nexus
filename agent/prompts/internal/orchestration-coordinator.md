@@ -44,7 +44,7 @@ Anda bertindak sebagai koordinator eksekusi utama yang mendikte urutan (*sequenc
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 150 skills matched untuk agent "orchestration-coordinator"
+> Total: 151 skills matched untuk agent "orchestration-coordinator"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -641,6 +641,10 @@ Anda bertindak sebagai koordinator eksekusi utama yang mendikte urutan (*sequenc
 ### 📦 SKILL: imagegen-frontend-web
 > Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
 > Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
+
+### 📦 SKILL: laravel-route-architect
+> >
+> Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.

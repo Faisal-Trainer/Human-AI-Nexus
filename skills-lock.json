@@ -73,6 +73,12 @@
       "skillPath": "skills/brutalist-skill/SKILL.md",
       "computedHash": "e66e5a2a8b73cef79ab6546459c665e8b983645689c5f3772f7eed8b9f1e8e0e"
     },
+    "laravel-route-architect": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "laravel-route-architect/SKILL.md",
+      "computedHash": "custom"
+    },
     "minimalist-ui": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -84,6 +90,12 @@
       "sourceType": "github",
       "skillPath": "skills/modern-web-guidance/SKILL.md",
       "computedHash": "afa09344b55ad54eba057e50428b3e61e6deecace8d3f223d0f7ca701285ec63"
+    },
+    "nexus-blueprint-architect": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "nexus-blueprint-architect/SKILL.md",
+      "computedHash": "custom"
     },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",

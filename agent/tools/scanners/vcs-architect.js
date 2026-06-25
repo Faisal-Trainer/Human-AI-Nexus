@@ -33,7 +33,7 @@ async function scan(targetPath) {
     // 2. Scan for merge conflict markers
     const fg = require('fast-glob');
     const normalizedTarget = targetPath.replace(/\\/g, '/');
-    const files = fg.sync('**/*.{js,php,py,md,txt,html}', { cwd: normalizedTarget, ignore: ['node_modules/**', '.git/**', 'vendor/**', 'tests/sandboxes/**'] });
+    const files = fg.sync('**/*.{js,php,py,md,txt,html}', { cwd: normalizedTarget, ignore: ['node_modules/**', '.git/**', 'vendor/**', 'tests/sandboxes/**', 'tests/*-training/**'] });
     
     for (const file of files) {
         const fullPath = path.join(targetPath, file);
@@ -49,7 +49,7 @@ async function scan(targetPath) {
 
     // 3. Junk Detection (Mata Sampah)
     const junkPatterns = ['**/*.log', '**/.DS_Store', '**/Thumbs.db', '**/desktop.ini', 'src/*_test.*', 'src/test_*.*'];
-    const junkFiles = fg.sync(junkPatterns, { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**'] });
+    const junkFiles = fg.sync(junkPatterns, { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'tests/*-training/**'] });
 
     for (const junk of junkFiles) {
         findings.push({

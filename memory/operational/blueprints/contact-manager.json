@@ -8,13 +8,20 @@
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text",
-      "contacts": "json"
+      "password": "string",
+      "contacts": "hasMany",
+      "pivot_tables": []
+    },
+    "Contact": {
+      "name": "string",
+      "email": "string",
+      "user": "belongsTo"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_contacts_table"
+    "create_contacts_table",
+    "add_user_contact_pivot_table"
   ],
   "livewire_components": [
     "user-profile",
@@ -37,7 +44,14 @@
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Contact"
+      "target": "Contact",
+      "pivot_table": "user_contact"
+    },
+    {
+      "model": "Contact",
+      "type": "belongsTo",
+      "target": "User",
+      "pivot_table": "user_contact"
     }
   ]
 }

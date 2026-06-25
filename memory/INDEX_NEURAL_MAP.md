@@ -109,6 +109,7 @@ graph TD
     EXTERNAL_PIPELINE_RECAP --> tdd_guard
     EXTERNAL_PIPELINE_RECAP --> EXTERNAL_PIPELINE_ROADMAP
     INTERNAL_PIPELINE_RECAP --> PIPELINE_OPTIMIZATION_PLAN
+    TECHNICAL_WRITING_SKILL.MD --> CONTRIBUTING
     MCPBUILDER.MD --> mcp_best_practices
     MCPBUILDER.MD --> evaluation
     PLAN_PLAN_1778569271059.MD --> audit_SUMMARY_AUDIT_1778569270960
@@ -129,4 +130,4 @@ graph TD
     REPORT_VCS_ARCHITECT_AUDIT_1778411549826.MD --> educational_audit
 ```
 
-> **Stats**: 524 Nodes | 125 Connections | **Generated**: 2026-06-20 11:16:00 (UTC+8)
+> **Stats**: 525 Nodes | 126 Connections | **Generated**: 2026-06-24 10:45:57 (UTC+8)

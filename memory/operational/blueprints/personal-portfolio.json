@@ -1,8 +1,9 @@
 {
-  "project_name": "personal-portfolio",
+  "project_name": "PersonalPortfolio",
   "models": [
     "User",
-    "Post"
+    "Project",
+    "Task"
   ],
   "schema": {
     "User": {
@@ -10,37 +11,53 @@
       "email": "string",
       "password": "text"
     },
-    "Post": {
+    "Project": {
       "title": "string",
-      "content": "string"
+      "description": "string",
+      "user_id": "integer"
+    },
+    "Task": {
+      "title": "string",
+      "description": "string",
+      "project_id": "integer"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_posts_table"
+    "create_projects_table",
+    "create_tasks_table"
   ],
   "livewire_components": [
     "user-profile",
-    "post-form"
+    "project-list",
+    "task-list"
   ],
   "seeders": [
     "UserSeeder",
-    "PostSeeder"
+    "ProjectSeeder",
+    "TaskSeeder"
   ],
   "factories": [
     "UserFactory",
-    "PostFactory"
+    "ProjectFactory",
+    "TaskFactory"
   ],
   "routes": [
     "/dashboard",
-    "/post"
+    "/project",
+    "/task"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Post"
+      "target": "Project"
+    },
+    {
+      "model": "Project",
+      "type": "hasMany",
+      "target": "Task"
     }
   ]
 }

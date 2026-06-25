@@ -11,7 +11,7 @@ async function scan(targetPath) {
     const normalizedTarget = targetPath.replace(/\\/g, '/');
 
     // 1. Scan for Large Assets (Performance)
-    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', '.git/**'];
+    const IGNORE = ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'tests/*-training/**', '.git/**'];
     const assets = fg.sync('**/*.{png,jpg,jpeg,gif,svg,mp4,pdf}', { cwd: normalizedTarget, ignore: IGNORE });
     
     for (const asset of assets) {

@@ -22,7 +22,7 @@ async function scan(targetPath) {
     }
 
     // 2. Scan code files for JSDoc/Docstring coverage
-    const codeFiles = fg.sync('**/*.{js,php,py}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'cli.js'] });
+    const codeFiles = fg.sync('**/*.{js,php,py}', { cwd: normalizedTarget, ignore: ['node_modules/**', 'vendor/**', 'tests/sandboxes/**', 'tests/*-training/**', 'cli.js'] });
     const docRegex = /\/\*\*|\/\*\*[\s\S]*?\*\/|"""[\s\S]*?"""|#\s+\w+/;
 
     for (const file of codeFiles) {

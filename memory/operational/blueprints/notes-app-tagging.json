@@ -1,61 +1,78 @@
 {
   "project_name": "NotesAppTagging",
-  "architecture_stack": {
-    "backend": "Laravel",
-    "frontend": "Livewire + Tailwind",
-    "database": "MySQL"
-  },
-  "models": ["User", "Note", "Tag"],
+  "models": [
+    "User",
+    "Note",
+    "Tag"
+  ],
   "schema": {
-    "User": { "name": "string", "email": "string", "password": "string" },
-    "Note": { "user_id": "integer", "title": "string", "content": "text" },
-    "Tag": { "user_id": "integer", "name": "string" }
-  },
-  "pivot_tables": [
-    { "name": "note_tag", "columns": ["note_id", "tag_id"] }
-  ],
-  "relationships": [
-    { "model": "User", "type": "hasMany", "target": "Note" },
-    { "model": "User", "type": "hasMany", "target": "Tag" },
-    { "model": "Note", "type": "belongsTo", "target": "User" },
-    { "model": "Tag", "type": "belongsTo", "target": "User" },
-    { "model": "Note", "type": "belongsToMany", "target": "Tag", "pivot_table": "note_tag" },
-    { "model": "Tag", "type": "belongsToMany", "target": "Note", "pivot_table": "note_tag" }
-  ],
-  "presentation_layer": {
-    "layouts": ["app", "guest"],
-    "components": [
-      {
-        "name": "note-workspace",
-        "state": ["notes", "selectedNoteId", "activeTags"],
-        "events_listened": ["noteSaved", "tagCreated"]
-      },
-      {
-        "name": "note-editor",
-        "state": ["title", "content", "noteTags"],
-        "events_listened": ["noteSelected"]
-      },
-      {
-        "name": "tag-manager",
-        "state": ["tags", "newTagName"],
-        "events_listened": []
-      }
-    ]
-  },
-  "business_logic": {
-    "roles": ["user"],
-    "policies": [
-      "NotePolicy: User can only read/edit own notes",
-      "TagPolicy: User can only use own tags"
-    ],
-    "validation_rules": {
-      "Note": ["title:required|string", "content:nullable|string"],
-      "Tag": ["name:required|string|max:50"]
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text"
+    },
+    "Note": {
+      "title": "string",
+      "content": "text",
+      "user_id": "integer",
+      "tags": "json"
+    },
+    "Tag": {
+      "name": "string",
+      "notes": "json"
     }
   },
-  "integrations": [],
-  "testing": {
-    "feature_tests": ["NoteManagementTest", "TaggingSystemTest"],
-    "unit_tests": ["NoteTagPivotTest"]
-  }
+  "migrations": [
+    "create_users_table",
+    "create_notes_table",
+    "create_tags_table"
+  ],
+  "livewire_components": [
+    "note-list",
+    "tag-list",
+    "note-editor"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "NoteSeeder",
+    "TagSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "NoteFactory",
+    "TagFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/notes",
+    "/tags",
+    "/note/create",
+    "/note/edit",
+    "/note/show",
+    "/note/delete",
+    "/tag/create",
+    "/tag/edit",
+    "/tag/show",
+    "/tag/delete"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Note"
+    },
+    {
+      "model": "Note",
+      "type": "belongsToMany",
+      "target": "Tag",
+      "pivot_table": "note_tags"
+    },
+    {
+      "model": "Tag",
+      "type": "belongsToMany",
+      "target": "Note",
+      "pivot_table": "note_tags"
+    }
+  ]
 }

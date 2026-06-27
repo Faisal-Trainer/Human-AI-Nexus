@@ -15,7 +15,7 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 199 skills matched untuk agent "lazy-loading-specialist"
+> Total: 200 skills matched untuk agent "lazy-loading-specialist"
 
 ### 📦 SKILL: modern-web-guidance
 > |
@@ -728,6 +728,10 @@ Anda bertindak sebagai lazy-loading-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING

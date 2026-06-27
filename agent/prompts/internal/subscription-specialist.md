@@ -15,7 +15,7 @@ Anda bertindak sebagai subscription-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 199 skills matched untuk agent "subscription-specialist"
+> Total: 200 skills matched untuk agent "subscription-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -68,6 +68,10 @@ Anda bertindak sebagai subscription-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: gpt-taste
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
 > Source: `.agents/skills/gpt-taste/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: android-dev
 > SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)

@@ -15,7 +15,7 @@ Anda bertindak sebagai middleware-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 201 skills matched untuk agent "middleware-specialist"
+> Total: 202 skills matched untuk agent "middleware-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -576,6 +576,10 @@ Anda bertindak sebagai middleware-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: skill-evolution
 > 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)

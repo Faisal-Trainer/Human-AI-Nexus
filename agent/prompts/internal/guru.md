@@ -1338,7 +1338,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 212 skills matched untuk agent "guru"
+> Total: 213 skills matched untuk agent "guru"
 
 ### 📦 SKILL: distribution-workflow
 > Distribution Workflow
@@ -2187,6 +2187,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 
 

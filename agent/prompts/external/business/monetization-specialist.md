@@ -1282,7 +1282,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 33 skills matched untuk agent "monetization-specialist"
+> Total: 34 skills matched untuk agent "monetization-specialist"
 
 ### 📦 SKILL: monetization-specialist
 > SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
@@ -1415,4 +1415,8 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

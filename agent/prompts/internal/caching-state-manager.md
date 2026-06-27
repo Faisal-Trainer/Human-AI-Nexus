@@ -43,7 +43,7 @@ Tugas Anda adalah memastikan *prompt* identik dari *user* tidak memicu inferensi
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 136 skills matched untuk agent "caching-state-manager"
+> Total: 137 skills matched untuk agent "caching-state-manager"
 
 ### 📦 SKILL: full-session-analytics
 > Reliably measure full-session analytics and telemetry
@@ -588,4 +588,8 @@ Tugas Anda adalah memastikan *prompt* identik dari *user* tidak memicu inferensi
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

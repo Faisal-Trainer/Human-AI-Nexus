@@ -15,7 +15,7 @@ Anda bertindak sebagai core-web-vitals-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 195 skills matched untuk agent "core-web-vitals-specialist"
+> Total: 196 skills matched untuk agent "core-web-vitals-specialist"
 
 ### 📦 SKILL: web-branding
 > SKILL: WEB BRANDING STANDARDS (Human-AI Nexus)
@@ -796,4 +796,8 @@ Anda bertindak sebagai core-web-vitals-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

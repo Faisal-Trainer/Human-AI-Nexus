@@ -15,7 +15,7 @@ Anda bertindak sebagai client-state-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 203 skills matched untuk agent "client-state-specialist"
+> Total: 204 skills matched untuk agent "client-state-specialist"
 
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
@@ -596,6 +596,10 @@ Anda bertindak sebagai client-state-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 > Source: `.agents/skills/redesign-existing-projects/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING

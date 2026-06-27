@@ -1317,7 +1317,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 142 skills matched untuk agent "vcs-architect"
+> Total: 143 skills matched untuk agent "vcs-architect"
 
 ### 📦 SKILL: skill-evolution
 > 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)
@@ -1358,6 +1358,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: high-end-visual-design
 > Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
 > Source: `.agents/skills/high-end-visual-design/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: project-manager
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)

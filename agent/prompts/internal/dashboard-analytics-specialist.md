@@ -15,7 +15,7 @@ Anda bertindak sebagai dashboard-analytics-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 197 skills matched untuk agent "dashboard-analytics-specialist"
+> Total: 198 skills matched untuk agent "dashboard-analytics-specialist"
 
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -704,6 +704,10 @@ Anda bertindak sebagai dashboard-analytics-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 > Source: `.agents/skills/redesign-existing-projects/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: skill-evolution
 > 🧬 SKILL: AGENT BRAIN EVOLUTION (Skill Internal)

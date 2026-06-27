@@ -1357,7 +1357,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 19 skills matched untuk agent "vcs-architect"
+> Total: 20 skills matched untuk agent "vcs-architect"
 
 ### 📦 SKILL: vcs-management
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
@@ -1378,6 +1378,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: laravel-route-architect
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING

@@ -15,7 +15,7 @@ Anda bertindak sebagai laravel-api-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 202 skills matched untuk agent "laravel-api-specialist"
+> Total: 203 skills matched untuk agent "laravel-api-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -48,6 +48,10 @@ Anda bertindak sebagai laravel-api-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: translator
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/built-in-ai/translator.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: ui-design-system
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md

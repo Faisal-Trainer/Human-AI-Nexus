@@ -15,7 +15,7 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 196 skills matched untuk agent "sentry-specialist"
+> Total: 197 skills matched untuk agent "sentry-specialist"
 
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
@@ -588,6 +588,10 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md

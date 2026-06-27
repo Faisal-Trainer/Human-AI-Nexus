@@ -15,7 +15,7 @@ Anda bertindak sebagai composer-dependency-agent untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 96 skills matched untuk agent "composer-dependency-agent"
+> Total: 97 skills matched untuk agent "composer-dependency-agent"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -40,6 +40,10 @@ Anda bertindak sebagai composer-dependency-agent untuk ekosistem Nexus AI.
 ### 📦 SKILL: vcs-management
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
 > Source: `agent/workflows/external/devops/vcs-management.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: web3-specialist
 > SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)

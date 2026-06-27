@@ -15,7 +15,7 @@ Anda bertindak sebagai api-versioning-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 193 skills matched untuk agent "api-versioning-specialist"
+> Total: 194 skills matched untuk agent "api-versioning-specialist"
 
 ### 📦 SKILL: language-model
 > (No description)
@@ -232,6 +232,10 @@ Anda bertindak sebagai api-versioning-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md

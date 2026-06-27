@@ -15,7 +15,7 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 203 skills matched untuk agent "tailwind-architect"
+> Total: 204 skills matched untuk agent "tailwind-architect"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -420,6 +420,10 @@ Anda bertindak sebagai tailwind-architect untuk ekosistem Nexus AI.
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 > Source: `.agents/skills/redesign-existing-projects/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: web3-specialist
 > SKILL: WEB3 & BLOCKCHAIN STANDARDS (Human-AI Nexus)

@@ -1,54 +1,50 @@
 {
   "project_name": "url-shortener-app",
-  "architecture_stack": {
-    "backend": "Laravel",
-    "frontend": "Livewire + Tailwind",
-    "database": "MySQL"
-  },
-  "models": ["User", "Url", "VisitLog"],
-  "schema": {
-    "User": { "name": "string", "email": "string", "password": "string" },
-    "Url": { "user_id": "integer", "short_code": "string", "full_url": "string", "visits": "integer" },
-    "VisitLog": { "url_id": "integer", "ip_address": "string", "user_agent": "string", "visited_at": "datetime" }
-  },
-  "relationships": [
-    { "model": "User", "type": "hasMany", "target": "Url" },
-    { "model": "Url", "type": "belongsTo", "target": "User" },
-    { "model": "Url", "type": "hasMany", "target": "VisitLog" },
-    { "model": "VisitLog", "type": "belongsTo", "target": "Url" }
+  "models": [
+    "User",
+    "ShortenedUrl"
   ],
-  "presentation_layer": {
-    "layouts": ["app", "guest"],
-    "components": [
-      {
-        "name": "url-shortener-form",
-        "state": ["full_url", "custom_alias", "generated_url"],
-        "events_listened": []
-      },
-      {
-        "name": "url-dashboard",
-        "state": ["urls", "totalVisits"],
-        "events_listened": ["urlCreated"]
-      },
-      {
-        "name": "url-analytics-chart",
-        "state": ["visitLogs", "timeframe"],
-        "events_listened": []
-      }
-    ]
-  },
-  "business_logic": {
-    "roles": ["user"],
-    "policies": [
-      "UrlPolicy: User can only view stats for own URLs"
-    ],
-    "validation_rules": {
-      "Url": ["full_url:required|url", "short_code:unique:urls,short_code"]
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text"
+    },
+    "ShortenedUrl": {
+      "shortened_url": "string",
+      "original_url": "string",
+      "user_id": "integer",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
-  "integrations": [],
-  "testing": {
-    "feature_tests": ["UrlRedirectionTest", "UrlCreationTest", "AnalyticsTrackingTest"],
-    "unit_tests": ["ShortCodeGenerationTest"]
-  }
+  "migrations": [
+    "create_users_table",
+    "create_shortened_urls_table",
+    "add_user_id_to_shortened_urls_table"
+  ],
+  "livewire_components": [
+    "user-profile",
+    "shortened-url"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "ShortenedUrlSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "ShortenedUrlFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/shortened-url"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "ShortenedUrl"
+    }
+  ]
 }

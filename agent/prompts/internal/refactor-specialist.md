@@ -15,7 +15,7 @@ Anda bertindak sebagai refactor-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 192 skills matched untuk agent "refactor-specialist"
+> Total: 193 skills matched untuk agent "refactor-specialist"
 
 ### 📦 SKILL: accessible-error-announcement
 > Accessible Error Announcement
@@ -784,4 +784,8 @@ Anda bertindak sebagai refactor-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

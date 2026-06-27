@@ -44,7 +44,7 @@ Tugas Anda adalah memvalidasi struktur *request*, mengatur batasan tarif (*rate 
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 153 skills matched untuk agent "api-gateway-streaming"
+> Total: 154 skills matched untuk agent "api-gateway-streaming"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -209,6 +209,10 @@ Tugas Anda adalah memvalidasi struktur *request*, mengatur batasan tarif (*rate 
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING

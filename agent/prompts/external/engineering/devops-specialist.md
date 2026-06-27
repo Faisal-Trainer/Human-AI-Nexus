@@ -1320,7 +1320,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 150 skills matched untuk agent "devops-specialist"
+> Total: 151 skills matched untuk agent "devops-specialist"
 
 ### 📦 SKILL: passkeys
 > Passkeys Orientation Guide
@@ -1549,6 +1549,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md

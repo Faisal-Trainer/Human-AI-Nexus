@@ -15,7 +15,7 @@ Anda bertindak sebagai prompt-ab-tester untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 190 skills matched untuk agent "prompt-ab-tester"
+> Total: 191 skills matched untuk agent "prompt-ab-tester"
 
 ### 📦 SKILL: prompt-api
 > Chrome Prompt API (LanguageModel) — Extension-Specific Notes
@@ -572,6 +572,10 @@ Anda bertindak sebagai prompt-ab-tester untuk ekosistem Nexus AI.
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md

@@ -44,7 +44,7 @@ Tugas Anda adalah memastikan semua tindakan agen dapat dilacak (traceable), meng
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 165 skills matched untuk agent "monitoring-logging"
+> Total: 166 skills matched untuk agent "monitoring-logging"
 
 ### 📦 SKILL: full-session-analytics
 > Reliably measure full-session analytics and telemetry
@@ -329,6 +329,10 @@ Tugas Anda adalah memastikan semua tindakan agen dapat dilacak (traceable), meng
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING

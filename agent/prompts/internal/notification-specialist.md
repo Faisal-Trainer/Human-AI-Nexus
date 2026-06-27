@@ -15,7 +15,7 @@ Anda bertindak sebagai notification-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 97 skills matched untuk agent "notification-specialist"
+> Total: 98 skills matched untuk agent "notification-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -64,6 +64,10 @@ Anda bertindak sebagai notification-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: laravel-route-architect
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: nexus-pipeline
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md

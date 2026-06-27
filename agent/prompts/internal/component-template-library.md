@@ -44,7 +44,7 @@ Tugas Anda adalah menyimpan, memelihara, dan menyediakan *template* komponen yan
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 201 skills matched untuk agent "component-template-library"
+> Total: 202 skills matched untuk agent "component-template-library"
 
 ### 📦 SKILL: modern-web-guidance
 > |
@@ -721,6 +721,10 @@ Tugas Anda adalah menyimpan, memelihara, dan menyediakan *template* komponen yan
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: audit-workflow
 > Audit Workflow

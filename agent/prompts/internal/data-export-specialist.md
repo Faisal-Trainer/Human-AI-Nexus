@@ -15,7 +15,7 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 190 skills matched untuk agent "data-export-specialist"
+> Total: 191 skills matched untuk agent "data-export-specialist"
 
 ### 📦 SKILL: export-html-media-from-canvas
 > Export HTML content from canvas
@@ -776,4 +776,8 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

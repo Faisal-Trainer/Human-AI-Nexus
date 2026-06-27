@@ -15,7 +15,7 @@ Anda bertindak sebagai rest-api-designer untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 192 skills matched untuk agent "rest-api-designer"
+> Total: 193 skills matched untuk agent "rest-api-designer"
 
 ### 📦 SKILL: csp-sandbox
 > CSP & Sandboxed Code Execution
@@ -660,6 +660,10 @@ Anda bertindak sebagai rest-api-designer untuk ekosistem Nexus AI.
 ### 📦 SKILL: laravel-route-architect
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 
 ### 📦 SKILL: educational-audit
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: AUDIT_INSIGHTS_2026_04_29.md

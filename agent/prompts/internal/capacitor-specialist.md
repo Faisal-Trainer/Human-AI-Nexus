@@ -15,7 +15,7 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 198 skills matched untuk agent "capacitor-specialist"
+> Total: 199 skills matched untuk agent "capacitor-specialist"
 
 ### 📦 SKILL: responsive-specialist
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -808,4 +808,8 @@ Anda bertindak sebagai capacitor-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: laravel-route-architect
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: technical-writing
+> Technical Writing — Dokumentasi Proyek Software
+> Source: `.agents/skills/technical-writing/SKILL.md`
 

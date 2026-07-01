@@ -15,7 +15,7 @@ Anda bertindak sebagai rest-api-designer untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 193 skills matched untuk agent "rest-api-designer"
+> Total: 194 skills matched untuk agent "rest-api-designer"
 
 ### 📦 SKILL: csp-sandbox
 > CSP & Sandboxed Code Execution
@@ -784,6 +784,10 @@ Anda bertindak sebagai rest-api-designer untuk ekosistem Nexus AI.
 ### 📦 SKILL: visually-texture-content
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-texture-content.md`
+
+### 📦 SKILL: laravel-livewire-route-generator
+> >
+> Source: `.agents/skills/laravel-livewire-route-generator/SKILL.md`
 
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.

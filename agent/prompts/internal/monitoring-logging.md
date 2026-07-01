@@ -44,7 +44,7 @@ Tugas Anda adalah memastikan semua tindakan agen dapat dilacak (traceable), meng
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 166 skills matched untuk agent "monitoring-logging"
+> Total: 167 skills matched untuk agent "monitoring-logging"
 
 ### 📦 SKILL: full-session-analytics
 > Reliably measure full-session analytics and telemetry
@@ -701,6 +701,10 @@ Tugas Anda adalah memastikan semua tindakan agen dapat dilacak (traceable), meng
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: laravel-livewire-route-generator
+> >
+> Source: `.agents/skills/laravel-livewire-route-generator/SKILL.md`
 
 ### 📦 SKILL: laravel-route-architect
 > >

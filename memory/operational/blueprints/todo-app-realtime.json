@@ -1,5 +1,10 @@
 {
-  "project_name": "TodoAppRealtime",
+  "project_name": "todo-app-realtime",
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
   "models": [
     "User",
     "Todo"
@@ -13,7 +18,8 @@
     "Todo": {
       "title": "string",
       "description": "string",
-      "completed": "boolean"
+      "completed": "boolean",
+      "user_id": "integer"
     }
   },
   "migrations": [
@@ -21,8 +27,9 @@
     "create_todos_table"
   ],
   "livewire_components": [
+    "user-profile",
     "todo-list",
-    "todo-detail"
+    "todo-item"
   ],
   "seeders": [
     "UserSeeder",
@@ -33,7 +40,7 @@
     "TodoFactory"
   ],
   "routes": [
-    "/home",
+    "/dashboard",
     "/todo"
   ],
   "pivot_tables": [],
@@ -42,11 +49,82 @@
       "model": "User",
       "type": "hasMany",
       "target": "Todo"
-    },
-    {
-      "model": "Todo",
-      "type": "belongsTo",
-      "target": "User"
     }
-  ]
+  ],
+  "presentation_layer": {
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
+    "components": [
+      {
+        "name": "user-profile",
+        "state": [
+          "user",
+          "profile"
+        ],
+        "events_listened": [
+          "userUpdated"
+        ]
+      },
+      {
+        "name": "todo-list",
+        "state": [
+          "todos",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "todoCreated",
+          "todoUpdated",
+          "todoDeleted"
+        ]
+      },
+      {
+        "name": "todo-item",
+        "state": [
+          "todo",
+          "item"
+        ],
+        "events_listened": [
+          "itemUpdated"
+        ]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "policies": [
+      "TodoPolicy: User can only edit own todo"
+    ],
+    "validation_rules": {
+      "User": [
+        "email:required|unique"
+      ],
+      "Todo": [
+        "title:required",
+        "description:required",
+        "completed:required"
+      ]
+    }
+  },
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
+  "testing": {
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreateTodoTest",
+      "UpdateTodoTest",
+      "DeleteTodoTest"
+    ],
+    "unit_tests": [
+      "TodoStatusCalculationTest",
+      "TodoItemStatusCalculationTest"
+    ]
+  }
 }

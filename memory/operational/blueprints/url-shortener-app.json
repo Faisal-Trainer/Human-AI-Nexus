@@ -1,8 +1,13 @@
 {
   "project_name": "url-shortener-app",
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
   "models": [
     "User",
-    "ShortenedUrl"
+    "YourRealModelName"
   ],
   "schema": {
     "User": {
@@ -10,41 +15,95 @@
       "email": "string",
       "password": "text"
     },
-    "ShortenedUrl": {
-      "shortened_url": "string",
-      "original_url": "string",
-      "user_id": "integer",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+    "YourRealModelName": {
+      "short_url": "string",
+      "long_url": "string"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_shortened_urls_table",
-    "add_user_id_to_shortened_urls_table"
+    "create_your_real_tables_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-url"
+    "your-real-component"
   ],
   "seeders": [
     "UserSeeder",
-    "ShortenedUrlSeeder"
+    "YourRealModelSeeder"
   ],
   "factories": [
     "UserFactory",
-    "ShortenedUrlFactory"
+    "YourRealModelFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened-url"
+    "/your-real-route"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "ShortenedUrl"
+      "target": "YourRealModelName"
     }
-  ]
+  ],
+  "presentation_layer": {
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
+    "components": [
+      {
+        "name": "post-list",
+        "state": [
+          "posts",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "postCreated"
+        ]
+      },
+      {
+        "name": "your-real-component",
+        "state": [
+          "your-real-data"
+        ],
+        "events_listened": [
+          "your-real-event"
+        ]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "policies": [
+      "PostPolicy: User can only edit own post"
+    ],
+    "validation_rules": {
+      "User": [
+        "email:required|unique"
+      ],
+      "YourRealModelName": [
+        "short_url:required|unique"
+      ]
+    }
+  },
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
+  "testing": {
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreatePostTest"
+    ],
+    "unit_tests": [
+      "PostStatusCalculationTest"
+    ]
+  }
 }

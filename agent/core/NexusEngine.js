@@ -649,6 +649,53 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       let blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
 
+      // --- NEW LOGIC: nexus-blueprint-architect ---
+      try {
+        const architectSkillPath = path.join(__dirname, "..", "..", ".agents", "skills", "nexus-blueprint-architect", "SKILL.md");
+        if (await fs.pathExists(architectSkillPath)) {
+          this.log(`   🏗️ Invoking 'nexus-blueprint-architect' skill for enhancement...`, "info");
+          const skillRules = await fs.readFile(architectSkillPath, "utf8");
+          const enhancementPrompt = `
+${skillRules}
+
+Here is the basic blueprint:
+\`\`\`json
+${JSON.stringify(blueprint, null, 2)}
+\`\`\`
+
+Enhance it based on your rules and output STRICTLY a valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON.
+`;
+          let enhancedResponse = "";
+          try {
+             const payload = {
+                model: "kimi-k2.6:cloud",
+                prompt: enhancementPrompt,
+                stream: false,
+                options: { temperature: 0.5, num_ctx: 8192 }
+             };
+             const headers = { "Content-Type": "application/json" };
+             if (process.env.KIMI_API_KEY) headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
+             const res = await fetch("http://127.0.0.1:11434/api/generate", {
+                method: "POST", headers, body: JSON.stringify(payload)
+             });
+             if (res.ok) enhancedResponse = (await res.json()).response;
+             else throw new Error(`Ollama HTTP ${res.status}`);
+          } catch (e) {
+             this.log(`   ⚠️ Ollama architect failed: ${e.message}. Falling back to localAI...`, "warning");
+             enhancedResponse = await localAI.generate(enhancementPrompt, "enhance_architecture");
+          }
+          
+          if (enhancedResponse) {
+             const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
+             blueprint = JSON.parse(jsonMatch2 ? jsonMatch2[0] : enhancedResponse);
+             this.log(`   ✅ Blueprint successfully enhanced by architect skill.`, "success");
+          }
+        }
+      } catch (err) {
+         this.log(`   ⚠️ Failed to apply nexus-blueprint-architect skill: ${err.message}`, "warning");
+      }
+      // --- END NEW LOGIC ---
+
       // Schema Validation (G2-02)
       const BLUEPRINT_SCHEMA = {
         required: [

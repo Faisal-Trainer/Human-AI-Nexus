@@ -44,7 +44,7 @@ Tugas Anda adalah memvalidasi struktur *request*, mengatur batasan tarif (*rate 
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 154 skills matched untuk agent "api-gateway-streaming"
+> Total: 155 skills matched untuk agent "api-gateway-streaming"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -649,6 +649,10 @@ Tugas Anda adalah memvalidasi struktur *request*, mengatur batasan tarif (*rate 
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: laravel-livewire-route-generator
+> >
+> Source: `.agents/skills/laravel-livewire-route-generator/SKILL.md`
 
 ### 📦 SKILL: laravel-route-architect
 > >

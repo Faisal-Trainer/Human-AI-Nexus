@@ -12,6 +12,7 @@ const ALLOWED_TASKS = [
   "validate_migration_schema",
   "analyze_code",
   "generate_architecture",
+  "enhance_architecture",
   "build_model_migration",
   "build_livewire_component",
   "build_view",

@@ -11,7 +11,7 @@ class KnowledgePhase extends BasePhase {
         await this.engine.memoryPipeline.optimize();
         
         // 2. Distiller: Standardize names and simplify content in HUB
-        await this.engine.distiller.run();
+        await this.engine.distiller.run(this.engine.activeRack);
         
         this.log('✨ HUB Distillation & Optimization Complete.', 'success');
     }

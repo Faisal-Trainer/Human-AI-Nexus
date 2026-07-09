@@ -853,16 +853,16 @@
     "tags": [
       "database"
     ],
-    "last_updated": "6/24/2026",
-    "checksum": "9700981e0ba2828f21d2e81b87ebf879910c049b4ae1ac7a9be185b75e2a0e16"
+    "last_updated": "7/7/2026",
+    "checksum": "641d6aa273c2f62d2a3dfc75e6c7738017cf18d554c87f6fc286c53fd00e9940"
   },
   {
     "node": "NEXUS_DISTILLATION_OTHER.md",
     "path": "distilled/academics/NEXUS_DISTILLATION_OTHER.md",
     "rack": "distilled/academics",
     "tags": [],
-    "last_updated": "6/24/2026",
-    "checksum": "b2b47af31b90c5333746ea867e6427e82115fda2c5742d8df44ce5edf6f1f2a9"
+    "last_updated": "7/7/2026",
+    "checksum": "6a580d1eaf94e47fe4d25b8c5f9846ace707173dee87da8d595e4bd9aff581ca"
   },
   {
     "node": "NEXUS_DISTILLATION_PERFORMANCE.md",
@@ -871,8 +871,8 @@
     "tags": [
       "performance"
     ],
-    "last_updated": "6/24/2026",
-    "checksum": "53c37607251e5b9a688a735fc14e1b9dc4464fa5e685811ff5b44dc22104427d"
+    "last_updated": "7/7/2026",
+    "checksum": "063f6c692e1a3c23ac2906b85f8e2bf9d63fae923c85788695018a42f90faf1c"
   },
   {
     "node": "NEXUS_DISTILLATION_TDD.md",
@@ -903,8 +903,8 @@
       "saas",
       "api"
     ],
-    "last_updated": "6/24/2026",
-    "checksum": "f9a4e03f260314ffdeecdb341fb89679a4f767fd9e6cf66a67bc85028e679fdb"
+    "last_updated": "7/7/2026",
+    "checksum": "ffbe7c512f177a3e21a85032960fbb9a872d7a21342cb80ca37ed3a9587639e2"
   },
   {
     "node": "NEXUS_DISTILLATION_VCS.md",
@@ -1191,16 +1191,16 @@
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-10.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "6/24/2026",
-    "checksum": "ba37217c18a8fefd217b58af5b9b08b27a33bb41c636adc166f3fcd7b4fb6811"
+    "last_updated": "7/7/2026",
+    "checksum": "bdf03226ac210740bf73d3c61c43580247cd3c9e189402ca488d2cae20117271"
   },
   {
     "node": "NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "path": "distilled/audit/NEXUS_DISTILLATION_LOGS_2026-05-13.md",
     "rack": "distilled/audit",
     "tags": [],
-    "last_updated": "6/24/2026",
-    "checksum": "4907297ba7b5105080ffe3c2b54d2f53a68f9fb22681f363d3666de88e134d69"
+    "last_updated": "7/7/2026",
+    "checksum": "372c4cbba2b5aebf7f19d664105f3f9681398ba108d6f94b5f44cadfaa36e0e0"
   },
   {
     "node": "NEXUS_SANDBOX_PIPELINE_EXTREME_AUDIT.MD",
@@ -1225,8 +1225,8 @@
     "tags": [
       "audit"
     ],
-    "last_updated": "6/24/2026",
-    "checksum": "7e9a9cea7362156b668b211f3e872264affa9e7a2a47a5d86509a2e21cb3d2e1"
+    "last_updated": "7/7/2026",
+    "checksum": "55f0a392053ac4869fa0c07274419f19b5940c0145b701843ab7fec2eeaf0e0d"
   },
   {
     "node": "NEXUS_12-31-4-2023-DOS-MATUMOTO,+GONÇALVES-SEGUNDO-A+SOCIAL-SEMIOTIC.MD",

@@ -130,4 +130,4 @@ graph TD
     REPORT_VCS_ARCHITECT_AUDIT_1778411549826.MD --> educational_audit
 ```
 
-> **Stats**: 525 Nodes | 126 Connections | **Generated**: 2026-06-24 10:45:57 (UTC+8)
+> **Stats**: 525 Nodes | 126 Connections | **Generated**: 2026-07-07 11:48:01 (UTC+8)

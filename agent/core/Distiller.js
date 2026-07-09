@@ -41,6 +41,10 @@ class Distiller {
             const basename = path.basename(file);
             if (basename === '.gitkeep') continue;
             
+            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
+                continue;
+            }
+            
             if (!basename.startsWith(this.prefix)) {
                 const oldPath = path.join(this.memoryPath, file);
                 const newBasename = this.prefix + basename.toUpperCase();
@@ -151,11 +155,11 @@ ${oldContent.trim()}
             await fs.ensureDir(path.dirname(targetPath));
             
             const existing = (await fs.pathExists(targetPath)) ? await fs.readFile(targetPath, 'utf8') : '';
-            // Only update if it doesn't already exist or if we want to overwrite it.
-            // Using updateVersionHeader will merge or update.
-            await this.updateVersionHeader(targetPath, existing ? existing : mdContent);
+            await this.updateVersionHeader(targetPath, mdContent);
             if (!existing) {
                 console.log(`   ✅ Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
+            } else {
+                console.log(`   ✅ Updated Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
             }
         }
     }
@@ -205,7 +209,9 @@ ${oldContent.trim()}
                 try {
                     console.log(`   🧠 AI Distilling: ${file}...`);
                     if (!this._native) this._native = new NativeBridge(this._rootPath);
-                    const aiResult = await this._native.callPython(path.join(this._native.binPath, 'distiller.py'), [filePath]);
+                    const distillerScript = path.join(this._native.binPath, 'distiller.py');
+                    if (!(await fs.pathExists(distillerScript))) throw new Error('distiller.py binary not found');
+                    const aiResult = await this._native.callPython(distillerScript, [filePath]);
                     block += aiResult + '\n\n';
                 } catch (e) {
                     console.warn(`   ⚠️ AI Distillation failed, falling back to Regex: ${e.message}`);
@@ -287,6 +293,10 @@ ${oldContent.trim()}
             const rawCategory = isStandard ? 'standards' : this.identifyCategory(content);
             const category = VALID_RACKS.has(rawCategory) ? rawCategory : 'other';
             
+            if (this.activeRack && category !== this.activeRack) {
+                continue;
+            }
+            
             const targetDir = path.join(this.knowledgePath, category);
             const targetPath = path.join(targetDir, path.basename(file));
             
@@ -306,6 +316,10 @@ ${oldContent.trim()}
         const files = this.getFiles();
 
         for (const file of files) {
+            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
+                continue;
+            }
+            
             const filePath = path.join(this.memoryPath, file);
             let content = await fs.readFile(filePath, 'utf8');
 
@@ -333,6 +347,10 @@ ${oldContent.trim()}
             this._native = new NativeBridge(this._rootPath);
         }
         try {
+            const ext = process.platform === 'win32' ? '.exe' : '';
+            const fastLinkerBin = path.join(this._native.binPath, 'fast_linker' + ext);
+            if (!(await fs.pathExists(fastLinkerBin))) throw new Error('fast_linker binary not found');
+            
             const output = await this._native.callCpp('fast_linker', [this.memoryPath]);
             console.log(output);
         } catch (e) {
@@ -376,6 +394,10 @@ ${oldContent.trim()}
         let totalLinked = 0;
 
         for (const file of files) {
+            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
+                continue;
+            }
+            
             const filePath = path.join(this.memoryPath, file);
             const stats = await fs.stat(filePath);
             const lastLinked = cache[file] || 0;
@@ -529,9 +551,16 @@ ${oldContent.trim()}
         await fs.writeFile(mapPath, finalContent);
     }
 
-    async run() {
-        await this.distillJSONLogs();
-        await this.distillAcademics();
+    async run(rack = null) {
+        this.activeRack = rack;
+
+        if (!this.activeRack || this.activeRack === 'audit') {
+            await this.distillJSONLogs();
+        }
+        if (!this.activeRack || this.activeRack === 'academics') {
+            await this.distillAcademics();
+        }
+
         await this.standardizeNames();
         await this.applySemanticTagging();
         await this.shelve();

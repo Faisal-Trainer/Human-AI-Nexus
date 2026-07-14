@@ -1,5 +1,10 @@
 {
   "project_name": "bookmark-manager",
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
   "models": [
     "User",
     "Bookmark"
@@ -11,9 +16,10 @@
       "password": "text"
     },
     "Bookmark": {
+      "user_id": "integer",
       "title": "string",
       "url": "string",
-      "user_id": "integer"
+      "description": "string"
     }
   },
   "migrations": [
@@ -21,6 +27,7 @@
     "create_bookmarks_table"
   ],
   "livewire_components": [
+    "user-profile",
     "bookmark-list",
     "bookmark-form"
   ],
@@ -43,5 +50,76 @@
       "type": "hasMany",
       "target": "Bookmark"
     }
-  ]
+  ],
+  "presentation_layer": {
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
+    "components": [
+      {
+        "name": "user-profile",
+        "state": [
+          "user",
+          "profile"
+        ],
+        "events_listened": [
+          "userUpdated"
+        ]
+      },
+      {
+        "name": "bookmark-list",
+        "state": [
+          "bookmarks",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "bookmarkCreated"
+        ]
+      },
+      {
+        "name": "bookmark-form",
+        "state": [
+          "bookmark",
+          "form"
+        ],
+        "events_listened": [
+          "bookmarkUpdated",
+          "bookmarkDeleted"
+        ]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "policies": [
+      "BookmarkPolicy: User can only edit own bookmark"
+    ],
+    "validation_rules": {
+      "User": [
+        "email:required|unique"
+      ],
+      "Bookmark": [
+        "title:required",
+        "url:required"
+      ]
+    }
+  },
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
+  "testing": {
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreateBookmarkTest"
+    ],
+    "unit_tests": [
+      "BookmarkStatusCalculationTest"
+    ]
+  }
 }

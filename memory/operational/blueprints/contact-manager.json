@@ -5,49 +5,113 @@
     "frontend": "Livewire + Tailwind",
     "database": "MySQL"
   },
-  "models": ["User", "Contact", "Group"],
-  "schema": {
-    "User": { "name": "string", "email": "string", "password": "string" },
-    "Contact": { "user_id": "integer", "first_name": "string", "last_name": "string", "email": "string", "phone": "string", "company": "string" },
-    "Group": { "user_id": "integer", "name": "string" }
-  },
-  "pivot_tables": [
-    { "name": "contact_group", "columns": ["contact_id", "group_id"] }
+  "models": [
+    "User",
+    "Contact"
   ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text"
+    },
+    "Contact": {
+      "name": "string",
+      "email": "string",
+      "phone_number": "string",
+      "address": "string"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_contacts_table"
+  ],
+  "livewire_components": [
+    "user-profile",
+    "contact-form"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "ContactSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "ContactFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/contacts"
+  ],
+  "pivot_tables": [],
   "relationships": [
-    { "model": "User", "type": "hasMany", "target": "Contact" },
-    { "model": "User", "type": "hasMany", "target": "Group" },
-    { "model": "Contact", "type": "belongsToMany", "target": "Group", "pivot_table": "contact_group" },
-    { "model": "Group", "type": "belongsToMany", "target": "Contact", "pivot_table": "contact_group" },
-    { "model": "Contact", "type": "belongsTo", "target": "User" }
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Contact"
+    },
+    {
+      "model": "Contact",
+      "type": "belongsTo",
+      "target": "User"
+    }
   ],
   "presentation_layer": {
-    "layouts": ["app", "guest"],
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
     "components": [
       {
-        "name": "contact-directory",
-        "state": ["contacts", "searchQuery", "filterGroup"],
-        "events_listened": ["contactSaved", "contactDeleted"]
+        "name": "post-list",
+        "state": [
+          "posts",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "postCreated"
+        ]
       },
       {
-        "name": "contact-form-modal",
-        "state": ["first_name", "last_name", "email", "phone", "groups", "isOpen"],
-        "events_listened": ["openContactForm"]
+        "name": "contact-form",
+        "state": [
+          "contact",
+          "contactErrors"
+        ],
+        "events_listened": [
+          "contactFormSubmitted"
+        ]
       }
     ]
   },
   "business_logic": {
-    "roles": ["user"],
+    "roles": [
+      "admin",
+      "user"
+    ],
     "policies": [
-      "ContactPolicy: User can only view and edit their own contacts"
+      "ContactPolicy: User can only edit own contact"
     ],
     "validation_rules": {
-      "Contact": ["first_name:required|string", "email:nullable|email", "phone:nullable|string"]
+      "User": [
+        "email:required|unique"
+      ],
+      "Contact": [
+        "email:required|unique"
+      ]
     }
   },
-  "integrations": [],
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
   "testing": {
-    "feature_tests": ["ContactCrudTest", "ContactGroupAssignmentTest"],
-    "unit_tests": ["ContactSearchScopeTest"]
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreateContactTest"
+    ],
+    "unit_tests": [
+      "ContactStatusCalculationTest"
+    ]
   }
 }

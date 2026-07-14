@@ -1320,7 +1320,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 152 skills matched untuk agent "devops-specialist"
+> Total: 153 skills matched untuk agent "devops-specialist"
 
 ### 📦 SKILL: passkeys
 > Passkeys Orientation Guide
@@ -1925,6 +1925,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
+
+### 📦 SKILL: nexus-route-laravel
+> >
+> Source: `.agents/skills/nexus-route-laravel/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.

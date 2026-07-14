@@ -1463,10 +1463,21 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
       "pipeline-architect": ["*"],
     };
 
-    for (const agent of allAgentFiles) {
-      let promptContent;
-      try {
-        promptContent = await fs.readFile(agent.fullPath, "utf8");
+    // ─── NEW: Backup Mechanism for Rollback ───
+    const backupDir = path.join(this.rootPath, ".nexus_backup_prompts_" + Date.now());
+    try {
+      this.log(`   📦 Creating backup of prompt files at ${backupDir}...`, "info");
+      await fs.copy(this.agentPath, backupDir);
+    } catch (err) {
+      this.log(`   ❌ Failed to create backup: ${err.message}. Aborting.`, "error");
+      return;
+    }
+
+    try {
+      for (const agent of allAgentFiles) {
+        let promptContent;
+        try {
+          promptContent = await fs.readFile(agent.fullPath, "utf8");
       } catch (err) {
         this.log(
           `   ⚠️ Failed to read agent ${agent.name}: ${err.message}`,
@@ -1597,6 +1608,18 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
       `✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated, ${totalSkillsInjected} total skill references injected.`,
       "success",
     );
+    } catch (fatalError) {
+      this.log(`   ❌ Fatal error during update: ${fatalError.message}. Rolling back...`, "error");
+      try {
+        await fs.emptyDir(this.agentPath);
+        await fs.copy(backupDir, this.agentPath);
+        this.log(`   ✅ Rollback successful. Prompts restored.`, "success");
+      } catch (rollbackErr) {
+        this.log(`   🚨 CRITICAL: Rollback failed: ${rollbackErr.message}. Manual recovery from ${backupDir} required.`, "error");
+      }
+    } finally {
+      await fs.remove(backupDir).catch(() => {});
+    }
   }
 
   async massRefactor() {

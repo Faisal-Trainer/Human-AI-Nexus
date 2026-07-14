@@ -5,50 +5,128 @@
     "frontend": "Livewire + Tailwind",
     "database": "MySQL"
   },
-  "models": ["User", "Entry", "Mood"],
+  "models": [
+    "User",
+    "Post"
+  ],
   "schema": {
-    "User": { "name": "string", "email": "string", "password": "string" },
-    "Mood": { "name": "string", "icon": "string", "color": "string" },
-    "Entry": { "user_id": "integer", "mood_id": "integer", "title": "string", "content": "text", "date": "date" }
+    "User": {
+      "name": "string",
+      "email": "string",
+      "password": "text",
+      "posts": "hasMany"
+    },
+    "Post": {
+      "title": "string",
+      "content": "text",
+      "user_id": "integer",
+      "created_at": "datetime",
+      "updated_at": "datetime"
+    }
   },
+  "migrations": [
+    "create_users_table",
+    "create_posts_table"
+  ],
+  "livewire_components": [
+    "user-profile",
+    "post-list",
+    "post-form"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "PostSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "PostFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/posts",
+    "/post/create"
+  ],
+  "pivot_tables": [],
   "relationships": [
-    { "model": "User", "type": "hasMany", "target": "Entry" },
-    { "model": "Mood", "type": "hasMany", "target": "Entry" },
-    { "model": "Entry", "type": "belongsTo", "target": "User" },
-    { "model": "Entry", "type": "belongsTo", "target": "Mood" }
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Post"
+    },
+    {
+      "model": "Post",
+      "type": "belongsTo",
+      "target": "User"
+    }
   ],
   "presentation_layer": {
-    "layouts": ["app", "guest"],
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
     "components": [
       {
-        "name": "journal-calendar",
-        "state": ["currentMonth", "entries"],
-        "events_listened": ["entrySaved"]
+        "name": "user-profile",
+        "state": [
+          "user",
+          "profile"
+        ],
+        "events_listened": [
+          "userUpdated"
+        ]
       },
       {
-        "name": "entry-editor",
-        "state": ["title", "content", "date", "mood_id", "isSaving"],
-        "events_listened": []
+        "name": "post-list",
+        "state": [
+          "posts",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "postCreated"
+        ]
       },
       {
-        "name": "mood-tracker-chart",
-        "state": ["moodData"],
-        "events_listened": ["entrySaved"]
+        "name": "post-form",
+        "state": [
+          "post",
+          "form"
+        ],
+        "events_listened": [
+          "postSaved"
+        ]
       }
     ]
   },
   "business_logic": {
-    "roles": ["user"],
+    "roles": [
+      "admin",
+      "user"
+    ],
     "policies": [
-      "EntryPolicy: User can only read and write their own journal entries"
+      "PostPolicy: User can only edit own post"
     ],
     "validation_rules": {
-      "Entry": ["title:required|string|max:255", "content:required|string", "date:required|date"]
+      "User": [
+        "email:required|unique"
+      ],
+      "Post": [
+        "title:required",
+        "content:required"
+      ]
     }
   },
-  "integrations": [],
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
   "testing": {
-    "feature_tests": ["JournalEntryTest", "MoodAnalyticsTest"],
-    "unit_tests": ["EntryDateScopeTest"]
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreatePostTest"
+    ],
+    "unit_tests": [
+      "PostStatusCalculationTest"
+    ]
   }
 }

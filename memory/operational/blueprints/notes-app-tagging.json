@@ -1,5 +1,10 @@
 {
-  "project_name": "NotesAppTagging",
+  "project_name": "notes-app-tagging",
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
   "models": [
     "User",
     "Note",
@@ -14,48 +19,43 @@
     "Note": {
       "title": "string",
       "content": "text",
-      "user_id": "integer",
-      "tags": "json"
+      "user_id": "integer"
     },
     "Tag": {
-      "name": "string",
-      "notes": "json"
+      "name": "string"
     }
   },
   "migrations": [
     "create_users_table",
     "create_notes_table",
-    "create_tags_table"
+    "create_tags_table",
+    "create_user_tagging_table"
   ],
   "livewire_components": [
-    "note-list",
-    "tag-list",
-    "note-editor"
+    "user-profile",
+    "note-view",
+    "tag-view"
   ],
   "seeders": [
     "UserSeeder",
     "NoteSeeder",
-    "TagSeeder"
+    "TagSeeder",
+    "UserTaggingSeeder"
   ],
   "factories": [
     "UserFactory",
     "NoteFactory",
-    "TagFactory"
+    "TagFactory",
+    "UserTaggingFactory"
   ],
   "routes": [
     "/dashboard",
     "/notes",
-    "/tags",
-    "/note/create",
-    "/note/edit",
-    "/note/show",
-    "/note/delete",
-    "/tag/create",
-    "/tag/edit",
-    "/tag/show",
-    "/tag/delete"
+    "/tags"
   ],
-  "pivot_tables": [],
+  "pivot_tables": [
+    "user_tagging"
+  ],
   "relationships": [
     {
       "model": "User",
@@ -63,16 +63,87 @@
       "target": "Note"
     },
     {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Tag"
+    },
+    {
       "model": "Note",
       "type": "belongsToMany",
       "target": "Tag",
-      "pivot_table": "note_tags"
-    },
-    {
-      "model": "Tag",
-      "type": "belongsToMany",
-      "target": "Note",
-      "pivot_table": "note_tags"
+      "pivot": "user_tagging"
     }
-  ]
+  ],
+  "presentation_layer": {
+    "layouts": [
+      "app",
+      "guest",
+      "admin"
+    ],
+    "components": [
+      {
+        "name": "post-list",
+        "state": [
+          "posts",
+          "searchQuery"
+        ],
+        "events_listened": [
+          "postCreated"
+        ]
+      },
+      {
+        "name": "note-view",
+        "state": [
+          "note",
+          "user"
+        ],
+        "events_listened": [
+          "noteUpdated"
+        ]
+      },
+      {
+        "name": "tag-view",
+        "state": [
+          "tag",
+          "user"
+        ],
+        "events_listened": [
+          "tagUpdated"
+        ]
+      }
+    ]
+  },
+  "business_logic": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "policies": [
+      "NotePolicy: User can only edit own note"
+    ],
+    "validation_rules": {
+      "User": [
+        "email:required|unique"
+      ],
+      "Note": [
+        "title:required",
+        "content:required"
+      ]
+    }
+  },
+  "integrations": [
+    "Mailgun",
+    "S3"
+  ],
+  "testing": {
+    "feature_tests": [
+      "UserRegistrationTest",
+      "CreateNoteTest",
+      "TagCreationTest"
+    ],
+    "unit_tests": [
+      "NoteStatusCalculationTest",
+      "TagValidationTest"
+    ]
+  }
 }

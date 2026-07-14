@@ -1283,7 +1283,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 179 skills matched untuk agent "android-specialist"
+> Total: 180 skills matched untuk agent "android-specialist"
 
 ### 📦 SKILL: android-dev
 > SKILL: ANDROID DEVELOPMENT (Kotlin & Jetpack Compose)
@@ -1996,6 +1996,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: nexus-route-laravel
+> >
+> Source: `.agents/skills/nexus-route-laravel/SKILL.md`
 
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.

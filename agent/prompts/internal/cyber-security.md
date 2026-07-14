@@ -1928,7 +1928,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v31 | **Last Updated**: 6/24/2026
+> **VERSION**: v32 | **Last Updated**: 7/7/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5735,6 +5735,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v7838] - 7/7/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8100,32 +8125,6 @@ Using an agent's `queue` method, you may prompt the agent, but allow it to proce
 
 ```php
 use Illuminate\Http\Request;
-use Laravel\Ai\Responses\AgentResponse;
-use Throwable;
-
-Route::post('/coach', function (Request $request) {
-    (new SalesCoach)
-        ->queue($request->input('transcript'))
-        ->then(function (AgentResponse $response) {
-            // ...
-        })
-        ->catch(function (Throwable $e) {
-            // ...
-        });
-
-    return back();
-});
-```
-
-<a name="tools"></a>
-### Tools
-
-Tools may be used to give agents additional functionality that they can utilize while responding to prompts. Tools can be created using the `make:tool` Artisan command:
-
-```shell
-php artisan make:tool RandomNumberGenerator
-```
-
-The generated tool will be placed in your application's `app/Ai/Tools` directory. Each tool contains a `handle` method t
+use Laravel\Ai\R
 
 ...[truncated]

@@ -1974,7 +1974,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v30 | **Last Updated**: 6/24/2026
+> **VERSION**: v31 | **Last Updated**: 7/7/2026
 
 
 
@@ -2519,6 +2519,21 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v7838] - 7/7/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -2539,7 +2554,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v31 | **Last Updated**: 6/24/2026
+> **VERSION**: v32 | **Last Updated**: 7/7/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6346,6 +6361,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v7838] - 7/7/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -8151,31 +8191,6 @@ async def get_user(user_id: str) -> Dict[str, Any]:
 Every tool must have comprehensive docstrings with explicit type information:
 
 ```python
-async def search_users(params: UserSearchInput) -> str:
-    '''
-    Search for users in the Example system by name, email, or team.
-
-    This tool searches across all user profiles in the Example platform,
-    supporting partial matches and various search filters. It does NOT
-    create or modify users, only searches existing ones.
-
-    Args:
-        params (UserSearchInput): Validated input parameters containing:
-            - query (str): Search string to match against names/emails (e.g., "john", "@example.com", "team:marketing")
-            - limit (Optional[int]): Maximum results to return, between 1-100 (default: 20)
-            - offset (Optional[int]): Number of results to skip for pagination (default: 0)
-
-    Returns:
-        str: JSON-formatted string containing search results with the following schema:
-
-        Success response:
-        {
-            "total": int,           # Total number of matches found
-            "count": int,           # Number of results in this response
-            "offset": int,          # Current pagination offset
-            "users": [
-                {
-                    "id": str,      # User ID (e.g., "U123456789")
-                    "name": str,    # Full name (e.g., "Joh
+async def search_users(params: UserSearchI
 
 ...[truncated]

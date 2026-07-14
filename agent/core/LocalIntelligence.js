@@ -206,7 +206,7 @@ class LocalIntelligence {
     try {
       const result = await this._doGenerate(
         safePrompt,
-        LOCKED_SYSTEM_PROMPT,
+        _systemPrompt || LOCKED_SYSTEM_PROMPT,
         taskType,
       );
       // Reset circuit breaker on success

@@ -7,11 +7,23 @@
       "skillPath": "skills/brandkit/SKILL.md",
       "computedHash": "735007879f5110aeae1e981a53fe74a12afde70347f9773dacd50e4697a091bf"
     },
+    "api-and-integration-designer": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "api-and-integration-designer/SKILL.md",
+      "computedHash": "custom"
+    },
     "chrome-extensions": {
       "source": "GoogleChrome/modern-web-guidance",
       "sourceType": "github",
       "skillPath": "skills/chrome-extensions/SKILL.md",
       "computedHash": "ee82feb42b8858b287f449600438ee54a4f900860738ce2aa0ef1be831973480"
+    },
+    "database-schema-optimizer": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "database-schema-optimizer/SKILL.md",
+      "computedHash": "custom"
     },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
@@ -24,6 +36,12 @@
       "sourceType": "github",
       "skillPath": "skills/taste-skill-v1/SKILL.md",
       "computedHash": "8d59c96751feacf88f341a43151eae6f4fd748978884c4552293b8841573d776"
+    },
+    "domain-driven-design-thinker": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "domain-driven-design-thinker/SKILL.md",
+      "computedHash": "custom"
     },
     "full-output-enforcement": {
       "source": "Leonxlnx/taste-skill",
@@ -85,6 +103,12 @@
       "skillPath": "laravel-route-architect/SKILL.md",
       "computedHash": "custom"
     },
+    "livewire-state-planner": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "livewire-state-planner/SKILL.md",
+      "computedHash": "custom"
+    },
     "minimalist-ui": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -103,11 +127,23 @@
       "skillPath": "nexus-blueprint-architect/SKILL.md",
       "computedHash": "custom"
     },
+    "qa-testing-strategist": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "qa-testing-strategist/SKILL.md",
+      "computedHash": "custom"
+    },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
       "skillPath": "skills/redesign-skill/SKILL.md",
       "computedHash": "47eced3e960a2c961d3cbee11fa1216264f589344b586a5cbd03967cd6b9c54b"
+    },
+    "security-and-acl-architect": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "security-and-acl-architect/SKILL.md",
+      "computedHash": "custom"
     },
     "stitch-design-taste": {
       "source": "Leonxlnx/taste-skill",

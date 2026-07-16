@@ -1338,7 +1338,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 215 skills matched untuk agent "guru"
+> Total: 223 skills matched untuk agent "guru"
 
 ### 📦 SKILL: distribution-workflow
 > Distribution Workflow
@@ -2124,9 +2124,21 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
+
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
 
 ### 📦 SKILL: design-taste-frontend
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
@@ -2135,6 +2147,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: design-taste-frontend-v1
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
+
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
@@ -2176,6 +2196,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
+
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
@@ -2188,9 +2212,17 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > >
 > Source: `.agents/skills/nexus-route-laravel/SKILL.md`
 
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
+
 ### 📦 SKILL: redesign-existing-projects
 > Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 > Source: `.agents/skills/redesign-existing-projects/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
@@ -2546,7 +2578,7 @@ In this example, a feed starts scrolled to a specific "featured" item rather tha
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v28 | **Last Updated**: 7/7/2026
+> **VERSION**: v29 | **Last Updated**: 7/15/2026
 
 
 
@@ -2987,9 +3019,24 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 DATABASE WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_OTHER.MD
 
-> **VERSION**: v26 | **Last Updated**: 7/7/2026
+> **VERSION**: v27 | **Last Updated**: 7/15/2026
 
 
 
@@ -3367,6 +3414,21 @@ Other Color DatasetsMunroe‘s
 
 ---
 
+
+## 🎓 OTHER WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1779702317598.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_PERFORMANCE.MD
 
 ## 🎓 PERFORMANCE WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -3406,7 +3468,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v31 | **Last Updated**: 7/7/2026
+> **VERSION**: v32 | **Last Updated**: 7/15/2026
 
 
 
@@ -3966,6 +4028,21 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_TDD.MD
 
 ## 🎓 TDD WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -4507,7 +4584,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v32 | **Last Updated**: 7/7/2026
+> **VERSION**: v33 | **Last Updated**: 7/15/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -8339,76 +8416,33 @@ action
 
 ---
 
-### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
-## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
+## 🎓 UI-UX WISDOM DISTILLATION [v0679] - 7/15/2026
 > **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
 
-### 📄 Laravel Envoy
-> **Origin**: `ui-ux/NEXUS_ENVOY.MD` | **Distilled At**: 28/05/2026
-
-#### 💡 Content Summary:
-> **VERSION**: v6 | **Last Updated**: 5/28/2026
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/15/2026
 
 
 
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Writing Tasks](#writing-tasks)
-    - [Defining Tasks](#defining-tasks)
-    - [Multiple Servers](#multiple-servers)
-    - [Setup](#setup)
-    - [Variables](#variables)
-    - [Stories](#stories)
-    - [Hooks](#completion-hooks)
-- [Running Tasks](#running-tasks)
-    - [Confirming Task Execution](#confirming-task-execution)
-- [Notifications](#notifications)
-    - [Slack](#slack)
-    - [Discord](#discord)
-    - [Telegram](#telegram)
-    - [Microsoft Teams](#microsoft-teams)
-
-<a name="introduction"></a>
-
-
-[Laravel Envoy](https://github.com/laravel/envoy) is a tool for executing common tasks you run on your remote servers. Using [Blade](/docs/{{version}}/blade) style syntax, you can easily setup tasks for deployment, Artisan commands, and more. Currently, Envoy only supports the Mac and Linux operating systems. However, Windows support is achievable using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
-
-<a name="installation"></a>
-
-
-First, install Envoy into your project using the Composer package manager:
-
-```shell
-composer require laravel/envoy --dev...
-
-`
 #### 🔗 Traceability:
-- [Source Context](NEXUS_ENVOY.MD)
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-### 📄 NEXUS — Post-Stabilization Hardening Plan
-> **Origin**: `ui-ux/NEXUS_HARDENING_PLAN.md` | **Distilled At**: 28/05/2026
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/15/2026
 
-#### 🧐 Core Insights (Distilled):
-hasilkan false positives.
+
 
 #### 🔗 Traceability:
-- [Source Context](NEXUS_HARDENING_PLAN.md)
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
 - [Related Standards](NEXUS_CORE_PRINCIPLES.md)
 
 ---
-### 📄 NEXUS — Post-Stabilization Hardening Guide
-> **Origin**: `ui-ux/NEXUS_NEXUS POST STABILIZATION HARDERING.MD` | **Distilled At**: 28/05/2026
 
-#### 🧐 Core Insights (Distilled):
-hasil
+### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
-Masih mungkin ada:
-
-```text
-hidden race conditions
-silent memory corruption
+## 🎓 VCS WISDOM DISTILL
 
 ...[truncated]

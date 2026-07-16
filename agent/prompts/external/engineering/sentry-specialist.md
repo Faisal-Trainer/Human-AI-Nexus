@@ -15,7 +15,7 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 199 skills matched untuk agent "sentry-specialist"
+> Total: 204 skills matched untuk agent "sentry-specialist"
 
 ### 📦 SKILL: user-branding
 > SKILL: USER BRANDING STANDARDS (Personal Branding)
@@ -573,6 +573,10 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-javascript-tools.md`
 
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
+
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
@@ -781,6 +785,14 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
 
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
+
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
@@ -809,7 +821,15 @@ Anda bertindak sebagai sentry-specialist untuk ekosistem Nexus AI.
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
 
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
+
 ### 📦 SKILL: nexus-route-laravel
 > >
 > Source: `.agents/skills/nexus-route-laravel/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 

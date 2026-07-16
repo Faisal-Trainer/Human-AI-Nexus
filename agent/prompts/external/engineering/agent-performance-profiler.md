@@ -15,7 +15,7 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 204 skills matched untuk agent "agent-performance-profiler"
+> Total: 212 skills matched untuk agent "agent-performance-profiler"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -409,6 +409,14 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
 
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
+
 ### 📦 SKILL: image-to-code
 > Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
 > Source: `.agents/skills/image-to-code/SKILL.md`
@@ -416,6 +424,10 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 ### 📦 SKILL: imagegen-frontend-mobile
 > Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative direction, textured surfaces, image-led composition, tasteful custom iconography, and clean phone mockup framing. By default, screens should be shown inside a subtle premium iPhone or similar phone mo
 > Source: `.agents/skills/imagegen-frontend-mobile/SKILL.md`
+
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
 
 ### 📦 SKILL: ios-dev
 > SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
@@ -681,6 +693,10 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
+
 ### 📦 SKILL: design-taste-frontend-v1
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
@@ -825,6 +841,14 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/agentic-javascript-tools.md`
 
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
+
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
@@ -832,4 +856,12 @@ Anda bertindak sebagai agent-performance-profiler untuk ekosistem Nexus AI.
 ### 📦 SKILL: laravel-route-architect
 > >
 > Source: `.agents/skills/laravel-route-architect/SKILL.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 

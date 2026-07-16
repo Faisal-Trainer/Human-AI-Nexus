@@ -15,7 +15,7 @@ Anda bertindak sebagai refactor-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 193 skills matched untuk agent "refactor-specialist"
+> Total: 196 skills matched untuk agent "refactor-specialist"
 
 ### 📦 SKILL: accessible-error-announcement
 > Accessible Error Announcement
@@ -765,6 +765,14 @@ Anda bertindak sebagai refactor-specialist untuk ekosistem Nexus AI.
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
 
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
+
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
@@ -784,6 +792,10 @@ Anda bertindak sebagai refactor-specialist untuk ekosistem Nexus AI.
 ### 📦 SKILL: industrial-brutalist-ui
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
+
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
 
 ### 📦 SKILL: technical-writing
 > Technical Writing — Dokumentasi Proyek Software

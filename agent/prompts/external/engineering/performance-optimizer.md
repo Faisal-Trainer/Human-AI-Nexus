@@ -44,7 +44,7 @@ Tugas Anda adalah meninjau hasil kode yang diproduksi oleh `Frontend Code Genera
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 203 skills matched untuk agent "performance-optimizer"
+> Total: 207 skills matched untuk agent "performance-optimizer"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -630,6 +630,10 @@ Tugas Anda adalah meninjau hasil kode yang diproduksi oleh `Frontend Code Genera
 > Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny compressed boards, generate fresh standalone images for sections or detail views instead of cropping old ones, avoid lazy under-generation, avoid cards-inside-cards-inside-cards UI, and keep the hero cl
 > Source: `.agents/skills/image-to-code/SKILL.md`
 
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
+
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
@@ -822,9 +826,21 @@ Tugas Anda adalah meninjau hasil kode yang diproduksi oleh `Frontend Code Genera
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
 
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
+
 ### 📦 SKILL: design-taste-frontend-v1
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
+
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.

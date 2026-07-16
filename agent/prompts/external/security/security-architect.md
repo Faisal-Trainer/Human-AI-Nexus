@@ -1282,7 +1282,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 17 skills matched untuk agent "security-architect"
+> Total: 19 skills matched untuk agent "security-architect"
 
 ### 📦 SKILL: security-architect
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_DATABASE_STANDARDS.md
@@ -1291,6 +1291,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING
@@ -1339,6 +1343,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: security
 > Web Security
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/security/security.md`
+
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
 
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.

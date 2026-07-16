@@ -13,13 +13,16 @@
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
+      "password": "text",
+      "role": "enum('admin', 'user')"
     },
     "Bookmark": {
       "user_id": "integer",
-      "title": "string",
       "url": "string",
-      "description": "string"
+      "title": "string",
+      "description": "text",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
@@ -28,8 +31,7 @@
   ],
   "livewire_components": [
     "user-profile",
-    "bookmark-list",
-    "bookmark-form"
+    "bookmark-component"
   ],
   "seeders": [
     "UserSeeder",
@@ -65,28 +67,17 @@
           "profile"
         ],
         "events_listened": [
-          "userUpdated"
+          "profileUpdated"
         ]
       },
       {
-        "name": "bookmark-list",
+        "name": "bookmark-component",
         "state": [
-          "bookmarks",
-          "searchQuery"
+          "bookmark",
+          "user"
         ],
         "events_listened": [
           "bookmarkCreated"
-        ]
-      },
-      {
-        "name": "bookmark-form",
-        "state": [
-          "bookmark",
-          "form"
-        ],
-        "events_listened": [
-          "bookmarkUpdated",
-          "bookmarkDeleted"
         ]
       }
     ]
@@ -104,8 +95,8 @@
         "email:required|unique"
       ],
       "Bookmark": [
-        "title:required",
-        "url:required"
+        "url:required",
+        "title:required"
       ]
     }
   },

@@ -1357,7 +1357,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 20 skills matched untuk agent "vcs-architect"
+> Total: 24 skills matched untuk agent "vcs-architect"
 
 ### 📦 SKILL: vcs-management
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_SUPERPOWERS_WORKFLOW.md
@@ -1423,6 +1423,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
+
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
 ### 📦 SKILL: high-end-visual-design
 > Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.
 > Source: `.agents/skills/high-end-visual-design/SKILL.md`
@@ -1438,6 +1446,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 
 
 
@@ -1985,7 +2001,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v32 | **Last Updated**: 7/7/2026
+> **VERSION**: v33 | **Last Updated**: 7/15/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5817,6 +5833,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -7684,32 +7725,6 @@ This server provides tools to interact with Example API, including user search,
 project management, and data export capabilities.
 '''
 
-from typing import Optional, List, Dict, Any
-from enum import Enum
-import httpx
-from pydantic import BaseModel, Field, field_validator, ConfigDict
-from mcp.server.fastmcp import FastMCP
-
-# Initialize the MCP server
-mcp = FastMCP("example_mcp")
-
-# Constants
-API_BASE_URL = "https://api.example.com/v1"
-
-# Enums
-class ResponseFormat(str, Enum):
-    '''Output format for tool responses.'''
-    MARKDOWN = "markdown"
-    JSON = "json"
-
-# Pydantic Models for Input Validation
-class UserSearchInput(BaseModel):
-    '''Input model for user search operations.'''
-    model_config = ConfigDict(
-        str_strip_whitespace=True,
-        validate_assignment=True
-    )
-
-    query: str = Field(..., description="Search st
+from typ
 
 ...[truncated]

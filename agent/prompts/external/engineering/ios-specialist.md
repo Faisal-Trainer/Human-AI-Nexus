@@ -1283,7 +1283,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 149 skills matched untuk agent "ios-specialist"
+> Total: 152 skills matched untuk agent "ios-specialist"
 
 ### 📦 SKILL: ios-dev
 > SKILL: IOS DEVELOPMENT (Swift & SwiftUI)
@@ -1853,9 +1853,21 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
+
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.

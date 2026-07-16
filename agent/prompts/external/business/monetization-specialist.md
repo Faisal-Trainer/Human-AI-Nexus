@@ -1282,7 +1282,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 34 skills matched untuk agent "monetization-specialist"
+> Total: 36 skills matched untuk agent "monetization-specialist"
 
 ### 📦 SKILL: monetization-specialist
 > SKILL: MONETIZATION & CONVERSION STANDARDS (Human-AI Nexus)
@@ -1303,6 +1303,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: webmcp
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
 
 ### 📦 SKILL: agent-classification
 > SKILL: AGENT CLASSIFICATION & DNA MAPPING
@@ -1387,6 +1391,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: model-partial-time-concepts
 > Modeling Partial Time Concepts with Temporal
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/model-partial-time-concepts.md`
+
+### 📦 SKILL: api-and-integration-designer
+> Designs and validates the API endpoints and external integration layers in NEXUS blueprints. Enforces RESTful API structure with versioning, response schemas, authentication strategies, webhook definitions, and third-party service contracts — ensuring every blueprint has a well-defined external ecosystem before finalization.
+> Source: `.agents/skills/api-and-integration-designer/SKILL.md`
 
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.

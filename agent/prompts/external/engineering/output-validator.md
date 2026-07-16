@@ -45,7 +45,7 @@ Tugas Anda adalah memastikan semua teks yang dikembalikan oleh model (seperti Mi
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 136 skills matched untuk agent "output-validator"
+> Total: 138 skills matched untuk agent "output-validator"
 
 ### 📦 SKILL: modern-web-guidance
 > |
@@ -206,6 +206,10 @@ Tugas Anda adalah memastikan semua teks yang dikembalikan oleh model (seperti Mi
 ### 📦 SKILL: visually-texture-content
 > (No description)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/user-experience/visually-texture-content.md`
+
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
@@ -590,4 +594,8 @@ Tugas Anda adalah memastikan semua teks yang dikembalikan oleh model (seperti Mi
 ### 📦 SKILL: imagegen-frontend-web
 > Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
 > Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
+
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
 

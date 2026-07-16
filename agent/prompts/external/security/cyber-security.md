@@ -1386,7 +1386,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 137 skills matched untuk agent "cyber-security"
+> Total: 143 skills matched untuk agent "cyber-security"
 
 ### 📦 SKILL: database-design
 > 🛠 NEXUS COLLISION RESOLVED: Semantic Update from HUB: NEXUS_TALL_EVOLUTION_WISDOM.md
@@ -1896,9 +1896,21 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
 ### 📦 SKILL: design-taste-frontend
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
+
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
@@ -1924,6 +1936,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.
 > Source: `.agents/skills/industrial-brutalist-ui/SKILL.md`
 
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
+
 ### 📦 SKILL: minimalist-ui
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
@@ -1931,6 +1947,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
@@ -1961,7 +1985,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v32 | **Last Updated**: 7/7/2026
+> **VERSION**: v33 | **Last Updated**: 7/15/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -5793,6 +5817,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8137,27 +8186,6 @@ use Illuminate\Broadcasting\Channel;
 
 $stream = (new SalesCoach)->stream('Analyze this sales transcript...');
 
-foreach ($stream as $event) {
-    $event->broadcast(new Channel('channel-name'));
-}
-```
-
-Or, you can invoke an agent's `broadcastOnQueue` method to queue the agent operation and broadcast the streamed events as they are available:
-
-```php
-(new SalesCoach)->broadcastOnQueue(
-    'Analyze this sales transcript...'
-    new Channel('channel-name'),
-);
-```
-
-<a name="queueing"></a>
-### Queueing
-
-Using an agent's `queue` method, you may prompt the agent, but allow it to process the response in the background, keeping your application feeling fast and responsive. The `then` and `catch` methods may be used to register closures that will be invoked when a response is available or if an exception occurs:
-
-```php
-use Illuminate\Http\Request;
-use Laravel\Ai\R
+foreach ($stream as $event)
 
 ...[truncated]

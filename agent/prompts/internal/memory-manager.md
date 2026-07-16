@@ -1284,11 +1284,15 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 18 skills matched untuk agent "memory-manager"
+> Total: 21 skills matched untuk agent "memory-manager"
 
 ### 📦 SKILL: memory-manager
 > 🛠 NEXUS COLLISION RESOLVED: Update from HUB: NEXUS_MEMORY_OPTIMIZATION_PIPELINE.md
 > Source: `agent/workflows/external/core/memory-manager.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
 
 ### 📦 SKILL: project-manager
 > SKILL: STRATEGIC PROJECT MANAGEMENT (Human-AI Nexus)
@@ -1349,6 +1353,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: privacy-policy
 > Privacy Policy Guidance
 > Source: `agent/workflows/external/frontend/chrome-extensions/references/webstore/privacy-policy.md`
+
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
 
 ### 📦 SKILL: laravel-route-architect
 > >

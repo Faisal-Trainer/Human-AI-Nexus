@@ -15,7 +15,7 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 191 skills matched untuk agent "data-export-specialist"
+> Total: 195 skills matched untuk agent "data-export-specialist"
 
 ### 📦 SKILL: export-html-media-from-canvas
 > Export HTML content from canvas
@@ -561,6 +561,10 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
 
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
+
 ### 📦 SKILL: gpt-taste
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
 > Source: `.agents/skills/gpt-taste/SKILL.md`
@@ -757,6 +761,10 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 > The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.
 > Source: `.agents/skills/design-taste-frontend-v1/SKILL.md`
 
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
@@ -773,9 +781,17 @@ Anda bertindak sebagai data-export-specialist untuk ekosistem Nexus AI.
 > Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces composition variety (not always left-text / right-image), background-image freedom, varied CTAs, varied hero scales (giant / mid / mini minimalist), narrative concept spine, second-read moments, and a singl
 > Source: `.agents/skills/imagegen-frontend-web/SKILL.md`
 
+### 📦 SKILL: livewire-state-planner
+> Designs and validates the Livewire component layer in NEXUS blueprints. Ensures every component has well-defined reactive state, event contracts (emit/listen), lifecycle hooks, computed properties, and real-time update strategies — eliminating vague placeholder components and guaranteeing a fully interactive frontend architecture.
+> Source: `.agents/skills/livewire-state-planner/SKILL.md`
+
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
 
 ### 📦 SKILL: technical-writing
 > Technical Writing — Dokumentasi Proyek Software

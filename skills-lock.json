@@ -1,17 +1,23 @@
 {
   "version": 1,
   "skills": {
-    "brandkit": {
-      "source": "Leonxlnx/taste-skill",
-      "sourceType": "github",
-      "skillPath": "skills/brandkit/SKILL.md",
-      "computedHash": "735007879f5110aeae1e981a53fe74a12afde70347f9773dacd50e4697a091bf"
-    },
     "api-and-integration-designer": {
       "source": "local",
       "sourceType": "local",
       "skillPath": "api-and-integration-designer/SKILL.md",
       "computedHash": "custom"
+    },
+    "async-job-and-queue-architect": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "async-job-and-queue-architect/SKILL.md",
+      "computedHash": "custom"
+    },
+    "brandkit": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/brandkit/SKILL.md",
+      "computedHash": "735007879f5110aeae1e981a53fe74a12afde70347f9773dacd50e4697a091bf"
     },
     "chrome-extensions": {
       "source": "GoogleChrome/modern-web-guidance",
@@ -36,6 +42,12 @@
       "sourceType": "github",
       "skillPath": "skills/taste-skill-v1/SKILL.md",
       "computedHash": "8d59c96751feacf88f341a43151eae6f4fd748978884c4552293b8841573d776"
+    },
+    "devops-and-infrastructure-planner": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "devops-and-infrastructure-planner/SKILL.md",
+      "computedHash": "custom"
     },
     "domain-driven-design-thinker": {
       "source": "local",

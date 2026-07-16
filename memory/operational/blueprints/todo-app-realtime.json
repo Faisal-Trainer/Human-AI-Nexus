@@ -7,48 +7,42 @@
   },
   "models": [
     "User",
-    "Todo"
+    "Task"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
-    },
-    "Todo": {
-      "title": "string",
-      "description": "string",
-      "completed": "boolean",
-      "user_id": "integer"
+      "password": "string",
+      "tasks": []
     }
   },
   "migrations": [
     "create_users_table",
-    "create_todos_table"
+    "create_tasks_table"
   ],
   "livewire_components": [
     "user-profile",
-    "todo-list",
-    "todo-item"
+    "task-list"
   ],
   "seeders": [
     "UserSeeder",
-    "TodoSeeder"
+    "TaskSeeder"
   ],
   "factories": [
     "UserFactory",
-    "TodoFactory"
+    "TaskFactory"
   ],
   "routes": [
     "/dashboard",
-    "/todo"
+    "/tasks"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Todo"
+      "target": "Task"
     }
   ],
   "presentation_layer": {
@@ -62,32 +56,21 @@
         "name": "user-profile",
         "state": [
           "user",
-          "profile"
+          "tasks"
         ],
         "events_listened": [
-          "userUpdated"
+          "taskCreated"
         ]
       },
       {
-        "name": "todo-list",
+        "name": "task-list",
         "state": [
-          "todos",
+          "tasks",
           "searchQuery"
         ],
         "events_listened": [
-          "todoCreated",
-          "todoUpdated",
-          "todoDeleted"
-        ]
-      },
-      {
-        "name": "todo-item",
-        "state": [
-          "todo",
-          "item"
-        ],
-        "events_listened": [
-          "itemUpdated"
+          "taskCreated",
+          "taskUpdated"
         ]
       }
     ]
@@ -98,16 +81,15 @@
       "user"
     ],
     "policies": [
-      "TodoPolicy: User can only edit own todo"
+      "TaskPolicy: User can only edit own task"
     ],
     "validation_rules": {
       "User": [
         "email:required|unique"
       ],
-      "Todo": [
+      "Task": [
         "title:required",
-        "description:required",
-        "completed:required"
+        "description:required"
       ]
     }
   },
@@ -118,13 +100,10 @@
   "testing": {
     "feature_tests": [
       "UserRegistrationTest",
-      "CreateTodoTest",
-      "UpdateTodoTest",
-      "DeleteTodoTest"
+      "CreateTaskTest"
     ],
     "unit_tests": [
-      "TodoStatusCalculationTest",
-      "TodoItemStatusCalculationTest"
+      "TaskStatusCalculationTest"
     ]
   }
 }

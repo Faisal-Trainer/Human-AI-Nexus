@@ -186,7 +186,9 @@ class NexusEngine {
     this.executionPhase = new ExecutionPhase(this);
     this.knowledgePhase = new KnowledgePhase(this);
 
-    this.initRedis().catch(err => this.log(`⚠️ Redis init error: ${err.message}`, "warning"));
+    this.initRedis().catch((err) =>
+      this.log(`⚠️ Redis init error: ${err.message}`, "warning"),
+    );
   }
 
   // FIX #07 — Lazy-init getters: komponen hanya dibuat saat pertama kali diakses
@@ -614,23 +616,27 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
 }`;
     let response = "";
     try {
-      this.log(`   🧠 Routing Blueprint generation to Ollama (kimi-k2.6:cloud)...`, "info");
-      const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
+      this.log(
+        `   🧠 Routing Blueprint generation to Ollama (kimi-k2.6:cloud)...`,
+        "info",
+      );
+      const systemPrompt =
+        "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
       const payload = {
         model: "kimi-k2.6:cloud",
         prompt: `${systemPrompt}\n\n${prompt}`,
         stream: false,
-        options: { temperature: 0.7, num_ctx: 8192 }
+        options: { temperature: 0.7, num_ctx: 8192 },
       };
       const headers = { "Content-Type": "application/json" };
       if (process.env.KIMI_API_KEY) {
         headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
       }
-      
+
       const res = await fetch("http://127.0.0.1:11434/api/generate", {
         method: "POST",
         headers: headers,
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         const data = await res.json();
@@ -639,7 +645,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         throw new Error(`Ollama HTTP ${res.status}`);
       }
     } catch (e) {
-      this.log(`   ⚠️ Ollama kimi-k2.6:cloud failed: ${e.message}. Falling back to localAI...`, "warning");
+      this.log(
+        `   ⚠️ Ollama kimi-k2.6:cloud failed: ${e.message}. Falling back to localAI...`,
+        "warning",
+      );
       response = await localAI.generate(prompt, "generate_architecture");
     }
 
@@ -649,52 +658,94 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       let blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
 
-      // --- NEW LOGIC: nexus-blueprint-architect ---
-      try {
-        const architectSkillPath = path.join(__dirname, "..", "..", ".agents", "skills", "nexus-blueprint-architect", "SKILL.md");
-        if (await fs.pathExists(architectSkillPath)) {
-          this.log(`   🏗️ Invoking 'nexus-blueprint-architect' skill for enhancement...`, "info");
-          const skillRules = await fs.readFile(architectSkillPath, "utf8");
-          const enhancementPrompt = `
+      // --- ARCHITECTURE COUNCIL LOGIC ---
+      const architectureSkills = [
+        "nexus-blueprint-architect", // Base architecture
+        "database-schema-optimizer", // DB relations & schema
+        "livewire-state-planner", // State & components
+        "security-and-acl-architect", // Roles & policies
+        "laravel-route-architect", // Routing
+        "api-and-integration-designer", // Third-party API
+        "async-job-and-queue-architect", // Jobs & queues
+        "devops-and-infrastructure-planner", // CI/CD & environments
+        "qa-testing-strategist", // Test plans
+      ];
+
+      for (const skillName of architectureSkills) {
+        try {
+          const architectSkillPath = path.join(
+            __dirname,
+            "..",
+            "..",
+            ".agents",
+            "skills",
+            skillName,
+            "SKILL.md",
+          );
+          if (await fs.pathExists(architectSkillPath)) {
+            this.log(
+              `   🏗️ Invoking '${skillName}' skill for enhancement...`,
+              "info",
+            );
+            const skillRules = await fs.readFile(architectSkillPath, "utf8");
+            const enhancementPrompt = `
 ${skillRules}
 
-Here is the basic blueprint:
+Here is the current blueprint:
 \`\`\`json
 ${JSON.stringify(blueprint, null, 2)}
 \`\`\`
 
 Enhance it based on your rules and output STRICTLY a valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON.
 `;
-          let enhancedResponse = "";
-          try {
-             const payload = {
+            let enhancedResponse = "";
+            try {
+              const payload = {
                 model: "kimi-k2.6:cloud",
                 prompt: enhancementPrompt,
                 stream: false,
-                options: { temperature: 0.5, num_ctx: 8192 }
-             };
-             const headers = { "Content-Type": "application/json" };
-             if (process.env.KIMI_API_KEY) headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
-             const res = await fetch("http://127.0.0.1:11434/api/generate", {
-                method: "POST", headers, body: JSON.stringify(payload)
-             });
-             if (res.ok) enhancedResponse = (await res.json()).response;
-             else throw new Error(`Ollama HTTP ${res.status}`);
-          } catch (e) {
-             this.log(`   ⚠️ Ollama architect failed: ${e.message}. Falling back to localAI...`, "warning");
-             enhancedResponse = await localAI.generate(enhancementPrompt, "enhance_architecture");
+                options: { temperature: 0.5, num_ctx: 8192 },
+              };
+              const headers = { "Content-Type": "application/json" };
+              if (process.env.KIMI_API_KEY)
+                headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
+              const res = await fetch("http://127.0.0.1:11434/api/generate", {
+                method: "POST",
+                headers,
+                body: JSON.stringify(payload),
+              });
+              if (res.ok) enhancedResponse = (await res.json()).response;
+              else throw new Error(`Ollama HTTP ${res.status}`);
+            } catch (e) {
+              this.log(
+                `   ⚠️ Ollama architect failed: ${e.message}. Falling back to localAI...`,
+                "warning",
+              );
+              enhancedResponse = await localAI.generate(
+                enhancementPrompt,
+                "enhance_architecture",
+              );
+            }
+
+            if (enhancedResponse) {
+              const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
+              blueprint = JSON.parse(
+                jsonMatch2 ? jsonMatch2[0] : enhancedResponse,
+              );
+              this.log(
+                `   ✅ Blueprint successfully enhanced by ${skillName}.`,
+                "success",
+              );
+            }
           }
-          
-          if (enhancedResponse) {
-             const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
-             blueprint = JSON.parse(jsonMatch2 ? jsonMatch2[0] : enhancedResponse);
-             this.log(`   ✅ Blueprint successfully enhanced by architect skill.`, "success");
-          }
+        } catch (err) {
+          this.log(
+            `   ⚠️ Failed to apply ${skillName} skill: ${err.message}`,
+            "warning",
+          );
         }
-      } catch (err) {
-         this.log(`   ⚠️ Failed to apply nexus-blueprint-architect skill: ${err.message}`, "warning");
       }
-      // --- END NEW LOGIC ---
+      // --- END ARCHITECTURE COUNCIL LOGIC ---
 
       // Schema Validation (G2-02)
       const BLUEPRINT_SCHEMA = {
@@ -1464,12 +1515,21 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
     };
 
     // ─── NEW: Backup Mechanism for Rollback ───
-    const backupDir = path.join(this.rootPath, ".nexus_backup_prompts_" + Date.now());
+    const backupDir = path.join(
+      this.rootPath,
+      ".nexus_backup_prompts_" + Date.now(),
+    );
     try {
-      this.log(`   📦 Creating backup of prompt files at ${backupDir}...`, "info");
+      this.log(
+        `   📦 Creating backup of prompt files at ${backupDir}...`,
+        "info",
+      );
       await fs.copy(this.agentPath, backupDir);
     } catch (err) {
-      this.log(`   ❌ Failed to create backup: ${err.message}. Aborting.`, "error");
+      this.log(
+        `   ❌ Failed to create backup: ${err.message}. Aborting.`,
+        "error",
+      );
       return;
     }
 
@@ -1478,144 +1538,155 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
         let promptContent;
         try {
           promptContent = await fs.readFile(agent.fullPath, "utf8");
-      } catch (err) {
-        this.log(
-          `   ⚠️ Failed to read agent ${agent.name}: ${err.message}`,
-          "warning",
-        );
-        continue;
-      }
+        } catch (err) {
+          this.log(
+            `   ⚠️ Failed to read agent ${agent.name}: ${err.message}`,
+            "warning",
+          );
+          continue;
+        }
 
-      const isWildcard = WILDCARD_AGENTS.includes(agent.name);
+        const isWildcard = WILDCARD_AGENTS.includes(agent.name);
 
-      // ─── NEW: Dynamic Skill Registry Injection ───
-      const agentTags = this._extractAgentTags(agent.name, promptContent);
+        // ─── NEW: Dynamic Skill Registry Injection ───
+        const agentTags = this._extractAgentTags(agent.name, promptContent);
 
-      // Match skills (workflow + external) to this agent
-      const nonDistilledSkills = [...workflowSkills, ...externalSkills];
-      let matchedSkills;
-      if (isWildcard) {
-        matchedSkills = nonDistilledSkills;
-      } else {
-        matchedSkills = nonDistilledSkills.filter((skill) => {
-          const overlap = skill.tags.filter((t) => agentTags.includes(t));
-          return overlap.length >= 1;
-        });
-      }
+        // Match skills (workflow + external) to this agent
+        const nonDistilledSkills = [...workflowSkills, ...externalSkills];
+        let matchedSkills;
+        if (isWildcard) {
+          matchedSkills = nonDistilledSkills;
+        } else {
+          matchedSkills = nonDistilledSkills.filter((skill) => {
+            const overlap = skill.tags.filter((t) => agentTags.includes(t));
+            return overlap.length >= 1;
+          });
+        }
 
-      // Sort by match score (most matching tags first), then limit
-      if (!isWildcard) {
-        matchedSkills.sort((a, b) => {
-          const scoreA = a.tags.filter((t) => agentTags.includes(t)).length;
-          const scoreB = b.tags.filter((t) => agentTags.includes(t)).length;
-          return scoreB - scoreA;
-        });
-      }
-      if (MAX_SKILLS_PER_AGENT !== Infinity) {
-        matchedSkills = matchedSkills.slice(0, MAX_SKILLS_PER_AGENT);
-      }
+        // Sort by match score (most matching tags first), then limit
+        if (!isWildcard) {
+          matchedSkills.sort((a, b) => {
+            const scoreA = a.tags.filter((t) => agentTags.includes(t)).length;
+            const scoreB = b.tags.filter((t) => agentTags.includes(t)).length;
+            return scoreB - scoreA;
+          });
+        }
+        if (MAX_SKILLS_PER_AGENT !== Infinity) {
+          matchedSkills = matchedSkills.slice(0, MAX_SKILLS_PER_AGENT);
+        }
 
-      // ─── LEGACY: Deep Wisdom Injection (preserved) ───
-      const legacyTags = legacyAgentMappings[agent.name];
-      let wisdomInjection = "";
-      if (legacyTags && wisdomNodes.length > 0) {
-        const MAX_NODES_PER_AGENT = 30;
-        const MAX_INJECT_KB = 200;
+        // ─── LEGACY: Deep Wisdom Injection (preserved) ───
+        const legacyTags = legacyAgentMappings[agent.name];
+        let wisdomInjection = "";
+        if (legacyTags && wisdomNodes.length > 0) {
+          const MAX_NODES_PER_AGENT = 30;
+          const MAX_INJECT_KB = 200;
 
-        const matchingWisdom = wisdomNodes
-          .filter((node) => {
-            if (legacyTags.includes("*")) return true;
-            return node.tags.some((tag) => legacyTags.includes(tag));
-          })
-          .slice(0, MAX_NODES_PER_AGENT);
+          const matchingWisdom = wisdomNodes
+            .filter((node) => {
+              if (legacyTags.includes("*")) return true;
+              return node.tags.some((tag) => legacyTags.includes(tag));
+            })
+            .slice(0, MAX_NODES_PER_AGENT);
 
-        if (matchingWisdom.length > 0) {
-          wisdomInjection = `## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)\n> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.\n\n`;
-          for (const node of matchingWisdom) {
-            wisdomInjection += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
+          if (matchingWisdom.length > 0) {
+            wisdomInjection = `## 🧠 DEEP WISDOM INJECTION (Phase 5 Institutionalization)\n> Data ini adalah bagian dari memori inti agen yang diserap dari Knowledge Base.\n\n`;
+            for (const node of matchingWisdom) {
+              wisdomInjection += `### 📘 KNOWLEDGE: ${node.name.toUpperCase()}\n\n${node.content.trim()}\n\n`;
+            }
+            const injectionKB =
+              Buffer.byteLength(wisdomInjection, "utf8") / 1024;
+            if (injectionKB > MAX_INJECT_KB) {
+              wisdomInjection =
+                wisdomInjection.substring(0, MAX_INJECT_KB * 1024) +
+                "\n\n...[truncated]";
+              this.log(
+                `   ⚠️ Wisdom injection truncated at ${MAX_INJECT_KB}KB for ${agent.name}`,
+                "warning",
+              );
+            }
           }
-          const injectionKB = Buffer.byteLength(wisdomInjection, "utf8") / 1024;
-          if (injectionKB > MAX_INJECT_KB) {
-            wisdomInjection =
-              wisdomInjection.substring(0, MAX_INJECT_KB * 1024) +
+        }
+
+        // Skip if nothing to inject
+        if (matchedSkills.length === 0 && !wisdomInjection) continue;
+
+        // ─── Build Skill Registry section ───
+        let skillRegistryContent = "";
+        if (matchedSkills.length > 0) {
+          skillRegistryContent = `## 🎯 SKILL REGISTRY (Auto-Injected)\n> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.\n> Total: ${matchedSkills.length} skills matched untuk agent "${agent.name}"\n\n`;
+          for (const skill of matchedSkills) {
+            const desc = skill.description
+              ? skill.description.substring(0, MAX_SKILL_SUMMARY_CHARS)
+              : "(No description)";
+            skillRegistryContent += `### 📦 SKILL: ${skill.name}\n> ${desc}\n> Source: \`${skill.relativePath}\`\n\n`;
+          }
+
+          // Enforce size limit
+          const skillKB =
+            Buffer.byteLength(skillRegistryContent, "utf8") / 1024;
+          if (skillKB > MAX_INJECT_SKILL_KB) {
+            skillRegistryContent =
+              skillRegistryContent.substring(0, MAX_INJECT_SKILL_KB * 1024) +
               "\n\n...[truncated]";
             this.log(
-              `   ⚠️ Wisdom injection truncated at ${MAX_INJECT_KB}KB for ${agent.name}`,
+              `   ⚠️ Skill registry truncated at ${MAX_INJECT_SKILL_KB}KB for ${agent.name}`,
               "warning",
             );
           }
         }
-      }
 
-      // Skip if nothing to inject
-      if (matchedSkills.length === 0 && !wisdomInjection) continue;
+        // ─── Assemble final prompt content ───
+        // Clean out old injected sections
+        let cleanPrompt = promptContent
+          .replace(
+            /\n*## 🎯 SKILL REGISTRY[\s\S]*?(?=\n## 🧠 DEEP WISDOM|$)/,
+            "",
+          )
+          .replace(/\n*## 🧠 DEEP WISDOM INJECTION[\s\S]*/, "")
+          .trimEnd();
 
-      // ─── Build Skill Registry section ───
-      let skillRegistryContent = "";
-      if (matchedSkills.length > 0) {
-        skillRegistryContent = `## 🎯 SKILL REGISTRY (Auto-Injected)\n> Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.\n> Total: ${matchedSkills.length} skills matched untuk agent "${agent.name}"\n\n`;
-        for (const skill of matchedSkills) {
-          const desc = skill.description
-            ? skill.description.substring(0, MAX_SKILL_SUMMARY_CHARS)
-            : "(No description)";
-          skillRegistryContent += `### 📦 SKILL: ${skill.name}\n> ${desc}\n> Source: \`${skill.relativePath}\`\n\n`;
+        // Append new sections
+        let newPromptContent = cleanPrompt;
+        if (skillRegistryContent) {
+          newPromptContent += "\n\n" + skillRegistryContent;
+        }
+        if (wisdomInjection) {
+          newPromptContent += "\n\n" + wisdomInjection;
         }
 
-        // Enforce size limit
-        const skillKB = Buffer.byteLength(skillRegistryContent, "utf8") / 1024;
-        if (skillKB > MAX_INJECT_SKILL_KB) {
-          skillRegistryContent =
-            skillRegistryContent.substring(0, MAX_INJECT_SKILL_KB * 1024) +
-            "\n\n...[truncated]";
-          this.log(
-            `   ⚠️ Skill registry truncated at ${MAX_INJECT_SKILL_KB}KB for ${agent.name}`,
-            "warning",
-          );
-        }
+        await fs.writeFile(agent.fullPath, newPromptContent, "utf8");
+
+        const parts = [];
+        if (matchedSkills.length > 0)
+          parts.push(`${matchedSkills.length} skills`);
+        if (wisdomInjection) parts.push("wisdom");
+        this.log(
+          `   ✅ Updated agent: ${agent.name} (${parts.join(" + ")})`,
+          "success",
+        );
+        updatedAgentsCount++;
+        totalSkillsInjected += matchedSkills.length;
       }
 
-      // ─── Assemble final prompt content ───
-      // Clean out old injected sections
-      let cleanPrompt = promptContent
-        .replace(/\n*## 🎯 SKILL REGISTRY[\s\S]*?(?=\n## 🧠 DEEP WISDOM|$)/, "")
-        .replace(/\n*## 🧠 DEEP WISDOM INJECTION[\s\S]*/, "")
-        .trimEnd();
-
-      // Append new sections
-      let newPromptContent = cleanPrompt;
-      if (skillRegistryContent) {
-        newPromptContent += "\n\n" + skillRegistryContent;
-      }
-      if (wisdomInjection) {
-        newPromptContent += "\n\n" + wisdomInjection;
-      }
-
-      await fs.writeFile(agent.fullPath, newPromptContent, "utf8");
-
-      const parts = [];
-      if (matchedSkills.length > 0)
-        parts.push(`${matchedSkills.length} skills`);
-      if (wisdomInjection) parts.push("wisdom");
       this.log(
-        `   ✅ Updated agent: ${agent.name} (${parts.join(" + ")})`,
+        `✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated, ${totalSkillsInjected} total skill references injected.`,
         "success",
       );
-      updatedAgentsCount++;
-      totalSkillsInjected += matchedSkills.length;
-    }
-
-    this.log(
-      `✨ Mass Update Complete: ${updatedAgentsCount} agent prompts updated, ${totalSkillsInjected} total skill references injected.`,
-      "success",
-    );
     } catch (fatalError) {
-      this.log(`   ❌ Fatal error during update: ${fatalError.message}. Rolling back...`, "error");
+      this.log(
+        `   ❌ Fatal error during update: ${fatalError.message}. Rolling back...`,
+        "error",
+      );
       try {
         await fs.emptyDir(this.agentPath);
         await fs.copy(backupDir, this.agentPath);
         this.log(`   ✅ Rollback successful. Prompts restored.`, "success");
       } catch (rollbackErr) {
-        this.log(`   🚨 CRITICAL: Rollback failed: ${rollbackErr.message}. Manual recovery from ${backupDir} required.`, "error");
+        this.log(
+          `   🚨 CRITICAL: Rollback failed: ${rollbackErr.message}. Manual recovery from ${backupDir} required.`,
+          "error",
+        );
       }
     } finally {
       await fs.remove(backupDir).catch(() => {});
@@ -1790,12 +1861,18 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
   calculateSimilarity(str1, str2) {
     if (!str1 || !str2) return 0;
     if (str1 === str2) return 1;
-    
+
     // Fix BUG-13 & BUG-21: Pre-truncate strings by bytes safely to prevent JaroWinklerDistance OOM/hang on huge files
-    const len1 = Buffer.byteLength(str1, 'utf8');
-    const len2 = Buffer.byteLength(str2, 'utf8');
-    const safe1 = len1 > 10000 ? Buffer.from(str1, 'utf8').subarray(0, 10000).toString('utf8') : str1;
-    const safe2 = len2 > 10000 ? Buffer.from(str2, 'utf8').subarray(0, 10000).toString('utf8') : str2;
+    const len1 = Buffer.byteLength(str1, "utf8");
+    const len2 = Buffer.byteLength(str2, "utf8");
+    const safe1 =
+      len1 > 10000
+        ? Buffer.from(str1, "utf8").subarray(0, 10000).toString("utf8")
+        : str1;
+    const safe2 =
+      len2 > 10000
+        ? Buffer.from(str2, "utf8").subarray(0, 10000).toString("utf8")
+        : str2;
 
     const natural = require("natural");
     const rawSimilarity = natural.JaroWinklerDistance(safe1, safe2);

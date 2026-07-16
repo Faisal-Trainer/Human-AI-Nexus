@@ -1260,7 +1260,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 159 skills matched untuk agent "seo-performance-specialist"
+> Total: 162 skills matched untuk agent "seo-performance-specialist"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -1421,6 +1421,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: gpt-taste
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
@@ -1874,6 +1878,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
 
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
+
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
 > Source: `.agents/skills/full-output-enforcement/SKILL.md`
@@ -1893,6 +1901,10 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: nexus-blueprint-architect
 > Architectural Completeness Checker and Blueprint Enhancer for NEXUS Web App Blueprints. Validates data models, resolves missing relationships, and enforces the inclusion of presentation, business logic, security, integration, and testing layers before finalizing JSON blueprints.
 > Source: `.agents/skills/nexus-blueprint-architect/SKILL.md`
+
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
 
 ### 📦 SKILL: technical-writing
 > Technical Writing — Dokumentasi Proyek Software
@@ -1942,7 +1954,7 @@ Adversarial Networks.arXiv preprint arXiv: . . ., pages 1–9,
 > **Origin**: `ui-ux/NEXUS_IMPROVE-NEXT-PAGE-LOAD-[PERFORMANCE.MD](../ui-ux/NEXUS_PERFORMANCE.MD)` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v31 | **Last Updated**: 7/7/2026
+> **VERSION**: v32 | **Last Updated**: 7/15/2026
 
 
 
@@ -2502,6 +2514,21 @@ INP measures the latency of all interactive events across the page's lifecycle. 
 
 ---
 
+
+## 🎓 PERFORMANCE WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Junho Cho, Sangdoo Yun, Kyoungmu Lee, Jin Young Choi
+> **Origin**: `distilled/database/NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_CHO_PALETTENET_IMAGE_RECOLORIZATION_CVPR_2017_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_UI-UX.MD
 
 ## 🎓 UI-UX WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -2522,7 +2549,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v32 | **Last Updated**: 7/7/2026
+> **VERSION**: v33 | **Last Updated**: 7/15/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6354,6 +6381,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_VCS.MD
 
 ## 🎓 VCS WISDOM DISTILLATION [v9201] - 28/05/2026
@@ -8113,52 +8165,6 @@ Extract common functionality into reusable functions:
 # Shared API request function
 async def _make_api_request(endpoint: str, method: str = "GET", **kwargs) -> dict:
     '''Reusable function for all API calls.'''
-    async with httpx.AsyncClient() as client:
-        response = await client.request(
-            method,
-            f"{API_BASE_URL}/{endpoint}",
-            timeout=30.0,
-            **kwargs
-        )
-        response.raise_for_status()
-        return response.json()
-```
-
-## Async/Await Best Practices
-
-Always use async/await for network requests and I/O operations:
-
-```python
-# Good: Async network request
-async def fetch_data(resource_id: str) -> dict:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(f"{API_URL}/resource/{resource_id}")
-        response.raise_for_status()
-        return response.json()
-
-# Bad: Synchronous request
-def fetch_data(resource_id: str) -> dict:
-    response = requests.get(f"{API_URL}/resource/{resource_id}")  # Blocks
-    return response.json()
-```
-
-## Type Hints
-
-Use type hints throughout:
-
-```python
-from typing import Optional, List, Dict, Any
-
-async def get_user(user_id: str) -> Dict[str, Any]:
-    data = await fetch_user(user_id)
-    return {"id": data["id"], "name": data["name"]}
-```
-
-## Tool Docstrings
-
-Every tool must have comprehensive docstrings with explicit type information:
-
-```python
-async def search_users(params: UserSearchI
+    async with httpx.AsyncClient() as clie
 
 ...[truncated]

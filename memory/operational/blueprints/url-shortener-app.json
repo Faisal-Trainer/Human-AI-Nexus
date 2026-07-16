@@ -7,7 +7,7 @@
   },
   "models": [
     "User",
-    "ShortenedUrl"
+    "YourRealModelName"
   ],
   "schema": {
     "User": {
@@ -15,38 +15,42 @@
       "email": "string",
       "password": "text"
     },
-    "ShortenedUrl": {
-      "user_id": "integer",
+    "YourRealModelName": {
       "url": "string",
-      "shortened_url": "string"
+      "shortened_url": "string",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
+    "create_your_real_tables_table",
     "create_shortened_urls_table"
   ],
   "livewire_components": [
     "user-profile",
-    "shortened-url-preview"
+    "your-real-component"
   ],
   "seeders": [
     "UserSeeder",
+    "YourRealModelSeeder",
     "ShortenedUrlSeeder"
   ],
   "factories": [
     "UserFactory",
+    "YourRealModelFactory",
     "ShortenedUrlFactory"
   ],
   "routes": [
     "/dashboard",
-    "/shortened"
+    "/your-real-route"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "ShortenedUrl"
+      "target": "YourRealModelName"
     }
   ],
   "presentation_layer": {
@@ -57,23 +61,22 @@
     ],
     "components": [
       {
-        "name": "user-profile",
+        "name": "post-list",
         "state": [
-          "user",
-          "profile"
+          "posts",
+          "searchQuery"
         ],
         "events_listened": [
-          "userUpdated"
+          "postCreated"
         ]
       },
       {
-        "name": "shortened-url-preview",
+        "name": "your-real-component",
         "state": [
-          "shortenedUrl",
-          "preview"
+          "your-real-data"
         ],
         "events_listened": [
-          "shortenedUrlClicked"
+          "your-real-event"
         ]
       }
     ]
@@ -84,14 +87,14 @@
       "user"
     ],
     "policies": [
-      "ShortenedUrlPolicy: User can only edit own shortened url"
+      "PostPolicy: User can only edit own post"
     ],
     "validation_rules": {
       "User": [
         "email:required|unique"
       ],
-      "ShortenedUrl": [
-        "url:required|unique"
+      "YourRealModelName": [
+        "url:required"
       ]
     }
   },
@@ -102,10 +105,10 @@
   "testing": {
     "feature_tests": [
       "UserRegistrationTest",
-      "CreateShortenedUrlTest"
+      "CreatePostTest"
     ],
     "unit_tests": [
-      "ShortenedUrlStatusCalculationTest"
+      "PostStatusCalculationTest"
     ]
   }
 }

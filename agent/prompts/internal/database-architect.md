@@ -1317,7 +1317,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ## 🎯 SKILL REGISTRY (Auto-Injected)
 > Skills ini diinjeksikan secara otomatis berdasarkan kecocokan domain agent.
-> Total: 147 skills matched untuk agent "database-architect"
+> Total: 153 skills matched untuk agent "database-architect"
 
 ### 📦 SKILL: knowledge-liaison
 > SKILL: KNOWLEDGE-SKILL LIAISON (Synapse Protocol)
@@ -1414,6 +1414,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 ### 📦 SKILL: brandkit
 > Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems. Optimized for intentional logo concepting, refined composition, sparse typography, strong symbolic meaning, premium mockups, art-directed imagery, and flexible grid layouts.
 > Source: `.agents/skills/brandkit/SKILL.md`
+
+### 📦 SKILL: database-schema-optimizer
+> Validates and optimizes database schema definitions in NEXUS blueprints. Enforces correct column types, indexing strategies, foreign key constraints, cascade behaviors, inverse relationships, and anti-pattern detection — ensuring every schema is query-efficient and referentially sound before blueprint finalization.
+> Source: `.agents/skills/database-schema-optimizer/SKILL.md`
+
+### 📦 SKILL: domain-driven-design-thinker
+> Forces the AI to perform deep domain analysis before generating any blueprint or architecture. Identifies core features, user flows, data requirements, and integration needs specific to the application's domain — eliminating generic CRUD placeholders and ensuring every element in the blueprint is contextually justified.
+> Source: `.agents/skills/domain-driven-design-thinker/SKILL.md`
 
 ### 📦 SKILL: gpt-taste
 > Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive section spacing.
@@ -1883,9 +1891,17 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > WebMCP (Web Model Context Protocol)
 > Source: `agent/workflows/external/frontend/modern-web-guidance/guides/webmcp/webmcp.md`
 
+### 📦 SKILL: async-job-and-queue-architect
+> Designs and validates the asynchronous processing layer in NEXUS blueprints. Enforces proper separation of synchronous vs queued operations, defines Job classes with retry/backoff strategies, Event-Listener mappings, scheduled tasks (cron), and queue worker configurations — ensuring heavy processing never blocks the request cycle.
+> Source: `.agents/skills/async-job-and-queue-architect/SKILL.md`
+
 ### 📦 SKILL: design-taste-frontend
 > Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.
 > Source: `.agents/skills/design-taste-frontend/SKILL.md`
+
+### 📦 SKILL: devops-and-infrastructure-planner
+> Designs and validates the deployment, infrastructure, and DevOps layer in NEXUS blueprints. Enforces environment definitions (local/staging/production), Docker configurations, CI/CD pipeline design, server requirements, monitoring strategies, and backup plans — ensuring every blueprint includes a complete operational roadmap beyond just application code.
+> Source: `.agents/skills/devops-and-infrastructure-planner/SKILL.md`
 
 ### 📦 SKILL: full-output-enforcement
 > Overrides default LLM truncation behavior. Enforces complete code generation, bans placeholder patterns, and handles token-limit splits cleanly. Apply to any task requiring exhaustive, unabridged output.
@@ -1903,6 +1919,14 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 > Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.
 > Source: `.agents/skills/minimalist-ui/SKILL.md`
 
+### 📦 SKILL: qa-testing-strategist
+> Designs and validates the testing layer in NEXUS blueprints. Enforces scenario-based Feature Tests, domain-specific Unit Tests, edge case coverage, test naming conventions, and test data strategies — ensuring every blueprint has a comprehensive, actionable quality assurance plan before finalization.
+> Source: `.agents/skills/qa-testing-strategist/SKILL.md`
+
+### 📦 SKILL: security-and-acl-architect
+> Designs and validates the security, authentication, and authorization layers in NEXUS blueprints. Enforces role-permission hierarchies, route middleware mapping, policy definitions, rate limiting, input sanitization, and CSRF/XSS protections — ensuring every blueprint has a production-grade security posture before finalization.
+> Source: `.agents/skills/security-and-acl-architect/SKILL.md`
+
 ### 📦 SKILL: stitch-design-taste
 > Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.
 > Source: `.agents/skills/stitch-design-taste/SKILL.md`
@@ -1914,7 +1938,7 @@ The cycle repeats until an audit results in "Zero Flaws". This ensures that no t
 
 ### 📘 KNOWLEDGE: NEXUS_DISTILLATION_DATABASE.MD
 
-> **VERSION**: v28 | **Last Updated**: 7/7/2026
+> **VERSION**: v29 | **Last Updated**: 7/15/2026
 
 
 
@@ -2346,6 +2370,21 @@ Other Color DatasetsMunroe‘s
 
 ### 📄 Colorization Through Text-based Palette
 > **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 7/7/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
+
+## 🎓 DATABASE WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 Colorization Through Text-based Palette
+> **Origin**: `distilled/security/NEXUS_HYOJIN_BAHNG_COLORING_WITH_WORDS_ECCV_2018_PAPER.MD` | **Distilled At**: 7/15/2026
 
 
 
@@ -2896,7 +2935,7 @@ action has occurred.
 > **Origin**: `ui-ux/NEXUS_ANIMATE-TO-FROM-TOP-LAYER.MD` | **Distilled At**: 28/05/2026
 
 #### 💡 Content Summary:
-> **VERSION**: v32 | **Last Updated**: 7/7/2026
+> **VERSION**: v33 | **Last Updated**: 7/15/2026
 
 Elements that render in the "top layer" (like `<dialog>`, elements with the `popover` attribute, or tooltips) have historically been difficult to animate because they toggle between `display: none` and a visible state. Modern CSS provides `@starting-style`, `transition-behavior: allow-discrete`, and the `overlay` property to enable smooth entry and exit transitions for these elements. Note that native CSS nesting is used in the examples below.
 
@@ -6728,6 +6767,31 @@ action
 
 ---
 
+
+## 🎓 UI-UX WISDOM DISTILLATION [v0679] - 7/15/2026
+> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights
+
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `raw/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778660095718.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+### 📄 🎓 Specialist Audit: UX-ENGINEER
+> **Origin**: `operational/records/NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD` | **Distilled At**: 7/15/2026
+
+
+
+#### 🔗 Traceability:
+- [Source Context](NEXUS_REPORT_UX-ENGINEER_AUDIT-1778411549826.MD)
+- [Related Standards](NEXUS_CORE_PRINCIPLES.md)
+
+---
+
 ### 📘 KNOWLEDGE: NEXUS_NODE_MCP_SERVER.MD
 
 # Node/TypeScript MCP Server Implementation Guide
@@ -8080,33 +8144,6 @@ async def search_users(params: UserSearchInput) -> str:
             "offset": int,          # Current pagination offset
             "users": [
                 {
-                    "id": str,      # User ID (e.g., "U123456789")
-                    "name": str,    # Full name (e.g., "John Doe")
-                    "email": str,   # Email address (e.g., "john@example.com")
-                    "team": str     # Team name (e.g., "Marketing") - optional
-                }
-            ]
-        }
-
-        Error response:
-        "Error: <error message>" or "No users found matching '<query>'"
-
-    Examples:
-        - Use when: "Find all marketing team members" -> params with query="team:marketing"
-        - Use when: "Search for John's account" -> params with query="john"
-        - Don't use when: You need to create a user (use example_create_user instead)
-        - Don't use when: You have a user ID and need full details (use example_get_user instead)
-
-    Error Handling:
-        - Input validation errors are handled by Pydantic model
-        - Returns "Error: Rate limit exceeded" if too many requests (429 status)
-        - Returns "Error: Invalid API authentication" if API key is invalid (401 status)
-        - Returns formatted list of results or "No users found matching 'query'"
-    '''
-```
-
-## Complete Example
-
-See below for a 
+        
 
 ...[truncated]

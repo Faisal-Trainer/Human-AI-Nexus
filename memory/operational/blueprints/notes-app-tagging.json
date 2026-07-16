@@ -19,51 +19,49 @@
     "Note": {
       "title": "string",
       "content": "text",
+      "created_at": "datetime",
       "user_id": "integer"
     },
     "Tag": {
-      "name": "string"
+      "name": "string",
+      "created_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
     "create_notes_table",
-    "create_tags_table",
-    "create_user_tagging_table"
+    "create_tags_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "note-view",
-    "tag-view"
+    "note-list",
+    "note-create",
+    "note-edit",
+    "tag-list"
   ],
   "seeders": [
     "UserSeeder",
     "NoteSeeder",
-    "TagSeeder",
-    "UserTaggingSeeder"
+    "TagSeeder"
   ],
   "factories": [
     "UserFactory",
     "NoteFactory",
-    "TagFactory",
-    "UserTaggingFactory"
+    "TagFactory"
   ],
   "routes": [
     "/dashboard",
     "/notes",
     "/tags"
   ],
-  "pivot_tables": [
-    "user_tagging"
-  ],
+  "pivot_tables": [],
   "relationships": [
     {
-      "model": "User",
-      "type": "hasMany",
-      "target": "Note"
+      "model": "Note",
+      "type": "belongsTo",
+      "target": "User"
     },
     {
-      "model": "User",
+      "model": "Note",
       "type": "hasMany",
       "target": "Tag"
     },
@@ -71,7 +69,7 @@
       "model": "Note",
       "type": "belongsToMany",
       "target": "Tag",
-      "pivot": "user_tagging"
+      "pivot_table": "note_tag"
     }
   ],
   "presentation_layer": {
@@ -82,33 +80,40 @@
     ],
     "components": [
       {
-        "name": "post-list",
+        "name": "note-list",
         "state": [
-          "posts",
+          "notes",
           "searchQuery"
         ],
         "events_listened": [
-          "postCreated"
+          "noteCreated"
         ]
       },
       {
-        "name": "note-view",
+        "name": "note-create",
         "state": [
-          "note",
-          "user"
+          "note"
         ],
         "events_listened": [
-          "noteUpdated"
+          "noteCreated"
         ]
       },
       {
-        "name": "tag-view",
+        "name": "note-edit",
         "state": [
-          "tag",
-          "user"
+          "note"
         ],
         "events_listened": [
-          "tagUpdated"
+          "noteCreated"
+        ]
+      },
+      {
+        "name": "tag-list",
+        "state": [
+          "tags"
+        ],
+        "events_listened": [
+          "tagCreated"
         ]
       }
     ]
@@ -138,12 +143,10 @@
   "testing": {
     "feature_tests": [
       "UserRegistrationTest",
-      "CreateNoteTest",
-      "TagCreationTest"
+      "CreateNoteTest"
     ],
     "unit_tests": [
-      "NoteStatusCalculationTest",
-      "TagValidationTest"
+      "NoteStatusCalculationTest"
     ]
   }
 }

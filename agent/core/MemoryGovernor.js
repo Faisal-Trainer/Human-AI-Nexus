@@ -29,7 +29,8 @@ class MemoryGovernor {
      * @param {number} [timeoutMs=5000] - Max wait time before throwing.
      */
     async acquireLock(filename, timeoutMs = 5000) {
-        const lockFile = path.join(this.memoryPath, `${filename}.lock`);
+        const safeFilename = filename.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+        const lockFile = path.join(this.memoryPath, `${safeFilename}.lock`);
         const start = Date.now();
         const STALE_THRESHOLD_MS = 30000; // Lock lebih dari 30 detik = stale
 
@@ -77,7 +78,8 @@ class MemoryGovernor {
     }
 
     async releaseLock(filename) {
-        const lockFile = path.join(this.memoryPath, `${filename}.lock`);
+        const safeFilename = filename.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+        const lockFile = path.join(this.memoryPath, `${safeFilename}.lock`);
         if (await fs.pathExists(lockFile)) {
             await fs.remove(lockFile);
         }

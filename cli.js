@@ -28,6 +28,10 @@ async function main() {
     "dlq",
     "sandbox",
     "train",
+    "vault",
+    "dataset",
+    "blueprint",
+    "lessons",
     "help",
   ];
 

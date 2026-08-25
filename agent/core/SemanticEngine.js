@@ -18,6 +18,7 @@ class SemanticEngine {
     this.baseUrl = 'http://localhost:11434/api';
     this.ollamaFailures = 0;
     this.useNewEmbedAPI = true; // Ollama v0.24+ uses /api/embed instead of /api/embeddings
+    this.additionalPaths = []; // 🧠 Support for Obsidian Vault dual-indexing
 
     // Domain vocabulary untuk TALL Stack context
     this.domainVocab = {
@@ -158,6 +159,15 @@ class SemanticEngine {
   }
 
   /**
+   * Add additional path (like Obsidian Vault) for dual-source indexing.
+   */
+  addAdditionalPath(extraPath) {
+    if (extraPath && !this.additionalPaths.includes(extraPath)) {
+      this.additionalPaths.push(extraPath);
+    }
+  }
+
+  /**
    * Build TF-IDF index dari semua file di knowledge HUB
    * Dipanggil sekali saat startup atau setelah distill
    */
@@ -187,22 +197,54 @@ class SemanticEngine {
     this.tfidf = new natural.TfIdf(); // Reset
     this.fileIndex = [];
 
-    const glob = require("glob");
-    const files = glob.sync("**/*.{md,MD}", {
-      cwd: this.knowledgePath,
+    const fg = require("fast-glob");
+    
+    // 1. Scan Local Memory
+    const localFiles = fg.sync("**/*.{md,MD}", {
+      cwd: this.knowledgePath.replace(/\\/g, "/"),
       ignore: [
         "NEXUS_HUB_INDEX.md",
         "NEXUS_NEURAL_MAP.md",
+        "INDEX_NEURAL_MAP.md",
         "NEXUS_SEMANTIC_INDEX.json",
+        "short_term/**",
+        "cache/**",
+        "operational/indexes/**",
+        "references/**"
       ],
-      nodir: true,
-    });
+      onlyFiles: true,
+    }).map(f => ({ file: f, fullPath: path.join(this.knowledgePath, f), source: "local" }));
+
+    // 2. Scan Vault Paths
+    const vaultFiles = [];
+    for (const extraPath of this.additionalPaths) {
+        const vFiles = fg.sync("**/*.{md,MD}", {
+            cwd: extraPath.replace(/\\/g, "/"),
+            ignore: ["**/node_modules/**", "**/.obsidian/**", "**/*MOC*"],
+            onlyFiles: true,
+        }).map(f => ({ file: f, fullPath: path.join(extraPath, f), source: "obsidian-vault" }));
+        vaultFiles.push(...vFiles);
+    }
+
+    // Merge and deduplicate (local takes priority)
+    const seenBasenames = new Set();
+    const allFiles = [];
+    
+    for (const item of localFiles) {
+        seenBasenames.add(path.basename(item.file).toLowerCase());
+        allFiles.push(item);
+    }
+    for (const item of vaultFiles) {
+        if (!seenBasenames.has(path.basename(item.file).toLowerCase())) {
+            seenBasenames.add(path.basename(item.file).toLowerCase());
+            allFiles.push(item);
+        }
+    }
 
     let embeddedCount = 0;
-    for (const file of files) {
-      const filePath = path.join(this.knowledgePath, file);
+    for (const entry of allFiles) {
       try {
-        const content = await fs.readFile(filePath, "utf8");
+        const content = await fs.readFile(entry.fullPath, "utf8");
         const cleaned = this.cleanContent(content);
 
         this.tfidf.addDocument(cleaned);
@@ -218,10 +260,11 @@ class SemanticEngine {
 
         this.fileIndex.push({
           index: this.fileIndex.length,
-          file: file,
-          path: filePath,
+          file: entry.file,
+          path: entry.fullPath,
           tags: this.extractMultiTags(content),
-          embedding: embedding
+          embedding: embedding,
+          source: entry.source
         });
       } catch (e) {
         // Skip file yang tidak bisa dibaca

@@ -389,6 +389,138 @@ async function main() {
       rl.close();
       break;
     }
+    case "vault": {
+      console.log("\x1b[36m%s\x1b[0m", "\n🏛️ NEXUS Obsidian Vault Status");
+      console.log("==========================================");
+      const vStats = await engine.obsidianBridge.getVaultStats();
+      if (!vStats.connected) {
+        console.log("\x1b[33m%s\x1b[0m", `⚠️ Vault is not connected or path not found: ${vStats.vaultPath}`);
+        console.log("Pastikan konfigurasi .nexus-vault.json sudah sesuai.");
+      } else {
+        console.log(`📍 Vault Path    : ${vStats.vaultPath}`);
+        console.log(`🔗 Connection    : \x1b[32mACTIVE / CONNECTED\x1b[0m`);
+        console.log("\n📁 BLUEPRINT Folders:");
+        console.log(`   ├─ 🆕 new/        : ${vStats.blueprints.new} blueprints`);
+        console.log(`   ├─ 📦 archive/    : ${vStats.blueprints.archive} historical versions`);
+        console.log(`   ├─ 🚀 100 project/: ${vStats.blueprints["100_project"]} active sandbox blueprints`);
+        console.log(`   └─ 🤖 3 qwen/     : ${vStats.blueprints["3_qwen"]} model dataset entries`);
+        console.log(`   📊 Total Files    : ${vStats.blueprints.total} blueprints`);
+        console.log("\n🧪 CUDA / Colab Training Dataset:");
+        console.log(`   ├─ Samples Count  : ${vStats.dataset.samples} conversations`);
+        console.log(`   ├─ File Size      : ${(vStats.dataset.jsonlBytes / 1024).toFixed(1)} KB`);
+        console.log(`   └─ Colab Ready    : ${vStats.dataset.colabReady ? "\x1b[32mYES\x1b[0m" : "\x1b[33mNO (Belum ada data)\x1b[0m"}`);
+        console.log("\n🧠 Self-Correction Knowledge:");
+        console.log(`   └─ Lessons Stored : ${vStats.lessonsCount} files in NEXUS LESSONS/`);
+      }
+      console.log("==========================================\n");
+      rl.close();
+      break;
+    }
+    case "dataset": {
+      console.log("\x1b[36m%s\x1b[0m", "\n📊 NEXUS CUDA Training Dataset Analytics");
+      console.log("==========================================");
+      const bpVault = engine.obsidianBridge.getBlueprintVaultPath();
+      const jsonlPath = bpVault ? path.join(bpVault, "3 qwen", "colab_cuda_training_dataset.jsonl") : null;
+
+      if (jsonlPath && (await fs.pathExists(jsonlPath))) {
+        const content = await fs.readFile(jsonlPath, "utf8");
+        const lines = content.split("\n").filter((l) => l.trim());
+        const totalChars = content.length;
+        const estTokens = Math.round(totalChars / 4);
+
+        console.log(`📍 Dataset Path   : ${jsonlPath}`);
+        console.log(`📦 Format         : JSONL (ChatML / OpenAI / LLaMA-3 Format)`);
+        console.log(`🎯 Target Platform: Google Colab + CUDA (Unsloth / Axolotl / LoRA)`);
+        console.log(`📝 Total Samples  : ${lines.length} conversations`);
+        console.log(`🔤 Approx Tokens  : ~${estTokens.toLocaleString()} tokens`);
+        console.log(`💾 Disk Size      : ${(totalChars / 1024).toFixed(1)} KB`);
+        console.log("\n🚀 Cara Training di Google Colab:");
+        console.log("   1. Buka file colab_cuda_training_dataset.jsonl di vault.");
+        console.log("   2. Upload ke Google Colab runtime GPU (T4 / A100 / L4).");
+        console.log("   3. Load dengan Unsloth: `FastLanguageModel.from_pretrained('Qwen/Qwen2.5-Coder-3B-Instruct')`.");
+      } else {
+        console.log("⚠️ Dataset belum terisi. Jalankan sandbox: `nexus sandbox` untuk generate data.");
+      }
+      console.log("==========================================\n");
+      rl.close();
+      break;
+    }
+    case "blueprint": {
+      const projectName = args[1];
+      const bpVault = engine.obsidianBridge.getBlueprintVaultPath();
+
+      if (!projectName) {
+        console.log("\x1b[36m%s\x1b[0m", "\n📋 Available Blueprints in Vault (new/):");
+        if (bpVault) {
+          const newDir = path.join(bpVault, "new");
+          if (await fs.pathExists(newDir)) {
+            const files = (await fs.readdir(newDir)).filter((f) => f.endsWith(".json"));
+            if (files.length === 0) {
+              console.log("   (Belum ada blueprint di folder new/)");
+            } else {
+              files.forEach((f) => console.log(`   📄 ${f.replace(".json", "")}`));
+            }
+          }
+        }
+        console.log("\n💡 Untuk melihat detail arsitektur: nexus blueprint <nama_project>\n");
+      } else {
+        let bpFile = bpVault ? path.join(bpVault, "new", `${projectName}.json`) : null;
+        if (!bpFile || !(await fs.pathExists(bpFile))) {
+          bpFile = path.join(process.cwd(), "tests", "sandboxes", projectName, "NEXUS_BLUEPRINT.json");
+        }
+        if (!bpFile || !(await fs.pathExists(bpFile))) {
+          bpFile = path.join(process.cwd(), "memory", "operational", "blueprints", `${projectName}.json`);
+        }
+
+        if (await fs.pathExists(bpFile)) {
+          const bp = await fs.readJson(bpFile);
+          console.log("\x1b[36m%s\x1b[0m", `\n🏗️ Blueprint Preview: ${bp.project_name || projectName}`);
+          console.log("==========================================");
+          console.log(`📦 Models         : ${(bp.models || []).join(", ")}`);
+          console.log(`🗄️ Migrations      : ${(bp.migrations || []).join(", ")}`);
+          console.log(`⚡ Livewire UI    : ${(bp.livewire_components || []).join(", ")}`);
+          console.log(`🌐 Routes         : ${(bp.routes || []).join(", ")}`);
+          console.log(`🌱 Seeders        : ${(bp.seeders || []).join(", ")}`);
+          console.log(`🏭 Factories      : ${(bp.factories || []).join(", ")}`);
+          if (bp.relationships && bp.relationships.length > 0) {
+            console.log("🔗 Relationships  :");
+            bp.relationships.forEach((r) => console.log(`   - ${r.model} --[${r.type}]--> ${r.target}`));
+          }
+          console.log("==========================================\n");
+        } else {
+          console.log(`❌ Blueprint untuk project "${projectName}" tidak ditemukan.`);
+        }
+      }
+      rl.close();
+      break;
+    }
+    case "lessons": {
+      console.log("\x1b[36m%s\x1b[0m", "\n🧠 NEXUS Self-Correction Lessons & Wisdom");
+      console.log("==========================================");
+      const lessonDir = engine.obsidianBridge.isActive()
+        ? path.join(engine.obsidianBridge.vaultPath, "NEXUS AI", "NEXUS LESSONS")
+        : null;
+
+      const localDir = engine.knowledgePath;
+      const fg = require("fast-glob");
+
+      const localLessons = await fg("**/NEXUS_LESSON_*.md", {
+        cwd: localDir.replace(/\\/g, "/"),
+        onlyFiles: true,
+      });
+
+      console.log(`📁 Local Memory Lessons   : ${localLessons.length} files`);
+      localLessons.slice(0, 10).forEach((f) => console.log(`   📄 ${path.basename(f)}`));
+
+      if (lessonDir && (await fs.pathExists(lessonDir))) {
+        const vaultLessons = (await fs.readdir(lessonDir)).filter((f) => f.endsWith(".md"));
+        console.log(`\n🔗 Obsidian Vault Lessons: ${vaultLessons.length} files`);
+        vaultLessons.slice(0, 10).forEach((f) => console.log(`   📄 ${f}`));
+      }
+      console.log("==========================================\n");
+      rl.close();
+      break;
+    }
     case "help":
     default:
       console.log(`
@@ -397,8 +529,12 @@ Usage:
   nexus run [target]  - Start a full Audit -> Plan -> Execute cycle (on whole project or specific target folder)
   nexus audit [target]- Run only the Audit phase (on whole project or specific target folder)
   nexus status        - Show real-time system health (CPU, RAM, agents, evolution)
+  nexus vault         - 🆕 Show Obsidian Vault status & Blueprint counts (new, archive, 100 project, 3 qwen)
+  nexus dataset       - 🆕 Analytics for Colab CUDA fine-tuning dataset in 3 qwen/
+  nexus blueprint [p] - 🆕 Inspect & preview project architecture blueprint
+  nexus lessons       - 🆕 View self-correction lessons learned from automated TDD feedback
   nexus dlq           - View Dead Letter Queue (permanently failed tasks)
-  nexus sandbox       - 🆕 Run all 100 sandbox projects autonomously
+  nexus sandbox       - Run all 100 sandbox projects autonomously
   nexus sandbox --section <1-10> - Run a specific Section only
   nexus sandbox --distill     - Run all + distill knowledge to HUB
   nexus harvest <dir> - Harvest Nexus docs from another project to Golden HUB
@@ -410,9 +546,7 @@ Usage:
   nexus forge <name> <file> - Forge a new machine from wisdom file
   nexus think <query> - Ask local AI for architectural advice
   nexus review <file> - Review specific code using local AI
-  nexus train         - 🆕 Train custom LoRA model from Nexus dataset → GGUF
-  nexus train --rank 16 --epochs 3 --cpu  - Train on CPU (no GPU required)
-  nexus train --base-model qwen.gguf --output my-model.gguf
+  nexus train         - Train custom LoRA model from Nexus dataset → GGUF
   nexus help          - Show this help
             `);
       rl.close();

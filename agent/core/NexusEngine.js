@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const crypto = require("crypto");
 const { spawn } = require("child_process");
 const { AuditReport, ImplementationPlan } = require("./Contract");
 const Modifier = require("./Modifier");
@@ -35,6 +36,7 @@ const NexusError = require("./NexusError");
 const CoreUtils = require("./phases/CoreUtils");
 const ParallelRunner = require("./ParallelRunner");
 const NativeBridge = require("./NativeBridge");
+const ObsidianBridge = require("./ObsidianBridge");
 
 const AuditPhase = require("./phases/AuditPhase");
 const PlanningPhase = require("./phases/PlanningPhase");
@@ -54,10 +56,67 @@ const STATES = {
   FAILED: "FAILED",
 };
 
+function deepMergeBlueprint(base, enhancement) {
+  if (!enhancement) return base;
+  const result = { ...base };
+  
+  const deterministicStringify = (obj) => {
+    if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
+    if (Array.isArray(obj)) return `[${obj.map(deterministicStringify).join(',')}]`;
+    const sortedKeys = Object.keys(obj).sort();
+    let str = '{';
+    for (let i = 0; i < sortedKeys.length; i++) {
+      const k = sortedKeys[i];
+      str += `"${k}":${deterministicStringify(obj[k])}`;
+      if (i < sortedKeys.length - 1) str += ',';
+    }
+    str += '}';
+    return str;
+  };
+
+  for (const key in enhancement) {
+    if (Array.isArray(enhancement[key])) {
+      const combined = [...(base[key] || []), ...enhancement[key]];
+      const unique = [];
+      const seen = new Set();
+      for (const item of combined) {
+        const identifier = typeof item === 'object' && item !== null ? deterministicStringify(item) : item;
+        if (!seen.has(identifier)) {
+          seen.add(identifier);
+          unique.push(item);
+        }
+      }
+      result[key] = unique;
+    } else if (typeof enhancement[key] === "object" && enhancement[key] !== null) {
+      result[key] = deepMergeBlueprint(base[key] || {}, enhancement[key]);
+    } else {
+      result[key] = enhancement[key];
+    }
+  }
+  return result;
+}
+
 /**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
  */
 class NexusEngine {
+  // ⚡ OPTIMIZATION: Static caches shared across all NexusEngine instances
+  // Persists across 100 sandbox projects within the same process
+  static _globalMemoryCache = null;
+  static _globalMemoryCacheExpiry = 0;
+  static _skillContentCache = null;
+
+  getEngineRoot() {
+    let currentDir = path.resolve(this.rootPath);
+    while (currentDir !== path.parse(currentDir).root) {
+      if (fs.existsSync(path.join(currentDir, "agent", "core", "NexusEngine.js"))) {
+         return currentDir;
+      }
+      currentDir = path.resolve(currentDir, "..");
+    }
+    return path.resolve(process.cwd());
+  }
+
   constructor(config = {}) {
     this.rootPath = config.rootPath || process.cwd();
 
@@ -178,6 +237,17 @@ class NexusEngine {
     this.semanticEngine = new SemanticEngine(this.knowledgePath);
     this.localAI = localAI;
     this.agentRegistry = AgentRegistry;
+
+    // 🧠 OBSIDIAN VAULT BRIDGE — Read-only knowledge integration
+    this.obsidianBridge = new ObsidianBridge(this.rootPath);
+    if (this.obsidianBridge.isActive()) {
+      this.log(`🔗 Obsidian Vault connected: ${this.obsidianBridge.vaultPath}`, "info");
+      // Pass vault knowledge paths to SemanticEngine for dual-source indexing
+      const vaultKnowledge = this.obsidianBridge.resolveSource("knowledge");
+      if (vaultKnowledge) {
+        this.semanticEngine.addAdditionalPath(vaultKnowledge);
+      }
+    }
 
     // Initialize Specialized Phases
     this.auditPhase = new AuditPhase(this);
@@ -313,6 +383,15 @@ class NexusEngine {
 
   async readMemory() {
     this.log("🧠 Accessing Memory HUB...", "info");
+
+    // ⚡ OPTIMIZATION: Use cached memory if available and fresh (within 10 minutes)
+    // Avoids 100× redundant vault scans + fast-glob during sandbox runs
+    if (NexusEngine._globalMemoryCache && Date.now() < NexusEngine._globalMemoryCacheExpiry) {
+      this.memory = NexusEngine._globalMemoryCache;
+      this.log(`   ⚡ Memory loaded from cache (${this.memory.lessons.length} lessons)`, "success");
+      return this.memory;
+    }
+
     try {
       const sessionPath = path.join(
         this.rootPath,
@@ -323,31 +402,57 @@ class NexusEngine {
       await fs.ensureDir(sessionPath);
       await fs.ensureDir(this.knowledgePath);
       const records = await fs.readdir(sessionPath);
-      const fg = require("fast-glob");
-      const lessons = await fg("**/*.{md,MD}", {
-        cwd: this.knowledgePath.replace(/\\/g, "/"),
-        ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
-        onlyFiles: true,
-      });
-      const semanticIndex = {};
-      for (const file of lessons) {
-        const tags = await this.getSemanticTags(
-          path.join(this.knowledgePath, file),
+
+      // 🧠 OBSIDIAN BRIDGE: Merge local + vault knowledge files
+      let allLessons = [];
+      if (this.obsidianBridge.isActive()) {
+        const merged = await this.obsidianBridge.getMergedFiles(
+          this.knowledgePath,
+          "knowledge",
+          ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
         );
+        allLessons = merged;
+        this.log(
+          `   🔗 Vault merge: ${merged.filter(f => f.source === "obsidian-vault").length} vault + ${merged.filter(f => f.source === "local").length} local files`,
+          "info",
+        );
+      } else {
+        const fg = require("fast-glob");
+        const localFiles = await fg("**/*.{md,MD}", {
+          cwd: this.knowledgePath.replace(/\\/g, "/"),
+          ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
+          onlyFiles: true,
+        });
+        allLessons = localFiles.map(f => ({
+          file: f,
+          fullPath: path.join(this.knowledgePath, f),
+          source: "local",
+        }));
+      }
+
+      const semanticIndex = {};
+      const lessonNames = [];
+      for (const entry of allLessons) {
+        const tags = await this.getSemanticTags(entry.fullPath);
         tags.forEach((tag) => {
           if (!semanticIndex[tag]) semanticIndex[tag] = [];
-          semanticIndex[tag].push(file);
+          semanticIndex[tag].push(entry.file);
         });
+        lessonNames.push(entry.file);
       }
       this.memory = {
         pastCycles: records.length,
-        lessons: lessons,
+        lessons: lessonNames,
         semanticIndex: semanticIndex,
       };
       this.log(
-        `✅ Memory loaded: ${lessons.length} lessons indexed.`,
+        `✅ Memory loaded: ${lessonNames.length} lessons indexed.`,
         "success",
       );
+
+      // Cache for subsequent projects (10 min TTL)
+      NexusEngine._globalMemoryCache = this.memory;
+      NexusEngine._globalMemoryCacheExpiry = Date.now() + 600000;
     } catch (e) {
       this.log(`⚠️ Memory access issue: ${e.message}.`, "warning");
       this.memory = { pastCycles: 0, lessons: [], semanticIndex: {} };
@@ -531,24 +636,30 @@ class NexusEngine {
     }
   }
 
+  async _preloadSkillContents(skillNames) {
+    if (NexusEngine._skillContentCache) return NexusEngine._skillContentCache;
+
+    const cache = {};
+    const engineRoot = this.getEngineRoot();
+    for (const name of skillNames) {
+      const skillPath = path.join(engineRoot, ".agents", "skills", name, "SKILL.md");
+      if (await fs.pathExists(skillPath)) {
+        cache[name] = await fs.readFile(skillPath, "utf8");
+      }
+    }
+    NexusEngine._skillContentCache = cache;
+    this.log(`   ⚡ Preloaded ${Object.keys(cache).length}/${skillNames.length} skill contents into memory cache.`, "info");
+    return cache;
+  }
+
   async blueprintApp(options = {}) {
     this.log(`🏗️ Phase 0.5: Blueprint & Scaffolding...`, "info");
     const readmePath = path.join(this.rootPath, "README.md");
     const blueprintPath = path.join(this.rootPath, "NEXUS_BLUEPRINT.json");
 
-    // Opsi A: Selalu regenerate blueprint untuk memastikan arsitektur up-to-date
-    if (await fs.pathExists(blueprintPath)) {
-      this.log(
-        `   🔄 Blueprint exists — regenerating for freshness (Opsi A)...`,
-        "info",
-      );
-    }
-
     const projectName = path.basename(this.rootPath);
     const globalCacheDir = path.join(
-      __dirname,
-      "..",
-      "..",
+      this.getEngineRoot(),
       "memory",
       "operational",
       "blueprints",
@@ -581,6 +692,37 @@ class NexusEngine {
           return;
         }
       } catch (_) {}
+    }
+
+    // ⚡ SMART CACHE: Skip LLM generation if cached blueprint exists and README has not changed
+    const readmeHash = crypto.createHash("md5").update(readmeContent).digest("hex");
+    if (!options.forceRegen && (await fs.pathExists(cachePath))) {
+      try {
+        const cached = await fs.readJson(cachePath);
+        if (cached && cached._readmeHash === readmeHash && cached.models && cached.schema) {
+          this.log(
+            `   ⚡ Blueprint cache HIT for ${projectName} (README unchanged) — skipping regeneration.`,
+            "success",
+          );
+          await fs.writeJson(blueprintPath, cached, { spaces: 2 });
+
+          // 🧠 Sync cached blueprint to Obsidian Vault (100 project & new)
+          if (this.obsidianBridge && this.obsidianBridge.isActive()) {
+            await this.obsidianBridge.saveBlueprint(projectName, cached, {
+              readmeContent,
+              isSandboxProject: true,
+            });
+          }
+          return;
+        }
+      } catch (_) {}
+    }
+
+    if (await fs.pathExists(blueprintPath)) {
+      this.log(
+        `   🔄 Blueprint regeneration started for ${projectName}...`,
+        "info",
+      );
     }
 
     const prompt = `You are a Senior Software Architect. We are building a Laravel TALL Stack application.
@@ -616,40 +758,11 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
 }`;
     let response = "";
     try {
-      this.log(
-        `   🧠 Routing Blueprint generation to Ollama (kimi-k2.6:cloud)...`,
-        "info",
-      );
-      const systemPrompt =
-        "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
-      const payload = {
-        model: "kimi-k2.6:cloud",
-        prompt: `${systemPrompt}\n\n${prompt}`,
-        stream: false,
-        options: { temperature: 0.7, num_ctx: 8192 },
-      };
-      const headers = { "Content-Type": "application/json" };
-      if (process.env.KIMI_API_KEY) {
-        headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
-      }
-
-      const res = await fetch("http://127.0.0.1:11434/api/generate", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        response = data.response;
-      } else {
-        throw new Error(`Ollama HTTP ${res.status}`);
-      }
+      this.log(`   🧠 Routing Base Blueprint generation to LocalIntelligence...`, "info");
+      const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
+      response = await localAI.generate(prompt, "generate_architecture", systemPrompt);
     } catch (e) {
-      this.log(
-        `   ⚠️ Ollama kimi-k2.6:cloud failed: ${e.message}. Falling back to localAI...`,
-        "warning",
-      );
-      response = await localAI.generate(prompt, "generate_architecture");
+      this.log(`   ⚠️ Local model failed: ${e.message}`, "warning");
     }
 
     if (!response) return;
@@ -658,93 +771,107 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       let blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
 
-      // --- ARCHITECTURE COUNCIL LOGIC ---
-      const architectureSkills = [
-        "nexus-blueprint-architect", // Base architecture
-        "database-schema-optimizer", // DB relations & schema
-        "livewire-state-planner", // State & components
-        "security-and-acl-architect", // Roles & policies
-        "laravel-route-architect", // Routing
-        "api-and-integration-designer", // Third-party API
-        "async-job-and-queue-architect", // Jobs & queues
-        "devops-and-infrastructure-planner", // CI/CD & environments
-        "qa-testing-strategist", // Test plans
+      // --- ARCHITECTURE COUNCIL LOGIC (CONSOLIDATED BATCHES) ---
+      // Consolidated from 12 individual sequential LLM calls into 3 logical layer super-prompts:
+      // Batch 1: Foundation (Domain Analysis + Blueprint Architecture + DB Schema Optimizer)
+      // Batch 2: Frontend & Routing (Livewire State Planner + Laravel Routes + Route Reference & Rules)
+      // Batch 3: Hardening & Ecosystem (Security/ACL + API/Integration + Async Jobs + DevOps + QA Testing)
+      const batches = [
+        {
+          name: "Foundation Layer (Domain, Blueprint, DB Schema)",
+          skills: [
+            "domain-driven-design-thinker",
+            "nexus-blueprint-architect",
+            "database-schema-optimizer",
+          ],
+        },
+        {
+          name: "Frontend & Routing Layer (Livewire, Route Architect, Rules)",
+          skills: [
+            "livewire-state-planner",
+            "laravel-route-architect",
+            "nexus-route-laravel",
+            "laravel-livewire-route-generator",
+          ],
+        },
+        {
+          name: "Hardening & Ecosystem Layer (Security, API, Jobs, DevOps, QA)",
+          skills: [
+            "security-and-acl-architect",
+            "api-and-integration-designer",
+            "async-job-and-queue-architect",
+            "devops-and-infrastructure-planner",
+            "qa-testing-strategist",
+          ],
+        },
       ];
 
-      for (const skillName of architectureSkills) {
+      const allSkillNames = batches.flatMap((b) => b.skills);
+      const skillCache = await this._preloadSkillContents(allSkillNames);
+
+      let appliedBatches = 0;
+      for (const batch of batches) {
         try {
-          const architectSkillPath = path.join(
-            __dirname,
-            "..",
-            "..",
-            ".agents",
-            "skills",
-            skillName,
-            "SKILL.md",
-          );
-          if (await fs.pathExists(architectSkillPath)) {
+          const combinedRules = batch.skills
+            .map((s) => skillCache[s])
+            .filter(Boolean)
+            .join("\n\n---\n\n");
+
+          if (!combinedRules) {
             this.log(
-              `   🏗️ Invoking '${skillName}' skill for enhancement...`,
-              "info",
+              `   ⏭️ Skipping batch [${batch.name}] (no skill definitions found)`,
+              "warning",
             );
-            const skillRules = await fs.readFile(architectSkillPath, "utf8");
-            const enhancementPrompt = `
-${skillRules}
+            continue;
+          }
+
+          this.log(`   🏗️ Invoking Council Batch: ${batch.name}...`, "info");
+          const enhancementPrompt = `
+${combinedRules}
 
 Here is the current blueprint:
 \`\`\`json
 ${JSON.stringify(blueprint, null, 2)}
 \`\`\`
 
-Enhance it based on your rules and output STRICTLY a valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON.
+Enhance it based on your architectural rules and output STRICTLY a valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON.
 `;
-            let enhancedResponse = "";
-            try {
-              const payload = {
-                model: "kimi-k2.6:cloud",
-                prompt: enhancementPrompt,
-                stream: false,
-                options: { temperature: 0.5, num_ctx: 8192 },
-              };
-              const headers = { "Content-Type": "application/json" };
-              if (process.env.KIMI_API_KEY)
-                headers["Authorization"] = `Bearer ${process.env.KIMI_API_KEY}`;
-              const res = await fetch("http://127.0.0.1:11434/api/generate", {
-                method: "POST",
-                headers,
-                body: JSON.stringify(payload),
-              });
-              if (res.ok) enhancedResponse = (await res.json()).response;
-              else throw new Error(`Ollama HTTP ${res.status}`);
-            } catch (e) {
-              this.log(
-                `   ⚠️ Ollama architect failed: ${e.message}. Falling back to localAI...`,
-                "warning",
-              );
-              enhancedResponse = await localAI.generate(
-                enhancementPrompt,
-                "enhance_architecture",
-              );
-            }
+          let enhancedResponse = "";
+          try {
+            this.log(`   🧠 Invoking architect council batch via LocalIntelligence...`, "info");
+            enhancedResponse = await localAI.generate(
+              enhancementPrompt,
+              "enhance_architecture",
+              "You are an elite architect council. Output ONLY valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON."
+            );
+          } catch (e) {
+            this.log(`   ⚠️ Local architect batch failed: ${e.message}`, "warning");
+          }
 
-            if (enhancedResponse) {
-              const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
-              blueprint = JSON.parse(
-                jsonMatch2 ? jsonMatch2[0] : enhancedResponse,
-              );
-              this.log(
-                `   ✅ Blueprint successfully enhanced by ${skillName}.`,
-                "success",
-              );
-            }
+          if (enhancedResponse) {
+            const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
+            const enhancement = JSON.parse(
+              jsonMatch2 ? jsonMatch2[0] : enhancedResponse,
+            );
+            blueprint = deepMergeBlueprint(blueprint, enhancement);
+            appliedBatches++;
+            this.log(
+              `   ✅ Blueprint successfully enhanced by [${batch.name}].`,
+              "success",
+            );
           }
         } catch (err) {
           this.log(
-            `   ⚠️ Failed to apply ${skillName} skill: ${err.message}`,
+            `   ⚠️ Failed to apply batch [${batch.name}]: ${err.message}`,
             "warning",
           );
         }
       }
+
+      this.log(
+        `   ✅ Architecture Council batches applied: ${appliedBatches}/${batches.length}`,
+        "success",
+      );
       // --- END ARCHITECTURE COUNCIL LOGIC ---
 
       // Schema Validation (G2-02)
@@ -792,11 +919,38 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
         "",
       );
 
+      // Domain-specific schema validations
+      if (blueprint.project_name.includes("url-shortener") || blueprint.project_name.includes("url_shortener")) {
+        const hasRedirectRoute = blueprint.routes && blueprint.routes.some(r => r.includes("{shortCode}") || r.includes("{code}") || r.includes("{short_code}"));
+        if (!hasRedirectRoute) {
+           this.log(`   ⚠️ Domain Validation Warning: URL Shortener is missing a /{shortCode} redirect route. Injecting fallback...`, "warning");
+           blueprint.routes.push("/{shortCode}");
+        }
+      }
+
+      // Attach README hash for smart caching
+      blueprint._readmeHash = readmeHash;
+
       await fs.writeJson(blueprintPath, blueprint, { spaces: 2 });
 
       // Cache globally for future runs
       await fs.ensureDir(globalCacheDir);
       await fs.writeJson(cachePath, blueprint, { spaces: 2 });
+
+      // 🧠 VAULT SYNC: Save to Obsidian Vault (new, archive, 100 project, 3 qwen for CUDA Google Colab)
+      if (this.obsidianBridge && this.obsidianBridge.isActive()) {
+        const modelName = process.env.NEXUS_MODEL_NAME || "qwen2.5-coder-3b";
+        await this.obsidianBridge.saveBlueprint(projectName, blueprint, {
+          modelName,
+          readmeContent,
+          isSandboxProject: true,
+        });
+        this.log(
+          `   🧠 Blueprint synced to Obsidian Vault (new, archive, 100 project, 3 qwen for CUDA Colab).`,
+          "success",
+        );
+      }
+
       this.log(
         `   ✅ Blueprint generated, validated, and cached globally.`,
         "success",
@@ -1354,28 +1508,35 @@ Enhance it based on your rules and output STRICTLY a valid JSON representation o
       }
     }
 
-    // Source 3: memory/distilled/ (wisdom nodes)
-    if (await fs.pathExists(this.knowledgePath)) {
-      const normalizedDist = this.knowledgePath.replace(/\\/g, "/");
-      const distilledFiles = fg.sync("**/*.{md,MD}", {
-        cwd: normalizedDist,
-        ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
-        onlyFiles: true,
-      });
-      for (const file of distilledFiles) {
-        try {
-          const fullPath = path.join(this.knowledgePath, file);
-          const content = await fs.readFile(fullPath, "utf8");
-          const meta = this._extractSkillMeta(fullPath, content);
-          meta.sourceType = "distilled";
-          meta.relativePath = `memory/distilled/${file}`;
-          skills.push(meta);
-        } catch (err) {
-          this.log(
-            `   ⚠️ Failed to read distilled node ${file}: ${err.message}`,
-            "warning",
-          );
-        }
+    // Source 3: memory/distilled/ (wisdom nodes) — merged with Obsidian Vault
+    const mergedDistilled = this.obsidianBridge.isActive()
+      ? await this.obsidianBridge.getMergedFiles(
+          this.knowledgePath,
+          "knowledge",
+          ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
+        )
+      : (await fs.pathExists(this.knowledgePath))
+        ? fg.sync("**/*.{md,MD}", {
+            cwd: this.knowledgePath.replace(/\\/g, "/"),
+            ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
+            onlyFiles: true,
+          }).map(f => ({ file: f, fullPath: path.join(this.knowledgePath, f), source: "local" }))
+        : [];
+
+    for (const entry of mergedDistilled) {
+      try {
+        const content = await fs.readFile(entry.fullPath, "utf8");
+        const meta = this._extractSkillMeta(entry.fullPath, content);
+        meta.sourceType = entry.source === "obsidian-vault" ? "vault-knowledge" : "distilled";
+        meta.relativePath = entry.source === "obsidian-vault"
+          ? `vault://${entry.file}`
+          : `memory/distilled/${entry.file}`;
+        skills.push(meta);
+      } catch (err) {
+        this.log(
+          `   ⚠️ Failed to read distilled node ${entry.file}: ${err.message}`,
+          "warning",
+        );
       }
     }
 

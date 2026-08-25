@@ -1,58 +1,64 @@
 {
-  "project_name": "url-shortener-app",
-  "architecture_stack": {
-    "backend": "Laravel",
-    "frontend": "Livewire + Tailwind",
-    "database": "MySQL"
-  },
+  "project_name": "laravel-routing",
   "models": [
     "User",
-    "YourRealModelName"
+    "Url"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
+      "password": "string",
+      "is_admin": "boolean"
     },
-    "YourRealModelName": {
-      "url": "string",
+    "Url": {
       "shortened_url": "string",
-      "created_at": "datetime",
-      "updated_at": "datetime"
+      "original_url": "string",
+      "user_id": "unsignedBigInteger",
+      "clicks": "unsignedBigInteger|default:0",
+      "is_active": "boolean",
+      "expires_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_your_real_tables_table",
-    "create_shortened_urls_table"
+    "create_urls_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "your-real-component"
+    "home",
+    "your-real-component",
+    "url-result-card",
+    "url-list",
+    "url-analytics",
+    "url-creator"
   ],
   "seeders": [
     "UserSeeder",
-    "YourRealModelSeeder",
-    "ShortenedUrlSeeder"
+    "UrlSeeder"
   ],
   "factories": [
     "UserFactory",
-    "YourRealModelFactory",
-    "ShortenedUrlFactory"
+    "UrlFactory"
   ],
   "routes": [
     "/dashboard",
-    "/your-real-route"
+    "/your-real-route",
+    "/shorten",
+    "/url/{short_code}"
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "YourRealModelName"
+      "target": "Url"
     }
   ],
+  "architecture_stack": {
+    "backend": "Laravel",
+    "frontend": "Livewire + Tailwind",
+    "database": "MySQL"
+  },
   "presentation_layer": {
     "layouts": [
       "app",
@@ -61,23 +67,154 @@
     ],
     "components": [
       {
-        "name": "post-list",
+        "name": "home",
         "state": [
-          "posts",
+          "urls",
           "searchQuery"
         ],
         "events_listened": [
-          "postCreated"
+          "urlCreated"
         ]
       },
       {
-        "name": "your-real-component",
+        "name": "url-list",
         "state": [
-          "your-real-data"
+          "urls",
+          "searchQuery"
         ],
         "events_listened": [
-          "your-real-event"
+          "urlCreated"
         ]
+      },
+      {
+        "name": "url-result-card",
+        "state": [
+          "url",
+          "clicks"
+        ],
+        "events_listened": [
+          "urlClicked"
+        ]
+      },
+      {
+        "name": "url-creator",
+        "purpose": "Form to create a new shortened URL with optional custom alias and expiration",
+        "type": "form",
+        "state": {
+          "reactive": {
+            "longUrl": {
+              "type": "string",
+              "default": "",
+              "validation": "required|url|max:2048"
+            },
+            "customAlias": {
+              "type": "string",
+              "default": "",
+              "validation": "nullable|alpha_dash|max:20|unique:shortened_urls,short_code"
+            },
+            "expiresAt": {
+              "type": "string|null",
+              "default": null,
+              "validation": "nullable|date|after:now"
+            }
+          },
+          "computed": {
+            "isValidUrl": "Returns true if longUrl passes URL format check",
+            "aliasAvailable": "Returns true if customAlias is not taken (debounced check)"
+          }
+        },
+        "events_emitted": [
+          {
+            "name": "urlCreated",
+            "payload": [
+              "shortCode",
+              "originalUrl"
+            ],
+            "description": "Fired after a URL is successfully shortened"
+          }
+        ],
+        "events_listened": [],
+        "actions": [
+          {
+            "name": "createUrl",
+            "trigger": "form submit",
+            "description": "Validates input, generates short code, saves to DB, emits urlCreated"
+          }
+        ],
+        "lifecycle_hooks": {
+          "mount": "Initialize form defaults; load user preferences if authenticated"
+        }
+      },
+      {
+        "name": "url-list",
+        "purpose": "Displays a list of all shortened URLs with search/filter/sort/pagination",
+        "type": "list",
+        "state": {
+          "reactive": {
+            "urls": {
+              "type": "array",
+              "default": []
+            },
+            "searchQuery": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          "computed": {
+            "filteredUrls": "Filters urls based on search query"
+          }
+        },
+        "events_listened": [
+          "urlCreated",
+          "urlDeleted"
+        ]
+      },
+      {
+        "name": "url-result-card",
+        "purpose": "Shows detailed information about a single shortened URL",
+        "type": "detail",
+        "state": {
+          "reactive": {
+            "url": {
+              "type": "object",
+              "default": null
+            },
+            "clicks": {
+              "type": "unsignedBigInteger",
+              "default": 0
+            }
+          },
+          "computed": {
+            "isExpired": "Returns true if the URL has expired"
+          }
+        },
+        "events_listened": [
+          "urlClicked"
+        ]
+      },
+      {
+        "name": "url-analytics",
+        "purpose": "Displays analytics about the shortened URLs",
+        "type": "detail",
+        "state": {
+          "reactive": {
+            "urls": {
+              "type": "array",
+              "default": []
+            },
+            "dateRange": {
+              "type": "array",
+              "default": [
+                null,
+                null
+              ]
+            }
+          },
+          "computed": {
+            "analyticsData": "Calculates analytics based on date range"
+          }
+        },
+        "events_listened": []
       }
     ]
   },
@@ -91,10 +228,12 @@
     ],
     "validation_rules": {
       "User": [
-        "email:required|unique"
+        "email:required|unique",
+        "password:required"
       ],
-      "YourRealModelName": [
-        "url:required"
+      "Url": [
+        "shortened_url:required|unique",
+        "original_url:required"
       ]
     }
   },
@@ -105,10 +244,230 @@
   "testing": {
     "feature_tests": [
       "UserRegistrationTest",
-      "CreatePostTest"
+      "CreatePostTest",
+      {
+        "category": "Authentication",
+        "tests": [
+          {
+            "name": "GuestCanRegisterWithValidCredentials",
+            "scenario": "Submit registration form with valid name, email, password",
+            "assertions": [
+              "user exists in database",
+              "redirected to dashboard",
+              "session is authenticated"
+            ]
+          },
+          {
+            "name": "GuestCannotRegisterWithDuplicateEmail",
+            "scenario": "Submit registration with an email that already exists",
+            "assertions": [
+              "validation error returned",
+              "user not created"
+            ]
+          },
+          {
+            "name": "UserCanLoginWithCorrectCredentials",
+            "scenario": "Submit login form with valid email and password",
+            "assertions": [
+              "session is authenticated",
+              "redirected to dashboard"
+            ]
+          },
+          {
+            "name": "UserIsLockedOutAfter5FailedLogins",
+            "scenario": "Submit 5 incorrect login attempts from the same IP",
+            "assertions": [
+              "429 Too Many Requests returned",
+              "account not locked permanently"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Core Domain Action Tests",
+        "tests": [
+          {
+            "name": "AuthenticatedUserCanShortenAValidUrl",
+            "scenario": "POST /urls with a valid URL",
+            "assertions": [
+              "ShortenedUrl created in DB",
+              "short_code is 6 chars",
+              "response contains short URL"
+            ]
+          },
+          {
+            "name": "GuestCannotCreateUrlWithoutAuth",
+            "scenario": "POST /urls without authentication",
+            "assertions": [
+              "401 Unauthorized or redirect to login"
+            ]
+          },
+          {
+            "name": "ShortCodeRedirectsToOriginalUrl",
+            "scenario": "GET /{valid_short_code}",
+            "assertions": [
+              "302 redirect to original URL",
+              "click count incremented by 1"
+            ]
+          },
+          {
+            "name": "InvalidShortCodeReturns404",
+            "scenario": "GET /{nonexistent_code}",
+            "assertions": [
+              "404 Not Found"
+            ]
+          },
+          {
+            "name": "ExpiredShortCodeReturns410",
+            "scenario": "GET /{expired_short_code}",
+            "assertions": [
+              "410 Gone",
+              "click count NOT incremented"
+            ]
+          },
+          {
+            "name": "DeactivatedUrlReturns403",
+            "scenario": "GET /{deactivated_short_code}",
+            "assertions": [
+              "403 Forbidden or custom error page"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Authorization & Policy Tests",
+        "tests": [
+          {
+            "name": "UserCanOnlyViewOwnUrls",
+            "scenario": "GET /urls as User A, verify User B's URLs are not visible",
+            "assertions": [
+              "only own URLs returned",
+              "count matches own URL count"
+            ]
+          },
+          {
+            "name": "UserCannotDeleteOtherUsersUrl",
+            "scenario": "DELETE /urls/{other_users_url_id} as non-owner",
+            "assertions": [
+              "403 Forbidden",
+              "URL still exists in DB"
+            ]
+          },
+          {
+            "name": "AdminCanDeleteAnyUrl",
+            "scenario": "DELETE /urls/{any_url_id} as admin",
+            "assertions": [
+              "URL deleted successfully",
+              "200 or 204 response"
+            ]
+          }
+        ]
+      }
     ],
     "unit_tests": [
-      "PostStatusCalculationTest"
-    ]
+      "PostStatusCalculationTest",
+      {
+        "category": "Short Code Generation",
+        "tests": [
+          {
+            "name": "ShortCodeIsExactly6Characters",
+            "method_under_test": "ShortCodeGenerator::generate()",
+            "scenario": "Generate a short code without custom alias",
+            "assertions": [
+              "length is exactly 6",
+              "contains only alphanumeric characters"
+            ]
+          },
+          {
+            "name": "ShortCodeIsUniqueAcrossMultipleGenerations",
+            "method_under_test": "ShortCodeGenerator::generate()",
+            "scenario": "Generate 1000 short codes",
+            "assertions": [
+              "all codes are unique",
+              "no collisions"
+            ]
+          },
+          {
+            "name": "CustomAliasIsUsedWhenProvided",
+            "method_under_test": "ShortCodeGenerator::generate(alias: 'my-link')",
+            "scenario": "Generate with a custom alias",
+            "assertions": [
+              "returned code equals 'my-link'"
+            ]
+          }
+        ]
+      }
+    ],
+    "edge_case_tests": [
+      {
+        "category": "Edge Cases",
+        "tests": [
+          {
+            "name": "UrlWithMaxLength2048CharsIsAccepted",
+            "scenario": "Submit a URL that is exactly 2048 characters long",
+            "assertions": [
+              "URL is accepted and shortened successfully"
+            ]
+          },
+          {
+            "name": "UrlWith2049CharsIsRejected",
+            "scenario": "Submit a URL that is 2049 characters long",
+            "assertions": [
+              "422 validation error with max length message"
+            ]
+          },
+          {
+            "name": "ConcurrentClicksOnSameUrlAreCountedAccurately",
+            "scenario": "Simulate 100 simultaneous redirect requests to the same short code",
+            "assertions": [
+              "final click count equals previous + 100",
+              "no lost increments"
+            ]
+          },
+          {
+            "name": "UrlExpiresAtExactExpirationTimestamp",
+            "scenario": "Access a URL at the exact second of its expires_at value",
+            "assertions": [
+              "URL is treated as expired (410 Gone)"
+            ]
+          },
+          {
+            "name": "JavascriptProtocolUrlIsRejected",
+            "scenario": "Submit 'javascript:alert(1)' as the URL",
+            "assertions": [
+              "422 validation error",
+              "URL not stored"
+            ]
+          },
+          {
+            "name": "SpecialCharactersInUrlAreHandled",
+            "scenario": "Submit URL with query params, fragments, unicode characters",
+            "assertions": [
+              "URL stored and redirected correctly"
+            ]
+          }
+        ]
+      }
+    ],
+    "test_data_strategy": {
+      "factories": {
+        "ShortenedUrl": {
+          "default_state": "Active URL with random short code and 0 clicks",
+          "states": {
+            "expired": "URL with expires_at in the past",
+            "deactivated": "URL with is_active = false",
+            "popular": "URL with clicks > 1000",
+            "custom_alias": "URL with a user-defined short code"
+          }
+        },
+        "User": {
+          "default_state": "Verified user with random name and email",
+          "states": {
+            "unverified": "User without email verification",
+            "admin": "User with admin role assigned"
+          }
+        }
+      }
+    }
   }
 }

@@ -7,42 +7,84 @@
   },
   "models": [
     "User",
-    "Task"
+    "Todo"
   ],
   "schema": {
     "User": {
       "name": "string",
       "email": "string",
-      "password": "string",
-      "tasks": []
+      "password": "text",
+      "is_active": "boolean|default:true"
+    },
+    "Todo": {
+      "title": "string",
+      "description": "string",
+      "completed": "boolean",
+      "user_id": "integer",
+      "created_at": "datetime",
+      "updated_at": "datetime"
     }
   },
   "migrations": [
     "create_users_table",
-    "create_tasks_table"
+    "create_todos_table"
   ],
   "livewire_components": [
-    "user-profile",
-    "task-list"
+    "todo-list",
+    "todo-item",
+    "todo-form"
   ],
   "seeders": [
     "UserSeeder",
-    "TaskSeeder"
+    "TodoSeeder"
   ],
   "factories": [
     "UserFactory",
-    "TaskFactory"
+    "TodoFactory"
   ],
   "routes": [
-    "/dashboard",
-    "/tasks"
+    {
+      "path": "/dashboard",
+      "method": "GET",
+      "middleware": [
+        "auth",
+        "verified"
+      ],
+      "description": "User dashboard with URL list and stats"
+    },
+    {
+      "path": "/todos",
+      "method": "POST",
+      "middleware": [
+        "auth",
+        "throttle:create-url"
+      ],
+      "description": "Create a new shortened URL"
+    },
+    {
+      "path": "/{short_code}",
+      "method": "GET",
+      "middleware": [
+        "throttle:redirect"
+      ],
+      "description": "Public redirect — no auth required"
+    },
+    {
+      "path": "/admin/users",
+      "method": "GET",
+      "middleware": [
+        "auth",
+        "role:admin"
+      ],
+      "description": "Admin user management"
+    }
   ],
   "pivot_tables": [],
   "relationships": [
     {
       "model": "User",
       "type": "hasMany",
-      "target": "Task"
+      "target": "Todo"
     }
   ],
   "presentation_layer": {
@@ -53,44 +95,102 @@
     ],
     "components": [
       {
-        "name": "user-profile",
+        "name": "todo-list",
         "state": [
-          "user",
-          "tasks"
-        ],
-        "events_listened": [
-          "taskCreated"
-        ]
-      },
-      {
-        "name": "task-list",
-        "state": [
-          "tasks",
+          "todos",
           "searchQuery"
         ],
         "events_listened": [
-          "taskCreated",
-          "taskUpdated"
+          "todoCreated"
+        ]
+      },
+      {
+        "name": "todo-item",
+        "state": [
+          "todo",
+          "completed"
+        ],
+        "events_listened": [
+          "todoStatusChanged"
+        ]
+      },
+      {
+        "name": "todo-form",
+        "state": [
+          "title",
+          "description",
+          "completed"
+        ],
+        "events_emitted": [
+          "todoCreated"
         ]
       }
     ]
   },
   "business_logic": {
-    "roles": [
-      "admin",
-      "user"
-    ],
-    "policies": [
-      "TaskPolicy: User can only edit own task"
-    ],
+    "roles": {
+      "super_admin": {
+        "description": "Full system access, can manage all users and settings",
+        "inherits": "admin",
+        "permissions": [
+          "*"
+        ]
+      },
+      "admin": {
+        "description": "Can manage all resources and view analytics",
+        "inherits": "user",
+        "permissions": [
+          "users.manage",
+          "urls.delete_any",
+          "analytics.view_all",
+          "settings.manage"
+        ]
+      },
+      "user": {
+        "description": "Can manage own resources only",
+        "inherits": null,
+        "permissions": [
+          "urls.create",
+          "urls.read_own",
+          "urls.update_own",
+          "urls.delete_own",
+          "analytics.view_own",
+          "profile.update"
+        ]
+      },
+      "guest": {
+        "description": "Unauthenticated visitor, read-only access",
+        "permissions": [
+          "urls.redirect"
+        ]
+      }
+    },
+    "policies": {
+      "ShortenedUrlPolicy": {
+        "model": "ShortenedUrl",
+        "ownership_field": "user_id",
+        "rules": {
+          "viewAny": "Authenticated users can list their own URLs; admins can list all",
+          "view": "Owner or admin",
+          "create": "Any authenticated user",
+          "update": "Owner only",
+          "delete": "Owner or admin",
+          "forceDelete": "Admin only",
+          "restore": "Admin only"
+        }
+      }
+    },
     "validation_rules": {
-      "User": [
-        "email:required|unique"
-      ],
-      "Task": [
-        "title:required",
-        "description:required"
-      ]
+      "ShortenedUrl": {
+        "original_url": "required|url|max:2048|not_regex:/^javascript:/i",
+        "custom_alias": "nullable|alpha_dash|max:20|unique:shortened_urls,short_code|not_in:admin,api,login,register,dashboard",
+        "expires_at": "nullable|date|after:now"
+      },
+      "User": {
+        "name": "required|string|max:255",
+        "email": "required|email:rfc,dns|max:255|unique:users",
+        "password": "required|string|min:8|confirmed"
+      }
     }
   },
   "integrations": [
@@ -99,11 +199,133 @@
   ],
   "testing": {
     "feature_tests": [
-      "UserRegistrationTest",
-      "CreateTaskTest"
+      {
+        "name": "GuestCanRegisterWithValidCredentials",
+        "scenario": "Submit registration form with valid name, email, password",
+        "assertions": [
+          "user exists in database",
+          "redirected to dashboard",
+          "session is authenticated"
+        ]
+      },
+      {
+        "name": "GuestCannotRegisterWithDuplicateEmail",
+        "scenario": "Submit registration with an email that already exists",
+        "assertions": [
+          "validation error returned",
+          "user not created"
+        ]
+      },
+      {
+        "name": "UserCanLoginWithCorrectCredentials",
+        "scenario": "Submit login form with valid email and password",
+        "assertions": [
+          "session is authenticated",
+          "redirected to dashboard"
+        ]
+      },
+      {
+        "name": "UserIsLockedOutAfter5FailedLogins",
+        "scenario": "Submit 5 incorrect login attempts from the same IP",
+        "assertions": [
+          "429 Too Many Requests returned",
+          "account not locked permanently"
+        ]
+      }
     ],
     "unit_tests": [
-      "TaskStatusCalculationTest"
-    ]
+      {
+        "name": "ShortCodeIsExactly6Characters",
+        "method_under_test": "ShortCodeGenerator::generate()",
+        "scenario": "Generate a short code without custom alias",
+        "assertions": [
+          "length is exactly 6",
+          "contains only alphanumeric characters"
+        ]
+      },
+      {
+        "name": "ShortCodeIsUniqueAcrossMultipleGenerations",
+        "method_under_test": "ShortCodeGenerator::generate()",
+        "scenario": "Generate 1000 short codes",
+        "assertions": [
+          "all codes are unique",
+          "no collisions"
+        ]
+      },
+      {
+        "name": "CustomAliasIsUsedWhenProvided",
+        "method_under_test": "ShortCodeGenerator::generate(alias: 'my-link')",
+        "scenario": "Generate with a custom alias",
+        "assertions": [
+          "returned code equals 'my-link'"
+        ]
+      }
+    ],
+    "edge_case_tests": [
+      {
+        "name": "UrlWithMaxLength2048CharsIsAccepted",
+        "scenario": "Submit a URL that is exactly 2048 characters long",
+        "assertions": [
+          "URL is accepted and shortened successfully"
+        ]
+      },
+      {
+        "name": "UrlWith2049CharsIsRejected",
+        "scenario": "Submit a URL that is 2049 characters long",
+        "assertions": [
+          "422 validation error with max length message"
+        ]
+      },
+      {
+        "name": "ConcurrentClicksOnSameUrlAreCountedAccurately",
+        "scenario": "Simulate 100 simultaneous redirect requests to the same short code",
+        "assertions": [
+          "final click count equals previous + 100",
+          "no lost increments"
+        ]
+      },
+      {
+        "name": "UrlExpiresAtExactExpirationTimestamp",
+        "scenario": "Access a URL at the exact second of its expires_at value",
+        "assertions": [
+          "URL is treated as expired (410 Gone)"
+        ]
+      },
+      {
+        "name": "JavascriptProtocolUrlIsRejected",
+        "scenario": "Submit 'javascript:alert(1)' as the URL",
+        "assertions": [
+          "422 validation error",
+          "URL not stored"
+        ]
+      },
+      {
+        "name": "SpecialCharactersInUrlAreHandled",
+        "scenario": "Submit URL with query params, fragments, unicode characters",
+        "assertions": [
+          "URL stored and redirected correctly"
+        ]
+      }
+    ],
+    "test_data_strategy": {
+      "factories": {
+        "ShortenedUrl": {
+          "default_state": "Active URL with random short code and 0 clicks",
+          "states": {
+            "expired": "URL with expires_at in the past",
+            "deactivated": "URL with is_active = false",
+            "popular": "URL with clicks > 1000",
+            "custom_alias": "URL with a user-defined short code"
+          }
+        },
+        "User": {
+          "default_state": "Verified user with random name and email",
+          "states": {
+            "unverified": "User without email verification",
+            "admin": "User with admin role assigned"
+          }
+        }
+      }
+    }
   }
 }

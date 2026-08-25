@@ -14,17 +14,16 @@
     "User": {
       "name": "string",
       "email": "string",
-      "password": "text"
+      "password": "text",
+      "notes": "json"
     },
     "Note": {
       "title": "string",
-      "content": "text",
-      "created_at": "datetime",
-      "user_id": "integer"
+      "content": "string",
+      "tags": "json"
     },
     "Tag": {
-      "name": "string",
-      "created_at": "datetime"
+      "name": "string"
     }
   },
   "migrations": [
@@ -33,10 +32,16 @@
     "create_tags_table"
   ],
   "livewire_components": [
+    "user-profile",
     "note-list",
+    "note-details",
     "note-create",
     "note-edit",
-    "tag-list"
+    "note-delete",
+    "note-tag",
+    "note-tag-create",
+    "note-tag-edit",
+    "note-tag-delete"
   ],
   "seeders": [
     "UserSeeder",
@@ -49,27 +54,109 @@
     "TagFactory"
   ],
   "routes": [
-    "/dashboard",
-    "/notes",
-    "/tags"
+    {
+      "path": "/dashboard",
+      "method": "GET",
+      "middleware": [
+        "auth",
+        "verified"
+      ],
+      "description": "User dashboard with URL list and stats"
+    },
+    {
+      "path": "/note-list",
+      "method": "GET",
+      "middleware": [
+        "auth",
+        "verified"
+      ],
+      "description": "List all notes"
+    },
+    {
+      "path": "/note-details",
+      "method": "GET",
+      "middleware": [
+        "auth",
+        "verified"
+      ],
+      "description": "Details of a specific note"
+    },
+    {
+      "path": "/note-create",
+      "method": "POST",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:create-note"
+      ],
+      "description": "Create a new note"
+    },
+    {
+      "path": "/note-edit",
+      "method": "PUT",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:update-note"
+      ],
+      "description": "Edit an existing note"
+    },
+    {
+      "path": "/note-delete",
+      "method": "DELETE",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:delete-note"
+      ],
+      "description": "Delete a note"
+    },
+    {
+      "path": "/note-tag",
+      "method": "POST",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:create-note-tag"
+      ],
+      "description": "Create a new note tag"
+    },
+    {
+      "path": "/note-tag-edit",
+      "method": "PUT",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:update-note-tag"
+      ],
+      "description": "Edit an existing note tag"
+    },
+    {
+      "path": "/note-tag-delete",
+      "method": "DELETE",
+      "middleware": [
+        "auth",
+        "verified",
+        "throttle:delete-note-tag"
+      ],
+      "description": "Delete a note tag"
+    }
   ],
   "pivot_tables": [],
   "relationships": [
     {
-      "model": "Note",
-      "type": "belongsTo",
-      "target": "User"
-    },
-    {
-      "model": "Note",
+      "model": "User",
       "type": "hasMany",
-      "target": "Tag"
+      "target": "Note"
     },
     {
       "model": "Note",
-      "type": "belongsToMany",
+      "type": "hasManyThrough",
       "target": "Tag",
-      "pivot_table": "note_tag"
+      "through": "NoteTag",
+      "first_key": "note_id",
+      "second_key": "tag_id",
+      "third_key": "user_id"
     }
   ],
   "presentation_layer": {
@@ -80,73 +167,113 @@
     ],
     "components": [
       {
+        "name": "user-profile",
+        "state": [
+          "user",
+          "notes"
+        ],
+        "events_listened": [
+          "noteCreated",
+          "noteDeleted"
+        ]
+      },
+      {
         "name": "note-list",
         "state": [
           "notes",
           "searchQuery"
         ],
         "events_listened": [
-          "noteCreated"
+          "noteCreated",
+          "noteDeleted"
+        ]
+      },
+      {
+        "name": "note-details",
+        "state": [
+          "note",
+          "tags"
+        ],
+        "events_listened": [
+          "noteUpdated"
         ]
       },
       {
         "name": "note-create",
         "state": [
-          "note"
+          "title",
+          "content"
         ],
-        "events_listened": [
+        "events_emitted": [
           "noteCreated"
         ]
       },
       {
         "name": "note-edit",
         "state": [
-          "note"
+          "title",
+          "content"
         ],
-        "events_listened": [
-          "noteCreated"
+        "events_emitted": [
+          "noteUpdated"
         ]
       },
       {
-        "name": "tag-list",
+        "name": "note-delete",
+        "state": [],
+        "events_emitted": [
+          "noteDeleted"
+        ]
+      },
+      {
+        "name": "note-tag",
         "state": [
-          "tags"
+          "note",
+          "tag"
         ],
-        "events_listened": [
-          "tagCreated"
+        "events_emitted": [
+          "noteTagCreated"
+        ]
+      },
+      {
+        "name": "note-tag-edit",
+        "state": [
+          "note",
+          "tag"
+        ],
+        "events_emitted": [
+          "noteTagUpdated"
+        ]
+      },
+      {
+        "name": "note-tag-delete",
+        "state": [],
+        "events_emitted": [
+          "noteTagDeleted"
         ]
       }
     ]
   },
-  "business_logic": {
-    "roles": [
-      "admin",
-      "user"
-    ],
-    "policies": [
-      "NotePolicy: User can only edit own note"
-    ],
-    "validation_rules": {
-      "User": [
-        "email:required|unique"
-      ],
-      "Note": [
-        "title:required",
-        "content:required"
-      ]
-    }
+  "security": {
+    "authentication": "Laravel Passport",
+    "authorization": "Laravel Policies",
+    "encryption": "AES-256-CBC"
   },
-  "integrations": [
-    "Mailgun",
-    "S3"
-  ],
-  "testing": {
-    "feature_tests": [
-      "UserRegistrationTest",
-      "CreateNoteTest"
-    ],
-    "unit_tests": [
-      "NoteStatusCalculationTest"
-    ]
+  "performance": {
+    "caching": "Redis",
+    "database": "InnoDB",
+    "query_cache": "ON",
+    "optimizer": "ON"
+  },
+  "deployment": {
+    "environment": "production",
+    "server": "AWS EC2",
+    "database": "MySQL",
+    "storage": "S3"
+  },
+  "maintenance": {
+    "backup": "Regular",
+    "restore": "Automated",
+    "monitoring": "CloudWatch"
   }
 }

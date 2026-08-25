@@ -192,8 +192,31 @@ class SandboxProjectSetup {
   }
 
   /**
+   * Create a directory junction (Windows) or symlink.
+   * @param {string} targetDir — Target actual directory
+   * @param {string} linkDir — Destination link path
+   * @returns {Promise<boolean>}
+   */
+  async _createJunction(targetDir, linkDir) {
+    if (!(await fs.pathExists(targetDir))) return false;
+    try {
+      if (await fs.pathExists(linkDir)) {
+        await fs.remove(linkDir).catch(() => {});
+      }
+      if (process.platform === "win32") {
+        execSync(`cmd /c mklink /J "${linkDir}" "${targetDir}"`, { stdio: "ignore" });
+      } else {
+        await fs.symlink(targetDir, linkDir, "junction");
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /**
    * Install project dari template Laravel murni.
-   * Backup dan restore node_modules/vendor untuk efisiensi.
+   * Menggunakan Windows Junctions untuk instant linking vendor/node_modules.
    */
   async _installFromTemplate(targetPath, projectName) {
     const hasDeps = await fs.pathExists(path.join(targetPath, "node_modules"));
@@ -253,30 +276,40 @@ class SandboxProjectSetup {
     }
 
     if (!nativeCopySuccess) {
-      // Copy dari template Laravel murni (bukan url-shortener)
+      // Copy project structure tanpa node_modules dan vendor (cepat)
       await fs.copy(this.templatePath, targetPath, {
         filter: (src) => {
-          // Jangan copy nexus folder dari template
           if (src.includes(path.join(TEMPLATE_NAME, "nexus"))) return false;
-          // Skip node_modules dan vendor dari template (pakai yang di-backup)
-          if (hasDeps && /(\\|\/)(node_modules)(\\|\/|$)/.test(src))
-            return false;
-          if (hasVendor && /(\\|\/)(vendor)(\\|\/|$)/.test(src)) return false;
+          if (/(\\|\/)(node_modules|vendor)(\\|\/|$)/.test(src)) return false;
           return true;
         },
       });
     }
 
-    // Restore node_modules & vendor yang di-backup
-    if (hasDeps && (await fs.pathExists(tempDeps))) {
-      await fs
-        .rename(tempDeps, path.join(targetPath, "node_modules"))
-        .catch(() => {});
-    }
+    // ⚡ OPTIMIZATION: Restore backed up deps atau buat junction instan dari template
+    const templateVendor = path.join(this.templatePath, "vendor");
+    const templateNodeModules = path.join(this.templatePath, "node_modules");
+
     if (hasVendor && (await fs.pathExists(tempVendor))) {
       await fs
         .rename(tempVendor, path.join(targetPath, "vendor"))
         .catch(() => {});
+    } else if (await fs.pathExists(templateVendor)) {
+      const junctioned = await this._createJunction(templateVendor, path.join(targetPath, "vendor"));
+      if (!junctioned) {
+        await fs.copy(templateVendor, path.join(targetPath, "vendor")).catch(() => {});
+      }
+    }
+
+    if (hasDeps && (await fs.pathExists(tempDeps))) {
+      await fs
+        .rename(tempDeps, path.join(targetPath, "node_modules"))
+        .catch(() => {});
+    } else if (await fs.pathExists(templateNodeModules)) {
+      const junctioned = await this._createJunction(templateNodeModules, path.join(targetPath, "node_modules"));
+      if (!junctioned) {
+        await fs.copy(templateNodeModules, path.join(targetPath, "node_modules")).catch(() => {});
+      }
     }
   }
 

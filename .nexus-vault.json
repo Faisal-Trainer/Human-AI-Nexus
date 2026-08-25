@@ -1,0 +1,17 @@
+{
+  "vault_path": "C:\\\\Users\\\\ACER\\\\Documents\\\\Obsidian Vault",
+  "enabled": true,
+  "read_sources": {
+    "knowledge": "RAW/Website",
+    "raw_knowledge": "RAW/Website",
+    "agents": "Agent",
+    "external_agents": "Agent",
+    "workflows": "PROJECT",
+    "rules": "Agent",
+    "guardrails": "Agent",
+    "skills": "NEXUS AI/NEXUS SKILL",
+    "blueprints": "BLUEPRINT"
+  },
+  "write_target": "local",
+  "sync_back": false
+}

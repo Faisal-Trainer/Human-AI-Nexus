@@ -19,25 +19,19 @@ const ALLOWED_TASKS = [
   "build_application",
 ];
 
-// Prompt size guard: ~30KB ≈ 7500 tokens (safe for 4096 num_ctx with system prompt overhead)
-const MAX_PROMPT_CHARS = 30000;
+// Prompt size guard: Increased to 150000 chars to avoid breaking complex JSON blueprints during skill enhancement
+const MAX_PROMPT_CHARS = 150000;
 
 class LocalIntelligence {
   constructor() {
-    // Lokasi default model (bisa diubah via env variable)
-    this.modelPath =
-      process.env.NEXUS_MODEL_PATH ||
-      path.join(
-        process.cwd(),
-        "models",
-        "qwen2.5-coder-3b-instruct-q4_k_m.gguf",
-      );
+    this.projectRoot = path.resolve(__dirname, "..", "..");
+    this.modelPath = this.getModelPath();
 
     this.isAvailable = false;
 
-    // ⛔ HARD LIMIT: Disesuaikan untuk qwen2.5-coder:3b (36 layers, 32K context)
-    this.MAX_TOKENS = 32768;
-    this.MAX_OUTPUT_LENGTH = 20000;
+    // ⛔ HARD LIMIT: Disesuaikan untuk RAM 8GB (Dinaikkan untuk mengakomodasi JSON blueprint yang besar)
+    this.MAX_TOKENS = 65536;
+    this.MAX_OUTPUT_LENGTH = 150000;
 
     // Availability TTL cache: hindari race condition pada singleton
     this._availabilityCache = { value: false, expiresAt: 0 };
@@ -56,7 +50,31 @@ class LocalIntelligence {
     this.model = null;
   }
 
+  /**
+   * Resolves the configured GGUF model path robustly,
+   * stripping quotes and resolving relative paths against the NEXUS project root.
+   */
+  getModelPath() {
+    const projectRoot = this.projectRoot || path.resolve(__dirname, "..", "..");
+    const rawEnv = (process.env.NEXUS_MODEL_PATH || "").replace(/^["']|["']$/g, "").trim();
+
+    if (rawEnv) {
+      return path.isAbsolute(rawEnv) ? rawEnv : path.resolve(projectRoot, rawEnv);
+    }
+
+    // Default fallback to Qwen3-4B if available, otherwise Qwen2.5-3B
+    const qwen3Path = path.resolve(projectRoot, "models", "Qwen3-4B-Q4_K_M.gguf");
+    if (fs.existsSync(qwen3Path)) {
+      return qwen3Path;
+    }
+
+    return path.resolve(projectRoot, "models", "qwen2.5-coder-3b-instruct-q4_k_m.gguf");
+  }
+
   async checkAvailability() {
+    this.modelPath = this.getModelPath();
+    const modelName = process.env.NEXUS_MODEL_NAME || path.basename(this.modelPath, ".gguf");
+
     const now = Date.now();
     if (now < this._availabilityCache.expiresAt) {
       this.isAvailable = this._availabilityCache.value;
@@ -75,7 +93,7 @@ class LocalIntelligence {
     try {
       if (!fs.existsSync(this.modelPath)) {
         console.warn(
-          `⚠️ LocalIntelligence: Model file not found at ${this.modelPath}. Harap pastikan model sudah terdownload.`,
+          `⚠️ LocalIntelligence: Model file not found at ${this.modelPath} (Model: ${modelName}). Harap pastikan model sudah terdownload.`,
         );
         this.isAvailable = false;
         this._availabilityCache = { value: false, expiresAt: now + 10000 };
@@ -96,7 +114,7 @@ class LocalIntelligence {
               }
               this.llama = await getLlama();
               console.log(
-                `🤖 LocalIntelligence: Loading model from ${this.modelPath}...`,
+                `🤖 LocalIntelligence: Loading model [${modelName}] from ${this.modelPath}...`,
               );
               const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
               this.model = await this.llama.loadModel({
@@ -104,7 +122,7 @@ class LocalIntelligence {
                 // Optimasi untuk sistem dengan RAM/VRAM terbatas
                 gpuLayers: isCpuTrain ? 0 : (parseInt(process.env.NEXUS_GPU_LAYERS) || 30),
               });
-              console.log(`🤖 LocalIntelligence: Model loaded successfully.`);
+              console.log(`🤖 LocalIntelligence: Model [${modelName}] loaded successfully.`);
             } catch (err) {
               this._initPromise = null;
               throw err;
@@ -132,39 +150,18 @@ class LocalIntelligence {
       throw new Error(`Boundary Violation: Task "${taskType}" not allowed.`);
     }
 
-    // Chunk prompt jika melebihi batas aman untuk mencegah silent truncation & OOM
+    let safePrompt = prompt;
+    // Truncate prompt jika melebihi batas (sekarang dinaikkan menjadi 150k karakter)
     if (typeof prompt === "string" && prompt.length > MAX_PROMPT_CHARS) {
       console.warn(
         `⚠️ LocalIntelligence: Prompt terlalu besar (${prompt.length} chars). ` +
-          `Processing in chunks to prevent OOM and silent truncation.`,
+          `Truncating to fit in context window to prevent crashes (no chunking).`,
       );
-
-      const chunks = [];
-      let current = 0;
-      while (current < prompt.length) {
-        chunks.push(prompt.substring(current, current + MAX_PROMPT_CHARS));
-        current += MAX_PROMPT_CHARS;
-      }
-
-      console.warn(
-        `⚠️ LocalIntelligence: Split prompt into ${chunks.length} chunks.`,
-      );
-
-      let combinedResponse = "";
-      for (let i = 0; i < chunks.length; i++) {
-        console.log(`🤖 Processing prompt chunk ${i + 1}/${chunks.length}...`);
-        const chunkResult = await this.generate(
-          chunks[i],
-          taskType,
-          _systemPrompt,
-        );
-        if (chunkResult) {
-          combinedResponse += (combinedResponse ? "\n\n" : "") + chunkResult;
-        }
-      }
-      return combinedResponse;
+      const halfLimit = Math.floor(MAX_PROMPT_CHARS / 2);
+      safePrompt = prompt.substring(0, halfLimit) + 
+                   "\n\n...[PROMPT TRUNCATED DUE TO RAM LIMIT]...\n\n" + 
+                   prompt.substring(prompt.length - halfLimit);
     }
-    let safePrompt = prompt;
 
     // Circuit breaker: fail fast jika OPEN
     const now = Date.now();
@@ -330,9 +327,12 @@ class LocalIntelligence {
     }
 
     // ── JALUR LAMBAT: LOCAL NODE-LLAMA-CPP (FALLBACK) ──
-    // FIX: Diturunkan menjadi 4096 untuk mencegah RAM exhaustion / Swap Thrashing
-    // pada laptop dengan RAM 8GB, menjaga inference tetap responsif.
-    const contextSize = 4096;
+    // FIX: Context size disesuaikan secara dinamis (hingga 16384) 
+    // jika prompt besar untuk mencegah node-llama-cpp OOM atau "prompt too large".
+    let contextSize = 8192;
+    if (prompt && prompt.length > 30000) {
+      contextSize = 16384;
+    }
 
     console.log(
       `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL INFERENCE]...`,

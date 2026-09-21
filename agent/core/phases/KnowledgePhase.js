@@ -45,6 +45,10 @@ class KnowledgePhase extends BasePhase {
         ];
 
         let filesHarvested = 0;
+        let filesSkipped = 0;
+        // 7️⃣ Harvest dedupe — skip identical .md (hash) to avoid redundant FS walk/copy
+        const crypto = require("crypto");
+        const fastHarvest = (process.env.NEXUS_HARVEST_FAST || "1") !== "0";
         for (const folder of foldersToHarvest) {
             const srcFolder = await this.findRemoteFolder(sourcePath, primarySource, folder.id, folder.alt);
             if (srcFolder) {
@@ -54,14 +58,26 @@ class KnowledgePhase extends BasePhase {
                 const files = await fs.readdir(srcFolder);
                 for (const file of files) {
                     if (file.endsWith('.md')) {
+                        const srcPath = path.join(srcFolder, file);
                         const targetPath = path.join(destFolder, file);
-                        if (await fs.pathExists(targetPath)) {
+                        if (fastHarvest && await fs.pathExists(targetPath)) {
+                            try {
+                                const [oldBuf, newBuf] = await Promise.all([fs.readFile(targetPath), fs.readFile(srcPath)]);
+                                if (oldBuf.equals(newBuf)) { filesSkipped++; continue; }
+                                // Also skip if hash already seen in dest (duplicate content under different name not needed — keep simple: exact path only)
+                            } catch (_) {}
+                            const oldContent = await fs.readFile(targetPath, 'utf8');
+                            const newContent = await fs.readFile(srcPath, 'utf8');
+                            if (oldContent === newContent) { filesSkipped++; continue; }
+                            const merged = this.engine.wrapAsConditional(oldContent, newContent, `Collision in ${file} during harvest from ${projectName}`);
+                            await fs.writeFile(targetPath, merged);
+                        } else if (await fs.pathExists(targetPath)) {
                             const oldContent = await fs.readFile(targetPath, 'utf8');
                             const newContent = await fs.readFile(path.join(srcFolder, file), 'utf8');
                             const merged = this.engine.wrapAsConditional(oldContent, newContent, `Collision in ${file} during harvest from ${projectName}`);
                             await fs.writeFile(targetPath, merged);
                         } else {
-                            await fs.copy(path.join(srcFolder, file), targetPath);
+                            await fs.copy(srcPath, targetPath);
                         }
                         filesHarvested++;
                     }
@@ -69,6 +85,7 @@ class KnowledgePhase extends BasePhase {
             }
         }
 
+        if (filesSkipped > 0) this.log(`⏭️ [Harvest] Skipped ${filesSkipped} identical artifact(s) (NEXUS_HARVEST_FAST=1).`, 'info');
         this.log(`✅ Harvesting Complete: ${filesHarvested} knowledge artifacts collected.`, 'success');
         return filesHarvested;
     }

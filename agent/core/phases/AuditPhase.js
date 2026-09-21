@@ -41,7 +41,7 @@ class AuditPhase extends BasePhase {
         if (mode === 'learning') {
             // Dynamic Specialist Plugin Loader (G2-07)
             const scannerDir = path.join(__dirname, '..', '..', 'tools', 'scanners');
-            const specialists = [];
+            let specialists = [];
             
             if (await fs.pathExists(scannerDir)) {
                 const scannerFiles = await fs.readdir(scannerDir);
@@ -65,6 +65,21 @@ class AuditPhase extends BasePhase {
                     { id: 'vcs-architect', focus: 'Version Control & Repository Health' },
                     { id: 'documentation-architect', focus: 'Dokumentasi & Standar Kode' }
                 );
+            }
+
+            // 6️⃣ NEXUS_EXCLUDE_SPECIALISTS — skip non-essential specialists for sandbox speed (R-only on sandboxes)
+            // Usage: NEXUS_EXCLUDE_SPECIALISTS=branding-scanner,documentation-architect
+            const rawExclude = (process.env.NEXUS_EXCLUDE_SPECIALISTS || "").trim();
+            if (rawExclude) {
+                const excludeSet = new Set(rawExclude.split(",").map(s => s.trim().toLowerCase()).filter(Boolean));
+                const before = specialists.length;
+                specialists = specialists.filter(s => !excludeSet.has(s.id.toLowerCase()));
+                if (specialists.length !== before) {
+                    this.log(`⏭️ [AuditPhase] Skipping ${before - specialists.length} specialist(s) via NEXUS_EXCLUDE_SPECIALISTS: ${[...excludeSet].join(", ")}`, 'warning');
+                }
+                if (specialists.length === 0) {
+                    this.log('⚠️ All specialists excluded — audit will run only deterministic guards.', 'warning');
+                }
             }
 
             this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');

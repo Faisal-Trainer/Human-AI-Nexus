@@ -1,6 +1,7 @@
 {
   "vault_path": "C:\\\\Users\\\\ACER\\\\Documents\\\\Obsidian Vault",
   "enabled": true,
+  "update_path": "NEXUS Update",
   "read_sources": {
     "knowledge": "RAW/Website",
     "raw_knowledge": "RAW/Website",
@@ -10,8 +11,9 @@
     "rules": "Agent",
     "guardrails": "Agent",
     "skills": "NEXUS AI/NEXUS SKILL",
-    "blueprints": "BLUEPRINT"
+    "blueprints": "BLUEPRINT",
+    "nexus_update": "NEXUS Update"
   },
-  "write_target": "local",
-  "sync_back": false
+  "write_target": "NEXUS Update",
+  "sync_back": true
 }

@@ -1,8 +1,10 @@
 // Variabel untuk dynamic import module ESM
 let getLlama;
 let LlamaChatSession;
+let LlamaJsonSchemaGrammar;
 const path = require("path");
 const fs = require("fs");
+require("dotenv").config({ path: path.resolve(__dirname, "..", "..", ".env") });
 
 // ⛔ PAGAR 1: Whitelist task yang diizinkan — tidak boleh diperluas secara programatik
 const ALLOWED_TASKS = [
@@ -17,6 +19,8 @@ const ALLOWED_TASKS = [
   "build_livewire_component",
   "build_view",
   "build_application",
+  "build_routes",
+  "generate_post_mortem",
 ];
 
 // Prompt size guard: Increased to 150000 chars to avoid breaking complex JSON blueprints during skill enhancement
@@ -39,15 +43,12 @@ class LocalIntelligence {
     // circuit breaker: cegah cascade failure
     this.cb = { state: "CLOSED", failures: 0, openedAt: null };
 
-    // API Keys untuk Cloud Inference (Extreme Speed)
-    // 🛑 HARD-DISABLED: Forcing local Llama inference because free-tier quota is exhausted.
-    // Uncomment the process.env line when quota resets.
-    this.geminiApi = null; // process.env.GEMINI_API || null;
-    this.geminiModel = process.env.GEMINI_MODEL || "gemini-2.0-flash";
-
     // node-llama-cpp instances
     this.llama = null;
     this.model = null;
+
+    // Predefined GBNF / JSON Schemas (Pilar 5)
+    this.schemas = this.initSchemas();
   }
 
   /**
@@ -81,15 +82,6 @@ class LocalIntelligence {
       return this._availabilityCache.value;
     }
 
-    if (this.geminiApi) {
-      console.log(
-        `🤖 LocalIntelligence: GEMINI_API terdeteksi. Menggunakan ${this.geminiModel} (Cloud) untuk kecepatan ekstrem.`,
-      );
-      this.isAvailable = true;
-      this._availabilityCache = { value: true, expiresAt: now + 3600000 };
-      return true;
-    }
-
     try {
       if (!fs.existsSync(this.modelPath)) {
         console.warn(
@@ -111,18 +103,24 @@ class LocalIntelligence {
                 const llamaModule = await import("node-llama-cpp");
                 getLlama = llamaModule.getLlama;
                 LlamaChatSession = llamaModule.LlamaChatSession;
+                LlamaJsonSchemaGrammar = llamaModule.LlamaJsonSchemaGrammar;
               }
-              this.llama = await getLlama();
+              const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
+              this.llama = await getLlama(isCpuTrain ? { gpu: false } : {});
               console.log(
                 `🤖 LocalIntelligence: Loading model [${modelName}] from ${this.modelPath}...`,
               );
-              const isCpuTrain = process.env.NEXUS_CPU_ONLY === 'true';
+              const rawGpu = process.env.NEXUS_GPU_LAYERS;
+              let initialGpuLayers = isCpuTrain ? 0 : "max";
+              if (!isCpuTrain && rawGpu !== undefined && rawGpu !== "max" && !isNaN(parseInt(rawGpu))) {
+                initialGpuLayers = parseInt(rawGpu);
+              }
+              this.currentGpuLayers = initialGpuLayers;
               this.model = await this.llama.loadModel({
                 modelPath: this.modelPath,
-                // Optimasi untuk sistem dengan RAM/VRAM terbatas
-                gpuLayers: isCpuTrain ? 0 : (parseInt(process.env.NEXUS_GPU_LAYERS) || 30),
+                gpuLayers: initialGpuLayers,
               });
-              console.log(`🤖 LocalIntelligence: Model [${modelName}] loaded successfully.`);
+              console.log(`🤖 LocalIntelligence: Model [${modelName}] loaded successfully (gpuLayers: ${initialGpuLayers}).`);
             } catch (err) {
               this._initPromise = null;
               throw err;
@@ -145,9 +143,267 @@ class LocalIntelligence {
     }
   }
 
-  async generate(prompt, taskType = "analyze_code", _systemPrompt = null) {
+  /**
+   * Reload model with custom gpuLayers (e.g. fallback to CPU with gpuLayers = 0)
+   * When fallbackToCpuEngine is true, initializes a pure CPU Llama backend to bypass Vulkan completely.
+   */
+  async _reloadModel(gpuLayers = 0, fallbackToCpuEngine = false) {
+    const modelName = process.env.NEXUS_MODEL_NAME || path.basename(this.modelPath, ".gguf");
+    console.log(`⚡ LocalIntelligence: Reloading model [${modelName}] with gpuLayers: ${gpuLayers}${fallbackToCpuEngine ? " (pure CPU engine)" : ""}...`);
+    
+    if (this.model) {
+      try {
+        await this.model.dispose();
+      } catch (_) {}
+      this.model = null;
+    }
+
+    if (fallbackToCpuEngine) {
+      try {
+        if (this.llama) {
+          await this.llama.dispose();
+        }
+      } catch (_) {}
+      if (!getLlama) {
+        const llamaModule = await import("node-llama-cpp");
+        getLlama = llamaModule.getLlama;
+        LlamaChatSession = llamaModule.LlamaChatSession;
+        LlamaJsonSchemaGrammar = llamaModule.LlamaJsonSchemaGrammar;
+      }
+      this.llama = await getLlama({ gpu: false });
+    }
+
+    this.model = await this.llama.loadModel({
+      modelPath: this.modelPath,
+      gpuLayers: gpuLayers,
+    });
+    this.currentGpuLayers = gpuLayers;
+    console.log(`⚡ LocalIntelligence: Model reloaded successfully with gpuLayers: ${gpuLayers}.`);
+  }
+
+  /**
+   * Predefined JSON Schemas for GBNF Constrained Decoding (Pilar 5)
+   */
+  initSchemas() {
+    return {
+      blueprintApp: {
+        type: "object",
+        properties: {
+          project_name: { type: "string" },
+          framework: { type: "string" },
+          description: { type: "string" },
+          models: { type: "array", items: { type: "string" } },
+          routes: { type: "array", items: { type: "string" } },
+          livewire_components: { type: "array", items: { type: "string" } },
+          relationships: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                model: { type: "string" },
+                type: { type: "string" },
+                target: { type: "string" }
+              },
+              required: ["model", "type", "target"]
+            }
+          }
+        },
+        required: ["project_name", "framework", "models", "routes"]
+      },
+      postMortem: {
+        type: "object",
+        properties: {
+          title: { type: "string" },
+          tags: { type: "array", items: { type: "string" } },
+          severity: { type: "string", enum: ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+          root_cause: { type: "string" },
+          resolution: { type: "string" },
+          preventive_measures: { type: "array", items: { type: "string" } }
+        },
+        required: ["title", "severity", "root_cause", "resolution"]
+      },
+      codeReview: {
+        type: "object",
+        properties: {
+          valid: { type: "boolean" },
+          score: { type: "number" },
+          issues: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                severity: { type: "string", enum: ["info", "warning", "error"] },
+                message: { type: "string" },
+                line: { type: "number" },
+                fix: { type: "string" }
+              },
+              required: ["severity", "message"]
+            }
+          },
+          suggestions: { type: "array", items: { type: "string" } }
+        },
+        required: ["valid", "score", "issues"]
+      },
+      schemaValidation: {
+        type: "object",
+        properties: {
+          valid: { type: "boolean" },
+          errors: { type: "array", items: { type: "string" } },
+          warnings: { type: "array", items: { type: "string" } },
+          recommendations: { type: "array", items: { type: "string" } }
+        },
+        required: ["valid", "errors", "warnings"]
+      }
+    };
+  }
+
+  /**
+   * Task complexity scoring for Model Routing
+   * Scores from 0 to 100 and assigns optimal tier:
+   *   Tier 0 (< 20): Heuristic / Zero-LLM instant validation (<1ms, 0 MB)
+   *   Tier 1 (>= 20): Fast Local Model via node-llama-cpp
+   */
+  scoreTaskComplexity(taskType, prompt = "", options = {}) {
+    if (options.tier !== undefined) {
+      if (typeof options.tier === "number") return options.tier === 0 ? 0 : 1;
+      if (options.tier === "tier_0_heuristic" || options.tier === "tier_0") return 0;
+      return 1;
+    }
+
+    let score = 30;
+    const taskBaseScores = {
+      validate_migration_schema: 15,
+      review_code_quality: 25,
+      explain_error: 30,
+      analyze_code: 35,
+      suggest_refactor: 45,
+      build_model_migration: 50,
+      build_routes: 55,
+      generate_post_mortem: 55,
+      build_livewire_component: 70,
+      build_view: 70,
+      enhance_architecture: 80,
+      generate_architecture: 85,
+      build_application: 95,
+    };
+
+    if (taskBaseScores[taskType] !== undefined) {
+      score = taskBaseScores[taskType];
+    }
+
+    const pLen = typeof prompt === "string" ? prompt.length : 0;
+    if (pLen > 2000) score += 15;
+    else if (pLen > 5000) score += 25;
+
+    const lowerPrompt = (prompt || "").toLowerCase();
+    if (lowerPrompt.includes("multi-tenant") || lowerPrompt.includes("architecture") || lowerPrompt.includes("full stack")) {
+      score += 15;
+    }
+    if (lowerPrompt.includes("syntax") || lowerPrompt.includes("regex") || lowerPrompt.includes("assert")) {
+      score -= 10;
+    }
+
+    if (score < 20) return 0;
+    return 1;
+  }
+
+  /**
+   * Tier 0: Zero-LLM instant heuristics, regex validator, static TDD assertions (< 1ms, 0 MB)
+   */
+  executeHeuristic(taskType, prompt = "") {
+    if (taskType === "validate_migration_schema") {
+      const errors = [];
+      const warnings = [];
+      const recommendations = [];
+      const text = typeof prompt === "string" ? prompt : JSON.stringify(prompt);
+
+      if (text.includes("Schema::create") && !text.includes("timestamps()")) {
+        warnings.push("Tabel tidak mendefinisikan $table->timestamps(). Disarankan untuk audit data.");
+        recommendations.push("Tambahkan $table->timestamps(); pada migrasi.");
+      }
+
+      const rawIntFk = text.match(/\$table->(?:unsigned)?(?:big)?integer\s*\(\s*['"]([a-zA-Z0-9_]+_id)['"]\s*\)/g);
+      if (rawIntFk && !text.includes("foreign(") && !text.includes("foreignId(")) {
+        errors.push(`Deteksi foreign key primitif (${rawIntFk.join(", ")}) tanpa foreign constraint.`);
+        recommendations.push("Gunakan $table->foreignId('...')->constrained()->cascadeOnDelete(); untuk integritas referensial.");
+      }
+
+      if (text.includes("Schema::create") && !text.includes("id()") && !text.includes("primary(")) {
+        errors.push("Tabel tidak memiliki primary key ($table->id() atau $table->primary()).");
+      }
+
+      if (text.includes("function up") && !text.includes("dropIfExists")) {
+        warnings.push("Method down() sebaiknya menyertakan Schema::dropIfExists untuk rollback yang aman.");
+      }
+
+      const valid = errors.length === 0;
+      return JSON.stringify({
+        valid,
+        tier: "tier_0_heuristic",
+        execution_time_ms: 0.5,
+        errors,
+        warnings,
+        recommendations
+      }, null, 2);
+    }
+
+    if (taskType === "review_code_quality") {
+      const text = typeof prompt === "string" ? prompt : JSON.stringify(prompt);
+      const issues = [];
+
+      if (text.includes("@livewire(")) {
+        issues.push({
+          severity: "warning",
+          message: "Penggunaan tag legasi @livewire(). Disarankan menggunakan tag modern <livewire:... />.",
+          fix: "Ganti @livewire('component-name') menjadi <livewire:component-name />"
+        });
+      }
+
+      if (/DB::raw\s*\(\s*(?:['"][^'"]*\$|['"][^'"]*['"]\s*\.\s*\$[a-zA-Z0-9_]+)/i.test(text)) {
+        issues.push({
+          severity: "error",
+          message: "Potensi SQL Injection terdeteksi dalam DB::raw() dengan konkatenasi variabel langsung.",
+          fix: "Gunakan parameterized query atau Eloquent bindings alih-alih merangkai query langsung."
+        });
+      }
+
+      if (/env\s*\(\s*['"][A-Z0-9_]+['"]\s*\)/.test(text) && !text.includes("config/")) {
+        issues.push({
+          severity: "warning",
+          message: "Pemanggilan helper env() langsung di luar file konfigurasi berisiko mengembalikan null saat config:cache aktif.",
+          fix: "Gunakan helper config('app.key') dan definisikan di file konfigurasi."
+        });
+      }
+
+      if (issues.length > 0) {
+        return JSON.stringify({
+          valid: issues.filter(i => i.severity === "error").length === 0,
+          tier: "tier_0_heuristic",
+          score: Math.max(10, 100 - (issues.length * 20)),
+          issues,
+          suggestions: issues.map(i => i.fix)
+        }, null, 2);
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Generates output with Model Routing and GBNF Grammar Constraints (Pilar 5).
+   * @param {string} prompt - Prompt for the model.
+   * @param {string} taskType - Task type (must be in ALLOWED_TASKS).
+   * @param {string|null} _systemPrompt - Optional custom system prompt.
+   * @param {Object} options - Options: { tier, schema, grammar, model, ... }
+   */
+  async generate(prompt, taskType = "analyze_code", _systemPrompt = null, options = {}) {
     if (!ALLOWED_TASKS.includes(taskType)) {
       throw new Error(`Boundary Violation: Task "${taskType}" not allowed.`);
+    }
+
+    // Resolve schema preset name if passed as string (e.g. options.schema = "blueprintApp")
+    if (options.schema && typeof options.schema === "string" && this.schemas[options.schema]) {
+      options.schema = this.schemas[options.schema];
     }
 
     let safePrompt = prompt;
@@ -163,6 +419,43 @@ class LocalIntelligence {
                    prompt.substring(prompt.length - halfLimit);
     }
 
+    const isBuilderTask = [
+      "generate_architecture",
+      "build_model_migration",
+      "build_livewire_component",
+      "build_view",
+      "build_application",
+      "build_routes",
+    ].includes(taskType);
+
+    const LOCKED_SYSTEM_PROMPT = isBuilderTask
+      ? `You are an elite TALL Stack Architect (Tailwind, Alpine.js, Laravel, Livewire) for the NEXUS AI framework. ` +
+        `Your role is to design and write high-quality, production-ready code. ` +
+        `You must generate EXACT, working code based on the user's requirements. ` +
+        `Output ONLY the raw code or structured JSON as requested, without any conversational filler or markdown code blocks if the output is meant to be a raw file.`
+      : `You are a TALL Stack code reviewer for the NEXUS AI framework. ` +
+        `Your role is STRICTLY LIMITED to: ${ALLOWED_TASKS.filter((t) => !["generate_architecture", "build_model_migration", "build_livewire_component", "build_view", "build_application", "build_routes"].includes(t)).join(", ")}. ` +
+        `You MUST NOT generate full applications autonomously. ` +
+        `Respond in structured format only. Be concise.`;
+
+    const systemPrompt = _systemPrompt || LOCKED_SYSTEM_PROMPT;
+
+    // ── MODEL ROUTING ──
+    const targetTier = this.scoreTaskComplexity(taskType, safePrompt, options);
+
+    // TIER 0: Heuristic / Zero-LLM instant validation (<1ms, 0 MB)
+    if (targetTier === 0 || options.tier === 0 || options.tier === "tier_0_heuristic") {
+      console.log(`⚡ LocalIntelligence: Routing task "${taskType}" to Tier 0 (Heuristic Engine)...`);
+      const heuristicResult = this.executeHeuristic(taskType, safePrompt);
+      if (heuristicResult) {
+        return heuristicResult;
+      }
+      console.log(`ℹ️ LocalIntelligence: Heuristic rule didn't cover task "${taskType}". Routing to Tier 1...`);
+    }
+
+    // TIER 1: Fast Local Model via node-llama-cpp (Qwen2.5-Coder + GBNF)
+    console.log(`🧠 LocalIntelligence: Routing task "${taskType}" to Tier 1 (Fast Local node-llama-cpp)...`);
+
     // Circuit breaker: fail fast jika OPEN
     const now = Date.now();
     if (this.cb.state === "OPEN") {
@@ -172,7 +465,6 @@ class LocalIntelligence {
         );
         return null;
       }
-      // Cooldown finished: transition to HALF-OPEN
       this.cb.state = "HALF-OPEN";
       console.log(
         "⚡ LocalIntelligence: Circuit breaker HALF-OPEN — testing inference availability...",
@@ -182,31 +474,13 @@ class LocalIntelligence {
     if (!this.isAvailable) await this.checkAvailability();
     if (!this.isAvailable) return null;
 
-    const isBuilderTask = [
-      "generate_architecture",
-      "build_model_migration",
-      "build_livewire_component",
-      "build_view",
-      "build_application",
-    ].includes(taskType);
-
-    const LOCKED_SYSTEM_PROMPT = isBuilderTask
-      ? `You are an elite TALL Stack Architect (Tailwind, Alpine.js, Laravel, Livewire) for the NEXUS AI framework. ` +
-        `Your role is to design and write high-quality, production-ready code. ` +
-        `You must generate EXACT, working code based on the user's requirements. ` +
-        `Output ONLY the raw code or structured JSON as requested, without any conversational filler or markdown code blocks if the output is meant to be a raw file.`
-      : `You are a TALL Stack code reviewer for the NEXUS AI framework. ` +
-        `Your role is STRICTLY LIMITED to: ${ALLOWED_TASKS.filter((t) => !["generate_architecture", "build_model_migration", "build_livewire_component", "build_view", "build_application"].includes(t)).join(", ")}. ` +
-        `You MUST NOT generate full applications autonomously. ` +
-        `Respond in structured format only. Be concise.`;
-
     try {
       const result = await this._doGenerate(
         safePrompt,
-        _systemPrompt || LOCKED_SYSTEM_PROMPT,
+        systemPrompt,
         taskType,
+        options,
       );
-      // Reset circuit breaker on success
       this.cb = { state: "CLOSED", failures: 0, openedAt: null };
       return result;
     } catch (e) {
@@ -231,116 +505,64 @@ class LocalIntelligence {
     }
   }
 
-  // Internal: actual inference
-  async _doGenerate(prompt, systemPrompt, taskType) {
+  // Internal: actual inference on local node-llama-cpp (Tier 1)
+  async _doGenerate(prompt, systemPrompt, taskType, options = {}) {
     const isBuilderTask = [
       "generate_architecture",
       "build_model_migration",
       "build_livewire_component",
       "build_view",
       "build_application",
+      "build_routes",
     ].includes(taskType);
 
     const temperature = isBuilderTask ? 0.7 : 0.1;
     let responseText = "";
 
-    // ── JALUR SUPER CEPAT: GEMINI CLOUD API ──
-    if (this.geminiApi) {
-      console.log(
-        `🧠 LocalIntelligence: Routing task "${taskType}" ke Gemini Cloud API (${this.geminiModel})...`,
-      );
-      const payload = {
-        contents: [
-          { role: "user", parts: [{ text: `${systemPrompt}\n\n${prompt}` }] },
-        ],
-        generationConfig: {
-          temperature: temperature,
-          maxOutputTokens: this.MAX_OUTPUT_LENGTH,
-        },
-      };
+    // ── LOCAL NODE-LLAMA-CPP INFERENCE ──
+    let requestedSize = process.env.NEXUS_CONTEXT_SIZE ? parseInt(process.env.NEXUS_CONTEXT_SIZE, 10) : 1024;
+    if (!Number.isFinite(requestedSize) || requestedSize < 512) requestedSize = 1024;
+    const candidateSizes = [requestedSize, 1024, 768, 512].filter((s, idx, self) => s <= requestedSize && self.indexOf(s) === idx);
 
-      const MAX_RETRIES = 3;
-      let lastError = null;
+    let context = null;
+    let threads = parseInt(process.env.NEXUS_CPU_THREADS) || 2;
 
-      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-        try {
-          const res = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${this.geminiModel}:generateContent?key=${this.geminiApi}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            },
-          );
+    for (const size of candidateSizes) {
+      try {
+        console.log(
+          `🧠 LocalIntelligence: Creating context (Size: ${size}) [LOCAL INFERENCE]...`,
+        );
+        context = await this.model.createContext({
+          contextSize: size,
+          threads: threads,
+        });
+        break;
+      } catch (err) {
+        console.warn(`⚠️ LocalIntelligence: Failed to create context (Size: ${size}): ${err.message}`);
+        const isVulkanOom = err.message?.includes("OutOfDeviceMemory") ||
+                            err.message?.includes("allocate") ||
+                            err.message?.includes("Vulkan") ||
+                            err.message?.includes("kv cache");
 
-          // ── Handle 429 rate-limit with retry ──
-          if (res.status === 429) {
-            const errBody = await res.text();
-            let waitSec = 30; // default fallback
-            try {
-              const errJson = JSON.parse(errBody);
-              const retryInfo = errJson.error?.details?.find((d) =>
-                d["@type"]?.includes("RetryInfo"),
-              );
-              if (retryInfo?.retryDelay) {
-                waitSec = Math.ceil(parseFloat(retryInfo.retryDelay));
-              }
-            } catch (_) {
-              /* use default wait */
-            }
-
-            if (attempt < MAX_RETRIES) {
-              console.warn(
-                `⏳ LocalIntelligence: Rate limited (429). Waiting ${waitSec}s before retry... (attempt ${attempt}/${MAX_RETRIES})`,
-              );
-              await new Promise((r) => setTimeout(r, waitSec * 1000));
-              continue;
-            }
-            lastError = new Error(
-              `HTTP Error 429: Rate limit exceeded after ${MAX_RETRIES} retries.`,
-            );
+        if (isVulkanOom && this.currentGpuLayers !== 0) {
+          console.warn(`⚡ LocalIntelligence: Vulkan/GPU VRAM exhausted. Falling back to pure CPU engine...`);
+          try {
+            await this._reloadModel(0, true);
+            context = await this.model.createContext({
+              contextSize: size,
+              threads: threads,
+            });
             break;
-          }
-
-          if (!res.ok) {
-            const errText = await res.text();
-            throw new Error(`HTTP Error ${res.status}: ${errText}`);
-          }
-
-          const data = await res.json();
-          responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-          return this.validateOutput(responseText, taskType);
-        } catch (err) {
-          lastError = err;
-          // Non-retryable errors break immediately
-          if (!err.message?.includes("429")) {
-            break;
+          } catch (cpuErr) {
+            console.warn(`⚠️ LocalIntelligence: CPU Context creation failed (Size: ${size}): ${cpuErr.message}`);
           }
         }
       }
-
-      console.error(
-        `❌ LocalIntelligence: API Request gagal:`,
-        lastError.message,
-      );
-      throw lastError;
     }
 
-    // ── JALUR LAMBAT: LOCAL NODE-LLAMA-CPP (FALLBACK) ──
-    // FIX: Context size disesuaikan secara dinamis (hingga 16384) 
-    // jika prompt besar untuk mencegah node-llama-cpp OOM atau "prompt too large".
-    let contextSize = 8192;
-    if (prompt && prompt.length > 30000) {
-      contextSize = 16384;
+    if (!context) {
+      throw new Error("Failed to create context for local LLM after trying all memory/CPU fallback strategies.");
     }
-
-    console.log(
-      `🧠 LocalIntelligence: Creating context (Size: ${contextSize}) [LOCAL INFERENCE]...`,
-    );
-    const context = await this.model.createContext({
-      contextSize: contextSize,
-      threads: parseInt(process.env.NEXUS_CPU_THREADS) || 6, // Configurable via .env
-    });
 
     try {
       const session = new LlamaChatSession({
@@ -351,13 +573,45 @@ class LocalIntelligence {
       console.log(
         `🧠 LocalIntelligence: Prompting local model... (Ini akan memakan waktu)`,
       );
-      responseText = await session.prompt(prompt, {
+
+      const promptOptions = {
         temperature: temperature,
-        maxTokens: this.MAX_OUTPUT_LENGTH,
+        maxTokens: options.maxTokens || (isBuilderTask ? 4096 : 2048),
+      };
+
+      // 🛡️ GBNF JSON Schema Grammar Constraint (Pilar 5)
+      if (options && options.schema && this.llama) {
+        try {
+          console.log(`🛡️ LocalIntelligence: Enforcing GBNF JSON Schema Grammar...`);
+          promptOptions.grammar = await this.llama.createGrammarForJsonSchema(options.schema);
+        } catch (gErr) {
+          console.warn(`⚠️ LocalIntelligence: Could not compile schema grammar: ${gErr.message}. Proceeding without grammar.`);
+        }
+      } else if (options && options.grammar) {
+        promptOptions.grammar = options.grammar;
+      }
+
+      // ⏱️ TIMEOUT PROTECTION: Prevent indefinite hang on local inference
+      const timeoutMs = options.timeoutMs || 120000; // 2 minutes default
+      let timeoutHandle;
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutHandle = setTimeout(
+          () => reject(new Error(`LocalIntelligence inference timed out after ${timeoutMs}ms`)),
+          timeoutMs
+        );
       });
+
+      try {
+        responseText = await Promise.race([
+          session.prompt(prompt, promptOptions),
+          timeoutPromise,
+        ]);
+      } finally {
+        if (timeoutHandle) clearTimeout(timeoutHandle);
+      }
     } finally {
       // Selalu bersihkan context setelah selesai agar memori tidak penuh!
-      await context.dispose();
+      await context.dispose().catch(() => {});
     }
 
     return this.validateOutput(responseText, taskType);
@@ -374,8 +628,18 @@ class LocalIntelligence {
     if (!output || typeof output !== "string") return null;
 
     // Trim whitespace
-    const trimmed = output.trim();
+    let trimmed = output.trim();
     if (trimmed.length === 0) return null;
+
+    // 🔧 Strip markdown code fences (```json ... ``` or ``` ... ```)
+    // Qwen models frequently wrap JSON output in markdown fences which breaks JSON.parse
+    if (trimmed.startsWith("```")) {
+      // Remove opening fence (```json, ```JSON, ```, etc.)
+      trimmed = trimmed.replace(/^```(?:json|JSON)?\s*\n?/, "");
+      // Remove closing fence
+      trimmed = trimmed.replace(/\n?```\s*$/, "");
+      trimmed = trimmed.trim();
+    }
 
     // ⛔ Anti-hallucination: output tidak boleh terlalu panjang
     if (trimmed.length > this.MAX_OUTPUT_LENGTH) {

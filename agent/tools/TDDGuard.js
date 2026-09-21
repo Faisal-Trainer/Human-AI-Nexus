@@ -17,6 +17,14 @@ class TDDGuard {
      * @returns {Object} - { allowed: boolean, reason: string }
      */
     async validate(targetFile) {
+        const normalized = String(targetFile || '').replace(/\\/g, '/');
+        const base = path.basename(normalized);
+        // Dotfiles, lockfiles, and Laravel env files are not production logic — skip TDD iron law.
+        const exempt = ['.gitignore', '.env', '.env.example', 'composer.lock', 'package-lock.json', 'LICENSE'];
+        if (exempt.includes(base) || normalized.startsWith('.git/')) {
+            return { allowed: true, reason: `Exempt from TDD iron law: ${base}` };
+        }
+
         // 1. If it's a new file, it might be allowed (Engine is creating it)
         const fullPath = path.join(this.rootPath, targetFile);
         if (!(await fs.pathExists(fullPath))) {

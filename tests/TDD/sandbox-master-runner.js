@@ -16,7 +16,7 @@ const TDD_DIR   = __dirname;
 const ROOT_PATH = path.join(__dirname, '..', '..');
 
 const SECTIONS = [
-    { id: 1, file: 'phase1_testing.js',  label: 'Section 1 — Fundamental CRUD & Auth (9 projects)' },
+    { id: 1, file: 'phase1_testing.js',  label: 'Section 1 — Fundamental CRUD & Auth (10 projects)' },
     { id: 2, file: 'setup_section2.js',  label: 'Section 2 — Dashboard & Admin Panel (10 projects)' },
     { id: 3, file: 'setup_section3.js',  label: 'Section 3 — Security & Realtime (11 projects)' },
     { id: 4, file: 'setup_dynamic_section.js', args: ['4'], label: 'Section 4 — Realtime & Livewire Intensive (10 projects)' },

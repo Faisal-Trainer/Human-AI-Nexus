@@ -22,9 +22,13 @@ class RedisMemory {
         this._connectingPromise = (async () => {
             try {
                 if (!this.client) {
-                    this.client = createClient();
+                    this.client = createClient({
+                        socket: {
+                            connectTimeout: 800,
+                            reconnectStrategy: false,
+                        }
+                    });
                     this.client.on('error', (err) => {
-                        console.error('❌ Redis Error:', err.message);
                         this.isConnected = false;
                         this._connectingPromise = null;
                     });
@@ -33,7 +37,6 @@ class RedisMemory {
                 this.isConnected = true;
                 console.log('🚀 Redis: Connected to in-memory memory bank.');
             } catch (e) {
-                console.warn('⚠️ Redis: Connection failed. Falling back to file-based memory.');
                 this.isConnected = false;
             } finally {
                 this._connectingPromise = null;

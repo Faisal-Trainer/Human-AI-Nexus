@@ -68,6 +68,16 @@
       "model": "NexusEngine",
       "type": "uses",
       "target": "MemoryGovernor"
+    },
+    {
+      "model": "NexusEngine",
+      "type": "uses",
+      "target": "GraphEngine"
+    },
+    {
+      "model": "NexusEngine",
+      "type": "uses",
+      "target": "ObsidianBridge"
     }
   ],
   "core_modules": [
@@ -77,6 +87,8 @@
     "AgentRegistry",
     "LocalIntelligence",
     "SemanticEngine",
+    "GraphEngine",
+    "ObsidianBridge",
     "MemoryGovernor",
     "MemoryPipeline",
     "Distiller",
@@ -102,5 +114,155 @@
     "RootCauseAnalyzer",
     "DatasetExtractor",
     "RetroDatasetExtractor"
-  ]
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {"method": "POST", "path": "/api/run", "controller": "NexusEngine@run", "middleware": ["auth"]},
+    {"method": "POST", "path": "/api/audit", "controller": "NexusEngine@audit", "middleware": ["auth"]},
+    {"method": "POST", "path": "/api/sandbox", "controller": "NexusEngine@sandbox", "middleware": ["auth"]},
+    {"method": "POST", "path": "/api/harvest", "controller": "NexusEngine@harvest", "middleware": ["auth"]},
+    {"method": "POST", "path": "/api/distill", "controller": "NexusEngine@distill", "middleware": ["auth"]},
+    {"method": "POST", "path": "/api/train", "controller": "NexusEngine@train", "middleware": ["auth"]}
+  ],
+  "security_policies": {
+    "roles": ["admin", "developer"],
+    "permissions": ["run-sandbox", "view-dashboard", "manage-training"],
+    "rate_limiting": {"api": "60,1", "auth": "5,1"},
+    "middleware_map": {
+      "/api/*": ["auth", "throttle:60,1"],
+      "/dashboard": ["auth", "verified"]
+    }
+  },
+  "async_jobs": [
+    {"name": "RunSandboxPipeline", "queue": "default", "retry": 3, "backoff": 60},
+    {"name": "TrainLoraModel", "queue": "training", "retry": 1, "backoff": 300},
+    {"name": "DistillMemory", "queue": "default", "retry": 2, "backoff": 30}
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#1e40af",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#0f172a",
+      "surface": "#1e293b"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "mono_font": "JetBrains Mono",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "dark",
+    "component_style": "rounded-lg border border-slate-700 bg-slate-800/50 shadow-lg"
+  },
+  "architecture_upgrades_status": {
+    "1_graph_rag_wikilinks": {
+      "title": "GraphRAG (Wikilink & Network Graph Traversal)",
+      "status": "COMPLETED",
+      "progress": "100%",
+      "components": [
+        "agent/core/GraphEngine.js",
+        "agent/core/SemanticEngine.js",
+        "agent/core/NexusEngine.js",
+        "agent/core/phases/PlanningPhase.js"
+      ],
+      "capabilities": [
+        "Wikilink [[...]] & hashtag parsing",
+        "1-hop and 2-hop relational traversal with substantive content extraction",
+        "Token budget bounding (3500-4500 chars) safe for 8GB RAM laptops",
+        "Hybrid Seeding (Direct entity match + vector/TF-IDF similarity)",
+        "Prompt injection into blueprintApp architecture generator",
+        "Task recommendation enrichment in PlanningPhase"
+      ],
+      "verified_metrics": {
+        "total_nodes": 1765,
+        "total_edges": 6442,
+        "bidirectional_edges": 2689,
+        "indexed_tags": 1132
+      }
+    },
+    "2_continuous_learning_loop": {
+      "title": "Continuous Learning Loop (Obsidian Write-Back)",
+      "status": "COMPLETED",
+      "progress": "100%",
+      "target_directory": "C:\\Users\\ACER\\Documents\\Obsidian Vault\\NEXUS Update",
+      "lessons_directory": "C:\\Users\\ACER\\Documents\\Obsidian Vault\\NEXUS Update\\Lessons",
+      "components": [
+        "agent/core/phases/ExecutionPhase.js",
+        "agent/core/ObsidianBridge.js",
+        "agent/core/LocalIntelligence.js",
+        ".nexus-vault.json"
+      ],
+      "capabilities": [
+        "AI-powered post-mortem generation via local model (qwen2.5-coder-1.5b)",
+        "Structured Markdown format with YAML frontmatter tags, aliases, and [[wikilinks]]",
+        "Dual trigger: TDD test failure detection + self-healing recovery from fatal crashes",
+        "Real-time incremental knowledge graph re-indexing after write",
+        "Training sample append to Google Colab CUDA dataset in '3 qwen/'"
+      ]
+    },
+    "3_tiered_model_routing": {
+      "title": "Hierarchical / Tiered Model Routing",
+      "status": "COMPLETED",
+      "progress": "100%",
+      "verified": true,
+      "target_hardware": "AMD Ryzen 5 2500U + Radeon Vega 8 (8GB RAM)",
+      "components": [
+        "agent/core/LocalIntelligence.js",
+        "agent/core/NexusEngine.js"
+      ],
+      "tiers": {
+        "tier_0_heuristic": "Zero-LLM instant heuristics, regex validator, static TDD assertions (< 1ms, 0 MB)",
+        "tier_1_fast_local": "Qwen2.5-Coder-1.5B/3B (Q4_K_M) via node-llama-cpp on Vulkan/CPU for syntax fixes, classifications, TDD assertions (20-30 t/s, ~2.2 GB)",
+        "tier_2_deep_local": "Qwen2.5-Coder-7B (Q4_K_M) via Ollama for multi-file architecture synthesis & Livewire component generation (12-16 t/s, ~4.8 GB)",
+        "tier_3_cloud_burst": "Gemini 2.0 Flash REST API for massive 100-project batch scaffolding & complex graph reasoning (60-90 t/s, 0 MB RAM)"
+      },
+      "routing_strategy": "Task-complexity scoring (0-100) with automatic fallback cascading: Tier 0 -> Tier 1 -> Tier 2 -> Tier 3",
+      "verified_features": [
+        "Instant Tier 0 heuristic execution for schema and code quality (< 1ms)",
+        "Automated complexity scoring mapping task types and prompt size to target tiers",
+        "Seamless graceful cascading fallback if higher tiers are unreachable"
+      ]
+    },
+    "4_agentic_rag_hyde_crag": {
+      "title": "Agentic RAG dengan HyDE & Corrective RAG (CRAG)",
+      "status": "COMPLETED",
+      "progress": "100%",
+      "verified": true,
+      "components": [
+        "agent/core/SemanticEngine.js",
+        "agent/core/GraphEngine.js",
+        "agent/core/NexusEngine.js"
+      ],
+      "completed_features": [
+        "Hybrid Seeding (Direct Entity Match + TF-IDF/Vector Similarity)",
+        "Heading-Aware Markdown AST Chunking (## and ###)",
+        "Delta Indexing with mtime timestamp caching",
+        "Obsidian Vault + Local Memory dual-source indexing",
+        "Hypothetical Document Embeddings (HyDE) zero-shot domain-specific code pattern expansion",
+        "Corrective RAG (CRAG) with confidence scoring threshold (>=0.60 DIRECT, 0.35-0.60 ENRICH_GRAPH_HYDE, <0.35 REFORMULATE_EXPAND)",
+        "Reciprocal Rank Fusion (RRF) combining Sparse TF-IDF, Dense nomic-embed-text, and Graph Wikilinks"
+      ]
+    },
+    "5_gbnf_grammar_decoding": {
+      "title": "GBNF Grammar / Constrained JSON Decoding",
+      "status": "COMPLETED",
+      "progress": "100%",
+      "verified": true,
+      "components": [
+        "agent/core/LocalIntelligence.js"
+      ],
+      "capabilities": [
+        "Strict JSON schema enforcement at LLM sampling layer via node-llama-cpp LlamaJsonSchemaGrammar",
+        "Zero syntax error guarantee for blueprint JSON generation",
+        "Predefined schemas: blueprintApp, postMortem, codeReview, schemaValidation",
+        "Automatic schema derivation from TALL stack blueprint validators"
+      ]
+    }
+  }
 }

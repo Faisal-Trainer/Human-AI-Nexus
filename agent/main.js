@@ -336,9 +336,36 @@ async function main() {
       if (!question) {
         console.log("Usage: nexus think <your question>");
       } else {
-        console.log("\x1b[36m%s\x1b[0m", "🤔 Nexus is thinking...");
-        // taskType 'explain_error' — paling relevan untuk pertanyaan arsitektur
-        const answer = await engine.localAI.generate(question, "explain_error");
+        console.log("\x1b[36m%s\x1b[0m", `🤔 Nexus is retrieving context and thinking about: "${question}"...`);
+        
+        // 1. RAG Retrieval via Knowledge Graph & Vault
+        let augmentedPrompt = question;
+        try {
+          if (!engine.semanticEngine.graphEngine.isBuilt) {
+            await engine.semanticEngine.buildGraphOnly();
+          }
+          const graphResult = await engine.searchKnowledgeGraph(question, {
+            maxHops: 1,
+            maxNeighborsPerSeed: 3,
+            maxTotalChars: 3000,
+          });
+
+          if (graphResult && graphResult.graphContextString) {
+            const seedNames = (graphResult.seeds || []).map(s => `[[${s.title}]]`).join(", ");
+            const neighborNames = (graphResult.connectedNotes || []).map(n => `[[${n.node.title}]]`).join(", ");
+            console.log(`\x1b[33m📚 Knowledge Context Retrieved from Vault:\x1b[0m`);
+            if (seedNames) console.log(`   🎯 Focus Notes: ${seedNames}`);
+            if (neighborNames) console.log(`   🔗 Connected  : ${neighborNames}`);
+            console.log("");
+
+            augmentedPrompt = `Anda adalah NEXUS AI Assistant. Jawab pertanyaan user berdasarkan konteks knowledge graph berikut jika relevan.\n\n${graphResult.graphContextString}\n\n---\nPertanyaan: ${question}\nJawaban:`;
+          }
+        } catch (ragErr) {
+          console.warn(`⚠️ RAG retrieval skipped: ${ragErr.message}`);
+        }
+
+        // 2. Inference via Local AI (Vulkan GPU backend)
+        const answer = await engine.localAI.generate(augmentedPrompt, "explain_error");
         console.log("\n\x1b[32m%s\x1b[0m", "🤖 Answer:");
         console.log(answer || "No response from local AI.");
       }
@@ -521,6 +548,65 @@ async function main() {
       rl.close();
       break;
     }
+    case "graph": {
+      console.log("\x1b[36m%s\x1b[0m", "\n🌐 NEXUS Knowledge Graph & GraphRAG");
+      console.log("==========================================");
+
+      const query = args.slice(1).join(" ").trim();
+
+      // Ensure graph is built (fast build without waiting for vector embeddings)
+      if (!engine.semanticEngine.graphEngine.isBuilt) {
+        console.log("⏳ Loading/Building knowledge graph from Obsidian Vault & Memory...");
+        await engine.semanticEngine.buildGraphOnly();
+      }
+
+      const graph = engine.semanticEngine.graphEngine;
+      const stats = graph.getStats();
+
+      if (!query) {
+        console.log(`📊 Total Nodes (Notes) : \x1b[32m${stats.totalNodes}\x1b[0m`);
+        console.log(`🔗 Total Edges (Links) : \x1b[32m${stats.totalEdges}\x1b[0m (${stats.bidirectionalEdges} bidirectional)`);
+        console.log(`🏷️  Total Tags Indexed : \x1b[32m${stats.totalTags}\x1b[0m`);
+        console.log("\n🌟 Top Central Hubs (Highest Connected Notes):");
+        stats.topHubs.slice(0, 8).forEach((hub, idx) => {
+          console.log(`   ${idx + 1}. [[${hub.title}]] -> ${hub.totalDegree} connections (${hub.outlinks} out, ${hub.backlinks} back)`);
+        });
+        console.log("\n💡 Tip: Jalankan 'nexus graph <nama_note_atau_topik>' untuk visualisasi tree 1-hop/2-hop.");
+      } else {
+        console.log(`🔍 Searching Graph & Wikilinks for: "${query}"...\n`);
+        
+        // Find direct node matches
+        const directNodes = graph.findNodes(query);
+        if (directNodes.length > 0) {
+          console.log(`🎯 Found matching note: [[${directNodes[0].title}]]\n`);
+          console.log(graph.visualizeTree(directNodes[0].id));
+        }
+
+        // Run GraphRAG traversal
+        const seeds = directNodes.length > 0 ? directNodes.slice(0, 2) : [query];
+        const graphResult = graph.traverse(seeds, { maxHops: 1, maxNeighborsPerSeed: 4 });
+
+        if (graphResult.connectedNotes.length > 0) {
+          console.log("\n--- Graph Context Injected for LLM (GraphRAG) ---");
+          console.log(graphResult.graphContextString);
+        } else if (directNodes.length === 0) {
+          console.log(`⚠️ Tidak ditemukan note atau koneksi yang cocok dengan query "${query}".`);
+        }
+      }
+      console.log("==========================================\n");
+      rl.close();
+      break;
+    }
+    case "clear-cache":
+    case "clear-chace":
+    case "clear:cache":
+    case "cache-clear": {
+      const CacheManager = require("./tools/CacheManager");
+      const cm = new CacheManager(path.resolve(__dirname, ".."));
+      await cm.clearAndBackup();
+      rl.close();
+      break;
+    }
     case "help":
     default:
       console.log(`
@@ -529,6 +615,7 @@ Usage:
   nexus run [target]  - Start a full Audit -> Plan -> Execute cycle (on whole project or specific target folder)
   nexus audit [target]- Run only the Audit phase (on whole project or specific target folder)
   nexus status        - Show real-time system health (CPU, RAM, agents, evolution)
+  nexus graph [query] - 🆕 Inspect Obsidian Knowledge Graph (Wikilinks, Backlinks, GraphRAG Context)
   nexus vault         - 🆕 Show Obsidian Vault status & Blueprint counts (new, archive, 100 project, 3 qwen)
   nexus dataset       - 🆕 Analytics for Colab CUDA fine-tuning dataset in 3 qwen/
   nexus blueprint [p] - 🆕 Inspect & preview project architecture blueprint
@@ -537,6 +624,7 @@ Usage:
   nexus sandbox       - Run all 100 sandbox projects autonomously
   nexus sandbox --section <1-10> - Run a specific Section only
   nexus sandbox --distill     - Run all + distill knowledge to HUB
+  nexus clear-cache   - 🧹 Backup all cache to Obsidian Vault & clear local cache
   nexus harvest <dir> - Harvest Nexus docs from another project to Golden HUB
   nexus refactor      - [Protocol 1] Mass Refactor from Golden to HUB
   nexus update-skills - [Protocol 2] Mass Update from HUB to Skills

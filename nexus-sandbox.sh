@@ -13,10 +13,10 @@
 #   ./nexus-sandbox.sh --status     — cek status sistem dulu
 # ============================================================
 
-set -e  # Stop on first unhandled error
+set +e  # Don't stop on errors — we track failures via FAILED_SECTIONS counter
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+ROOT_DIR="$SCRIPT_DIR"
 TDD_DIR="$ROOT_DIR/tests/TDD"
 LOG_DIR="$ROOT_DIR/logs"
 LOG_FILE="$LOG_DIR/sandbox-runner-$(date +%Y%m%d-%H%M%S).log"
@@ -24,11 +24,16 @@ SECTION=""
 NO_DISTILL=false
 
 # ── Parse arguments ──────────────────────────────────────────
-for arg in "$@"; do
-    case $arg in
-        --section)  shift ;;
-        1|2|3)      SECTION="$arg" ;;
-        --no-distill) NO_DISTILL=true ;;
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --section)
+            SECTION="$2"
+            shift 2
+            ;;
+        --no-distill)
+            NO_DISTILL=true
+            shift
+            ;;
         --status)
             echo "🔍 Checking Nexus system status..."
             bun "$ROOT_DIR/agent/main.js" status
@@ -45,6 +50,9 @@ for arg in "$@"; do
             echo "    ./nexus-sandbox.sh --status      Show system health"
             echo ""
             exit 0
+            ;;
+        *)
+            shift
             ;;
     esac
 done
@@ -86,13 +94,12 @@ else
     log "   ✅ PHP: $PHP_VER"
 fi
 
-TEMPLATE_PATH="$ROOT_DIR/tests/sandboxes/url-shortener"
+TEMPLATE_PATH="$ROOT_DIR/tests/sandboxes/laravel-fresh-template"
 if [ ! -d "$TEMPLATE_PATH" ]; then
-    log "❌ Template TALL stack tidak ditemukan di: $TEMPLATE_PATH"
-    log "   Pastikan sandbox url-shortener sudah ada dan ter-install."
-    exit 1
+    log "⚠️  Template Laravel belum ada: $TEMPLATE_PATH"
+    log "   SandboxProjectSetup akan membuatnya otomatis via 'composer create-project'."
 fi
-log "   ✅ TALL Template: url-shortener ditemukan"
+log "   ✅ Template check passed"
 log ""
 
 START_TIME=$(date +%s)
@@ -102,12 +109,14 @@ run_section() {
     local section_num="$1"
     local section_file="$2"
     local section_label="$3"
+    shift 3
+    local section_args=("$@")
 
     log_header "🚀 $section_label"
     log "   File: $TDD_DIR/$section_file"
     log ""
 
-    if bun "$TDD_DIR/$section_file" 2>&1 | tee -a "$LOG_FILE"; then
+    if bun "$TDD_DIR/$section_file" "${section_args[@]}" 2>&1 | tee -a "$LOG_FILE"; then
         log ""
         log "   ✅ $section_label — BERHASIL"
         return 0
@@ -123,13 +132,13 @@ FAILED_SECTIONS=0
 for i in {1..10}; do
     if [ -z "$SECTION" ] || [ "$SECTION" = "$i" ]; then
         if [ "$i" = "1" ]; then
-            run_section 1 "phase1_testing.js" "Section 1 — Fundamental CRUD & Auth (9 projects)" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
+            run_section 1 "phase1_testing.js" "Section 1 — Fundamental CRUD & Auth (10 projects)" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
         elif [ "$i" = "2" ]; then
             run_section 2 "setup_section2.js" "Section 2 — Dashboard & Admin Panel (10 projects)" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
         elif [ "$i" = "3" ]; then
             run_section 3 "setup_section3.js" "Section 3 — Security & Realtime (11 projects)" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
         else
-            run_section "$i" "setup_dynamic_section.js $i" "Section $i" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
+            run_section "$i" "setup_dynamic_section.js" "Section $i" "$i" || FAILED_SECTIONS=$((FAILED_SECTIONS + 1))
         fi
     fi
 done

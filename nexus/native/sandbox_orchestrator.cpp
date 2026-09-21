@@ -9,18 +9,37 @@
 
 namespace fs = std::filesystem;
 
-/**
- * Nexus Sandbox Orchestrator (Native C++)
- * Optimized for High-Speed SSD I/O and Windows Environments.
- */
+// Directories to skip during copy (large deps that are junction-linked by JS fallback)
+static const std::vector<std::string> SKIP_DIRS = {"nexus", "node_modules", "vendor"};
+
+bool should_skip(const fs::path& entry, const fs::path& source_root) {
+    fs::path rel = fs::relative(entry, source_root);
+    if (rel.empty()) return false;
+    std::string first_component = rel.begin()->string();
+    for (const auto& skip : SKIP_DIRS) {
+        if (first_component == skip) return true;
+    }
+    return false;
+}
 
 bool fast_copy(const fs::path& source, const fs::path& target) {
     try {
-        fs::copy(source, target, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-        // Remove unwanted folders immediately
-        fs::remove_all(target / "nexus");
-        fs::remove_all(target / "node_modules");
-        fs::remove_all(target / "vendor");
+        fs::create_directories(target);
+
+        for (const auto& entry : fs::recursive_directory_iterator(
+                 source, fs::directory_options::skip_permission_denied)) {
+
+            if (should_skip(entry.path(), source)) continue;
+
+            fs::path dest = target / fs::relative(entry.path(), source);
+
+            if (entry.is_directory()) {
+                fs::create_directories(dest);
+            } else {
+                fs::create_directories(dest.parent_path());
+                fs::copy_file(entry.path(), dest, fs::copy_options::overwrite_existing);
+            }
+        }
         return true;
     } catch (const std::exception& e) {
         std::cerr << "   ❌ Copy error: " << e.what() << std::endl;
@@ -36,11 +55,17 @@ bool patch_env(const fs::path& target, const std::string& app_name) {
     std::string content((std::istreambuf_iterator<char>(file_in)), std::istreambuf_iterator<char>());
     file_in.close();
 
-    // Replace APP_NAME
+    // Replace APP_NAME (handle both LF and CRLF line endings)
     size_t pos = content.find("APP_NAME=");
     if (pos != std::string::npos) {
-        size_t end = content.find("\n", pos);
-        content.replace(pos, end - pos, "APP_NAME=" + app_name);
+        size_t end = content.find('\n', pos);
+        if (end == std::string::npos) end = content.size();  // Handle missing trailing newline
+        // Trim \r if present (CRLF)
+        size_t replace_end = end;
+        if (replace_end > pos && content[replace_end - 1] == '\r') {
+            replace_end--;
+        }
+        content.replace(pos, replace_end - pos, "APP_NAME=" + app_name);
     }
 
     std::ofstream file_out(env_path);

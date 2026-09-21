@@ -86,13 +86,12 @@ if (Test-Path $orchPath) {
 }
 
 
-$templatePath = Join-Path $RootDir "tests\sandboxes\url-shortener"
+$templatePath = Join-Path $RootDir "tests\sandboxes\laravel-fresh-template"
 if (-not (Test-Path $templatePath)) {
-    Log "   [ERROR] Template TALL tidak ditemukan: $templatePath" "Red"
-    Log "   Pastikan sandbox url-shortener sudah ada." "Red"
-    exit 1
+    Log "   [WARN] Template Laravel belum ada: $templatePath" "Yellow"
+    Log "   SandboxProjectSetup akan membuatnya otomatis via 'composer create-project'." "Yellow"
 }
-Log "   [OK] TALL Template: url-shortener ditemukan" "Green"
+Log "   [OK] Template check passed" "Green"
 Log ""
 
 $StartTime = Get-Date
@@ -141,7 +140,7 @@ for ($i = 1; $i -le 10; $i++) {
     if ($Section -eq 0 -or $Section -eq $i) {
         $ok = $false
         if ($i -eq 1) {
-            $ok = Invoke-NexusSection -Num 1 -File "phase1_testing.js" -Label "Section 1 - Fundamental CRUD & Auth (9 projects)"
+            $ok = Invoke-NexusSection -Num 1 -File "phase1_testing.js" -Label "Section 1 - Fundamental CRUD & Auth (10 projects)"
         } elseif ($i -eq 2) {
             $ok = Invoke-NexusSection -Num 2 -File "setup_section2.js" -Label "Section 2 - Dashboard & Admin Panel (10 projects)"
         } elseif ($i -eq 3) {

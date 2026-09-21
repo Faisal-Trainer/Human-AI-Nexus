@@ -48,6 +48,7 @@ class ObsidianBridge {
       }
       
       this.vaultPath = config.vault_path || null;
+      this.updateDir = config.update_path || "NEXUS Update";
       this.readSources = config.read_sources || {};
       this.syncBack = config.sync_back === true;
 
@@ -260,6 +261,16 @@ class ObsidianBridge {
   }
 
   /**
+   * Get the root NEXUS Update path in Obsidian Vault for LLM rewrites & learnings.
+   * Defaults to 'C:\Users\ACER\Documents\Obsidian Vault\NEXUS Update'.
+   * @returns {string|null}
+   */
+  getUpdateVaultPath() {
+    if (!this.isActive()) return null;
+    return path.join(this.vaultPath, this.updateDir || "NEXUS Update");
+  }
+
+  /**
    * Save and organize blueprint into Obsidian Vault folders:
    * - new/: Newly created / updated blueprint
    * - archive/: Older versions with timestamp (archived before overwrite)
@@ -348,17 +359,20 @@ class ObsidianBridge {
   }
 
   /**
-   * Save a self-correction lesson to Obsidian Vault.
-   * Stored under 'NEXUS AI/NEXUS LESSONS/' for knowledge retention.
+   * Save a self-correction lesson to Obsidian Vault under 'NEXUS Update/Lessons' (or root of NEXUS Update).
    *
    * @param {string} lessonTitle - Short descriptive title (e.g. 'MIGRATION_FOREIGN_KEY_COLLISION')
    * @param {string} lessonContent - Markdown content of the lesson
+   * @param {object} [options] - Additional options (e.g. subfolder)
    * @returns {Promise<boolean>}
    */
-  async saveLesson(lessonTitle, lessonContent) {
+  async saveLesson(lessonTitle, lessonContent, options = {}) {
     if (!this.isActive()) return false;
     try {
-      const lessonDir = path.join(this.vaultPath, "NEXUS AI", "NEXUS LESSONS");
+      const updateRoot = this.getUpdateVaultPath();
+      const lessonDir = options.subfolder
+        ? path.join(updateRoot, options.subfolder)
+        : path.join(updateRoot, "Lessons");
       await fs.ensureDir(lessonDir);
       const safeTitle = lessonTitle.replace(/[^a-zA-Z0-9_-]/g, "_").toUpperCase();
       const filePath = path.join(lessonDir, `NEXUS_LESSON_${safeTitle}.md`);
@@ -367,6 +381,30 @@ class ObsidianBridge {
     } catch (e) {
       console.warn(`⚠️ ObsidianBridge: Failed to save lesson to vault: ${e.message}`);
       return false;
+    }
+  }
+
+  /**
+   * Save an LLM rewrite, refined document, or distilled note directly to 'NEXUS Update'.
+   *
+   * @param {string} fileName - Target file name (e.g. 'Laravel-Migration-Fix.md')
+   * @param {string} content - Markdown content rewritten/produced by LLM
+   * @param {string} [subfolder] - Optional subfolder inside 'NEXUS Update' (e.g. 'Rewrites', 'Architecture')
+   * @returns {Promise<string|null>} Absolute file path of saved file or null
+   */
+  async saveRewrite(fileName, content, subfolder = null) {
+    if (!this.isActive()) return null;
+    try {
+      const updateRoot = this.getUpdateVaultPath();
+      const targetDir = subfolder ? path.join(updateRoot, subfolder) : updateRoot;
+      await fs.ensureDir(targetDir);
+      const cleanName = fileName.endsWith(".md") ? fileName : `${fileName}.md`;
+      const filePath = path.join(targetDir, cleanName);
+      await fs.writeFile(filePath, content, "utf8");
+      return filePath;
+    } catch (e) {
+      console.warn(`⚠️ ObsidianBridge: Failed to save LLM rewrite to '${fileName}': ${e.message}`);
+      return null;
     }
   }
 

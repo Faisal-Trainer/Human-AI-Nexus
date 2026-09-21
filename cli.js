@@ -29,6 +29,7 @@ async function main() {
     "sandbox",
     "train",
     "vault",
+    "graph",
     "dataset",
     "blueprint",
     "lessons",
@@ -63,6 +64,13 @@ async function main() {
   }
 
   // Custom Dataset Extractor Commands
+  if (["clear-cache", "clear-chace", "clear:cache", "cache-clear"].includes(command)) {
+    const CacheManager = require("./agent/tools/CacheManager");
+    const cm = new CacheManager(__dirname);
+    await cm.clearAndBackup();
+    return;
+  }
+
   if (command === "extract-dataset") {
     const DatasetExtractor = require("./agent/tools/DatasetExtractor");
     const extractor = new DatasetExtractor(__dirname);

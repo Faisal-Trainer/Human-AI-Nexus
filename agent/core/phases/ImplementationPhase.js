@@ -45,6 +45,9 @@ class ImplementationPhase extends BasePhase {
       await this.generateSeeder(seeder, blueprint);
     }
 
+    // Generate Layout (Shell foundation before Livewire components & views)
+    await this.generateLayout(blueprint);
+
     // 3. Generate Livewire Components
     const components = blueprint.livewire_components || [];
     for (const component of components) {
@@ -56,9 +59,6 @@ class ImplementationPhase extends BasePhase {
     if (routes.length > 0) {
       await this.generateRoutes(routes, blueprint);
     }
-
-    // Generate Layout
-    await this.generateLayout(blueprint);
 
     // R-02: Bootstrap application dependencies, migrations, and assets
     await this.bootstrapApplication();
@@ -155,9 +155,22 @@ class ImplementationPhase extends BasePhase {
         );
       }
 
-      // Phase B #8: Auth Scaffolding
+      // Phase B #8: Auth Scaffolding — deterministic guard for laravel/ui
+      // If Breeze/ui not installed, strip Auth::routes() to keep artisan route:list bootable (sections 1,2,3)
       if (!hasBreeze) {
-        this.log(`      ⚠️ Laravel Breeze installation skipped per user request.`, "warning");
+        try {
+          const webPath = path.join(root, "routes", "web.php");
+          if (await fs.pathExists(webPath)) {
+            let web = await fs.readFile(webPath, "utf8");
+            const orig = web;
+            web = web.replace(/Auth::routes\(.*?\);/g, "// Auth::routes() removed — laravel/ui not installed");
+            if (web !== orig) {
+              await fs.writeFile(webPath, web, "utf8");
+              this.log(`      🔧 Removed Auth::routes() (laravel/ui not installed) from routes/web.php`, "warning");
+            }
+          }
+        } catch (_) {}
+        this.log(`      ⚠️ Laravel Breeze installation skipped per user request (Auth::routes stripped if present).`, "warning");
       } else {
         this.log(
           `      ✅ Skipping Breeze scaffolding (already installed).`,
@@ -486,6 +499,23 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       .replace(/^create_/, "")
       .replace(/_table$/, "");
 
+    // STRICT PROTECTION: Preserve core Laravel 11 auth tables (users, password_reset_tokens, sessions)
+    if (tableName === "users") {
+      const defaultUsersMigration = path.join(
+        this.engine.rootPath,
+        "database",
+        "migrations",
+        "0001_01_01_000000_create_users_table.php",
+      );
+      if (await fs.pathExists(defaultUsersMigration)) {
+        this.log(
+          `      🛡️ Preserving core Laravel 0001_01_01_000000_create_users_table.php. Skipping custom users migration.`,
+          "success",
+        );
+        return;
+      }
+    }
+
     // Find matching schema
     const models = blueprint.models || [];
     let targetModelName = null;
@@ -527,25 +557,18 @@ use Illuminate\\Database\\Migrations\\Migration;
 use Illuminate\\Database\\Schema\\Blueprint;
 use Illuminate\\Support\\Facades\\Schema;
 
+// NOTE: ONLY USE a single primary key. Use $table->uuid('id')->primary(); DO NOT add $table->id() OR any other primary key declaration. Do NOT pass length arguments to unsignedBigInteger.
 MIGRATION SYNTAX (use anonymous class — never use named class):
 return new class extends Migration
 {
     public function up(): void
     {
         Schema::create('${tableName}', function (Blueprint $table) {
-            $table->uuid('id')->primary();      // UUID primary key
-            $table->foreignUuid('user_id')      // FK to users (if applicable)
-                  ->constrained()->cascadeOnDelete();
-            // add columns relevant to the project here
-            $table->string('column_name');      // varchar 255
-            $table->text('column_name');        // long text
-            $table->unsignedBigInteger('col'); // integer
-            $table->boolean('is_active')->default(true);
-            $table->decimal('amount', 10, 2);  // money/decimal
-            $table->enum('status', ['active','inactive']);
-            $table->index(['column_name']);     // add index for searchable columns
-            $table->timestamps();              // created_at, updated_at
-            $table->softDeletes();             // deleted_at for soft delete
+            $table->uuid('id')->primary();      // THE ONLY primary key. Never add $table->id() or a second primary().
+            $table->foreignUuid('user_id')->nullable()->constrained()->nullOnDelete();
+            // Columns derived strictly from the APPLICATION CONTEXT schema:
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -556,13 +579,14 @@ return new class extends Migration
 };
 
 COLUMN RULES:
-- Use uuid('id')->primary() NOT id() for UUID PKs
-- Use foreignUuid() NOT unsignedBigInteger() for UUID FKs
+- Primary key MUST be: $table->uuid('id')->primary(); (do not use $table->id())
+- Foreign keys MUST be: $table->foreignUuid('xxx_id') (do not use unsignedBigInteger())
 - Use constrained()->cascadeOnDelete() for all foreign keys
 - Always add softDeletes() for data that should be recoverable
 - Always add index() on columns used in WHERE/ORDER BY
 - Use nullable() only when the column is truly optional
 - String columns default to varchar(255); use text() for long content
+- STRICT LARAVEL SYNTAX: NEVER append SQL words like 'NOT NULL' or 'NOT' to column declarations. In Laravel, all columns are NOT NULL by default unless ->nullable() is specified.
 
 DATABASE SOT RULES (MUST FOLLOW STRICTLY):
 ${databaseRules}
@@ -580,6 +604,16 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
     );
     if (response) {
       let cleanCode = this.cleanLLMOutput(response);
+
+      // Sanitize SQL keywords and prompt hallucination artifacts that break PHP syntax
+      cleanCode = cleanCode.replace(
+        /->primary\(\)\s*NOT\s*(?:id|\$table->id)?\(\);?/gi,
+        "->primary();",
+      );
+      cleanCode = cleanCode.replace(/\s+NOT\s+NULL/gi, "");
+      cleanCode = cleanCode.replace(/->NOT\s+NULL\(\)/gi, "");
+      cleanCode = cleanCode.replace(/->notNull\(\)/gi, "");
+      cleanCode = cleanCode.replace(/->nullable\(\)\s*NOT\s*NULL/gi, "->nullable()");
 
       // Auto-convert named migration class to Laravel anonymous class to prevent collisions
       if (
@@ -641,6 +675,8 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       if (await fs.pathExists(migrationDir)) {
         const existingFiles = await fs.readdir(migrationDir);
         for (const file of existingFiles) {
+          // STRICT GUARD: NEVER delete Laravel core template migrations (0001_01_01_*)
+          if (file.startsWith("0001_01_01_")) continue;
           if (file.includes(migrationName)) {
             await fs.remove(path.join(migrationDir, file));
             this.log(
@@ -800,59 +836,286 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   async generateRoutes(routesList, blueprint) {
     this.log(`   🛣️ Generating Routes...`, "info");
-    const prompt = `Write the content for routes/web.php in Laravel for a ${blueprint.project_name} application. Include these routes: ${routesList.join(", ")}. Use Volt or Livewire syntax if applicable. Output ONLY the raw PHP code, starting with <?php.`;
+
+    // FIX #30 — Context-aware Livewire 3 and controller discovery
+    const existingControllers = await this._discoverExistingControllers();
+    const existingLivewire = await this._discoverExistingLivewireComponents();
+
+    const livewireListStr = existingLivewire.length > 0
+      ? existingLivewire.map(c => `- ${c.fullClass} (Route URL: /${c.kebab})`).join("\n")
+      : "None";
+
+    const prompt = `Write the content for routes/web.php in a Laravel 12 application called "${blueprint.project_name}".
+
+Required routes from blueprint: ${(routesList || []).map(r => typeof r === "string" ? r : r.path).join(", ")}
+
+AVAILABLE BLADE VIEWS ON DISK:
+- welcome
+${existingLivewire.map(c => `- livewire.${c.kebab}`).join("\n")}
+
+CRITICAL ARCHITECTURE RULES:
+1. All page routes MUST return a view that exists in the AVAILABLE BLADE VIEWS list above.
+   Example: Route::get('/my-route', function () { return view('livewire.${existingLivewire[0]?.kebab || "welcome"}'); })->name('my-route');
+2. NEVER invent view names like view('dashboard') or view('todos') if they do not exist! Use view('welcome') for dashboard.
+3. ALWAYS include these safe fallback root & auth routes:
+   Route::get('/', function () { return view('welcome'); })->name('home');
+   Route::get('/login', function () { return redirect('/'); })->name('login');
+4. DO NOT add namespace App\\Http; at the top of routes/web.php.
+5. DO NOT route directly to component classes as invokable actions. Use closures returning views.
+6. Start with <?php. Output ONLY raw PHP code, no markdown blocks.`;
+
     const response = await this.getCachedOrGenerate(
       prompt,
-      "build_model_migration",
+      "build_routes",
     );
+
+    let routesSaved = false;
+    const p = path.join(this.engine.rootPath, "routes", "web.php");
+
     if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
-      const p = path.join(this.engine.rootPath, "routes", "web.php");
+      let cleanCode = this.cleanLLMOutput(response);
+      // Auto-correct any namespace App\Http; at the top of web.php
+      cleanCode = cleanCode.replace(/^<\?php\s+namespace\s+[^;]+;\s*/i, "<?php\n\n");
+
       await fs.writeFile(p, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(p);
-      if (!syntaxOk) {
-        this.log(
-          `      ⚠️ Syntax error in generated routes. Writing safe fallback for web.php`,
-          "warning",
-        );
-        await fs.writeFile(p, this._safeFallbackRoutes(routesList, blueprint));
+      const hasMissingViews = this._hasNonExistentViews(cleanCode);
+
+      if (syntaxOk && !hasMissingViews) {
+        routesSaved = true;
+        this.log(`      ✅ Validated web routes for ${blueprint.project_name}.`, "success");
+      } else {
+        if (!syntaxOk) {
+          this.log(`      ⚠️ Syntax error in generated routes. Applying robust fallback for web.php`, "warning");
+        } else if (hasMissingViews) {
+          this.log(`      ⚠️ Generated routes referenced non-existent Blade views. Applying robust fallback for web.php`, "warning");
+        }
       }
+    }
+
+    if (!routesSaved) {
+      const fallbackCode = this._safeFallbackRoutes(routesList, blueprint);
+      await fs.writeFile(p, fallbackCode);
+      this.log(`      ✅ Applied robust routes for web.php.`, "success");
     }
 
     // Also generate API routes if models exist
     const models = blueprint.models || [];
     if (models.length > 0) {
-      this.log(`   🛣️ Generating API Routes...`, "info");
-      const apiPrompt = `Write the content for routes/api.php in Laravel. Create apiResource routes for these models: ${models.join(", ")}. Output ONLY the raw PHP code, starting with <?php.`;
-      const apiResponse = await this.getCachedOrGenerate(
-        apiPrompt,
-        "build_model_migration",
+      await this._generateApiRoutes(models, blueprint);
+    }
+  }
+
+  /**
+   * Checks if generated code calls view('xxx') where xxx does not exist on disk.
+   */
+  _hasNonExistentViews(code) {
+    const viewMatches = code.match(/view\(\s*['"]([^'"]+)['"]\s*(\)|,)/g);
+    if (!viewMatches) return false;
+    const viewsDir = path.join(this.engine.rootPath, "resources", "views");
+    for (const m of viewMatches) {
+      const match = m.match(/view\(\s*['"]([^'"]+)['"]/);
+      if (!match) continue;
+      const vName = match[1];
+      if (vName === "welcome") continue;
+      const vPath = path.join(viewsDir, `${vName.replace(/\./g, path.sep)}.blade.php`);
+      if (!fs.existsSync(vPath)) {
+        return true; // Found a view() call to a non-existent view file!
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Deterministic, 100% working safe routes fallback generator.
+   */
+  _safeFallbackRoutes(routesList, blueprint) {
+    const livewireComponents = this._discoverExistingLivewireComponentsSync();
+    const viewsDir = path.join(this.engine.rootPath, "resources", "views");
+
+    const routeStatements = [];
+    routeStatements.push(`// Home & Dashboard\nRoute::get('/', function () {\n    return view('welcome');\n})->name('home');\n\nRoute::get('/dashboard', function () {\n    return view('welcome');\n})->name('dashboard');`);
+
+    const registeredPaths = new Set(["/", "/dashboard", "/login"]);
+
+    // Map each Livewire component to its dedicated URL
+    for (const lw of livewireComponents) {
+      const p = `/${lw.kebab}`;
+      if (!registeredPaths.has(p)) {
+        registeredPaths.add(p);
+        const livewireView = `livewire.${lw.kebab}`;
+        const viewFile = path.join(viewsDir, "livewire", `${lw.kebab}.blade.php`);
+        const targetView = fs.existsSync(viewFile) ? livewireView : "welcome";
+        routeStatements.push(`Route::get('${p}', function () {\n    return view('${targetView}');\n})->name('${lw.kebab}');`);
+      }
+    }
+
+    // Map blueprint routes
+    for (const rawRoute of (routesList || [])) {
+      const r = typeof rawRoute === "string" ? rawRoute : rawRoute.path;
+      if (!r || registeredPaths.has(r)) continue;
+
+      registeredPaths.add(r);
+      const cleanName = r.replace(/^\//, "").replace(/\//g, ".").replace(/[^a-zA-Z0-9.-]/g, "") || "route";
+
+      // Match with Livewire view
+      const match = livewireComponents.find(lw =>
+        r.toLowerCase().includes(lw.kebab) || lw.kebab.includes(r.replace(/^\//, "").toLowerCase())
       );
-      if (apiResponse) {
-        const apiCleanCode = this.cleanLLMOutput(apiResponse);
-        const apiP = path.join(this.engine.rootPath, "routes", "api.php");
-        await fs.ensureDir(path.dirname(apiP));
-        await fs.writeFile(apiP, apiCleanCode);
-        const apiSyntaxOk = await this.validatePHPSyntax(apiP);
-        if (!apiSyntaxOk) {
-          this.log(
-            `      ⚠️ Syntax error in generated API routes. Writing safe fallback for api.php`,
-            "warning",
-          );
-          const apiRoutes = models
-            .map((m) => {
-              const ctrl = `App\\Http\\Controllers\\Api\\${m}Controller`;
-              return `Route::apiResource('${this._toSnakePlural(m)}', \\${ctrl}::class);`;
-            })
-            .join("\n");
-          await fs.writeFile(
-            apiP,
-            `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${apiRoutes}\n`,
-          );
-        }
+
+      let targetView = "welcome";
+      if (match) {
+        const viewFile = path.join(viewsDir, "livewire", `${match.kebab}.blade.php`);
+        if (fs.existsSync(viewFile)) targetView = `livewire.${match.kebab}`;
+      }
+
+      if (r.includes("{") || r.includes(":")) {
+        const normalized = r.replace(/:([a-zA-Z0-9_]+)/g, '{$1}');
+        routeStatements.push(`Route::get('${normalized}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`);
+      } else {
+        routeStatements.push(`Route::get('${r}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`);
+      }
+    }
+
+    // Fallback authentication & redirect route
+    routeStatements.push(`// Fallback Authentication & Redirect Routes\nRoute::get('/login', function () {\n    return redirect('/');\n})->name('login');`);
+
+    return `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${routeStatements.join("\n\n")}\n`;
+  }
+
+  /**
+   * FIX #30 — Generate API routes and ensure bootstrap/app.php registers api.php.
+   */
+  async _generateApiRoutes(models, blueprint) {
+    this.log(`   🛣️ Generating API Routes...`, "info");
+    await this._ensureApiInBootstrapApp();
+
+    const controllerImports = models
+      .map(m => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
+      .join("\n");
+    const resourceRoutes = models
+      .map(m => `Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`)
+      .join("\n    ");
+
+    const apiPrompt = `Write the content for routes/api.php in Laravel 12. 
+
+IMPORTANT: Use EXACTLY these imports and routes. Do not change namespaces or use Model classes.
+
+<?php
+
+use Illuminate\\Support\\Facades\\Route;
+${controllerImports}
+
+Route::middleware('auth:sanctum')->group(function () {
+    ${resourceRoutes}
+});
+
+Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
+
+    const apiResponse = await this.getCachedOrGenerate(
+      apiPrompt,
+      "build_routes",
+    );
+    const apiP = path.join(this.engine.rootPath, "routes", "api.php");
+    await fs.ensureDir(path.dirname(apiP));
+
+    if (apiResponse) {
+      const apiCleanCode = this.cleanLLMOutput(apiResponse);
+      await fs.writeFile(apiP, apiCleanCode);
+      const apiSyntaxOk = await this.validatePHPSyntax(apiP);
+      if (!apiSyntaxOk) {
+        this.log(
+          `      ⚠️ Syntax error in generated API routes. Writing deterministic fallback for api.php`,
+          "warning",
+        );
+        await this._writeApiFallback(apiP, models);
+      }
+    } else {
+      await this._writeApiFallback(apiP, models);
+    }
+  }
+
+  /**
+   * Ensure bootstrap/app.php in Laravel 11/12 registers routes/api.php.
+   */
+  async _ensureApiInBootstrapApp() {
+    const bootstrapApp = path.join(this.engine.rootPath, "bootstrap", "app.php");
+    if (await fs.pathExists(bootstrapApp)) {
+      let bContent = await fs.readFile(bootstrapApp, "utf8");
+      if (!bContent.includes("routes/api.php") && bContent.includes("routes/web.php")) {
+        bContent = bContent.replace(
+          /web:\s*__DIR__\s*\.\s*['"]\/..\/routes\/web\.php['"],/g,
+          "web: __DIR__.'/../routes/web.php',\n        api: __DIR__.'/../routes/api.php',",
+        );
+        await fs.writeFile(bootstrapApp, bContent);
+        this.log(`      🔌 Enabled api routing in bootstrap/app.php`, "info");
       }
     }
   }
+
+  /**
+   * Write a deterministic API routes fallback that always uses correct namespaces.
+   */
+  async _writeApiFallback(apiPath, models) {
+    const imports = models
+      .map(m => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
+      .join("\n");
+    const routes = models
+      .map(m => `    Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`)
+      .join("\n");
+    await fs.writeFile(
+      apiPath,
+      `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n${imports}\n\nRoute::middleware('auth:sanctum')->group(function () {\n${routes}\n});\n`,
+    );
+  }
+
+  /**
+   * FIX #30 — Discover existing controllers in the project to provide context to LLM.
+   * Returns array of strings like: "App\\Http\\Controllers\\Api\\UserController"
+   */
+  async _discoverExistingControllers() {
+    const controllersDir = path.join(this.engine.rootPath, "app", "Http", "Controllers");
+    const controllers = [];
+    const scanDir = async (dir, namespace) => {
+      if (!(await fs.pathExists(dir))) return;
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          await scanDir(path.join(dir, entry.name), `${namespace}\\${entry.name}`);
+        } else if (entry.name.endsWith("Controller.php") && entry.name !== "Controller.php") {
+          controllers.push(`${namespace}\\${entry.name.replace(".php", "")}`);
+        }
+      }
+    };
+    await scanDir(controllersDir, "App\\Http\\Controllers");
+    return controllers;
+  }
+
+  /**
+   * FIX #30 — Discover existing Livewire components with class name and kebab name.
+   */
+  async _discoverExistingLivewireComponents() {
+    return this._discoverExistingLivewireComponentsSync();
+  }
+
+  _discoverExistingLivewireComponentsSync() {
+    const livewireDir = path.join(this.engine.rootPath, "app", "Livewire");
+    const components = [];
+    if (!fs.existsSync(livewireDir)) return components;
+    const entries = fs.readdirSync(livewireDir);
+    for (const entry of entries) {
+      if (entry.endsWith(".php")) {
+        const className = entry.replace(".php", "");
+        components.push({
+          className,
+          fullClass: `App\\Livewire\\${className}`,
+          kebab: this.toKebabCase(className),
+        });
+      }
+    }
+    return components;
+  }
+
 
   async generatePolicy(modelName, blueprint) {
     this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, "info");
@@ -1054,15 +1317,6 @@ RULES:
 
   _safeFallbackMigration(tableName) {
     return `<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    public function up(): void\n    {\n        Schema::create('${tableName}', function (Blueprint $table) {\n            $table->uuid('id')->primary();\n            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();\n            $table->string('name')->nullable();\n            $table->timestamps();\n            $table->softDeletes();\n        });\n    }\n\n    public function down(): void\n    {\n        Schema::dropIfExists('${tableName}');\n    }\n};\n`;
-  }
-
-  _safeFallbackRoutes(routesList, blueprint) {
-    const routeEntries = (routesList || [])
-      .map(
-        (r) => `Route::get('${r}', function () { return view('welcome'); });`,
-      )
-      .join("\n");
-    return `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\nRoute::get('/', function () {\n    return view('welcome');\n});\n\n${routeEntries}\n`;
   }
 
   _safeFallbackFactory(factoryName) {

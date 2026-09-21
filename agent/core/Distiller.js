@@ -9,11 +9,22 @@ const NativeBridge = require('./NativeBridge');
 
 class Distiller {
     constructor(knowledgePath) {
-        // knowledgePath passed from NexusEngine is memory/distilled
         this.knowledgePath = knowledgePath;
+        // Determine root and memory directory. In production `knowledgePath` points to the distilled folder,
+        // while the actual memory lives two levels up at <projectRoot>/memory. Tests may supply a temporary folder
+        // that contains only markdown files. If a sibling `memory` folder exists two levels up, use it;
+        // otherwise treat the supplied path as the memory directory.
+        const possibleRoot = path.resolve(knowledgePath, '..', '..');
+        const possibleMemory = path.join(possibleRoot, 'memory');
+        if (fs.pathExistsSync(possibleMemory)) {
+            this._rootPath = possibleRoot;
+            this.memoryPath = possibleMemory;
+        } else {
+            // Test environment – treat the given path as the memory directory directly
+            this._rootPath = possibleRoot;
+            this.memoryPath = knowledgePath;
+        }
         this.prefix = 'NEXUS_';
-        this._rootPath = path.join(knowledgePath, '..', '..');
-        this.memoryPath = path.join(this._rootPath, 'memory');
         this.semanticEngine = new SemanticEngine(this.memoryPath);
     }
 

@@ -97,6 +97,176 @@ function deepMergeBlueprint(base, enhancement) {
 }
 
 /**
+ * Robust JSON parser with auto-bracket repair for truncated LLM responses.
+ */
+function repairAndParseJson(raw) {
+  if (!raw || typeof raw !== "string") return null;
+  let str = raw.trim();
+
+  // Strip TRUNCATED boundary guard if present
+  str = str.replace(/\n?\.\.\.\[TRUNCATED BY BOUNDARY GUARD\]/g, "");
+
+  // Strip markdown fences
+  const codeBlockMatch = str.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (codeBlockMatch) {
+    str = codeBlockMatch[1].trim();
+  } else {
+    str = str.replace(/^```(?:json|JSON)?\s*\n?/, "").replace(/\n?```\s*$/, "").trim();
+  }
+
+  // Find first {
+  const firstBrace = str.indexOf("{");
+  if (firstBrace === -1) return null;
+  str = str.slice(firstBrace);
+
+  // 1. Direct parse attempt
+  try {
+    return JSON.parse(str);
+  } catch (_) {}
+
+  // Strip line comments & block comments that LLMs sometimes insert
+  str = str.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+
+  // Clean LLM ellipses (dots) that break JSON syntax
+  str = str.replace(/,\s*\.\.\.\s*(?=[}\]])/g, "");
+  str = str.replace(/(?<=[{\[])\s*\.\.\.\s*,?/g, "");
+  str = str.replace(/,\s*\.\.\./g, "");
+  str = str.replace(/\.\.\./g, "");
+  str = str.replace(/,\s*([}\]])/g, "$1");
+
+  try {
+    return JSON.parse(str);
+  } catch (_) {}
+
+  // 2. Regex matching attempt
+  const match = str.match(/\{[\s\S]*\}/);
+  if (match) {
+    try {
+      return JSON.parse(match[0]);
+    } catch (_) {}
+  }
+
+  // 3. Auto-balancer & structure repair for truncated JSON
+  let inString = false;
+  let escape = false;
+  let cleaned = "";
+  const stack = [];
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (escape) {
+      escape = false;
+      cleaned += char;
+      continue;
+    }
+    if (char === "\\") {
+      escape = true;
+      cleaned += char;
+      continue;
+    }
+    if (char === '"') {
+      inString = !inString;
+      cleaned += char;
+      continue;
+    }
+    if (inString) {
+      cleaned += char;
+      continue;
+    }
+
+    // Outside string
+    if (char === "{" || char === "[") {
+      stack.push(char);
+      cleaned += char;
+    } else if (char === "}") {
+      if (stack.length && stack[stack.length - 1] === "{") {
+        stack.pop();
+        cleaned += char;
+      } else if (stack.length && stack[stack.length - 1] === "[") {
+        // LLM emitted '}' while inside array '[' -> close array first
+        stack.pop();
+        cleaned += "]";
+        if (stack.length && stack[stack.length - 1] === "{") {
+          stack.pop();
+          cleaned += "}";
+        }
+      }
+    } else if (char === "]") {
+      if (stack.length && stack[stack.length - 1] === "[") {
+        stack.pop();
+        cleaned += char;
+      } else if (stack.length && stack[stack.length - 1] === "{") {
+        // LLM emitted ']' while inside object '{' -> close object first
+        stack.pop();
+        cleaned += "}";
+        if (stack.length && stack[stack.length - 1] === "[") {
+          stack.pop();
+          cleaned += "]";
+        }
+      }
+    } else {
+      cleaned += char;
+    }
+  }
+
+  // If truncated inside string, close the quote
+  if (inString) {
+    cleaned += '"';
+  }
+
+  // Clean trailing incomplete tokens before closing (e.g. trailing comma or `"key": ` without value)
+  cleaned = cleaned.replace(/,\s*$/g, "");
+  cleaned = cleaned.replace(/(?:,\s*)?"[^"]*"\s*:\s*$/g, "");
+  cleaned = cleaned.replace(/,\s*$/g, "");
+
+  // Recompute accurate unclosed bracket stack on cleaned string
+  const finalStack = [];
+  inString = false;
+  escape = false;
+  for (let i = 0; i < cleaned.length; i++) {
+    const c = cleaned[i];
+    if (escape) { escape = false; continue; }
+    if (c === "\\") { escape = true; continue; }
+    if (c === '"') { inString = !inString; continue; }
+    if (!inString) {
+      if (c === "{" || c === "[") finalStack.push(c);
+      else if (c === "}" && finalStack.length && finalStack[finalStack.length - 1] === "{") finalStack.pop();
+      else if (c === "]" && finalStack.length && finalStack[finalStack.length - 1] === "[") finalStack.pop();
+    }
+  }
+
+  // Strip trailing commas before closing brackets
+  cleaned = cleaned.replace(/,\s*([}\]])/g, "$1").replace(/,\s*$/, "");
+
+  // Close remaining brackets in reverse order
+  while (finalStack.length > 0) {
+    const last = finalStack.pop();
+    if (last === "{") cleaned += "}";
+    else if (last === "[") cleaned += "]";
+  }
+
+  cleaned = cleaned.replace(/,\s*([}\]])/g, "$1");
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (err) {
+    // Aggressive cleanup: progressively drop to the last valid closing bracket
+    let lastValidIdx = Math.max(cleaned.lastIndexOf("}"), cleaned.lastIndexOf("]"));
+    while (lastValidIdx > 0) {
+      let sub = cleaned.slice(0, lastValidIdx + 1);
+      if (!sub.endsWith("}")) sub += "}";
+      try {
+        return JSON.parse(sub);
+      } catch (_) {
+        lastValidIdx = Math.max(cleaned.lastIndexOf("}", lastValidIdx - 1), cleaned.lastIndexOf("]", lastValidIdx - 1));
+      }
+    }
+    throw err;
+  }
+}
+
+
+/**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
  */
 class NexusEngine {
@@ -242,10 +412,14 @@ class NexusEngine {
     this.obsidianBridge = new ObsidianBridge(this.rootPath);
     if (this.obsidianBridge.isActive()) {
       this.log(`🔗 Obsidian Vault connected: ${this.obsidianBridge.vaultPath}`, "info");
-      // Pass vault knowledge paths to SemanticEngine for dual-source indexing
-      const vaultKnowledge = this.obsidianBridge.resolveSource("knowledge");
-      if (vaultKnowledge) {
-        this.semanticEngine.addAdditionalPath(vaultKnowledge);
+      // Pass all configured vault read sources to SemanticEngine for dual-source indexing & graph
+      const addedPaths = new Set();
+      for (const sourceKey of Object.keys(this.obsidianBridge.readSources || {})) {
+        const resolved = this.obsidianBridge.resolveSource(sourceKey);
+        if (resolved && !addedPaths.has(resolved)) {
+          addedPaths.add(resolved);
+          this.semanticEngine.addAdditionalPath(resolved);
+        }
       }
     }
 
@@ -488,6 +662,33 @@ class NexusEngine {
     return this.memory.semanticIndex[query.toLowerCase()] || [];
   }
 
+  async searchKnowledgeGraph(query, options = {}) {
+    try {
+      return await this.semanticEngine.searchWithGraph(query, options);
+    } catch (e) {
+      this.log(`⚠️ Graph search failed: ${e.message}`, "warning");
+      return { query, seeds: [], connectedNotes: [], graphContextString: "" };
+    }
+  }
+
+  async searchKnowledgeHyde(query, options = {}) {
+    try {
+      return await this.semanticEngine.searchWithHyDE(query, options);
+    } catch (e) {
+      this.log(`⚠️ HyDE search failed: ${e.message}`, "warning");
+      return [];
+    }
+  }
+
+  async searchKnowledgeCrag(query, options = {}) {
+    try {
+      return await this.semanticEngine.searchWithCrag(query, options);
+    } catch (e) {
+      this.log(`⚠️ CRAG search failed: ${e.message}`, "warning");
+      return { query, confidenceScore: 0, cragAction: "FALLBACK", documents: [], finalContext: "" };
+    }
+  }
+
   async loadAgent(agentName) {
     const findAgent = async (dir) => {
       const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -696,26 +897,57 @@ class NexusEngine {
 
     // ⚡ SMART CACHE: Skip LLM generation if cached blueprint exists and README has not changed
     const readmeHash = crypto.createHash("md5").update(readmeContent).digest("hex");
-    if (!options.forceRegen && (await fs.pathExists(cachePath))) {
-      try {
-        const cached = await fs.readJson(cachePath);
-        if (cached && cached._readmeHash === readmeHash && cached.models && cached.schema) {
-          this.log(
-            `   ⚡ Blueprint cache HIT for ${projectName} (README unchanged) — skipping regeneration.`,
-            "success",
-          );
-          await fs.writeJson(blueprintPath, cached, { spaces: 2 });
+    if (!options.forceRegen) {
+      let cached = null;
+      if (await fs.pathExists(cachePath)) {
+        try {
+          cached = await fs.readJson(cachePath);
+        } catch (_) {}
+      }
 
-          // 🧠 Sync cached blueprint to Obsidian Vault (100 project & new)
-          if (this.obsidianBridge && this.obsidianBridge.isActive()) {
-            await this.obsidianBridge.saveBlueprint(projectName, cached, {
-              readmeContent,
-              isSandboxProject: true,
-            });
+      // Fallback: check Obsidian Vault cache if local cache missed
+      if ((!cached || cached._readmeHash !== readmeHash) && this.obsidianBridge && this.obsidianBridge.vaultPath) {
+        const vaultCachePaths = [
+          path.join(this.obsidianBridge.vaultPath, "chace nexus", "V1", "blueprints", `${projectName}.json`),
+          path.join(this.obsidianBridge.vaultPath, "chace nexus", "blueprints", `${projectName}.json`),
+          path.join(this.obsidianBridge.vaultPath, "NEXUS AI", "BLUEPRINT", "100 project", `${projectName}.json`),
+        ];
+        for (const vPath of vaultCachePaths) {
+          if (await fs.pathExists(vPath)) {
+            try {
+              const vCached = await fs.readJson(vPath);
+              if (vCached && (vCached._readmeHash === readmeHash || (vCached.models && vCached.schema))) {
+                cached = vCached;
+                cached._readmeHash = readmeHash;
+                await fs.ensureDir(globalCacheDir);
+                await fs.writeJson(cachePath, cached, { spaces: 2 });
+                this.log(
+                  `   🏛️ Blueprint restored from Obsidian Vault cache for ${projectName}.`,
+                  "success",
+                );
+                break;
+              }
+            } catch (_) {}
           }
-          return;
         }
-      } catch (_) {}
+      }
+
+      if (cached && cached._readmeHash === readmeHash && cached.models && cached.schema) {
+        this.log(
+          `   ⚡ Blueprint cache HIT for ${projectName} (README unchanged) — skipping regeneration.`,
+          "success",
+        );
+        await fs.writeJson(blueprintPath, cached, { spaces: 2 });
+
+        // 🧠 Sync cached blueprint to Obsidian Vault (100 project & new)
+        if (this.obsidianBridge && this.obsidianBridge.isActive()) {
+          await this.obsidianBridge.saveBlueprint(projectName, cached, {
+            readmeContent,
+            isSandboxProject: true,
+          });
+        }
+        return;
+      }
     }
 
     if (await fs.pathExists(blueprintPath)) {
@@ -725,12 +957,39 @@ class NexusEngine {
       );
     }
 
+    // 🌐 GRAPHRAG: Retrieve connected architectural patterns & Obsidian knowledge
+    let graphContextSection = "";
+    try {
+      if (this.semanticEngine) {
+        if (!this.semanticEngine.graphEngine.isBuilt) {
+          await this.semanticEngine.buildGraphOnly();
+        }
+        const graphQuery = `${projectName} ${readmeContent.slice(0, 300)}`;
+        const graphResult = await this.searchKnowledgeGraph(graphQuery, {
+          topK: 3,
+          maxHops: 1,
+          maxNeighborsPerSeed: 3,
+          maxTotalChars: 3500,
+        });
+
+        if (graphResult && graphResult.graphContextString) {
+          this.log(
+            `   🌐 GraphRAG: Injected ${graphResult.seeds.length} seed notes & ${graphResult.connectedNotes.length} relational notes from Obsidian Vault.`,
+            "info"
+          );
+          graphContextSection = `\n${graphResult.graphContextString}\n\n`;
+        }
+      }
+    } catch (graphErr) {
+      this.log(`   ⚠️ GraphRAG context retrieval skipped: ${graphErr.message}`, "warning");
+    }
+
     const prompt = `You are a Senior Software Architect. We are building a Laravel TALL Stack application.
 Analyze the following project README carefully (paying attention to the project name, description, and tags):
 
 ${readmeContent}
-
-Identify all the essential features this application MUST have based on its name and tags.
+${graphContextSection}
+Identify all the essential features this application MUST have based on its name, tags, and the architectural context above.
 For a 100% complete web app, you must generate a comprehensive architecture.
 
 CRITICAL INSTRUCTION: DO NOT use placeholder names like "ModelName1" or "create_table_name1_table".
@@ -744,8 +1003,9 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
   "schema": {
     "User": {
       "name": "string",
-      "email": "string",
-      "password": "text"
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
     }
   },
   "migrations": ["create_users_table", "create_your_real_tables_table"],
@@ -754,28 +1014,66 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
   "factories": ["UserFactory", "YourRealModelFactory"],
   "routes": ["/dashboard", "/your-real-route"],
   "pivot_tables": [],
-  "relationships": [{"model": "User", "type": "hasMany", "target": "YourRealModelName"}]
+  "relationships": [{"model": "User", "type": "hasMany", "target": "YourRealModelName"}],
+  "middleware": ["auth", "verified", "throttle:60,1"],
+  "api_endpoints": [
+    {"method": "GET", "path": "/api/v1/resource", "controller": "ResourceController@index", "middleware": ["auth:sanctum"]},
+    {"method": "POST", "path": "/api/v1/resource", "controller": "ResourceController@store", "middleware": ["auth:sanctum"]}
+  ],
+  "security_policies": {
+    "roles": ["admin", "user"],
+    "permissions": ["manage-users", "view-dashboard"],
+    "rate_limiting": {"api": "60,1", "auth": "5,1"},
+    "middleware_map": {"/admin/*": ["auth", "role:admin"], "/dashboard": ["auth", "verified"]}
+  },
+  "async_jobs": [
+    {"name": "ProcessReport", "queue": "default", "retry": 3, "backoff": 60}
+  ],
+  "ui_design_system": {
+    "color_palette": {"primary": "#1e40af", "secondary": "#64748b", "accent": "#f59e0b", "background": "#f8fafc", "surface": "#ffffff"},
+    "typography": {"heading_font": "Inter", "body_font": "Inter", "scale": "1.25"},
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-xl shadow-sm border border-gray-200"
+  }
 }`;
-    let response = "";
-    try {
-      this.log(`   🧠 Routing Base Blueprint generation to LocalIntelligence...`, "info");
-      const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
-      response = await localAI.generate(prompt, "generate_architecture", systemPrompt);
-    } catch (e) {
-      this.log(`   ⚠️ Local model failed: ${e.message}`, "warning");
+    let blueprint = null;
+    const MAX_BLUEPRINT_ATTEMPTS = 3;
+    for (let attempt = 1; attempt <= MAX_BLUEPRINT_ATTEMPTS; attempt++) {
+      try {
+        this.log(`   🧠 Blueprint generation attempt ${attempt}/${MAX_BLUEPRINT_ATTEMPTS} via LocalIntelligence...`, "info");
+        const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
+        const response = await localAI.generate(prompt, "generate_architecture", systemPrompt);
+        if (!response) {
+          this.log(`   ⚠️ LLM returned empty response on attempt ${attempt}.`, "warning");
+          continue;
+        }
+        blueprint = repairAndParseJson(response);
+        if (!blueprint || typeof blueprint !== "object") {
+          throw new Error("Failed to parse or repair blueprint JSON from LLM response");
+        }
+        this.log(`   ✅ Blueprint JSON parsed successfully on attempt ${attempt}.`, "success");
+        break; // Success — exit retry loop
+      } catch (e) {
+        this.log(`   ⚠️ Blueprint attempt ${attempt} failed: ${e.message}`, "warning");
+        if (attempt === MAX_BLUEPRINT_ATTEMPTS) {
+          this.log(`   🛟 All ${MAX_BLUEPRINT_ATTEMPTS} attempts failed. Generating fallback blueprint...`, "warning");
+          blueprint = this._generateFallbackBlueprint(projectName, readmeContent);
+        }
+      }
     }
 
-    if (!response) return;
+    if (!blueprint) return;
 
     try {
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      let blueprint = JSON.parse(jsonMatch ? jsonMatch[0] : response);
 
-      // --- ARCHITECTURE COUNCIL LOGIC (CONSOLIDATED BATCHES) ---
-      // Consolidated from 12 individual sequential LLM calls into 3 logical layer super-prompts:
+      // --- ARCHITECTURE COUNCIL LOGIC (BALANCED BATCHES) ---
+      // Consolidated into 5 focused architectural layer prompts:
       // Batch 1: Foundation (Domain Analysis + Blueprint Architecture + DB Schema Optimizer)
-      // Batch 2: Frontend & Routing (Livewire State Planner + Laravel Routes + Route Reference & Rules)
-      // Batch 3: Hardening & Ecosystem (Security/ACL + API/Integration + Async Jobs + DevOps + QA Testing)
+      // Batch 2: Frontend & Routing (Livewire State Planner + Laravel Route Architect + Route Rules)
+      // Batch 3: Security & API (Security/ACL + API/Integration Designer)
+      // Batch 4: Async, DevOps & QA (Async Jobs + DevOps Infrastructure + QA Testing)
+      // Batch 5: UI/UX Design System (Design Taste + High-End Visual + Minimalist UI)
       const batches = [
         {
           name: "Foundation Layer (Domain, Blueprint, DB Schema)",
@@ -791,17 +1089,29 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             "livewire-state-planner",
             "laravel-route-architect",
             "nexus-route-laravel",
-            "laravel-livewire-route-generator",
           ],
         },
         {
-          name: "Hardening & Ecosystem Layer (Security, API, Jobs, DevOps, QA)",
+          name: "Security & API Layer (Security, ACL, API Designer)",
           skills: [
             "security-and-acl-architect",
             "api-and-integration-designer",
+          ],
+        },
+        {
+          name: "Async, DevOps & QA Layer (Jobs, Infrastructure, Testing)",
+          skills: [
             "async-job-and-queue-architect",
             "devops-and-infrastructure-planner",
             "qa-testing-strategist",
+          ],
+        },
+        {
+          name: "UI/UX Design System Layer (Visual Design, Typography, Color)",
+          skills: [
+            "design-taste-frontend",
+            "high-end-visual-design",
+            "minimalist-ui",
           ],
         },
       ];
@@ -812,7 +1122,7 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       let appliedBatches = 0;
       for (const batch of batches) {
         try {
-          const combinedRules = batch.skills
+          let combinedRules = batch.skills
             .map((s) => skillCache[s])
             .filter(Boolean)
             .join("\n\n---\n\n");
@@ -825,16 +1135,27 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             continue;
           }
 
+          // Bound rules length to prevent overflowing the 4096 local inference context window
+          if (combinedRules.length > 2500) {
+            combinedRules =
+              combinedRules.slice(0, 2500) +
+              "\n...[Rules truncated to fit local context budget]";
+          }
+
           this.log(`   🏗️ Invoking Council Batch: ${batch.name}...`, "info");
           const enhancementPrompt = `
 ${combinedRules}
 
 Here is the current blueprint:
 \`\`\`json
-${JSON.stringify(blueprint, null, 2)}
+${JSON.stringify(blueprint)}
 \`\`\`
 
-Enhance it based on your architectural rules and output STRICTLY a valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON.
+Enhance it based on your architectural rules.
+CRITICAL FORMAT RULES:
+1. Output STRICTLY a valid JSON object containing only modified or added keys (e.g. models, routes, livewire_components, policies).
+2. NEVER use ellipses "..." or comments anywhere. Output complete JSON structures only.
+3. Start directly with { and end with }. Do not add markdown or conversational text.
 `;
           let enhancedResponse = "";
           try {
@@ -842,23 +1163,25 @@ Enhance it based on your architectural rules and output STRICTLY a valid JSON re
             enhancedResponse = await localAI.generate(
               enhancementPrompt,
               "enhance_architecture",
-              "You are an elite architect council. Output ONLY valid JSON representation of the enhanced blueprint. Do not add markdown or explanations outside the JSON."
+              "You are an elite architect council. Output ONLY valid parseable JSON representation of the enhanced blueprint. Never use ellipses (...). Do not add markdown or explanations outside the JSON.",
+              { maxTokens: 2048, timeoutMs: 75000 }
             );
           } catch (e) {
             this.log(`   ⚠️ Local architect batch failed: ${e.message}`, "warning");
           }
 
           if (enhancedResponse) {
-            const jsonMatch2 = enhancedResponse.match(/\{[\s\S]*\}/);
-            const enhancement = JSON.parse(
-              jsonMatch2 ? jsonMatch2[0] : enhancedResponse,
-            );
-            blueprint = deepMergeBlueprint(blueprint, enhancement);
-            appliedBatches++;
-            this.log(
-              `   ✅ Blueprint successfully enhanced by [${batch.name}].`,
-              "success",
-            );
+            const enhancement = repairAndParseJson(enhancedResponse);
+            if (enhancement && typeof enhancement === "object") {
+              blueprint = deepMergeBlueprint(blueprint, enhancement);
+              appliedBatches++;
+              this.log(
+                `   ✅ Blueprint successfully enhanced by [${batch.name}].`,
+                "success",
+              );
+            } else {
+              throw new Error("Invalid or unparseable JSON received from local intelligence.");
+            }
           }
         } catch (err) {
           this.log(
@@ -874,7 +1197,7 @@ Enhance it based on your architectural rules and output STRICTLY a valid JSON re
       );
       // --- END ARCHITECTURE COUNCIL LOGIC ---
 
-      // Schema Validation (G2-02)
+      // Schema Validation (G2-02) — Extended for enriched blueprint fields
       const BLUEPRINT_SCHEMA = {
         required: [
           "project_name",
@@ -892,8 +1215,44 @@ Enhance it based on your architectural rules and output STRICTLY a valid JSON re
           "seeders",
           "factories",
         ],
+        // Optional array fields — injected with defaults if missing
+        optionalArrays: [
+          "routes",
+          "middleware",
+          "api_endpoints",
+          "async_jobs",
+        ],
+        // Optional object fields — injected with defaults if missing
+        optionalObjects: {
+          security_policies: {
+            roles: ["admin", "user"],
+            permissions: [],
+            rate_limiting: { api: "60,1", auth: "5,1" },
+            middleware_map: {},
+          },
+          ui_design_system: {
+            color_palette: { primary: "#1e40af", secondary: "#64748b", accent: "#f59e0b", background: "#f8fafc", surface: "#ffffff" },
+            typography: { heading_font: "Inter", body_font: "Inter", scale: "1.25" },
+            layout: "sidebar-main",
+            theme: "light",
+            component_style: "rounded-xl shadow-sm border border-gray-200",
+          },
+        },
         strings: ["project_name"],
       };
+
+      // Inject defaults for optional arrays if missing
+      for (const key of BLUEPRINT_SCHEMA.optionalArrays) {
+        if (!(key in blueprint)) {
+          blueprint[key] = [];
+        }
+      }
+      // Inject defaults for optional objects if missing
+      for (const [key, defaultValue] of Object.entries(BLUEPRINT_SCHEMA.optionalObjects)) {
+        if (!(key in blueprint) || typeof blueprint[key] !== "object") {
+          blueprint[key] = defaultValue;
+        }
+      }
 
       for (const key of BLUEPRINT_SCHEMA.required) {
         if (!(key in blueprint))
@@ -958,6 +1317,78 @@ Enhance it based on your architectural rules and output STRICTLY a valid JSON re
     } catch (e) {
       this.log(`   ❌ Blueprint failed: ${e.message}`, "error");
     }
+  }
+
+  /**
+   * FIX #30 — Generate a minimal fallback blueprint when LLM fails to produce valid JSON.
+   * Ensures pipeline can continue even if AI generation is unavailable.
+   */
+  _generateFallbackBlueprint(projectName, readmeContent) {
+    this.log(`   🛟 Generating deterministic fallback blueprint for: ${projectName}`, "warning");
+    
+    // Derive sensible model names from project name
+    const cleanName = projectName
+      .replace(/-/g, " ")
+      .replace(/_/g, " ")
+      .split(" ")
+      .filter(w => !['app', 'system', 'platform', 'ui', 'web'].includes(w.toLowerCase()));
+    
+    const primaryModel = cleanName
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join("") || "Item";
+    
+    const tableName = primaryModel
+      .replace(/([A-Z])/g, "_$1")
+      .toLowerCase()
+      .replace(/^_/, "") + "s";
+
+    return {
+      project_name: projectName,
+      models: ["User", primaryModel],
+      schema: {
+        User: {
+          name: "string",
+          email: "string:unique",
+          password: "text",
+          role: "string:default(user)",
+        },
+        [primaryModel]: {
+          title: "string",
+          description: "text:nullable",
+          user_id: "foreignUuid:constrained",
+          is_active: "boolean:default(true)",
+        },
+      },
+      migrations: ["create_users_table", `create_${tableName}_table`],
+      livewire_components: [`${projectName}-dashboard`, `${projectName}-manager`],
+      seeders: ["UserSeeder", `${primaryModel}Seeder`],
+      factories: ["UserFactory", `${primaryModel}Factory`],
+      routes: ["/dashboard", `/${tableName}`],
+      pivot_tables: [],
+      relationships: [
+        { model: "User", type: "hasMany", target: primaryModel },
+        { model: primaryModel, type: "belongsTo", target: "User" },
+      ],
+      middleware: ["auth", "verified"],
+      api_endpoints: [
+        { method: "GET", path: `/api/v1/${tableName}`, controller: `${primaryModel}Controller@index`, middleware: ["auth:sanctum"] },
+        { method: "POST", path: `/api/v1/${tableName}`, controller: `${primaryModel}Controller@store`, middleware: ["auth:sanctum"] },
+      ],
+      security_policies: {
+        roles: ["admin", "user"],
+        permissions: [`manage-${tableName}`, "view-dashboard"],
+        rate_limiting: { api: "60,1", auth: "5,1" },
+        middleware_map: {},
+      },
+      async_jobs: [],
+      ui_design_system: {
+        color_palette: { primary: "#1e40af", secondary: "#64748b", accent: "#f59e0b", background: "#f8fafc", surface: "#ffffff" },
+        typography: { heading_font: "Inter", body_font: "Inter", scale: "1.25" },
+        layout: "sidebar-main",
+        theme: "light",
+        component_style: "rounded-xl shadow-sm border border-gray-200",
+      },
+    };
   }
 
   async record(cycleID) {

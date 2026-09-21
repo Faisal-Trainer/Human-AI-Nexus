@@ -42,11 +42,17 @@ class Modifier {
             case 'ENV_ENSURE':
                 return await this.ensureEnv(targetPath, action.key, action.value);
             case 'COMMAND_EXEC':
-                const ALLOWED_COMMANDS = ['composer', 'php', 'npm', 'node'];
+                const ALLOWED_COMMANDS = ['composer', 'php', 'npm', 'node', 'npx'];
                 const cmdParts = action.command.split(' ');
-                const cmdBase = path.basename(cmdParts[0]);
+                let cmdBase = path.basename(cmdParts[0]);
                 if (!ALLOWED_COMMANDS.includes(cmdBase)) {
                     throw new Error(`COMMAND_EXEC Security Violation: Command "${cmdBase}" is not allowed.`);
+                }
+                // FIX #6 — Windows: resolve .cmd extensions to prevent spawn EINVAL
+                if (process.platform === 'win32') {
+                    if (cmdBase === 'npm') cmdBase = 'npm.cmd';
+                    else if (cmdBase === 'npx') cmdBase = 'npx.cmd';
+                    else if (cmdBase === 'composer') cmdBase = 'composer.bat';
                 }
                 await this.spawnAsync(cmdBase, cmdParts.slice(1), { cwd: this.rootPath, stdio: 'ignore' });
                 return true;

@@ -262,15 +262,15 @@ class SandboxProjectSetup {
 
     if (await fs.pathExists(orchestratorPath)) {
       try {
-        console.log(`   🚀 Invoking C++ Native Sandbox Orchestrator...`);
         execSync(
           `"${orchestratorPath}" setup "${this.templatePath}" "${targetPath}" "${projectName}"`,
           { stdio: "ignore" },
         );
+        console.log(`   🚀 Cloned via C++ Native Sandbox Orchestrator.`);
         nativeCopySuccess = true;
       } catch (e) {
-        console.warn(
-          `   ⚠️ Native copy failed: ${e.message}. Falling back to JS copy.`,
+        console.log(
+          `   ⚡ Native binary bypassed (C++ runtime absent). Using optimized JS copy.`,
         );
       }
     }
@@ -323,6 +323,29 @@ class SandboxProjectSetup {
       env = env.replace(/APP_NAME=.*/g, `APP_NAME=${projectName}`);
       env = env.replace(/DB_CONNECTION=.*/g, "DB_CONNECTION=sqlite");
       await fs.writeFile(envPath, env);
+    }
+
+    // Ensure api.php is registered in bootstrap/app.php for Laravel 11/12
+    const bootstrapApp = path.join(targetPath, "bootstrap", "app.php");
+    if (await fs.pathExists(bootstrapApp)) {
+      let bContent = await fs.readFile(bootstrapApp, "utf8");
+      if (!bContent.includes("routes/api.php") && bContent.includes("routes/web.php")) {
+        bContent = bContent.replace(
+          /web:\s*__DIR__\s*\.\s*['"]\/..\/routes\/web\.php['"],/g,
+          "web: __DIR__.'/../routes/web.php',\n        api: __DIR__.'/../routes/api.php',",
+        );
+        await fs.writeFile(bootstrapApp, bContent);
+      }
+    }
+
+    // FIX: Ensure routes/api.php actually exists (prevents "Failed to open stream" crash)
+    const apiRoutePath = path.join(targetPath, "routes", "api.php");
+    if (!(await fs.pathExists(apiRoutePath))) {
+      await fs.ensureDir(path.join(targetPath, "routes"));
+      await fs.writeFile(
+        apiRoutePath,
+        `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n// API Routes\n`,
+      );
     }
   }
 

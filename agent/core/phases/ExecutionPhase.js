@@ -162,8 +162,9 @@ class ExecutionPhase extends BasePhase {
       allowedModels = (blueprint.models || []).map((m) => m.toLowerCase());
     }
 
-    // FIX #22 — Legacy patterns dibuat dinamis dari blueprint, bukan hardcoded
-    // Hindari false-positive pada project non-UrlShortener
+    // FIX #22+30 — Legacy patterns: dynamic from blueprint + project-domain-aware guard
+    // Prevents false-positive deletion of valid routes/files for projects
+    // whose domain matches legacy template patterns (e.g. url-shortener-app)
     let legacyPatterns = [];
     if (await fs.pathExists(blueprintPath)) {
       const bp = await fs.readJson(blueprintPath).catch(() => ({}));
@@ -180,6 +181,24 @@ class ExecutionPhase extends BasePhase {
         "create_urls_table",
       ];
     }
+
+    // FIX #30 — Project-domain-aware guard: if the project's own name/domain
+    // overlaps with legacy patterns, remove those patterns to avoid
+    // deleting the project's own legitimate code.
+    const projectSlug = path.basename(projectPath).toLowerCase();
+    const projectWords = projectSlug.split(/[-_]/).filter(w => w.length > 2);
+    legacyPatterns = legacyPatterns.filter(pattern => {
+      const patternLower = pattern.toLowerCase();
+      // If any significant word from the project name appears in the legacy pattern,
+      // this pattern likely targets the project's own domain — skip it
+      const isOwnDomain = projectWords.some(word =>
+        patternLower.includes(word) || word.includes(patternLower.replace('.php', ''))
+      );
+      if (isOwnDomain) {
+        this.log(`      ⏭️  Legacy pattern '${pattern}' matches project domain '${projectSlug}' — skipping to protect valid code.`, "info");
+      }
+      return !isOwnDomain;
+    });
 
     const files = await CoreUtils.globRecursive(projectPath, "**/*");
     let deletedCount = 0;
@@ -280,6 +299,28 @@ class ExecutionPhase extends BasePhase {
           `      🗑️ Removed legacy routes from routes/web.php`,
           "warning",
         );
+      }
+    }
+
+    // FIX #30 — Post-cleanup route validation:
+    // If cleanup wiped all routes but blueprint has routes defined, regenerate them.
+    if (await fs.pathExists(blueprintPath)) {
+      const postCleanBp = await fs.readJson(blueprintPath).catch(() => ({}));
+      const bpRoutes = postCleanBp.routes || [];
+      if (bpRoutes.length > 0 && (await fs.pathExists(webRoutesPath))) {
+        const postCleanContent = await fs.readFile(webRoutesPath, "utf8");
+        const hasRealRoutes = (postCleanContent.match(/Route::/g) || []).length > 1; // more than just the default '/'
+        if (!hasRealRoutes) {
+          this.log(`      ⚠️ Route cleanup wiped all web routes. Regenerating from blueprint (${bpRoutes.length} routes)...`, "warning");
+          try {
+            await this.engine.implementationPhase.generateRoutes(bpRoutes, postCleanBp);
+            this.log(`      ✅ Routes successfully regenerated from blueprint.`, "success");
+          } catch (routeErr) {
+            this.log(`      ❌ Route regeneration failed: ${routeErr.message}. Writing safe fallback.`, "error");
+            const fallbackRoutes = this.engine.implementationPhase._safeFallbackRoutes(bpRoutes, postCleanBp);
+            await fs.writeFile(webRoutesPath, fallbackRoutes);
+          }
+        }
       }
     }
 
@@ -817,6 +858,15 @@ class ExecutionPhase extends BasePhase {
       }
     }
 
+    if (applied > 0) {
+      const projectName = path.basename(projectPath);
+      this.log(`         🧠 [Self-Healing Complete] Persisting Post-Mortem lesson for ${projectName}...`, "info");
+      await this._formulateAndPersistLesson(projectName, projectPath, lastError, {
+        category: "HEALED_CRASH",
+        targetFile: affectedFiles.map((f) => path.basename(f)).join(", "),
+      }).catch(() => {});
+    }
+
     return applied > 0;
   }
 
@@ -827,6 +877,15 @@ class ExecutionPhase extends BasePhase {
    */
   async _deterministicPreHeal(projectPath) {
     let totalFixes = 0;
+    // 5️⃣ PREHEAL_CACHE — dedupe by file hash, stored OUTSIDE sandboxes (R-only on tests/sandboxes)
+    const crypto = require("crypto");
+    const nexusRoot = path.resolve(__dirname, "..", "..", "..");
+    const cachePath = path.join(nexusRoot, "memory", "cache", "preheal_cache.json");
+    let cache = {};
+    try { if (await fs.pathExists(cachePath)) cache = await fs.readJson(cachePath); } catch (_) {}
+    const isSandbox = String(projectPath).replace(/\\/g, "/").includes("tests/sandboxes");
+    const cacheKeyFor = (rel, hash) => `${rel}::${hash}`;
+    let cacheDirty = false;
 
     // Scan all PHP files in app/, routes/, database/ for common fatal patterns
     const phpFiles = await CoreUtils.globRecursive(projectPath, [
@@ -839,7 +898,10 @@ class ExecutionPhase extends BasePhase {
       try {
         let content = await fs.readFile(filePath, "utf8");
         const original = content;
-        const relPath = path.relative(projectPath, filePath);
+        const relPath = path.relative(projectPath, filePath).replace(/\\/g, "/");
+        const hash = crypto.createHash("md5").update(content).digest("hex");
+        const key = cacheKeyFor(relPath, hash);
+        if (cache[key]) continue; // already known-clean for this hash
 
         // ── FIX 1: Duplicate parameter names in closures ──
         // e.g. function ($request, SomeClass $request) → function (SomeClass $request)
@@ -941,11 +1003,25 @@ class ExecutionPhase extends BasePhase {
             `      🔧 [Pre-Heal] Fixed patterns in: ${relPath}`,
             "warning",
           );
+        } else {
+          // Mark clean hash so next project skips this file if content identical
+          const cleanHash = crypto.createHash("md5").update(content).digest("hex");
+          const cleanKey = cacheKeyFor(relPath, cleanHash);
+          if (!cache[cleanKey]) { cache[cleanKey] = 1; cacheDirty = true; }
         }
       } catch (e) {
         // Skip files that can't be read/written
         continue;
       }
+    }
+
+    if (cacheDirty && !isSandbox) {
+      await fs.ensureDir(path.dirname(cachePath));
+      await fs.writeJson(cachePath, cache, { spaces: 2 });
+    } else if (cacheDirty) {
+      // Even for sandbox runs, cache lives outside sandboxes — still persist
+      await fs.ensureDir(path.dirname(cachePath));
+      await fs.writeJson(cachePath, cache, { spaces: 2 });
     }
 
     return totalFixes;
@@ -992,29 +1068,58 @@ class ExecutionPhase extends BasePhase {
     }
   }
 
-  async _formulateAndPersistLesson(projectName, projectPath, failureOutput) {
+  async _formulateAndPersistLesson(projectName, projectPath, failureOutput, fixContext = {}) {
     try {
       const coordinate = this.engine.rcAnalyzer
         ? this.engine.rcAnalyzer.analyze(failureOutput)
         : { file: "unknown", line: 0 };
       const timestamp = new Date().toISOString();
       const safeProject = projectName.replace(/[^a-zA-Z0-9_-]/g, "_").toUpperCase();
+      const category = fixContext.category || "TDD_FAILURE";
+      const lessonTitle = `NEXUS_LESSON_${safeProject}_${category}`;
 
       // Clean snippet of error (max 1500 chars)
-      const errorSnippet = failureOutput.slice(0, 1500).trim();
+      const errorSnippet = (failureOutput || "").slice(0, 1500).trim();
 
-      const lessonContent = `# 🧠 NEXUS LESSON: TDD Failure & Self-Correction in ${projectName}
-> **METADATA (NEXUS SEMANTIC TAGS)**: [laravel, tdd, failure-analysis, self-correction, ${projectName.toLowerCase()}]
+      // Deep AI-assisted Post-Mortem reasoning
+      let aiDiagnostic = null;
+      try {
+        const localAI = require("../LocalIntelligence");
+        const prompt = `[SYSTEM: AUTONOMOUS POST-MORTEM WRITER]
+The Laravel application encountered an error in project: ${projectName}.
+CATEGORY: ${category}
+ERROR LOG:
+${errorSnippet}
+${fixContext.targetFile ? `AFFECTED FILE: ${fixContext.targetFile}` : ""}
+
+Analyze the root cause and provide:
+1. Root Cause Summary (1 paragraph)
+2. Technical Solution / Prevention Rule (with wikilinks like [[Laravel Models]], [[Database Migrations]], or [[Livewire State]])
+
+OUTPUT ONLY clean markdown.`;
+
+        aiDiagnostic = await localAI.generate(prompt, "generate_post_mortem");
+      } catch (_) {
+        // Fallback to static analysis
+      }
+
+      const lessonContent = `---
+title: Lesson - ${safeProject} ${category}
+tags: [lesson, laravel, self-learning, post-mortem, ${projectName.toLowerCase()}]
+aliases: [${projectName} ${category} Fix]
+---
+# 🧠 Post-Mortem Lesson: ${projectName} (${category})
 > **TIMESTAMP**: ${timestamp}
+> **PROJECT**: [[${projectName}]]
 > **TARGET**: \`${projectPath}\`
+${fixContext.targetFile ? `> **AFFECTED FILE**: \`${fixContext.targetFile}\`\n` : ""}> **SEMANTIC TOPIC**: [[Laravel TALL Stack Architecture]]
 
 ---
 
-### 🚨 Problem Statement
-Automated TDD test execution encountered failures during the stability phase of **${projectName}**.
+### 🚨 Problem Statement & Diagnostic
+Automated execution encountered a failure condition in **[[${projectName}]]**.
 
-### 📍 Error Coordinate & Stack Trace
-- **File Detected**: \`${coordinate.file}\` (Line: ${coordinate.line})
+- **File Coordinate**: \`${coordinate.file}\` (Line: ${coordinate.line})
 - **Raw Diagnostic Trace**:
 \`\`\`text
 ${errorSnippet}
@@ -1022,42 +1127,56 @@ ${errorSnippet}
 
 ---
 
-### 🔍 Root Cause Analysis
-${coordinate.insight || "Failure detected during test runner assertions or database state."}
+### 🔍 Root Cause Analysis & Prevention
+${aiDiagnostic && aiDiagnostic.length > 50 ? aiDiagnostic.trim() : `
+#### Diagnostic Insight
+${coordinate.insight || "Failure detected during test assertions or runtime execution."}
 
-### 🛡️ Remediation Strategy & Rules for Future Cycles
-1. **Schema & Model Alignment**: Ensure model attributes correspond strictly with database migration column names and types.
-2. **Relationship Bidirectionality**: Always verify foreign keys and cascade rules in both directions.
-3. **Route & Component Binding**: Confirm Livewire wire:model and route model bindings point to valid DB entities.
+#### Architectural Rules & Prevention
+1. **Schema & Model Alignment**: Ensure model attributes correspond strictly with database migration column names and types in [[Laravel Models]].
+2. **Relationship Bidirectionality**: Always verify foreign keys, cascading rules, and reverse bindings in [[Database Migrations]].
+3. **Reactive State Binding**: Confirm Livewire wire:model and route model bindings point to valid DB entities in [[Livewire Components]].
+`}
 
 ---
-*Generated by NEXUS Autonomous TDD Feedback Loop | Synced to Obsidian Vault & Colab Training Dataset*
+*Generated by NEXUS Autonomous Continuous Learning Loop | Synced to [[NEXUS Update]] & Colab Training Dataset*
 `;
 
       // 1. Save to local memory/distilled/
       const localLessonPath = path.join(
         this.engine.knowledgePath,
-        `NEXUS_LESSON_${safeProject}_STABILITY.md`,
+        `${lessonTitle}.md`,
       );
       await fs.writeFile(localLessonPath, lessonContent, "utf8");
       this.log(
-        `      💾 Lesson saved to local memory: NEXUS_LESSON_${safeProject}_STABILITY.md`,
+        `      💾 Lesson saved to local memory: ${lessonTitle}.md`,
         "success",
       );
 
-      // 2. Save to Obsidian Vault
+      // 2. Save directly to Obsidian Vault in 'NEXUS Update/Lessons/'
       if (this.engine.obsidianBridge && this.engine.obsidianBridge.isActive()) {
-        await this.engine.obsidianBridge.saveLesson(
-          `${safeProject}_STABILITY`,
+        const savedVaultPath = await this.engine.obsidianBridge.saveRewrite(
+          `${lessonTitle}.md`,
           lessonContent,
+          "Lessons"
         );
-        this.log(
-          `      🔗 Lesson synced to Obsidian Vault (NEXUS AI/NEXUS LESSONS/)`,
-          "success",
-        );
+        if (savedVaultPath) {
+          this.log(
+            `      🔗 Lesson synced to Obsidian Vault (NEXUS Update/Lessons/${lessonTitle}.md)`,
+            "success",
+          );
+        }
+
+        // 3. Incrementally update Knowledge Graph in real-time
+        if (this.engine.semanticEngine) {
+          try {
+            await this.engine.semanticEngine.buildGraphOnly();
+            this.log(`      🌐 Knowledge Graph re-indexed with new lesson in real-time.`, "info");
+          } catch (_) {}
+        }
       }
 
-      // 3. Append to Colab CUDA dataset in '3 qwen/' as correction training sample
+      // 4. Append to Colab CUDA dataset in '3 qwen/' as correction training sample
       const bpVault = this.engine.obsidianBridge
         ? this.engine.obsidianBridge.getBlueprintVaultPath()
         : null;

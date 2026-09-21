@@ -39,6 +39,27 @@ class PlanningPhase extends BasePhase {
                 return task;
             });
 
+        // 🌐 GRAPHRAG ENRICHMENT: Ground planning recommendations with Obsidian knowledge
+        for (const task of tasks) {
+            try {
+                if (this.engine.searchKnowledgeGraph) {
+                    const query = task.description.replace(/^(CRITICAL|WARNING|ERROR|INFO):\s*/i, "").slice(0, 80);
+                    const graphMatch = await this.engine.searchKnowledgeGraph(query, {
+                        topK: 1,
+                        maxHops: 1,
+                        maxNeighborsPerSeed: 2,
+                        maxTotalChars: 800,
+                    });
+                    if (graphMatch && graphMatch.seeds && graphMatch.seeds.length > 0) {
+                        const seed = graphMatch.seeds[0];
+                        const relNote = graphMatch.connectedNotes?.[0]?.node?.title;
+                        const relText = relNote ? ` ➔ linked to [[${relNote}]]` : "";
+                        task.recommendation += ` [Vault: [[${seed.title}]]${relText}]`;
+                    }
+                }
+            } catch (_) {}
+        }
+
         const plan = new ImplementationPlan(planID, report.id, tasks);
         this.engine.currentPlan = plan;
 

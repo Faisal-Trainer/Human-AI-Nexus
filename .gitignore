@@ -6,6 +6,10 @@ node_modules/
 jspm_packages/
 .pnp*
 .pnp.js
+venv/
+.venv/
+__pycache__/
+*.pyc
 
 # --- Environment & Sensitive ---
 .env
@@ -53,6 +57,7 @@ memory/short_term/audit/*
 memory/short_term/planning/*
 memory/short_term/records/*
 memory/short_term/summary/*
+memory/short_term/cache/
 !memory/short_term/**/*.gitkeep
 
 # Keep the Long Term HUB (Knowledge racks)

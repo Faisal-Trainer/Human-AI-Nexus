@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.3.1 (Performance & Stability Patch)
-> **Updated**: 11/06/2026
+> **Version**: v3.4.0 (LLM + RAG Architecture)
+> **Updated**: 21/09/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
@@ -29,6 +29,7 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 ## 🗺️ Daftar Isi
 
 - [⚙️ Core Machines](#️-core-machines--modul-utama)
+- [🏛️ 5 Pilar Arsitektur LLM + RAG](#️-5-pilar-arsitektur-llm--rag-baru)
 - [🛡️ Stability Guardrails v2.0](#️-stability-guardrails-v20-baru)
 - [🏗️ Arsitektur Sistem](#️-arsitektur-sistem)
 - [📂 Struktur Folder](#-struktur-folder)
@@ -56,14 +57,80 @@ Sistem ditenagai oleh modul spesialis yang bekerja secara independen dan terkoor
 | 9 | `LaravelArchitect.js` | Spesialis otomasi Laravel (Traits, Migrations, Env) |
 | 10 | `TDDScaffolder.js` | Pembangun scaffold pengujian otomatis |
 | 11 | `NexusClock.js` | Penegak standarisasi waktu UTC+8 untuk Docker |
-| 12 | `SemanticEngine.js` | 🆕 High-Precision Vector Search (Ollama nomic-embed-text) |
-| 13 | `LocalIntelligence.js` | 🆕 Ollama Qwen 2.5 Coder & Qwen 3 Integration |
-| 14 | `AgentRegistry.js` | 🆕 Health monitor & stuck agent detection |
-| 15 | `EventBus.js` | Event bus dengan schema validation |
-| 16 | `ResourceMonitor.js` | CPU + RAM monitor (real measurement, tiered alerts) |
-| 17 | `MemoryGovernor.js` | File locking dengan stale lock detection |
-| 18 | `EvolutionPiper.js` | Lab manager dengan cycle + session hard limits |
-| 19 | `DecisionEngine.js` | Conflict resolver dengan 7 context weight profiles |
+| 12 | `SemanticEngine.js` | 🆕 Vector Search + Hybrid Seeding + CRAG & HyDE Engine |
+| 13 | `LocalIntelligence.js` | 🆕 Fast Local GGUF Engine + GBNF Grammar Constrained Decoding |
+| 14 | `GraphEngine.js` | 🆕 In-Memory Knowledge Graph & Wikilink-Aware Traversal |
+| 15 | `ObsidianBridge.js` | 🆕 Bidirectional Vault Integration (Read & Self-Learning Write-Back) |
+| 16 | `AgentRegistry.js` | 🆕 Health monitor & stuck agent detection |
+| 17 | `EventBus.js` | Event bus dengan schema validation |
+| 18 | `ResourceMonitor.js` | CPU + RAM monitor (real measurement, tiered alerts) |
+| 19 | `MemoryGovernor.js` | File locking dengan stale lock detection |
+| 20 | `EvolutionPiper.js` | Lab manager dengan cycle + session hard limits |
+| 21 | `DecisionEngine.js` | Conflict resolver dengan 7 context weight profiles |
+
+---
+
+## 🏛️ 5 Pilar Arsitektur LLM + RAG (Baru)
+
+NEXUS AI v3.4.0 memperkenalkan **5 Pilar Arsitektur LLM + RAG** untuk menjamin penalaran kode lokal yang deterministik, self-learning, dan bebas halusinasi:
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                               NEXUS AI ENGINE CORE                                     │
+├───────────────────────────────┬───────────────────────────────┬────────────────────────┤
+│ 1. GraphRAG Topology          │ 2. Continuous Learning Loop   │ 3. Tiered Model Router │
+│  • Wikilinks & Backlinks      │  • TDD Failure Post-Mortem    │  • Tier 0: Heuristics  │
+│  • Hybrid Seeding (RRF K=60)  │  • Obsidian Vault Write-Back  │  • Tier 1: Fast Local  │
+│  • 3.5k-4.5k Token Budget     │  • Real-time Graph Re-index   │  • VRAM/CPU Fallback   │
+├───────────────────────────────┴───────────────────────────────┴────────────────────────┤
+│ 4. Agentic RAG (HyDE + CRAG)                                                           │
+│  • HyDE: Zero-shot code expansion untuk query pendek                                   │
+│  • CRAG: Confidence Guard (≥0.60 DIRECT | 0.35-0.60 ENRICH | <0.35 REFORMULATE)        │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│ 5. GBNF Grammar Constrained Decoding                                                   │
+│  • LlamaJsonSchemaGrammar sampling layer (100% valid JSON guarantee)                   │
+│  • Predefined schemas: blueprintApp, postMortem, codeReview, schemaValidation          │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 1. GraphRAG (Wikilink & In-Memory Network Graph)
+- **Komponen**: `GraphEngine.js` & `SemanticEngine.js`
+- **Kapabilitas**:
+  - Rekonstruksi topologi pengetahuan dari file markdown & Obsidian vault via parsing regex `[[Target|Alias]]`, resolusi alias, dan ekstraksi `#tags`.
+  - 2-pass graph builder: pencatatan outlinks, backlinks, degree centrality, dan pembobotan edge dua arah (*bidirectional weight 2.0*).
+  - **Hybrid Seeding**: Memadukan pencocokan entitas langsung (*Direct Entity Match*) dengan penelusuran semantik Vector / TF-IDF menggunakan algoritma *Reciprocal Rank Fusion* (RRF, $K = 60$).
+  - **Token Budget Protection**: Pembatasan ketat 3.500–4.500 karakter traversal context window, aman untuk environment RAM 8GB.
+
+### 2. Continuous Learning Loop (Obsidian Write-Back v1.1)
+- **Komponen**: `ExecutionPhase.js` & `ObsidianBridge.js`
+- **Kapabilitas**:
+  - **Automated TDD Feedback Loop**: Menjalankan test suite PHPUnit/Artisan otomatis. Jika terdeteksi failure, `RootCauseAnalyzer` memetakan koordinat file/line dan `LocalIntelligence` menghasilkan analisis post-mortem.
+  - **Obsidian Vault Sync**: Menyimpan catatan post-mortem secara otomatis ke Obsidian Vault (`NEXUS Update/Lessons/NEXUS_LESSON_*.md`) lengkap dengan Frontmatter YAML, tags, dan `[[wikilinks]]`.
+  - **Real-Time Graph Re-Indexing**: Memicu pembaruan inkremental Knowledge Graph secara real-time saat pelajaran baru tersimpan.
+  - **CUDA Fine-Tuning Dataset**: Mencatat sampel self-correction ke file JSONL di `3 qwen/colab_cuda_training_dataset.jsonl` untuk fine-tuning Google Colab CUDA.
+
+### 3. Hierarchical / Tiered Model Routing (Focused Local)
+- **Komponen**: `LocalIntelligence.js` & `NexusEngine.js`
+- **Kapabilitas**:
+  - **Tier 0 (Instant Heuristic Engine)**: Eksekusi validator regex dan aturan AST statis (< 1ms, 0 MB VRAM) untuk skema migrasi database dan review sintaks umum tanpa membebani LLM.
+  - **Tier 1 (Fast Local Model)**: Model Qwen GGUF via `node-llama-cpp` (Qwen3-4B / Qwen2.5-Coder-3B) dengan alokasi context dinamis (512–1024), kontrol thread CPU, dan otomatisasi fallback dari GPU Vulkan ke pure CPU jika VRAM exhausted.
+  - Fokus pada inferensi lokal cepat dan efisien tanpa latensi multi-tier cloud.
+
+### 4. Agentic RAG (HyDE + Corrective RAG / CRAG)
+- **Komponen**: `SemanticEngine.js`
+- **Kapabilitas**:
+  - **HyDE (Hypothetical Document Embeddings)**: Menghasilkan sintesis pseudo-code teknis zero-shot sesuai domain query untuk menjembatani *vocabulary gap* antara pertanyaan singkat user dengan catatan codebase yang padat.
+  - **CRAG Confidence Guard**: Evaluasi skor keyakinan retrieval berbasis bobot gabungan ranking dokumen dan rasio keyword coverage:
+    - $\ge 0.60$ (**DIRECT**): Dokumen relevan langsung digunakan sebagai prompt context.
+    - $0.35 - 0.60$ (**ENRICH_GRAPH_HYDE**): Ekspansi 1-hop GraphRAG + sintesis konteks HyDE.
+    - $< 0.35$ (**REFORMULATE_EXPAND**): Pembersihan query + 2-hop Graph network expansion.
+
+### 5. GBNF Grammar Constrained Decoding
+- **Komponen**: `LocalIntelligence.js`
+- **Kapabilitas**:
+  - Injeksi constraint grammar pada sampling layer model lokal menggunakan `LlamaJsonSchemaGrammar`.
+  - **100% Jaminan Validitas JSON**: Mencegah syntax error, trailing commas, atau markdown fences corrupt (` ```json `) yang sering merusak parsing downstream.
+  - **Predefined Schemas**: Skema siap pakai untuk `blueprintApp`, `postMortem`, `codeReview`, dan `schemaValidation`.
 
 ---
 
@@ -249,4 +316,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 11/06/2026 (v3.3.1 - Performance & Stability Patch)_
+_Terakhir Dioptimasi: 25/09/2026 (v3.4.0 - LLM + RAG Architecture)_

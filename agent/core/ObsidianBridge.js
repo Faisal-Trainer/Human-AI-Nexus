@@ -1,17 +1,18 @@
 // agent/core/ObsidianBridge.js
-// NEXUS Obsidian Bridge v1.0 — Read-Only Vault Integration
-// Bridges the NEXUS AI Engine with an Obsidian Vault for unified knowledge access.
+// NEXUS Obsidian Bridge v1.1 — Bidirectional Vault Integration (Read + Write-Back)
+// Bridges the NEXUS AI Engine with an Obsidian Vault for unified knowledge access
+// and continuous learning write-back (lessons, blueprints, LLM rewrites).
 
 const fs = require("fs-extra");
 const path = require("path");
 const fg = require("fast-glob");
 
 /**
- * ObsidianBridge — Read-Only integration layer between NEXUS AI and Obsidian Vault.
+ * ObsidianBridge — Bidirectional integration layer between NEXUS AI and Obsidian Vault.
  *
- * This module allows NexusEngine to read knowledge, agent prompts, workflows,
- * and rules directly from an Obsidian Vault, while keeping all write operations
- * confined to the local `memory/` directory.
+ * READ:  Knowledge files, agent prompts, workflows, and rules from the Obsidian Vault.
+ * WRITE: Post-mortem lessons, blueprint archives, LLM rewrites, and Colab training
+ *        datasets back to dedicated vault folders (NEXUS Update/, BLUEPRINT/).
  *
  * Configuration is loaded from `.nexus-vault.json` in the project root.
  */

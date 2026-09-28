@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.4.0 (LLM + RAG Architecture)
-> **Updated**: 21/09/2026
+> **Version**: v3.4.1 (Sandbox Table User Stability & Core Protection)
+> **Updated**: 28/09/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
@@ -151,6 +151,7 @@ Versi 3.2.0 mengimplementasikan **guardrail di level kode** — bukan hanya doku
 | Modul | Pagar |
 |---|---|
 | `LocalIntelligence` | Task whitelist, locked system prompt, model auto-selection (Qwen 2.5/3), max 30k chars output |
+| `ImplementationPhase` | Core Auth & `User` model preservation, integer `foreignId('user_id')` mapping, duplicate policy import elimination |
 | `EvolutionPiper` | Max 25 cycles/session, max 120 menit, auto-throw kalau batas tercapai |
 | `Machinist` | Path whitelist (`agent/tools/scanners/` only), blacklist core folders, forbidden import check |
 | `WorktreeManager` | `isActive=false` — semua method return early dengan warning jelas |
@@ -316,4 +317,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 25/09/2026 (v3.4.0 - LLM + RAG Architecture)_
+_Terakhir Dioptimasi: 28/09/2026 (v3.4.1 - Sandbox Table User Stability & Core Protection)_

@@ -423,6 +423,12 @@ class NexusEngine {
       }
     }
 
+    // 🧠 Index .agents/skills for RAG-based architectural knowledge retrieval
+    const engineSkillsDir = path.join(this.getEngineRoot(), ".agents", "skills");
+    if (fs.existsSync(engineSkillsDir)) {
+      this.semanticEngine.addAdditionalPath(engineSkillsDir);
+    }
+
     // Initialize Specialized Phases
     this.auditPhase = new AuditPhase(this);
     this.planningPhase = new PlanningPhase(this);
@@ -691,6 +697,7 @@ class NexusEngine {
 
   async loadAgent(agentName) {
     const findAgent = async (dir) => {
+      if (!dir || !(await fs.pathExists(dir))) return null;
       const entries = await fs.readdir(dir, { withFileTypes: true });
       for (const entry of entries) {
         const res = path.resolve(dir, entry.name);
@@ -957,7 +964,7 @@ class NexusEngine {
       );
     }
 
-    // 🌐 GRAPHRAG: Retrieve connected architectural patterns & Obsidian knowledge
+    // 🌐 GRAPHRAG & SEMANTIC RAG: Retrieve connected architectural patterns & skills
     let graphContextSection = "";
     try {
       if (this.semanticEngine) {
@@ -969,7 +976,7 @@ class NexusEngine {
           topK: 3,
           maxHops: 1,
           maxNeighborsPerSeed: 3,
-          maxTotalChars: 3500,
+          maxTotalChars: 2500,
         });
 
         if (graphResult && graphResult.graphContextString) {
@@ -979,9 +986,31 @@ class NexusEngine {
           );
           graphContextSection = `\n${graphResult.graphContextString}\n\n`;
         }
+
+        // 📚 SEMANTIC RAG: Supplement with relevant architectural skills and schema patterns
+        if (graphContextSection.length < 1500) {
+          const semanticHits = await this.semanticEngine.search(`${projectName} architecture tall stack schema routes`, 3);
+          if (semanticHits && semanticHits.length > 0) {
+            let extraRagText = "";
+            for (const hit of semanticHits) {
+              if (hit.fullPath && (await fs.pathExists(hit.fullPath))) {
+                const fileContent = await fs.readFile(hit.fullPath, "utf8");
+                const snippet = fileContent.slice(0, 600).trim();
+                extraRagText += `\n[Pattern: ${path.basename(hit.fullPath)}]\n${snippet}\n`;
+              }
+            }
+            if (extraRagText) {
+              graphContextSection += `\n### Architectural Reference Patterns (RAG):\n${extraRagText}\n\n`;
+              this.log(
+                `   📚 Semantic RAG: Injected ${semanticHits.length} architectural reference patterns into prompt.`,
+                "info"
+              );
+            }
+          }
+        }
       }
     } catch (graphErr) {
-      this.log(`   ⚠️ GraphRAG context retrieval skipped: ${graphErr.message}`, "warning");
+      this.log(`   ⚠️ RAG context retrieval skipped: ${graphErr.message}`, "warning");
     }
 
     const prompt = `You are a Senior Software Architect. We are building a Laravel TALL Stack application.
@@ -992,49 +1021,59 @@ ${graphContextSection}
 Identify all the essential features this application MUST have based on its name, tags, and the architectural context above.
 For a 100% complete web app, you must generate a comprehensive architecture.
 
-CRITICAL INSTRUCTION: DO NOT use placeholder names like "ModelName1" or "create_table_name1_table".
-You MUST INVENT REAL, CONTEXT-APPROPRIATE names based on the project.
-For example, if it's an e-commerce app, use "Product", "Order", "Customer". If it's a blog, use "Post", "Comment", "Tag".
+CRITICAL ARCHITECTURAL RULES:
+1. STRICTLY FORBIDDEN: DO NOT use placeholder names such as "YourRealModelName", "ModelName", "your-real-component", "user-profile", "your-real-route", or "ResourceController".
+2. Tailor ALL models, livewire_components, migrations, seeders, and routes specifically to the domain of "${projectName}".
+   Examples:
+   - For personal-portfolio: models=["User", "PortfolioProject", "SkillTag"], livewire_components=["project-showcase", "skills-matrix", "contact-inquiry"]
+   - For url-shortener-app: models=["User", "ShortUrl", "ClickStat"], livewire_components=["url-shortener-box", "link-analytics-table"]
+   - For todo-app-realtime: models=["User", "TodoItem", "Category"], livewire_components=["task-board", "task-input"]
+   - For expense-tracker: models=["User", "Expense", "BudgetCategory"], livewire_components=["expense-summary-cards", "expense-entry-form"]
 
 Output strictly JSON with this exact structure (do not add any other keys, explanation, or markdown):
 {
-  "project_name": "...",
-  "models": ["User", "YourRealModelName"],
+  "project_name": "${projectName}",
+  "models": ["User", "DomainSpecificModel"],
   "schema": {
     "User": {
       "name": "string",
       "email": "string:unique",
       "password": "text",
       "role": "string:default(user)"
+    },
+    "DomainSpecificModel": {
+      "title": "string",
+      "description": "text:nullable",
+      "user_id": "foreignUuid:constrained"
     }
   },
-  "migrations": ["create_users_table", "create_your_real_tables_table"],
-  "livewire_components": ["user-profile", "your-real-component"],
-  "seeders": ["UserSeeder", "YourRealModelSeeder"],
-  "factories": ["UserFactory", "YourRealModelFactory"],
-  "routes": ["/dashboard", "/your-real-route"],
+  "migrations": ["create_users_table", "create_domain_specific_models_table"],
+  "livewire_components": ["feature-manager", "feature-dashboard"],
+  "seeders": ["UserSeeder", "DomainSpecificModelSeeder"],
+  "factories": ["UserFactory", "DomainSpecificModelFactory"],
+  "routes": ["/dashboard", "/features"],
   "pivot_tables": [],
-  "relationships": [{"model": "User", "type": "hasMany", "target": "YourRealModelName"}],
+  "relationships": [{"model": "User", "type": "hasMany", "target": "DomainSpecificModel"}],
   "middleware": ["auth", "verified", "throttle:60,1"],
   "api_endpoints": [
-    {"method": "GET", "path": "/api/v1/resource", "controller": "ResourceController@index", "middleware": ["auth:sanctum"]},
-    {"method": "POST", "path": "/api/v1/resource", "controller": "ResourceController@store", "middleware": ["auth:sanctum"]}
+    {"method": "GET", "path": "/api/v1/features", "controller": "FeatureController@index", "middleware": ["auth:sanctum"]},
+    {"method": "POST", "path": "/api/v1/features", "controller": "FeatureController@store", "middleware": ["auth:sanctum"]}
   ],
   "security_policies": {
     "roles": ["admin", "user"],
-    "permissions": ["manage-users", "view-dashboard"],
+    "permissions": ["manage-items", "view-dashboard"],
     "rate_limiting": {"api": "60,1", "auth": "5,1"},
     "middleware_map": {"/admin/*": ["auth", "role:admin"], "/dashboard": ["auth", "verified"]}
   },
   "async_jobs": [
-    {"name": "ProcessReport", "queue": "default", "retry": 3, "backoff": 60}
+    {"name": "ProcessDomainTask", "queue": "default", "retry": 3, "backoff": 60}
   ],
   "ui_design_system": {
-    "color_palette": {"primary": "#1e40af", "secondary": "#64748b", "accent": "#f59e0b", "background": "#f8fafc", "surface": "#ffffff"},
+    "color_palette": {"primary": "#4f46e5", "secondary": "#64748b", "accent": "#f59e0b", "background": "#f8fafc", "surface": "#ffffff"},
     "typography": {"heading_font": "Inter", "body_font": "Inter", "scale": "1.25"},
     "layout": "sidebar-main",
     "theme": "light",
-    "component_style": "rounded-xl shadow-sm border border-gray-200"
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
   }
 }`;
     let blueprint = null;
@@ -1052,7 +1091,31 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         if (!blueprint || typeof blueprint !== "object") {
           throw new Error("Failed to parse or repair blueprint JSON from LLM response");
         }
-        this.log(`   ✅ Blueprint JSON parsed successfully on attempt ${attempt}.`, "success");
+
+        // Anti-placeholder guardrail: sanitize blueprint against hallucinated placeholders
+        const placeholderRegex = /your[-_]?real|modelname1?|user-profile$/i;
+        if (Array.isArray(blueprint.models)) {
+          blueprint.models = blueprint.models.filter(m => !placeholderRegex.test(m));
+        }
+        if (Array.isArray(blueprint.livewire_components)) {
+          blueprint.livewire_components = blueprint.livewire_components.filter(c => !placeholderRegex.test(c));
+        }
+        // If models or components were stripped or too few, enrich with deterministic fallback
+        if (!blueprint.models || blueprint.models.length <= 1 || !blueprint.livewire_components || blueprint.livewire_components.length === 0) {
+          const fallback = this._generateFallbackBlueprint(projectName, readmeContent);
+          if (!blueprint.models || blueprint.models.length <= 1) {
+            blueprint.models = fallback.models;
+            blueprint.schema = { ...(blueprint.schema || {}), ...fallback.schema };
+            blueprint.migrations = fallback.migrations;
+            blueprint.seeders = fallback.seeders;
+            blueprint.factories = fallback.factories;
+          }
+          if (!blueprint.livewire_components || blueprint.livewire_components.length === 0) {
+            blueprint.livewire_components = fallback.livewire_components;
+          }
+        }
+
+        this.log(`   ✅ Blueprint JSON parsed and validated on attempt ${attempt}.`, "success");
         break; // Success — exit retry loop
       } catch (e) {
         this.log(`   ⚠️ Blueprint attempt ${attempt} failed: ${e.message}`, "warning");
@@ -1066,136 +1129,7 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
     if (!blueprint) return;
 
     try {
-
-      // --- ARCHITECTURE COUNCIL LOGIC (BALANCED BATCHES) ---
-      // Consolidated into 5 focused architectural layer prompts:
-      // Batch 1: Foundation (Domain Analysis + Blueprint Architecture + DB Schema Optimizer)
-      // Batch 2: Frontend & Routing (Livewire State Planner + Laravel Route Architect + Route Rules)
-      // Batch 3: Security & API (Security/ACL + API/Integration Designer)
-      // Batch 4: Async, DevOps & QA (Async Jobs + DevOps Infrastructure + QA Testing)
-      // Batch 5: UI/UX Design System (Design Taste + High-End Visual + Minimalist UI)
-      const batches = [
-        {
-          name: "Foundation Layer (Domain, Blueprint, DB Schema)",
-          skills: [
-            "domain-driven-design-thinker",
-            "nexus-blueprint-architect",
-            "database-schema-optimizer",
-          ],
-        },
-        {
-          name: "Frontend & Routing Layer (Livewire, Route Architect, Rules)",
-          skills: [
-            "livewire-state-planner",
-            "laravel-route-architect",
-            "nexus-route-laravel",
-          ],
-        },
-        {
-          name: "Security & API Layer (Security, ACL, API Designer)",
-          skills: [
-            "security-and-acl-architect",
-            "api-and-integration-designer",
-          ],
-        },
-        {
-          name: "Async, DevOps & QA Layer (Jobs, Infrastructure, Testing)",
-          skills: [
-            "async-job-and-queue-architect",
-            "devops-and-infrastructure-planner",
-            "qa-testing-strategist",
-          ],
-        },
-        {
-          name: "UI/UX Design System Layer (Visual Design, Typography, Color)",
-          skills: [
-            "design-taste-frontend",
-            "high-end-visual-design",
-            "minimalist-ui",
-          ],
-        },
-      ];
-
-      const allSkillNames = batches.flatMap((b) => b.skills);
-      const skillCache = await this._preloadSkillContents(allSkillNames);
-
-      let appliedBatches = 0;
-      for (const batch of batches) {
-        try {
-          let combinedRules = batch.skills
-            .map((s) => skillCache[s])
-            .filter(Boolean)
-            .join("\n\n---\n\n");
-
-          if (!combinedRules) {
-            this.log(
-              `   ⏭️ Skipping batch [${batch.name}] (no skill definitions found)`,
-              "warning",
-            );
-            continue;
-          }
-
-          // Bound rules length to prevent overflowing the 4096 local inference context window
-          if (combinedRules.length > 2500) {
-            combinedRules =
-              combinedRules.slice(0, 2500) +
-              "\n...[Rules truncated to fit local context budget]";
-          }
-
-          this.log(`   🏗️ Invoking Council Batch: ${batch.name}...`, "info");
-          const enhancementPrompt = `
-${combinedRules}
-
-Here is the current blueprint:
-\`\`\`json
-${JSON.stringify(blueprint)}
-\`\`\`
-
-Enhance it based on your architectural rules.
-CRITICAL FORMAT RULES:
-1. Output STRICTLY a valid JSON object containing only modified or added keys (e.g. models, routes, livewire_components, policies).
-2. NEVER use ellipses "..." or comments anywhere. Output complete JSON structures only.
-3. Start directly with { and end with }. Do not add markdown or conversational text.
-`;
-          let enhancedResponse = "";
-          try {
-            this.log(`   🧠 Invoking architect council batch via LocalIntelligence...`, "info");
-            enhancedResponse = await localAI.generate(
-              enhancementPrompt,
-              "enhance_architecture",
-              "You are an elite architect council. Output ONLY valid parseable JSON representation of the enhanced blueprint. Never use ellipses (...). Do not add markdown or explanations outside the JSON.",
-              { maxTokens: 2048, timeoutMs: 75000 }
-            );
-          } catch (e) {
-            this.log(`   ⚠️ Local architect batch failed: ${e.message}`, "warning");
-          }
-
-          if (enhancedResponse) {
-            const enhancement = repairAndParseJson(enhancedResponse);
-            if (enhancement && typeof enhancement === "object") {
-              blueprint = deepMergeBlueprint(blueprint, enhancement);
-              appliedBatches++;
-              this.log(
-                `   ✅ Blueprint successfully enhanced by [${batch.name}].`,
-                "success",
-              );
-            } else {
-              throw new Error("Invalid or unparseable JSON received from local intelligence.");
-            }
-          }
-        } catch (err) {
-          this.log(
-            `   ⚠️ Failed to apply batch [${batch.name}]: ${err.message}`,
-            "warning",
-          );
-        }
-      }
-
-      this.log(
-        `   ✅ Architecture Council batches applied: ${appliedBatches}/${batches.length}`,
-        "success",
-      );
-      // --- END ARCHITECTURE COUNCIL LOGIC ---
+      this.log(`   ✨ Blueprint generated via RAG architecture context. Validating schema...`, "info");
 
       // Schema Validation (G2-02) — Extended for enriched blueprint fields
       const BLUEPRINT_SCHEMA = {
@@ -1333,18 +1267,27 @@ CRITICAL FORMAT RULES:
       .split(" ")
       .filter(w => !['app', 'system', 'platform', 'ui', 'web'].includes(w.toLowerCase()));
     
-    const primaryModel = cleanName
+    let primaryModel = cleanName
       .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
       .join("") || "Item";
+
+    if (primaryModel.toLowerCase() === "user" || primaryModel.toLowerCase() === "users") {
+      primaryModel = "UserProfile";
+    }
     
     const tableName = primaryModel
       .replace(/([A-Z])/g, "_$1")
       .toLowerCase()
       .replace(/^_/, "") + "s";
 
+    const models = Array.from(new Set(["User", primaryModel]));
+    const migrations = Array.from(new Set(["create_users_table", `create_${tableName}_table`]));
+    const seeders = Array.from(new Set(["UserSeeder", `${primaryModel}Seeder`]));
+    const factories = Array.from(new Set(["UserFactory", `${primaryModel}Factory`]));
+
     return {
       project_name: projectName,
-      models: ["User", primaryModel],
+      models,
       schema: {
         User: {
           name: "string",
@@ -1355,14 +1298,14 @@ CRITICAL FORMAT RULES:
         [primaryModel]: {
           title: "string",
           description: "text:nullable",
-          user_id: "foreignUuid:constrained",
+          user_id: "foreignId:constrained",
           is_active: "boolean:default(true)",
         },
       },
-      migrations: ["create_users_table", `create_${tableName}_table`],
+      migrations,
       livewire_components: [`${projectName}-dashboard`, `${projectName}-manager`],
-      seeders: ["UserSeeder", `${primaryModel}Seeder`],
-      factories: ["UserFactory", `${primaryModel}Factory`],
+      seeders,
+      factories,
       routes: ["/dashboard", `/${tableName}`],
       pivot_tables: [],
       relationships: [
@@ -2029,6 +1972,10 @@ CRITICAL FORMAT RULES:
     // ═══════════════════════════════════════════════════════════
     const allAgentFiles = await this._findAllAgentFiles(this.agentPath);
     this.log(`   🤖 Found ${allAgentFiles.length} agent prompt files.`, "info");
+    if (allAgentFiles.length === 0) {
+      this.log("   ℹ️ No agent prompt files found to update.", "info");
+      return;
+    }
 
     // Wildcard agents — these receive ALL skills
     const WILDCARD_AGENTS = ["guru", "orchestrator", "pipeline-architect"];

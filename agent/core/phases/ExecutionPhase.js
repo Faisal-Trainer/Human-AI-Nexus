@@ -593,36 +593,129 @@ class ExecutionPhase extends BasePhase {
       // Update Title
       const titleRegex = /<title>[\s\S]*?<\/title>/;
 
-      const newInjection =
-        components.length > 0
-          ? `<div class="w-full space-y-8">
-            ${components.map((c) => `<livewire:${this.toKebabCase(c)} />`).join("\n            ")}
-        </div>`
-          : `<div class="w-full text-center py-20 space-y-6">
-                <div class="inline-flex bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-3xl text-indigo-600 dark:text-indigo-400 font-bold mb-4 shadow-sm">
-                    ✨ Nexus Sandbox Ready
+      const componentCards = components.length > 0
+        ? components.map((c) => `
+        <!-- Livewire Component: ${c} -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/60 overflow-hidden transition-all hover:shadow-md">
+            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
+                <div class="flex items-center gap-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h2 class="font-bold text-slate-800 dark:text-slate-100 text-base tracking-tight">
+                        ${c.replace(/[-_]/g, ' ').toUpperCase()}
+                    </h2>
                 </div>
-                <h1 class="text-6xl font-black text-slate-900 dark:text-white leading-tight">Welcome to <span class="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">${projectName}</span></h1>
-                <p class="text-slate-500 dark:text-slate-400 max-w-lg mx-auto text-lg">Your TALL stack sandbox application has been successfully generated, migrated, and is fully active.</p>
-                <div class="flex justify-center gap-4 pt-4">
-                    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-indigo-500/20 transition-all">Get Started</a>
-                </div>
-            </div>`;
+                <span class="text-xs font-mono px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium">
+                    &lt;livewire:${this.toKebabCase(c)} /&gt;
+                </span>
+            </div>
+            <div class="p-6">
+                <livewire:${this.toKebabCase(c)} />
+            </div>
+        </div>`).join("\n")
+        : `
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-12 text-center border border-slate-200 dark:border-slate-700">
+            <p class="text-slate-500">No components wired yet.</p>
+        </div>`;
 
       const fullContent = `<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nexus | ${projectName}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Figtree', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    @if(file_exists(public_path('build/manifest.json')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+    @livewireStyles
 </head>
-<body class="bg-gray-50 text-slate-800 dark:bg-slate-900 dark:text-white antialiased p-8">
-    <div class="max-w-7xl mx-auto">
-        ${newInjection}
-    </div>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 antialiased min-h-full flex flex-col font-sans">
+    <!-- Navbar Shell -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-black shadow-md shadow-indigo-500/20">
+                    N
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-slate-900 dark:text-white tracking-tight text-lg leading-none">${projectName}</h1>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">NEXUS TALL Stack Sandbox</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    SQLite Active
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/60">
+                    Livewire Reactive
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-950 p-8 sm:p-10 text-white shadow-xl">
+            <div class="relative z-10 max-w-2xl space-y-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold tracking-wide uppercase">
+                    ✨ Autonomous Application Sandbox
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight">
+                    ${projectName}
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    A fully-architected TALL stack application powered by Laravel, Livewire, and Tailwind CSS. All components below are interactive and connected to SQLite database.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4 text-xs text-slate-300">
+                    <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                        <span class="font-bold text-white">${components.length}</span> Interactive Modules
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                        <span class="font-bold text-white">REST + Livewire</span> Dual Routing
+                    </div>
+                </div>
+            </div>
+            <div class="absolute right-0 top-0 -mt-10 -mr-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        </section>
+
+        <!-- Components Grid -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Active Modules</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Interactive reactive components rendered in real-time</p>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                ${componentCards}
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© {{ date('Y') }} NEXUS Autonomous Pipeline • Generated with TALL Architecture</p>
+            <p class="font-mono text-[11px] text-slate-400">Laravel {{ app()->version() }} • Livewire Active</p>
+        </div>
+    </footer>
+
+    @livewireScripts
 </body>
 </html>`;
 

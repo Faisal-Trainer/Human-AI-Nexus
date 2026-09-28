@@ -29,7 +29,7 @@ class SchemaGuard {
                 });
             }
 
-            if (!content.includes('HasUuids')) {
+            if (file !== 'User.php' && !content.includes('HasUuids')) {
                 findings.push({
                     severity: 'WARNING',
                     message: 'Model missing HasUuids trait for UUID consistency.',

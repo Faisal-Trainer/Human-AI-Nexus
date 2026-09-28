@@ -2,6 +2,29 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.1] - 2026-09-28 (Sandbox Table User Stability & Core Auth Protection)
+
+### Fixed
+- **Laravel Core `User` Model Protection (`ImplementationPhase.js`)**:
+  - Mencegah generator model generik menimpa `app/Models/User.php` bawaan Laravel dengan model generic `class User extends Model`, sehingga kontrak `Authenticatable`, trait `Notifiable`, dan auth state tetap terjaga.
+  - Memperbaiki `_safeFallbackModel` untuk model `User` agar tetap meng-extend `Authenticatable` dengan `$fillable` lengkap (`name`, `email`, `password`, `role`) guna mencegah kegagalan mass-assignment (`SQLSTATE[23000]: NOT NULL constraint failed: users.email`) saat seeding database.
+- **Tabel & Migrasi User (`ImplementationPhase.js`)**:
+  - Memperluas proteksi migrasi tabel bawaan Laravel agar mencakup tabel `user` (singular) maupun `users` (plural), mencegah tabrakan atau duplikasi dengan `0001_01_01_000000_create_users_table.php`.
+  - Mengubah foreign key `user_id` menjadi `foreignId('user_id')` untuk mencocokkan tipe kolom integer auto-increment bawaan Laravel `$table->id()`.
+  - Menambahkan auto-sanitizer pada kode migrasi yang dihasilkan LLM agar `->foreignUuid('user_id')` otomatis dialihkan ke `->foreignId('user_id')`.
+- **Policy & Authorization Guard (`ImplementationPhase.js`)**:
+  - Mengeliminasi duplikasi import `use App\Models\User;` pada generator `UserPolicy.php` yang sebelumnya memicu fatal error compile PHP `Cannot use App\Models\User as User because the name is already in use`.
+  - Memperbaiki logika pengecekan otorisasi kepemilikan user menjadi `$user->id === $model->id` (bukan `$model->user_id`).
+- **Database Seeding Execution Order (`ImplementationPhase.js`)**:
+  - Mengurutkan `UserSeeder` agar selalu dieksekusi paling pertama di dalam `DatabaseSeeder.php`, menjamin ketersediaan record referensi user sebelum domain seeder yang memerlukan `user_id = 1` dijalankan.
+- **Factory Protection (`ImplementationPhase.js`)**:
+  - Memproteksi `database/factories/UserFactory.php` bawaan Laravel agar tidak tertimpa oleh generic factory kosong.
+  - Memperbaiki fallback `UserFactory` agar menyertakan atribut bawaan lengkap (`name`, `email`, `email_verified_at`, `password`, `remember_token`).
+- **Blueprint Fallback Deduplication (`NexusEngine.js`)**:
+  - Menangani kasus penamaan proyek bertema user pada `_generateFallbackBlueprint` dengan mengalihkan `primaryModel` ke `UserProfile` jika model utama adalah `User`, mencegah duplikasi model `["User", "User"]` dan relasi rekursif yang collision.
+- **Schema Validation Tolerance (`SchemaGuard.js`)**:
+  - Mengecualikan `User.php` dari peringatan wajib trait `HasUuids` karena tabel default Laravel menggunakan ID integer auto-increment.
+
 ## [v3.4.0] - 2026-09-25 (LLM + RAG Architecture)
 
 ### Added

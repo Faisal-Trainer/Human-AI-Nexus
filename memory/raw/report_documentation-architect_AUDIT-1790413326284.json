@@ -1,0 +1,677 @@
+{
+  "id": "AUDIT-1790413326284-DOCUMENTATION-ARCHITECT",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-09-26T10:02:23.876+08:00",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS-AI",
+  "findings": [
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/pipeline_internal_test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/Logger.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/NativeBridge.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/RedisMemory.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/SandboxExecutor.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/TaskProtocol.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/tests/stress-test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/tools/DatasetExtractor.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/tools/RetroDatasetExtractor.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/100-projects-data.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/phase1_testing.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/sandbox-master-runner.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_dynamic_section.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_section2.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/setup_section3.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/TDD/upgrade_to_tall.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/unit/AgenticRAGHyDECRAG.test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/unit/GBNFGrammarDecoding.test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/unit/TestAutoLearnPostMortem.test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "tests/unit/TieredModelRouting.test.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/phases/KnowledgePhase.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "agent/core/phases/PlanningPhase.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/test_unified_scripts.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/config/livewire.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Component.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/ComponentHook.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/ComponentHookRegistry.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/EventBus.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/helpers.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/ImplicitlyBoundMethod.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/LivewireServiceProvider.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/WireDirective.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Compiler/CacheManager.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Compiler/Compiler.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Concerns/InteractsWithProperties.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Drawer/BaseUtils.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Drawer/Regexes.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Drawer/Utils.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Factory/Factory.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Finder/Finder.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/DataStore.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/RenderComponent.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Compiler/Parser/Parser.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportAttributes/Attribute.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportAttributes/AttributeCollection.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportAttributes/SupportAttributes.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportAutoInjectedAssets/SupportAutoInjectedAssets.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportChecksumErrorDebugging/SupportChecksumErrorDebugging.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportComputed/BaseComputed.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportComputed/SupportLegacyComputedPropertySyntax.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportCssModules/SupportCssModules.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportEvents/Event.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportEvents/fake-echo.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportEvents/SupportEvents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportEvents/TestsEvents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/FileUploadConfiguration.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/FileUploadController.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/FileUploadSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/GenerateSignedUploadUrl.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/TemporaryUploadedFile.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/WithFileUploads.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFormObjects/Form.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFormObjects/FormObjectSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFormObjects/SupportFormObjects.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportIslands/HandlesIslands.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportIslands/SupportIslands.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportJsModules/SupportJsModules.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportJson/SupportJson.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportLazyLoading/SupportLazyLoading.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportLegacyModels/EloquentCollectionSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportLegacyModels/EloquentModelSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportLifecycleHooks/SupportLifecycleHooks.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportModels/EloquentCollectionSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportModels/ModelSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportNestedComponentListeners/SupportNestedComponentListeners.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportNestingComponents/SupportNestingComponents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPageComponents/PageComponentConfig.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPageComponents/SupportPageComponents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/HandlesPagination.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/SupportPagination.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportQueryString/BaseUrl.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportReactiveProps/BaseReactive.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportReactiveProps/SupportReactiveProps.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportRedirects/SupportRedirects.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportRedirects/TestsRedirects.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportScriptsAndAssets/SupportScriptsAndAssets.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportSession/BaseSession.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportSlots/PlaceholderSlot.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportSlots/Slot.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportSlots/SlotProxy.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportSlots/SupportSlots.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportStreaming/SupportStreaming.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportTesting/ComponentState.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportTesting/InitialRender.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportTesting/RequestBroker.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportTesting/SubsequentRender.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportTesting/SupportTesting.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportValidation/BaseValidate.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportValidation/HandlesValidation.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportValidation/SupportValidation.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportValidation/TestsValidation.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportWireables/WireableSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportWireModelingNestedComponents/BaseModelable.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportWireModelingNestedComponents/SupportWireModelingNestedComponents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportWithMethod/SupportWithMethod.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/CompileLivewireTags/LivewireTagPrecompiler.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/ExtendBlade/ExtendBlade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/Checksum.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/ComponentContext.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/HandleComponents.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleRequests/HandleRequests.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/skills-main/skills/pdf/scripts/check_bounding_boxes.py"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/skills-main/skills/pdf/scripts/extract_form_field_info.py"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/skills-main/skills/pdf/scripts/fill_fillable_fields.py"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/skills-main/skills/pdf/scripts/fill_pdf_form_with_annotations.py"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "memory/distilled/superpowers-main/skills/brainstorming/scripts/helper.js"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportConsoleCommands/Commands/ConvertCommand.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportConsoleCommands/Commands/LayoutCommand.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportConsoleCommands/Commands/MakeCommand.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportConsoleCommands/Commands/S3CleanupCommand.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportConsoleCommands/Commands/StubsCommand.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportIslands/fixtures/twelve-islands.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportNavigate/test-views/navbar-sidebar.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/views/bootstrap.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/views/simple-bootstrap.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/views/simple-tailwind.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportPagination/views/tailwind.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportWireCurrent/test-views/navbar-sidebar.blade.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/Synthesizers/CarbonSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/Synthesizers/CollectionSynth.php"
+    },
+    {
+      "severity": "INFO",
+      "message": "File has over 50 lines but no detected documentation/docstrings.",
+      "file": "documentation/algorithms/livewire-main/src/Mechanisms/HandleComponents/Synthesizers/Synth.php"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "task": "documentation-architect"
+  }
+}

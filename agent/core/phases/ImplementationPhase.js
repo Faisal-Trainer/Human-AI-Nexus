@@ -44,6 +44,8 @@ class ImplementationPhase extends BasePhase {
     for (const seeder of seeders) {
       await this.generateSeeder(seeder, blueprint);
     }
+    // Wire DatabaseSeeder to invoke all individual seeders
+    await this.wireDatabaseSeeder(seeders);
 
     // Generate Layout (Shell foundation before Livewire components & views)
     await this.generateLayout(blueprint);
@@ -400,6 +402,22 @@ class ImplementationPhase extends BasePhase {
 
   async generateModel(modelName, blueprint) {
     this.log(`   🧠 Generating Model: ${modelName}...`, "info");
+    const modelPath = path.join(
+      this.engine.rootPath,
+      "app",
+      "Models",
+      `${modelName}.php`,
+    );
+
+    // CRITICAL: Protect Laravel's core Authenticatable User model from corruption
+    if (modelName === "User" && (await fs.pathExists(modelPath))) {
+      this.log(
+        `      🛡️ Preserving core Laravel Authenticatable User.php model.`,
+        "success",
+      );
+      return;
+    }
+
     const tableName = this._toSnakePlural(modelName);
     const modelSchema =
       blueprint.schema && blueprint.schema[modelName]
@@ -454,12 +472,6 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       prompt,
       "build_model_migration",
     );
-    const modelPath = path.join(
-      this.engine.rootPath,
-      "app",
-      "Models",
-      `${modelName}.php`,
-    );
     await fs.ensureDir(path.dirname(modelPath));
 
     if (response) {
@@ -490,6 +502,9 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
   }
 
   _safeFallbackModel(modelName, tableName) {
+    if (modelName === "User") {
+      return `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Foundation\\Auth\\User as Authenticatable;\nuse Illuminate\\Notifications\\Notifiable;\n\nclass User extends Authenticatable\n{\n    use HasFactory, Notifiable;\n\n    protected $fillable = [\n        'name',\n        'email',\n        'password',\n        'role',\n    ];\n\n    protected $hidden = [\n        'password',\n        'remember_token',\n    ];\n\n    protected function casts(): array\n    {\n        return [\n            'email_verified_at' => 'datetime',\n            'password' => 'hashed',\n        ];\n    }\n}\n`;
+    }
     return `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\nuse Illuminate\\Database\\Eloquent\\SoftDeletes;\nuse Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;\n\nclass ${modelName} extends Model\n{\n    use HasFactory, HasUuids, SoftDeletes;\n\n    protected $table = '${tableName}';\n    protected $primaryKey = 'id';\n    public $incrementing = false;\n    protected $keyType = 'string';\n\n    protected $fillable = ['name'];\n\n    protected $casts = ['id' => 'string'];\n}\n`;
   }
 
@@ -499,8 +514,8 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       .replace(/^create_/, "")
       .replace(/_table$/, "");
 
-    // STRICT PROTECTION: Preserve core Laravel 11 auth tables (users, password_reset_tokens, sessions)
-    if (tableName === "users") {
+    // STRICT PROTECTION: Preserve core Laravel 11 auth tables (users, user, password_reset_tokens, sessions)
+    if (tableName === "users" || tableName === "user") {
       const defaultUsersMigration = path.join(
         this.engine.rootPath,
         "database",
@@ -509,7 +524,7 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       );
       if (await fs.pathExists(defaultUsersMigration)) {
         this.log(
-          `      🛡️ Preserving core Laravel 0001_01_01_000000_create_users_table.php. Skipping custom users migration.`,
+          `      🛡️ Preserving core Laravel 0001_01_01_000000_create_users_table.php. Skipping custom ${tableName} migration.`,
           "success",
         );
         return;
@@ -565,7 +580,7 @@ return new class extends Migration
     {
         Schema::create('${tableName}', function (Blueprint $table) {
             $table->uuid('id')->primary();      // THE ONLY primary key. Never add $table->id() or a second primary().
-            $table->foreignUuid('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             // Columns derived strictly from the APPLICATION CONTEXT schema:
             $table->timestamps();
             $table->softDeletes();
@@ -580,8 +595,8 @@ return new class extends Migration
 
 COLUMN RULES:
 - Primary key MUST be: $table->uuid('id')->primary(); (do not use $table->id())
-- Foreign keys MUST be: $table->foreignUuid('xxx_id') (do not use unsignedBigInteger())
-- Use constrained()->cascadeOnDelete() for all foreign keys
+- Foreign key for user_id MUST be: $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+- Other foreign keys MUST be: $table->foreignUuid('xxx_id')->constrained()->cascadeOnDelete();
 - Always add softDeletes() for data that should be recoverable
 - Always add index() on columns used in WHERE/ORDER BY
 - Use nullable() only when the column is truly optional
@@ -614,6 +629,10 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       cleanCode = cleanCode.replace(/->NOT\s+NULL\(\)/gi, "");
       cleanCode = cleanCode.replace(/->notNull\(\)/gi, "");
       cleanCode = cleanCode.replace(/->nullable\(\)\s*NOT\s*NULL/gi, "->nullable()");
+      cleanCode = cleanCode.replace(
+        /->foreignUuid\(['"]user_id['"]\)/gi,
+        "->foreignId('user_id')",
+      );
 
       // Auto-convert named migration class to Laravel anonymous class to prevent collisions
       if (
@@ -716,13 +735,16 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       "info",
     );
     const className = this.toPascalCase(componentName);
+    const kebabName = this.toKebabCase(componentName);
     const fullSchema = blueprint.schema
       ? JSON.stringify(blueprint.schema, null, 2)
       : "No schema";
 
     // Generate PHP Class
-    const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}. Include public properties and basic methods (like save/delete). 
-    
+    const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}.
+Include public properties corresponding to the model, basic methods (save, delete, refresh), and a render() method returning view('livewire.${kebabName}').
+Use modern Livewire 3/4 standards.
+
 SCHEMA REFERENCE:
 ${fullSchema}
 Make sure public properties match the columns in the schema if this component manages a model.
@@ -734,7 +756,15 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     );
 
     if (phpResponse) {
-      const cleanPhp = this.cleanLLMOutput(phpResponse);
+      let cleanPhp = this.cleanLLMOutput(phpResponse);
+      // Ensure render method exists if omitted
+      if (!cleanPhp.includes("function render")) {
+        const lastBrace = cleanPhp.lastIndexOf("}");
+        if (lastBrace !== -1) {
+          cleanPhp = cleanPhp.slice(0, lastBrace) +
+            `\n    public function render()\n    {\n        return view('livewire.${kebabName}');\n    }\n}\n`;
+        }
+      }
       const phpPath = path.join(
         this.engine.rootPath,
         "app",
@@ -748,8 +778,16 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     }
 
     // Generate Blade View
-    const bladePrompt = `Write a complete Livewire blade view for the '${className}' component. Use Tailwind CSS for styling and Alpine.js where appropriate. Make it look professional and beautiful. Use wire:model and wire:click for interactions. 
-    
+    const bladePrompt = `Write a complete, highly-polished Livewire blade view for the '${className}' component in a ${blueprint.project_name} application.
+Use modern Tailwind CSS styling (cards, subtle borders, shadows, inputs, badges, action buttons) and Alpine.js where appropriate.
+Use wire:model and wire:click for interactions.
+
+CRITICAL RULES:
+1. This is a Livewire component partial, NOT a full HTML page.
+2. DO NOT include <!DOCTYPE html>, <html>, <head>, or <body> tags.
+3. Wrap all content inside a SINGLE root <div> element.
+4. Include realistic mock items, empty states, or table/card listings so the UI looks active and alive.
+
 SCHEMA REFERENCE:
 ${fullSchema}
 Ensure your wire:model attributes match the properties corresponding to the schema.
@@ -761,18 +799,18 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     );
 
     if (bladeResponse) {
-      const cleanBlade = this.cleanLLMOutput(bladeResponse);
+      const cleanBlade = this.cleanLivewireBladeOutput(bladeResponse);
       const bladePath = path.join(
         this.engine.rootPath,
         "resources",
         "views",
         "livewire",
-        `${this.toKebabCase(componentName)}.blade.php`,
+        `${kebabName}.blade.php`,
       );
       await fs.ensureDir(path.dirname(bladePath));
       await fs.writeFile(bladePath, cleanBlade);
       this.log(
-        `      ✅ Saved ${this.toKebabCase(componentName)}.blade.php`,
+        `      ✅ Saved ${kebabName}.blade.php`,
         "success",
       );
     }
@@ -780,6 +818,19 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   async generateFactory(factoryName, blueprint) {
     this.log(`   🏭 Generating Factory: ${factoryName}...`, "info");
+    const p = path.join(
+      this.engine.rootPath,
+      "database",
+      "factories",
+      `${factoryName}.php`,
+    );
+
+    // CRITICAL: Protect Laravel's core UserFactory.php
+    if (factoryName === "UserFactory" && (await fs.pathExists(p))) {
+      this.log(`      🛡️ Preserving core Laravel UserFactory.php.`, "success");
+      return;
+    }
+
     const prompt = `Write a complete Laravel Factory class for '${factoryName}'. Namespace: Database\\Factories. Output ONLY the raw PHP code, starting with <?php.`;
     const response = await this.getCachedOrGenerate(
       prompt,
@@ -787,12 +838,6 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     );
     if (response) {
       const cleanCode = this.cleanLLMOutput(response);
-      const p = path.join(
-        this.engine.rootPath,
-        "database",
-        "factories",
-        `${factoryName}.php`,
-      );
       await fs.ensureDir(path.dirname(p));
       await fs.writeFile(p, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(p);
@@ -808,7 +853,17 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   async generateSeeder(seederName, blueprint) {
     this.log(`   🌱 Generating Seeder: ${seederName}...`, "info");
-    const prompt = `Write a complete Laravel Seeder class for '${seederName}'. Namespace: Database\\Seeders. Use the fake() global helper ONLY (e.g., fake()->name()). DO NOT use an uninitialized $faker variable in the run() method. Output ONLY raw PHP code.`;
+    const fullSchema = blueprint.schema
+      ? JSON.stringify(blueprint.schema, null, 2)
+      : "No schema";
+    const prompt = `Write a complete Laravel Seeder class for '${seederName}'. Namespace: Database\\Seeders.
+Generate at least 5 to 10 realistic, domain-appropriate sample records so the application UI is populated with rich data.
+Use the fake() global helper ONLY (e.g., fake()->name(), fake()->sentence(), fake()->dateTime()). DO NOT use an uninitialized $faker variable.
+
+SCHEMA REFERENCE:
+${fullSchema}
+
+Output ONLY raw PHP code starting with <?php. No markdown blocks.`;
     const response = await this.getCachedOrGenerate(
       prompt,
       "build_model_migration",
@@ -829,7 +884,7 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
           `      ⚠️ Syntax error in generated seeder. Writing safe fallback for ${seederName}.php`,
           "warning",
         );
-        await fs.writeFile(p, this._safeFallbackSeeder(seederName));
+        await fs.writeFile(p, this._safeFallbackSeeder(seederName, blueprint));
       }
     }
   }
@@ -1119,6 +1174,17 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
 
   async generatePolicy(modelName, blueprint) {
     this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, "info");
+    const isUser = modelName === "User";
+    const imports = isUser
+      ? "use App\\Models\\User;"
+      : `use App\\Models\\User;\nuse App\\Models\\${modelName};`;
+    const rulesImports = isUser
+      ? "- Use EXACTLY this import: App\\Models\\User"
+      : `- Use EXACTLY these two imports: App\\Models\\User and App\\Models\\${modelName}`;
+    const checkOwnership = isUser
+      ? "return $user->id === $model->id;"
+      : "return $user->id === $model->user_id;";
+
     // STRICT TEMPLATE PROMPT: prevents LLM from hallucinating fake Illuminate\Auth imports
     const prompt = `Write a Laravel 11 Policy PHP class. Follow this EXACT template structure:
 
@@ -1126,7 +1192,7 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
 
 namespace App\\Policies;
 
-${modelName === "User" ? "" : "use App\\Models\\User;\n"}use App\\Models\\${modelName};
+${imports}
 
 class ${modelName}Policy
 {
@@ -1137,7 +1203,7 @@ class ${modelName}Policy
 
     public function view(User $user, ${modelName} $model): bool
     {
-        return $user->id === $model->user_id;
+        ${checkOwnership}
     }
 
     public function create(User $user): bool
@@ -1147,18 +1213,18 @@ class ${modelName}Policy
 
     public function update(User $user, ${modelName} $model): bool
     {
-        return $user->id === $model->user_id;
+        ${checkOwnership}
     }
 
     public function delete(User $user, ${modelName} $model): bool
     {
-        return $user->id === $model->user_id;
+        ${checkOwnership}
     }
 }
 
 RULES:
 - Use EXACTLY the namespace: App\\Policies
-- Use EXACTLY these two imports: App\\Models\\User and App\\Models\\${modelName}
+${rulesImports}
 - The class MUST NOT extend any base class
 - The class MUST NOT use any traits
 - DO NOT import any other classes (no Illuminate\\Auth classes)
@@ -1199,6 +1265,9 @@ RULES:
   }
 
   _safeFallbackPolicy(modelName) {
+    if (modelName === "User") {
+      return `<?php\n\nnamespace App\\Policies;\n\nuse App\\Models\\User;\n\nclass UserPolicy\n{\n    public function viewAny(User $user): bool { return true; }\n    public function view(User $user, User $model): bool { return $user->id === $model->id; }\n    public function create(User $user): bool { return true; }\n    public function update(User $user, User $model): bool { return $user->id === $model->id; }\n    public function delete(User $user, User $model): bool { return $user->id === $model->id; }\n}\n`;
+    }
     return `<?php\n\nnamespace App\\Policies;\n\nuse App\\Models\\User;\nuse App\\Models\\${modelName};\n\nclass ${modelName}Policy\n{\n    public function viewAny(User $user): bool { return true; }\n    public function view(User $user, ${modelName} $model): bool { return true; }\n    public function create(User $user): bool { return true; }\n    public function update(User $user, ${modelName} $model): bool { return true; }\n    public function delete(User $user, ${modelName} $model): bool { return true; }\n}\n`;
   }
 
@@ -1316,25 +1385,156 @@ RULES:
   }
 
   _safeFallbackMigration(tableName) {
-    return `<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    public function up(): void\n    {\n        Schema::create('${tableName}', function (Blueprint $table) {\n            $table->uuid('id')->primary();\n            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();\n            $table->string('name')->nullable();\n            $table->timestamps();\n            $table->softDeletes();\n        });\n    }\n\n    public function down(): void\n    {\n        Schema::dropIfExists('${tableName}');\n    }\n};\n`;
+    return `<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    public function up(): void\n    {\n        Schema::create('${tableName}', function (Blueprint $table) {\n            $table->uuid('id')->primary();\n            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();\n            $table->string('name')->nullable();\n            $table->timestamps();\n            $table->softDeletes();\n        });\n    }\n\n    public function down(): void\n    {\n        Schema::dropIfExists('${tableName}');\n    }\n};\n`;
   }
 
   _safeFallbackFactory(factoryName) {
     // Extract model name from factory name (e.g. "UserFactory" -> "User")
     const modelName = factoryName.replace(/Factory$/, "");
+    if (modelName === "User") {
+      return `<?php\n\nnamespace Database\\Factories;\n\nuse App\\Models\\User;\nuse Illuminate\\Database\\Eloquent\\Factories\\Factory;\nuse Illuminate\\Support\\Facades\\Hash;\nuse Illuminate\\Support\\Str;\n\nclass UserFactory extends Factory\n{\n    protected $model = User::class;\n\n    public function definition(): array\n    {\n        return [\n            'name' => fake()->name(),\n            'email' => fake()->unique()->safeEmail(),\n            'email_verified_at' => now(),\n            'password' => static::$password ??= Hash::make('password'),\n            'remember_token' => Str::random(10),\n        ];\n    }\n}\n`;
+    }
     return `<?php\n\nnamespace Database\\Factories;\n\nuse App\\Models\\${modelName};\nuse Illuminate\\Database\\Eloquent\\Factories\\Factory;\n\nclass ${factoryName} extends Factory\n{\n    protected $model = ${modelName}::class;\n\n    public function definition(): array\n    {\n        return [\n            'name' => fake()->name(),\n        ];\n    }\n}\n`;
   }
 
-  _safeFallbackSeeder(seederName) {
-    return `<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Seeder;\n\nclass ${seederName} extends Seeder\n{\n    public function run(): void\n    {\n        // Safe fallback: no data seeded\n    }\n}\n`;
+  _safeFallbackSeeder(seederName, blueprint) {
+    const modelName = seederName.replace(/Seeder$/, "");
+    if (modelName === "User") {
+      return `<?php
+
+namespace Database\\Seeders;
+
+use Illuminate\\Database\\Seeder;
+use Illuminate\\Support\\Facades\\Hash;
+use App\\Models\\User;
+
+class UserSeeder extends Seeder
+{
+    public function run(): void
+    {
+        if (User::count() === 0) {
+            User::create([
+                'name' => 'Demo User',
+                'email' => 'demo@nexus.ai',
+                'password' => Hash::make('password'),
+            ]);
+            for ($i = 1; $i <= 5; $i++) {
+                User::create([
+                    'name' => fake()->name(),
+                    'email' => fake()->unique()->safeEmail(),
+                    'password' => Hash::make('password'),
+                ]);
+            }
+        }
+    }
+}
+`;
+    }
+
+    return `<?php
+
+namespace Database\\Seeders;
+
+use Illuminate\\Database\\Seeder;
+use Illuminate\\Support\\Facades\\DB;
+use Illuminate\\Support\\Facades\\Schema;
+
+class ${seederName} extends Seeder
+{
+    public function run(): void
+    {
+        $modelClass = "\\\\App\\\\Models\\\\${modelName}";
+        if (class_exists($modelClass)) {
+            $table = (new $modelClass)->getTable();
+            if (Schema::hasTable($table) && DB::table($table)->count() === 0) {
+                for ($i = 1; $i <= 5; $i++) {
+                    $row = ['created_at' => now(), 'updated_at' => now()];
+                    if (Schema::hasColumn($table, 'name')) $row['name'] = "${modelName} Item #" . $i;
+                    if (Schema::hasColumn($table, 'title')) $row['title'] = "${modelName} Item #" . $i;
+                    if (Schema::hasColumn($table, 'description')) $row['description'] = "Realistic sample description for item #" . $i . " demonstrating active state in UI.";
+                    if (Schema::hasColumn($table, 'category')) $row['category'] = "General";
+                    if (Schema::hasColumn($table, 'user_id')) $row['user_id'] = 1;
+                    if (Schema::hasColumn($table, 'is_active')) $row['is_active'] = 1;
+                    if (Schema::hasColumn($table, 'is_completed')) $row['is_completed'] = 0;
+                    if (Schema::hasColumn($table, 'original_url')) $row['original_url'] = "https://example.com/link-" . $i;
+                    if (Schema::hasColumn($table, 'short_code')) $row['short_code'] = "nx" . $i . substr(md5($i), 0, 4);
+                    DB::table($table)->insert($row);
+                }
+            }
+        }
+    }
+}
+`;
+  }
+
+  async wireDatabaseSeeder(seeders) {
+    if (!seeders || seeders.length === 0) return;
+    const dbSeederPath = path.join(
+      this.engine.rootPath,
+      "database",
+      "seeders",
+      "DatabaseSeeder.php",
+    );
+    const sortedSeeders = seeders
+      .filter((s) => s !== "DatabaseSeeder")
+      .sort((a, b) => {
+        if (a === "UserSeeder") return -1;
+        if (b === "UserSeeder") return 1;
+        return 0;
+      });
+    const callStatements = sortedSeeders
+      .map((s) => `        $this->call(${s}::class);`)
+      .join("\n");
+
+    const content = `<?php
+
+namespace Database\\Seeders;
+
+use Illuminate\\Database\\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+${callStatements}
+    }
+}
+`;
+    await fs.ensureDir(path.dirname(dbSeederPath));
+    await fs.writeFile(dbSeederPath, content);
+    this.log(`      ✅ Wired DatabaseSeeder with ${seeders.length} seeders.`, "success");
   }
 
   async generateLayout(blueprint) {
     this.log(`   🎨 Generating Layouts...`, "info");
-    const prompt = `Write a complete Blade layout file (app.blade.php) for a ${blueprint.project_name} application. Include a modern Tailwind CSS sidebar, navigation, and footer. The content should be injected via {!! $slot ?? '' !!} or @yield('content'). Output ONLY the raw HTML/Blade code. No markdown blocks.`;
+    const prompt = `Write a complete Blade layout file (app.blade.php) for a "${blueprint.project_name}" Laravel TALL Stack application.
+
+MANDATORY REQUIREMENTS:
+1. Include a complete <!DOCTYPE html>, <html>, <head>, and <body>.
+2. In <head>: include @livewireStyles, a CDN Tailwind fallback:
+   <script src="https://cdn.tailwindcss.com"></script>
+   and an @if guard for Vite:
+   @if(file_exists(public_path('build/manifest.json')))
+       @vite(['resources/css/app.css', 'resources/js/app.js'])
+   @endif
+3. Before </body>: include @livewireScripts.
+4. Body content: a sticky top navigation bar with the app name "${blueprint.project_name}", a <main> area with {{ $slot }}, and a minimal footer.
+5. Use modern Tailwind CSS utility classes for a clean, professional look.
+
+Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const response = await this.getCachedOrGenerate(prompt, "build_view");
     if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
+      let cleanCode = this.cleanLLMOutput(response);
+      // Ensure @livewireStyles and @livewireScripts are present
+      if (!cleanCode.includes("@livewireStyles")) {
+        cleanCode = cleanCode.replace("</head>", "    @livewireStyles\n</head>");
+      }
+      if (!cleanCode.includes("@livewireScripts")) {
+        cleanCode = cleanCode.replace("</body>", "    @livewireScripts\n</body>");
+      }
       const p = path.join(
         this.engine.rootPath,
         "resources",
@@ -1356,28 +1556,53 @@ RULES:
     const codeBlockRegex = /```(?:[a-zA-Z0-9_-]+)?\s*([\s\S]*?)```/i;
     const match = clean.match(codeBlockRegex);
     if (match && match[1]) {
-      return match[1].trim();
-    }
-
-    // If there is an opening code block but no closing one (cut-off)
-    if (clean.startsWith("```")) {
-      return clean.replace(/^```(?:[a-zA-Z0-9_-]+)?\n?/i, "").trim();
-    }
-
-    // If it has a php tag, it's a PHP file content. Discard anything before <?php and anything after the first subsequent ```
-    if (clean.includes("<?php")) {
+      clean = match[1].trim();
+    } else if (clean.startsWith("```")) {
+      clean = clean.replace(/^```(?:[a-zA-Z0-9_-]+)?\n?/i, "").trim();
+    } else if (clean.includes("<?php")) {
       const phpStart = clean.indexOf("<?php");
       let phpCode = clean.slice(phpStart);
       // If there's a closing ``` after the PHP code, strip it and everything after
       if (phpCode.includes("```")) {
         phpCode = phpCode.split("```")[0];
       }
-      return phpCode.trim();
+      clean = phpCode.trim();
+    } else if (clean.includes("```")) {
+      clean = clean.split("```")[0].trim();
     }
 
-    // If it's a HTML/Blade file and has a trailing ``` followed by text
-    if (clean.includes("```")) {
-      return clean.split("```")[0].trim();
+    // Strip raw language tags that LLM might output without backticks (e.g. "blade\n", "html\n", "php\n")
+    clean = clean.replace(/^(?:blade|html|php)\s*\n+/i, "").trim();
+
+    return clean;
+  }
+
+  cleanLivewireBladeOutput(output) {
+    let clean = this.cleanLLMOutput(output);
+    if (!clean) return "";
+
+    // Strip any leading language identifiers (e.g. "blade\n", "html\n")
+    clean = clean.replace(/^(?:blade|html|php)\s*\n+/i, "").trim();
+
+    // If LLM mistakenly generated a full HTML page, extract body contents
+    if (/<body[^>]*>/i.test(clean)) {
+      const bodyMatch = clean.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      if (bodyMatch && bodyMatch[1]) {
+        clean = bodyMatch[1].trim();
+      }
+    }
+
+    // Strip DOCTYPE, html, head, body tags if present
+    clean = clean
+      .replace(/<!DOCTYPE[^>]*>/gi, "")
+      .replace(/<\/?html[^>]*>/gi, "")
+      .replace(/<head[\s\S]*?<\/head>/gi, "")
+      .replace(/<\/?body[^>]*>/gi, "")
+      .trim();
+
+    // Ensure it's wrapped in a single root element
+    if (!clean.startsWith("<div") && !clean.startsWith("<section") && !clean.startsWith("<main")) {
+      clean = `<div class="space-y-6">\n${clean}\n</div>`;
     }
 
     return clean;

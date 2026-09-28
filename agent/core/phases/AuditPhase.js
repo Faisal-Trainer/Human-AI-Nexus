@@ -15,10 +15,8 @@ class AuditPhase extends BasePhase {
         const auditID = `AUDIT-${Date.now()}`;
         const consolidatedFindings = [];
 
-        // Core Structure Scan
+        // Core Structure Scan (Orchestration & Memory Paths)
         const pathMapping = [
-            { name: 'agent', path: this.engine.agentPath },
-            { name: 'skill', path: this.engine.skillPath },
             { name: 'knowledge', path: this.engine.knowledgePath },
             { name: 'records', path: this.engine.recordsPath },
             { name: 'planning', path: this.engine.planningPath },
@@ -26,7 +24,7 @@ class AuditPhase extends BasePhase {
         ];
 
         for (const item of pathMapping) {
-            if (!(await fs.pathExists(item.path))) {
+            if (item.path && !(await fs.pathExists(item.path))) {
                 consolidatedFindings.push({ severity: 'WARNING', message: `Nexus standard folder [${item.name}/] is missing or path is invalid.`, file: 'root' });
             }
         }
@@ -39,7 +37,7 @@ class AuditPhase extends BasePhase {
         await fs.ensureDir(this.engine.auditPath);
 
         if (mode === 'learning') {
-            // Dynamic Specialist Plugin Loader (G2-07)
+            // Dynamic Orchestrated Scanner Plugin Loader
             const scannerDir = path.join(__dirname, '..', '..', 'tools', 'scanners');
             let specialists = [];
             
@@ -67,50 +65,46 @@ class AuditPhase extends BasePhase {
                 );
             }
 
-            // 6️⃣ NEXUS_EXCLUDE_SPECIALISTS — skip non-essential specialists for sandbox speed (R-only on sandboxes)
-            // Usage: NEXUS_EXCLUDE_SPECIALISTS=branding-scanner,documentation-architect
+            // 6️⃣ NEXUS_EXCLUDE_SPECIALISTS — skip non-essential specialists for sandbox speed
             const rawExclude = (process.env.NEXUS_EXCLUDE_SPECIALISTS || "").trim();
             if (rawExclude) {
                 const excludeSet = new Set(rawExclude.split(",").map(s => s.trim().toLowerCase()).filter(Boolean));
                 const before = specialists.length;
                 specialists = specialists.filter(s => !excludeSet.has(s.id.toLowerCase()));
                 if (specialists.length !== before) {
-                    this.log(`⏭️ [AuditPhase] Skipping ${before - specialists.length} specialist(s) via NEXUS_EXCLUDE_SPECIALISTS: ${[...excludeSet].join(", ")}`, 'warning');
+                    this.log(`⏭️ [AuditPhase] Skipping ${before - specialists.length} scanner(s) via NEXUS_EXCLUDE_SPECIALISTS: ${[...excludeSet].join(", ")}`, 'warning');
                 }
                 if (specialists.length === 0) {
-                    this.log('⚠️ All specialists excluded — audit will run only deterministic guards.', 'warning');
+                    this.log('⚠️ All scanners excluded — audit will run only deterministic machine guards.', 'warning');
                 }
             }
 
-            this.log('🕵️ Activating Specialist Parallel Audit...', 'warning');
+            this.log('🛡️ Activating Orchestrated Parallel Scanners...', 'info');
 
             // FIX #14 — Batasi concurrency ke 2 agar tidak OOM pada 8GB RAM
-            // Ganti Promise.all dengan ParallelRunner yang sudah ada
             const ParallelRunner = require('../ParallelRunner');
 
             const auditResults = await ParallelRunner.run(
                 specialists,
                 async (spec) => {
                     try {
-                        await this.engine.loadAgent(spec.id);
-
                         const scannerPath = path.join(__dirname, '..', '..', 'tools', 'scanners', `${spec.id}.js`);
                         let specFindings = [];
 
-                        const agentStart = Date.now();
+                        const scanStart = Date.now();
                         if (await fs.pathExists(scannerPath)) {
                             specFindings = await this.engine.orchestrator.executeTask(spec.id, scannerPath, targetPath);
                             this.log(`   🔍 [${spec.id}] Deep Scan: ${specFindings.length} findings found.`, 'success');
                         }
-                        const agentDuration = Date.now() - agentStart;
-                        this.engine.metrics[spec.id] = { duration_ms: agentDuration, findings: specFindings.length };
-                        await this.engine.logger.log('agents', 'INFO', spec.id, auditID, 'AGENT_PROFILED', `Completed in ${agentDuration}ms`, agentDuration, {}, this.engine.currentCorrelationId);
+                        const scanDuration = Date.now() - scanStart;
+                        this.engine.metrics[spec.id] = { duration_ms: scanDuration, findings: specFindings.length };
+                        await this.engine.logger.log('orchestration', 'INFO', 'Orchestrator', auditID, 'SCANNER_EXECUTED', `Completed ${spec.id} in ${scanDuration}ms`, scanDuration, {}, this.engine.currentCorrelationId);
 
                         if (specFindings.length === 0) {
-                            specFindings.push({ severity: 'INFO', message: `Audit completed by ${spec.id} for ${spec.focus}.`, file: 'project' });
+                            specFindings.push({ severity: 'INFO', message: `Scan completed by orchestrator for ${spec.focus}.`, file: 'project' });
                         }
 
-                        const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, agent: spec.id });
+                        const specReport = new AuditReport(`${auditID}-${spec.id.toUpperCase()}`, targetPath, specFindings, { mode, task: spec.id });
                         await fs.writeJson(path.join(this.engine.auditPath, `report_${spec.id}_${auditID}.json`), specReport.toJSON(), { spaces: 2 });
                         
                         const mdSpec = this.generateMarkdownReport(spec, auditID, specFindings);
@@ -118,12 +112,11 @@ class AuditPhase extends BasePhase {
                         
                         return specFindings.map(f => ({ ...f, message: `[${spec.id}] ${f.message}` }));
                     } catch (e) {
-                        this.log(`⚠️ Agent ${spec.id} skipped: ${e.message}`, 'error');
-                        this.engine.agentRegistry.markFailed(spec.id, e.message);
+                        this.log(`⚠️ Scanner ${spec.id} skipped: ${e.message}`, 'error');
                         return [];
                     }
                 },
-                2 // FIX #14 — max 2 concurrent untuk hemat RAM (8GB / Vega 8 shared)
+                2
             );
 
             auditResults.forEach((result) => {
@@ -184,13 +177,13 @@ ${consolidatedFindings.map(f => `- [${f.severity}] ${f.message} (\`${f.file}\`)`
 
     generateMarkdownReport(spec, auditID, specFindings) {
         return `
-# 🎓 Specialist Audit: ${spec.id.toUpperCase()}
+# 🛡️ Orchestration Scan: ${spec.id.toUpperCase()}
 **Focus**: ${spec.focus}
-**Agent**: ${spec.id}
+**Task ID**: ${spec.id}
 
 ---
 
-## 🔍 Findings & Developer Insights
+## 🔍 Findings & Recommendations
 ${specFindings.map(f => `
 ### [${f.severity}] ${f.message}
 - **Apa**: ${f.message}
@@ -200,7 +193,7 @@ ${specFindings.map(f => `
 `).join('\n')}
 
 ---
-*Generated by Nexus Engine | Mode: Learning*
+*Generated by Nexus Orchestrator*
 `;
     }
 }

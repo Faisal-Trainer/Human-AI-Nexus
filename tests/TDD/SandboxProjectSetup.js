@@ -43,6 +43,20 @@ class SandboxProjectSetup {
       console.log(
         `   ✅ Template Laravel murni sudah tersedia: ${TEMPLATE_NAME}`,
       );
+      // Pastikan paket Livewire terpasang di template
+      const livewirePath = path.join(this.templatePath, "vendor", "livewire");
+      if (!(await fs.pathExists(livewirePath))) {
+        console.log(`   🔌 Menginstal livewire/livewire ke template...`);
+        try {
+          execSync("composer require livewire/livewire --no-interaction", {
+            cwd: this.templatePath,
+            stdio: "inherit",
+            timeout: 180000,
+          });
+        } catch (lwErr) {
+          console.warn(`   ⚠️ Gagal auto-install Livewire: ${lwErr.message}`);
+        }
+      }
       return true;
     }
 
@@ -69,6 +83,18 @@ class SandboxProjectSetup {
       // Verifikasi artisan file ada
       if (!(await fs.pathExists(path.join(this.templatePath, "artisan")))) {
         throw new Error("artisan file not found after composer create-project");
+      }
+
+      // Pasang Livewire
+      try {
+        console.log(`   🔌 Menginstal livewire/livewire ke template...`);
+        execSync("composer require livewire/livewire --no-interaction", {
+          cwd: this.templatePath,
+          stdio: "inherit",
+          timeout: 180000,
+        });
+      } catch (lwErr) {
+        console.warn(`   ⚠️ Gagal install Livewire di template baru: ${lwErr.message}`);
       }
 
       // Setup SQLite default di template
@@ -311,6 +337,17 @@ class SandboxProjectSetup {
         await fs.copy(templateNodeModules, path.join(targetPath, "node_modules")).catch(() => {});
       }
     }
+
+    // Pastikan bootstrap/cache bersih agar package discovery selalu membaca paket terkini
+    const cacheDir = path.join(targetPath, "bootstrap", "cache");
+    if (await fs.pathExists(cacheDir)) {
+      const files = await fs.readdir(cacheDir);
+      for (const file of files) {
+        if (file.endsWith(".php")) {
+          await fs.remove(path.join(cacheDir, file)).catch(() => {});
+        }
+      }
+    }
   }
 
   /**
@@ -362,6 +399,15 @@ class SandboxProjectSetup {
         stdio: "ignore",
       });
       console.log(`   ✅ Database migrated.`);
+
+      // Seed database if seeders exist to populate initial content
+      try {
+        execSync("php artisan db:seed --force", {
+          cwd: targetPath,
+          stdio: "ignore",
+        });
+        console.log(`   🌱 Database seeded with initial data.`);
+      } catch (_) {}
     } catch (e) {
       console.warn(
         `   ⚠️  Migrate failed (non-fatal): ${e.message.slice(0, 80)}`,

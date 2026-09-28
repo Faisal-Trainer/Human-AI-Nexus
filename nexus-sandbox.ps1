@@ -109,7 +109,7 @@ function Invoke-NexusSection {
     $scriptFile = $fileParts[0]
     $scriptArgs = $fileParts[1..($fileParts.Length-1)]
 
-    Log "   [INFO] Memuat modul Bun & inisialisasi AI agent... (mohon tunggu)" "Yellow"
+    Log "   [INFO] Memuat modul Bun & inisialisasi Nexus Orchestrator... (mohon tunggu)" "Yellow"
     Log ""
 
     # Jalankan bun secara direct di foreground agar output mengalir real-time ke console

@@ -1,0 +1,51 @@
+{
+  "id": "AUDIT-1790413326284-SEO-PERFORMANCE-SPECIALIST",
+  "type": "AUDIT_REPORT",
+  "timestamp": "2026-09-26T10:02:24.341+08:00",
+  "target": "C:\\Users\\ACER\\Desktop\\NEXUS-AI",
+  "findings": [
+    {
+      "severity": "WARNING",
+      "message": "Large asset detected (1.08 MB).",
+      "file": "memory/references/ui-ux-pro-max-skill-main/screenshots/website.png",
+      "rationale": "File media yang besar memperlambat waktu muat halaman (LCP), yang berdampak buruk pada pengalaman pengguna dan ranking Google.",
+      "recommendation": "Kompres gambar menggunakan tool seperti TinyPNG atau ubah formatnya menjadi WebP/WebM yang lebih ringan."
+    },
+    {
+      "severity": "WARNING",
+      "message": "Large asset detected (1.02 MB).",
+      "file": "documentation/algorithms/livewire-main/src/Features/SupportFileUploads/browser_test_image_big.jpg",
+      "rationale": "File media yang besar memperlambat waktu muat halaman (LCP), yang berdampak buruk pada pengalaman pengguna dan ranking Google.",
+      "recommendation": "Kompres gambar menggunakan tool seperti TinyPNG atau ubah formatnya menjadi WebP/WebM yang lebih ringan."
+    },
+    {
+      "severity": "INFO",
+      "message": "Missing meta description tag.",
+      "file": "memory/references/ui-ux-pro-max-skill-main/preview/xiaomaomi-app.html"
+    },
+    {
+      "severity": "INFO",
+      "message": "Missing meta description tag.",
+      "file": "documentation/algorithms/skills-main/skills/algorithmic-art/templates/viewer.html"
+    },
+    {
+      "severity": "INFO",
+      "message": "Missing meta description tag.",
+      "file": "documentation/algorithms/skills-main/skills/skill-creator/assets/eval_review.html"
+    },
+    {
+      "severity": "INFO",
+      "message": "Missing meta description tag.",
+      "file": "documentation/algorithms/skills-main/skills/skill-creator/eval-viewer/viewer.html"
+    },
+    {
+      "severity": "INFO",
+      "message": "Missing meta description tag.",
+      "file": "memory/distilled/superpowers-main/skills/brainstorming/scripts/frame-template.html"
+    }
+  ],
+  "metadata": {
+    "mode": "learning",
+    "task": "seo-performance-specialist"
+  }
+}

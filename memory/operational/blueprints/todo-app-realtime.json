@@ -1,0 +1,135 @@
+{
+  "project_name": "todo-app-realtime",
+  "models": [
+    "User",
+    "TodoItem",
+    "Category"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "TodoItem": {
+      "title": "string",
+      "description": "text:nullable",
+      "completed": "boolean",
+      "category_id": "foreignUuid:constrained"
+    },
+    "Category": {
+      "title": "string",
+      "description": "text:nullable"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_todo_items_table",
+    "create_categories_table"
+  ],
+  "livewire_components": [
+    "task-board",
+    "task-input"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "TodoItemSeeder",
+    "CategorySeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "TodoItemFactory",
+    "CategoryFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/tasks"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "TodoItem"
+    },
+    {
+      "model": "TodoItem",
+      "type": "belongsTo",
+      "target": "Category"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/tasks",
+      "controller": "TaskController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/tasks",
+      "controller": "TaskController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-tasks",
+      "view-dashboard"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/dashboard": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [
+    {
+      "name": "ProcessTask",
+      "queue": "default",
+      "retry": 3,
+      "backoff": 60
+    }
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "9566a1997dfad3b6c06742c2c321c243"
+}

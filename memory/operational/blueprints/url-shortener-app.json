@@ -1,0 +1,139 @@
+{
+  "project_name": "url-shortener-app",
+  "models": [
+    "User",
+    "ShortUrl",
+    "ClickStat"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "ShortUrl": {
+      "shortened_url": "string:unique",
+      "long_url": "string",
+      "user_id": "foreignUuid:constrained",
+      "click_count": "integer:default(0)"
+    },
+    "ClickStat": {
+      "user_id": "foreignUuid:constrained",
+      "short_url_id": "foreignUuid:constrained",
+      "created_at": "datetime"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_short_urls_table",
+    "create_click_stats_table"
+  ],
+  "livewire_components": [
+    "url-shortener-box",
+    "link-analytics-table"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "ShortUrlSeeder",
+    "ClickStatSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "ShortUrlFactory",
+    "ClickStatFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/features",
+    "/shorten-url",
+    "/analytics",
+    "/{shortCode}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "ShortUrl"
+    },
+    {
+      "model": "ShortUrl",
+      "type": "belongsTo",
+      "target": "User"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/features",
+      "controller": "FeatureController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/features",
+      "controller": "FeatureController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-items",
+      "view-dashboard"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/dashboard": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [
+    {
+      "name": "ProcessShortUrlTask",
+      "queue": "default",
+      "retry": 3,
+      "backoff": 60
+    }
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "a866dcd1dedeeb6ac721d92edc5650e7"
+}

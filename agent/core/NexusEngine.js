@@ -9,6 +9,7 @@ const MemoryPipeline = require("./MemoryPipeline");
 const TDDGuard = require("./../tools/TDDGuard");
 const AssetEngine = require("./../tools/AssetEngine");
 const Validator = require("./../tools/Validator");
+const TypeSafeValidator = require("./../tools/TypeSafeValidator");
 const BugHunter = require("./../tools/BugHunter");
 const Designer = require("./../tools/Designer");
 const AccessibilityScanner = require("./../tools/AccessibilityScanner");
@@ -469,6 +470,12 @@ class NexusEngine {
     if (!this._native) this._native = new NativeBridge(this.rootPath);
     return this._native;
   }
+  get typeSafeValidator() {
+    if (!this._typeSafeValidator) {
+      this._typeSafeValidator = new TypeSafeValidator({ logger: this });
+    }
+    return this._typeSafeValidator;
+  }
 
   async initRedis() {
     try {
@@ -779,6 +786,23 @@ class NexusEngine {
 
   async updateStatus() {
     return await this.knowledgePhase.updateStatus();
+  }
+
+  // TypeSafe Evaluation Gate Methods (fail-open)
+  async validateBlueprint(blueprint, options) {
+    return await this.typeSafeValidator.validateBlueprint(blueprint, options);
+  }
+
+  async validateMigrationOutput(logText, options) {
+    return await this.typeSafeValidator.validateMigrationOutput(logText, options);
+  }
+
+  async routeSkill(task, skills) {
+    return await this.typeSafeValidator.routeSkill(task, skills);
+  }
+
+  async scoreSample(sample) {
+    return await this.typeSafeValidator.scoreSample(sample);
   }
 
   // FIX #17 — Global timeout 90 menit per cycle (ditingkatkan untuk local AI generation)
@@ -1221,6 +1245,31 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         }
       }
 
+      // TypeSafe Blueprint Gate (Optional & fail-open)
+      if (this.typeSafeValidator && this.typeSafeValidator.enabled) {
+        this.log(`   🛡️ TypeSafeValidator: Evaluating blueprint gate...`, "info");
+        try {
+          const tvResult = await this.typeSafeValidator.validateBlueprint(blueprint);
+          if (!tvResult.skipped) {
+            if (!tvResult.ok) {
+              this.log(
+                `   ⚠️ TypeSafeValidator flagged blueprint issues: ${tvResult.issues.join("; ")}`,
+                "warning",
+              );
+              blueprint._typeSafeIssues = tvResult.issues;
+              blueprint._typeSafeScores = tvResult.scores;
+            } else {
+              this.log(
+                `   ✅ TypeSafeValidator: Blueprint passed gate validation.`,
+                "success",
+              );
+            }
+          }
+        } catch (tvErr) {
+          this.log(`   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`, "warning");
+        }
+      }
+
       // Attach README hash for smart caching
       blueprint._readmeHash = readmeHash;
 
@@ -1394,10 +1443,18 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
     const agentHealth = this.agentRegistry
       ? this.agentRegistry.getHealthReport()
       : null;
+    const typeSafeStatus = {
+      enabled: this.typeSafeValidator.enabled,
+      endpoint: this.typeSafeValidator.endpoint,
+      model: this.typeSafeValidator.model,
+    };
     console.log(
-      `\n--- NEXUS STATUS: ${stress.metrics.mem_usage_pct}% RAM | ${stress.metrics.cpu_usage_pct}% CPU ---\n`,
+      `\n--- NEXUS STATUS: ${stress.metrics.mem_usage_pct}% RAM | ${stress.metrics.cpu_usage_pct}% CPU ---`,
     );
-    return { stress, agentHealth };
+    console.log(
+      `--- TypeSafe Gate: ${typeSafeStatus.enabled ? "ACTIVE (" + typeSafeStatus.model + ")" : "DISABLED (no TYPESAFE_API_KEY)"} ---\n`,
+    );
+    return { stress, agentHealth, typeSafeStatus };
   }
 
   wrapAsConditional(existing, added, context = "Nexus Knowledge") {

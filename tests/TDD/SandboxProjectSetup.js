@@ -56,7 +56,7 @@ class SandboxProjectSetup {
         } catch (lwErr) {
           console.warn(`   ⚠️ Gagal auto-install Livewire: ${lwErr.message}`);
         }
-      }
+      await this._patchTemplateAutoloader();
       return true;
     }
 
@@ -346,6 +346,27 @@ class SandboxProjectSetup {
         if (file.endsWith(".php")) {
           await fs.remove(path.join(cacheDir, file)).catch(() => {});
         }
+      }
+    // Pastikan autoloader template mendukung junctioned sandboxes
+    await this._patchTemplateAutoloader();
+  }
+
+  /**
+   * Patch autoload.php di template agar dynamic PSR-4 membaca app/ dan database/ dari sandbox aktif.
+   */
+  async _patchTemplateAutoloader() {
+    const autoloadFile = path.join(this.templatePath, "vendor", "autoload.php");
+    if (!(await fs.pathExists(autoloadFile))) return;
+    let content = await fs.readFile(autoloadFile, "utf8");
+    if (!content.includes("// Support junctioned sandboxes")) {
+      const target = "return ComposerAutoloaderInit";
+      if (content.includes(target)) {
+        content = content.replace(
+          target,
+          `$loader = ComposerAutoloaderInit`,
+        );
+        content += `\n// Support junctioned sandboxes: prepend the calling project's app/ and database/ to PSR-4\n$invokingDir = getcwd();\nif ($invokingDir && is_dir($invokingDir . DIRECTORY_SEPARATOR . 'app')) {\n    $loader->addPsr4('App\\\\', $invokingDir . DIRECTORY_SEPARATOR . 'app', true);\n    if (is_dir($invokingDir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'seeders')) {\n        $loader->addPsr4('Database\\\\Seeders\\\\', $invokingDir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'seeders', true);\n    }\n    if (is_dir($invokingDir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'factories')) {\n        $loader->addPsr4('Database\\\\Factories\\\\', $invokingDir . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'factories', true);\n    }\n}\n\nreturn $loader;\n`;
+        await fs.writeFile(autoloadFile, content, "utf8");
       }
     }
   }

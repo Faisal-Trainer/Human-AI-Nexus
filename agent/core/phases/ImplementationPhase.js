@@ -19,6 +19,26 @@ class ImplementationPhase extends BasePhase {
 
     const blueprint = await fs.readJson(blueprintPath);
 
+    // TypeSafe Blueprint Gate (fail-open validation before code generation)
+    if (this.engine.typeSafeValidator && this.engine.typeSafeValidator.enabled) {
+      this.log(`🛡️ Validating blueprint with TypeSafe before code generation...`, "info");
+      try {
+        const tvResult = await this.engine.typeSafeValidator.validateBlueprint(blueprint);
+        if (!tvResult.skipped) {
+          if (!tvResult.ok) {
+            this.log(
+              `⚠️ TypeSafeValidator detected blueprint potential issues: ${tvResult.issues.join("; ")}`,
+              "warning",
+            );
+          } else {
+            this.log(`✅ TypeSafeValidator: Blueprint confirmed ready for implementation.`, "success");
+          }
+        }
+      } catch (err) {
+        this.log(`⚠️ TypeSafeValidator check skipped: ${err.message}`, "warning");
+      }
+    }
+
     // 1. Generate Models, Policies, and API Controllers
     const models = blueprint.models || [];
     for (const model of models) {

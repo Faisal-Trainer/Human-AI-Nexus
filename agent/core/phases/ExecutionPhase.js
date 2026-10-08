@@ -302,6 +302,25 @@ class ExecutionPhase extends BasePhase {
       }
     }
 
+    // Clean up routes/api.php from legacy references
+    const apiRoutesPath = path.join(projectPath, "routes", "api.php");
+    if (await fs.pathExists(apiRoutesPath)) {
+      const apiRoutesContent = await fs.readFile(apiRoutesPath, "utf8");
+      const newApiRoutes = apiRoutesContent
+        .split("\n")
+        .filter((line) => {
+          return !legacyPatterns.some((p) => line.includes(p));
+        })
+        .join("\n");
+      if (apiRoutesContent !== newApiRoutes) {
+        await fs.writeFile(apiRoutesPath, newApiRoutes);
+        this.log(
+          `      🗑️ Removed legacy routes from routes/api.php`,
+          "warning",
+        );
+      }
+    }
+
     // FIX #30 — Post-cleanup route validation:
     // If cleanup wiped all routes but blueprint has routes defined, regenerate them.
     if (await fs.pathExists(blueprintPath)) {
@@ -404,6 +423,34 @@ class ExecutionPhase extends BasePhase {
 
     // 🔄 TDD & Self-Correction Feedback Loop
     await this.runTDDFeedbackLoop(projectPath);
+
+    // TypeSafe Migration & App Readiness Gate (closes false-positive "FULL TALL APP READY")
+    if (this.engine.typeSafeValidator && this.engine.typeSafeValidator.enabled) {
+      this.log(
+        `   🛡️ TypeSafeValidator: Evaluating migration & application stability output...`,
+        "info",
+      );
+      try {
+        const logContext = `Artisan Smoke Test: ${hasSmokePassed ? "PASSED" : "FAILED"}\nDatabase Fresh Migration: SUCCESS\nLog Status: ${isLogClean ? "CLEAN" : "ERRORS_DETECTED"}`;
+        const tvResult = await this.engine.typeSafeValidator.validateMigrationOutput(logContext);
+        if (!tvResult.skipped) {
+          if (!tvResult.ok) {
+            this.log(
+              `   ⚠️ TypeSafeValidator flagged application as not fully ready (migrationFailedP=${tvResult.migrationFailedP?.toFixed(2)}, appReadyP=${tvResult.appReadyP?.toFixed(2)}). Enforcing stability loop.`,
+              "warning",
+            );
+            isLogClean = false;
+          } else {
+            this.log(
+              `   ✅ TypeSafeValidator: Migration & app readiness verified.`,
+              "success",
+            );
+          }
+        }
+      } catch (tvErr) {
+        this.log(`   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`, "warning");
+      }
+    }
 
     if (hasSmokePassed && isLogClean) {
       this.log(
@@ -832,7 +879,7 @@ class ExecutionPhase extends BasePhase {
       }
     }
 
-    // ─── PHASE B: AI-Based Healing (Requires LocalIntelligence) ───
+    // ─── PHASE B: AI-Based Healing & Missing Class Recovery ───
     let consoleError = "";
     try {
       const { execSync } = require("child_process");
@@ -877,14 +924,57 @@ class ExecutionPhase extends BasePhase {
       }
     }
 
+    let applied = 0;
+
+    // Fallback: Jika tidak ada file teridentifikasi langsung dari stack trace
     if (affectedFiles.length === 0) {
+      // 1. Cek apakah ada missing class (ReflectionException)
+      const missingClassMatch = lastError.match(/Class ["']([^"']+)["'] does not exist/i);
+      if (missingClassMatch) {
+        const missingClass = missingClassMatch[1];
+        if (missingClass.startsWith("App\\")) {
+          const classRelPath = missingClass.replace(/^App\\/, "app/").replace(/\\/g, "/") + ".php";
+          const classFullPath = path.join(projectPath, classRelPath);
+          if (!(await fs.pathExists(classFullPath))) {
+            const className = missingClass.split("\\").pop();
+            if (missingClass.includes("Controllers\\Api\\")) {
+              const modelName = className.replace(/Controller$/, "");
+              const fallbackContent = this.engine.implementationPhase
+                ? this.engine.implementationPhase._safeFallbackController(modelName)
+                : `<?php\n\nnamespace App\\Http\\Controllers\\Api;\n\nuse App\\Http\\Controllers\\Controller;\n\nclass ${className} extends Controller {}\n`;
+              await fs.ensureDir(path.dirname(classFullPath));
+              await fs.writeFile(classFullPath, fallbackContent, "utf8");
+              this.log(`         🩹 Self-healed missing controller: Created ${classRelPath}`, "success");
+              applied++;
+            } else if (missingClass.includes("Models\\")) {
+              const fallbackContent = `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass ${className} extends Model\n{\n    protected $guarded = [];\n}\n`;
+              await fs.ensureDir(path.dirname(classFullPath));
+              await fs.writeFile(classFullPath, fallbackContent, "utf8");
+              this.log(`         🩹 Self-healed missing model: Created ${classRelPath}`, "success");
+              applied++;
+            }
+          }
+        }
+      }
+
+      // 2. Cek apakah error terkait RouteListCommand / routes
+      if (applied === 0 && (lastError.includes("Route") || lastError.includes("ReflectionException"))) {
+        const apiRoutePath = path.join(projectPath, "routes", "api.php");
+        const webRoutePath = path.join(projectPath, "routes", "web.php");
+        if (await fs.pathExists(apiRoutePath)) affectedFiles.push(apiRoutePath);
+        if (await fs.pathExists(webRoutePath)) affectedFiles.push(webRoutePath);
+      }
+    }
+
+    if (affectedFiles.length === 0 && applied === 0) {
       this.log(`         ❌ Self-healing could not identify affected files from the log.`, "error");
       return false;
     }
 
-    this.log(`         🎯 Identified ${affectedFiles.length} affected file(s). Healing 1 by 1...`, "info");
+    if (affectedFiles.length > 0) {
+      this.log(`         🎯 Identified ${affectedFiles.length} affected file(s). Healing 1 by 1...`, "info");
+    }
     const localAI = require("../LocalIntelligence");
-    let applied = 0;
 
     for (const file of affectedFiles) {
       const relPath = path.relative(projectPath, file).replace(/\\/g, '/');
@@ -908,8 +998,25 @@ class ExecutionPhase extends BasePhase {
           });
         }
 
+        // Fallback jika AI merespons dengan format markdown code fence biasa
         if (fixes.length === 0) {
-          this.log(`         ⚠️ AI response did not contain valid <file> block for ${relPath}.`, "warning");
+          const codeBlockRegex = /```(?:php)?\s*([\s\S]*?)```/i;
+          const codeMatch = response.match(codeBlockRegex);
+          if (codeMatch && codeMatch[1].trim().startsWith("<?php")) {
+            fixes.push({
+              file: relPath,
+              content: codeMatch[1].trim(),
+            });
+          } else if (response.trim().startsWith("<?php")) {
+            fixes.push({
+              file: relPath,
+              content: response.trim(),
+            });
+          }
+        }
+
+        if (fixes.length === 0) {
+          this.log(`         ⚠️ AI response did not contain valid code block for ${relPath}.`, "warning");
           continue;
         }
 
@@ -1108,11 +1215,7 @@ class ExecutionPhase extends BasePhase {
       }
     }
 
-    if (cacheDirty && !isSandbox) {
-      await fs.ensureDir(path.dirname(cachePath));
-      await fs.writeJson(cachePath, cache, { spaces: 2 });
-    } else if (cacheDirty) {
-      // Even for sandbox runs, cache lives outside sandboxes — still persist
+    if (cacheDirty) {
       await fs.ensureDir(path.dirname(cachePath));
       await fs.writeJson(cachePath, cache, { spaces: 2 });
     }

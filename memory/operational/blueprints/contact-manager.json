@@ -1,0 +1,114 @@
+{
+  "project_name": "contact-manager",
+  "models": [
+    "User",
+    "Contact"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "Contact": {
+      "name": "string",
+      "email": "string:unique",
+      "description": "text:nullable",
+      "user_id": "foreignUuid:constrained"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_contacts_table"
+  ],
+  "livewire_components": [
+    "contact-list",
+    "contact-details"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "ContactSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "ContactFactory"
+  ],
+  "routes": [
+    "/contacts",
+    "/contacts/{id}"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Contact"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/contacts",
+      "controller": "ContactController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/contacts",
+      "controller": "ContactController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-contacts",
+      "view-dashboard"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/dashboard": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "0b266df72eb2712a93038c74e9f9f7b8"
+}

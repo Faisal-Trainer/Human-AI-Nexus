@@ -2,6 +2,23 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.2] - 2026-10-09 (Preheal & Self-Healing Resilience + Dynamic Sandbox Autoloading)
+
+### Fixed
+- **Dynamic PSR-4 Autoloading untuk Windows Junction Sandbox (`SandboxProjectSetup.js` & `vendor/autoload.php`)**:
+  - Memperbaiki kegagalan fatal pada Windows Junction (`tests/sandboxes/*/vendor` -> `tests/sandboxes/laravel-fresh-template/vendor`), di mana Composer autoloader sebelumnya keliru mencari class ke direktori template `laravel-fresh-template/app` alih-alih folder sandbox yang sedang dieksekusi.
+  - Memperbarui `vendor/autoload.php` di template dengan mekanisme deteksi pemanggil dinamis (`getcwd()`) yang mem-prepend direktori `App\`, `Database\Seeders\`, dan `Database\Factories\` ke Composer PSR-4.
+  - Mengotomatiskan injeksi patch autoloader melalui metode `_patchTemplateAutoloader()` pada `SandboxProjectSetup.js` agar selalu aktif permanen setiap kali template disiapkan maupun proyek baru di-clone.
+- **Auto-Recovery Missing Class pada Self-Healing (`ExecutionPhase.js`)**:
+  - Mengatasi masalah `selfHeal` yang gagal mengidentifikasi file saat stack trace berasal dari vendor internal Laravel (`RouteListCommand.php`).
+  - Menambahkan deteksi regex untuk `ReflectionException: Class "..." does not exist` yang secara otomatis menginstansiasi controller atau model fallback yang hilang (`_safeFallbackController` / fallback model).
+- **Route-Aware Failure Targeting (`ExecutionPhase.js`)**:
+  - Secara cerdas menyertakan file `routes/api.php` dan `routes/web.php` ke dalam antrean self-healing ketika error artisan terkait dengan routing atau controller resolusi.
+- **LLM Markdown Code Block Fallback (`ExecutionPhase.js`)**:
+  - Menambahkan fallback regex parser untuk mengekstrak kode PHP dari format markdown code fence biasa (````php ... ````) jika model LLM tidak menyertakan tag XML `<file path="...">`.
+- **Pembersihan Route Legacy pada API (`ExecutionPhase.js`)**:
+  - Memperluas fungsi `cleanCodeAndVerify` untuk membersihkan endpoint dan impor usang pada `routes/api.php`, mencegah `ReflectionException` saat route list dijalankan.
+
 ## [v3.4.1] - 2026-09-28 (Sandbox Table User Stability & Core Auth Protection)
 
 ### Fixed

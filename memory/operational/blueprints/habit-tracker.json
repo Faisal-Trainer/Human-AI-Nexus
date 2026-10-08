@@ -1,0 +1,122 @@
+{
+  "project_name": "habit-tracker",
+  "models": [
+    "User",
+    "Habit"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "Habit": {
+      "title": "string",
+      "description": "text:nullable",
+      "user_id": "foreignUuid:constrained",
+      "is_complete": "boolean"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_habits_table"
+  ],
+  "livewire_components": [
+    "habit-showcase",
+    "habit-list"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "HabitSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "HabitFactory"
+  ],
+  "routes": [
+    "/dashboard",
+    "/habits"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Habit"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/habits",
+      "controller": "HabitController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/habits",
+      "controller": "HabitController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-items",
+      "view-dashboard"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/dashboard": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [
+    {
+      "name": "ProcessHabitTask",
+      "queue": "default",
+      "retry": 3,
+      "backoff": 60
+    }
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "e51703877cda34e803f809cac58a0ab9"
+}

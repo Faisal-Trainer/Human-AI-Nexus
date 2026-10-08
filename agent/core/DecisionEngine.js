@@ -67,6 +67,49 @@ class DecisionEngine {
     getAvailableContexts() {
         return Object.keys(WEIGHT_PROFILES);
     }
+
+    /**
+     * Route a task to the most appropriate skill using TypeSafeValidator (if provided/enabled),
+     * with fallback to keyword-based relevance matching.
+     * @param {string} task
+     * @param {Object<string,string|null>} skills - { skillName: description }
+     * @param {Object} [validator] - Optional TypeSafeValidator instance
+     * @returns {Promise<{skipped:boolean, skill?:string, confidence?:number, probabilities?:object, reason?:string}>}
+     */
+    async routeSkill(task, skills, validator = null) {
+        if (validator && validator.enabled) {
+            try {
+                const res = await validator.routeSkill(task, skills);
+                if (!res.skipped && res.skill) {
+                    return res;
+                }
+            } catch (_) {}
+        }
+
+        // Heuristic fallback: keyword matching between task and skills
+        const taskWords = new Set((task || '').toLowerCase().split(/\W+/).filter(Boolean));
+        let bestSkill = null;
+        let maxScore = -1;
+
+        for (const [skillName, desc] of Object.entries(skills || {})) {
+            const skillWords = `${skillName} ${desc || ''}`.toLowerCase().split(/\W+/);
+            let score = 0;
+            for (const w of skillWords) {
+                if (taskWords.has(w)) score++;
+            }
+            if (score > maxScore) {
+                maxScore = score;
+                bestSkill = skillName;
+            }
+        }
+
+        return {
+            skipped: true,
+            reason: 'fallback_heuristic',
+            skill: bestSkill || Object.keys(skills || {})[0] || null,
+            confidence: maxScore > 0 ? 0.6 : 0.2,
+        };
+    }
 }
 
 module.exports = DecisionEngine;

@@ -1,9 +1,11 @@
 const fs = require('fs-extra');
 const path = require('path');
+const TypeSafeValidator = require('./TypeSafeValidator');
 
 class DatasetExtractor {
     constructor(rootPath) {
         this.rootPath = rootPath;
+        this.typeSafeValidator = new TypeSafeValidator();
         // Default to the generated code cache
         this.cachePath = path.join(this.rootPath, 'memory', 'cache', 'generated_code');
         this.outPath = path.join(this.rootPath, 'memory', 'datasets', 'nexus-sft-dataset.jsonl');
@@ -38,6 +40,16 @@ class DatasetExtractor {
                 const data = await fs.readJson(filePath);
 
                 if (data && data.prompt && data.output) {
+                    // Optional quality filter via TypeSafeValidator
+                    if (this.typeSafeValidator && this.typeSafeValidator.enabled) {
+                        const samplePayload = `Prompt:\n${data.prompt}\n\nOutput:\n${data.output}`;
+                        const qScore = await this.typeSafeValidator.scoreSample(samplePayload);
+                        if (!qScore.skipped && typeof qScore.score === 'number' && qScore.score < 3) {
+                            console.log(`   ⏭️ Skipping low-quality sample (score: ${qScore.score}/5)`);
+                            continue;
+                        }
+                    }
+
                     // Convert to ShareGPT / Alpaca JSONL format
                     const record = {
                         instruction: data.prompt,

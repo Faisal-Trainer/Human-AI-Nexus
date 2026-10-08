@@ -48,7 +48,7 @@ class ObsidianBridge {
         this.enabled = config.enabled === true;
       }
       
-      this.vaultPath = config.vault_path || null;
+      this.vaultPath = config.vault_path ? path.normalize(config.vault_path) : null;
       this.updateDir = config.update_path || "NEXUS Update";
       this.readSources = config.read_sources || {};
       this.syncBack = config.sync_back === true;

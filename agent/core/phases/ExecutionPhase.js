@@ -186,16 +186,21 @@ class ExecutionPhase extends BasePhase {
     // overlaps with legacy patterns, remove those patterns to avoid
     // deleting the project's own legitimate code.
     const projectSlug = path.basename(projectPath).toLowerCase();
-    const projectWords = projectSlug.split(/[-_]/).filter(w => w.length > 2);
-    legacyPatterns = legacyPatterns.filter(pattern => {
+    const projectWords = projectSlug.split(/[-_]/).filter((w) => w.length > 2);
+    legacyPatterns = legacyPatterns.filter((pattern) => {
       const patternLower = pattern.toLowerCase();
       // If any significant word from the project name appears in the legacy pattern,
       // this pattern likely targets the project's own domain — skip it
-      const isOwnDomain = projectWords.some(word =>
-        patternLower.includes(word) || word.includes(patternLower.replace('.php', ''))
+      const isOwnDomain = projectWords.some(
+        (word) =>
+          patternLower.includes(word) ||
+          word.includes(patternLower.replace(".php", "")),
       );
       if (isOwnDomain) {
-        this.log(`      ⏭️  Legacy pattern '${pattern}' matches project domain '${projectSlug}' — skipping to protect valid code.`, "info");
+        this.log(
+          `      ⏭️  Legacy pattern '${pattern}' matches project domain '${projectSlug}' — skipping to protect valid code.`,
+          "info",
+        );
       }
       return !isOwnDomain;
     });
@@ -328,15 +333,32 @@ class ExecutionPhase extends BasePhase {
       const bpRoutes = postCleanBp.routes || [];
       if (bpRoutes.length > 0 && (await fs.pathExists(webRoutesPath))) {
         const postCleanContent = await fs.readFile(webRoutesPath, "utf8");
-        const hasRealRoutes = (postCleanContent.match(/Route::/g) || []).length > 1; // more than just the default '/'
+        const hasRealRoutes =
+          (postCleanContent.match(/Route::/g) || []).length > 1; // more than just the default '/'
         if (!hasRealRoutes) {
-          this.log(`      ⚠️ Route cleanup wiped all web routes. Regenerating from blueprint (${bpRoutes.length} routes)...`, "warning");
+          this.log(
+            `      ⚠️ Route cleanup wiped all web routes. Regenerating from blueprint (${bpRoutes.length} routes)...`,
+            "warning",
+          );
           try {
-            await this.engine.implementationPhase.generateRoutes(bpRoutes, postCleanBp);
-            this.log(`      ✅ Routes successfully regenerated from blueprint.`, "success");
+            await this.engine.implementationPhase.generateRoutes(
+              bpRoutes,
+              postCleanBp,
+            );
+            this.log(
+              `      ✅ Routes successfully regenerated from blueprint.`,
+              "success",
+            );
           } catch (routeErr) {
-            this.log(`      ❌ Route regeneration failed: ${routeErr.message}. Writing safe fallback.`, "error");
-            const fallbackRoutes = this.engine.implementationPhase._safeFallbackRoutes(bpRoutes, postCleanBp);
+            this.log(
+              `      ❌ Route regeneration failed: ${routeErr.message}. Writing safe fallback.`,
+              "error",
+            );
+            const fallbackRoutes =
+              this.engine.implementationPhase._safeFallbackRoutes(
+                bpRoutes,
+                postCleanBp,
+              );
             await fs.writeFile(webRoutesPath, fallbackRoutes);
           }
         }
@@ -425,14 +447,20 @@ class ExecutionPhase extends BasePhase {
     await this.runTDDFeedbackLoop(projectPath);
 
     // TypeSafe Migration & App Readiness Gate (closes false-positive "FULL TALL APP READY")
-    if (this.engine.typeSafeValidator && this.engine.typeSafeValidator.enabled) {
+    if (
+      this.engine.typeSafeValidator &&
+      this.engine.typeSafeValidator.enabled
+    ) {
       this.log(
         `   🛡️ TypeSafeValidator: Evaluating migration & application stability output...`,
         "info",
       );
       try {
         const logContext = `Artisan Smoke Test: ${hasSmokePassed ? "PASSED" : "FAILED"}\nDatabase Fresh Migration: SUCCESS\nLog Status: ${isLogClean ? "CLEAN" : "ERRORS_DETECTED"}`;
-        const tvResult = await this.engine.typeSafeValidator.validateMigrationOutput(logContext);
+        const tvResult =
+          await this.engine.typeSafeValidator.validateMigrationOutput(
+            logContext,
+          );
         if (!tvResult.skipped) {
           if (!tvResult.ok) {
             this.log(
@@ -448,7 +476,10 @@ class ExecutionPhase extends BasePhase {
           }
         }
       } catch (tvErr) {
-        this.log(`   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`, "warning");
+        this.log(
+          `   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`,
+          "warning",
+        );
       }
     }
 
@@ -640,15 +671,18 @@ class ExecutionPhase extends BasePhase {
       // Update Title
       const titleRegex = /<title>[\s\S]*?<\/title>/;
 
-      const componentCards = components.length > 0
-        ? components.map((c) => `
+      const componentCards =
+        components.length > 0
+          ? components
+              .map(
+                (c) => `
         <!-- Livewire Component: ${c} -->
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/60 overflow-hidden transition-all hover:shadow-md">
             <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700/60 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
                 <div class="flex items-center gap-3">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <h2 class="font-bold text-slate-800 dark:text-slate-100 text-base tracking-tight">
-                        ${c.replace(/[-_]/g, ' ').toUpperCase()}
+                        ${c.replace(/[-_]/g, " ").toUpperCase()}
                     </h2>
                 </div>
                 <span class="text-xs font-mono px-2.5 py-1 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium">
@@ -658,8 +692,10 @@ class ExecutionPhase extends BasePhase {
             <div class="p-6">
                 <livewire:${this.toKebabCase(c)} />
             </div>
-        </div>`).join("\n")
-        : `
+        </div>`,
+              )
+              .join("\n")
+          : `
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-12 text-center border border-slate-200 dark:border-slate-700">
             <p class="text-slate-500">No components wired yet.</p>
         </div>`;
@@ -822,6 +858,11 @@ class ExecutionPhase extends BasePhase {
 
   // FIX #26 — Iterative port search to prevent stack overflow
   async getAvailablePort(start = 8001, maxPort = 9000) {
+    if (start > maxPort) {
+      throw new Error(
+        `Invalid port range: start (${start}) exceeds maxPort (${maxPort}).`,
+      );
+    }
     const net = require("net");
     for (let port = start; port <= maxPort; port++) {
       try {
@@ -916,7 +957,7 @@ class ExecutionPhase extends BasePhase {
     // Identifikasi file yang bermasalah berdasarkan log error
     const affectedFiles = [];
     for (const file of projectFiles) {
-      const relPath = path.relative(projectPath, file).replace(/\\/g, '/');
+      const relPath = path.relative(projectPath, file).replace(/\\/g, "/");
       const basename = path.basename(file);
       // Jika path atau nama file muncul di error log, anggap affected
       if (lastError.includes(relPath) || lastError.includes(basename)) {
@@ -929,28 +970,39 @@ class ExecutionPhase extends BasePhase {
     // Fallback: Jika tidak ada file teridentifikasi langsung dari stack trace
     if (affectedFiles.length === 0) {
       // 1. Cek apakah ada missing class (ReflectionException)
-      const missingClassMatch = lastError.match(/Class ["']([^"']+)["'] does not exist/i);
+      const missingClassMatch = lastError.match(
+        /Class ["']([^"']+)["'] does not exist/i,
+      );
       if (missingClassMatch) {
         const missingClass = missingClassMatch[1];
         if (missingClass.startsWith("App\\")) {
-          const classRelPath = missingClass.replace(/^App\\/, "app/").replace(/\\/g, "/") + ".php";
+          const classRelPath =
+            missingClass.replace(/^App\\/, "app/").replace(/\\/g, "/") + ".php";
           const classFullPath = path.join(projectPath, classRelPath);
           if (!(await fs.pathExists(classFullPath))) {
             const className = missingClass.split("\\").pop();
             if (missingClass.includes("Controllers\\Api\\")) {
               const modelName = className.replace(/Controller$/, "");
               const fallbackContent = this.engine.implementationPhase
-                ? this.engine.implementationPhase._safeFallbackController(modelName)
+                ? this.engine.implementationPhase._safeFallbackController(
+                    modelName,
+                  )
                 : `<?php\n\nnamespace App\\Http\\Controllers\\Api;\n\nuse App\\Http\\Controllers\\Controller;\n\nclass ${className} extends Controller {}\n`;
               await fs.ensureDir(path.dirname(classFullPath));
               await fs.writeFile(classFullPath, fallbackContent, "utf8");
-              this.log(`         🩹 Self-healed missing controller: Created ${classRelPath}`, "success");
+              this.log(
+                `         🩹 Self-healed missing controller: Created ${classRelPath}`,
+                "success",
+              );
               applied++;
             } else if (missingClass.includes("Models\\")) {
               const fallbackContent = `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass ${className} extends Model\n{\n    protected $guarded = [];\n}\n`;
               await fs.ensureDir(path.dirname(classFullPath));
               await fs.writeFile(classFullPath, fallbackContent, "utf8");
-              this.log(`         🩹 Self-healed missing model: Created ${classRelPath}`, "success");
+              this.log(
+                `         🩹 Self-healed missing model: Created ${classRelPath}`,
+                "success",
+              );
               applied++;
             }
           }
@@ -958,7 +1010,11 @@ class ExecutionPhase extends BasePhase {
       }
 
       // 2. Cek apakah error terkait RouteListCommand / routes
-      if (applied === 0 && (lastError.includes("Route") || lastError.includes("ReflectionException"))) {
+      if (
+        applied === 0 &&
+        (lastError.includes("Route") ||
+          lastError.includes("ReflectionException"))
+      ) {
         const apiRoutePath = path.join(projectPath, "routes", "api.php");
         const webRoutePath = path.join(projectPath, "routes", "web.php");
         if (await fs.pathExists(apiRoutePath)) affectedFiles.push(apiRoutePath);
@@ -967,17 +1023,23 @@ class ExecutionPhase extends BasePhase {
     }
 
     if (affectedFiles.length === 0 && applied === 0) {
-      this.log(`         ❌ Self-healing could not identify affected files from the log.`, "error");
+      this.log(
+        `         ❌ Self-healing could not identify affected files from the log.`,
+        "error",
+      );
       return false;
     }
 
     if (affectedFiles.length > 0) {
-      this.log(`         🎯 Identified ${affectedFiles.length} affected file(s). Healing 1 by 1...`, "info");
+      this.log(
+        `         🎯 Identified ${affectedFiles.length} affected file(s). Healing 1 by 1...`,
+        "info",
+      );
     }
     const localAI = require("../LocalIntelligence");
 
     for (const file of affectedFiles) {
-      const relPath = path.relative(projectPath, file).replace(/\\/g, '/');
+      const relPath = path.relative(projectPath, file).replace(/\\/g, "/");
       const originalContent = await fs.readFile(file, "utf8");
 
       this.log(`         🧠 Analyzing & Healing: ${relPath}`, "warning");
@@ -1016,7 +1078,10 @@ class ExecutionPhase extends BasePhase {
         }
 
         if (fixes.length === 0) {
-          this.log(`         ⚠️ AI response did not contain valid code block for ${relPath}.`, "warning");
+          this.log(
+            `         ⚠️ AI response did not contain valid code block for ${relPath}.`,
+            "warning",
+          );
           continue;
         }
 
@@ -1054,17 +1119,28 @@ class ExecutionPhase extends BasePhase {
           applied++;
         }
       } catch (e) {
-        this.log(`         ❌ Self-healing unexpected error on ${relPath}: ${e.message}`, "error");
+        this.log(
+          `         ❌ Self-healing unexpected error on ${relPath}: ${e.message}`,
+          "error",
+        );
       }
     }
 
     if (applied > 0) {
       const projectName = path.basename(projectPath);
-      this.log(`         🧠 [Self-Healing Complete] Persisting Post-Mortem lesson for ${projectName}...`, "info");
-      await this._formulateAndPersistLesson(projectName, projectPath, lastError, {
-        category: "HEALED_CRASH",
-        targetFile: affectedFiles.map((f) => path.basename(f)).join(", "),
-      }).catch(() => {});
+      this.log(
+        `         🧠 [Self-Healing Complete] Persisting Post-Mortem lesson for ${projectName}...`,
+        "info",
+      );
+      await this._formulateAndPersistLesson(
+        projectName,
+        projectPath,
+        lastError,
+        {
+          category: "HEALED_CRASH",
+          targetFile: affectedFiles.map((f) => path.basename(f)).join(", "),
+        },
+      ).catch(() => {});
     }
 
     return applied > 0;
@@ -1080,10 +1156,19 @@ class ExecutionPhase extends BasePhase {
     // 5️⃣ PREHEAL_CACHE — dedupe by file hash, stored OUTSIDE sandboxes (R-only on tests/sandboxes)
     const crypto = require("crypto");
     const nexusRoot = path.resolve(__dirname, "..", "..", "..");
-    const cachePath = path.join(nexusRoot, "memory", "cache", "preheal_cache.json");
+    const cachePath = path.join(
+      nexusRoot,
+      "memory",
+      "cache",
+      "preheal_cache.json",
+    );
     let cache = {};
-    try { if (await fs.pathExists(cachePath)) cache = await fs.readJson(cachePath); } catch (_) {}
-    const isSandbox = String(projectPath).replace(/\\/g, "/").includes("tests/sandboxes");
+    try {
+      if (await fs.pathExists(cachePath)) cache = await fs.readJson(cachePath);
+    } catch (_) {}
+    const isSandbox = String(projectPath)
+      .replace(/\\/g, "/")
+      .includes("tests/sandboxes");
     const cacheKeyFor = (rel, hash) => `${rel}::${hash}`;
     let cacheDirty = false;
 
@@ -1098,7 +1183,9 @@ class ExecutionPhase extends BasePhase {
       try {
         let content = await fs.readFile(filePath, "utf8");
         const original = content;
-        const relPath = path.relative(projectPath, filePath).replace(/\\/g, "/");
+        const relPath = path
+          .relative(projectPath, filePath)
+          .replace(/\\/g, "/");
         const hash = crypto.createHash("md5").update(content).digest("hex");
         const key = cacheKeyFor(relPath, hash);
         if (cache[key]) continue; // already known-clean for this hash
@@ -1205,9 +1292,15 @@ class ExecutionPhase extends BasePhase {
           );
         } else {
           // Mark clean hash so next project skips this file if content identical
-          const cleanHash = crypto.createHash("md5").update(content).digest("hex");
+          const cleanHash = crypto
+            .createHash("md5")
+            .update(content)
+            .digest("hex");
           const cleanKey = cacheKeyFor(relPath, cleanHash);
-          if (!cache[cleanKey]) { cache[cleanKey] = 1; cacheDirty = true; }
+          if (!cache[cleanKey]) {
+            cache[cleanKey] = 1;
+            cacheDirty = true;
+          }
         }
       } catch (e) {
         // Skip files that can't be read/written
@@ -1235,7 +1328,10 @@ class ExecutionPhase extends BasePhase {
   async runTDDFeedbackLoop(projectPath) {
     const { execSync } = require("child_process");
     const projectName = path.basename(projectPath);
-    this.log(`   🧪 [TDD Feedback Loop] Running automated test suite for ${projectName}...`, "info");
+    this.log(
+      `   🧪 [TDD Feedback Loop] Running automated test suite for ${projectName}...`,
+      "info",
+    );
 
     const artisanPath = path.join(projectPath, "artisan");
     if (!(await fs.pathExists(artisanPath))) return;
@@ -1252,25 +1348,43 @@ class ExecutionPhase extends BasePhase {
         stdio: ["ignore", "pipe", "pipe"],
       });
       testPassed = true;
-      this.log(`      ✅ [TDD Success] All automated test assertions passed for ${projectName}!`, "success");
+      this.log(
+        `      ✅ [TDD Success] All automated test assertions passed for ${projectName}!`,
+        "success",
+      );
     } catch (err) {
-      testOutput = (err.stdout || "") + "\n" + (err.stderr || "") + "\n" + err.message;
+      testOutput =
+        (err.stdout || "") + "\n" + (err.stderr || "") + "\n" + err.message;
       testPassed = false;
     }
 
     if (!testPassed && testOutput) {
-      this.log(`      ⚠️ [TDD Failure Detected] Analyzing root cause & formulating lesson...`, "warning");
-      await this._formulateAndPersistLesson(projectName, projectPath, testOutput);
+      this.log(
+        `      ⚠️ [TDD Failure Detected] Analyzing root cause & formulating lesson...`,
+        "warning",
+      );
+      await this._formulateAndPersistLesson(
+        projectName,
+        projectPath,
+        testOutput,
+      );
     }
   }
 
-  async _formulateAndPersistLesson(projectName, projectPath, failureOutput, fixContext = {}) {
+  async _formulateAndPersistLesson(
+    projectName,
+    projectPath,
+    failureOutput,
+    fixContext = {},
+  ) {
     try {
       const coordinate = this.engine.rcAnalyzer
         ? this.engine.rcAnalyzer.analyze(failureOutput)
         : { file: "unknown", line: 0 };
       const timestamp = new Date().toISOString();
-      const safeProject = projectName.replace(/[^a-zA-Z0-9_-]/g, "_").toUpperCase();
+      const safeProject = projectName
+        .replace(/[^a-zA-Z0-9_-]/g, "_")
+        .toUpperCase();
       const category = fixContext.category || "TDD_FAILURE";
       const lessonTitle = `NEXUS_LESSON_${safeProject}_${category}`;
 
@@ -1324,7 +1438,10 @@ ${errorSnippet}
 ---
 
 ### 🔍 Root Cause Analysis & Prevention
-${aiDiagnostic && aiDiagnostic.length > 50 ? aiDiagnostic.trim() : `
+${
+  aiDiagnostic && aiDiagnostic.length > 50
+    ? aiDiagnostic.trim()
+    : `
 #### Diagnostic Insight
 ${coordinate.insight || "Failure detected during test assertions or runtime execution."}
 
@@ -1332,7 +1449,8 @@ ${coordinate.insight || "Failure detected during test assertions or runtime exec
 1. **Schema & Model Alignment**: Ensure model attributes correspond strictly with database migration column names and types in [[Laravel Models]].
 2. **Relationship Bidirectionality**: Always verify foreign keys, cascading rules, and reverse bindings in [[Database Migrations]].
 3. **Reactive State Binding**: Confirm Livewire wire:model and route model bindings point to valid DB entities in [[Livewire Components]].
-`}
+`
+}
 
 ---
 *Generated by NEXUS Autonomous Continuous Learning Loop | Synced to [[NEXUS Update]] & Colab Training Dataset*
@@ -1354,7 +1472,7 @@ ${coordinate.insight || "Failure detected during test assertions or runtime exec
         const savedVaultPath = await this.engine.obsidianBridge.saveRewrite(
           `${lessonTitle}.md`,
           lessonContent,
-          "Lessons"
+          "Lessons",
         );
         if (savedVaultPath) {
           this.log(
@@ -1366,8 +1484,13 @@ ${coordinate.insight || "Failure detected during test assertions or runtime exec
         // 3. Incrementally update Knowledge Graph in real-time
         if (this.engine.semanticEngine) {
           try {
-            await this.engine.semanticEngine.buildGraphOnly();
-            this.log(`      🌐 Knowledge Graph re-indexed with new lesson in real-time.`, "info");
+            await this.engine.semanticEngine.buildGraphOnly({
+              forceRebuild: true,
+            });
+            this.log(
+              `      🌐 Knowledge Graph re-indexed with new lesson in real-time.`,
+              "info",
+            );
           } catch (_) {}
         }
       }
@@ -1401,7 +1524,9 @@ ${coordinate.insight || "Failure detected during test assertions or runtime exec
               },
             ],
           }) + "\n";
-        await fs.appendFile(colabJsonl, correctionSample, "utf8").catch(() => {});
+        await fs
+          .appendFile(colabJsonl, correctionSample, "utf8")
+          .catch(() => {});
       }
     } catch (e) {
       this.log(`      ⚠️ Failed to formulate lesson: ${e.message}`, "warning");

@@ -11,6 +11,9 @@
     "rules": "Agent",
     "guardrails": "Agent",
     "skills": "NEXUS AI/NEXUS SKILL",
+    "architecture": "NEXUS AI/Architecture",
+    "lessons": "NEXUS AI/Lessons",
+    "audit": "NEXUS AI/Audit",
     "blueprints": "BLUEPRINT",
     "nexus_update": "NEXUS Update"
   },

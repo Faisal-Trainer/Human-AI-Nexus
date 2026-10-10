@@ -53,11 +53,27 @@ const MIN_PROMPT_TOKENS = 32;
 const DEFAULT_THREADS = 2;
 
 // Output & inferensi
-const MAX_TOKENS_BUILDER = 4096;
+// MAX_TOKENS_BUILDER dibatasi 2048: model lokal kecil (1.5B) di hardware lemah tidak akan
+// pernah menyelesaikan output 4096 token dalam batas waktu — hasil akhirnya timeout.
+const MAX_TOKENS_BUILDER = 2048;
 const MAX_TOKENS_DEFAULT = 2048;
 const TEMPERATURE_BUILDER = 0.7;
 const TEMPERATURE_DEFAULT = 0.1;
-const DEFAULT_TIMEOUT_MS = 120000;
+
+// Timeout dapat dikonversi via .env. Reviewer task cepat (default 2 menit);
+// builder task (blueprint/kode) butuh jauh lebih lama di hardware lemah (default 10 menit).
+const parsePositiveInt = (raw, fallback) => {
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+};
+const DEFAULT_TIMEOUT_MS = parsePositiveInt(
+  process.env.NEXUS_INFER_TIMEOUT_MS,
+  120000,
+);
+const BUILDER_TIMEOUT_MS = parsePositiveInt(
+  process.env.NEXUS_BUILDER_TIMEOUT_MS,
+  600000,
+);
 
 // Cache ketersediaan model
 const AVAILABILITY_TTL_OK_MS = 60000;
@@ -125,7 +141,9 @@ const resolveGpuLayers = (cpuOnly) => {
 };
 
 const isGpuMemoryError = (err) =>
-  /OutOfDeviceMemory|out of (?:device )?memory|Vulkan|kv cache|failed to alloc/i.test(err?.message ?? "");
+  /OutOfDeviceMemory|out of (?:device )?memory|Vulkan|kv cache|failed to alloc/i.test(
+    err?.message ?? "",
+  );
 
 /** Normalisasi override tier: 0 | 1 | null (null = tidak ada override). */
 const resolveTierOverride = (tier) => {
@@ -135,12 +153,16 @@ const resolveTierOverride = (tier) => {
 };
 
 const stripThinking = (text) =>
-  text.replace(/<think>[\s\S]*?<\/think>/gi, "").replace(/<think>[\s\S]*$/i, "");
+  text
+    .replace(/<think>[\s\S]*?<\/think>/gi, "")
+    .replace(/<think>[\s\S]*$/i, "");
 
 const stripCodeFences = (text) => {
   if (!text.startsWith("```")) return text;
   const withLanguage = /^```[\w+-]*[ \t]*\r?\n/;
-  const opened = withLanguage.test(text) ? text.replace(withLanguage, "") : text.replace(/^```/, "");
+  const opened = withLanguage.test(text)
+    ? text.replace(withLanguage, "")
+    : text.replace(/^```/, "");
   return opened.replace(/\r?\n?```\s*$/, "").trim();
 };
 
@@ -236,15 +258,20 @@ const SCHEMAS = Object.freeze({
 // Tier 0: heuristik tanpa LLM
 // ════════════════════════════════════════════════════════════════
 
-const TIMESTAMPS_CALL = /\$table->(?:timestamps|timestampsTz|nullableTimestamps)\s*\(/;
+const TIMESTAMPS_CALL =
+  /\$table->(?:timestamps|timestampsTz|nullableTimestamps)\s*\(/;
 const PRIMARY_KEY_CALL = /\$table->(?:id|\w*[Ii]ncrements)\s*\(|primary\s*\(/;
 const RAW_INTEGER_FK =
   /\$table->(?:unsigned(?:Big|Small|Tiny|Medium)?Integer|(?:big|small|tiny|medium)?Integer)\s*\(\s*['"](\w+_id)['"]\s*\)/gi;
 
 /** Kolom *_id bertipe integer mentah yang tidak punya $table->foreign('kolom'). */
 function findUnconstrainedForeignKeys(text) {
-  const columns = [...new Set([...text.matchAll(RAW_INTEGER_FK)].map((m) => m[1]))];
-  return columns.filter((col) => !new RegExp(`foreign\\(\\s*['"]${col}['"]`).test(text));
+  const columns = [
+    ...new Set([...text.matchAll(RAW_INTEGER_FK)].map((m) => m[1])),
+  ];
+  return columns.filter(
+    (col) => !new RegExp(`foreign\\(\\s*['"]${col}['"]`).test(text),
+  );
 }
 
 function validateMigration(text) {
@@ -254,43 +281,54 @@ function validateMigration(text) {
   const hasCreate = text.includes("Schema::create");
 
   if (hasCreate && !TIMESTAMPS_CALL.test(text)) {
-    warnings.push("Tabel tidak mendefinisikan $table->timestamps(). Disarankan untuk audit data.");
+    warnings.push(
+      "Tabel tidak mendefinisikan $table->timestamps(). Disarankan untuk audit data.",
+    );
     recommendations.push("Tambahkan $table->timestamps(); pada migrasi.");
   }
 
   const rawForeignKeys = findUnconstrainedForeignKeys(text);
   if (rawForeignKeys.length > 0) {
-    errors.push(`Deteksi foreign key primitif (${rawForeignKeys.join(", ")}) tanpa foreign constraint.`);
+    errors.push(
+      `Deteksi foreign key primitif (${rawForeignKeys.join(", ")}) tanpa foreign constraint.`,
+    );
     recommendations.push(
       "Gunakan $table->foreignId('...')->constrained()->cascadeOnDelete(); untuk integritas referensial.",
     );
   }
 
   if (hasCreate && !PRIMARY_KEY_CALL.test(text)) {
-    errors.push("Tabel tidak memiliki primary key ($table->id() atau $table->primary()).");
+    errors.push(
+      "Tabel tidak memiliki primary key ($table->id() atau $table->primary()).",
+    );
   }
 
   if (/function\s+up\b/.test(text) && !/dropIfExists|Schema::drop/.test(text)) {
-    warnings.push("Method down() sebaiknya menyertakan Schema::dropIfExists untuk rollback yang aman.");
+    warnings.push(
+      "Method down() sebaiknya menyertakan Schema::dropIfExists untuk rollback yang aman.",
+    );
   }
 
   return { valid: errors.length === 0, errors, warnings, recommendations };
 }
 
-const DB_RAW_INTERPOLATION = /DB::raw\s*\(\s*(?:['"][^'"]*\$|['"][^'"]*['"]\s*\.\s*\$[a-zA-Z0-9_]+)/i;
+const DB_RAW_INTERPOLATION =
+  /DB::raw\s*\(\s*(?:['"][^'"]*\$|['"][^'"]*['"]\s*\.\s*\$[a-zA-Z0-9_]+)/i;
 const ENV_CALL = /env\s*\(\s*['"][A-Z0-9_]+['"]\s*\)/;
 
 const CODE_REVIEW_RULES = [
   {
     severity: "warning",
     test: (text) => text.includes("@livewire("),
-    message: "Penggunaan tag legasi @livewire(). Disarankan menggunakan tag modern <livewire:... />.",
+    message:
+      "Penggunaan tag legasi @livewire(). Disarankan menggunakan tag modern <livewire:... />.",
     fix: "Ganti @livewire('component-name') menjadi <livewire:component-name />",
   },
   {
     severity: "error",
     test: (text) => DB_RAW_INTERPOLATION.test(text),
-    message: "Potensi SQL Injection terdeteksi dalam DB::raw() dengan konkatenasi variabel langsung.",
+    message:
+      "Potensi SQL Injection terdeteksi dalam DB::raw() dengan konkatenasi variabel langsung.",
     fix: "Gunakan parameterized query atau Eloquent bindings alih-alih merangkai query langsung.",
   },
   {
@@ -303,11 +341,13 @@ const CODE_REVIEW_RULES = [
 ];
 
 function reviewCode(text) {
-  const issues = CODE_REVIEW_RULES.filter((rule) => rule.test(text)).map(({ severity, message, fix }) => ({
-    severity,
-    message,
-    fix,
-  }));
+  const issues = CODE_REVIEW_RULES.filter((rule) => rule.test(text)).map(
+    ({ severity, message, fix }) => ({
+      severity,
+      message,
+      fix,
+    }),
+  );
   if (issues.length === 0) return null; // tidak ada temuan → serahkan ke Tier 1
 
   return {
@@ -332,6 +372,7 @@ class LocalIntelligence {
     this.projectRoot = PROJECT_ROOT;
     this.modelPath = this.getModelPath();
     this.MAX_OUTPUT_LENGTH = MAX_OUTPUT_LENGTH;
+    this.MAX_TOKENS = MAX_TOKENS_DEFAULT; // diagnostik / test contract (Fix #01)
     this.isAvailable = false;
 
     // Cache TTL ketersediaan model (hindari race condition pada singleton)
@@ -355,7 +396,9 @@ class LocalIntelligence {
   }
 
   get modelName() {
-    return process.env.NEXUS_MODEL_NAME || path.basename(this.modelPath, ".gguf");
+    return (
+      process.env.NEXUS_MODEL_NAME || path.basename(this.modelPath, ".gguf")
+    );
   }
 
   initSchemas() {
@@ -364,15 +407,27 @@ class LocalIntelligence {
 
   /** Resolusi path model GGUF dari env (tanpa tanda kutip, relatif terhadap root proyek). */
   getModelPath() {
-    const rawEnv = (process.env.NEXUS_MODEL_PATH || "").replace(/^["']|["']$/g, "").trim();
+    const rawEnv = (process.env.NEXUS_MODEL_PATH || "")
+      .replace(/^["']|["']$/g, "")
+      .trim();
     if (rawEnv) {
-      return path.isAbsolute(rawEnv) ? rawEnv : path.resolve(this.projectRoot, rawEnv);
+      return path.isAbsolute(rawEnv)
+        ? rawEnv
+        : path.resolve(this.projectRoot, rawEnv);
     }
 
     // Default: Qwen3-4B bila ada, jika tidak Qwen2.5-Coder-3B
-    const qwen3Path = path.resolve(this.projectRoot, "models", "Qwen3-4B-Q4_K_M.gguf");
+    const qwen3Path = path.resolve(
+      this.projectRoot,
+      "models",
+      "Qwen3-4B-Q4_K_M.gguf",
+    );
     if (fs.existsSync(qwen3Path)) return qwen3Path;
-    return path.resolve(this.projectRoot, "models", "qwen2.5-coder-3b-instruct-q4_k_m.gguf");
+    return path.resolve(
+      this.projectRoot,
+      "models",
+      "qwen2.5-coder-3b-instruct-q4_k_m.gguf",
+    );
   }
 
   // ── Ketersediaan & lifecycle model ───────────────────────────
@@ -429,9 +484,14 @@ class LocalIntelligence {
 
     const gpuLayers = resolveGpuLayers(cpuOnly);
     log.info(`Loading model [${this.modelName}] from ${this.modelPath}...`);
-    this.model = await this.llama.loadModel({ modelPath: this.modelPath, gpuLayers });
+    this.model = await this.llama.loadModel({
+      modelPath: this.modelPath,
+      gpuLayers,
+    });
     this.currentGpuLayers = gpuLayers;
-    log.info(`Model [${this.modelName}] loaded successfully (gpuLayers: ${gpuLayers}).`);
+    log.info(
+      `Model [${this.modelName}] loaded successfully (gpuLayers: ${gpuLayers}).`,
+    );
   }
 
   /**
@@ -464,7 +524,10 @@ class LocalIntelligence {
         this.llama = await getLlama({ gpu: false });
       }
 
-      this.model = await this.llama.loadModel({ modelPath: this.modelPath, gpuLayers });
+      this.model = await this.llama.loadModel({
+        modelPath: this.modelPath,
+        gpuLayers,
+      });
       this.currentGpuLayers = gpuLayers;
       log.info(`Model reloaded successfully with gpuLayers: ${gpuLayers}.`);
     } catch (err) {
@@ -486,14 +549,18 @@ class LocalIntelligence {
     if (override !== null) return override;
 
     const text = toText(prompt);
-    let score = Object.hasOwn(TASK_BASE_SCORES, taskType) ? TASK_BASE_SCORES[taskType] : DEFAULT_BASE_SCORE;
+    let score = Object.hasOwn(TASK_BASE_SCORES, taskType)
+      ? TASK_BASE_SCORES[taskType]
+      : DEFAULT_BASE_SCORE;
 
     if (text.length > 5000) score += 25;
     else if (text.length > 2000) score += 15;
 
     const lowerText = text.toLowerCase();
-    if (COMPLEX_KEYWORDS.some((keyword) => lowerText.includes(keyword))) score += 15;
-    if (SIMPLE_KEYWORDS.some((keyword) => lowerText.includes(keyword))) score -= 10;
+    if (COMPLEX_KEYWORDS.some((keyword) => lowerText.includes(keyword)))
+      score += 15;
+    if (SIMPLE_KEYWORDS.some((keyword) => lowerText.includes(keyword)))
+      score -= 10;
 
     return score < TIER0_THRESHOLD ? 0 : 1;
   }
@@ -510,7 +577,11 @@ class LocalIntelligence {
     if (!result) return null;
 
     const executionTimeMs = Number((performance.now() - startedAt).toFixed(3));
-    return JSON.stringify({ ...result, tier: TIER0_LABEL, execution_time_ms: executionTimeMs }, null, 2);
+    return JSON.stringify(
+      { ...result, tier: TIER0_LABEL, execution_time_ms: executionTimeMs },
+      null,
+      2,
+    );
   }
 
   // ── Public API ───────────────────────────────────────────────
@@ -523,7 +594,12 @@ class LocalIntelligence {
    * @param {Object} options - { tier, schema, grammar, maxTokens, temperature, timeoutMs }
    * @returns {Promise<string|null>}
    */
-  async generate(prompt, taskType = "analyze_code", systemPromptOverride = null, options = {}) {
+  async generate(
+    prompt,
+    taskType = "analyze_code",
+    systemPromptOverride = null,
+    options = {},
+  ) {
     if (!ALLOWED_TASKS.includes(taskType)) {
       throw new Error(`Boundary Violation: Task "${taskType}" not allowed.`);
     }
@@ -537,14 +613,19 @@ class LocalIntelligence {
       log.info(`⚡ Routing task "${taskType}" to Tier 0 (Heuristic Engine)...`);
       const heuristicResult = this.executeHeuristic(taskType, safePrompt);
       if (heuristicResult) return heuristicResult;
-      log.info(`Heuristic rule didn't cover task "${taskType}". Routing to Tier 1...`);
+      log.info(
+        `Heuristic rule didn't cover task "${taskType}". Routing to Tier 1...`,
+      );
     }
 
     return this._runTier1(safePrompt, systemPrompt, taskType, opts);
   }
 
   /** Convenience: analisis kode terhadap best practice TALL stack. */
-  async analyzeCode(code, task = "Review this code for TALL stack best practices.") {
+  async analyzeCode(
+    code,
+    task = "Review this code for TALL stack best practices.",
+  ) {
     const prompt = `Task: ${task}\n\nCode:\n\`\`\`php\n${code}\n\`\`\``;
     return this.generate(prompt, "analyze_code");
   }
@@ -564,7 +645,9 @@ class LocalIntelligence {
       if (Object.hasOwn(this.schemas, opts.schema)) {
         opts.schema = this.schemas[opts.schema];
       } else {
-        log.warn(`Unknown schema preset "${opts.schema}". Proceeding without schema.`);
+        log.warn(
+          `Unknown schema preset "${opts.schema}". Proceeding without schema.`,
+        );
         delete opts.schema;
       }
     }
@@ -575,9 +658,15 @@ class LocalIntelligence {
   _capPromptChars(prompt) {
     if (prompt.length <= MAX_PROMPT_CHARS) return prompt;
 
-    log.warn(`Prompt terlalu besar (${prompt.length} chars). Truncating (no chunking).`);
+    log.warn(
+      `Prompt terlalu besar (${prompt.length} chars). Truncating (no chunking).`,
+    );
     const half = Math.floor(MAX_PROMPT_CHARS / 2);
-    return prompt.slice(0, half) + "\n\n...[PROMPT TRUNCATED DUE TO RAM LIMIT]...\n\n" + prompt.slice(-half);
+    return (
+      prompt.slice(0, half) +
+      "\n\n...[PROMPT TRUNCATED DUE TO RAM LIMIT]...\n\n" +
+      prompt.slice(-half)
+    );
   }
 
   // ── Circuit breaker ──────────────────────────────────────────
@@ -591,7 +680,9 @@ class LocalIntelligence {
         return false;
       }
       cb.state = "HALF-OPEN";
-      log.info("⚡ Circuit breaker HALF-OPEN — testing inference availability...");
+      log.info(
+        "⚡ Circuit breaker HALF-OPEN — testing inference availability...",
+      );
     }
 
     if (cb.state === "HALF-OPEN") {
@@ -611,10 +702,14 @@ class LocalIntelligence {
 
     if (cb.state === "HALF-OPEN" || cb.failures >= BREAKER_FAILURE_THRESHOLD) {
       const reason =
-        cb.state === "HALF-OPEN" ? "HALF-OPEN test failed" : `${cb.failures} failures`;
+        cb.state === "HALF-OPEN"
+          ? "HALF-OPEN test failed"
+          : `${cb.failures} failures`;
       cb.state = "OPEN";
       cb.openedAt = Date.now();
-      log.error(`🔴 Circuit breaker OPEN (${reason}). Cooldown ${BREAKER_COOLDOWN_MS / 1000} detik.`);
+      log.error(
+        `🔴 Circuit breaker OPEN (${reason}). Cooldown ${BREAKER_COOLDOWN_MS / 1000} detik.`,
+      );
     }
   }
 
@@ -627,14 +722,18 @@ class LocalIntelligence {
   }
 
   async _runTier1(prompt, systemPrompt, taskType, options) {
-    log.info(`Routing task "${taskType}" to Tier 1 (Fast Local node-llama-cpp)...`);
+    log.info(
+      `Routing task "${taskType}" to Tier 1 (Fast Local node-llama-cpp)...`,
+    );
 
     if (!this._breakerAllowsRequest()) return null;
 
     try {
       if (!(await this.checkAvailability())) return null;
 
-      const result = await this._enqueue(() => this._doGenerate(prompt, systemPrompt, taskType, options));
+      const result = await this._enqueue(() =>
+        this._doGenerate(prompt, systemPrompt, taskType, options),
+      );
       this._recordSuccess();
       return result;
     } catch (e) {
@@ -648,13 +747,23 @@ class LocalIntelligence {
 
   _contextSizeCandidates() {
     let requested = parseInt(process.env.NEXUS_CONTEXT_SIZE, 10);
-    if (!Number.isFinite(requested) || requested < MIN_CONTEXT_SIZE) requested = DEFAULT_CONTEXT_SIZE;
-    return [...new Set([requested, ...FALLBACK_CONTEXT_SIZES].filter((size) => size <= requested))];
+    if (!Number.isFinite(requested) || requested < MIN_CONTEXT_SIZE)
+      requested = DEFAULT_CONTEXT_SIZE;
+    return [
+      ...new Set(
+        [requested, ...FALLBACK_CONTEXT_SIZES].filter(
+          (size) => size <= requested,
+        ),
+      ),
+    ];
   }
 
   /** Buat context dengan ukuran terbesar yang muat; fallback ke CPU bila VRAM habis. */
   async _createContext() {
-    const threads = Math.max(1, parseInt(process.env.NEXUS_CPU_THREADS, 10) || DEFAULT_THREADS);
+    const threads = Math.max(
+      1,
+      parseInt(process.env.NEXUS_CPU_THREADS, 10) || DEFAULT_THREADS,
+    );
     let cpuFallbackTried = false;
 
     for (const size of this._contextSizeCandidates()) {
@@ -665,20 +774,33 @@ class LocalIntelligence {
       } catch (err) {
         log.warn(`Failed to create context (Size: ${size}): ${err.message}`);
 
-        if (!cpuFallbackTried && this.currentGpuLayers !== 0 && isGpuMemoryError(err)) {
+        if (
+          !cpuFallbackTried &&
+          this.currentGpuLayers !== 0 &&
+          isGpuMemoryError(err)
+        ) {
           cpuFallbackTried = true;
-          log.warn("⚡ Vulkan/GPU VRAM exhausted. Falling back to pure CPU engine...");
+          log.warn(
+            "⚡ Vulkan/GPU VRAM exhausted. Falling back to pure CPU engine...",
+          );
           try {
             await this._reloadModel(0, true);
-            return await this.model.createContext({ contextSize: size, threads });
+            return await this.model.createContext({
+              contextSize: size,
+              threads,
+            });
           } catch (cpuErr) {
-            log.warn(`CPU context creation failed (Size: ${size}): ${cpuErr.message}`);
+            log.warn(
+              `CPU context creation failed (Size: ${size}): ${cpuErr.message}`,
+            );
           }
         }
       }
     }
 
-    throw new Error("Failed to create context for local LLM after trying all memory/CPU fallback strategies.");
+    throw new Error(
+      "Failed to create context for local LLM after trying all memory/CPU fallback strategies.",
+    );
   }
 
   /**
@@ -687,11 +809,17 @@ class LocalIntelligence {
    */
   _fitToContext(prompt, systemPrompt, contextSize, wantedMaxTokens) {
     const systemTokens = this.model.tokenize(systemPrompt).length;
-    const reservedForOutput = Math.min(wantedMaxTokens, Math.floor(contextSize / 2));
-    const promptBudget = contextSize - reservedForOutput - systemTokens - CONTEXT_OVERHEAD_TOKENS;
+    const reservedForOutput = Math.min(
+      wantedMaxTokens,
+      Math.floor(contextSize / 2),
+    );
+    const promptBudget =
+      contextSize - reservedForOutput - systemTokens - CONTEXT_OVERHEAD_TOKENS;
 
     if (promptBudget < MIN_PROMPT_TOKENS) {
-      throw new Error(`Context size ${contextSize} terlalu kecil untuk system prompt + output. Naikkan NEXUS_CONTEXT_SIZE.`);
+      throw new Error(
+        `Context size ${contextSize} terlalu kecil untuk system prompt + output. Naikkan NEXUS_CONTEXT_SIZE.`,
+      );
     }
 
     const tokens = this.model.tokenize(prompt);
@@ -699,8 +827,13 @@ class LocalIntelligence {
     let promptTokens = tokens.length;
 
     if (tokens.length > promptBudget) {
-      log.warn(`Prompt (${tokens.length} token) melebihi anggaran ${promptBudget} token pada context ${contextSize}. Truncating.`);
-      const keep = Math.max(MIN_PROMPT_TOKENS, promptBudget - this.model.tokenize(TRUNCATION_MARKER).length);
+      log.warn(
+        `Prompt (${tokens.length} token) melebihi anggaran ${promptBudget} token pada context ${contextSize}. Truncating.`,
+      );
+      const keep = Math.max(
+        MIN_PROMPT_TOKENS,
+        promptBudget - this.model.tokenize(TRUNCATION_MARKER).length,
+      );
       const head = Math.ceil(keep / 2);
       const tail = keep - head;
       fittedPrompt =
@@ -710,9 +843,14 @@ class LocalIntelligence {
       promptTokens = promptBudget;
     }
 
-    const maxTokens = Math.min(wantedMaxTokens, contextSize - systemTokens - CONTEXT_OVERHEAD_TOKENS - promptTokens);
+    const maxTokens = Math.min(
+      wantedMaxTokens,
+      contextSize - systemTokens - CONTEXT_OVERHEAD_TOKENS - promptTokens,
+    );
     if (maxTokens < wantedMaxTokens) {
-      log.warn(`maxTokens dibatasi ${maxTokens} (diminta ${wantedMaxTokens}) agar muat di context ${contextSize}.`);
+      log.warn(
+        `maxTokens dibatasi ${maxTokens} (diminta ${wantedMaxTokens}) agar muat di context ${contextSize}.`,
+      );
     }
     return { prompt: fittedPrompt, maxTokens };
   }
@@ -721,7 +859,10 @@ class LocalIntelligence {
   async _getSchemaGrammar(schema) {
     const key = JSON.stringify(schema);
     if (!this._grammarCache.has(key)) {
-      this._grammarCache.set(key, await this.llama.createGrammarForJsonSchema(schema));
+      this._grammarCache.set(
+        key,
+        await this.llama.createGrammarForJsonSchema(schema),
+      );
     }
     return this._grammarCache.get(key);
   }
@@ -732,7 +873,9 @@ class LocalIntelligence {
         log.info("🛡️ Enforcing GBNF JSON Schema Grammar...");
         return await this._getSchemaGrammar(options.schema);
       } catch (err) {
-        log.warn(`Could not compile schema grammar: ${err.message}. Proceeding without grammar.`);
+        log.warn(
+          `Could not compile schema grammar: ${err.message}. Proceeding without grammar.`,
+        );
       }
     }
     return options.grammar;
@@ -743,10 +886,15 @@ class LocalIntelligence {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
-      return await session.prompt(prompt, { ...promptOptions, signal: controller.signal });
+      return await session.prompt(prompt, {
+        ...promptOptions,
+        signal: controller.signal,
+      });
     } catch (err) {
       if (controller.signal.aborted) {
-        throw new Error(`LocalIntelligence inference timed out after ${timeoutMs}ms`);
+        throw new Error(
+          `LocalIntelligence inference timed out after ${timeoutMs}ms`,
+        );
       }
       throw err;
     } finally {
@@ -759,6 +907,9 @@ class LocalIntelligence {
 
     const { LlamaChatSession } = await loadLlamaModule();
     const isBuilderTask = BUILDER_TASKS.includes(taskType);
+    const timeoutMs =
+      options.timeoutMs ||
+      (isBuilderTask ? BUILDER_TIMEOUT_MS : DEFAULT_TIMEOUT_MS);
     const context = await this._createContext();
 
     let responseText;
@@ -767,29 +918,43 @@ class LocalIntelligence {
         prompt,
         systemPrompt,
         context.contextSize,
-        options.maxTokens || (isBuilderTask ? MAX_TOKENS_BUILDER : MAX_TOKENS_DEFAULT),
+        options.maxTokens ||
+          (isBuilderTask ? MAX_TOKENS_BUILDER : MAX_TOKENS_DEFAULT),
       );
 
-      const session = new LlamaChatSession({ contextSequence: context.getSequence(), systemPrompt });
+      const session = new LlamaChatSession({
+        contextSequence: context.getSequence(),
+        systemPrompt,
+      });
       const promptOptions = {
-        temperature: options.temperature ?? (isBuilderTask ? TEMPERATURE_BUILDER : TEMPERATURE_DEFAULT),
+        temperature:
+          options.temperature ??
+          (isBuilderTask ? TEMPERATURE_BUILDER : TEMPERATURE_DEFAULT),
         maxTokens,
         grammar: await this._resolveGrammar(options),
       };
 
-      log.info("Prompting local model... (Ini akan memakan waktu)");
+      log.info(
+        `Prompting local model... (max ${maxTokens} token, budget waktu ${Math.round(timeoutMs / 1000)}s — ini akan memakan waktu)`,
+      );
+      const startedAt = performance.now();
       responseText = await this._promptWithTimeout(
         session,
         fittedPrompt,
         promptOptions,
-        options.timeoutMs || DEFAULT_TIMEOUT_MS,
+        timeoutMs,
+      );
+      log.info(
+        `⏱️ Inference selesai dalam ${((performance.now() - startedAt) / 1000).toFixed(1)}s.`,
       );
     } finally {
       // Selalu bersihkan context agar memori tidak penuh
       await context.dispose().catch(() => {});
     }
 
-    return this.validateOutput(responseText, taskType, { expectJson: Boolean(options.schema) });
+    return this.validateOutput(responseText, taskType, {
+      expectJson: Boolean(options.schema),
+    });
   }
 
   // ── Validasi output ──────────────────────────────────────────
@@ -810,7 +975,9 @@ class LocalIntelligence {
       try {
         JSON.parse(text);
       } catch (err) {
-        log.warn(`Output bukan JSON valid untuk task "${taskType}" (${err.message}). Kemungkinan terpotong oleh maxTokens.`);
+        log.warn(
+          `Output bukan JSON valid untuk task "${taskType}" (${err.message}). Kemungkinan terpotong oleh maxTokens.`,
+        );
         return null;
       }
       return text;
@@ -821,7 +988,10 @@ class LocalIntelligence {
       log.warn(
         `Output terlalu panjang (${text.length} chars) untuk task "${taskType}". Truncated to ${this.MAX_OUTPUT_LENGTH}.`,
       );
-      return text.slice(0, this.MAX_OUTPUT_LENGTH) + "\n...[TRUNCATED BY BOUNDARY GUARD]";
+      return (
+        text.slice(0, this.MAX_OUTPUT_LENGTH) +
+        "\n...[TRUNCATED BY BOUNDARY GUARD]"
+      );
     }
 
     return text;

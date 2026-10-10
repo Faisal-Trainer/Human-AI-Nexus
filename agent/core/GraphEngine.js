@@ -13,6 +13,7 @@ class GraphEngine {
     this.aliasIndex = new Map(); // alias -> nodeId
     this.isBuilt = false;
     this.cacheFile = options.cacheFile || null;
+    this.sourceFingerprint = null;
   }
 
   /**
@@ -550,6 +551,7 @@ class GraphEngine {
       nodes: nodesObj,
       edges: this.edges,
       aliases: Object.fromEntries(this.aliasIndex),
+      sourceFingerprint: this.sourceFingerprint,
     };
   }
 
@@ -584,6 +586,7 @@ class GraphEngine {
       }
     }
 
+    this.sourceFingerprint = data.sourceFingerprint || null;
     this.isBuilt = true;
     return true;
   }

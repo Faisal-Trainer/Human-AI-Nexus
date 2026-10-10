@@ -224,7 +224,8 @@ class SemanticEngine {
   /**
    * Fast build of knowledge graph only (bypasses heavy Ollama vector embeddings)
    */
-  async buildGraphOnly() {
+  async buildGraphOnly(options = {}) {
+    const forceRebuild = options.forceRebuild === true;
     const graphCachePath = path.join(
       this.knowledgePath,
       "short_term",
@@ -232,14 +233,72 @@ class SemanticEngine {
       "nexus_graph_index.json"
     );
 
-    if (await this.graphEngine.loadCache(graphCachePath)) {
-      return this.graphEngine.getStats();
+    if (!forceRebuild && (await this.graphEngine.loadCache(graphCachePath))) {
+      const current = this.computeSourceFingerprint();
+      const cached = this.graphEngine.sourceFingerprint;
+      const fresh =
+        cached &&
+        cached.count === current.count &&
+        cached.maxMtime === current.maxMtime;
+      if (fresh) {
+        return this.graphEngine.getStats();
+      }
+      console.log(
+        `Vault graph cache stale (indexed ${cached ? cached.count : "?"} files -> ${current.count} now), rebuilding...`
+      );
     }
 
     const allFiles = this.scanAllKnowledgeFiles();
     await this.graphEngine.buildGraph(allFiles);
+    this.graphEngine.sourceFingerprint = this.computeSourceFingerprint();
     await this.graphEngine.saveCache(graphCachePath);
     return this.graphEngine.getStats();
+  }
+
+  /**
+   * Lightweight change-detector over all knowledge sources (file count + newest
+   * mtime). Globs WITHOUT reading file contents, so it stays cheap. Mirrors the
+   * exact scanning of scanAllKnowledgeFiles() so the graph cache invalidates as
+   * soon as the vault or local memory actually changes.
+   */
+  computeSourceFingerprint() {
+    const fg = require("fast-glob");
+    let count = 0;
+    let maxMtime = 0;
+    const bump = (root, rel) => {
+      count++;
+      try {
+        const st = fs.statSync(path.join(root, rel));
+        const m = Math.floor(st.mtimeMs);
+        if (m > maxMtime) maxMtime = m;
+      } catch (_) {}
+    };
+    try {
+      const local = fg.sync("**/*.{md,MD}", {
+        cwd: this.knowledgePath.replace(/\\/g, "/"),
+        ignore: [
+          "NEXUS_HUB_INDEX.md",
+          "NEXUS_NEURAL_MAP.md",
+          "INDEX_NEURAL_MAP.md",
+          "NEXUS_SEMANTIC_INDEX.json",
+          "short_term/**",
+          "cache/**",
+          "operational/indexes/**",
+          "references/**",
+        ],
+        onlyFiles: true,
+      });
+      for (const f of local) bump(this.knowledgePath, f);
+      for (const extraPath of this.additionalPaths) {
+        const vf = fg.sync("**/*.{md,MD}", {
+          cwd: extraPath.replace(/\\/g, "/"),
+          ignore: ["**/node_modules/**", "**/.obsidian/**", "**/*MOC*"],
+          onlyFiles: true,
+        });
+        for (const f of vf) bump(extraPath, f);
+      }
+    } catch (_) {}
+    return { count, maxMtime };
   }
 
   /**

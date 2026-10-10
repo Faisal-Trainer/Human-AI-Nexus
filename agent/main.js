@@ -552,12 +552,17 @@ async function main() {
       console.log("\x1b[36m%s\x1b[0m", "\n🌐 NEXUS Knowledge Graph & GraphRAG");
       console.log("==========================================");
 
-      const query = args.slice(1).join(" ").trim();
+      const forceRebuild = args.includes("--rebuild");
+      const query = args
+        .slice(1)
+        .filter((a) => a !== "--rebuild")
+        .join(" ")
+        .trim();
 
       // Ensure graph is built (fast build without waiting for vector embeddings)
-      if (!engine.semanticEngine.graphEngine.isBuilt) {
+      if (forceRebuild || !engine.semanticEngine.graphEngine.isBuilt) {
         console.log("⏳ Loading/Building knowledge graph from Obsidian Vault & Memory...");
-        await engine.semanticEngine.buildGraphOnly();
+        await engine.semanticEngine.buildGraphOnly({ forceRebuild });
       }
 
       const graph = engine.semanticEngine.graphEngine;

@@ -169,7 +169,8 @@ async function runTests() {
       throw new Error("No ParallelRunner.run call");
     if (s.includes("Promise.all(auditPromises)"))
       throw new Error("Still uses unbounded Promise.all");
-    if (!s.match(/,\s*2\s*\/\/\s*FIX/))
+    // Toleran terhadap trailing comma hasil reformat Prettier: "2" atau "2," sebelum komentar FIX.
+    if (!s.match(/,\s*2\s*,?\s*\/\/\s*FIX/))
       throw new Error("No concurrency limit of 2 specified");
   });
 

@@ -1,0 +1,131 @@
+{
+  "project_name": "device-activity-tracker",
+  "models": [
+    "User",
+    "Device",
+    "Activity"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "Device": {
+      "label": "string",
+      "status": "string:default(active)"
+    },
+    "Activity": {
+      "device_id": "foreignUuid:constrained",
+      "timestamp": "datetime",
+      "activity_type": "string",
+      "details": "text"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_devices_table",
+    "create_activities_table"
+  ],
+  "livewire_components": [
+    "device-list",
+    "activity-log",
+    "device-detail"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "DeviceSeeder",
+    "ActivitySeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "DeviceFactory",
+    "ActivityFactory"
+  ],
+  "routes": [
+    "/devices",
+    "/activities"
+  ],
+  "pivot_tables": [],
+  "relationships": [
+    {
+      "model": "Device",
+      "type": "hasMany",
+      "target": "Activity"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/devices",
+      "controller": "DeviceController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/devices",
+      "controller": "DeviceController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-devices",
+      "view-activity"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/devices": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [
+    {
+      "name": "DeviceHealthCheck",
+      "queue": "default",
+      "retry": 3,
+      "backoff": 60
+    }
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "b860a30841dbf052cb5844630083edc1"
+}

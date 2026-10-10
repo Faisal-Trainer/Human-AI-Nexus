@@ -1,0 +1,123 @@
+{
+  "project_name": "bookmark-manager",
+  "models": [
+    "User",
+    "Bookmark"
+  ],
+  "schema": {
+    "User": {
+      "name": "string",
+      "email": "string:unique",
+      "password": "text",
+      "role": "string:default(user)"
+    },
+    "Bookmark": {
+      "url": "string",
+      "description": "string:nullable",
+      "user_id": "foreignUuid:constrained"
+    }
+  },
+  "migrations": [
+    "create_users_table",
+    "create_bookmarks_table"
+  ],
+  "livewire_components": [
+    "bookmark-list",
+    "bookmark-create"
+  ],
+  "seeders": [
+    "UserSeeder",
+    "BookmarkSeeder"
+  ],
+  "factories": [
+    "UserFactory",
+    "BookmarkFactory"
+  ],
+  "routes": [
+    "/bookmarks",
+    "/create-bookmark"
+  ],
+  "pivot_tables": [
+    "user_bookmarks"
+  ],
+  "relationships": [
+    {
+      "model": "User",
+      "type": "hasMany",
+      "target": "Bookmark"
+    }
+  ],
+  "middleware": [
+    "auth",
+    "verified",
+    "throttle:60,1"
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/bookmarks",
+      "controller": "BookmarkController@index",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/bookmarks",
+      "controller": "BookmarkController@store",
+      "middleware": [
+        "auth:sanctum"
+      ]
+    }
+  ],
+  "security_policies": {
+    "roles": [
+      "admin",
+      "user"
+    ],
+    "permissions": [
+      "manage-bookmarks",
+      "view-dashboard"
+    ],
+    "rate_limiting": {
+      "api": "60,1",
+      "auth": "5,1"
+    },
+    "middleware_map": {
+      "/admin/*": [
+        "auth",
+        "role:admin"
+      ],
+      "/dashboard": [
+        "auth",
+        "verified"
+      ]
+    }
+  },
+  "async_jobs": [
+    {
+      "name": "ProcessBookmarkTask",
+      "queue": "default",
+      "retry": 3,
+      "backoff": 60
+    }
+  ],
+  "ui_design_system": {
+    "color_palette": {
+      "primary": "#4f46e5",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#f8fafc",
+      "surface": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Inter",
+      "body_font": "Inter",
+      "scale": "1.25"
+    },
+    "layout": "sidebar-main",
+    "theme": "light",
+    "component_style": "rounded-2xl shadow-sm border border-slate-200"
+  },
+  "_readmeHash": "b7a39dd35c9a6a849eae2eb2ab238486"
+}

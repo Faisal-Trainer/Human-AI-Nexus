@@ -56,6 +56,7 @@ class SandboxProjectSetup {
         } catch (lwErr) {
           console.warn(`   ⚠️ Gagal auto-install Livewire: ${lwErr.message}`);
         }
+      }
       await this._patchTemplateAutoloader();
       return true;
     }
@@ -347,6 +348,7 @@ class SandboxProjectSetup {
           await fs.remove(path.join(cacheDir, file)).catch(() => {});
         }
       }
+    }
     // Pastikan autoloader template mendukung junctioned sandboxes
     await this._patchTemplateAutoloader();
   }

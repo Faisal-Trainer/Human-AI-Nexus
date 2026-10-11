@@ -2,6 +2,23 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.5] - 2026-10-12 (Junction Sandbox Autoload Fix)
+
+### Fixed
+
+- **Livewire `ComponentNotFoundException` saat `php artisan serve` (`SandboxProjectSetup.js` & `laravel-fresh-template/vendor/autoload.php`)**: sandbox junction (vendor symlink ke template) gagal autoload kelas `App\Livewire\*` / `App\Models\*` milik project hanya saat diakses lewat web server, sementara `migrate`/`db:seed` (CLI) berjalan normal.
+  - **Akar masalah**: `ServeCommand` menjalankan built-in server dengan working directory = `public_path()`, sehingga `getcwd()` saat request = `<project>/public`. Patch autoload lama mengecek `is_dir(getcwd().'/app')` → `public/app` → **false** → namespace `App\` sandbox tidak pernah didaftarkan.
+  - **Solusi generik**: deteksi root project dengan **naik dari `getcwd()`** (maks 8 level) sampai ketemu folder yang punya `app/` + `artisan`/`composer.json`, baru daftarkan PSR-4. Bekerja untuk CWD=root maupun CWD=`public/`, tanpa hardcode nama project.
+  - **Self-healing**: `_patchTemplateAutoloader()` kini selalu menimpa ulang blok patch (memotong setelah `$loader = ComposerAutoloaderInit...::getLoader();` lalu append blok kanonik), menggantikan guard marker yang justru mencegah pemulihan template lama.
+
+### Verified
+
+- Probe dari `url-shortener-app/public`: `UrlShortenerManager`, `LinkAnalyticsTable`, `ShortUrl`, `ClickStat` semuanya **FOUND**. `php -l` (template + output generator) bersih; `node --check` OK.
+
+### Changed
+
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.5`.
+
 ## [v3.4.4] - 2026-10-11 (Deterministic Schema Guards & Redis Capacity)
 
 Perbaikan berpusat pada **engine** (bukan hasil sandbox) agar generasi kode berikutnya konsisten terhadap `blueprint.schema`. Semua guard dibuat **generik / name-agnostic** supaya sandbox tidak "manja" terhadap kasus tertentu.

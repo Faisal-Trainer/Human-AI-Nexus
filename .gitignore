@@ -93,6 +93,15 @@ knowledge/*_LOG.md
 memory/distilled/performance/*.MD
 memory/operational/records/*.json
 
+# --- NEXUS Generated Artifacts (regenerated at runtime, never version) ---
+# Root blueprint written by blueprintApp() when rootPath == repo root
+NEXUS_BLUEPRINT.json
+# Generated graph/vector cache index (volatile, large). NOTE: correct path is
+# under memory/distilled/short_term, not memory/short_term as the old rule above.
+memory/distilled/short_term/cache/
+# Per-project blueprint JSONs produced by Phase 0.5 scaffolding
+memory/operational/blueprints/
+
 # --- Large Model Files ---
 models/
 *.gguf

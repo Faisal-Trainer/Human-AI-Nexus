@@ -8,6 +8,14 @@ const path = require("path");
 const redis = require("./RedisMemory");
 const GraphEngine = require("./GraphEngine");
 
+// Kapasitas query cache: jumlah hasil default & TTL, dapat dioverride lewat .env
+const DEFAULT_SEARCH_TOPK = parseInt(process.env.NEXUS_SEARCH_TOPK, 10) > 0
+  ? parseInt(process.env.NEXUS_SEARCH_TOPK, 10)
+  : 5;
+const SEARCH_CACHE_TTL = parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10) > 0
+  ? parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10)
+  : 3600;
+
 class SemanticEngine {
     constructor(knowledgePath) {
     this.knowledgePath = knowledgePath;
@@ -637,7 +645,7 @@ class SemanticEngine {
    * @param {number} topK - Jumlah hasil teratas
    * @returns {Array} - Sorted results dengan score
    */
-  async search(query, topK = 5) {
+  async search(query, topK = DEFAULT_SEARCH_TOPK) {
     // 1. Cek Redis Cache
     const cacheKey = `nexus:search:${Buffer.from(query).toString('base64')}:${topK}`;
     const cachedResults = await redis.get(cacheKey);
@@ -725,8 +733,8 @@ class SemanticEngine {
     // Sort by score descending, ambil top K
     const finalResults = results.sort((a, b) => b.score - a.score).slice(0, topK);
     
-    // 2. Simpan ke Redis Cache (expire 30 menit)
-    await redis.set(cacheKey, finalResults, 1800);
+    // 2. Simpan ke Redis Cache (TTL via NEXUS_REDIS_CACHE_TTL, default 1 jam)
+    await redis.set(cacheKey, finalResults, SEARCH_CACHE_TTL);
     
     return finalResults;
   }

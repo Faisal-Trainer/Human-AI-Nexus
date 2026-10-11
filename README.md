@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.4.3 (Local Inference Resilience & Jev Evaluation Gate)
-> **Updated**: 10/10/2026
+> **Version**: v3.4.4 (Deterministic Schema Guards & Redis Capacity)
+> **Updated**: 11/10/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
@@ -326,4 +326,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 10/10/2026 (v3.4.3 - Local Inference Resilience & Jev Evaluation Gate)_
+_Terakhir Dioptimasi: 11/10/2026 (v3.4.4 - Deterministic Schema Guards & Redis Capacity)_

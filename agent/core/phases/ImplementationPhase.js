@@ -20,10 +20,17 @@ class ImplementationPhase extends BasePhase {
     const blueprint = await fs.readJson(blueprintPath);
 
     // TypeSafe Blueprint Gate (fail-open validation before code generation)
-    if (this.engine.typeSafeValidator && this.engine.typeSafeValidator.enabled) {
-      this.log(`🛡️ Validating blueprint with TypeSafe before code generation...`, "info");
+    if (
+      this.engine.typeSafeValidator &&
+      this.engine.typeSafeValidator.enabled
+    ) {
+      this.log(
+        `🛡️ Validating blueprint with TypeSafe before code generation...`,
+        "info",
+      );
       try {
-        const tvResult = await this.engine.typeSafeValidator.validateBlueprint(blueprint);
+        const tvResult =
+          await this.engine.typeSafeValidator.validateBlueprint(blueprint);
         if (!tvResult.skipped) {
           if (!tvResult.ok) {
             this.log(
@@ -31,11 +38,17 @@ class ImplementationPhase extends BasePhase {
               "warning",
             );
           } else {
-            this.log(`✅ TypeSafeValidator: Blueprint confirmed ready for implementation.`, "success");
+            this.log(
+              `✅ TypeSafeValidator: Blueprint confirmed ready for implementation.`,
+              "success",
+            );
           }
         }
       } catch (err) {
-        this.log(`⚠️ TypeSafeValidator check skipped: ${err.message}`, "warning");
+        this.log(
+          `⚠️ TypeSafeValidator check skipped: ${err.message}`,
+          "warning",
+        );
       }
     }
 
@@ -178,21 +191,42 @@ class ImplementationPhase extends BasePhase {
       }
 
       // Phase B #8: Auth Scaffolding — deterministic guard for laravel/ui
-      // If Breeze/ui not installed, strip Auth::routes() to keep artisan route:list bootable (sections 1,2,3)
-      if (!hasBreeze) {
+      // BUGFIX: Auth::routes() belongs to laravel/ui (UiServiceProvider), NOT Breeze.
+      // The NEXUS template uses Breeze (require routes/auth.php). When the LLM
+      // hallucinates Auth::routes() into web.php while laravel/ui is absent,
+      // `artisan route:list` / migrate boot crashes with RuntimeException.
+      // So we must strip Auth::routes() whenever laravel/ui is NOT installed,
+      // INDEPENDENT of whether Breeze is present (previously keyed on !hasBreeze,
+      // which wrongly skipped the strip for every Breeze project).
+      const hasUi = await fs.pathExists(
+        path.join(root, "vendor", "laravel", "ui"),
+      );
+      if (!hasUi) {
         try {
           const webPath = path.join(root, "routes", "web.php");
           if (await fs.pathExists(webPath)) {
             let web = await fs.readFile(webPath, "utf8");
             const orig = web;
-            web = web.replace(/Auth::routes\(.*?\);/g, "// Auth::routes() removed — laravel/ui not installed");
+            web = web.replace(
+              /Auth::routes\s*\([^;]*\)\s*;/g,
+              "// Auth::routes() removed — laravel/ui not installed (Breeze uses routes/auth.php)",
+            );
             if (web !== orig) {
               await fs.writeFile(webPath, web, "utf8");
-              this.log(`      🔧 Removed Auth::routes() (laravel/ui not installed) from routes/web.php`, "warning");
+              this.log(
+                `      🔧 Stripped Auth::routes() from routes/web.php (laravel/ui not installed)`,
+                "warning",
+              );
             }
           }
         } catch (_) {}
-        this.log(`      ⚠️ Laravel Breeze installation skipped per user request (Auth::routes stripped if present).`, "warning");
+      }
+
+      if (!hasBreeze) {
+        this.log(
+          `      ⚠️ Laravel Breeze installation skipped per user request.`,
+          "warning",
+        );
       } else {
         this.log(
           `      ✅ Skipping Breeze scaffolding (already installed).`,
@@ -431,6 +465,23 @@ class ImplementationPhase extends BasePhase {
 
     // CRITICAL: Protect Laravel's core Authenticatable User model from corruption
     if (modelName === "User" && (await fs.pathExists(modelPath))) {
+      // Preserve the core model, but generically register any extra
+      // blueprint-declared User columns (e.g. role) into its fillable.
+      const userSchema = blueprint.schema ? blueprint.schema["User"] : null;
+      const extra = this._extraUserColumns(userSchema).map((c) => c.name);
+      if (extra.length > 0) {
+        try {
+          const cur = await fs.readFile(modelPath, "utf8");
+          const upd = this._ensureUserFillable(cur, extra);
+          if (upd !== cur) {
+            await fs.writeFile(modelPath, upd, "utf8");
+            this.log(
+              `      🔧 Registered extra User fillable column(s): ${extra.join(", ")}`,
+              "warning",
+            );
+          }
+        } catch (_) {}
+      }
       this.log(
         `      🛡️ Preserving core Laravel Authenticatable User.php model.`,
         "success",
@@ -492,33 +543,46 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       prompt,
       "build_model_migration",
     );
-    await fs.ensureDir(path.dirname(modelPath));
+    const knownModels = blueprint.models || [];
+    const modelSchemaObj = blueprint.schema
+      ? blueprint.schema[modelName]
+      : null;
 
-    if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
-      await fs.writeFile(modelPath, cleanCode);
-      const syntaxOk = await this.validatePHPSyntax(modelPath);
-      if (!syntaxOk) {
-        this.log(
-          `      ⚠️ Syntax error in generated model. Writing safe fallback for ${modelName}.php`,
-          "warning",
-        );
-        await fs.writeFile(
-          modelPath,
-          this._safeFallbackModel(modelName, tableName),
-        );
-      }
-      this.log(`      ✅ Saved ${modelName}.php`, "success");
-    } else {
+    let finalCode = response ? this.cleanLLMOutput(response) : null;
+    if (!finalCode) {
       this.log(
         `      ⚠️ LLM returned empty. Writing safe fallback for ${modelName}.php`,
         "warning",
       );
-      await fs.writeFile(
-        modelPath,
-        this._safeFallbackModel(modelName, tableName),
-      );
+      finalCode = this._safeFallbackModel(modelName, tableName);
     }
+
+    // Deterministic guard: lock $fillable + relationships to blueprint.schema
+    finalCode = this._ensureModelFillable(
+      modelName,
+      modelSchemaObj,
+      knownModels,
+      finalCode,
+    );
+
+    await fs.ensureDir(path.dirname(modelPath));
+    await fs.writeFile(modelPath, finalCode);
+    let syntaxOk = await this.validatePHPSyntax(modelPath);
+    if (!syntaxOk) {
+      this.log(
+        `      ⚠️ Syntax error in generated model. Writing safe fallback for ${modelName}.php`,
+        "warning",
+      );
+      let fb = this._safeFallbackModel(modelName, tableName);
+      fb = this._ensureModelFillable(
+        modelName,
+        modelSchemaObj,
+        knownModels,
+        fb,
+      );
+      await fs.writeFile(modelPath, fb);
+    }
+    this.log(`      ✅ Saved ${modelName}.php`, "success");
   }
 
   _safeFallbackModel(modelName, tableName) {
@@ -543,6 +607,48 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
         "0001_01_01_000000_create_users_table.php",
       );
       if (await fs.pathExists(defaultUsersMigration)) {
+        // Generic: realise any blueprint-declared User columns missing from the
+        // core table via an ADDITIVE migration (never edit the core 0001 file).
+        const userSchema = blueprint.schema ? blueprint.schema["User"] : null;
+        const extraCols = this._extraUserColumns(userSchema);
+        if (extraCols.length > 0) {
+          const migrationDir = path.join(
+            this.engine.rootPath,
+            "database",
+            "migrations",
+          );
+          const now = new Date();
+          const datePrefix = `${now.getFullYear()}_${String(
+            now.getMonth() + 1,
+          ).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
+          const timestamp = Math.floor(Date.now() / 1000);
+          const addFile = `${datePrefix}_${timestamp}_add_attributes_to_users_table.php`;
+          if (await fs.pathExists(migrationDir)) {
+            for (const f of await fs.readdir(migrationDir)) {
+              if (f.includes("add_attributes_to_users_table")) {
+                await fs.remove(path.join(migrationDir, f));
+              }
+            }
+          }
+          const addPath = path.join(migrationDir, addFile);
+          await fs.ensureDir(migrationDir);
+          await fs.writeFile(
+            addPath,
+            this._buildAddColumnsToUsersMigration(extraCols),
+          );
+          const ok = await this.validatePHPSyntax(addPath);
+          if (!ok) await fs.remove(addPath);
+          this.log(
+            ok
+              ? `      ➕ Additive users migration ${addFile} for column(s): ${extraCols
+                  .map((c) => c.name)
+                  .join(", ")}`
+              : `      ⚠️ Additive users migration rejected (syntax) for: ${extraCols
+                  .map((c) => c.name)
+                  .join(", ")}`,
+            ok ? "success" : "warning",
+          );
+        }
         this.log(
           `      🛡️ Preserving core Laravel 0001_01_01_000000_create_users_table.php. Skipping custom ${tableName} migration.`,
           "success",
@@ -648,7 +754,10 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       cleanCode = cleanCode.replace(/\s+NOT\s+NULL/gi, "");
       cleanCode = cleanCode.replace(/->NOT\s+NULL\(\)/gi, "");
       cleanCode = cleanCode.replace(/->notNull\(\)/gi, "");
-      cleanCode = cleanCode.replace(/->nullable\(\)\s*NOT\s*NULL/gi, "->nullable()");
+      cleanCode = cleanCode.replace(
+        /->nullable\(\)\s*NOT\s*NULL/gi,
+        "->nullable()",
+      );
       cleanCode = cleanCode.replace(
         /->foreignUuid\(['"]user_id['"]\)/gi,
         "->foreignId('user_id')",
@@ -699,6 +808,26 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         }
       }
 
+      // Deterministic guard: inject any blueprint.schema columns the LLM dropped
+      if (
+        targetModelName &&
+        blueprint.schema &&
+        blueprint.schema[targetModelName]
+      ) {
+        const ensured = this._ensureMigrationColumns(
+          tableName,
+          blueprint.schema[targetModelName],
+          cleanCode,
+        );
+        if (ensured.injected.length > 0) {
+          cleanCode = ensured.code;
+          this.log(
+            `      🔧 Injected ${ensured.injected.length} missing schema column(s) into ${tableName}: ${ensured.injected.join(", ")}`,
+            "warning",
+          );
+        }
+      }
+
       // FIX #14 — Dynamic timestamp: gunakan tanggal hari ini, bukan hardcoded '2026_06_01'
       const now = new Date();
       const datePrefix = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
@@ -735,10 +864,19 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
           `      ⚠️ Syntax error in generated migration. Writing safe fallback for ${migrationFilename}`,
           "warning",
         );
-        await fs.writeFile(
-          migrationPath,
-          this._safeFallbackMigration(tableName),
-        );
+        let fb = this._safeFallbackMigration(tableName);
+        if (
+          targetModelName &&
+          blueprint.schema &&
+          blueprint.schema[targetModelName]
+        ) {
+          fb = this._ensureMigrationColumns(
+            tableName,
+            blueprint.schema[targetModelName],
+            fb,
+          ).code;
+        }
+        await fs.writeFile(migrationPath, fb);
       }
       this.log(`      ✅ Saved ${migrationFilename}`, "success");
     } else {
@@ -781,7 +919,8 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
       if (!cleanPhp.includes("function render")) {
         const lastBrace = cleanPhp.lastIndexOf("}");
         if (lastBrace !== -1) {
-          cleanPhp = cleanPhp.slice(0, lastBrace) +
+          cleanPhp =
+            cleanPhp.slice(0, lastBrace) +
             `\n    public function render()\n    {\n        return view('livewire.${kebabName}');\n    }\n}\n`;
         }
       }
@@ -829,10 +968,7 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       );
       await fs.ensureDir(path.dirname(bladePath));
       await fs.writeFile(bladePath, cleanBlade);
-      this.log(
-        `      ✅ Saved ${kebabName}.blade.php`,
-        "success",
-      );
+      this.log(`      ✅ Saved ${kebabName}.blade.php`, "success");
     }
   }
 
@@ -851,13 +987,47 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       return;
     }
 
-    const prompt = `Write a complete Laravel Factory class for '${factoryName}'. Namespace: Database\\Factories. Output ONLY the raw PHP code, starting with <?php.`;
+    const modelName = factoryName.replace(/Factory$/, "");
+    const knownModels = blueprint.models || [];
+    const schemaObj = blueprint.schema ? blueprint.schema[modelName] : null;
+
+    // Deterministic: build the factory definition directly from blueprint.schema
+    // so factory columns can NEVER drift from the model/migration columns.
+    if (schemaObj) {
+      const code = this._buildFactoryClass(
+        factoryName,
+        modelName,
+        schemaObj,
+        knownModels,
+      );
+      await fs.ensureDir(path.dirname(p));
+      await fs.writeFile(p, code);
+      const ok = await this.validatePHPSyntax(p);
+      if (!ok) {
+        this.log(
+          `      ⚠️ Syntax error in deterministic factory. Writing fallback for ${factoryName}.php`,
+          "warning",
+        );
+        await fs.writeFile(p, this._safeFallbackFactory(factoryName));
+      } else {
+        this.log(
+          `      ✅ Saved ${factoryName}.php (schema-locked)`,
+          "success",
+        );
+      }
+      return;
+    }
+
+    // No schema available — fall back to LLM with a stricter prompt.
+    const prompt = `Write a complete Laravel Factory class for '${factoryName}' (model '${modelName}'). Namespace: Database\\Factories.
+Use the fake() global helper ONLY (never an uninitialized $faker). Return an array keyed by the model's real columns.
+Output ONLY the raw PHP code, starting with <?php.`;
     const response = await this.getCachedOrGenerate(
       prompt,
       "build_model_migration",
     );
     if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
+      const cleanCode = this._sanitizeSeeder(this.cleanLLMOutput(response));
       await fs.ensureDir(path.dirname(p));
       await fs.writeFile(p, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(p);
@@ -879,6 +1049,8 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const prompt = `Write a complete Laravel Seeder class for '${seederName}'. Namespace: Database\\Seeders.
 Generate at least 5 to 10 realistic, domain-appropriate sample records so the application UI is populated with rich data.
 Use the fake() global helper ONLY (e.g., fake()->name(), fake()->sentence(), fake()->dateTime()). DO NOT use an uninitialized $faker variable.
+STRICT FAKER RULES: Only call Faker methods that actually exist — name, email, sentence, paragraph, word, words, text, url, slug, numberBetween, randomDigit, boolean, date, dateTime, unique(), randomElement. NEVER invent methods such as realistic() or realisticText(). For a *unique* column like email use fake()->unique()->safeEmail().
+COLUMN RULES: populate ONLY the real schema columns shown below. Skip id, created_at, updated_at, deleted_at, and any relationship pseudo-column whose type is hasMany/hasOne/belongsTo/belongsToMany. For a *_id foreign key, reference an existing parent (e.g. User::inRandomOrder()->first()?->id ?? User::factory()) instead of a fake() string.
 
 SCHEMA REFERENCE:
 ${fullSchema}
@@ -889,7 +1061,7 @@ Output ONLY raw PHP code starting with <?php. No markdown blocks.`;
       "build_model_migration",
     );
     if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
+      const cleanCode = this._sanitizeSeeder(this.cleanLLMOutput(response));
       const p = path.join(
         this.engine.rootPath,
         "database",
@@ -916,17 +1088,20 @@ Output ONLY raw PHP code starting with <?php. No markdown blocks.`;
     const existingControllers = await this._discoverExistingControllers();
     const existingLivewire = await this._discoverExistingLivewireComponents();
 
-    const livewireListStr = existingLivewire.length > 0
-      ? existingLivewire.map(c => `- ${c.fullClass} (Route URL: /${c.kebab})`).join("\n")
-      : "None";
+    const livewireListStr =
+      existingLivewire.length > 0
+        ? existingLivewire
+            .map((c) => `- ${c.fullClass} (Route URL: /${c.kebab})`)
+            .join("\n")
+        : "None";
 
     const prompt = `Write the content for routes/web.php in a Laravel 12 application called "${blueprint.project_name}".
 
-Required routes from blueprint: ${(routesList || []).map(r => typeof r === "string" ? r : r.path).join(", ")}
+Required routes from blueprint: ${(routesList || []).map((r) => (typeof r === "string" ? r : r.path)).join(", ")}
 
 AVAILABLE BLADE VIEWS ON DISK:
 - welcome
-${existingLivewire.map(c => `- livewire.${c.kebab}`).join("\n")}
+${existingLivewire.map((c) => `- livewire.${c.kebab}`).join("\n")}
 
 CRITICAL ARCHITECTURE RULES:
 1. All page routes MUST return a view that exists in the AVAILABLE BLADE VIEWS list above.
@@ -937,12 +1112,12 @@ CRITICAL ARCHITECTURE RULES:
    Route::get('/login', function () { return redirect('/'); })->name('login');
 4. DO NOT add namespace App\\Http; at the top of routes/web.php.
 5. DO NOT route directly to component classes as invokable actions. Use closures returning views.
-6. Start with <?php. Output ONLY raw PHP code, no markdown blocks.`;
+6. REDIRECT / LOOKUP ROUTES: if a required route contains a path parameter (e.g. /{shortCode}, /{slug}, /{code}) that represents a public short-link or lookup, it MUST be the LAST route and its closure must query the matching model by that key and return redirect()->to(<stored url>) with a 404 fallback, e.g.:
+   Route::get('/{shortCode}', function (string $shortCode) { $u = App\\Models\\ShortUrl::where('shortened_url', $shortCode)->first(); return $u ? redirect()->to($u->original_url ?? $u->shortened_url) : abort(404); })->name('short-code');
+   Do NOT return a Blade view for such parameterized redirect routes.
+7. Start with <?php. Output ONLY raw PHP code, no markdown blocks.`;
 
-    const response = await this.getCachedOrGenerate(
-      prompt,
-      "build_routes",
-    );
+    const response = await this.getCachedOrGenerate(prompt, "build_routes");
 
     let routesSaved = false;
     const p = path.join(this.engine.rootPath, "routes", "web.php");
@@ -950,7 +1125,10 @@ CRITICAL ARCHITECTURE RULES:
     if (response) {
       let cleanCode = this.cleanLLMOutput(response);
       // Auto-correct any namespace App\Http; at the top of web.php
-      cleanCode = cleanCode.replace(/^<\?php\s+namespace\s+[^;]+;\s*/i, "<?php\n\n");
+      cleanCode = cleanCode.replace(
+        /^<\?php\s+namespace\s+[^;]+;\s*/i,
+        "<?php\n\n",
+      );
 
       await fs.writeFile(p, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(p);
@@ -958,12 +1136,21 @@ CRITICAL ARCHITECTURE RULES:
 
       if (syntaxOk && !hasMissingViews) {
         routesSaved = true;
-        this.log(`      ✅ Validated web routes for ${blueprint.project_name}.`, "success");
+        this.log(
+          `      ✅ Validated web routes for ${blueprint.project_name}.`,
+          "success",
+        );
       } else {
         if (!syntaxOk) {
-          this.log(`      ⚠️ Syntax error in generated routes. Applying robust fallback for web.php`, "warning");
+          this.log(
+            `      ⚠️ Syntax error in generated routes. Applying robust fallback for web.php`,
+            "warning",
+          );
         } else if (hasMissingViews) {
-          this.log(`      ⚠️ Generated routes referenced non-existent Blade views. Applying robust fallback for web.php`, "warning");
+          this.log(
+            `      ⚠️ Generated routes referenced non-existent Blade views. Applying robust fallback for web.php`,
+            "warning",
+          );
         }
       }
     }
@@ -993,7 +1180,10 @@ CRITICAL ARCHITECTURE RULES:
       if (!match) continue;
       const vName = match[1];
       if (vName === "welcome") continue;
-      const vPath = path.join(viewsDir, `${vName.replace(/\./g, path.sep)}.blade.php`);
+      const vPath = path.join(
+        viewsDir,
+        `${vName.replace(/\./g, path.sep)}.blade.php`,
+      );
       if (!fs.existsSync(vPath)) {
         return true; // Found a view() call to a non-existent view file!
       }
@@ -1009,7 +1199,9 @@ CRITICAL ARCHITECTURE RULES:
     const viewsDir = path.join(this.engine.rootPath, "resources", "views");
 
     const routeStatements = [];
-    routeStatements.push(`// Home & Dashboard\nRoute::get('/', function () {\n    return view('welcome');\n})->name('home');\n\nRoute::get('/dashboard', function () {\n    return view('welcome');\n})->name('dashboard');`);
+    routeStatements.push(
+      `// Home & Dashboard\nRoute::get('/', function () {\n    return view('welcome');\n})->name('home');\n\nRoute::get('/dashboard', function () {\n    return view('welcome');\n})->name('dashboard');`,
+    );
 
     const registeredPaths = new Set(["/", "/dashboard", "/login"]);
 
@@ -1019,41 +1211,63 @@ CRITICAL ARCHITECTURE RULES:
       if (!registeredPaths.has(p)) {
         registeredPaths.add(p);
         const livewireView = `livewire.${lw.kebab}`;
-        const viewFile = path.join(viewsDir, "livewire", `${lw.kebab}.blade.php`);
+        const viewFile = path.join(
+          viewsDir,
+          "livewire",
+          `${lw.kebab}.blade.php`,
+        );
         const targetView = fs.existsSync(viewFile) ? livewireView : "welcome";
-        routeStatements.push(`Route::get('${p}', function () {\n    return view('${targetView}');\n})->name('${lw.kebab}');`);
+        routeStatements.push(
+          `Route::get('${p}', function () {\n    return view('${targetView}');\n})->name('${lw.kebab}');`,
+        );
       }
     }
 
     // Map blueprint routes
-    for (const rawRoute of (routesList || [])) {
+    for (const rawRoute of routesList || []) {
       const r = typeof rawRoute === "string" ? rawRoute : rawRoute.path;
       if (!r || registeredPaths.has(r)) continue;
 
       registeredPaths.add(r);
-      const cleanName = r.replace(/^\//, "").replace(/\//g, ".").replace(/[^a-zA-Z0-9.-]/g, "") || "route";
+      const cleanName =
+        r
+          .replace(/^\//, "")
+          .replace(/\//g, ".")
+          .replace(/[^a-zA-Z0-9.-]/g, "") || "route";
 
       // Match with Livewire view
-      const match = livewireComponents.find(lw =>
-        r.toLowerCase().includes(lw.kebab) || lw.kebab.includes(r.replace(/^\//, "").toLowerCase())
+      const match = livewireComponents.find(
+        (lw) =>
+          r.toLowerCase().includes(lw.kebab) ||
+          lw.kebab.includes(r.replace(/^\//, "").toLowerCase()),
       );
 
       let targetView = "welcome";
       if (match) {
-        const viewFile = path.join(viewsDir, "livewire", `${match.kebab}.blade.php`);
+        const viewFile = path.join(
+          viewsDir,
+          "livewire",
+          `${match.kebab}.blade.php`,
+        );
         if (fs.existsSync(viewFile)) targetView = `livewire.${match.kebab}`;
       }
 
       if (r.includes("{") || r.includes(":")) {
-        const normalized = r.replace(/:([a-zA-Z0-9_]+)/g, '{$1}');
-        routeStatements.push(`Route::get('${normalized}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`);
+        const normalized = r.replace(/:([a-zA-Z0-9_]+)/g, "{$1}");
+        routeStatements.push(
+          `Route::get('${normalized}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`,
+        );
       } else {
-        routeStatements.push(`Route::get('${r}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`);
+        routeStatements.push(
+          `Route::get('${r}', function () {\n    return view('${targetView}');\n})->name('${cleanName}');`,
+        );
       }
     }
 
     // Fallback authentication & redirect route
-    routeStatements.push(`// Fallback Authentication & Redirect Routes\nRoute::get('/login', function () {\n    return redirect('/');\n})->name('login');`);
+    routeStatements.push(
+      `// Fallback Authentication & Redirect Routes\nRoute::get('/login', function () {\n    return redirect('/');\n})->name('login');`,
+    );
 
     return `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n${routeStatements.join("\n\n")}\n`;
   }
@@ -1066,10 +1280,13 @@ CRITICAL ARCHITECTURE RULES:
     await this._ensureApiInBootstrapApp();
 
     const controllerImports = models
-      .map(m => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
+      .map((m) => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
       .join("\n");
     const resourceRoutes = models
-      .map(m => `Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`)
+      .map(
+        (m) =>
+          `Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`,
+      )
       .join("\n    ");
 
     const apiPrompt = `Write the content for routes/api.php in Laravel 12. 
@@ -1114,10 +1331,17 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
    * Ensure bootstrap/app.php in Laravel 11/12 registers routes/api.php.
    */
   async _ensureApiInBootstrapApp() {
-    const bootstrapApp = path.join(this.engine.rootPath, "bootstrap", "app.php");
+    const bootstrapApp = path.join(
+      this.engine.rootPath,
+      "bootstrap",
+      "app.php",
+    );
     if (await fs.pathExists(bootstrapApp)) {
       let bContent = await fs.readFile(bootstrapApp, "utf8");
-      if (!bContent.includes("routes/api.php") && bContent.includes("routes/web.php")) {
+      if (
+        !bContent.includes("routes/api.php") &&
+        bContent.includes("routes/web.php")
+      ) {
         bContent = bContent.replace(
           /web:\s*__DIR__\s*\.\s*['"]\/..\/routes\/web\.php['"],/g,
           "web: __DIR__.'/../routes/web.php',\n        api: __DIR__.'/../routes/api.php',",
@@ -1133,10 +1357,13 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
    */
   async _writeApiFallback(apiPath, models) {
     const imports = models
-      .map(m => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
+      .map((m) => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
       .join("\n");
     const routes = models
-      .map(m => `    Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`)
+      .map(
+        (m) =>
+          `    Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`,
+      )
       .join("\n");
     await fs.writeFile(
       apiPath,
@@ -1149,15 +1376,26 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
    * Returns array of strings like: "App\\Http\\Controllers\\Api\\UserController"
    */
   async _discoverExistingControllers() {
-    const controllersDir = path.join(this.engine.rootPath, "app", "Http", "Controllers");
+    const controllersDir = path.join(
+      this.engine.rootPath,
+      "app",
+      "Http",
+      "Controllers",
+    );
     const controllers = [];
     const scanDir = async (dir, namespace) => {
       if (!(await fs.pathExists(dir))) return;
       const entries = await fs.readdir(dir, { withFileTypes: true });
       for (const entry of entries) {
         if (entry.isDirectory()) {
-          await scanDir(path.join(dir, entry.name), `${namespace}\\${entry.name}`);
-        } else if (entry.name.endsWith("Controller.php") && entry.name !== "Controller.php") {
+          await scanDir(
+            path.join(dir, entry.name),
+            `${namespace}\\${entry.name}`,
+          );
+        } else if (
+          entry.name.endsWith("Controller.php") &&
+          entry.name !== "Controller.php"
+        ) {
           controllers.push(`${namespace}\\${entry.name.replace(".php", "")}`);
         }
       }
@@ -1190,7 +1428,6 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     }
     return components;
   }
-
 
   async generatePolicy(modelName, blueprint) {
     this.log(`   🛡️ Generating Policy: ${modelName}Policy...`, "info");
@@ -1525,7 +1762,10 @@ ${callStatements}
 `;
     await fs.ensureDir(path.dirname(dbSeederPath));
     await fs.writeFile(dbSeederPath, content);
-    this.log(`      ✅ Wired DatabaseSeeder with ${seeders.length} seeders.`, "success");
+    this.log(
+      `      ✅ Wired DatabaseSeeder with ${seeders.length} seeders.`,
+      "success",
+    );
   }
 
   async generateLayout(blueprint) {
@@ -1550,10 +1790,16 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       let cleanCode = this.cleanLLMOutput(response);
       // Ensure @livewireStyles and @livewireScripts are present
       if (!cleanCode.includes("@livewireStyles")) {
-        cleanCode = cleanCode.replace("</head>", "    @livewireStyles\n</head>");
+        cleanCode = cleanCode.replace(
+          "</head>",
+          "    @livewireStyles\n</head>",
+        );
       }
       if (!cleanCode.includes("@livewireScripts")) {
-        cleanCode = cleanCode.replace("</body>", "    @livewireScripts\n</body>");
+        cleanCode = cleanCode.replace(
+          "</body>",
+          "    @livewireScripts\n</body>",
+        );
       }
       const p = path.join(
         this.engine.rootPath,
@@ -1621,7 +1867,11 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       .trim();
 
     // Ensure it's wrapped in a single root element
-    if (!clean.startsWith("<div") && !clean.startsWith("<section") && !clean.startsWith("<main")) {
+    if (
+      !clean.startsWith("<div") &&
+      !clean.startsWith("<section") &&
+      !clean.startsWith("<main")
+    ) {
       clean = `<div class="space-y-6">\n${clean}\n</div>`;
     }
 
@@ -1663,6 +1913,384 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       return snake + "es";
     }
     return snake + "s";
+  }
+
+  // ══════════════════════════════════════════════════════════════════════
+  // DETERMINISTIC SCHEMA GUARDS
+  // These lock generated code to blueprint.schema so the LLM can never drop
+  // columns / invent mismatched fields. Every helper is pure & best-effort:
+  // it only ADDS what is missing and never breaks valid output.
+  // ══════════════════════════════════════════════════════════════════════
+
+  // Relationship pseudo-types that are NOT real DB columns.
+  _isRelationType(baseType) {
+    return [
+      "hasmany",
+      "hasone",
+      "belongsto",
+      "belongstomany",
+      "morphmany",
+      "morphone",
+      "morphto",
+      "hasmanythrough",
+      "hasonethrough",
+    ].includes(baseType);
+  }
+
+  // Parse a model's blueprint.schema object into real columns + relationships.
+  _parseSchemaColumns(schemaObj) {
+    const columns = [];
+    const relationships = [];
+    if (!schemaObj || typeof schemaObj !== "object") {
+      return { columns, relationships };
+    }
+    const SKIP_COLS = [
+      "id",
+      "created_at",
+      "updated_at",
+      "deleted_at",
+      "remember_token",
+    ];
+    for (const [name, rawType] of Object.entries(schemaObj)) {
+      const typeStr = String(rawType || "").trim();
+      const [baseType, ...mods] = typeStr.split(":");
+      const base = baseType.toLowerCase();
+      if (this._isRelationType(base)) {
+        relationships.push({ name, type: base, target: mods[0] || null });
+        continue;
+      }
+      if (SKIP_COLS.includes(name)) continue;
+      columns.push({ name, baseType: base, mods });
+    }
+    return { columns, relationships };
+  }
+
+  // user_id -> User, short_url_id -> ShortUrl
+  _fkToModel(colName) {
+    const base = String(colName).replace(/_id$/, "");
+    if (!base) return null;
+    return base
+      .split("_")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join("");
+  }
+
+  // Build a Laravel migration column declaration from a parsed schema column.
+  _columnMigrationCall(col) {
+    const { name, baseType, mods } = col;
+    const modStr = mods.join(":");
+    let line;
+    switch (baseType) {
+      case "foreignid":
+      case "foreignuuid":
+        line =
+          name === "user_id"
+            ? "$table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()"
+            : `$table->foreignId('${name}')->constrained()`;
+        break;
+      case "text":
+      case "longtext":
+        line = `$table->text('${name}')`;
+        break;
+      case "json":
+        line = `$table->json('${name}')`;
+        break;
+      case "boolean":
+        line = `$table->boolean('${name}')->default(false)`;
+        break;
+      case "integer":
+      case "int":
+        line = `$table->integer('${name}')->default(0)`;
+        break;
+      case "biginteger":
+        line = `$table->unsignedBigInteger('${name}')->default(0)`;
+        break;
+      case "decimal":
+      case "float":
+      case "double":
+        line = `$table->decimal('${name}', 10, 2)->default(0)`;
+        break;
+      case "date":
+        line = `$table->date('${name}')->nullable()`;
+        break;
+      case "datetime":
+      case "timestamp":
+        line = `$table->timestamp('${name}')->nullable()`;
+        break;
+      case "enum":
+        line = `$table->string('${name}')->nullable()`;
+        break;
+      case "string":
+      default:
+        line = `$table->string('${name}')`;
+        break;
+    }
+    if (modStr.includes("nullable") && !line.includes("->nullable()")) {
+      line += "->nullable()";
+    }
+    if (modStr.includes("unique")) line += "->unique()";
+    const defMatch = mods.find((m) => m.startsWith("default("));
+    if (defMatch) {
+      const val = defMatch.slice(8, -1);
+      line += `->default('${val}')`;
+    }
+    if (modStr.includes("index") || modStr.includes("indexed")) {
+      line += "->index()";
+    }
+    return line + ";";
+  }
+
+  // Inject any real schema columns missing from a generated migration body.
+  _ensureMigrationColumns(tableName, schemaObj, code) {
+    if (!code || !code.includes("Schema::create"))
+      return { code, injected: [] };
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    const injected = [];
+    const lines = [];
+    for (const col of columns) {
+      const re = new RegExp(
+        `\\$table\\s*->\\s*\\w+\\s*\\(\\s*['"]${col.name}['"]`,
+      );
+      if (re.test(code)) continue;
+      lines.push("            " + this._columnMigrationCall(col));
+      injected.push(col.name);
+    }
+    if (lines.length === 0) return { code, injected };
+    const block = lines.join("\n");
+    if (/\$table->timestamps\(\);/.test(code)) {
+      code = code.replace(/([ \t]*\$table->timestamps\(\);)/, `${block}\n$1`);
+    } else {
+      code = code.replace(
+        /(\}\s*;\s*\n\s*public function down)/,
+        `\n${block}\n        $1`,
+      );
+    }
+    return { code, injected };
+  }
+
+  // Enforce $fillable + relationship methods on a generated model.
+  _ensureModelFillable(modelName, schemaObj, knownModels, code) {
+    if (!code) return code;
+    const { columns, relationships } = this._parseSchemaColumns(schemaObj);
+    let out = code;
+
+    // 1. $fillable = every real schema column
+    const fillableNames = columns.map((c) => c.name);
+    if (fillableNames.length > 0) {
+      const body = fillableNames.map((n) => `'${n}'`).join(", ");
+      if (/protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/.test(out)) {
+        out = out.replace(
+          /protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/,
+          `protected $fillable = [${body}]`,
+        );
+      } else {
+        out = out.replace(
+          /(class\s+\w+\s+extends\s+\w+[\s\S]*?\{)/,
+          `$1\n    protected $fillable = [${body}];\n`,
+        );
+      }
+    }
+
+    // 2. Relationship methods (only when target model is known to exist)
+    const methods = [];
+    const hasMethod = (name) =>
+      new RegExp(`function\\s+${name}\\s*\\(`).test(out);
+    for (const c of columns) {
+      if (c.baseType === "foreignid" || c.baseType === "foreignuuid") {
+        const target = this._fkToModel(c.name);
+        if (target && (target === "User" || knownModels.includes(target))) {
+          const method = c.name.replace(/_id$/, "").replace(/s$/, "");
+          if (method && !hasMethod(method)) {
+            methods.push(
+              `    public function ${method}()\n    {\n        return $this->belongsTo(${target}::class);\n    }`,
+            );
+          }
+        }
+      }
+    }
+    for (const r of relationships) {
+      if (!r.target || !knownModels.includes(r.target)) continue;
+      if (hasMethod(r.name)) continue;
+      if (r.type === "hasmany") {
+        methods.push(
+          `    public function ${r.name}()\n    {\n        return $this->hasMany(${r.target}::class);\n    }`,
+        );
+      } else if (r.type === "hasone") {
+        methods.push(
+          `    public function ${r.name}()\n    {\n        return $this->hasOne(${r.target}::class);\n    }`,
+        );
+      } else if (r.type === "belongsto") {
+        methods.push(
+          `    public function ${r.name}()\n    {\n        return $this->belongsTo(${r.target}::class);\n    }`,
+        );
+      }
+    }
+
+    if (methods.length > 0) {
+      // Remove the placeholder relationship TODO comment lines (whole lines).
+      out = out.replace(
+        /[ \t]*\/\/[^\n]*(?:TODO|relationship methods|Replace this comment)[^\n]*\n/gi,
+        "",
+      );
+      const lastBrace = out.lastIndexOf("}");
+      if (lastBrace !== -1) {
+        out =
+          out.slice(0, lastBrace) +
+          "\n" +
+          methods.join("\n\n") +
+          "\n" +
+          out.slice(lastBrace);
+      }
+    }
+    return out;
+  }
+
+  // Build a schema-locked Factory class (definition array derived from columns).
+  _buildFactoryClass(factoryName, modelName, schemaObj, knownModels) {
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    const entries = [];
+    const extraImports = new Set();
+    for (const c of columns) {
+      const b = c.baseType;
+      if (b === "foreignid" || b === "foreignuuid") {
+        const target = this._fkToModel(c.name);
+        if (
+          target &&
+          target !== modelName &&
+          (target === "User" || knownModels.includes(target))
+        ) {
+          extraImports.add(target);
+          entries.push(`        '${c.name}' => ${target}::factory(),`);
+        } else {
+          entries.push(`        '${c.name}' => null,`);
+        }
+      } else if (b === "boolean") {
+        entries.push(`        '${c.name}' => fake()->boolean(),`);
+      } else if (["integer", "int", "biginteger"].includes(b)) {
+        entries.push(`        '${c.name}' => fake()->numberBetween(1, 100),`);
+      } else if (["decimal", "float", "double"].includes(b)) {
+        entries.push(`        '${c.name}' => fake()->randomFloat(2, 1, 1000),`);
+      } else if (["datetime", "timestamp"].includes(b)) {
+        entries.push(`        '${c.name}' => fake()->dateTime(),`);
+      } else if (b === "date") {
+        entries.push(`        '${c.name}' => fake()->date(),`);
+      } else if (b === "text" || b === "longtext") {
+        entries.push(`        '${c.name}' => fake()->paragraph(),`);
+      } else {
+        entries.push(`        '${c.name}' => fake()->word(),`);
+      }
+    }
+    const importBlock =
+      [...extraImports].map((t) => `use App\\Models\\${t};`).join("\n") +
+      (extraImports.size ? "\n" : "");
+    return `<?php\n\nnamespace Database\\Factories;\n\n${importBlock}use App\\Models\\${modelName};\nuse Illuminate\\Database\\Eloquent\\Factories\\Factory;\n\nclass ${factoryName} extends Factory\n{\n    protected $model = ${modelName}::class;\n\n    public function definition(): array\n    {\n        return [\n${entries.join("\n")}\n        ];\n    }\n}\n`;
+  }
+
+  // Deterministic cleanup of hallucinated Faker usage in seeders/factories.
+  _sanitizeSeeder(code) {
+    if (!code) return code;
+    let out = code;
+    out = out.replace(/\$faker\s*->/g, "fake()->");
+    out = out.replace(
+      /\$faker\s*=\s*Faker(?:\\Factory)?::create\(\)\s*;?\s*\n?/gi,
+      "",
+    );
+    out = out.replace(/use\s+Faker\\Factory\s*;\s*\n/gi, "");
+    out = out.replace(/->realistic\s*\([^)]*\)/gi, "->sentence(3)");
+    return out;
+  }
+
+  // Columns a blueprint declares for User that are NOT in Laravel's core
+  // users table. Generic (any extra attribute), never role-specific.
+  _extraUserColumns(schemaObj) {
+    const RESERVED = new Set([
+      "id",
+      "name",
+      "email",
+      "password",
+      "email_verified_at",
+      "remember_token",
+      "created_at",
+      "updated_at",
+      "deleted_at",
+    ]);
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    return columns.filter((c) => !RESERVED.has(c.name));
+  }
+
+  // Build an ADDITIVE migration that appends blueprint-declared User columns
+  // to the existing core users table (standard Laravel pattern; the core
+  // 0001_01_01 migration is never edited). Additive-safe: forces nullable()
+  // for columns without a default so it works even on a populated table.
+  _buildAddColumnsToUsersMigration(extraCols) {
+    const adds = extraCols
+      .map((c) => {
+        let call = this._columnMigrationCall(c);
+        if (!/->nullable\(\)/.test(call) && !/->default\(/.test(call)) {
+          call = call.replace(/;$/, "->nullable();");
+        }
+        return `            ${call}`;
+      })
+      .join("\n");
+    const drops = extraCols
+      .map((c) => `            $table->dropColumn('${c.name}');`)
+      .join("\n");
+    return `<?php
+
+use Illuminate\\Database\\Migrations\\Migration;
+use Illuminate\\Database\\Schema\\Blueprint;
+use Illuminate\\Support\\Facades\\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+${adds}
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+${drops}
+        });
+    }
+};
+`;
+  }
+
+  // Additively register extra columns in the preserved User model's fillable,
+  // supporting both Laravel 12 `#[Fillable([...])]` and `protected $fillable`.
+  _ensureUserFillable(code, extraNames) {
+    if (!code || !extraNames || extraNames.length === 0) return code;
+    const attrMatch = code.match(/#\[Fillable\(\[([^\]]*)\]\)\]/);
+    if (attrMatch) {
+      const existing = [...attrMatch[1].matchAll(/'([^']*)'/g)].map(
+        (m) => m[1],
+      );
+      const merged = [...existing];
+      for (const n of extraNames) if (!merged.includes(n)) merged.push(n);
+      const body = merged.map((n) => `'${n}'`).join(", ");
+      return code.replace(
+        /#\[Fillable\(\[[^\]]*\]\)\]/,
+        `#[Fillable([${body}])]`,
+      );
+    }
+    if (/protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/.test(code)) {
+      const block = code.match(
+        /protected\s+\$fillable\s*=\s*\[([\s\S]*?)\]/,
+      )[1];
+      const existing = [...block.matchAll(/'([^']*)'/g)].map((m) => m[1]);
+      const merged = [...existing];
+      for (const n of extraNames) if (!merged.includes(n)) merged.push(n);
+      const body = merged.map((n) => `'${n}'`).join(", ");
+      return code.replace(
+        /protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/,
+        `protected $fillable = [${body}]`,
+      );
+    }
+    return code;
   }
 }
 

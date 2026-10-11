@@ -2,6 +2,32 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.4] - 2026-10-11 (Deterministic Schema Guards & Redis Capacity)
+
+Perbaikan berpusat pada **engine** (bukan hasil sandbox) agar generasi kode berikutnya konsisten terhadap `blueprint.schema`. Semua guard dibuat **generik / name-agnostic** supaya sandbox tidak "manja" terhadap kasus tertentu.
+
+### Fixed
+
+- **Guard `Auth::routes()` salah kunci paket (`ImplementationPhase.js`)**: `Auth::routes()` adalah milik **laravel/ui**, bukan Breeze. Guard sebelumnya hanya men-strip saat `!hasBreeze`, sehingga pada semua project Breeze panggilan hasil halusinasi LLM tertinggal dan `artisan route:list`/`migrate` crash `RuntimeException`. Kini strip dideteksi lewat `!hasUi` (`vendor/laravel/ui`) secara independen dari Breeze; regex diperkuat menangani varian.
+- **Redis cache double-prefix (`RedisMemory.js`)**: key `nexus:search:...` tersimpan jadi `nexus:nexus:search:...`. Kini prefix tidak digandakan bila key sudah berprefix.
+
+### Added
+
+- **Deterministic Schema Guards (`ImplementationPhase.js`)** — mengunci kode ke `blueprint.schema`:
+  - `_ensureMigrationColumns`: menyuntik kolom nyata yang dijatuhkan LLM ke migration (tipe → `$table->...`, modifier `nullable/unique/default/index`), skip kolom relasi & timestamps.
+  - `_ensureModelFillable`: rebuild `$fillable` + injeksi `belongsTo`/`hasMany` (hanya target yang ada di `models`), hapus komentar `// TODO` placeholder.
+  - `_buildFactoryClass`: `definition()` Factory dibangun deterministik dari schema (FK → `Target::factory()`), kolom tak bisa lagi menyimpang.
+  - `_sanitizeSeeder`: `$faker->` → `fake()->`, buang `Faker::create()`, `realistic()` → `sentence(3)`.
+- **Relationship Closure generik (`NexusEngine.js`)**: `_ensureRelationshipClosure` memindai `hasMany/belongsTo` di schema & `relationships[].target`; model yang direferensi tapi tak didefinisikan dimaterialisasi dengan schema minimal (FK parent + timestamps) + migrasi + factory. Contoh: `ClickStat` otomatis terbentuk.
+- **Kolom User ekstra generik (`ImplementationPhase.js`)**: migrasi **aditif** `add_attributes_to_users_table` untuk kolom User di luar tabel core (mis. `role`) tanpa menyentuh `0001_01_01` core; `_ensureUserFillable` mendaftarkan kolom ke `#[Fillable([...])]` (Laravel 12) maupun `protected $fillable`.
+- **Kapasitas Redis terkonfigurasi (`.env`, `RedisMemory.js`, `SemanticEngine.js`)**: `NEXUS_REDIS_MAXMEMORY` (CONFIG SET maxmemory + `allkeys-lru`), `NEXUS_REDIS_CACHE_TTL`, `NEXUS_SEARCH_TOPK` menggantikan nilai hardcoded.
+- **Prompt diperkuat**: blueprint (relationship completeness), seeder (Faker whitelist), routes (aturan redirect untuk route berparam).
+
+### Housekeeping
+
+- **`.gitignore`**: mengabaikan artefak runtime `NEXUS_BLUEPRINT.json`, `memory/distilled/short_term/cache/`, `memory/operational/blueprints/` (koreksi path cache lama), plus untrack file yang terlanjur ter-track via `git rm --cached`.
+- **`package.json`**: Versi disinkronkan ke `3.4.4`.
+
 ## [v3.4.3] - 2026-10-10 (Local Inference Resilience & Jev Evaluation Gate)
 
 ### Fixed

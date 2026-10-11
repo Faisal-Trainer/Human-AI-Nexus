@@ -60,18 +60,19 @@ const STATES = {
 function deepMergeBlueprint(base, enhancement) {
   if (!enhancement) return base;
   const result = { ...base };
-  
+
   const deterministicStringify = (obj) => {
-    if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-    if (Array.isArray(obj)) return `[${obj.map(deterministicStringify).join(',')}]`;
+    if (obj === null || typeof obj !== "object") return JSON.stringify(obj);
+    if (Array.isArray(obj))
+      return `[${obj.map(deterministicStringify).join(",")}]`;
     const sortedKeys = Object.keys(obj).sort();
-    let str = '{';
+    let str = "{";
     for (let i = 0; i < sortedKeys.length; i++) {
       const k = sortedKeys[i];
       str += `"${k}":${deterministicStringify(obj[k])}`;
-      if (i < sortedKeys.length - 1) str += ',';
+      if (i < sortedKeys.length - 1) str += ",";
     }
-    str += '}';
+    str += "}";
     return str;
   };
 
@@ -81,14 +82,20 @@ function deepMergeBlueprint(base, enhancement) {
       const unique = [];
       const seen = new Set();
       for (const item of combined) {
-        const identifier = typeof item === 'object' && item !== null ? deterministicStringify(item) : item;
+        const identifier =
+          typeof item === "object" && item !== null
+            ? deterministicStringify(item)
+            : item;
         if (!seen.has(identifier)) {
           seen.add(identifier);
           unique.push(item);
         }
       }
       result[key] = unique;
-    } else if (typeof enhancement[key] === "object" && enhancement[key] !== null) {
+    } else if (
+      typeof enhancement[key] === "object" &&
+      enhancement[key] !== null
+    ) {
       result[key] = deepMergeBlueprint(base[key] || {}, enhancement[key]);
     } else {
       result[key] = enhancement[key];
@@ -112,7 +119,10 @@ function repairAndParseJson(raw) {
   if (codeBlockMatch) {
     str = codeBlockMatch[1].trim();
   } else {
-    str = str.replace(/^```(?:json|JSON)?\s*\n?/, "").replace(/\n?```\s*$/, "").trim();
+    str = str
+      .replace(/^```(?:json|JSON)?\s*\n?/, "")
+      .replace(/\n?```\s*$/, "")
+      .trim();
   }
 
   // Find first {
@@ -226,13 +236,32 @@ function repairAndParseJson(raw) {
   escape = false;
   for (let i = 0; i < cleaned.length; i++) {
     const c = cleaned[i];
-    if (escape) { escape = false; continue; }
-    if (c === "\\") { escape = true; continue; }
-    if (c === '"') { inString = !inString; continue; }
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (c === "\\") {
+      escape = true;
+      continue;
+    }
+    if (c === '"') {
+      inString = !inString;
+      continue;
+    }
     if (!inString) {
       if (c === "{" || c === "[") finalStack.push(c);
-      else if (c === "}" && finalStack.length && finalStack[finalStack.length - 1] === "{") finalStack.pop();
-      else if (c === "]" && finalStack.length && finalStack[finalStack.length - 1] === "[") finalStack.pop();
+      else if (
+        c === "}" &&
+        finalStack.length &&
+        finalStack[finalStack.length - 1] === "{"
+      )
+        finalStack.pop();
+      else if (
+        c === "]" &&
+        finalStack.length &&
+        finalStack[finalStack.length - 1] === "["
+      )
+        finalStack.pop();
     }
   }
 
@@ -252,20 +281,25 @@ function repairAndParseJson(raw) {
     return JSON.parse(cleaned);
   } catch (err) {
     // Aggressive cleanup: progressively drop to the last valid closing bracket
-    let lastValidIdx = Math.max(cleaned.lastIndexOf("}"), cleaned.lastIndexOf("]"));
+    let lastValidIdx = Math.max(
+      cleaned.lastIndexOf("}"),
+      cleaned.lastIndexOf("]"),
+    );
     while (lastValidIdx > 0) {
       let sub = cleaned.slice(0, lastValidIdx + 1);
       if (!sub.endsWith("}")) sub += "}";
       try {
         return JSON.parse(sub);
       } catch (_) {
-        lastValidIdx = Math.max(cleaned.lastIndexOf("}", lastValidIdx - 1), cleaned.lastIndexOf("]", lastValidIdx - 1));
+        lastValidIdx = Math.max(
+          cleaned.lastIndexOf("}", lastValidIdx - 1),
+          cleaned.lastIndexOf("]", lastValidIdx - 1),
+        );
       }
     }
     throw err;
   }
 }
-
 
 /**
  * NexusEngine - Core Orchestrator for the Human-AI Nexus Framework.
@@ -280,8 +314,10 @@ class NexusEngine {
   getEngineRoot() {
     let currentDir = path.resolve(this.rootPath);
     while (currentDir !== path.parse(currentDir).root) {
-      if (fs.existsSync(path.join(currentDir, "agent", "core", "NexusEngine.js"))) {
-         return currentDir;
+      if (
+        fs.existsSync(path.join(currentDir, "agent", "core", "NexusEngine.js"))
+      ) {
+        return currentDir;
       }
       currentDir = path.resolve(currentDir, "..");
     }
@@ -412,10 +448,15 @@ class NexusEngine {
     // 🧠 OBSIDIAN VAULT BRIDGE — Read-only knowledge integration
     this.obsidianBridge = new ObsidianBridge(this.rootPath);
     if (this.obsidianBridge.isActive()) {
-      this.log(`🔗 Obsidian Vault connected: ${this.obsidianBridge.vaultPath}`, "info");
+      this.log(
+        `🔗 Obsidian Vault connected: ${this.obsidianBridge.vaultPath}`,
+        "info",
+      );
       // Pass all configured vault read sources to SemanticEngine for dual-source indexing & graph
       const addedPaths = new Set();
-      for (const sourceKey of Object.keys(this.obsidianBridge.readSources || {})) {
+      for (const sourceKey of Object.keys(
+        this.obsidianBridge.readSources || {},
+      )) {
         const resolved = this.obsidianBridge.resolveSource(sourceKey);
         if (resolved && !addedPaths.has(resolved)) {
           addedPaths.add(resolved);
@@ -425,7 +466,11 @@ class NexusEngine {
     }
 
     // 🧠 Index .agents/skills for RAG-based architectural knowledge retrieval
-    const engineSkillsDir = path.join(this.getEngineRoot(), ".agents", "skills");
+    const engineSkillsDir = path.join(
+      this.getEngineRoot(),
+      ".agents",
+      "skills",
+    );
     if (fs.existsSync(engineSkillsDir)) {
       this.semanticEngine.addAdditionalPath(engineSkillsDir);
     }
@@ -573,9 +618,15 @@ class NexusEngine {
 
     // ⚡ OPTIMIZATION: Use cached memory if available and fresh (within 10 minutes)
     // Avoids 100× redundant vault scans + fast-glob during sandbox runs
-    if (NexusEngine._globalMemoryCache && Date.now() < NexusEngine._globalMemoryCacheExpiry) {
+    if (
+      NexusEngine._globalMemoryCache &&
+      Date.now() < NexusEngine._globalMemoryCacheExpiry
+    ) {
       this.memory = NexusEngine._globalMemoryCache;
-      this.log(`   ⚡ Memory loaded from cache (${this.memory.lessons.length} lessons)`, "success");
+      this.log(
+        `   ⚡ Memory loaded from cache (${this.memory.lessons.length} lessons)`,
+        "success",
+      );
       return this.memory;
     }
 
@@ -600,7 +651,7 @@ class NexusEngine {
         );
         allLessons = merged;
         this.log(
-          `   🔗 Vault merge: ${merged.filter(f => f.source === "obsidian-vault").length} vault + ${merged.filter(f => f.source === "local").length} local files`,
+          `   🔗 Vault merge: ${merged.filter((f) => f.source === "obsidian-vault").length} vault + ${merged.filter((f) => f.source === "local").length} local files`,
           "info",
         );
       } else {
@@ -610,7 +661,7 @@ class NexusEngine {
           ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
           onlyFiles: true,
         });
-        allLessons = localFiles.map(f => ({
+        allLessons = localFiles.map((f) => ({
           file: f,
           fullPath: path.join(this.knowledgePath, f),
           source: "local",
@@ -698,7 +749,13 @@ class NexusEngine {
       return await this.semanticEngine.searchWithCrag(query, options);
     } catch (e) {
       this.log(`⚠️ CRAG search failed: ${e.message}`, "warning");
-      return { query, confidenceScore: 0, cragAction: "FALLBACK", documents: [], finalContext: "" };
+      return {
+        query,
+        confidenceScore: 0,
+        cragAction: "FALLBACK",
+        documents: [],
+        finalContext: "",
+      };
     }
   }
 
@@ -794,7 +851,10 @@ class NexusEngine {
   }
 
   async validateMigrationOutput(logText, options) {
-    return await this.typeSafeValidator.validateMigrationOutput(logText, options);
+    return await this.typeSafeValidator.validateMigrationOutput(
+      logText,
+      options,
+    );
   }
 
   async routeSkill(task, skills) {
@@ -874,13 +934,22 @@ class NexusEngine {
     const cache = {};
     const engineRoot = this.getEngineRoot();
     for (const name of skillNames) {
-      const skillPath = path.join(engineRoot, ".agents", "skills", name, "SKILL.md");
+      const skillPath = path.join(
+        engineRoot,
+        ".agents",
+        "skills",
+        name,
+        "SKILL.md",
+      );
       if (await fs.pathExists(skillPath)) {
         cache[name] = await fs.readFile(skillPath, "utf8");
       }
     }
     NexusEngine._skillContentCache = cache;
-    this.log(`   ⚡ Preloaded ${Object.keys(cache).length}/${skillNames.length} skill contents into memory cache.`, "info");
+    this.log(
+      `   ⚡ Preloaded ${Object.keys(cache).length}/${skillNames.length} skill contents into memory cache.`,
+      "info",
+    );
     return cache;
   }
 
@@ -927,7 +996,10 @@ class NexusEngine {
     }
 
     // ⚡ SMART CACHE: Skip LLM generation if cached blueprint exists and README has not changed
-    const readmeHash = crypto.createHash("md5").update(readmeContent).digest("hex");
+    const readmeHash = crypto
+      .createHash("md5")
+      .update(readmeContent)
+      .digest("hex");
     if (!options.forceRegen) {
       let cached = null;
       if (await fs.pathExists(cachePath)) {
@@ -937,17 +1009,42 @@ class NexusEngine {
       }
 
       // Fallback: check Obsidian Vault cache if local cache missed
-      if ((!cached || cached._readmeHash !== readmeHash) && this.obsidianBridge && this.obsidianBridge.vaultPath) {
+      if (
+        (!cached || cached._readmeHash !== readmeHash) &&
+        this.obsidianBridge &&
+        this.obsidianBridge.vaultPath
+      ) {
         const vaultCachePaths = [
-          path.join(this.obsidianBridge.vaultPath, "chace nexus", "V1", "blueprints", `${projectName}.json`),
-          path.join(this.obsidianBridge.vaultPath, "chace nexus", "blueprints", `${projectName}.json`),
-          path.join(this.obsidianBridge.vaultPath, "NEXUS AI", "BLUEPRINT", "100 project", `${projectName}.json`),
+          path.join(
+            this.obsidianBridge.vaultPath,
+            "chace nexus",
+            "V1",
+            "blueprints",
+            `${projectName}.json`,
+          ),
+          path.join(
+            this.obsidianBridge.vaultPath,
+            "chace nexus",
+            "blueprints",
+            `${projectName}.json`,
+          ),
+          path.join(
+            this.obsidianBridge.vaultPath,
+            "NEXUS AI",
+            "BLUEPRINT",
+            "100 project",
+            `${projectName}.json`,
+          ),
         ];
         for (const vPath of vaultCachePaths) {
           if (await fs.pathExists(vPath)) {
             try {
               const vCached = await fs.readJson(vPath);
-              if (vCached && (vCached._readmeHash === readmeHash || (vCached.models && vCached.schema))) {
+              if (
+                vCached &&
+                (vCached._readmeHash === readmeHash ||
+                  (vCached.models && vCached.schema))
+              ) {
                 cached = vCached;
                 cached._readmeHash = readmeHash;
                 await fs.ensureDir(globalCacheDir);
@@ -963,7 +1060,12 @@ class NexusEngine {
         }
       }
 
-      if (cached && cached._readmeHash === readmeHash && cached.models && cached.schema) {
+      if (
+        cached &&
+        cached._readmeHash === readmeHash &&
+        cached.models &&
+        cached.schema
+      ) {
         this.log(
           `   ⚡ Blueprint cache HIT for ${projectName} (README unchanged) — skipping regeneration.`,
           "success",
@@ -1006,14 +1108,17 @@ class NexusEngine {
         if (graphResult && graphResult.graphContextString) {
           this.log(
             `   🌐 GraphRAG: Injected ${graphResult.seeds.length} seed notes & ${graphResult.connectedNotes.length} relational notes from Obsidian Vault.`,
-            "info"
+            "info",
           );
           graphContextSection = `\n${graphResult.graphContextString}\n\n`;
         }
 
         // 📚 SEMANTIC RAG: Supplement with relevant architectural skills and schema patterns
         if (graphContextSection.length < 1500) {
-          const semanticHits = await this.semanticEngine.search(`${projectName} architecture tall stack schema routes`, 3);
+          const semanticHits = await this.semanticEngine.search(
+            `${projectName} architecture tall stack schema routes`,
+            3,
+          );
           if (semanticHits && semanticHits.length > 0) {
             let extraRagText = "";
             for (const hit of semanticHits) {
@@ -1027,14 +1132,17 @@ class NexusEngine {
               graphContextSection += `\n### Architectural Reference Patterns (RAG):\n${extraRagText}\n\n`;
               this.log(
                 `   📚 Semantic RAG: Injected ${semanticHits.length} architectural reference patterns into prompt.`,
-                "info"
+                "info",
               );
             }
           }
         }
       }
     } catch (graphErr) {
-      this.log(`   ⚠️ RAG context retrieval skipped: ${graphErr.message}`, "warning");
+      this.log(
+        `   ⚠️ RAG context retrieval skipped: ${graphErr.message}`,
+        "warning",
+      );
     }
 
     const prompt = `You are a Senior Software Architect. We are building a Laravel TALL Stack application.
@@ -1046,18 +1154,19 @@ Identify all the essential features this application MUST have based on its name
 For a 100% complete web app, you must generate a comprehensive architecture.
 
 CRITICAL ARCHITECTURAL RULES:
-1. STRICTLY FORBIDDEN: DO NOT use placeholder names such as "YourRealModelName", "ModelName", "your-real-component", "user-profile", "your-real-route", or "ResourceController".
+1. STRICTLY FORBIDDEN placeholder or generic names -- never output any of: "YourRealModelName", "ModelName", "your-real-component", "user-profile", "your-real-route", "ResourceController", "DomainSpecificModel", "FeatureController", "feature-manager", "feature-dashboard". Every <<TOKEN>> in the structure below is a SLOT you MUST replace with a real domain-specific name derived from the project "${projectName}"; never leave the literal "<<", ">>", "PrimaryModel", or "domain" anywhere in your output.
 2. Tailor ALL models, livewire_components, migrations, seeders, and routes specifically to the domain of "${projectName}".
    Examples:
    - For personal-portfolio: models=["User", "PortfolioProject", "SkillTag"], livewire_components=["project-showcase", "skills-matrix", "contact-inquiry"]
    - For url-shortener-app: models=["User", "ShortUrl", "ClickStat"], livewire_components=["url-shortener-box", "link-analytics-table"]
    - For todo-app-realtime: models=["User", "TodoItem", "Category"], livewire_components=["task-board", "task-input"]
    - For expense-tracker: models=["User", "Expense", "BudgetCategory"], livewire_components=["expense-summary-cards", "expense-entry-form"]
+3. RELATIONSHIP COMPLETENESS (MANDATORY): every model referenced by a relationship — either as a schema value like "click_stats": "hasMany:ClickStat" / "author": "belongsTo:Author", OR as a "relationships[].target" — MUST ALSO appear in "models" AND have its own concrete "schema" entry (with at least a foreign key back to its parent plus timestamps). NEVER reference a model you did not define. Example: if ShortUrl has "click_stats": "hasMany:ClickStat", then "ClickStat" must be in models with schema {"short_url_id": "foreignId:constrained", "created_at": "datetime", "updated_at": "datetime"} and a create_click_stats_table migration.
 
 Output strictly JSON with this exact structure (do not add any other keys, explanation, or markdown):
 {
   "project_name": "${projectName}",
-  "models": ["User", "DomainSpecificModel"],
+  "models": ["User", "<<PrimaryModel>>"],
   "schema": {
     "User": {
       "name": "string",
@@ -1065,23 +1174,23 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       "password": "text",
       "role": "string:default(user)"
     },
-    "DomainSpecificModel": {
+    "<<PrimaryModel>>": {
       "title": "string",
       "description": "text:nullable",
-      "user_id": "foreignUuid:constrained"
+      "user_id": "foreignId:constrained"
     }
   },
-  "migrations": ["create_users_table", "create_domain_specific_models_table"],
-  "livewire_components": ["feature-manager", "feature-dashboard"],
-  "seeders": ["UserSeeder", "DomainSpecificModelSeeder"],
-  "factories": ["UserFactory", "DomainSpecificModelFactory"],
-  "routes": ["/dashboard", "/features"],
+  "migrations": ["create_users_table", "create_<<primary_models>>_table"],
+  "livewire_components": ["<<domain>>-manager", "<<domain>>-dashboard"],
+  "seeders": ["UserSeeder", "<<PrimaryModel>>Seeder"],
+  "factories": ["UserFactory", "<<PrimaryModel>>Factory"],
+  "routes": ["/dashboard", "/<<domain-plural>>"],
   "pivot_tables": [],
-  "relationships": [{"model": "User", "type": "hasMany", "target": "DomainSpecificModel"}],
+  "relationships": [{"model": "User", "type": "hasMany", "target": "<<PrimaryModel>>"}],
   "middleware": ["auth", "verified", "throttle:60,1"],
   "api_endpoints": [
-    {"method": "GET", "path": "/api/v1/features", "controller": "FeatureController@index", "middleware": ["auth:sanctum"]},
-    {"method": "POST", "path": "/api/v1/features", "controller": "FeatureController@store", "middleware": ["auth:sanctum"]}
+    {"method": "GET", "path": "/api/v1/<<domain-plural>>", "controller": "<<PrimaryModel>>Controller@index", "middleware": ["auth:sanctum"]},
+    {"method": "POST", "path": "/api/v1/<<domain-plural>>", "controller": "<<PrimaryModel>>Controller@store", "middleware": ["auth:sanctum"]}
   ],
   "security_policies": {
     "roles": ["admin", "user"],
@@ -1104,48 +1213,129 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
     const MAX_BLUEPRINT_ATTEMPTS = 3;
     for (let attempt = 1; attempt <= MAX_BLUEPRINT_ATTEMPTS; attempt++) {
       try {
-        this.log(`   🧠 Blueprint generation attempt ${attempt}/${MAX_BLUEPRINT_ATTEMPTS} via LocalIntelligence...`, "info");
-        const systemPrompt = "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
-        const response = await localAI.generate(prompt, "generate_architecture", systemPrompt);
+        this.log(
+          `   🧠 Blueprint generation attempt ${attempt}/${MAX_BLUEPRINT_ATTEMPTS} via LocalIntelligence...`,
+          "info",
+        );
+        const systemPrompt =
+          "You are an elite TALL Stack Architect for the NEXUS AI framework. Output ONLY raw JSON.";
+        const response = await localAI.generate(
+          prompt,
+          "generate_architecture",
+          systemPrompt,
+        );
         if (!response) {
-          this.log(`   ⚠️ LLM returned empty response on attempt ${attempt}.`, "warning");
+          this.log(
+            `   ⚠️ LLM returned empty response on attempt ${attempt}.`,
+            "warning",
+          );
           continue;
         }
         blueprint = repairAndParseJson(response);
         if (!blueprint || typeof blueprint !== "object") {
-          throw new Error("Failed to parse or repair blueprint JSON from LLM response");
+          throw new Error(
+            "Failed to parse or repair blueprint JSON from LLM response",
+          );
         }
 
-        // Anti-placeholder guardrail: sanitize blueprint against hallucinated placeholders
-        const placeholderRegex = /your[-_]?real|modelname1?|user-profile$/i;
+        // Anti-placeholder guardrail: sanitize blueprint against hallucinated/generic placeholders
+        const placeholderRegex =
+          /your[-_]?real|modelname1?|user-profile$|domainspecificmodel|domain[-_]specific[-_]model|featurecontroller|feature[-_]controller|feature[-_]manager|feature[-_]dashboard|primarymodel|<<|>>/i;
         if (Array.isArray(blueprint.models)) {
-          blueprint.models = blueprint.models.filter(m => !placeholderRegex.test(m));
+          blueprint.models = blueprint.models.filter(
+            (m) => !placeholderRegex.test(m),
+          );
         }
         if (Array.isArray(blueprint.livewire_components)) {
-          blueprint.livewire_components = blueprint.livewire_components.filter(c => !placeholderRegex.test(c));
+          blueprint.livewire_components = blueprint.livewire_components.filter(
+            (c) => !placeholderRegex.test(c),
+          );
+        }
+        for (const arrKey of ["migrations", "seeders", "factories"]) {
+          if (Array.isArray(blueprint[arrKey])) {
+            blueprint[arrKey] = blueprint[arrKey].filter(
+              (x) => !placeholderRegex.test(x),
+            );
+          }
+        }
+        if (blueprint.schema && typeof blueprint.schema === "object") {
+          for (const k of Object.keys(blueprint.schema)) {
+            if (placeholderRegex.test(k)) delete blueprint.schema[k];
+          }
+        }
+        if (Array.isArray(blueprint.relationships)) {
+          blueprint.relationships = blueprint.relationships.filter(
+            (r) =>
+              !placeholderRegex.test(r.model || "") &&
+              !placeholderRegex.test(r.target || ""),
+          );
+        }
+        if (Array.isArray(blueprint.api_endpoints)) {
+          blueprint.api_endpoints = blueprint.api_endpoints.filter(
+            (e) =>
+              !placeholderRegex.test((e.controller || "") + (e.path || "")),
+          );
         }
         // If models or components were stripped or too few, enrich with deterministic fallback
-        if (!blueprint.models || blueprint.models.length <= 1 || !blueprint.livewire_components || blueprint.livewire_components.length === 0) {
-          const fallback = this._generateFallbackBlueprint(projectName, readmeContent);
+        if (
+          !blueprint.models ||
+          blueprint.models.length <= 1 ||
+          !blueprint.livewire_components ||
+          blueprint.livewire_components.length === 0
+        ) {
+          const fallback = this._generateFallbackBlueprint(
+            projectName,
+            readmeContent,
+          );
           if (!blueprint.models || blueprint.models.length <= 1) {
             blueprint.models = fallback.models;
-            blueprint.schema = { ...(blueprint.schema || {}), ...fallback.schema };
+            blueprint.schema = {
+              ...fallback.schema,
+              ...(blueprint.schema || {}),
+            };
             blueprint.migrations = fallback.migrations;
             blueprint.seeders = fallback.seeders;
             blueprint.factories = fallback.factories;
+            if (
+              !Array.isArray(blueprint.relationships) ||
+              blueprint.relationships.length === 0
+            ) {
+              blueprint.relationships = fallback.relationships;
+            }
+            if (
+              !Array.isArray(blueprint.api_endpoints) ||
+              blueprint.api_endpoints.length === 0
+            ) {
+              blueprint.api_endpoints = fallback.api_endpoints;
+            }
           }
-          if (!blueprint.livewire_components || blueprint.livewire_components.length === 0) {
+          if (
+            !blueprint.livewire_components ||
+            blueprint.livewire_components.length === 0
+          ) {
             blueprint.livewire_components = fallback.livewire_components;
           }
         }
 
-        this.log(`   ✅ Blueprint JSON parsed and validated on attempt ${attempt}.`, "success");
+        this.log(
+          `   ✅ Blueprint JSON parsed and validated on attempt ${attempt}.`,
+          "success",
+        );
         break; // Success — exit retry loop
       } catch (e) {
-        this.log(`   ⚠️ Blueprint attempt ${attempt} failed: ${e.message}`, "warning");
+        this.log(
+          `   ⚠️ Blueprint attempt ${attempt} failed: ${e.message}`,
+          "warning",
+        );
         if (attempt === MAX_BLUEPRINT_ATTEMPTS) {
-          this.log(`   🛟 All ${MAX_BLUEPRINT_ATTEMPTS} attempts failed. Generating fallback blueprint...`, "warning");
-          blueprint = this._generateFallbackBlueprint(projectName, readmeContent);
+          this.log(
+            `   🛟 All ${MAX_BLUEPRINT_ATTEMPTS} attempts failed. Generating fallback blueprint...`,
+            "warning",
+          );
+          blueprint = this._generateFallbackBlueprint(
+            projectName,
+            readmeContent,
+          );
         }
       }
     }
@@ -1153,7 +1343,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
     if (!blueprint) return;
 
     try {
-      this.log(`   ✨ Blueprint generated via RAG architecture context. Validating schema...`, "info");
+      this.log(
+        `   ✨ Blueprint generated via RAG architecture context. Validating schema...`,
+        "info",
+      );
 
       // Schema Validation (G2-02) — Extended for enriched blueprint fields
       const BLUEPRINT_SCHEMA = {
@@ -1174,12 +1367,7 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
           "factories",
         ],
         // Optional array fields — injected with defaults if missing
-        optionalArrays: [
-          "routes",
-          "middleware",
-          "api_endpoints",
-          "async_jobs",
-        ],
+        optionalArrays: ["routes", "middleware", "api_endpoints", "async_jobs"],
         // Optional object fields — injected with defaults if missing
         optionalObjects: {
           security_policies: {
@@ -1189,8 +1377,18 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             middleware_map: {},
           },
           ui_design_system: {
-            color_palette: { primary: "#1e40af", secondary: "#64748b", accent: "#f59e0b", background: "#f8fafc", surface: "#ffffff" },
-            typography: { heading_font: "Inter", body_font: "Inter", scale: "1.25" },
+            color_palette: {
+              primary: "#1e40af",
+              secondary: "#64748b",
+              accent: "#f59e0b",
+              background: "#f8fafc",
+              surface: "#ffffff",
+            },
+            typography: {
+              heading_font: "Inter",
+              body_font: "Inter",
+              scale: "1.25",
+            },
             layout: "sidebar-main",
             theme: "light",
             component_style: "rounded-xl shadow-sm border border-gray-200",
@@ -1206,7 +1404,9 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         }
       }
       // Inject defaults for optional objects if missing
-      for (const [key, defaultValue] of Object.entries(BLUEPRINT_SCHEMA.optionalObjects)) {
+      for (const [key, defaultValue] of Object.entries(
+        BLUEPRINT_SCHEMA.optionalObjects,
+      )) {
         if (!(key in blueprint) || typeof blueprint[key] !== "object") {
           blueprint[key] = defaultValue;
         }
@@ -1237,19 +1437,43 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       );
 
       // Domain-specific schema validations
-      if (blueprint.project_name.includes("url-shortener") || blueprint.project_name.includes("url_shortener")) {
-        const hasRedirectRoute = blueprint.routes && blueprint.routes.some(r => r.includes("{shortCode}") || r.includes("{code}") || r.includes("{short_code}"));
+      if (
+        blueprint.project_name.includes("url-shortener") ||
+        blueprint.project_name.includes("url_shortener")
+      ) {
+        const hasRedirectRoute =
+          blueprint.routes &&
+          blueprint.routes.some(
+            (r) =>
+              r.includes("{shortCode}") ||
+              r.includes("{code}") ||
+              r.includes("{short_code}"),
+          );
         if (!hasRedirectRoute) {
-           this.log(`   ⚠️ Domain Validation Warning: URL Shortener is missing a /{shortCode} redirect route. Injecting fallback...`, "warning");
-           blueprint.routes.push("/{shortCode}");
+          this.log(
+            `   ⚠️ Domain Validation Warning: URL Shortener is missing a /{shortCode} redirect route. Injecting fallback...`,
+            "warning",
+          );
+          blueprint.routes.push("/{shortCode}");
         }
       }
 
+      // 🔗 GENERIC RELATIONSHIP CLOSURE — if the blueprint references a model
+      // (via schema hasMany/belongsTo value or relationships[].target) that is
+      // not declared in models, materialise it with a minimal valid schema.
+      // This is name-agnostic (works for ClickStat or any child model) so the
+      // engine never hardcodes per-project fixes — the LLM still owns quality.
+      this._ensureRelationshipClosure(blueprint);
+
       // TypeSafe Blueprint Gate (Optional & fail-open)
       if (this.typeSafeValidator && this.typeSafeValidator.enabled) {
-        this.log(`   🛡️ TypeSafeValidator: Evaluating blueprint gate...`, "info");
+        this.log(
+          `   🛡️ TypeSafeValidator: Evaluating blueprint gate...`,
+          "info",
+        );
         try {
-          const tvResult = await this.typeSafeValidator.validateBlueprint(blueprint);
+          const tvResult =
+            await this.typeSafeValidator.validateBlueprint(blueprint);
           if (!tvResult.skipped) {
             if (!tvResult.ok) {
               this.log(
@@ -1266,7 +1490,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
             }
           }
         } catch (tvErr) {
-          this.log(`   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`, "warning");
+          this.log(
+            `   ⚠️ TypeSafeValidator check skipped: ${tvErr.message}`,
+            "warning",
+          );
         }
       }
 
@@ -1303,36 +1530,153 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
   }
 
   /**
+   * GENERIC RELATIONSHIP CLOSURE.
+   * Scans blueprint.schema relationship values + relationships[].target for
+   * model references that are not declared in `models`. For each dangling
+   * target it materialises a minimal, structurally-correct model (child of a
+   * hasMany/hasOne gets a foreign key back to its parent; plus timestamps) and
+   * registers its migration + factory. Name-agnostic: never special-cases a
+   * concrete model like ClickStat.
+   */
+  _ensureRelationshipClosure(blueprint) {
+    if (!blueprint || typeof blueprint !== "object") return blueprint;
+    blueprint.models = Array.isArray(blueprint.models) ? blueprint.models : [];
+    blueprint.schema =
+      blueprint.schema && typeof blueprint.schema === "object"
+        ? blueprint.schema
+        : {};
+    blueprint.migrations = Array.isArray(blueprint.migrations)
+      ? blueprint.migrations
+      : [];
+    blueprint.factories = Array.isArray(blueprint.factories)
+      ? blueprint.factories
+      : [];
+
+    const modelSet = new Set(blueprint.models);
+    const REL = [
+      "hasmany",
+      "hasone",
+      "belongsto",
+      "belongstomany",
+      "morphmany",
+      "morphone",
+    ];
+    const referenced = new Map(); // target -> { parent, type }
+
+    const consider = (target, parent, type) => {
+      if (!target || typeof target !== "string") return;
+      const t = target.trim();
+      if (!/^[A-Z][A-Za-z0-9]*$/.test(t)) return; // must look like a model class
+      if (modelSet.has(t) || referenced.has(t)) return;
+      referenced.set(t, { parent, type });
+    };
+
+    for (const [m, cols] of Object.entries(blueprint.schema)) {
+      if (!cols || typeof cols !== "object") continue;
+      for (const rawType of Object.values(cols)) {
+        const [base, ...mods] = String(rawType || "").split(":");
+        if (REL.includes(base.toLowerCase()) && mods[0]) {
+          consider(mods[0], m, base.toLowerCase());
+        }
+      }
+    }
+    for (const r of blueprint.relationships || []) {
+      if (r && r.target)
+        consider(r.target, r.model, String(r.type || "").toLowerCase());
+    }
+
+    if (referenced.size === 0) return blueprint;
+
+    for (const [target, info] of referenced) {
+      const childSchema = {};
+      if ((info.type === "hasmany" || info.type === "hasone") && info.parent) {
+        childSchema[`${this._singularSnake(info.parent)}_id`] =
+          "foreignId:constrained";
+      }
+      childSchema["created_at"] = "datetime";
+      childSchema["updated_at"] = "datetime";
+      blueprint.schema[target] = childSchema;
+      blueprint.models.push(target);
+      modelSet.add(target);
+      const table = this._pluralSnakeLocal(target);
+      if (!blueprint.migrations.includes(`create_${table}_table`)) {
+        blueprint.migrations.push(`create_${table}_table`);
+      }
+      if (!blueprint.factories.includes(`${target}Factory`)) {
+        blueprint.factories.push(`${target}Factory`);
+      }
+      this.log(
+        `      🔗 Relationship closure: materialised missing model '${target}' (referenced by ${info.parent || "blueprint"}).`,
+        "warning",
+      );
+    }
+    return blueprint;
+  }
+
+  // PascalCase -> snake_case singular (ShortUrl -> short_url)
+  _singularSnake(name) {
+    return String(name)
+      .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
+      .toLowerCase();
+  }
+
+  // PascalCase -> snake_case plural (ClickStat -> click_stats)
+  _pluralSnakeLocal(name) {
+    const snake = this._singularSnake(name);
+    if (snake.endsWith("y") && !/[aeiou]y$/.test(snake))
+      return snake.slice(0, -1) + "ies";
+    if (/(s|sh|ch|x|z)$/.test(snake)) return snake + "es";
+    return snake + "s";
+  }
+
+  /**
    * FIX #30 — Generate a minimal fallback blueprint when LLM fails to produce valid JSON.
    * Ensures pipeline can continue even if AI generation is unavailable.
    */
   _generateFallbackBlueprint(projectName, readmeContent) {
-    this.log(`   🛟 Generating deterministic fallback blueprint for: ${projectName}`, "warning");
-    
+    this.log(
+      `   🛟 Generating deterministic fallback blueprint for: ${projectName}`,
+      "warning",
+    );
+
     // Derive sensible model names from project name
     const cleanName = projectName
       .replace(/-/g, " ")
       .replace(/_/g, " ")
       .split(" ")
-      .filter(w => !['app', 'system', 'platform', 'ui', 'web'].includes(w.toLowerCase()));
-    
-    let primaryModel = cleanName
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-      .join("") || "Item";
+      .filter(
+        (w) =>
+          !["app", "system", "platform", "ui", "web"].includes(w.toLowerCase()),
+      );
 
-    if (primaryModel.toLowerCase() === "user" || primaryModel.toLowerCase() === "users") {
+    let primaryModel =
+      cleanName
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join("") || "Item";
+
+    if (
+      primaryModel.toLowerCase() === "user" ||
+      primaryModel.toLowerCase() === "users"
+    ) {
       primaryModel = "UserProfile";
     }
-    
-    const tableName = primaryModel
-      .replace(/([A-Z])/g, "_$1")
-      .toLowerCase()
-      .replace(/^_/, "") + "s";
+
+    const tableName =
+      primaryModel
+        .replace(/([A-Z])/g, "_$1")
+        .toLowerCase()
+        .replace(/^_/, "") + "s";
 
     const models = Array.from(new Set(["User", primaryModel]));
-    const migrations = Array.from(new Set(["create_users_table", `create_${tableName}_table`]));
-    const seeders = Array.from(new Set(["UserSeeder", `${primaryModel}Seeder`]));
-    const factories = Array.from(new Set(["UserFactory", `${primaryModel}Factory`]));
+    const migrations = Array.from(
+      new Set(["create_users_table", `create_${tableName}_table`]),
+    );
+    const seeders = Array.from(
+      new Set(["UserSeeder", `${primaryModel}Seeder`]),
+    );
+    const factories = Array.from(
+      new Set(["UserFactory", `${primaryModel}Factory`]),
+    );
 
     return {
       project_name: projectName,
@@ -1352,7 +1696,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
         },
       },
       migrations,
-      livewire_components: [`${projectName}-dashboard`, `${projectName}-manager`],
+      livewire_components: [
+        `${projectName}-dashboard`,
+        `${projectName}-manager`,
+      ],
       seeders,
       factories,
       routes: ["/dashboard", `/${tableName}`],
@@ -1363,8 +1710,18 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       ],
       middleware: ["auth", "verified"],
       api_endpoints: [
-        { method: "GET", path: `/api/v1/${tableName}`, controller: `${primaryModel}Controller@index`, middleware: ["auth:sanctum"] },
-        { method: "POST", path: `/api/v1/${tableName}`, controller: `${primaryModel}Controller@store`, middleware: ["auth:sanctum"] },
+        {
+          method: "GET",
+          path: `/api/v1/${tableName}`,
+          controller: `${primaryModel}Controller@index`,
+          middleware: ["auth:sanctum"],
+        },
+        {
+          method: "POST",
+          path: `/api/v1/${tableName}`,
+          controller: `${primaryModel}Controller@store`,
+          middleware: ["auth:sanctum"],
+        },
       ],
       security_policies: {
         roles: ["admin", "user"],
@@ -1374,8 +1731,18 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
       },
       async_jobs: [],
       ui_design_system: {
-        color_palette: { primary: "#1e40af", secondary: "#64748b", accent: "#f59e0b", background: "#f8fafc", surface: "#ffffff" },
-        typography: { heading_font: "Inter", body_font: "Inter", scale: "1.25" },
+        color_palette: {
+          primary: "#1e40af",
+          secondary: "#64748b",
+          accent: "#f59e0b",
+          background: "#f8fafc",
+          surface: "#ffffff",
+        },
+        typography: {
+          heading_font: "Inter",
+          body_font: "Inter",
+          scale: "1.25",
+        },
         layout: "sidebar-main",
         theme: "light",
         component_style: "rounded-xl shadow-sm border border-gray-200",
@@ -1947,21 +2314,29 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
           ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
         )
       : (await fs.pathExists(this.knowledgePath))
-        ? fg.sync("**/*.{md,MD}", {
-            cwd: this.knowledgePath.replace(/\\/g, "/"),
-            ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
-            onlyFiles: true,
-          }).map(f => ({ file: f, fullPath: path.join(this.knowledgePath, f), source: "local" }))
+        ? fg
+            .sync("**/*.{md,MD}", {
+              cwd: this.knowledgePath.replace(/\\/g, "/"),
+              ignore: ["NEXUS_HUB_INDEX.md", "NEXUS_NEURAL_MAP.md"],
+              onlyFiles: true,
+            })
+            .map((f) => ({
+              file: f,
+              fullPath: path.join(this.knowledgePath, f),
+              source: "local",
+            }))
         : [];
 
     for (const entry of mergedDistilled) {
       try {
         const content = await fs.readFile(entry.fullPath, "utf8");
         const meta = this._extractSkillMeta(entry.fullPath, content);
-        meta.sourceType = entry.source === "obsidian-vault" ? "vault-knowledge" : "distilled";
-        meta.relativePath = entry.source === "obsidian-vault"
-          ? `vault://${entry.file}`
-          : `memory/distilled/${entry.file}`;
+        meta.sourceType =
+          entry.source === "obsidian-vault" ? "vault-knowledge" : "distilled";
+        meta.relativePath =
+          entry.source === "obsidian-vault"
+            ? `vault://${entry.file}`
+            : `memory/distilled/${entry.file}`;
         skills.push(meta);
       } catch (err) {
         this.log(

@@ -2,6 +2,27 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.6] - 2026-10-12 (Livewire Component-View Coherence Guard)
+
+### Fixed
+
+- **500 `Attempt to read property "name" on null` + "undefined variable" pada halaman Livewire (`ImplementationPhase.js`)**: kelas komponen & blade view di-generate LLM dalam **dua panggilan terpisah** tanpa rekonsiliasi, sehingga view memakai variabel (`$shortUrls`, `$clickStats`) dan baca properti (`$user->name`) yang tidak pernah disediakan kelas (`render()` kosong, public prop null).
+  - **Guard koherensi deterministik** baru (`_reconcileLivewireOnDisk` + `_reconcileLivewireComponent`): setelah kelas & view ditulis, engine memetakan variabel yang disediakan kelas (public props + key array `render()` + `compact()` + `->with()`), menemukan collection yang dipakai view (`@foreach/@forelse`), lalu **inject collection hilang ke `render()`** (`\App\Models\X::all()` via `blueprint.models`, fallback `collect([])`) dan mengubah **semua baca properti jadi null-safe** (`$x->` → `$x?->`).
+  - Generik & name-agnostic — tak ada hardcode nama komponen/kolom; berlaku seragam ke semua project.
+
+### Added
+
+- **VIEW VARIABLE CONTRACT pada prompt** (`generateLivewireComponent`): prompt kelas & view kini berbagi daftar variabel collection yang diturunkan dari `blueprint.models` + aturan "tiap `@foreach` wajib disediakan `render()`; jangan baca `->prop` tanpa null-safe"; view diminta menyertakan branch `@empty`.
+
+### Verified
+
+- Harness rekonsiliasi pada file nyata `url-shortener-app`: `render()` menghasilkan `['shortUrls'=>ShortUrl::all(),'clickStats'=>ClickStat::all()]`, `@if ($user?->name && $user?->email)`, `php -l` bersih; `node --check` & GetProblems OK.
+- Catatan: verifikasi `php artisan serve` end-to-end menunggu regenerasi komponen via siklus engine (output sandbox lama read-only).
+
+### Changed
+
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.6`.
+
 ## [v3.4.5] - 2026-10-12 (Junction Sandbox Autoload Fix)
 
 ### Fixed

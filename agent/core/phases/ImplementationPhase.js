@@ -897,6 +897,17 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
     const fullSchema = blueprint.schema
       ? JSON.stringify(blueprint.schema, null, 2)
       : "No schema";
+    const knownModels = blueprint.models || [];
+    const contractVars = knownModels.map((mo) => this._camelPlural(mo));
+    const exampleVar = contractVars[0] || "items";
+    const exampleModel = knownModels[0]
+      ? `\\App\\Models\\${knownModels[0]}`
+      : "collect";
+    const contractLine =
+      `\nVIEW VARIABLE CONTRACT (class & view MUST stay consistent):\n` +
+      `- Collection variables derived from models: ${contractVars.map((v) => "$" + v).join(", ") || "(none)"}.\n` +
+      `- Every variable used in @foreach/@forelse must be provided by render(), e.g. return view('livewire.${kebabName}', ['${exampleVar}' => ${exampleModel}::all()]).\n` +
+      `- Public properties are only for form-bound scalars. Never reference an undefined view variable, and never read a property on a possibly-null object without the null-safe operator (e.g. $user?->name).`;
 
     // Generate PHP Class
     const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}.
@@ -906,6 +917,7 @@ Use modern Livewire 3/4 standards.
 SCHEMA REFERENCE:
 ${fullSchema}
 Make sure public properties match the columns in the schema if this component manages a model.
+${contractLine}
     
 Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     const phpResponse = await this.getCachedOrGenerate(
@@ -946,10 +958,12 @@ CRITICAL RULES:
 2. DO NOT include <!DOCTYPE html>, <html>, <head>, or <body> tags.
 3. Wrap all content inside a SINGLE root <div> element.
 4. Include realistic mock items, empty states, or table/card listings so the UI looks active and alive.
+5. Iterate collections with @foreach($collection as $item) using the exact contract variable names below, and always include an @empty branch.
 
 SCHEMA REFERENCE:
 ${fullSchema}
 Ensure your wire:model attributes match the properties corresponding to the schema.
+${contractLine}
     
 Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const bladeResponse = await this.getCachedOrGenerate(
@@ -970,6 +984,190 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       await fs.writeFile(bladePath, cleanBlade);
       this.log(`      ✅ Saved ${kebabName}.blade.php`, "success");
     }
+
+    // Deterministic reconciliation: guarantee the class provides every variable
+    // the view consumes and null-guard property reads, so the rendered page can
+    // never 500 with "undefined variable" / "Attempt to read property on null".
+    await this._reconcileLivewireOnDisk(className, kebabName, blueprint);
+  }
+
+  // camelCase plural of a model name -> view collection variable.
+  // ShortUrl -> shortUrls, ClickStat -> clickStats, Category -> categories
+  _camelPlural(model) {
+    const camel = model.charAt(0).toLowerCase() + model.slice(1);
+    if (/(s|x|z|ch|sh)$/i.test(camel)) return camel + "es";
+    if (/[^aeiou]y$/i.test(camel)) return camel.slice(0, -1) + "ies";
+    return camel + "s";
+  }
+
+  async _reconcileLivewireOnDisk(className, kebabName, blueprint) {
+    const phpPath = path.join(
+      this.engine.rootPath,
+      "app",
+      "Livewire",
+      `${className}.php`,
+    );
+    const bladePath = path.join(
+      this.engine.rootPath,
+      "resources",
+      "views",
+      "livewire",
+      `${kebabName}.blade.php`,
+    );
+    if (!(await fs.pathExists(phpPath)) || !(await fs.pathExists(bladePath))) {
+      return;
+    }
+    try {
+      const classCode = await fs.readFile(phpPath, "utf8");
+      const viewCode = await fs.readFile(bladePath, "utf8");
+      const knownModels = (blueprint && blueprint.models) || [];
+      const rec = this._reconcileLivewireComponent(
+        className,
+        kebabName,
+        classCode,
+        viewCode,
+        knownModels,
+      );
+      if (!rec.changed) return;
+      await fs.writeFile(phpPath, rec.classCode);
+      await fs.writeFile(bladePath, rec.viewCode);
+      await this.validatePHPSyntax(phpPath);
+      this.log(
+        `      🔗 Reconciled ${className} <-> view: ${rec.notes.join("; ")}`,
+        "info",
+      );
+    } catch (e) {
+      this.log(
+        `      ⚠️ Livewire reconcile skipped: ${String(e.message).slice(0, 80)}`,
+        "warning",
+      );
+    }
+  }
+
+  _reconcileLivewireComponent(
+    className,
+    kebabName,
+    classCode,
+    viewCode,
+    knownModels,
+  ) {
+    const notes = [];
+    let changed = false;
+
+    // 1) Variables the class already provides to the view.
+    const provided = new Set();
+    let m;
+    const propRe = /public\s+\$(\w+)/g;
+    while ((m = propRe.exec(classCode))) provided.add(m[1]);
+
+    const renderBody = this._extractMethodBody(classCode, "render") || "";
+    const keyRe = /['"](\w+)['"]\s*=>/g;
+    while ((m = keyRe.exec(renderBody))) provided.add(m[1]);
+    const compactRe = /compact\(([^)]*)\)/g;
+    let cm;
+    while ((cm = compactRe.exec(renderBody))) {
+      const nameRe = /['"](\w+)['"]/g;
+      let nm;
+      while ((nm = nameRe.exec(cm[1]))) provided.add(nm[1]);
+    }
+    const withRe = /->with\(\s*['"](\w+)['"]/g;
+    while ((m = withRe.exec(renderBody))) provided.add(m[1]);
+
+    // 2) Collections the view iterates.
+    const foreachVars = new Set();
+    const feRe = /@(?:foreach|forelse)\s*\(\s*\$(\w+)\s+as\s+/gi;
+    while ((m = feRe.exec(viewCode))) foreachVars.add(m[1]);
+
+    // 3) Supply any missing collection from the matching model via render().
+    const entries = [];
+    for (const varName of foreachVars) {
+      if (provided.has(varName)) continue;
+      const model = knownModels.find((md) => this._camelPlural(md) === varName);
+      const php = model ? `\\App\\Models\\${model}::all()` : "collect([])";
+      entries.push({ key: varName, php });
+    }
+    if (entries.length) {
+      const next = this._injectRenderData(classCode, kebabName, entries);
+      if (next !== classCode) {
+        classCode = next;
+        changed = true;
+        notes.push(
+          `render() supplies ${entries.map((e) => "$" + e.key).join(", ")}`,
+        );
+      }
+    }
+
+    // 4) Null-safe every property read so "Attempt to read property on null"
+    //    can never crash the page (a null-safe read on a real object is a no-op).
+    const nulled = this._nullSafeViewReads(viewCode);
+    if (nulled !== viewCode) {
+      viewCode = nulled;
+      changed = true;
+      notes.push("null-safe property reads");
+    }
+
+    return { classCode, viewCode, changed, notes };
+  }
+
+  _nullSafeViewReads(viewCode) {
+    return viewCode.replace(/\$(\w+)->/g, (_m, name) => `$${name}?->`);
+  }
+
+  _extractMethodBody(classCode, methodName) {
+    const sig = new RegExp(`function\\s+${methodName}\\s*\\([^)]*\\)\\s*\\{`);
+    const match = sig.exec(classCode);
+    if (!match) return null;
+    let i = match.index + match[0].length;
+    let depth = 1;
+    const start = i;
+    while (i < classCode.length && depth > 0) {
+      const ch = classCode[i];
+      if (ch === "{") depth++;
+      else if (ch === "}") depth--;
+      i++;
+    }
+    return depth === 0 ? classCode.slice(start, i - 1) : null;
+  }
+
+  _injectRenderData(classCode, kebabName, entries) {
+    if (!entries.length) return classCode;
+    const dataLiteral = entries.map((e) => `'${e.key}' => ${e.php}`).join(", ");
+    const vn = `livewire.${kebabName}`;
+    const esc = vn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    // a) view('livewire.x') -> view('livewire.x', [data])
+    const noData = new RegExp(`view\\(\\s*(['"])${esc}\\1\\s*\\)`);
+    if (noData.test(classCode)) {
+      return classCode.replace(
+        noData,
+        (_m, q) => `view(${q}${vn}${q}, [${dataLiteral}])`,
+      );
+    }
+
+    // b) view('livewire.x', [ ... ]) -> append into the existing array
+    const arrRe = new RegExp(
+      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*\\[)([\\s\\S]*?\\]))`,
+    );
+    if (arrRe.test(classCode)) {
+      return classCode.replace(arrRe, (_m, head, _q, inner) => {
+        const sep = inner.trim() ? ", " : "";
+        return `${head}${inner}${sep}${dataLiteral}]`;
+      });
+    }
+
+    // c) view('livewire.x', compact(...)) -> array_merge(compact(...), [data])
+    const compRe = new RegExp(
+      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*)(compact\\([^)]*\\))(\\s*\\)))`,
+    );
+    if (compRe.test(classCode)) {
+      return classCode.replace(
+        compRe,
+        (_m, head, _q, c, tail) =>
+          `${head}array_merge(${c}, [${dataLiteral}])${tail}`,
+      );
+    }
+
+    return classCode;
   }
 
   async generateFactory(factoryName, blueprint) {

@@ -2,6 +2,25 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.8] - 2026-10-12 (Livewire Action & Schema Guards — penguatan runtime url-shortener-app)
+
+### Fixed
+
+- **`Typed property ... must not be accessed before initialization` (`ImplementationPhase.js`)**: properti publik bertipe (`public ShortUrl $shortUrl;`) tanpa default & tanpa assignment di `mount()`, dibaca di `render()`/view → fatal. Guard deterministik baru **`_ensureLivewirePropertyInit()`** (+ `_injectMountInits()`) pada `_reconcileLivewireComponent` langkah **3.5**: prop bertipe model → `new Model()` di `mount()`; tipe lain → default nullable `public ?T $x = null;`.
+- **`SQLSTATE[HY000] duplicate column name: created_at` → `no such table` (`ImplementationPhase.js`)**: migration `create_<table>` menghasilkan `$table->timestamps()` dua kali (plus bentrok dengan `softDeletes()`), `migrate` gagal → tabel tak pernah terbentuk. Guard baru **`_dedupeMigrationColumns()`/`_dedupeMigrationBlock()`** pada `generateMigration()`: drop pemanggilan `$table->...` duplikat persis per blok `Schema::create`, dan drop `created_at`/`updated_at`/`deleted_at` eksplisit bila `timestamps()`/`softDeletes()` hadir.
+- **`Class "App\Livewire\X" not found` (`ImplementationPhase.js`)**: kelas memakai model dengan nama pendek (`ShortUrl::paginate()`, `ClickStat::all()`, type-hint) tanpa `use App\Models\X;`, sehingga PHP mencari class di namespace komponen. Guard baru **`_ensureLivewireModelImports()`** langkah **0.5**: deteksi pemakaian bare (`::`, `(`, type-hint `$`; FQN `\App\Models\X` dilewati via negative-lookbehind) → sisipkan impor setelah statement `use` terakhir (atau setelah baris `namespace`). Idempoten.
+- **`Unable to call component method` saat tombol diklik (`ImplementationPhase.js`)**: Blade memanggil `wire:click="deleteShortUrl(...)"`/`removeClickStat(...)` yang tak didefinisikan kelas — halaman tampil saat collection kosong (`@empty`), fatal saat tombol diklik. Guard baru **`_ensureLivewireActionMethods()`** langkah **3.6**: scan directive aksi (`wire:click|submit|change|input|key*|focus|blur|action|request|dblclick|mouse*`), ambil identifier pertama nilai, lewati `$refresh`/`$emit`/`$dispatch` & `wire:model`, sisipkan stub zero-arg untuk method yang hilang. Clause kontrak baru mewajibkan tiap action punya method yang cocok.
+- **Bug laten `_injectRenderData()` (`ImplementationPhase.js`)**: regex cabang (b) tak seimbang kurung (`view\(...\])`) melempar exception di dalam try/catch reconcile (tersilent-kan jadi pesan `reconcile skipped`) begitu `render()` sudah memuat array literal → injeksi data jamak nonaktif diam-diam. Regex diperbaiki; bug double-comma akibat trailing-comma ikut dibereskan (body di-slice + trailing comma di-strip).
+
+### Verified
+
+- Tiap guard diuji scratch throwaway (lalu dihapus): typed-property init (mount + jamak + `@forelse`, idempoten, kasus negatif), dedup migration (2→1 `timestamps`, kolom lain & `down()` utuh, helper-drop), model imports (bare→impor, FQN→skip, sudah-impor→no-op, idempoten), action methods (stub benar, `save`/`delete` tak dobel, magic & `wire:model` diabaikan, `php -l` valid).
+- `node --check` `ImplementationPhase.js` bersih; `php -l` komponen sandbox (`UrlShortenerManager`, `LinkAnalyticsTable`) bersih; `php artisan view:clear` & `migrate` sandbox berhasil (semua migrasi `Ran`).
+
+### Changed
+
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.8`.
+
 ## [v3.4.7] - 2026-10-12 (Hallucination Guards, Pipeline Cleanup & Tailwind v4 Migration)
 
 ### Fixed

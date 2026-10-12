@@ -854,6 +854,20 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         );
       }
 
+      // Deterministic guard: collapse duplicate column/helper calls inside a
+      // Schema::create block. The local model frequently emits `$table->timestamps()`
+      // twice (once in the body, once appended), and _ensureMigrationColumns can
+      // re-add an explicit created_at/updated_at that timestamps() already defines,
+      // so `php artisan migrate` fails with "duplicate column name: created_at".
+      const dedupedMigration = this._dedupeMigrationColumns(cleanCode);
+      if (dedupedMigration !== cleanCode) {
+        cleanCode = dedupedMigration;
+        this.log(
+          `      ♻️ Deduplicated duplicate column/helper calls in ${tableName} migration`,
+          "warning",
+        );
+      }
+
       // FIX #14 — Dynamic timestamp: gunakan tanggal hari ini, bukan hardcoded '2026_06_01'
       const now = new Date();
       const datePrefix = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
@@ -934,7 +948,10 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       `- Collection variables derived from models: ${contractVars.map((v) => "$" + v).join(", ") || "(none)"}.\n` +
       `- Every variable used in @foreach/@forelse must be provided by render(), e.g. return view('livewire.${kebabName}', ['${exampleVar}' => ${exampleModel}::all()]).\n` +
       `- NEVER declare an empty public property with the same name as a render() view key: Livewire applies public properties AFTER render() data, so the empty property overrides the collection with null. Iterated collections belong in render() ONLY.\n` +
-      `- Public properties are only for form-bound scalars. Never reference an undefined view variable, and never read a property on a possibly-null object without the null-safe operator (e.g. $user?->name).`;
+      `- Public properties are only for form-bound scalars. Never reference an undefined view variable, and never read a property on a possibly-null object without the null-safe operator (e.g. $user?->name).\n` +
+      `- A typed public property (e.g. public ShortUrl $shortUrl;) MUST be initialized before it is read: give it a default value, declare it nullable with a null default (public ?ShortUrl $shortUrl = null;), or assign it in mount(). NEVER read $this->prop in render()/the view for a typed property that mount() does not initialize — that throws "Typed property must not be accessed before initialization".` +
+      "\n" +
+      `- Every Livewire action the Blade invokes (wire:click="method(...)", wire:submit="method", wire:change=..., etc.) MUST have a matching public method() on the component class that implements it. NEVER emit a wire directive that calls a method the class does not define — that throws "Unable to call component method" on click.`;
 
     // Generate PHP Class
     const phpPrompt = `Write a complete Livewire component class for '${className}'. Namespace: App\\Livewire. It should handle the logic for a ${blueprint.project_name}.
@@ -1090,6 +1107,17 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       notes.push("repaired unbalanced Blade loop directives");
     }
 
+    // 0.5) Add missing `use App\Models\X;` imports for Eloquent models the class
+    // references by short name (ShortUrl::all(), ClickStat::paginate(), a typed
+    // property, or `new X`). Without the import PHP resolves the bare class under
+    // the component's own namespace and throws "Class 'App\Livewire\X' not found".
+    const imp = this._ensureLivewireModelImports(classCode, knownModels);
+    if (imp.changed) {
+      classCode = imp.classCode;
+      changed = true;
+      notes.push(`imported model(s): ${imp.added.join(", ")}`);
+    }
+
     // 1) Variables the class already provides to the view.
     let m;
     const publicProps = new Set();
@@ -1155,6 +1183,30 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       }
     }
 
+    // 3.5) Initialize typed public properties that are read before assignment.
+    // A `public SomeModel $x;` with no default and no mount() assignment makes
+    // render()/the view throw "Typed property ... must not be accessed before
+    // initialization". Model-typed props get `new Model()` in mount(); the rest
+    // get a nullable null default so the read yields null (then null-safe below).
+    const init = this._ensureLivewirePropertyInit(classCode, knownModels);
+    if (init.changed) {
+      classCode = init.classCode;
+      changed = true;
+      notes.push(...init.notes);
+    }
+
+    // 3.6) Define action methods the view invokes through Livewire event
+    // directives (wire:click="deleteShortUrl(...)", wire:submit="save", ...).
+    // When the LLM generates the Blade but omits the matching public method, the
+    // click throws "Unable to call component method" at request time. Inject a
+    // safe stub so the component never fatals; real logic comes from the prompt.
+    const actions = this._ensureLivewireActionMethods(classCode, viewCode);
+    if (actions.changed) {
+      classCode = actions.classCode;
+      changed = true;
+      notes.push(`stubbed missing action(s): ${actions.added.join(", ")}`);
+    }
+
     // 4) Null-safe every property read so "Attempt to read property on null"
     //    can never crash the page (a null-safe read on a real object is a no-op).
     const nulled = this._nullSafeViewReads(viewCode);
@@ -1210,12 +1262,15 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
     // b) view('livewire.x', [ ... ]) -> append into the existing array
     const arrRe = new RegExp(
-      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*\\[)([\\s\\S]*?\\]))`,
+      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*)(\\[[\\s\\S]*?\\])`,
     );
     if (arrRe.test(classCode)) {
-      return classCode.replace(arrRe, (_m, head, _q, inner) => {
-        const sep = inner.trim() ? ", " : "";
-        return `${head}${inner}${sep}${dataLiteral}]`;
+      return classCode.replace(arrRe, (_m, head, _q, arr) => {
+        // Strip the brackets and any trailing comma so an existing
+        // `['k' => v,]` (trailing comma) does not become `..., , 'new' => ...`.
+        const body = arr.slice(1, -1).replace(/,\s*$/, "");
+        const sep = body.trim() ? "," : "";
+        return `${head}[${body}${sep} ${dataLiteral}]`;
       });
     }
 
@@ -1232,6 +1287,158 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     }
 
     return classCode;
+  }
+
+  _ensureLivewireActionMethods(classCode, viewCode) {
+    if (!classCode || !viewCode)
+      return { classCode, changed: false, added: [] };
+    const EVENT =
+      "(?:click|submit|change|input|keydown|keyup|keypress|focus|blur|action|request|dblclick|mouseenter|mouseleave|mousedown|mouseup)";
+    const dirRe = new RegExp(
+      `wire:${EVENT}(?:\\.[\\w-]+)*\\s*=\\s*"([^"]*)"`,
+      "g",
+    );
+    const needed = new Set();
+    let dm;
+    while ((dm = dirRe.exec(viewCode))) {
+      // The invoked component method is the leading identifier of the value.
+      // `$refresh`, `$emit(...)`, `$dispatch(...)` start with `$` and are skipped.
+      const im = /^\s*([A-Za-z_]\w*)\s*\(?/.exec(dm[1]);
+      if (!im) continue;
+      const name = im[1];
+      if (name === "if" || name === "true" || name === "false") continue;
+      needed.add(name);
+    }
+    const added = [];
+    for (const name of needed) {
+      if (new RegExp(`function\\s+${name}\\s*\\(`).test(classCode)) continue;
+      added.push(name);
+    }
+    if (!added.length) return { classCode, changed: false, added };
+    const stubs = added
+      .map(
+        (n) =>
+          `\n    public function ${n}()\n    {\n        // TODO: action invoked by a wire directive in the component view.\n    }\n`,
+      )
+      .join("");
+    const lastBrace = classCode.lastIndexOf("}");
+    if (lastBrace === -1) return { classCode, changed: false, added: [] };
+    classCode =
+      classCode.slice(0, lastBrace) + stubs + classCode.slice(lastBrace);
+    return { classCode, changed: true, added };
+  }
+
+  _ensureLivewireModelImports(classCode, knownModels = []) {
+    if (!classCode || !knownModels || !knownModels.length)
+      return { classCode, changed: false, added: [] };
+    const added = [];
+    for (const model of knownModels) {
+      if (new RegExp(`use\\s+App\\\\Models\\\\${model}\\s*;`).test(classCode))
+        continue;
+      // Bare (unqualified) reference: not preceded by a backslash or word char,
+      // followed by `::`, `(`, or a `$` (typed-property hint). FQN uses such as
+      // \App\Models\X are intentionally skipped (they need no import).
+      const used = new RegExp(
+        `(?<![\\\\\\w])${model}\\b\\s*(?:::|\\(|\\$)`,
+      ).test(classCode);
+      if (!used) continue;
+      added.push(model);
+    }
+    if (!added.length) return { classCode, changed: false, added };
+    const useLines = added.map((m) => `use App\\Models\\${m};`).join("\n");
+    const useMatches = [...classCode.matchAll(/^use\s+[^;]+;/gm)];
+    if (useMatches.length) {
+      const last = useMatches[useMatches.length - 1];
+      const idx = last.index + last[0].length;
+      classCode =
+        classCode.slice(0, idx) + "\n" + useLines + classCode.slice(idx);
+    } else {
+      classCode = classCode.replace(
+        /(namespace\s+[^;]+;)/,
+        `$1\n\n${useLines}`,
+      );
+    }
+    return { classCode, changed: true, added };
+  }
+
+  _ensureLivewirePropertyInit(classCode, knownModels = []) {
+    const notes = [];
+    let changed = false;
+    const modelInits = [];
+    // Typed public property WITHOUT a default value: `public ?SomeType $name;`.
+    // Untyped `public $x;` is intentionally skipped (already defaults to null).
+    const re =
+      /public\s+(?:static\s+)?(\?)?\s*([A-Za-z_][A-Za-z0-9_\\]*)\s+\$(\w+)\s*;/g;
+    let m;
+    while ((m = re.exec(classCode))) {
+      const type = m[2];
+      const name = m[3];
+      const shortType = type.split("\\").pop();
+      // Skip if the property is already assigned anywhere (mount/constructor/action).
+      if (new RegExp(`\\$this->${name}\\s*=`).test(classCode)) continue;
+      const isModel =
+        knownModels.includes(shortType) ||
+        new RegExp(`use\\s+App\\\\Models\\\\${shortType};`).test(classCode);
+      if (isModel) {
+        modelInits.push({ name, type: shortType });
+      } else {
+        const declRe = new RegExp(
+          `public\\s+(?:static\\s+)?\\??\\s*${type.replace(
+            /\\/g,
+            "\\\\",
+          )}\\s+\\$${name}\\s*;`,
+        );
+        const next = classCode.replace(
+          declRe,
+          `public ?${type} $${name} = null;`,
+        );
+        if (next !== classCode) {
+          classCode = next;
+          changed = true;
+          notes.push(`default null on typed $${name}`);
+        }
+      }
+    }
+    if (modelInits.length) {
+      const next = this._injectMountInits(classCode, modelInits);
+      if (next !== classCode) {
+        classCode = next;
+        changed = true;
+        notes.push(
+          `mount() initializes ${modelInits.map((i) => "$" + i.name).join(", ")}`,
+        );
+      }
+    }
+    return { classCode, changed, notes };
+  }
+
+  _injectMountInits(classCode, assignments) {
+    if (!assignments.length) return classCode;
+    const lines = assignments
+      .map((a) => `        $this->${a.name} = new \\App\\Models\\${a.type}();`)
+      .join("\n");
+    // Existing mount(): prepend the initializers into its body.
+    const mountRe = /public\s+function\s+mount\s*\([^)]*\)\s*\{/;
+    if (mountRe.test(classCode)) {
+      return classCode.replace(mountRe, (sig) => `${sig}\n${lines}`);
+    }
+    // Otherwise add a mount() just before render() (keeps lifecycle order clear).
+    const renderRe = /([ \t]*)public\s+function\s+render\s*\(/;
+    if (renderRe.test(classCode)) {
+      return classCode.replace(
+        renderRe,
+        (_m, ind) =>
+          `${ind}public function mount()\n${ind}{\n${lines}\n${ind}}\n\n${ind}public function render(`,
+      );
+    }
+    // Fallback: insert before the class closing brace.
+    const idx = classCode.lastIndexOf("}");
+    if (idx === -1) return classCode;
+    return (
+      classCode.slice(0, idx) +
+      `\n    public function mount()\n    {\n${lines}\n    }\n` +
+      classCode.slice(idx)
+    );
   }
 
   async generateFactory(factoryName, blueprint) {
@@ -2540,6 +2747,65 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     return code.replace(BARE_INVALID, "");
   }
 
+  // Collapse duplicate column/helper calls inside every Schema::create(...) block.
+  // (1) An exact-duplicated `$table->...` call (e.g. timestamps() twice) is always
+  //     a migrate error, so keep only the first. (2) When timestamps() is present,
+  //     drop explicit created_at/updated_at columns; when softDeletes() is present,
+  //     drop an explicit deleted_at column — those helpers already define them.
+  _dedupeMigrationColumns(code) {
+    if (!code || !code.includes("Schema::create")) return code;
+    const lines = code.split(/\r?\n/);
+    const CALL =
+      /^(\s*)(\$table\s*->\s*\w+\s*\([^)]*\)(?:\s*->\s*\w+\s*\([^)]*\))*\s*;)/;
+    const out = [];
+    let i = 0;
+    while (i < lines.length) {
+      out.push(lines[i]);
+      if (/Schema::create\s*\(/.test(lines[i])) {
+        let j = i + 1;
+        const block = [];
+        while (j < lines.length && !/^\s*\}\s*\)\s*;/.test(lines[j])) {
+          block.push(lines[j]);
+          j++;
+        }
+        out.push(...this._dedupeMigrationBlock(block, CALL));
+        i = j; // closing `});` line is emitted on the next loop iteration
+        continue;
+      }
+      i++;
+    }
+    return out.join("\n");
+  }
+
+  _dedupeMigrationBlock(block, CALL) {
+    const hasHelper = (name) =>
+      block.some((l) => new RegExp(`\\$table\\s*->\\s*${name}\\s*\\(`).test(l));
+    const timestamps = hasHelper("timestamps");
+    const softDeletes = hasHelper("softDeletes");
+    const seen = new Set();
+    const result = [];
+    for (const line of block) {
+      const m = line.match(CALL);
+      if (m) {
+        const call = m[2].replace(/\s+/g, "");
+        const colName = (line.match(
+          /\$table\s*->\s*\w+\s*\(\s*['"](\w+)['"]/,
+        ) || [])[1];
+        if (
+          colName &&
+          ((timestamps && /^(created_at|updated_at)$/.test(colName)) ||
+            (softDeletes && colName === "deleted_at"))
+        ) {
+          continue; // explicit column collides with a helper that defines it
+        }
+        if (seen.has(call)) continue; // exact duplicate call
+        seen.add(call);
+      }
+      result.push(line);
+    }
+    return result;
+  }
+
   // Columns a blueprint declares for User that are NOT in Laravel's core
   // users table. Generic (any extra attribute), never role-specific.
   _extraUserColumns(schemaObj) {
@@ -2670,5 +2936,4 @@ ${drops}
     return code;
   }
 }
-
 module.exports = ImplementationPhase;

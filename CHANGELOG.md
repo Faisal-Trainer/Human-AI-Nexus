@@ -2,6 +2,27 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.9] - 2026-10-12 (Toggle Light/Dark + Continuous Learning Jalur Sukses)
+
+### Added
+
+- **Toggle light/dark pada layout home generated (`ExecutionPhase.js`)**: skrip inline di `<head>` menerapkan preferensi tema sebelum first-paint (anti-kedip) — baca `localStorage['nexus-theme']`, fallback ke `prefers-color-scheme` sistem, pasang kelas `.dark` pada `<html>`, dan mengekspos `window.nexusToggleTheme()`. Tombol sun/moon ditambahkan di navbar (ikon berganti via `hidden dark:block` / `block dark:hidden`). Bekerja untuk mode CDN browser Tailwind maupun `app.css` hasil build Vite karena `@custom-variant dark` sudah didefinisikan di keduanya.
+- **Continuous Learning jalur-sukses (`ExecutionPhase.js`)**: guard baru **`_persistSuccessKnowledge()`** — dipanggil saat `runTDDFeedbackLoop` lulus (tidak ada kegagalan). Scan `app/Models`, `app/Livewire`, `database/migrations` dari proyek generated, tulis snapshot arsitektur `NEXUS_LESSON_<PROYEK>_BUILD_SUCCESS.md` ke `memory/distilled/` **dan** vault `NEXUS Update/Lessons/`, lalu re-index graph real-time. Vault kini terisi ilmu walau build tanpa error (sebelumnya write-back hanya failure-driven).
+
+### Fixed
+
+- **Fragmentasi path lesson Obsidian write-back**: penyimpanan lesson (`saveRewrite(..., "Lessons")`) menulis ke `NEXUS Update/Lessons/`, tetapi `nexus status`/`nexus lessons` (`main.js`) dan `getVaultStats` (`ObsidianBridge.js`) menghitung folder **berbeda** (`NEXUS AI/NEXUS LESSONS/`) yang tak pernah ditulis → selalu melapor 0 lesson. Disederhanakan ke folder kanonik **`NEXUS Update/Lessons`** (via `getUpdateVaultPath() + 'Lessons'`); docstring & label UI diselaraskan. Read-source `lessons` sengaja tetap di `NEXUS AI/Lessons` (note kurasi) karena `NEXUS Update` sudah ter-index rekursif oleh sumber `nexus_update`.
+- **README.md**: koreksi angka alokasi context Tier 1 dari `512–1024` menjadi `512–4096` (fallback ladder `[4096, 2048, 1024, 768, 512]`, default 4096, override via env `NEXUS_CONTEXT_SIZE`) agar sesuai kode `LocalIntelligence.js`.
+
+### Verified
+
+- `node --check` `ExecutionPhase.js`, `ObsidianBridge.js`, `main.js` = 0.
+- Uji `_persistSuccessKnowledge` terhadap `url-shortener-app`: terdeteksi 3 Models / 2 Livewire / 6 Migrations, note ter-generate valid (scratch uji dihapus).
+
+### Changed
+
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.9`.
+
 ## [v3.4.8] - 2026-10-12 (Livewire Action & Schema Guards — penguatan runtime url-shortener-app)
 
 ### Fixed

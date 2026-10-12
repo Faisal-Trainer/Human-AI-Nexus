@@ -3,7 +3,7 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.4.8 (Livewire Action & Schema Guards — penguatan runtime url-shortener-app)
+> **Version**: v3.4.9 (Toggle Light/Dark + Continuous Learning Jalur Sukses)
 > **Updated**: 12/10/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
@@ -116,7 +116,7 @@ NEXUS AI v3.4.0 memperkenalkan **5 Pilar Arsitektur LLM + RAG** untuk menjamin p
 - **Komponen**: `LocalIntelligence.js` & `NexusEngine.js`
 - **Kapabilitas**:
   - **Tier 0 (Instant Heuristic Engine)**: Eksekusi validator regex dan aturan AST statis (< 1ms, 0 MB VRAM) untuk skema migrasi database dan review sintaks umum tanpa membebani LLM.
-  - **Tier 1 (Fast Local Model)**: Model Qwen GGUF via `node-llama-cpp` (Qwen3-4B / Qwen2.5-Coder-3B) dengan alokasi context dinamis (512–1024), kontrol thread CPU, dan otomatisasi fallback dari GPU Vulkan ke pure CPU jika VRAM exhausted.
+  - **Tier 1 (Fast Local Model)**: Model Qwen GGUF via `node-llama-cpp` (Qwen3-4B / Qwen2.5-Coder-3B) dengan alokasi context dinamis (512–4096, fallback bertingkat `[4096, 2048, 1024, 768, 512]`; default 4096, override via env `NEXUS_CONTEXT_SIZE`), kontrol thread CPU, dan otomatisasi fallback dari GPU Vulkan ke pure CPU jika VRAM exhausted.
   - Fokus pada inferensi lokal cepat dan efisien tanpa latensi multi-tier cloud.
 
 ### 4. Agentic RAG (HyDE + Corrective RAG / CRAG)
@@ -326,4 +326,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 12/10/2026 (v3.4.8 - Livewire Action & Schema Guards — penguatan runtime url-shortener-app)_
+_Terakhir Dioptimasi: 12/10/2026 (v3.4.9 - Toggle Light/Dark + Continuous Learning Jalur Sukses)_

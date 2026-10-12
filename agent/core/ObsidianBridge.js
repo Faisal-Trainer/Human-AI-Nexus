@@ -40,15 +40,17 @@ class ObsidianBridge {
       }
 
       const config = fs.readJsonSync(this.configPath);
-      
+
       // ENV variable overrides the JSON config if set
       if (process.env.NEXUS_VAULT_ENABLED !== undefined) {
-        this.enabled = process.env.NEXUS_VAULT_ENABLED === 'true';
+        this.enabled = process.env.NEXUS_VAULT_ENABLED === "true";
       } else {
         this.enabled = config.enabled === true;
       }
-      
-      this.vaultPath = config.vault_path ? path.normalize(config.vault_path) : null;
+
+      this.vaultPath = config.vault_path
+        ? path.normalize(config.vault_path)
+        : null;
       this.updateDir = config.update_path || "NEXUS Update";
       this.readSources = config.read_sources || {};
       this.syncBack = config.sync_back === true;
@@ -57,14 +59,14 @@ class ObsidianBridge {
       if (this.enabled && this.vaultPath) {
         if (!fs.pathExistsSync(this.vaultPath)) {
           console.warn(
-            `⚠️  ObsidianBridge: Vault path not found: ${this.vaultPath}. Bridge disabled.`
+            `⚠️  ObsidianBridge: Vault path not found: ${this.vaultPath}. Bridge disabled.`,
           );
           this.enabled = false;
         }
       }
     } catch (err) {
       console.warn(
-        `⚠️  ObsidianBridge: Failed to load config: ${err.message}. Bridge disabled.`
+        `⚠️  ObsidianBridge: Failed to load config: ${err.message}. Bridge disabled.`,
       );
       this.enabled = false;
     }
@@ -116,11 +118,7 @@ class ObsidianBridge {
     if (!sourcePath) return [];
 
     const normalizedPath = sourcePath.replace(/\\/g, "/");
-    const defaultIgnore = [
-      "**/node_modules/**",
-      "**/.obsidian/**",
-      "**/*MOC*",
-    ];
+    const defaultIgnore = ["**/node_modules/**", "**/.obsidian/**", "**/*MOC*"];
     const allIgnore = [...defaultIgnore, ...ignorePatterns];
 
     try {
@@ -137,7 +135,7 @@ class ObsidianBridge {
       }));
     } catch (err) {
       console.warn(
-        `⚠️  ObsidianBridge: Failed to scan ${sourceKey}: ${err.message}`
+        `⚠️  ObsidianBridge: Failed to scan ${sourceKey}: ${err.message}`,
       );
       return [];
     }
@@ -162,7 +160,7 @@ class ObsidianBridge {
       }
     } catch (err) {
       console.warn(
-        `⚠️  ObsidianBridge: Failed to read ${relativePath}: ${err.message}`
+        `⚠️  ObsidianBridge: Failed to read ${relativePath}: ${err.message}`,
       );
     }
     return null;
@@ -213,7 +211,7 @@ class ObsidianBridge {
     // 2. Vault files (only add if not already present locally)
     const vaultFiles = await this.getKnowledgeFiles(
       vaultSourceKey,
-      ignorePatterns
+      ignorePatterns,
     );
     for (const vf of vaultFiles) {
       const basename = path.basename(vf.file).toLowerCase();
@@ -308,7 +306,10 @@ class ObsidianBridge {
       // 1. ARCHIVE: If blueprint already exists in new/, archive old version with timestamp
       if (await fs.pathExists(targetNewFile)) {
         const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-        const archiveFile = path.join(archiveDir, `${projectName}_${timestamp}.json`);
+        const archiveFile = path.join(
+          archiveDir,
+          `${projectName}_${timestamp}.json`,
+        );
         await fs.copy(targetNewFile, archiveFile).catch(() => {});
       }
 
@@ -322,8 +323,12 @@ class ObsidianBridge {
       }
 
       // 4. 3 QWEN: Save formatted dataset sample for Google Colab CUDA LLM training
-      const modelName = options.modelName || process.env.NEXUS_MODEL_NAME || "qwen2.5-coder-3b";
-      const qwenDatasetFile = path.join(qwenDir, `${projectName}_${modelName}.json`);
+      const modelName =
+        options.modelName || process.env.NEXUS_MODEL_NAME || "qwen2.5-coder-3b";
+      const qwenDatasetFile = path.join(
+        qwenDir,
+        `${projectName}_${modelName}.json`,
+      );
       const datasetEntry = {
         _dataset_metadata: {
           project_name: projectName,
@@ -333,8 +338,11 @@ class ObsidianBridge {
           purpose: "CUDA Fine-Tuning Dataset for Google Colab",
         },
         training_sample: {
-          instruction: "You are a Senior TALL Stack Architect for NEXUS AI. Generate a complete, production-ready Laravel TALL Stack architecture blueprint.",
-          input: options.readmeContent || `# ${projectName}\nLaravel TALL Stack Sandbox`,
+          instruction:
+            "You are a Senior TALL Stack Architect for NEXUS AI. Generate a complete, production-ready Laravel TALL Stack architecture blueprint.",
+          input:
+            options.readmeContent ||
+            `# ${projectName}\nLaravel TALL Stack Sandbox`,
           output: JSON.stringify(blueprint, null, 2),
         },
         blueprint: blueprint,
@@ -342,19 +350,31 @@ class ObsidianBridge {
       await fs.writeJson(qwenDatasetFile, datasetEntry, { spaces: 2 });
 
       // Also append to a consolidated training JSONL for Google Colab in '3 qwen/'
-      const colabJsonl = path.join(qwenDir, "colab_cuda_training_dataset.jsonl");
-      const jsonlLine = JSON.stringify({
-        messages: [
-          { role: "system", content: "You are a Senior TALL Stack Architect for NEXUS AI." },
-          { role: "user", content: `Generate architecture blueprint for:\n${options.readmeContent || projectName}` },
-          { role: "assistant", content: JSON.stringify(blueprint) }
-        ]
-      }) + "\n";
+      const colabJsonl = path.join(
+        qwenDir,
+        "colab_cuda_training_dataset.jsonl",
+      );
+      const jsonlLine =
+        JSON.stringify({
+          messages: [
+            {
+              role: "system",
+              content: "You are a Senior TALL Stack Architect for NEXUS AI.",
+            },
+            {
+              role: "user",
+              content: `Generate architecture blueprint for:\n${options.readmeContent || projectName}`,
+            },
+            { role: "assistant", content: JSON.stringify(blueprint) },
+          ],
+        }) + "\n";
       await fs.appendFile(colabJsonl, jsonlLine, "utf8").catch(() => {});
 
       return true;
     } catch (err) {
-      console.warn(`⚠️ ObsidianBridge: Failed to save blueprint to vault: ${err.message}`);
+      console.warn(
+        `⚠️ ObsidianBridge: Failed to save blueprint to vault: ${err.message}`,
+      );
       return false;
     }
   }
@@ -375,12 +395,16 @@ class ObsidianBridge {
         ? path.join(updateRoot, options.subfolder)
         : path.join(updateRoot, "Lessons");
       await fs.ensureDir(lessonDir);
-      const safeTitle = lessonTitle.replace(/[^a-zA-Z0-9_-]/g, "_").toUpperCase();
+      const safeTitle = lessonTitle
+        .replace(/[^a-zA-Z0-9_-]/g, "_")
+        .toUpperCase();
       const filePath = path.join(lessonDir, `NEXUS_LESSON_${safeTitle}.md`);
       await fs.writeFile(filePath, lessonContent, "utf8");
       return true;
     } catch (e) {
-      console.warn(`⚠️ ObsidianBridge: Failed to save lesson to vault: ${e.message}`);
+      console.warn(
+        `⚠️ ObsidianBridge: Failed to save lesson to vault: ${e.message}`,
+      );
       return false;
     }
   }
@@ -397,14 +421,18 @@ class ObsidianBridge {
     if (!this.isActive()) return null;
     try {
       const updateRoot = this.getUpdateVaultPath();
-      const targetDir = subfolder ? path.join(updateRoot, subfolder) : updateRoot;
+      const targetDir = subfolder
+        ? path.join(updateRoot, subfolder)
+        : updateRoot;
       await fs.ensureDir(targetDir);
       const cleanName = fileName.endsWith(".md") ? fileName : `${fileName}.md`;
       const filePath = path.join(targetDir, cleanName);
       await fs.writeFile(filePath, content, "utf8");
       return filePath;
     } catch (e) {
-      console.warn(`⚠️ ObsidianBridge: Failed to save LLM rewrite to '${fileName}': ${e.message}`);
+      console.warn(
+        `⚠️ ObsidianBridge: Failed to save LLM rewrite to '${fileName}': ${e.message}`,
+      );
       return null;
     }
   }
@@ -422,7 +450,13 @@ class ObsidianBridge {
     const stats = {
       connected: true,
       vaultPath: this.vaultPath,
-      blueprints: { new: 0, archive: 0, "100_project": 0, "3_qwen": 0, total: 0 },
+      blueprints: {
+        new: 0,
+        archive: 0,
+        "100_project": 0,
+        "3_qwen": 0,
+        total: 0,
+      },
       dataset: { samples: 0, jsonlBytes: 0, colabReady: false },
       lessonsCount: 0,
       recentFiles: [],
@@ -446,18 +480,27 @@ class ObsidianBridge {
         stats.blueprints["100_project"] +
         stats.blueprints["3_qwen"];
 
-      const jsonlPath = path.join(bpVault, "3 qwen", "colab_cuda_training_dataset.jsonl");
+      const jsonlPath = path.join(
+        bpVault,
+        "3 qwen",
+        "colab_cuda_training_dataset.jsonl",
+      );
       if (await fs.pathExists(jsonlPath)) {
         const fileStat = await fs.stat(jsonlPath);
         stats.dataset.jsonlBytes = fileStat.size;
         const content = await fs.readFile(jsonlPath, "utf8");
-        stats.dataset.samples = content.split("\n").filter((l) => l.trim()).length;
+        stats.dataset.samples = content
+          .split("\n")
+          .filter((l) => l.trim()).length;
         stats.dataset.colabReady = stats.dataset.samples > 0;
       }
     }
 
-    const lessonDir = path.join(this.vaultPath, "NEXUS AI", "NEXUS LESSONS");
-    if (await fs.pathExists(lessonDir)) {
+    // Count generated lessons from the canonical write folder
+    // (NEXUS Update/Lessons — where _formulateAndPersistLesson/success notes land).
+    const updateRoot = this.getUpdateVaultPath();
+    const lessonDir = updateRoot ? path.join(updateRoot, "Lessons") : null;
+    if (lessonDir && (await fs.pathExists(lessonDir))) {
       const lFiles = await fs.readdir(lessonDir);
       stats.lessonsCount = lFiles.filter((f) => f.endsWith(".md")).length;
     }

@@ -110,6 +110,8 @@ memory/short_term/vector_index.json
 memory/references/
 # Machine-specific Obsidian vault pointer (absolute local path; keep local only).
 .nexus-vault.json
+# Local sandbox crash screenshots & session logs (manual notes, not versioned).
+images nexus sandbox/
 
 # --- Large Model Files ---
 models/

@@ -141,7 +141,7 @@ const resolveGpuLayers = (cpuOnly) => {
 };
 
 const isGpuMemoryError = (err) =>
-  /OutOfDeviceMemory|out of (?:device )?memory|Vulkan|kv cache|failed to alloc/i.test(
+  /OutOfDeviceMemory|out of (?:device )?memory|Vulkan|kv cache|failed to alloc|ErrorDeviceLost|createCommandPool|Queue::submit/i.test(
     err?.message ?? "",
   );
 

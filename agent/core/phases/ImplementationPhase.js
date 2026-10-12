@@ -466,22 +466,36 @@ class ImplementationPhase extends BasePhase {
     // CRITICAL: Protect Laravel's core Authenticatable User model from corruption
     if (modelName === "User" && (await fs.pathExists(modelPath))) {
       // Preserve the core model, but generically register any extra
-      // blueprint-declared User columns (e.g. role) into its fillable.
+      // blueprint-declared User columns (e.g. role) into its fillable, and
+      // inject inverse hasMany() relations for blueprint models that carry a
+      // user_id FK (views reading $user->shortUrls crash on null chains when
+      // the relation does not exist).
       const userSchema = blueprint.schema ? blueprint.schema["User"] : null;
       const extra = this._extraUserColumns(userSchema).map((c) => c.name);
-      if (extra.length > 0) {
-        try {
-          const cur = await fs.readFile(modelPath, "utf8");
-          const upd = this._ensureUserFillable(cur, extra);
+      try {
+        const cur = await fs.readFile(modelPath, "utf8");
+        let upd = cur;
+        if (extra.length > 0) {
+          upd = this._ensureUserFillable(upd, extra);
           if (upd !== cur) {
-            await fs.writeFile(modelPath, upd, "utf8");
             this.log(
               `      🔧 Registered extra User fillable column(s): ${extra.join(", ")}`,
               "warning",
             );
           }
-        } catch (_) {}
-      }
+        }
+        const rel = this._ensureUserRelations(upd, blueprint);
+        if (rel.code !== upd) {
+          upd = rel.code;
+          this.log(
+            `      🔗 Injected User relation method(s): ${rel.added.join(", ")}`,
+            "warning",
+          );
+        }
+        if (upd !== cur) {
+          await fs.writeFile(modelPath, upd, "utf8");
+        }
+      } catch (_) {}
       this.log(
         `      🛡️ Preserving core Laravel Authenticatable User.php model.`,
         "success",
@@ -828,6 +842,18 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
         }
       }
 
+      // Deterministic guard: strip hallucinated bare Blueprint column-modifiers
+      // (e.g. `$table->nullable();`) — these are column modifiers, NOT Blueprint
+      // methods, and crash `php artisan migrate` with BadMethodCallException.
+      const sanitizedMigration = this._sanitizeMigration(cleanCode);
+      if (sanitizedMigration !== cleanCode) {
+        cleanCode = sanitizedMigration;
+        this.log(
+          `      🧹 Stripped invalid bare Blueprint modifier call(s) from ${tableName} migration`,
+          "warning",
+        );
+      }
+
       // FIX #14 — Dynamic timestamp: gunakan tanggal hari ini, bukan hardcoded '2026_06_01'
       const now = new Date();
       const datePrefix = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
@@ -907,6 +933,7 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation.`;
       `\nVIEW VARIABLE CONTRACT (class & view MUST stay consistent):\n` +
       `- Collection variables derived from models: ${contractVars.map((v) => "$" + v).join(", ") || "(none)"}.\n` +
       `- Every variable used in @foreach/@forelse must be provided by render(), e.g. return view('livewire.${kebabName}', ['${exampleVar}' => ${exampleModel}::all()]).\n` +
+      `- NEVER declare an empty public property with the same name as a render() view key: Livewire applies public properties AFTER render() data, so the empty property overrides the collection with null. Iterated collections belong in render() ONLY.\n` +
       `- Public properties are only for form-bound scalars. Never reference an undefined view variable, and never read a property on a possibly-null object without the null-safe operator (e.g. $user?->name).`;
 
     // Generate PHP Class
@@ -958,7 +985,7 @@ CRITICAL RULES:
 2. DO NOT include <!DOCTYPE html>, <html>, <head>, or <body> tags.
 3. Wrap all content inside a SINGLE root <div> element.
 4. Include realistic mock items, empty states, or table/card listings so the UI looks active and alive.
-5. Iterate collections with @foreach($collection as $item) using the exact contract variable names below, and always include an @empty branch.
+5. Iterate collections with @forelse($collection as $item) ... @empty ... @endforelse using the exact contract variable names below, and always include an @empty branch. NEVER pair @foreach with @empty or @endforelse — @empty is only valid inside @forelse.
 
 SCHEMA REFERENCE:
 ${fullSchema}
@@ -1054,34 +1081,65 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const notes = [];
     let changed = false;
 
+    // 0) Repair mismatched loop directives (@foreach ... @empty ... @endforelse)
+    // on disk too, so re-runs heal previously generated components.
+    const fixedView = this._fixBladeLoopDirectives(viewCode);
+    if (fixedView !== viewCode) {
+      viewCode = fixedView;
+      changed = true;
+      notes.push("repaired unbalanced Blade loop directives");
+    }
+
     // 1) Variables the class already provides to the view.
-    const provided = new Set();
     let m;
+    const publicProps = new Set();
     const propRe = /public\s+\$(\w+)/g;
-    while ((m = propRe.exec(classCode))) provided.add(m[1]);
+    while ((m = propRe.exec(classCode))) publicProps.add(m[1]);
 
     const renderBody = this._extractMethodBody(classCode, "render") || "";
+    const renderProvided = new Set();
     const keyRe = /['"](\w+)['"]\s*=>/g;
-    while ((m = keyRe.exec(renderBody))) provided.add(m[1]);
+    while ((m = keyRe.exec(renderBody))) renderProvided.add(m[1]);
     const compactRe = /compact\(([^)]*)\)/g;
     let cm;
     while ((cm = compactRe.exec(renderBody))) {
       const nameRe = /['"](\w+)['"]/g;
       let nm;
-      while ((nm = nameRe.exec(cm[1]))) provided.add(nm[1]);
+      while ((nm = nameRe.exec(cm[1]))) renderProvided.add(nm[1]);
     }
     const withRe = /->with\(\s*['"](\w+)['"]/g;
-    while ((m = withRe.exec(renderBody))) provided.add(m[1]);
+    while ((m = withRe.exec(renderBody))) renderProvided.add(m[1]);
 
     // 2) Collections the view iterates.
     const foreachVars = new Set();
     const feRe = /@(?:foreach|forelse)\s*\(\s*\$(\w+)\s+as\s+/gi;
     while ((m = feRe.exec(viewCode))) foreachVars.add(m[1]);
 
+    // 2.5) Drop public properties that shadow an iterated collection. Livewire's
+    // HandleComponents::getView() applies ->with($publicProperties) AFTER the
+    // render() view data, so an unassigned `public $users;` overrides
+    // `'users' => User::all()` with null and the view crashes with
+    // "foreach() argument must be of type array|object, null given".
+    for (const varName of foreachVars) {
+      if (!publicProps.has(varName)) continue;
+      if (new RegExp(`\\$this->${varName}\\b`).test(classCode)) continue; // property in use elsewhere
+      const next = classCode.replace(
+        new RegExp(
+          `[ \\t]*public\\s+\\$${varName}\\s*(?:=\\s*null)?;[ \\t]*\\r?\\n`,
+        ),
+        "",
+      );
+      if (next !== classCode) {
+        classCode = next;
+        changed = true;
+        notes.push(`removed public $${varName} shadowing render() data`);
+      }
+    }
+
     // 3) Supply any missing collection from the matching model via render().
     const entries = [];
     for (const varName of foreachVars) {
-      if (provided.has(varName)) continue;
+      if (renderProvided.has(varName)) continue;
       const model = knownModels.find((md) => this._camelPlural(md) === varName);
       const php = model ? `\\App\\Models\\${model}::all()` : "collect([])";
       entries.push({ key: varName, php });
@@ -1110,7 +1168,13 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
   }
 
   _nullSafeViewReads(viewCode) {
-    return viewCode.replace(/\$(\w+)->/g, (_m, name) => `$${name}?->`);
+    // Guard EVERY hop, not just the first: `$user->shortUrls->first()->title`
+    // must become `$user?->shortUrls?->first()?->title`. A first-hop-only fix
+    // still crashes with "Call to a member function first() on null" when an
+    // intermediate relation is missing or unpopulated.
+    return viewCode.replace(/\$\w+(?:\??->[\w()]+)+/g, (chain) =>
+      chain.replace(/(?<!\?)->/g, "?->"),
+    );
   }
 
   _extractMethodBody(classCode, methodName) {
@@ -1972,8 +2036,11 @@ ${callStatements}
 
 MANDATORY REQUIREMENTS:
 1. Include a complete <!DOCTYPE html>, <html>, <head>, and <body>.
-2. In <head>: include @livewireStyles, a CDN Tailwind fallback:
-   <script src="https://cdn.tailwindcss.com"></script>
+2. In <head>: include @livewireStyles, a Tailwind v4 browser CDN fallback:
+   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+   (NEVER the legacy https://cdn.tailwindcss.com v3 CDN and never an inline
+   tailwind.config JS object — v4 is CSS-first: use
+   <style type="text/tailwindcss">@custom-variant dark (&:where(.dark, .dark *));</style> instead)
    and an @if guard for Vite:
    @if(file_exists(public_path('build/manifest.json')))
        @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -2073,7 +2140,68 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       clean = `<div class="space-y-6">\n${clean}\n</div>`;
     }
 
+    // Deterministic guard: repair mismatched loop directives before writing.
+    clean = this._fixBladeLoopDirectives(clean);
+
     return clean;
+  }
+
+  // Deterministic guard: LLMs frequently mix Blade loop directives, producing
+  // `@foreach ... @empty ... @endforelse`. @empty is only valid inside @forelse,
+  // and the unbalanced open/close pair corrupts BladeCompiler's loopLevel
+  // counter — every view compiled afterwards in the same process (including
+  // the framework's exception renderer) emits invalid `$__empty_-N` variables
+  // and crashes with ParseError "unexpected token =".
+  // Repairs: @foreach topped by @empty/@endforelse -> @forelse;
+  //          @forelse closed by @endforeach -> @endforelse.
+  _fixBladeLoopDirectives(code) {
+    if (!code) return code;
+    const re = /@(foreach|forelse|endforeach|endforelse|endempty|empty)\b/g;
+    const tokens = [];
+    let m;
+    while ((m = re.exec(code)) !== null) {
+      tokens.push({ name: m[1], index: m.index, len: m[0].length });
+    }
+    if (tokens.length === 0) return code;
+
+    const renames = [];
+    const stack = [];
+    for (const t of tokens) {
+      if (t.name === "foreach" || t.name === "forelse") {
+        stack.push(t);
+      } else if (t.name === "empty") {
+        const top = stack[stack.length - 1];
+        if (top && top.name === "foreach") {
+          renames.push({ i: top.index, len: top.len, to: "forelse" });
+          top.name = "forelse";
+        }
+      } else if (t.name === "endforelse") {
+        const top = stack[stack.length - 1];
+        if (top && top.name === "foreach") {
+          renames.push({ i: top.index, len: top.len, to: "forelse" });
+          top.name = "forelse";
+        }
+        if (top) stack.pop();
+      } else if (t.name === "endforeach") {
+        const top = stack[stack.length - 1];
+        if (top && top.name === "forelse") {
+          renames.push({ i: t.index, len: t.len, to: "endforelse" });
+        }
+        if (top) stack.pop();
+      }
+      // endempty closes a standalone @empty-if; nothing to repair.
+    }
+    if (renames.length === 0) return code;
+
+    let out = code;
+    // Same-length renames (@foreach<->@forelse, @endforeach<->@endforelse),
+    // apply right-to-left so earlier offsets stay valid.
+    renames
+      .sort((a, b) => b.i - a.i)
+      .forEach((r) => {
+        out = out.slice(0, r.i) + "@" + r.to + out.slice(r.i + r.len);
+      });
+    return out;
   }
 
   toPascalCase(str) {
@@ -2398,6 +2526,20 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     return out;
   }
 
+  // Deterministic cleanup of hallucinated migration code.
+  // Local models sometimes emit column MODIFIERS as standalone Blueprint calls
+  // (e.g. `$table->nullable();` with the bogus rationale "nullable for all
+  // columns by default"). Those methods live on the column definition, not on
+  // Illuminate\Database\Schema\Blueprint, so `php artisan migrate` throws
+  // BadMethodCallException. We strip only unambiguous zero-arg bare modifiers
+  // and never touch valid no-arg Blueprint helpers (timestamps/softDeletes/id).
+  _sanitizeMigration(code) {
+    if (!code || !code.includes("Schema::create")) return code;
+    const BARE_INVALID =
+      /\n[ \t]*\$table\s*->\s*(nullable|unsigned|useCurrent|after|default|comment|charset|collation|change)\s*\(\s*\)\s*;?[^\n]*/gi;
+    return code.replace(BARE_INVALID, "");
+  }
+
   // Columns a blueprint declares for User that are NOT in Laravel's core
   // users table. Generic (any extra attribute), never role-specific.
   _extraUserColumns(schemaObj) {
@@ -2456,6 +2598,43 @@ ${drops}
     }
 };
 `;
+  }
+
+  // Inject inverse hasMany() relations into the preserved User model for every
+  // blueprint model that declares a user_id foreign key. Without these, views
+  // reading `$user->shortUrls` get null and chained calls crash with
+  // "Call to a member function first() on null". Generic & schema-driven:
+  // any model with a *_user_id/user_id FK gets a camelPlural() relation.
+  _ensureUserRelations(code, blueprint) {
+    const added = [];
+    if (!code || !blueprint || !blueprint.schema) return { code, added };
+    let out = code;
+    const relMethods = [];
+    for (const modelName of Object.keys(blueprint.schema)) {
+      if (modelName === "User") continue;
+      const { columns } = this._parseSchemaColumns(blueprint.schema[modelName]);
+      const hasUserFk = columns.some(
+        (c) =>
+          (c.baseType === "foreignid" || c.baseType === "foreignuuid") &&
+          (/(^|_)user_id$/i.test(c.name) || /\buser\b/i.test(c.name)),
+      );
+      if (!hasUserFk) continue;
+      const method = this._camelPlural(modelName);
+      if (new RegExp(`function\\s+${method}\\s*\\(`).test(out)) continue;
+      relMethods.push(
+        `    public function ${method}()\n    {\n        return $this->hasMany(${modelName}::class);\n    }`,
+      );
+      added.push(`${method}() -> ${modelName}`);
+    }
+    if (relMethods.length === 0) return { code, added };
+    const lastBrace = out.lastIndexOf("}");
+    out =
+      out.slice(0, lastBrace) +
+      "\n" +
+      relMethods.join("\n\n") +
+      "\n" +
+      out.slice(lastBrace);
+    return { code: out, added };
   }
 
   // Additively register extra columns in the preserved User model's fillable,

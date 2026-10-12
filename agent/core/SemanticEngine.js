@@ -9,23 +9,25 @@ const redis = require("./RedisMemory");
 const GraphEngine = require("./GraphEngine");
 
 // Kapasitas query cache: jumlah hasil default & TTL, dapat dioverride lewat .env
-const DEFAULT_SEARCH_TOPK = parseInt(process.env.NEXUS_SEARCH_TOPK, 10) > 0
-  ? parseInt(process.env.NEXUS_SEARCH_TOPK, 10)
-  : 5;
-const SEARCH_CACHE_TTL = parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10) > 0
-  ? parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10)
-  : 3600;
+const DEFAULT_SEARCH_TOPK =
+  parseInt(process.env.NEXUS_SEARCH_TOPK, 10) > 0
+    ? parseInt(process.env.NEXUS_SEARCH_TOPK, 10)
+    : 5;
+const SEARCH_CACHE_TTL =
+  parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10) > 0
+    ? parseInt(process.env.NEXUS_REDIS_CACHE_TTL, 10)
+    : 3600;
 
 class SemanticEngine {
-    constructor(knowledgePath) {
+  constructor(knowledgePath) {
     this.knowledgePath = knowledgePath;
     this.tfidf = new natural.TfIdf();
     this.fileIndex = []; // [{ file, path, tags, embedding }]
     this.graphEngine = new GraphEngine(); // 🌐 Obsidian Knowledge Graph & Wikilink Engine
     this.isBuilt = false;
     this.useOllamaEmbeddings = false;
-    this.ollamaModel = 'nomic-embed-text';
-    this.baseUrl = 'http://localhost:11434/api';
+    this.ollamaModel = "nomic-embed-text";
+    this.baseUrl = "http://localhost:11434/api";
     this.ollamaFailures = 0;
     this.useNewEmbedAPI = true; // Ollama v0.24+ uses /api/embed instead of /api/embeddings
     this.additionalPaths = []; // 🧠 Support for Obsidian Vault dual-indexing
@@ -137,10 +139,26 @@ class SemanticEngine {
         "gitflow",
       ],
       laravel: [
-        "artisan", "blade", "eloquent", "filament", "livewire",
-        "provider", "facade", "middleware", "sanctum", "route",
-        "controller", "migration", "seeder", "request", "policy",
-        "pennant", "horizon", "telescope", "sail", "octane"
+        "artisan",
+        "blade",
+        "eloquent",
+        "filament",
+        "livewire",
+        "provider",
+        "facade",
+        "middleware",
+        "sanctum",
+        "route",
+        "controller",
+        "migration",
+        "seeder",
+        "request",
+        "policy",
+        "pennant",
+        "horizon",
+        "telescope",
+        "sail",
+        "octane",
       ],
       saas: [
         "tenant",
@@ -185,31 +203,43 @@ class SemanticEngine {
    */
   scanAllKnowledgeFiles() {
     const fg = require("fast-glob");
-    
+
     // 1. Scan Local Memory
-    const localFiles = fg.sync("**/*.{md,MD}", {
-      cwd: this.knowledgePath.replace(/\\/g, "/"),
-      ignore: [
-        "NEXUS_HUB_INDEX.md",
-        "NEXUS_NEURAL_MAP.md",
-        "INDEX_NEURAL_MAP.md",
-        "NEXUS_SEMANTIC_INDEX.json",
-        "short_term/**",
-        "cache/**",
-        "operational/indexes/**",
-        "references/**"
-      ],
-      onlyFiles: true,
-    }).map(f => ({ file: f, fullPath: path.join(this.knowledgePath, f), source: "local" }));
+    const localFiles = fg
+      .sync("**/*.{md,MD}", {
+        cwd: this.knowledgePath.replace(/\\/g, "/"),
+        ignore: [
+          "NEXUS_HUB_INDEX.md",
+          "NEXUS_NEURAL_MAP.md",
+          "INDEX_NEURAL_MAP.md",
+          "NEXUS_SEMANTIC_INDEX.json",
+          "short_term/**",
+          "cache/**",
+          "operational/indexes/**",
+          "references/**",
+        ],
+        onlyFiles: true,
+      })
+      .map((f) => ({
+        file: f,
+        fullPath: path.join(this.knowledgePath, f),
+        source: "local",
+      }));
 
     // 2. Scan Vault Paths
     const vaultFiles = [];
     for (const extraPath of this.additionalPaths) {
-      const vFiles = fg.sync("**/*.{md,MD}", {
-        cwd: extraPath.replace(/\\/g, "/"),
-        ignore: ["**/node_modules/**", "**/.obsidian/**", "**/*MOC*"],
-        onlyFiles: true,
-      }).map(f => ({ file: f, fullPath: path.join(extraPath, f), source: "obsidian-vault" }));
+      const vFiles = fg
+        .sync("**/*.{md,MD}", {
+          cwd: extraPath.replace(/\\/g, "/"),
+          ignore: ["**/node_modules/**", "**/.obsidian/**", "**/*MOC*"],
+          onlyFiles: true,
+        })
+        .map((f) => ({
+          file: f,
+          fullPath: path.join(extraPath, f),
+          source: "obsidian-vault",
+        }));
       vaultFiles.push(...vFiles);
     }
 
@@ -238,7 +268,7 @@ class SemanticEngine {
       this.knowledgePath,
       "short_term",
       "cache",
-      "nexus_graph_index.json"
+      "nexus_graph_index.json",
     );
 
     if (!forceRebuild && (await this.graphEngine.loadCache(graphCachePath))) {
@@ -252,7 +282,7 @@ class SemanticEngine {
         return this.graphEngine.getStats();
       }
       console.log(
-        `Vault graph cache stale (indexed ${cached ? cached.count : "?"} files -> ${current.count} now), rebuilding...`
+        `Vault graph cache stale (indexed ${cached ? cached.count : "?"} files -> ${current.count} now), rebuilding...`,
       );
     }
 
@@ -317,21 +347,33 @@ class SemanticEngine {
     console.log("🔬 SemanticEngine: Building vector index...");
 
     // 🚀 Check if Ollama embeddings are enabled and available
-    if (this.forceTfIdf || process.env.NEXUS_FORCE_TFIDF === 'true' || this.useOllamaEmbeddings === false) {
+    if (
+      this.forceTfIdf ||
+      process.env.NEXUS_FORCE_TFIDF === "true" ||
+      this.useOllamaEmbeddings === false
+    ) {
       this.useOllamaEmbeddings = false;
-      console.log("   ⚡ SemanticEngine: Fast TF-IDF mode active (bypassing Ollama batch embedding).");
+      console.log(
+        "   ⚡ SemanticEngine: Fast TF-IDF mode active (bypassing Ollama batch embedding).",
+      );
     } else {
       try {
-        const axios = require('axios');
+        const axios = require("axios");
         const tags = await axios.get(`${this.baseUrl}/tags`, { timeout: 5000 });
-        if (tags.data.models.some(m => m.name.includes(this.ollamaModel))) {
-          console.log(`   💎 Ollama: Warming up ${this.ollamaModel} for embeddings...`);
+        if (tags.data.models.some((m) => m.name.includes(this.ollamaModel))) {
+          console.log(
+            `   💎 Ollama: Warming up ${this.ollamaModel} for embeddings...`,
+          );
           const warmupOk = await this._warmupEmbeddingModel();
           if (warmupOk) {
             this.useOllamaEmbeddings = true;
-            console.log(`   💎 Ollama: ${this.ollamaModel} ready for high-precision embeddings.`);
+            console.log(
+              `   💎 Ollama: ${this.ollamaModel} ready for high-precision embeddings.`,
+            );
           } else {
-            console.warn(`   ⚠️ Ollama: ${this.ollamaModel} warmup failed, falling back to TF-IDF.`);
+            console.warn(
+              `   ⚠️ Ollama: ${this.ollamaModel} warmup failed, falling back to TF-IDF.`,
+            );
           }
         }
       } catch (e) {
@@ -346,15 +388,22 @@ class SemanticEngine {
 
     // 🌐 Build Knowledge Graph (Wikilinks, Backlinks, Tags)
     try {
-        await this.graphEngine.buildGraph(allFiles);
-        const gStats = this.graphEngine.getStats();
-        console.log(`   🌐 GraphEngine: Indexed ${gStats.totalNodes} nodes, ${gStats.totalEdges} edges (${gStats.bidirectionalEdges} bidirectional).`);
+      await this.graphEngine.buildGraph(allFiles);
+      const gStats = this.graphEngine.getStats();
+      console.log(
+        `   🌐 GraphEngine: Indexed ${gStats.totalNodes} nodes, ${gStats.totalEdges} edges (${gStats.bidirectionalEdges} bidirectional).`,
+      );
     } catch (gErr) {
-        console.warn(`   ⚠️ GraphEngine build failed: ${gErr.message}`);
+      console.warn(`   ⚠️ GraphEngine build failed: ${gErr.message}`);
     }
 
     // ⚡ DELTA INDEXING: Load previous index cache if available
-    const indexPath = path.join(this.knowledgePath, "short_term", "cache", "vector_index.json");
+    const indexPath = path.join(
+      this.knowledgePath,
+      "short_term",
+      "cache",
+      "vector_index.json",
+    );
     const cachedChunksByPath = new Map(); // fullPath -> { mtime, chunks: [] }
     if (await fs.pathExists(indexPath)) {
       try {
@@ -363,7 +412,10 @@ class SemanticEngine {
           for (const item of cachedData.index) {
             if (item.path && item.mtime) {
               if (!cachedChunksByPath.has(item.path)) {
-                cachedChunksByPath.set(item.path, { mtime: item.mtime, chunks: [] });
+                cachedChunksByPath.set(item.path, {
+                  mtime: item.mtime,
+                  chunks: [],
+                });
               }
               cachedChunksByPath.get(item.path).chunks.push(item);
             }
@@ -383,7 +435,11 @@ class SemanticEngine {
         const cached = cachedChunksByPath.get(entry.fullPath);
 
         // Check if file is unchanged and has valid cached chunks
-        if (cached && Math.abs(cached.mtime - mtime) < 1000 && cached.chunks.length > 0) {
+        if (
+          cached &&
+          Math.abs(cached.mtime - mtime) < 1000 &&
+          cached.chunks.length > 0
+        ) {
           // CACHE HIT! Reuse cached chunks directly
           for (const chunk of cached.chunks) {
             this.tfidf.addDocument(chunk.content);
@@ -418,7 +474,9 @@ class SemanticEngine {
     // Process batch embeddings for new/modified chunks
     let embeddedCount = 0;
     if (pendingEmbeddingChunks.length > 0 && this.useOllamaEmbeddings) {
-      console.log(`   ⚡ Delta Indexing: Embedding ${pendingEmbeddingChunks.length} new/modified chunks in batches...`);
+      console.log(
+        `   ⚡ Delta Indexing: Embedding ${pendingEmbeddingChunks.length} new/modified chunks in batches...`,
+      );
       const BATCH_SIZE = 10;
       for (let i = 0; i < pendingEmbeddingChunks.length; i += BATCH_SIZE) {
         const batch = pendingEmbeddingChunks.slice(i, i + BATCH_SIZE);
@@ -440,7 +498,9 @@ class SemanticEngine {
     // Simpan index ke disk untuk reuse
     await this.saveIndex();
 
-    const embeddingStatus = this.useOllamaEmbeddings ? `(${embeddedCount} new embeddings)` : '(TF-IDF only)';
+    const embeddingStatus = this.useOllamaEmbeddings
+      ? `(${embeddedCount} new embeddings)`
+      : "(TF-IDF only)";
     console.log(
       `   ✅ Index ready: ${this.fileIndex.length} chunks (${cacheHits} files cached, ${newFilesCount} files re-indexed) ${embeddingStatus}.`,
     );
@@ -461,16 +521,18 @@ class SemanticEngine {
     // If no markdown headings or very tiny (< 250 chars), keep as single document
     const headingMatches = rawContent.match(/^#{2,3}\s+/gm);
     if (!headingMatches || headingMatches.length < 2 || clean.length < 250) {
-      return [{
-        chunkId: `${basename}#root`,
-        file: entry.file,
-        path: entry.fullPath,
-        source: entry.source,
-        title: basename,
-        heading: basename,
-        content: clean,
-        tags: this.extractMultiTags(rawContent),
-      }];
+      return [
+        {
+          chunkId: `${basename}#root`,
+          file: entry.file,
+          path: entry.fullPath,
+          source: entry.source,
+          title: basename,
+          heading: basename,
+          content: clean,
+          tags: this.extractMultiTags(rawContent),
+        },
+      ];
     }
 
     const lines = rawContent.split(/\r?\n/);
@@ -538,7 +600,10 @@ class SemanticEngine {
   }
 
   _slugify(text) {
-    return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
   }
 
   /**
@@ -550,13 +615,17 @@ class SemanticEngine {
     if (!texts || texts.length === 0) return [];
     if (!this.useOllamaEmbeddings) return texts.map(() => null);
 
-    const axios = require('axios');
+    const axios = require("axios");
     try {
       if (this.useNewEmbedAPI) {
-        const resp = await axios.post(`${this.baseUrl}/embed`, {
-          model: this.ollamaModel,
-          input: texts.map(t => t.substring(0, 3000)),
-        }, { timeout: 60000 });
+        const resp = await axios.post(
+          `${this.baseUrl}/embed`,
+          {
+            model: this.ollamaModel,
+            input: texts.map((t) => t.substring(0, 3000)),
+          },
+          { timeout: 60000 },
+        );
         if (resp.data.embeddings && resp.data.embeddings.length > 0) {
           return resp.data.embeddings;
         }
@@ -598,7 +667,7 @@ class SemanticEngine {
       this.knowledgePath,
       "short_term",
       "cache",
-      "nexus_graph_index.json"
+      "nexus_graph_index.json",
     );
     await this.graphEngine.saveCache(graphCachePath);
   }
@@ -627,7 +696,7 @@ class SemanticEngine {
         this.knowledgePath,
         "short_term",
         "cache",
-        "nexus_graph_index.json"
+        "nexus_graph_index.json",
       );
       await this.graphEngine.loadCache(graphCachePath);
 
@@ -647,11 +716,11 @@ class SemanticEngine {
    */
   async search(query, topK = DEFAULT_SEARCH_TOPK) {
     // 1. Cek Redis Cache
-    const cacheKey = `nexus:search:${Buffer.from(query).toString('base64')}:${topK}`;
+    const cacheKey = `nexus:search:${Buffer.from(query).toString("base64")}:${topK}`;
     const cachedResults = await redis.get(cacheKey);
     if (cachedResults) {
-        console.log(`   ⚡ Redis: Cache hit for query "${query}"`);
-        return cachedResults;
+      // Cache hit adalah jalur normal — tidak perlu dicetak per-hit (noise di pipeline).
+      return cachedResults;
     }
 
     if (!this.isBuilt) {
@@ -661,31 +730,31 @@ class SemanticEngine {
 
     const queryLower = query.toLowerCase();
     let vectorRanked = [];
-    if (this.useOllamaEmbeddings && this.fileIndex.some(f => f.embedding)) {
-        console.log(`   🔍 Semantic Search: Using vector similarity...`);
-        const queryEmbedding = await this.getEmbedding(query);
-        
-        if (queryEmbedding) {
-            vectorRanked = this.fileIndex
-                .filter(doc => doc.embedding)
-                .map(doc => ({
-                    ...doc,
-                    simScore: this.cosineSimilarity(queryEmbedding, doc.embedding),
-                }))
-                .filter(r => r.simScore > 0.15)
-                .sort((a, b) => b.simScore - a.simScore);
-        }
+    if (this.useOllamaEmbeddings && this.fileIndex.some((f) => f.embedding)) {
+      console.log(`   🔍 Semantic Search: Using vector similarity...`);
+      const queryEmbedding = await this.getEmbedding(query);
+
+      if (queryEmbedding) {
+        vectorRanked = this.fileIndex
+          .filter((doc) => doc.embedding)
+          .map((doc) => ({
+            ...doc,
+            simScore: this.cosineSimilarity(queryEmbedding, doc.embedding),
+          }))
+          .filter((r) => r.simScore > 0.15)
+          .sort((a, b) => b.simScore - a.simScore);
+      }
     }
 
     // Always compute TF-IDF for robust hybrid search
     const tfidfRanked = [];
     this.tfidf.tfidfs(query, (i, measure) => {
-        if (measure > 0 && this.fileIndex[i]) {
-            tfidfRanked.push({
-                ...this.fileIndex[i],
-                tfidfScore: measure,
-            });
-        }
+      if (measure > 0 && this.fileIndex[i]) {
+        tfidfRanked.push({
+          ...this.fileIndex[i],
+          tfidfScore: measure,
+        });
+      }
     });
     tfidfRanked.sort((a, b) => b.tfidfScore - a.tfidfScore);
 
@@ -694,29 +763,31 @@ class SemanticEngine {
     const scoreMap = new Map();
 
     vectorRanked.slice(0, 50).forEach((item, rank) => {
-        const id = item.chunkId || item.file;
-        const rrf = 1.0 / (RRF_K + rank + 1);
-        scoreMap.set(id, { doc: item, score: rrf });
+      const id = item.chunkId || item.file;
+      const rrf = 1.0 / (RRF_K + rank + 1);
+      scoreMap.set(id, { doc: item, score: rrf });
     });
 
     tfidfRanked.slice(0, 50).forEach((item, rank) => {
-        const id = item.chunkId || item.file;
-        const rrf = 1.0 / (RRF_K + rank + 1);
-        if (scoreMap.has(id)) {
-            scoreMap.get(id).score += rrf;
-        } else {
-            scoreMap.set(id, { doc: item, score: rrf });
-        }
+      const id = item.chunkId || item.file;
+      const rrf = 1.0 / (RRF_K + rank + 1);
+      if (scoreMap.has(id)) {
+        scoreMap.get(id).score += rrf;
+      } else {
+        scoreMap.set(id, { doc: item, score: rrf });
+      }
     });
 
-    let results = Array.from(scoreMap.values()).map(v => ({
-        ...v.doc,
-        score: v.score,
+    let results = Array.from(scoreMap.values()).map((v) => ({
+      ...v.doc,
+      score: v.score,
     }));
 
     // Fallback if no results matched
     if (results.length === 0 && this.fileIndex.length > 0) {
-        results = this.fileIndex.slice(0, topK).map(d => ({ ...d, score: 0.01 }));
+      results = this.fileIndex
+        .slice(0, topK)
+        .map((d) => ({ ...d, score: 0.01 }));
     }
 
     // Domain vocab boost — tambahkan score kalau query match domain keyword
@@ -731,11 +802,13 @@ class SemanticEngine {
     }
 
     // Sort by score descending, ambil top K
-    const finalResults = results.sort((a, b) => b.score - a.score).slice(0, topK);
-    
+    const finalResults = results
+      .sort((a, b) => b.score - a.score)
+      .slice(0, topK);
+
     // 2. Simpan ke Redis Cache (TTL via NEXUS_REDIS_CACHE_TTL, default 1 jam)
     await redis.set(cacheKey, finalResults, SEARCH_CACHE_TTL);
-    
+
     return finalResults;
   }
 
@@ -777,7 +850,11 @@ class SemanticEngine {
       try {
         const hybridResults = await this.search(query, topK);
         for (const hr of hybridResults) {
-          const id = hr.id || this.graphEngine.normalizeId(path.basename(hr.file || hr.path || ""));
+          const id =
+            hr.id ||
+            this.graphEngine.normalizeId(
+              path.basename(hr.file || hr.path || ""),
+            );
           if (id && !seenNodeIds.has(id) && this.graphEngine.nodes.has(id)) {
             seenNodeIds.add(id);
             combinedSeeds.push(this.graphEngine.nodes.get(id));
@@ -827,7 +904,7 @@ class SemanticEngine {
     let matchedDomain = domain;
     if (!matchedDomain) {
       for (const [dom, kws] of Object.entries(this.domainVocab)) {
-        if (kws.some(k => qLower.includes(k))) {
+        if (kws.some((k) => qLower.includes(k))) {
           matchedDomain = dom;
           break;
         }
@@ -836,7 +913,14 @@ class SemanticEngine {
 
     snippets.push(`# Technical Implementation Note: ${query.trim()}`);
 
-    if (matchedDomain === "database" || qLower.includes("table") || qLower.includes("tabel") || qLower.includes("migration") || qLower.includes("migrasi") || qLower.includes("model")) {
+    if (
+      matchedDomain === "database" ||
+      qLower.includes("table") ||
+      qLower.includes("tabel") ||
+      qLower.includes("migration") ||
+      qLower.includes("migrasi") ||
+      qLower.includes("model")
+    ) {
       snippets.push(`## Schema & Eloquent Architecture
 - Migration: Schema::create with proper foreignId('...')->constrained()->cascadeOnDelete()
 - Indexes: composite indexes on frequently filtered columns
@@ -850,7 +934,12 @@ Schema::create('entity_records', function (Blueprint $table) {
     $table->timestamps();
 });
 \`\`\``);
-    } else if (matchedDomain === "ui-ux" || qLower.includes("livewire") || qLower.includes("blade") || qLower.includes("component")) {
+    } else if (
+      matchedDomain === "ui-ux" ||
+      qLower.includes("livewire") ||
+      qLower.includes("blade") ||
+      qLower.includes("component")
+    ) {
       snippets.push(`## Livewire Reactive Component Architecture
 - State: protected rules, lifecycle hooks (mount, updated)
 - Interactivity: Alpine.js x-data, wire:model.live, wire:click actions
@@ -862,7 +951,12 @@ Schema::create('entity_records', function (Blueprint $table) {
     </button>
 </div>
 \`\`\``);
-    } else if (matchedDomain === "security" || qLower.includes("auth") || qLower.includes("permission") || qLower.includes("role")) {
+    } else if (
+      matchedDomain === "security" ||
+      qLower.includes("auth") ||
+      qLower.includes("permission") ||
+      qLower.includes("role")
+    ) {
       snippets.push(`## Security & Authorization Policy
 - Middleware: auth:sanctum, throttle rate-limiting
 - Policy: Gate authorization checks via $this->authorize(...)
@@ -873,7 +967,11 @@ public function update(Request $request, Model $model) {
     $validated = $request->validate(['status' => 'required|string']);
 }
 \`\`\``);
-    } else if (matchedDomain === "tdd" || qLower.includes("pest") || qLower.includes("test")) {
+    } else if (
+      matchedDomain === "tdd" ||
+      qLower.includes("pest") ||
+      qLower.includes("test")
+    ) {
       snippets.push(`## TDD Scenario Specification (Pest PHP)
 - Feature Test with arrange-act-assert pattern
 - DatabaseRefresh trait, factory models, authenticated user state
@@ -923,7 +1021,7 @@ it('validates business workflow under test', function () {
       return {
         confidence: 0.0,
         action: "REFORMULATE_EXPAND",
-        reasons: ["No matching documents found in index"]
+        reasons: ["No matching documents found in index"],
       };
     }
 
@@ -939,25 +1037,41 @@ it('validates business workflow under test', function () {
     }
 
     // Keyword coverage check
-    const qWords = (query || "").toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    const qWords = (query || "")
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((w) => w.length > 2);
     let matchedKeywords = 0;
-    const topContent = ((topDoc.content || "") + " " + (topDoc.file || "")).toLowerCase();
+    const topContent = (
+      (topDoc.content || "") +
+      " " +
+      (topDoc.file || "")
+    ).toLowerCase();
     for (const w of qWords) {
       if (topContent.includes(w)) matchedKeywords++;
     }
-    const keywordRatio = qWords.length > 0 ? (matchedKeywords / qWords.length) : 0;
-    
-    // Confidence is a weighted composite of retrieval score and keyword ratio
-    const confidence = parseFloat((normalizedScore * 0.6 + keywordRatio * 0.4).toFixed(3));
+    const keywordRatio =
+      qWords.length > 0 ? matchedKeywords / qWords.length : 0;
 
-    if (confidence >= 0.60) {
-      reasons.push(`High confidence match (${confidence}): Top document strongly aligns with query terms`);
+    // Confidence is a weighted composite of retrieval score and keyword ratio
+    const confidence = parseFloat(
+      (normalizedScore * 0.6 + keywordRatio * 0.4).toFixed(3),
+    );
+
+    if (confidence >= 0.6) {
+      reasons.push(
+        `High confidence match (${confidence}): Top document strongly aligns with query terms`,
+      );
       return { confidence, action: "DIRECT", reasons };
     } else if (confidence >= 0.35) {
-      reasons.push(`Medium confidence match (${confidence}): Documents partially match, triggering HyDE & GraphRAG enrichment`);
+      reasons.push(
+        `Medium confidence match (${confidence}): Documents partially match, triggering HyDE & GraphRAG enrichment`,
+      );
       return { confidence, action: "ENRICH_GRAPH_HYDE", reasons };
     } else {
-      reasons.push(`Low confidence match (${confidence}): Query terms scattered or ambiguous, triggering query reformulation & 2-hop expansion`);
+      reasons.push(
+        `Low confidence match (${confidence}): Query terms scattered or ambiguous, triggering query reformulation & 2-hop expansion`,
+      );
       return { confidence, action: "REFORMULATE_EXPAND", reasons };
     }
   }
@@ -980,7 +1094,9 @@ it('validates business workflow under test', function () {
 
     // Step 2: Confidence Evaluation
     const evalResult = this.evaluateRetrievalConfidence(initialResults, query);
-    console.log(`🧭 CRAG Confidence: ${evalResult.confidence} -> Action: [${evalResult.action}]`);
+    console.log(
+      `🧭 CRAG Confidence: ${evalResult.confidence} -> Action: [${evalResult.action}]`,
+    );
 
     // Branch 1: DIRECT (High Confidence)
     if (evalResult.action === "DIRECT") {
@@ -991,15 +1107,23 @@ it('validates business workflow under test', function () {
         documents: initialResults,
         seeds: initialResults.slice(0, 2),
         connectedNotes: [],
-        finalContext: initialResults.map(d => `### ${d.file || d.heading || "Document"}\n${d.content}`).join("\n\n---\n\n")
+        finalContext: initialResults
+          .map((d) => `### ${d.file || d.heading || "Document"}\n${d.content}`)
+          .join("\n\n---\n\n"),
       };
     }
 
     // Branch 2: ENRICH_GRAPH_HYDE (Medium Confidence / Ambiguous)
     if (evalResult.action === "ENRICH_GRAPH_HYDE") {
-      console.log(`🧭 CRAG: Running HyDE query expansion and 1-hop Graph traversal...`);
+      console.log(
+        `🧭 CRAG: Running HyDE query expansion and 1-hop Graph traversal...`,
+      );
       const hydeResults = await this.searchWithHyDE(query, { topK });
-      const graphResult = await this.searchWithGraph(query, { topK: 2, maxHops: 1, maxTotalChars: 3500 });
+      const graphResult = await this.searchWithGraph(query, {
+        topK: 2,
+        maxHops: 1,
+        maxTotalChars: 3500,
+      });
 
       // Merge and deduplicate documents
       const mergedDocs = [];
@@ -1013,9 +1137,15 @@ it('validates business workflow under test', function () {
       }
 
       const combinedContext = [
-        ...mergedDocs.slice(0, topK).map(d => `### ${d.file || d.heading || "Document"}\n${d.content}`),
-        graphResult.graphContextString ? `### Graph Knowledge (Wikilink Relations)\n${graphResult.graphContextString}` : ""
-      ].filter(Boolean).join("\n\n---\n\n");
+        ...mergedDocs
+          .slice(0, topK)
+          .map((d) => `### ${d.file || d.heading || "Document"}\n${d.content}`),
+        graphResult.graphContextString
+          ? `### Graph Knowledge (Wikilink Relations)\n${graphResult.graphContextString}`
+          : "",
+      ]
+        .filter(Boolean)
+        .join("\n\n---\n\n");
 
       return {
         query,
@@ -1024,34 +1154,61 @@ it('validates business workflow under test', function () {
         documents: mergedDocs.slice(0, topK),
         seeds: graphResult.seeds,
         connectedNotes: graphResult.connectedNotes,
-        finalContext: combinedContext
+        finalContext: combinedContext,
       };
     }
 
     // Branch 3: REFORMULATE_EXPAND (Low Confidence / Corrective Recovery)
-    console.log(`🧭 CRAG: Low confidence detected. Triggering Query Reformulation & 2-hop Graph expansion...`);
+    console.log(
+      `🧭 CRAG: Low confidence detected. Triggering Query Reformulation & 2-hop Graph expansion...`,
+    );
     // Reformulate query: extract domain entities, strip noisy stop words
     const cleanTokens = query
       .replace(/[^a-zA-Z0-9_\-\s]/g, " ")
       .split(/\s+/)
-      .filter(w => w.length > 2 && !["tolong", "buatkan", "lanjut", "bagaimana", "dengan", "untuk", "please", "make", "create"].includes(w.toLowerCase()));
+      .filter(
+        (w) =>
+          w.length > 2 &&
+          ![
+            "tolong",
+            "buatkan",
+            "lanjut",
+            "bagaimana",
+            "dengan",
+            "untuk",
+            "please",
+            "make",
+            "create",
+          ].includes(w.toLowerCase()),
+      );
     const reformulatedQuery = cleanTokens.join(" ");
 
-    const expandedGraphResult = await this.searchWithGraph(reformulatedQuery || query, {
-      topK: 3,
-      maxHops: 2,
-      maxNeighborsPerSeed: 4,
-      maxTotalChars: 4500
-    });
+    const expandedGraphResult = await this.searchWithGraph(
+      reformulatedQuery || query,
+      {
+        topK: 3,
+        maxHops: 2,
+        maxNeighborsPerSeed: 4,
+        maxTotalChars: 4500,
+      },
+    );
 
-    const hydeDoc = this.generateHypotheticalDocument(reformulatedQuery || query);
+    const hydeDoc = this.generateHypotheticalDocument(
+      reformulatedQuery || query,
+    );
     const retryDocs = await this.search(reformulatedQuery || query, topK);
 
     const recoveryContext = [
       `### Synthesized Architectural Baseline (HyDE Guidance)\n${hydeDoc}`,
-      expandedGraphResult.graphContextString ? `### 2-Hop Graph Knowledge Network\n${expandedGraphResult.graphContextString}` : "",
-      ...retryDocs.map(d => `### Retrieved Reference: ${d.file || d.heading}\n${d.content}`)
-    ].filter(Boolean).join("\n\n---\n\n");
+      expandedGraphResult.graphContextString
+        ? `### 2-Hop Graph Knowledge Network\n${expandedGraphResult.graphContextString}`
+        : "",
+      ...retryDocs.map(
+        (d) => `### Retrieved Reference: ${d.file || d.heading}\n${d.content}`,
+      ),
+    ]
+      .filter(Boolean)
+      .join("\n\n---\n\n");
 
     return {
       query,
@@ -1061,7 +1218,7 @@ it('validates business workflow under test', function () {
       documents: retryDocs,
       seeds: expandedGraphResult.seeds,
       connectedNotes: expandedGraphResult.connectedNotes,
-      finalContext: recoveryContext
+      finalContext: recoveryContext,
     };
   }
 
@@ -1071,42 +1228,55 @@ it('validates business workflow under test', function () {
    * nomic-embed-text BEFORE we start batch embedding. Prevents 500 contention errors.
    */
   async _warmupEmbeddingModel() {
-    const axios = require('axios');
+    const axios = require("axios");
     const MAX_WARMUP_RETRIES = 3;
     for (let attempt = 1; attempt <= MAX_WARMUP_RETRIES; attempt++) {
+      try {
+        // Try new API first (/api/embed), fallback to legacy (/api/embeddings)
         try {
-            // Try new API first (/api/embed), fallback to legacy (/api/embeddings)
-            try {
-                const resp = await axios.post(`${this.baseUrl}/embed`, {
-                    model: this.ollamaModel,
-                    input: 'warmup'
-                }, { timeout: 120000 }); // 2 min timeout for cold model load
-                if (resp.data.embeddings?.[0]?.length > 0) {
-                    this.useNewEmbedAPI = true;
-                    return true;
-                }
-            } catch (newApiErr) {
-                // Fallback to legacy endpoint
-                const resp = await axios.post(`${this.baseUrl}/embeddings`, {
-                    model: this.ollamaModel,
-                    prompt: 'warmup'
-                }, { timeout: 120000 });
-                if (resp.data.embedding?.length > 0) {
-                    this.useNewEmbedAPI = false;
-                    return true;
-                }
-            }
-        } catch (e) {
-            const isTransient = e.response?.status === 500 || e.code === 'ECONNRESET';
-            if (isTransient && attempt < MAX_WARMUP_RETRIES) {
-                const delay = attempt * 3000; // 3s, 6s backoff
-                console.warn(`   ⚠️ Ollama: Warmup attempt ${attempt}/${MAX_WARMUP_RETRIES} failed (${e.message}). Retrying in ${delay/1000}s...`);
-                await this._sleep(delay);
-            } else {
-                console.error(`   ❌ Ollama: Warmup failed after ${attempt} attempts: ${e.message}`);
-                return false;
-            }
+          const resp = await axios.post(
+            `${this.baseUrl}/embed`,
+            {
+              model: this.ollamaModel,
+              input: "warmup",
+            },
+            { timeout: 120000 },
+          ); // 2 min timeout for cold model load
+          if (resp.data.embeddings?.[0]?.length > 0) {
+            this.useNewEmbedAPI = true;
+            return true;
+          }
+        } catch (newApiErr) {
+          // Fallback to legacy endpoint
+          const resp = await axios.post(
+            `${this.baseUrl}/embeddings`,
+            {
+              model: this.ollamaModel,
+              prompt: "warmup",
+            },
+            { timeout: 120000 },
+          );
+          if (resp.data.embedding?.length > 0) {
+            this.useNewEmbedAPI = false;
+            return true;
+          }
         }
+      } catch (e) {
+        const isTransient =
+          e.response?.status === 500 || e.code === "ECONNRESET";
+        if (isTransient && attempt < MAX_WARMUP_RETRIES) {
+          const delay = attempt * 3000; // 3s, 6s backoff
+          console.warn(
+            `   ⚠️ Ollama: Warmup attempt ${attempt}/${MAX_WARMUP_RETRIES} failed (${e.message}). Retrying in ${delay / 1000}s...`,
+          );
+          await this._sleep(delay);
+        } else {
+          console.error(
+            `   ❌ Ollama: Warmup failed after ${attempt} attempts: ${e.message}`,
+          );
+          return false;
+        }
+      }
     }
     return false;
   }
@@ -1117,63 +1287,84 @@ it('validates business workflow under test', function () {
    */
   async getEmbedding(text) {
     if (this.ollamaFailures >= 5) return null; // Raised threshold from 3 to 5
-    
-    const axios = require('axios');
+
+    const axios = require("axios");
     const MAX_RETRIES = 3;
-    
+
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-        try {
-            let embedding;
-            if (this.useNewEmbedAPI) {
-                // Ollama v0.24+ /api/embed endpoint
-                const response = await axios.post(`${this.baseUrl}/embed`, {
-                    model: this.ollamaModel,
-                    input: text
-                }, { timeout: 60000 });
-                embedding = response.data.embeddings?.[0];
-            } else {
-                // Legacy /api/embeddings endpoint
-                const response = await axios.post(`${this.baseUrl}/embeddings`, {
-                    model: this.ollamaModel,
-                    prompt: text
-                }, { timeout: 60000 });
-                embedding = response.data.embedding;
-            }
-            
-            this.ollamaFailures = 0;
-            return embedding || null;
-        } catch (e) {
-            const isTransient = e.response?.status === 500 || e.response?.status === 503 || e.code === 'ECONNRESET';
-            
-            if (isTransient && attempt < MAX_RETRIES) {
-                // FIX #26 — Exponential backoff: 1s, 2s, 4s for transient server errors
-                const delay = Math.pow(2, attempt - 1) * 1000;
-                console.warn(`   ⚠️ Ollama: Embedding attempt ${attempt}/${MAX_RETRIES} got ${e.response?.status || e.code}. Retrying in ${delay/1000}s...`);
-                await this._sleep(delay);
-                continue;
-            } else if (e.response?.status === 400 && attempt < MAX_RETRIES && text.length > 500) {
-                // FIX #28 — 400 Bad Request usually means token limit exceeded.
-                // Halve the text and retry immediately.
-                console.warn(`   ⚠️ Ollama: Got 400 Bad Request (likely token limit). Truncating text from ${text.length} to ${Math.floor(text.length / 2)} chars and retrying...`);
-                text = text.substring(0, Math.floor(text.length / 2));
-                continue;
-            }
-            
-            this.ollamaFailures++;
-            if (this.ollamaFailures >= 5) {
-                console.error(`   ❌ Ollama: Embedding failed ${this.ollamaFailures} times (${e.message}). Disabling Ollama embeddings for this session.`);
-                this.useOllamaEmbeddings = false;
-            } else {
-                console.error(`   ❌ Ollama: Embedding failed: ${e.message}`);
-            }
-            return null;
+      try {
+        let embedding;
+        if (this.useNewEmbedAPI) {
+          // Ollama v0.24+ /api/embed endpoint
+          const response = await axios.post(
+            `${this.baseUrl}/embed`,
+            {
+              model: this.ollamaModel,
+              input: text,
+            },
+            { timeout: 60000 },
+          );
+          embedding = response.data.embeddings?.[0];
+        } else {
+          // Legacy /api/embeddings endpoint
+          const response = await axios.post(
+            `${this.baseUrl}/embeddings`,
+            {
+              model: this.ollamaModel,
+              prompt: text,
+            },
+            { timeout: 60000 },
+          );
+          embedding = response.data.embedding;
         }
+
+        this.ollamaFailures = 0;
+        return embedding || null;
+      } catch (e) {
+        const isTransient =
+          e.response?.status === 500 ||
+          e.response?.status === 503 ||
+          e.code === "ECONNRESET";
+
+        if (isTransient && attempt < MAX_RETRIES) {
+          // FIX #26 — Exponential backoff: 1s, 2s, 4s for transient server errors
+          const delay = Math.pow(2, attempt - 1) * 1000;
+          console.warn(
+            `   ⚠️ Ollama: Embedding attempt ${attempt}/${MAX_RETRIES} got ${e.response?.status || e.code}. Retrying in ${delay / 1000}s...`,
+          );
+          await this._sleep(delay);
+          continue;
+        } else if (
+          e.response?.status === 400 &&
+          attempt < MAX_RETRIES &&
+          text.length > 500
+        ) {
+          // FIX #28 — 400 Bad Request usually means token limit exceeded.
+          // Halve the text and retry immediately.
+          console.warn(
+            `   ⚠️ Ollama: Got 400 Bad Request (likely token limit). Truncating text from ${text.length} to ${Math.floor(text.length / 2)} chars and retrying...`,
+          );
+          text = text.substring(0, Math.floor(text.length / 2));
+          continue;
+        }
+
+        this.ollamaFailures++;
+        if (this.ollamaFailures >= 5) {
+          console.error(
+            `   ❌ Ollama: Embedding failed ${this.ollamaFailures} times (${e.message}). Disabling Ollama embeddings for this session.`,
+          );
+          this.useOllamaEmbeddings = false;
+        } else {
+          console.error(`   ❌ Ollama: Embedding failed: ${e.message}`);
+        }
+        return null;
+      }
     }
     return null;
   }
 
   _sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   // FIX #15 — Zero-norm guard: jika salah satu vektor nol (embedding gagal/dokumen kosong),
@@ -1183,9 +1374,9 @@ it('validates business workflow under test', function () {
     let normA = 0;
     let normB = 0;
     for (let i = 0; i < vecA.length; i++) {
-        dotProduct += vecA[i] * vecB[i];
-        normA += vecA[i] * vecA[i];
-        normB += vecB[i] * vecB[i];
+      dotProduct += vecA[i] * vecB[i];
+      normA += vecA[i] * vecA[i];
+      normB += vecB[i] * vecB[i];
     }
     const denom = Math.sqrt(normA) * Math.sqrt(normB);
     if (denom === 0) return 0; // Zero vector = no similarity (avoid NaN/Infinity)
@@ -1199,14 +1390,23 @@ it('validates business workflow under test', function () {
   extractMultiTags(content) {
     const lowerContent = content.toLowerCase();
     const tags = new Set();
-    const VALID_DOMAINS = new Set(Object.keys(this.domainVocab).concat(['other', 'standards', 'academics', 'planning', 'audit']));
+    const VALID_DOMAINS = new Set(
+      Object.keys(this.domainVocab).concat([
+        "other",
+        "standards",
+        "academics",
+        "planning",
+        "audit",
+      ]),
+    );
 
     // 1. Cek existing NEXUS metadata tags dulu
     const metaMatch = content.match(/METADATA.*\[([^\]]+)\]/i);
     if (metaMatch) {
-      metaMatch[1].split(",")
-        .map(t => t.trim().toLowerCase())
-        .filter(t => VALID_DOMAINS.has(t))
+      metaMatch[1]
+        .split(",")
+        .map((t) => t.trim().toLowerCase())
+        .filter((t) => VALID_DOMAINS.has(t))
         .forEach((t) => tags.add(t));
     }
 
@@ -1229,20 +1429,29 @@ it('validates business workflow under test', function () {
   extractMultiTagsWithScores(content) {
     const lowerContent = content.toLowerCase();
     const tagScores = [];
-    const VALID_DOMAINS = new Set(Object.keys(this.domainVocab).concat(['other', 'standards', 'academics', 'planning', 'audit']));
+    const VALID_DOMAINS = new Set(
+      Object.keys(this.domainVocab).concat([
+        "other",
+        "standards",
+        "academics",
+        "planning",
+        "audit",
+      ]),
+    );
 
     const metaMatch = content.match(/METADATA.*\[([^\]]+)\]/i);
     if (metaMatch) {
-      metaMatch[1].split(",")
-        .map(t => t.trim().toLowerCase())
-        .filter(t => VALID_DOMAINS.has(t))
-        .forEach(t => tagScores.push({ tag: t, score: 50 })); // Base score for explicit tags
+      metaMatch[1]
+        .split(",")
+        .map((t) => t.trim().toLowerCase())
+        .filter((t) => VALID_DOMAINS.has(t))
+        .forEach((t) => tagScores.push({ tag: t, score: 50 })); // Base score for explicit tags
     }
 
     for (const [domain, keywords] of Object.entries(this.domainVocab)) {
       const hits = keywords.filter((kw) => lowerContent.includes(kw)).length;
       if (hits > 0) {
-        const existing = tagScores.find(t => t.tag === domain);
+        const existing = tagScores.find((t) => t.tag === domain);
         if (existing) {
           existing.score += hits;
         } else {
@@ -1280,10 +1489,10 @@ it('validates business workflow under test', function () {
     if (await fs.pathExists(indexPath)) {
       await fs.remove(indexPath);
       this.isBuilt = false;
-      
+
       // Clear Redis search cache
       await redis.flush();
-      
+
       console.log(
         "   🗑️  Vector index & Redis cache invalidated. Will rebuild on next search.",
       );

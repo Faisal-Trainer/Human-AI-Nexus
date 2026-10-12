@@ -1,72 +1,113 @@
-const fs = require('fs-extra');
-const path = require('path');
-const { ImplementationPlan } = require('../Contract');
-const NexusClock = require('../NexusClock');
-const BasePhase = require('./BasePhase');
-const NexusError = require('../NexusError');
+const fs = require("fs-extra");
+const path = require("path");
+const { ImplementationPlan } = require("../Contract");
+const NexusClock = require("../NexusClock");
+const BasePhase = require("./BasePhase");
+const NexusError = require("../NexusError");
 
 class PlanningPhase extends BasePhase {
-    async run(auditReport) {
-        const report = auditReport || this.engine.currentAudit;
-        if (!report) {
-            throw new NexusError('PLANNING', 'Pipeline Violation: Planning requires a valid Audit Report.');
+  async run(auditReport) {
+    const report = auditReport || this.engine.currentAudit;
+    if (!report) {
+      throw new NexusError(
+        "PLANNING",
+        "Pipeline Violation: Planning requires a valid Audit Report.",
+      );
+    }
+
+    this.log(`📅 Phase 2: Planning based on ${report.id}...`, "info");
+
+    const planID = `PLAN-${Date.now()}`;
+
+    // DEDUP: temuan identik (severity + message sama) dikonsolidasikan menjadi SATU task.
+    // Contoh: 26 finding "File has over 50 lines but no documentation" dari file berbeda
+    // dulu menjadi 26 task duplikat → 26x lookup knowledge yang sama. Daftar file
+    // tetap dipertahankan di rationale agar informasi tidak hilang.
+    const uniqueFindings = [];
+    const findingsByKey = new Map();
+    for (const f of report.findings) {
+      if (f.severity === "INFO" && f.message.includes("Audit completed"))
+        continue;
+      const key = `${f.severity}|${f.message}`;
+      const existing = findingsByKey.get(key);
+      if (existing) {
+        if (f.file) existing._files.push(f.file);
+        continue;
+      }
+      const clone = { ...f, _files: f.file ? [f.file] : [] };
+      findingsByKey.set(key, clone);
+      uniqueFindings.push(clone);
+    }
+    if (report.findings.length > uniqueFindings.length) {
+      this.log(
+        `   🧮 Deduplicated ${report.findings.length} findings → ${uniqueFindings.length} unique tasks`,
+        "info",
+      );
+    }
+
+    const tasks = uniqueFindings.map((f, i) => {
+      let rationale = f.rationale || "Tidak ada keterangan tambahan.";
+      if (f._files.length > 1) {
+        const preview = f._files.slice(0, 5).join(", ");
+        const more = f._files.length > 5 ? ", …" : "";
+        rationale = `Berlaku untuk ${f._files.length} file: ${preview}${more}. ${rationale}`;
+      }
+      const task = {
+        id: i + 1,
+        description: `${f.severity}: ${f.message}`,
+        status: "pending",
+        rationale,
+        recommendation:
+          f.recommendation || "Gunakan praktik terbaik standar industri.",
+      };
+
+      // AUTO-ACTION GENERATION
+      if (f.message.includes(".env detected")) {
+        task.action = {
+          type: "FILE_APPEND",
+          target: ".gitignore",
+          content: ".env",
+        };
+        task.description += " (Auto-fix enabled)";
+      }
+
+      return task;
+    });
+
+    // 🌐 GRAPHRAG ENRICHMENT: Ground planning recommendations with Obsidian knowledge
+    for (const task of tasks) {
+      try {
+        if (this.engine.searchKnowledgeGraph) {
+          const query = task.description
+            .replace(/^(CRITICAL|WARNING|ERROR|INFO):\s*/i, "")
+            .slice(0, 80);
+          const graphMatch = await this.engine.searchKnowledgeGraph(query, {
+            topK: 1,
+            maxHops: 1,
+            maxNeighborsPerSeed: 2,
+            maxTotalChars: 800,
+          });
+          if (graphMatch && graphMatch.seeds && graphMatch.seeds.length > 0) {
+            const seed = graphMatch.seeds[0];
+            const relNote = graphMatch.connectedNotes?.[0]?.node?.title;
+            const relText = relNote ? ` ➔ linked to [[${relNote}]]` : "";
+            task.recommendation += ` [Vault: [[${seed.title}]]${relText}]`;
+          }
         }
+      } catch (_) {}
+    }
 
-        this.log(`📅 Phase 2: Planning based on ${report.id}...`, 'info');
-        
-        const planID = `PLAN-${Date.now()}`;
-        const tasks = report.findings
-            .filter(f => f.severity !== 'INFO' || !f.message.includes('Audit completed'))
-            .map((f, i) => {
-                const task = {
-                    id: i + 1,
-                    description: `${f.severity}: ${f.message}`,
-                    status: 'pending',
-                    rationale: f.rationale || 'Tidak ada keterangan tambahan.',
-                    recommendation: f.recommendation || 'Gunakan praktik terbaik standar industri.'
-                };
+    const plan = new ImplementationPlan(planID, report.id, tasks);
+    this.engine.currentPlan = plan;
 
-                // AUTO-ACTION GENERATION
-                if (f.message.includes('.env detected')) {
-                    task.action = {
-                        type: 'FILE_APPEND',
-                        target: '.gitignore',
-                        content: '.env'
-                    };
-                    task.description += ' (Auto-fix enabled)';
-                }
+    await fs.ensureDir(this.engine.planningPath);
+    await fs.writeJson(
+      path.join(this.engine.planningPath, `plan_${planID}.json`),
+      plan.toJSON(),
+      { spaces: 2 },
+    );
 
-                return task;
-            });
-
-        // 🌐 GRAPHRAG ENRICHMENT: Ground planning recommendations with Obsidian knowledge
-        for (const task of tasks) {
-            try {
-                if (this.engine.searchKnowledgeGraph) {
-                    const query = task.description.replace(/^(CRITICAL|WARNING|ERROR|INFO):\s*/i, "").slice(0, 80);
-                    const graphMatch = await this.engine.searchKnowledgeGraph(query, {
-                        topK: 1,
-                        maxHops: 1,
-                        maxNeighborsPerSeed: 2,
-                        maxTotalChars: 800,
-                    });
-                    if (graphMatch && graphMatch.seeds && graphMatch.seeds.length > 0) {
-                        const seed = graphMatch.seeds[0];
-                        const relNote = graphMatch.connectedNotes?.[0]?.node?.title;
-                        const relText = relNote ? ` ➔ linked to [[${relNote}]]` : "";
-                        task.recommendation += ` [Vault: [[${seed.title}]]${relText}]`;
-                    }
-                }
-            } catch (_) {}
-        }
-
-        const plan = new ImplementationPlan(planID, report.id, tasks);
-        this.engine.currentPlan = plan;
-
-        await fs.ensureDir(this.engine.planningPath);
-        await fs.writeJson(path.join(this.engine.planningPath, `plan_${planID}.json`), plan.toJSON(), { spaces: 2 });
-        
-        const mdPlan = `
+    const mdPlan = `
 # 🛠 Implementation Plan: ${planID}
 **Ref Audit**: [${report.id}](../audit/audit_SUMMARY_${report.id}.md)
 **Status**: Ready for Execution
@@ -74,20 +115,27 @@ class PlanningPhase extends BasePhase {
 ---
 
 ## 📋 Task List & Learning Insights
-${tasks.map(t => `
+${tasks
+  .map(
+    (t) => `
 ### [ ] Task ${t.id}: ${t.description}
 - **🧐 Why?**: ${t.rationale}
 - **💡 Action**: ${t.recommendation}
-`).join('\n')}
+`,
+  )
+  .join("\n")}
 
 ---
 *Generated by Nexus Orchestrator*
         `;
-        await fs.writeFile(path.join(this.engine.planningPath, `plan_${planID}.md`), mdPlan);
+    await fs.writeFile(
+      path.join(this.engine.planningPath, `plan_${planID}.md`),
+      mdPlan,
+    );
 
-        this.log(`✅ Plan Created: ${planID}`, 'success');
-        return plan;
-    }
+    this.log(`✅ Plan Created: ${planID}`, "success");
+    return plan;
+  }
 }
 
 module.exports = PlanningPhase;

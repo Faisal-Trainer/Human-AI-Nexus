@@ -2,6 +2,37 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.7] - 2026-10-12 (Hallucination Guards, Pipeline Cleanup & Tailwind v4 Migration)
+
+### Fixed
+
+- **ParseError `unexpected token "="` HTTP 500 pada app generated (`ImplementationPhase.js`)**: model lokal menghasilkan direktif loop Blade tidak seimbang (`@foreach ... @empty ... @endforelse`). `@empty` hanya valid di dalam `@forelse`; pasangan tak seimbang meracuni counter `loopLevel` BladeCompiler sehingga view yang di-compile setelahnya (termasuk error page framework) menghasilkan variabel invalid `$__empty_-2`.
+  - Guard deterministik baru **`_fixBladeLoopDirectives()`** (stack-based): `@foreach` yang ditutup `@empty`/`@endforelse` → `@forelse`; `@forelse` ditutup `@endforeach` → `@endforelse`. Dipanggil di `cleanLivewireBladeOutput()` dan via `_reconcileLivewireComponent()` (self-healing saat re-run pada file di disk).
+  - Prompt blade Rule 5 diperbaiki: wajib `@forelse ... @empty ... @endforelse`, larang pairing `@foreach` dengan `@empty`.
+- **`BadMethodCallException: Blueprint::nullable does not exist` saat `artisan migrate` (`ImplementationPhase.js`)**: halusinasi modifier kolom berdiri sendiri (`$table->nullable();`) di migration generated. Guard baru **`_sanitizeMigration()`** menghapus pemanggilan modifier Blueprint tanpa argumen (`nullable|unsigned|useCurrent|after|default|comment|charset|collation|change`) sebelum file ditulis — `->nullable()` berantai dan helper sah (`timestamps()`, `softDeletes()`) tidak tersentuh.
+- **`foreach() argument must be of type array|object, null given` (`ImplementationPhase.js`)**: `HandleComponents::getView()` Livewire menerapkan `->with($publicProperties)` **setelah** data `render()`, sehingga `public $users;` kosong menimpa `'users' => User::all()` dengan null. Rekonsiliasi langkah **2.5** baru menghapus deklarasi public property yang men-shadow collection yang di-iterasi view (hanya bila `$this->prop` tidak dipakai di tempat lain); View Variable Contract di prompt melarang pola ini secara eksplisit.
+- **`Call to a member function first() on null` (2 perbaikan engine)**:
+  - **`_nullSafeViewReads()` kini melindungi SELURUH hop** (`$user->shortUrls->first()->title` → `$user?->shortUrls?->first()?->title`), bukan hanya hop pertama.
+  - **`_ensureUserRelations()` baru** — model User yang di-preserve otomatis mendapat relasi inverse `hasMany()` (camelPlural) untuk setiap model blueprint dengan FK `user_id`/`*_user_id`; skema-driven & idempoten.
+- **Tailwind v4 vs config v3 (`laravel-fresh-template`)**: template menginstal `tailwindcss@4.3.3` + `@tailwindcss/vite` tetapi file konfigurasi masih gaya v3 → error PostCSS "tailwindcss directly as a PostCSS plugin". Migrasi penuh: `vite.config.js` registrasi `tailwindcss()`, `app.css` → `@import 'tailwindcss'; @plugin '@tailwindcss/forms'; @custom-variant dark; @theme Figtree`, `postcss.config.js` & `tailwind.config.js` dihapus. CDN fallback di prompt layout & template welcome hardcoded ExecutionPhase diganti dari `cdn.tailwindcss.com` (v3-only) ke `@tailwindcss/browser@4`.
+
+### Added
+
+- **Deduplikasi temuan audit (`PlanningPhase.js`)**: temuan identik (`severity` + `message` sama) dikonsolidasikan menjadi SATU task plan; daftar file dipertahankan di rationale ("Berlaku untuk N file: ..."). Menghilangkan 26× task duplikat + 26× lookup GraphRAG/Redis identik per siklus.
+
+### Changed
+
+- **Noise log Redis dihapus (`SemanticEngine.js`)**: `⚡ Redis: Cache hit for query ...` tidak dicetak per-hit lagi (jalur normal cache menghasilkan spam puluhan baris per fase).
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.7`.
+
+### Verified
+
+- `_fixBladeLoopDirectives`: 3 negative case tak berubah, 3 positive case (termasuk nested) benar; memperbaiki 2 view rusak nyata di `url-shortener-app`.
+- `_sanitizeMigration`: strip `$table->nullable();` dari migration rusak sambil pertahankan 2 `->nullable()` berantai + `timestamps`/`softDeletes`/`index`.
+- Dedup PlanningPhase (stub engine, 28 findings): → 2 task unik, auto-fix `.env` tetap utuh.
+- `_nullSafeViewReads` + `_ensureUserRelations`: chain penuh null-safe, idempoten, `php -l` bersih.
+- `npm run build` pada `url-shortener-app`: sukses 15.99s, `app.css` 126.81 kB asli v4, tanpa error PostCSS. `node --check` semua file engine bersih.
+
 ## [v3.4.6] - 2026-10-12 (Livewire Component-View Coherence Guard)
 
 ### Fixed

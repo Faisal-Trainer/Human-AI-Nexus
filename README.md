@@ -3,7 +3,7 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.4.6 (Livewire Component-View Coherence Guard)
+> **Version**: v3.4.7 (Hallucination Guards, Pipeline Cleanup & Tailwind v4 Migration)
 > **Updated**: 12/10/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
@@ -326,4 +326,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 12/10/2026 (v3.4.6 - Livewire Component-View Coherence Guard)_
+_Terakhir Dioptimasi: 12/10/2026 (v3.4.7 - Hallucination Guards, Pipeline Cleanup & Tailwind v4 Migration)_

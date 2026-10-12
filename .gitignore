@@ -102,6 +102,15 @@ memory/distilled/short_term/cache/
 # Per-project blueprint JSONs produced by Phase 0.5 scaffolding
 memory/operational/blueprints/
 
+# --- Mass Cleanup (2026-10-12): runtime caches & vendored bundles, untracked ---
+# Volatile short-term memory indexes rebuilt by the agent at runtime.
+memory/short_term/link_cache.json
+memory/short_term/vector_index.json
+# Vendored third-party skill bundles (moved into Obsidian Vault, not versioned).
+memory/references/
+# Machine-specific Obsidian vault pointer (absolute local path; keep local only).
+.nexus-vault.json
+
 # --- Large Model Files ---
 models/
 *.gguf

@@ -2,6 +2,33 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.10] - 2026-10-13 (Resiliensi GPU device-lost, Hard Gate Anti-Halusinasi, Builder 4096 token)
+
+### Fixed
+
+- **`ErrorDeviceLost` Vega 8 tak terdeteksi sebagai kegagalan GPU (`LocalIntelligence.js`)**: `isGpuMemoryError()` kini juga mencocokkan pola `ErrorDeviceLost|createCommandPool|Queue::submit` — crash Vulkan spesifik AMD iGPU sebelumnya lolos regex sehingga melempar fatal alih-alih memicu jalur fallback CPU.
+- **GPU terblokir permanen setelah fallback CPU (`LocalIntelligence.js`)**: begitu konteks CPU berhasil di-take-over, circuit breaker di-reset (`state: CLOSED`, failures 0) agar kegagalan GPU sebelumnya tidak memblokir sisa sesi.
+- **PHP lint mati `spawnSync cmd.exe ETIMEDOUT` saat CPU jenuh inference (`ImplementationPhase.js` — FIX #4)**: `php -l` dipanggil via `spawnSync` dengan `shell:false` (php langsung, tanpa cmd.exe), timeout longgar 20s + `SIGKILL`, `windowsHide`; lint yang *timeout* diperlakukan warning (bukan error) supaya tidak memblokir penulisan file yang sehat.
+- **Class Livewire tak ter-parse tertinggal di disk (`ImplementationPhase.js`)**: hard gate baru **`_safeFallbackLivewire()`** — bila output worker tak bisa di-parse, ditulis komponen minimal yang selalu valid (reconciler tetap menyembuhkan stub actions/vars di atasnya); hard gate pasca-rekonsiliasi menjamin sintaks rusak tidak pernah ditinggalkan di disk.
+- **Route menunjuk controller phantom (`ImplementationPhase.js`)**: **`_findPhantomControllers()`** + **`_writeApiFallback()`** — web/api route hanya diarahkan ke controller yang benar-benar ada di disk; phantom mendapat fallback controller sehingga boot tidak lagi melempar `Invalid route action`.
+
+### Added
+
+- **Lesson RAG (`ExecutionPhase.js`)**: `_collectLessonGuidance(taskType, maxLessons=2)` — pool lesson di-scan lazy via `fast-glob` dengan expiry, menyuntikkan lesson vault yang relevan dengan tipe task ke prompt builder (biaya satu read per jendela pool, bukan per project).
+- **Gate TypeSafeValidator lebih toleran (`TypeSafeValidator.js`)**: `apiKey` eksplisit `null`/`""` kini benar-benar mematikan gate (sebelumnya `{apiKey:null}` tetap aktif karena env fallback — bug test); preflight koneksi sekali-gagal mematikan gate untuk sisa sesi (satu warning, bukan belasan per project).
+- **`dotenv` sebagai dependensi langsung (`package.json`)**: sebelumnya phantom (hadir transitif via `natural`) padahal `LocalIntelligence.js` memakai `require("dotenv")` eksplisit — kini dideklarasikan resmi (`dotenv@^18`).
+
+### Changed
+
+- **Budget output builder (`LocalIntelligence.js`)**: `MAX_TOKENS_BUILDER` 2048 → **4096**, dan ladder `FALLBACK_CONTEXT_SIZES` mendapat **8192** → `[8192, 4096, 2048, 1024, 768, 512]`. Pair dengan context window 16k: generasi 4096 token terukur penuh 579.9s @7.1 t/s pada Vega 8 prebuilt — aman dalam `NEXUS_BUILDER_TIMEOUT_MS` 900s.
+- **README.md** & **package.json**: Versi disinkronkan ke `3.4.10`.
+
+### Verified
+
+- Benchmark hardware nyata (scratch/bench_*.js): full-run 4096 token = 579.9s (< 900s, berhenti di maxTokens bukan EOS); sweep gpuLayers mengonfirmasi 28 tetap tercepat (7.8 t/s prebuilt; 12.4–12.7 t/s dengan custom Vulkan build lokal — lihat catatan `.env` lokal).
+- `node --check` bersih untuk `LocalIntelligence.js`, `ImplementationPhase.js`, `ExecutionPhase.js`, `TypeSafeValidator.js`; hard gate diuji scratch per-guard (fallback Livewire valid `php -l`, phantom route ter-blokir).
+- `nexus sandbox` Section 1 berjalan dengan engine termuat normal (gpuLayers 28, tanpa pesan fallback).
+
 ## [v3.4.9] - 2026-10-12 (Toggle Light/Dark + Continuous Learning Jalur Sukses)
 
 ### Added

@@ -1106,20 +1106,27 @@ class ExecutionPhase extends BasePhase {
           if (!fix.file) continue;
           const targetPath = path.join(projectPath, fix.file);
 
-          // FIX #4 — PHP Lint validation sebelum menulis file
+          // FIX #4 — PHP Lint validation sebelum menulis file.
+          // spawnSync + shell:false: panggil php langsung (tanpa cmd.exe) agar
+          // lint tidak mati dengan "spawnSync cmd.exe ETIMEDOUT" saat CPU
+          // jenuh oleh inference, dengan timeout longgar 20 detik.
           if (fix.file.endsWith(".php")) {
             const tmpLintPath = targetPath + ".lint_tmp";
             await fs.writeFile(tmpLintPath, fix.content, "utf8");
-            try {
-              const { execSync } = require("child_process");
-              execSync(`php -l "${tmpLintPath}"`, {
-                stdio: "ignore",
-                timeout: 5000,
-              });
-            } catch (lintErr) {
+            const { spawnSync } = require("child_process");
+            const lint = spawnSync("php", ["-l", tmpLintPath], {
+              encoding: "utf8",
+              timeout: 20000,
+              killSignal: "SIGKILL",
+              windowsHide: true,
+            });
+            const lintTimedOut = lint.error?.code === "ETIMEDOUT";
+            if (lint.error || lint.status !== 0) {
               this.log(
-                `         ⛔ PHP lint failed for ${fix.file}: ${lintErr.message.slice(0, 120)}. Skipping.`,
-                "error",
+                lintTimedOut
+                  ? `         ⚠️ PHP lint timed out for ${fix.file} (system load). Skipping.`
+                  : `         ⛔ PHP lint failed for ${fix.file}: ${String(lint.stderr || lint.stdout || lint.error?.message).slice(0, 120)}. Skipping.`,
+                lintTimedOut ? "warning" : "error",
               );
               await fs.remove(tmpLintPath).catch(() => {});
               continue;

@@ -785,10 +785,22 @@ class LocalIntelligence {
           );
           try {
             await this._reloadModel(0, true);
-            return await this.model.createContext({
+            const cpuCtx = await this.model.createContext({
               contextSize: size,
               threads,
             });
+            // CPU engine adalah backend baru — bersihkan breaker agar failure
+            // GPU sebelumnya tidak memblokir sisa sesi (device-lost permanen).
+            this.cb = {
+              state: "CLOSED",
+              failures: 0,
+              openedAt: null,
+              probing: false,
+            };
+            log.info(
+              "✅ CPU engine takeover berhasil — circuit breaker di-reset.",
+            );
+            return cpuCtx;
           } catch (cpuErr) {
             log.warn(
               `CPU context creation failed (Size: ${size}): ${cpuErr.message}`,

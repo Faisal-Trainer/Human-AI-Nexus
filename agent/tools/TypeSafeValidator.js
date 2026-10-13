@@ -35,13 +35,33 @@ class TypeSafeValidator {
    * @param {object} [opts.logger]      default: console
    */
   constructor(opts = {}) {
-    this.apiKey = opts.apiKey || process.env.TYPESAFE_API_KEY || null;
+    // Null/"" eksplisit = sengaja mematikan gate; hanya `undefined` yang jatuh
+    // ke env (sebelumnya {apiKey:null} tetap aktif karena env key — bug test).
+    this.apiKey =
+      opts.apiKey !== undefined
+        ? opts.apiKey
+        : process.env.TYPESAFE_API_KEY || null;
     this.endpoint =
       opts.endpoint || process.env.TYPESAFE_ENDPOINT || DEFAULT_ENDPOINT;
     this.model = opts.model || process.env.TYPESAFE_MODEL || DEFAULT_MODEL;
     this.timeoutMs = opts.timeoutMs ?? 20000;
     this.maxRetries = opts.maxRetries ?? 3;
     this.logger = opts.logger || console;
+    // Preflight sesi: sekali endpoint terbukti tak terjangkau, gate dimatikan
+    // untuk sisa sesi (satu warning, bukan belasan per project).
+    this._connDown = false;
+  }
+
+  /**
+   * Error koneksi level-bawah (endpoint mati / salah port / Ollama belum
+   * jalan) — undici membungkusnya sebagai "fetch failed" dengan cause
+   * ECONNREFUSED / ENOTFOUND / pesan "Was there a typo in the url or port?".
+   */
+  static _isConnectionError(err) {
+    const msg = `${err?.message || ""} ${err?.cause?.code || ""} ${err?.cause?.message || ""}`;
+    return /fetch failed|failed to fetch|ECONNREFUSED|ECONNRESET|ENOTFOUND|typo in the url|connection refused/i.test(
+      msg,
+    );
   }
 
   get enabled() {
@@ -113,7 +133,14 @@ class TypeSafeValidator {
         return buildReq.parse(text);
       } catch (err) {
         lastErr = err;
-        if (err.fatal) break;
+        // Koneksi mati / timeout = retry tidak ada gunanya; fail fast agar
+        // preflight sesi segera mematikan gate.
+        if (
+          err.fatal ||
+          err.name === "AbortError" ||
+          TypeSafeValidator._isConnectionError(err)
+        )
+          break;
         await sleep(500 * 2 ** attempt);
       } finally {
         clearTimeout(timer);
@@ -232,11 +259,23 @@ class TypeSafeValidator {
   /** Bungkus evaluate() dengan sifat opsional + fail-open. */
   async _safe(state, questions) {
     if (!this.enabled) return { skipped: true, reason: "no_api_key" };
+    if (this._connDown)
+      return { skipped: true, reason: "endpoint_down", silent: true };
     try {
       const answers = await this.evaluate(state, questions);
       return { skipped: false, answers };
     } catch (err) {
-      this._logWarn(`dilewati: ${err.message}`);
+      if (
+        err.name === "AbortError" ||
+        TypeSafeValidator._isConnectionError(err)
+      ) {
+        this._connDown = true;
+        this._logWarn(
+          `endpoint tidak terjangkau (${this.endpoint}) — gate TypeSafeValidator DIMATIKAN untuk sisa sesi.`,
+        );
+      } else {
+        this._logWarn(`dilewati: ${err.message}`);
+      }
       return { skipped: true, reason: "api_error", error: err.message };
     }
   }

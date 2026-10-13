@@ -301,6 +301,81 @@ class ImplementationPhase extends BasePhase {
     }
   }
 
+  // ── Lesson RAG ─────────────────────────────────────────────────────
+  /**
+   * Kumpulkan lesson NEXUS_LESSON_*.md terbaru dari knowledge local + Obsidian
+   * "Update/Lessons", lalu pilih yang paling relevan dengan taskType.
+   * Pool di-cache 5 menit per sesi agar tidak ada re-scan disk per generate.
+   */
+  async _collectLessonGuidance(taskType, maxLessons = 2) {
+    try {
+      const now = Date.now();
+      if (!this._lessonPool || this._lessonPool.expiresAt < now) {
+        const fg = require("fast-glob");
+        const files = [];
+        const scan = async (dir) => {
+          if (!dir) return;
+          const found = await fg("**/NEXUS_LESSON_*.md", {
+            cwd: dir.replace(/\\/g, "/"),
+            absolute: true,
+            onlyFiles: true,
+          }).catch(() => []);
+          files.push(...found);
+        };
+        await scan(this.engine.knowledgePath);
+        if (this.engine.obsidianBridge?.isActive?.()) {
+          const updateRoot = this.engine.obsidianBridge.getUpdateVaultPath?.();
+          if (updateRoot) await scan(path.join(updateRoot, "Lessons"));
+        }
+        // Dedup basename → mtime terbaru dulu → excerpt ringkas.
+        const byBase = new Map();
+        for (const f of files) {
+          const base = path.basename(f);
+          const mtime = (await fs.stat(f).catch(() => ({ mtimeMs: 0 })))
+            .mtimeMs;
+          const prev = byBase.get(base);
+          if (!prev || mtime > prev.mtime) byBase.set(base, { f, mtime });
+        }
+        const list = [];
+        for (const { f } of [...byBase.values()].sort(
+          (a, b) => b.mtime - a.mtime,
+        )) {
+          const content = await fs.readFile(f, "utf8").catch(() => null);
+          if (!content) continue;
+          list.push({
+            title: path.basename(f, ".md"),
+            excerpt: content.replace(/\s+/g, " ").slice(0, 260),
+          });
+          if (list.length >= 8) break; // cukup pool 8 lesson terbaru
+        }
+        this._lessonPool = { expiresAt: now + 300000, list };
+      }
+      if (this._lessonPool.list.length === 0) return null;
+      // Relevansi longgar: keyword taskType yang muncul di judul lesson.
+      const kw = (taskType || "")
+        .split("_")
+        .filter((w) => w.length > 3 && w !== "build");
+      const scored = this._lessonPool.list.map((l) => ({
+        l,
+        s: kw.reduce(
+          (n, k) =>
+            n +
+            (l.title.toLowerCase().includes(k) ||
+            l.excerpt.toLowerCase().includes(k)
+              ? 1
+              : 0),
+          0,
+        ),
+      }));
+      scored.sort((a, b) => b.s - a.s);
+      const top = scored.slice(0, maxLessons).map((x) => x.l);
+      const block = top.map((l) => `- ${l.title}: ${l.excerpt}`).join("\n");
+      return `PAST LESSONS FROM PREVIOUS RUNS (do NOT repeat these mistakes):\n${block}`;
+    } catch {
+      return null; // fail-open: lesson injection tidak boleh mematikan generate
+    }
+  }
+
   async getCachedOrGenerate(prompt, taskType) {
     const crypto = require("crypto");
     const hash = crypto
@@ -362,8 +437,14 @@ class ImplementationPhase extends BasePhase {
       return content;
     }
 
-    // Cache MISS — generate via AI
-    const response = await localAI.generate(prompt, taskType);
+    // Cache MISS — generate via AI.
+    // Lesson RAG: blok lesson ditempel HANYA ke prompt efektif yang dikirim ke
+    // model — hash cache tetap dari prompt asli, jadi cache lintas proyek utuh.
+    const lessonBlock = await this._collectLessonGuidance(taskType);
+    const effectivePrompt = lessonBlock
+      ? `${lessonBlock}\n\n${prompt}`
+      : prompt;
+    const response = await localAI.generate(effectivePrompt, taskType);
     if (response) {
       await fs.ensureDir(globalCacheDir);
       await fs.writeFile(globalCacheFile, response, "utf8");

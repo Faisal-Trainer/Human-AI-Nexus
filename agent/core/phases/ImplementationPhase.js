@@ -988,7 +988,19 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
       );
       await fs.ensureDir(path.dirname(phpPath));
       await fs.writeFile(phpPath, cleanPhp);
-      await this.validatePHPSyntax(phpPath);
+      const syntaxOk = await this.validatePHPSyntax(phpPath);
+      if (!syntaxOk) {
+        // HARD GATE: never keep an unparseable Livewire class on disk — the
+        // reconciler below still heals the safe fallback (stubs actions/vars).
+        this.log(
+          `      ⚠️ Syntax error in generated Livewire component. Writing safe fallback for ${className}.php`,
+          "warning",
+        );
+        await fs.writeFile(
+          phpPath,
+          this._safeFallbackLivewire(className, kebabName),
+        );
+      }
       this.log(`      ✅ Saved ${className}.php`, "success");
     }
 
@@ -1044,6 +1056,10 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     return camel + "s";
   }
 
+  _safeFallbackLivewire(className, kebabName) {
+    return `<?php\n\nnamespace App\\Livewire;\n\nuse Livewire\\Component;\n\nclass ${className} extends Component\n{\n    public function render()\n    {\n        return view('livewire.${kebabName}');\n    }\n}\n`;
+  }
+
   async _reconcileLivewireOnDisk(className, kebabName, blueprint) {
     const phpPath = path.join(
       this.engine.rootPath,
@@ -1075,7 +1091,18 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       if (!rec.changed) return;
       await fs.writeFile(phpPath, rec.classCode);
       await fs.writeFile(bladePath, rec.viewCode);
-      await this.validatePHPSyntax(phpPath);
+      const reconciledOk = await this.validatePHPSyntax(phpPath);
+      if (!reconciledOk) {
+        // HARD GATE: reconciliation must never leave broken syntax on disk —
+        // roll back to the pre-reconcile versions (validated at save time).
+        await fs.writeFile(phpPath, classCode);
+        await fs.writeFile(bladePath, viewCode);
+        this.log(
+          `      ⛔ Reconcile broke ${className}.php syntax — rolled back to pre-reconcile code.`,
+          "warning",
+        );
+        return;
+      }
       this.log(
         `      🔗 Reconciled ${className} <-> view: ${rec.notes.join("; ")}`,
         "info",
@@ -1602,8 +1629,12 @@ CRITICAL ARCHITECTURE RULES:
       await fs.writeFile(p, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(p);
       const hasMissingViews = this._hasNonExistentViews(cleanCode);
+      const phantoms = this._findPhantomControllers(
+        cleanCode,
+        existingControllers,
+      );
 
-      if (syntaxOk && !hasMissingViews) {
+      if (syntaxOk && !hasMissingViews && phantoms.length === 0) {
         routesSaved = true;
         this.log(
           `      ✅ Validated web routes for ${blueprint.project_name}.`,
@@ -1618,6 +1649,12 @@ CRITICAL ARCHITECTURE RULES:
         } else if (hasMissingViews) {
           this.log(
             `      ⚠️ Generated routes referenced non-existent Blade views. Applying robust fallback for web.php`,
+            "warning",
+          );
+        }
+        if (phantoms.length > 0) {
+          this.log(
+            `      ⚠️ Generated routes referenced non-existent controller(s): ${phantoms.join(", ")}. Applying robust fallback for web.php`,
             "warning",
           );
         }
@@ -1658,6 +1695,30 @@ CRITICAL ARCHITECTURE RULES:
       }
     }
     return false;
+  }
+
+  /**
+   * HARD GATE: routes pointing at a Controller class that was never generated
+   * crash Laravel at boot with "Invalid route action" (todo-app-realtime case),
+   * killing migrate + route:list + the whole project. Returns the short class
+   * names referenced in the code but missing on disk.
+   */
+  _findPhantomControllers(code, existingControllers) {
+    const known = new Set(
+      existingControllers.map((fq) => fq.split("\\").pop()),
+    );
+    const refs = new Set();
+    const patterns = [
+      /([A-Za-z0-9_\\]*Controller)::class/g,
+      /['"]([A-Za-z0-9_\\]+Controller)(?:@[A-Za-z0-9_]+)?['"]/g,
+    ];
+    for (const re of patterns) {
+      for (const m of code.matchAll(re)) {
+        const short = m[1].split("\\").pop();
+        if (short && !known.has(short)) refs.add(short);
+      }
+    }
+    return [...refs];
   }
 
   /**
@@ -1784,9 +1845,19 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
       const apiCleanCode = this.cleanLLMOutput(apiResponse);
       await fs.writeFile(apiP, apiCleanCode);
       const apiSyntaxOk = await this.validatePHPSyntax(apiP);
+      const apiPhantoms = this._findPhantomControllers(
+        apiCleanCode,
+        await this._discoverExistingControllers(),
+      );
       if (!apiSyntaxOk) {
         this.log(
           `      ⚠️ Syntax error in generated API routes. Writing deterministic fallback for api.php`,
+          "warning",
+        );
+        await this._writeApiFallback(apiP, models);
+      } else if (apiPhantoms.length > 0) {
+        this.log(
+          `      ⚠️ API routes referenced non-existent controller(s): ${apiPhantoms.join(", ")}. Writing deterministic fallback for api.php`,
           "warning",
         );
         await this._writeApiFallback(apiP, models);
@@ -1825,10 +1896,37 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
    * Write a deterministic API routes fallback that always uses correct namespaces.
    */
   async _writeApiFallback(apiPath, models) {
-    const imports = models
+    // HARD GATE: only route to controllers that actually exist on disk, so the
+    // fallback itself can never produce "Invalid route action" at boot.
+    const routable = models.filter((m) => {
+      const apiC = path.join(
+        this.engine.rootPath,
+        "app",
+        "Http",
+        "Controllers",
+        "Api",
+        `${m}Controller.php`,
+      );
+      const rootC = path.join(
+        this.engine.rootPath,
+        "app",
+        "Http",
+        "Controllers",
+        `${m}Controller.php`,
+      );
+      return fs.existsSync(apiC) || fs.existsSync(rootC);
+    });
+    if (routable.length === 0) {
+      await fs.writeFile(
+        apiPath,
+        `<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n`,
+      );
+      return;
+    }
+    const imports = routable
       .map((m) => `use App\\Http\\Controllers\\Api\\${m}Controller;`)
       .join("\n");
-    const routes = models
+    const routes = routable
       .map(
         (m) =>
           `    Route::apiResource('${this._toSnakePlural(m)}', ${m}Controller::class);`,

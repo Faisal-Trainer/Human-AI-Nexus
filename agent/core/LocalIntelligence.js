@@ -47,15 +47,18 @@ const MAX_OUTPUT_LENGTH = 150000;
 // Context window
 const DEFAULT_CONTEXT_SIZE = 4096;
 const MIN_CONTEXT_SIZE = 512;
-const FALLBACK_CONTEXT_SIZES = Object.freeze([4096, 2048, 1024, 768, 512]);
+const FALLBACK_CONTEXT_SIZES = Object.freeze([
+  8192, 4096, 2048, 1024, 768, 512,
+]);
 const CONTEXT_OVERHEAD_TOKENS = 96; // ruang untuk chat template / special token
 const MIN_PROMPT_TOKENS = 32;
 const DEFAULT_THREADS = 2;
 
 // Output & inferensi
-// MAX_TOKENS_BUILDER dibatasi 2048: model lokal kecil (1.5B) di hardware lemah tidak akan
-// pernah menyelesaikan output 4096 token dalam batas waktu — hasil akhirnya timeout.
-const MAX_TOKENS_BUILDER = 2048;
+// MAX_TOKENS_BUILDER 4096: dgn context window 16k, output 4096 token muat.
+// Pada Vega 8 (~8 t/s) 4096 token ≈ 512s decode; NEXUS_BUILDER_TIMEOUT_MS
+// dinaikkan ke 900s utk margin aman. Reviewer task tetap pakai DEFAULT 2048.
+const MAX_TOKENS_BUILDER = 4096;
 const MAX_TOKENS_DEFAULT = 2048;
 const TEMPERATURE_BUILDER = 0.7;
 const TEMPERATURE_DEFAULT = 0.1;

@@ -103,15 +103,35 @@ memory/distilled/short_term/cache/
 memory/operational/blueprints/
 
 # --- Mass Cleanup (2026-10-12): runtime caches & vendored bundles, untracked ---
-# Volatile short-term memory indexes rebuilt by the agent at runtime.
-memory/short_term/link_cache.json
-memory/short_term/vector_index.json
 # Vendored third-party skill bundles (moved into Obsidian Vault, not versioned).
 memory/references/
 # Machine-specific Obsidian vault pointer (absolute local path; keep local only).
 .nexus-vault.json
 # Local sandbox crash screenshots & session logs (manual notes, not versioned).
 images nexus sandbox/
+# Volatile graph index rebuilt by the agent at runtime (kept as wildcard so the
+# rule is path-independent across memory/distilled/short_term/cache/ and
+# memory/short_term/cache/).
+**/nexus_graph_index.json
+# Legacy short_term link_cache / vector_index paths (retained for backwards
+# safety; today the live file is memory/operational/link_cache.json — see the
+# NEXUS Operational Runtime Artifacts block below).
+memory/short_term/link_cache.json
+memory/short_term/vector_index.json
+
+# --- NEXUS Operational Runtime Artifacts (regenerated every agent cycle) ---
+# Written by Distiller / MemoryGovernor under memory/operational/ on each run.
+# These were versioned by mistake; the previous short_term/link_cache rule
+# pointed at the wrong path. Adding precise rules here + `git rm --cached` on
+# the currently-tracked files so future cycles don't dirty git status.
+memory/operational/link_cache.json
+memory/operational/session_*.json
+memory/operational/archive_index.json
+memory/operational/indexes/
+memory/operational/semantic/
+# Per-run ingestion outputs in memory/raw (timestamped, rebuilt each audit).
+memory/raw/audit_SUMMARY_*.json
+memory/raw/report_*_AUDIT-*.json
 
 # --- Large Model Files ---
 models/

@@ -3,8 +3,8 @@
 A modular semantic multi-agent operating framework  
 with dynamic capability orchestration and production-grade stability guardrails.
 
-> **Version**: v3.4.10 (Resiliensi GPU device-lost + Hard Gate Anti-Halusinasi + Builder 4096 token)
-> **Updated**: 13/10/2026
+> **Version**: v3.4.11 (Plan 0-7 sandbox hardening: deterministic gen, guards+telemetry, blueprint grammar, distiller tagging, release tooling)
+> **Updated**: 14/10/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
 [![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()

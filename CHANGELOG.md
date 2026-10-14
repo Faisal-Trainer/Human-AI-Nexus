@@ -2,6 +2,29 @@
 
 Semua perubahan dan update penting pada framework Human-AI Nexus akan didokumentasikan di sini.
 
+## [v3.4.11] - 2026-10-14 (Plan 0-7 sandbox hardening)
+
+### Added
+
+- **Harness metrik scoring (plan #1)** — `scripts/score_section.js` menulis skor ke `logs/scores/` (bobot lint 15 / boot 15 / routes 10 / views 15 / http 45; ambang FULL_READY ≥ 90, READY ≥ 70, PARTIAL ≥ 40, BROKEN < 40) untuk mengukur artefak sandbox secara terulang.
+- **Generator deterministik model/migration/seeder dari `blueprint.schema` (plan #2)** — artefak yang dapat diturunkan secara deterministik tidak lagi di-LLM; memangkas kelas kegagalan semantik dari output mentah (mode "echo template").
+- **Modul `agent/core/guards/` + GuardRunner + telemetri (plan #3 + #4)** — ±20 guard artefak diekstraksi dari `ImplementationPhase.js` ke kontrak seragam detect/fix/idempoten dengan satu runner pengatur urutan (menghapus penomoran rapuh 0.5/2.5/3.5/3.6); frekuensi menyala guard dicatat ke `logs/guard-telemetry/` dan pasangan rusak→diperbaiki dikumpulkan sebagai dataset LoRA.
+- **Grammar GBNF untuk JSON blueprint (plan #5)** — task `generate_architecture` kini memakai constrained-decoding lewat schema `blueprintApp` yang diselaraskan ke bentuk template prompt; `expectJson` dapat di-override sehingga fallback retry + `repairAndParseJson` tetap hidup. Keputusan: TIDAK menambah sampling penalty — bukti output mentah menunjukkan kegagalan bersifat semantik, bukan repetisi token.
+- **Skrip sinkron versi (plan #7)** — `scripts/version.js` menyinkronkan satu sumber kebenaran versi di `package.json`, `package-lock.json`, `README.md`, dan menycaffold header `CHANGELOG.md` (validasi semver, opsi `--dry`).
+
+### Fixed
+
+- **Re-root path semantic-tagging Distiller (plan #6)** — constructor Distiller tidak lagi memetakan `memoryPath` ke `<root>/memory` untuk folder pengetahuan temp yang kebetulan berada di bawah root yang memiliki `memory/`; `applySemanticTagging` kini menandai direktori yang diberikan. Ini menyelesaikan kegagalan test `Distiller.applySemanticTagging` yang lama (suite kini 11/11).
+
+### Changed
+
+- **`ImplementationPhase.js` dirampingkan** — menjadi delegasi tipis ke modul `guards/`, dengan helper modul `resolveRunner`/`buildHost` (WeakMap) agar tetap aman saat harness regresi memanggil metode lewat receiver plain-object.
+
+### Removed
+
+- **`TypeSafeValidator.js` di root (plan #7)** — shim re-export tanpa rujukan (kanonik di `agent/tools/TypeSafeValidator.js`) dihapus sebagai pembersihan.
+
+
 ## [v3.4.10] - 2026-10-13 (Resiliensi GPU device-lost, Hard Gate Anti-Halusinasi, Builder 4096 token)
 
 ### Fixed

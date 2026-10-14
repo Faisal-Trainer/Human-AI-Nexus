@@ -185,11 +185,15 @@ function nextChangelog(text, newV, title) {
 function main() {
   const argv = process.argv.slice(2);
   const dry = argv.includes("--dry");
-  const positional = argv.filter((a) => !a.startsWith("--"));
-  const [verArg, titleArg] = positional;
+  const bumpFlag = ["--patch", "--minor", "--major"].find((a) =>
+    argv.includes(a),
+  );
+  // Token versi/judul: apa pun yang bukan flag. Dengan --patch, token[0] = judul;
+  // dengan versi eksplisit, token[0] = versi, token[1] = judul.
+  const tokens = argv.filter((a) => !a.startsWith("--"));
   const oldV = currentVersion();
 
-  if (!verArg) {
+  if (!bumpFlag && tokens.length === 0) {
     console.log(`Versi saat ini: v${oldV}`);
     console.log(
       'Naikkan: node scripts/version.js <x.y.z|--patch|--minor|--major> ["judul"] [--dry]',
@@ -198,17 +202,18 @@ function main() {
   }
 
   let newV;
-  if (["--patch", "--minor", "--major"].includes(verArg)) {
-    newV = bumpKind(oldV, verArg.replace("--", ""));
+  let title;
+  if (bumpFlag) {
+    newV = bumpKind(oldV, bumpFlag.replace("--", ""));
+    title = tokens[0] || "WIP";
   } else {
-    parseSemver(verArg); // validasi
-    newV = verArg;
+    parseSemver(tokens[0]); // validasi
+    newV = tokens[0];
+    title = tokens[1] || "WIP";
   }
 
   if (newV === oldV)
     fail(`Versi baru (${newV}) sama dengan yang lama (${oldV}).`);
-
-  const title = titleArg || "WIP";
   console.log(
     `\n\ud83d\udcdc Sinkron versi: v${oldV} \u2192 v${newV}${dry ? "  [DRY-RUN]" : ""}`,
   );

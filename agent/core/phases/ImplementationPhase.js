@@ -585,6 +585,55 @@ class ImplementationPhase extends BasePhase {
     }
 
     const tableName = this._toSnakePlural(modelName);
+    const knownModels = blueprint.models || [];
+    const modelSchemaObj = blueprint.schema
+      ? blueprint.schema[modelName]
+      : null;
+
+    // DETERMINISTIC-FIRST (v3.4.11): a schema-declared model is fully derivable —
+    // emitting it locally saves a whole 4B generation (~4-9 min) and can never
+    // drift from blueprint.schema. The LLM is only asked for models WITHOUT a
+    // schema entry, and its answer is still locked by _ensureModelFillable.
+    if (
+      modelName !== "User" &&
+      modelSchemaObj &&
+      typeof modelSchemaObj === "object"
+    ) {
+      let detCode = this._buildModelClass(
+        modelName,
+        tableName,
+        modelSchemaObj,
+        knownModels,
+      );
+      detCode = this._ensureModelFillable(
+        modelName,
+        modelSchemaObj,
+        knownModels,
+        detCode,
+      );
+      await fs.ensureDir(path.dirname(modelPath));
+      await fs.writeFile(modelPath, detCode);
+      if (!(await this.validatePHPSyntax(modelPath))) {
+        this.log(
+          `      ⚠️ Syntax error in deterministic model. Writing safe fallback for ${modelName}.php`,
+          "warning",
+        );
+        let fb = this._safeFallbackModel(modelName, tableName);
+        fb = this._ensureModelFillable(
+          modelName,
+          modelSchemaObj,
+          knownModels,
+          fb,
+        );
+        await fs.writeFile(modelPath, fb);
+      }
+      this.log(
+        `      ✅ Saved ${modelName}.php (schema-locked, deterministic)`,
+        "success",
+      );
+      return;
+    }
+
     const modelSchema =
       blueprint.schema && blueprint.schema[modelName]
         ? JSON.stringify(blueprint.schema[modelName], null, 2)
@@ -638,10 +687,6 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       prompt,
       "build_model_migration",
     );
-    const knownModels = blueprint.models || [];
-    const modelSchemaObj = blueprint.schema
-      ? blueprint.schema[modelName]
-      : null;
 
     let finalCode = response ? this.cleanLLMOutput(response) : null;
     if (!finalCode) {
@@ -765,6 +810,50 @@ OUTPUT ONLY the raw PHP code starting with <?php. No markdown, no explanation, n
       targetModelName && blueprint.schema && blueprint.schema[targetModelName]
         ? JSON.stringify(blueprint.schema[targetModelName], null, 2)
         : "Guess appropriate columns";
+
+    // DETERMINISTIC-FIRST (v3.4.11): the table shape is fully declared by
+    // blueprint.schema — build the Blueprint body locally. Saves a 4B generation
+    // per migration and eliminates the whole error family this file used to
+    // guard against (duplicate columns, bare modifiers, dropped columns).
+    if (
+      targetModelName &&
+      blueprint.schema &&
+      blueprint.schema[targetModelName]
+    ) {
+      let detMig = this._buildMigrationClass(
+        tableName,
+        blueprint.schema[targetModelName],
+      );
+      detMig = this._dedupeMigrationColumns(
+        this._ensureMigrationColumns(
+          tableName,
+          blueprint.schema[targetModelName],
+          detMig,
+        ).code,
+      );
+      const { migrationPath, migrationFilename } = await this._persistMigration(
+        migrationName,
+        detMig,
+      );
+      if (!(await this.validatePHPSyntax(migrationPath))) {
+        let fb = this._safeFallbackMigration(tableName);
+        fb = this._ensureMigrationColumns(
+          tableName,
+          blueprint.schema[targetModelName],
+          fb,
+        ).code;
+        await fs.writeFile(migrationPath, fb);
+        this.log(
+          `      ⚠️ Deterministic migration rejected (syntax); schema-locked fallback written`,
+          "warning",
+        );
+      }
+      this.log(
+        `      ✅ Saved ${migrationFilename} (schema-locked, deterministic)`,
+        "success",
+      );
+      return;
+    }
 
     // Read the database rules SOT
     let databaseRules = "";
@@ -1623,6 +1712,41 @@ Output ONLY the raw PHP code, starting with <?php.`;
 
   async generateSeeder(seederName, blueprint) {
     this.log(`   🌱 Generating Seeder: ${seederName}...`, "info");
+
+    // DETERMINISTIC-FIRST (v3.4.11): rows derive straight from blueprint.schema —
+    // no hallucinated Faker methods, no column drift, FKs reference real parents.
+    const seedModel = seederName.replace(/Seeder$/, "");
+    const seedSchema = blueprint.schema ? blueprint.schema[seedModel] : null;
+    if (seedSchema && typeof seedSchema === "object") {
+      const detSeed = this._buildSeederClass(
+        seederName,
+        seedModel,
+        seedSchema,
+        blueprint.models || [],
+      );
+      const sp = path.join(
+        this.engine.rootPath,
+        "database",
+        "seeders",
+        `${seederName}.php`,
+      );
+      await fs.ensureDir(path.dirname(sp));
+      await fs.writeFile(sp, detSeed);
+      if (!(await this.validatePHPSyntax(sp))) {
+        await fs.writeFile(sp, this._safeFallbackSeeder(seederName, blueprint));
+        this.log(
+          `      ⚠️ Deterministic seeder rejected (syntax); fallback written for ${seederName}.php`,
+          "warning",
+        );
+      } else {
+        this.log(
+          `      ✅ Saved ${seederName}.php (schema-locked, deterministic)`,
+          "success",
+        );
+      }
+      return;
+    }
+
     const fullSchema = blueprint.schema
       ? JSON.stringify(blueprint.schema, null, 2)
       : "No schema";
@@ -2909,7 +3033,10 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
         line =
           name === "user_id"
             ? "$table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()"
-            : `$table->foreignId('${name}')->constrained()`;
+            : this._fkToModel(name) === "User"
+              ? `$table->foreignId('${name}')->constrained('users')->cascadeOnDelete()`
+              : // sibling tables use HasUuids PKs — bigint foreignId would type-clash
+                `$table->foreignUuid('${name}')->constrained()`;
         break;
       case "text":
       case "longtext":
@@ -3107,6 +3234,153 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
       [...extraImports].map((t) => `use App\\Models\\${t};`).join("\n") +
       (extraImports.size ? "\n" : "");
     return `<?php\n\nnamespace Database\\Factories;\n\n${importBlock}use App\\Models\\${modelName};\nuse Illuminate\\Database\\Eloquent\\Factories\\Factory;\n\nclass ${factoryName} extends Factory\n{\n    protected $model = ${modelName}::class;\n\n    public function definition(): array\n    {\n        return [\n${entries.join("\n")}\n        ];\n    }\n}\n`;
+  }
+
+  // ═════ DETERMINISTIC-FIRST GENERATORS (v3.4.11 — metrics plan #2) ═════
+
+  // Emit a complete Eloquent model straight from blueprint.schema (no LLM).
+  // Relationship methods are appended by _ensureModelFillable at the call site.
+  _buildModelClass(modelName, tableName, schemaObj) {
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    const fillable = columns.map((c) => `'${c.name}'`).join(", ");
+    const castEntries = [];
+    for (const c of columns) {
+      const b = c.baseType;
+      if (b === "boolean") castEntries.push(`'${c.name}' => 'boolean'`);
+      else if (b === "datetime" || b === "timestamp")
+        castEntries.push(`'${c.name}' => 'datetime'`);
+      else if (b === "date") castEntries.push(`'${c.name}' => 'date'`);
+      else if (b === "json") castEntries.push(`'${c.name}' => 'array'`);
+      else if (["decimal", "float", "double"].includes(b))
+        castEntries.push(`'${c.name}' => 'decimal:2'`);
+    }
+    const casts = ["'id' => 'string'", ...castEntries].join(", ");
+    return `<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Concerns\\HasUuids;\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\nuse Illuminate\\Database\\Eloquent\\SoftDeletes;\n\nclass ${modelName} extends Model\n{\n    use HasFactory, HasUuids, SoftDeletes;\n\n    protected $table = '${tableName}';\n    protected $primaryKey = 'id';\n    public $incrementing = false;\n    protected $keyType = 'string';\n\n    protected $fillable = [${fillable}];\n\n    protected $casts = [${casts}];\n}\n`;
+  }
+
+  // Emit a complete create-table migration from blueprint.schema (no LLM).
+  _buildMigrationClass(tableName, schemaObj) {
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    const lines = ["            $table->uuid('id')->primary();"];
+    for (const col of columns) {
+      lines.push("            " + this._columnMigrationCall(col));
+    }
+    lines.push("            $table->timestamps();");
+    lines.push("            $table->softDeletes();");
+    return `<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    public function up(): void\n    {\n        Schema::create('${tableName}', function (Blueprint $table) {\n${lines.join("\n")}\n        });\n    }\n\n    public function down(): void\n    {\n        Schema::dropIfExists('${tableName}');\n    }\n};\n`;
+  }
+
+  // Emit a DB::table seeder from blueprint.schema (no LLM). 8 rows, unique-safe
+  // values, FK columns filled with real parent ids when the parent table exists.
+  _buildSeederClass(seederName, modelName, schemaObj, knownModels) {
+    const tableName = this._toSnakePlural(modelName);
+    const { columns } = this._parseSchemaColumns(schemaObj);
+    const needsHash = columns.some((c) => c.name === "password");
+    const fkVars = [];
+    const rows = [];
+    for (const c of columns) {
+      const b = c.baseType;
+      const mods = (c.mods || []).join(":");
+      if (b === "foreignid" || b === "foreignuuid") {
+        const parent = this._fkToModel(c.name);
+        const parentTable =
+          parent === "User"
+            ? "users"
+            : parent && knownModels.includes(parent)
+              ? this._toSnakePlural(parent)
+              : null;
+        const varName = `$${c.name.replace(/_id$/, "")}Ids`;
+        if (parentTable) {
+          fkVars.push(
+            `        ${varName} = DB::table('${parentTable}')->pluck('id')->all();`,
+          );
+          rows.push(
+            `                '${c.name}' => count(${varName}) > 0 ? ${varName}[$i % count(${varName})] : null,`,
+          );
+        } else {
+          rows.push(`                '${c.name}' => null,`);
+        }
+        continue;
+      }
+      // Declared default beats fake(): keeps enum-ish columns (role, status)
+      // consistent with the migration's ->default(...) and UI expectations.
+      const defMatch = (c.mods || []).find((m) => m.startsWith("default("));
+      if (defMatch && b !== "boolean") {
+        rows.push(`                '${c.name}' => '${defMatch.slice(8, -1)}',`);
+        continue;
+      }
+      if (c.name === "email") {
+        rows.push(`                'email' => 'demo' . $i . '@nexus.test',`);
+      } else if (c.name === "password") {
+        rows.push(`                'password' => Hash::make('password'),`);
+      } else if (mods.includes("unique")) {
+        // Semantic/name branches BEFORE the type chain: a `text` column named
+        // original_url must seed a demo URL, not fake()->paragraph().
+        rows.push(`                '${c.name}' => fake()->word() . '-' . $i,`);
+      } else if (/slug|code|token/.test(c.name)) {
+        rows.push(
+          `                '${c.name}' => 'nx' . $i . substr(md5((string) $i), 0, 6),`,
+        );
+      } else if (/url/.test(c.name)) {
+        rows.push(
+          `                '${c.name}' => 'https://example.com/demo-' . $i,`,
+        );
+      } else if (b === "boolean") {
+        rows.push(`                '${c.name}' => fake()->boolean(),`);
+      } else if (["integer", "int", "biginteger"].includes(b)) {
+        rows.push(
+          `                '${c.name}' => fake()->numberBetween(1, 100),`,
+        );
+      } else if (["decimal", "float", "double"].includes(b)) {
+        rows.push(
+          `                '${c.name}' => fake()->randomFloat(2, 1, 1000),`,
+        );
+      } else if (["datetime", "timestamp"].includes(b)) {
+        rows.push(`                '${c.name}' => now()->subDays($i),`);
+      } else if (b === "date") {
+        rows.push(
+          `                '${c.name}' => now()->subDays($i)->toDateString(),`,
+        );
+      } else if (b === "json") {
+        rows.push(`                '${c.name}' => '{}',`);
+      } else if (["text", "longtext"].includes(b)) {
+        rows.push(`                '${c.name}' => fake()->paragraph(),`);
+      } else {
+        rows.push(`                '${c.name}' => fake()->sentence(3),`);
+      }
+    }
+    const hashImport = needsHash
+      ? "use Illuminate\\Support\\Facades\\Hash;\n"
+      : "";
+    return `<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Seeder;\n${hashImport}use Illuminate\\Support\\Facades\\DB;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass ${seederName} extends Seeder\n{\n    public function run(): void\n    {\n        if (!Schema::hasTable('${tableName}')) {\n            return;\n        }\n        if (DB::table('${tableName}')->count() > 0) {\n            return;\n        }\n${fkVars.length > 0 ? fkVars.join("\n") + "\n" : ""}        $rows = [];\n        for ($i = 1; $i <= 8; $i++) {\n            $rows[] = [\n${rows.join("\n")}\n                'created_at' => now(),\n                'updated_at' => now(),\n            ];\n        }\n        DB::table('${tableName}')->insert($rows);\n    }\n}\n`;
+  }
+
+  // Shared persistence for generated migrations: dated unique filename, remove
+  // older duplicates of the same logical name (never core 0001_01_01_* files).
+  async _persistMigration(migrationName, cleanCode) {
+    const now = new Date();
+    const datePrefix = `${now.getFullYear()}_${String(
+      now.getMonth() + 1,
+    ).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
+    const timestamp = Math.floor(Date.now() / 1000);
+    const migrationFilename = `${datePrefix}_${timestamp}_${migrationName}.php`;
+    const migrationDir = path.join(
+      this.engine.rootPath,
+      "database",
+      "migrations",
+    );
+    if (await fs.pathExists(migrationDir)) {
+      for (const file of await fs.readdir(migrationDir)) {
+        if (file.startsWith("0001_01_01_")) continue;
+        if (file.includes(migrationName)) {
+          await fs.remove(path.join(migrationDir, file));
+        }
+      }
+    }
+    const migrationPath = path.join(migrationDir, migrationFilename);
+    await fs.ensureDir(migrationDir);
+    await fs.writeFile(migrationPath, cleanCode);
+    return { migrationPath, migrationFilename };
   }
 
   // Deterministic cleanup of hallucinated Faker usage in seeders/factories.

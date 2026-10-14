@@ -3,7 +3,8 @@
  * scripts/version.js — Sinkronkan satu sumber kebenaran versi di 4 tempat:
  *   1. package.json        -> field "version"
  *   2. package-lock.json   -> dua field root: "version" top-level & packages[""].version
- *   3. README.md           -> baris "> **Version**: vX.Y.Z (judul)" dan "> **Updated**: tanggal"
+ *   3. README.md           -> baris "> **Version**: vX.Y.Z (judul)", "> **Updated**: tanggal",
+ *                            dan footer "_Terakhir Dioptimasi: tanggal (vX.Y.Z - judul)_"
  *   4. CHANGELOG.md        -> scaffold header "## [vX.Y.Z] - YYYY-MM-DD (judul)" (isi manual)
  *
  * Konvensi repo: versi HARUS konsisten keempat file ini supaya npm-link deteksi benar.
@@ -139,11 +140,21 @@ function nextReadme(text, newV, title) {
     out = out.replace(updRe, `> **Updated**: ${slashDate()}`);
     changed = true;
   }
+  // Footer "_Terakhir Dioptimasi: <tanggal> (v<x.y.z> - <judul>)_" dulu
+  // dilewati skrip, jadi selalu basi tiap bump. Ikutkan ke sumber versi.
+  const footRe = /^_Terakhir Dioptimasi:.*$/m;
+  if (footRe.test(out)) {
+    out = out.replace(
+      footRe,
+      `_Terakhir Dioptimasi: ${slashDate()} (v${newV}${title ? ` - ${title}` : ""})_`,
+    );
+    changed = true;
+  }
   return {
     text: out,
     changed,
     note: changed
-      ? "README.md: baris Version + Updated"
+      ? "README.md: baris Version + Updated + footer"
       : "README.md: baris versi tak ditemukan",
   };
 }

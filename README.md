@@ -7,7 +7,7 @@ with dynamic capability orchestration and production-grade stability guardrails.
 > **Updated**: 14/10/2026
 
 [![Quick Guide](https://img.shields.io/badge/PANDUAN-BACA%20DULU-blueviolet?style=for-the-badge)](documentation/nexus_rules/PANDUAN_CEPAT.md)
-[![Status](https://img.shields.io/badge/STATUS-PRODUCTION%20STABLE-brightgreen?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/STATUS-ACTIVE%20DEVELOPMENT-orange?style=for-the-badge)]()
 
 ---
 
@@ -31,6 +31,7 @@ Banyak developer terjebak dalam alur kerja AI yang kacau: AI langsung menulis ko
 - [⚙️ Core Machines](#️-core-machines--modul-utama)
 - [🏛️ 5 Pilar Arsitektur LLM + RAG](#️-5-pilar-arsitektur-llm--rag-baru)
 - [🛡️ Stability Guardrails v2.0](#️-stability-guardrails-v20-baru)
+- [📊 Metrics Harness — Skor Objektif](#-metrics-harness--skor-objektif)
 - [🏗️ Arsitektur Sistem](#️-arsitektur-sistem)
 - [📂 Struktur Folder](#-struktur-folder)
 - [🛠️ Cara Penggunaan & Perintah CLI](#️-cara-penggunaan)
@@ -141,7 +142,7 @@ NEXUS AI v3.4.0 memperkenalkan **5 Pilar Arsitektur LLM + RAG** untuk menjamin p
 
 ## 🛡️ Stability Guardrails v2.0 (Baru)
 
-Versi 3.2.0 mengimplementasikan **guardrail di level kode** — bukan hanya dokumentasi.
+Sejak v3.2.0 NEXUS mengimplementasikan **guardrail di level kode** — bukan hanya dokumentasi. Kini diperluas menjadi modul guard deterministik di `agent/core/guards/` (kontrak `{ id, detect, fix, idempoten }`) yang dijalankan berurutan oleh `GuardRunner` dengan telemetri frekuensi menyala ke `logs/guard-telemetry/`.
 
 ### 🔴 Critical Fixes
 
@@ -171,6 +172,48 @@ Versi 3.2.0 mengimplementasikan **guardrail di level kode** — bukan hanya doku
 | `DecisionEngine`    | 7 weight profiles: default, saas, security, performance, refactor, api, learning                                                                |
 | `LocalIntelligence` | Timeout inferensi configurable (`NEXUS_INFER_TIMEOUT_MS` / `NEXUS_BUILDER_TIMEOUT_MS`) + logging durasi — anti-hang blueprint di hardware lemah |
 | `TypeSafeValidator` | Jev Evaluation Gate via OpenRouter (gratis) / TypeSafe native — validasi blueprint, migration, skill routing, dataset scoring (fail-open)       |
+
+---
+
+## 📊 Metrics Harness — Skor Objektif
+
+Klaim kualitas tidak lagi berupa log pipeline, tapi **angka** yang diukur
+`scripts/score_section.js` terhadap app hasil sandbox lewat 5 pemeriksaan berbobot:
+
+| Aspek  | Bobot | Yang diukur                                                  |
+| :----- | :---- | :----------------------------------------------------------- |
+| lint   | 15    | `php -l` seluruh `app/`, `routes/`, `database/`              |
+| boot   | 15    | `php artisan migrate:status` (aplikasi boot + DB sehat)      |
+| routes | 10    | `php artisan route:list --json` (route ter-registrasi)       |
+| views  | 15    | `php artisan view:cache` (seluruh Blade terkompilasi)        |
+| http   | 45    | `artisan serve` + GET tiap route web — **5xx = error nyata** |
+
+Ambang verdict: `FULL_READY ≥ 90` · `READY ≥ 70` · `PARTIAL ≥ 40` · `BROKEN < 40`.
+Bobot `http` dominan karena insiden awal: app berstatus "FULL APP READY" tapi
+`/dashboard` mengembalikan 500 — kelas kegagalan yang justru dicari harness ini.
+
+### Hasil terukur — Section 1 (Fundamental CRUD & Auth) · v3.4.11 · 14/10/2026
+
+| Proyek              | Skor | Verdict |
+| :------------------ | :--- | :------ |
+| bookmark-manager    | 89.8 | READY   |
+| daily-journal       | 88.8 | READY   |
+| todo-app-realtime   | 87.5 | READY   |
+| contact-manager     | 87.5 | READY   |
+| password-manager-ui | 84.3 | READY   |
+| habit-tracker       | 80.3 | READY   |
+| expense-tracker     | 80.3 | READY   |
+| notes-app-tagging   | 75.3 | READY   |
+| personal-portfolio  | 75.3 | READY   |
+| url-shortener-app   | 70.8 | READY   |
+
+**Rata-rata 82/100 — 10/10 READY** (rentang 70.8–89.8). JSON mentah tersimpan di
+`logs/scores/`. Jalankan ulang: `node scripts/score_section.js --all`.
+
+> Catatan jujur: belum ada proyek yang menembus `FULL_READY` (≥90). Pengurang skor
+> utama adalah view Livewire component yang belum ter-resolve saat HTTP
+> (`View [App\Livewire\X] not found`) — kelas bug yang sedang dijarangkan lewat
+> guard pipeline. Angka ini mencerminkan kondisi app hasil generate, bukan klaim.
 
 ---
 
@@ -205,19 +248,21 @@ NexusEngine (Lazy-aware orchestrator)
 
 ## 📂 Struktur Folder
 
-| Folder                          | Deskripsi                                                          |
-| :------------------------------ | :----------------------------------------------------------------- |
-| `📂 agent/core/`                | **Core Logic**: NexusEngine, Orchestrator, semua modul inti        |
-| `📂 agent/tools/`               | **Tools & Specialists**: Auditor, TDDGuard, Machinist, Distiller   |
-| `📂 agent/tools/scanners/`      | **Forged Scanners**: Hanya folder ini yang boleh ditulis Machinist |
-| `📂 agent/prompts/`             | **The Brain**: Library Agent MD (Internal & External)              |
-| `📂 workflow/`                  | **Skill Rack**: Aturan main berbasis kategori                      |
-| `📂 memory/distilled/`          | **Smart HUB**: Knowledge yang sudah distandarisasi                 |
-| `📂 memory/archived/`           | **Backup Zone**: Versioned write backups otomatis                  |
-| `📂 memory/short_term/`         | **Cache**: Vector index & session data                             |
-| `📂 logs/`                      | **Observability**: Agent logs, orchestration, errors, DLQ          |
-| `📂 documentation/nexus_rules/` | **Governance**: Instruksi operasional permanen                     |
-| `📂 tests/`                     | **TDD Lab**: Pengujian otomatis berbasis Iron Laws                 |
+| Folder                          | Deskripsi                                                                                                                                    |
+| :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `📂 agent/core/`                | **Core Logic**: NexusEngine, Orchestrator, semua modul inti                                                                                  |
+| `📂 agent/core/guards/`         | **Deterministic Guards**: kontrak `{id,detect,fix,idempoten}` + GuardRunner + telemetri (null-safe, facade-imports, schema-lock, route-heal) |
+| `📂 scripts/`                   | **Dev Tooling**: `version.js` (sinkron 4 file versi) + `score_section.js` (harness skor objektif sandbox)                                    |
+| `📂 agent/tools/`               | **Tools & Specialists**: Auditor, TDDGuard, Machinist, Distiller                                                                             |
+| `📂 agent/tools/scanners/`      | **Forged Scanners**: Hanya folder ini yang boleh ditulis Machinist                                                                           |
+| `📂 agent/prompts/`             | **The Brain**: Library Agent MD (Internal & External)                                                                                        |
+| `📂 workflow/`                  | **Skill Rack**: Aturan main berbasis kategori                                                                                                |
+| `📂 memory/distilled/`          | **Smart HUB**: Knowledge yang sudah distandarisasi                                                                                           |
+| `📂 memory/archived/`           | **Backup Zone**: Versioned write backups otomatis                                                                                            |
+| `📂 memory/short_term/`         | **Cache**: Vector index & session data                                                                                                       |
+| `📂 logs/`                      | **Observability**: Agent logs, orchestration, errors, DLQ                                                                                    |
+| `📂 documentation/nexus_rules/` | **Governance**: Instruksi operasional permanen                                                                                               |
+| `📂 tests/`                     | **TDD Lab**: Pengujian otomatis berbasis Iron Laws                                                                                           |
 
 ---
 
@@ -326,4 +371,4 @@ _Dikelola oleh Faisal-Trainer & AI Assistant. Mari bangun masa depan kolaborasi 
 
 ---
 
-_Terakhir Dioptimasi: 12/10/2026 (v3.4.9 - Toggle Light/Dark + Continuous Learning Jalur Sukses)_
+_Terakhir Dioptimasi: 14/10/2026 (v3.4.11 - Plan 0-7 sandbox hardening + null-safe guards)_

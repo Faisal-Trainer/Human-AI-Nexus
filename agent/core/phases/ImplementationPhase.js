@@ -1061,6 +1061,9 @@ Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
             `\n    public function render()\n    {\n        return view('livewire.${kebabName}');\n    }\n}\n`;
         }
       }
+      // Deterministic guard: bare Auth::/DB:: tanpa import → "Class not found"
+      // saat mount() jalan, membunuh SEMUA halaman yang meng-embed komponen ini.
+      cleanPhp = this._ensureFacadeImports(cleanPhp);
       const phpPath = path.join(
         this.engine.rootPath,
         "app",
@@ -1682,15 +1685,18 @@ ${existingLivewire.map((c) => `- livewire.${c.kebab}`).join("\n")}
 
 CRITICAL ARCHITECTURE RULES:
 1. Livewire pages MUST be full-page component routes so the component class runs render():
-   Example: Route::view('/my-route', App\\Livewire\\${existingLivewire[0]?.className || "StaticPage"}::class)->name('my-route');
+   Example: Route::get('/my-route', App\\Livewire\\${existingLivewire[0]?.className || "StaticPage"}::class)->name('my-route');
    NEVER write Route::get('/x', function () { return view('livewire.x'); }) — raw Blade BYPASSES the
    component class, its render() data is lost and the page crashes with "Undefined variable" (HTTP 500).
+   NEVER use Route::view() with a Component::class either: Livewire 4 only intercepts the ROUTE-LEVEL
+   invokable form Route::get('/x', X::class). Route::view sends the class string to the Blade view
+   finder and throws "View [App\\Livewire\\X] not found" (HTTP 500).
 2. NEVER invent view names like view('dashboard') or view('todos') if they do not exist! Use view('welcome') for non-Livewire pages.
 3. ALWAYS include these safe fallback root & auth routes:
    Route::get('/', function () { return view('welcome'); })->name('home');
    Route::get('/login', function () { return redirect('/'); })->name('login');
 4. DO NOT add namespace App\\Http; at the top of routes/web.php.
-5. Route::view(..., ComponentClass::class) is ONLY for Livewire components listed above; static pages keep closures returning view('welcome').
+5. Route::get('/x', ComponentClass::class) with NO closure is ONLY for Livewire components listed above; static pages keep closures returning view('welcome').
 6. REDIRECT / LOOKUP ROUTES: if a required route contains a path parameter (e.g. /{shortCode}, /{slug}, /{code}) that represents a public short-link or lookup, it MUST be the LAST route and its closure must query the matching model by that key and return redirect()->to(<stored url>) with a 404 fallback, e.g.:
    Route::get('/{shortCode}', function (string $shortCode) { $u = App\\Models\\ShortUrl::where('shortened_url', $shortCode)->first(); return $u ? redirect()->to($u->original_url ?? $u->shortened_url) : abort(404); })->name('short-code');
    Do NOT return a Blade view for such parameterized redirect routes.
@@ -1803,7 +1809,8 @@ CRITICAL ARCHITECTURE RULES:
    * `Route::get('/x', fn() { return view('livewire.x'); })` bypasses the
    * component class entirely, so render() never runs and every view variable
    * is undefined at runtime (HTTP 500). Rewritten to Livewire full-page
-   * component routes: `Route::view('/x', \App\Livewire\X::class)`.
+   * component routes: `Route::get('/x', \App\Livewire\X::class)` (Livewire 4
+   * invokable-route form — Route::view does NOT resolve page components).
    * Runs on POST-processed output so stale global-cache generations (which
    * were prompted with the old anti-pattern) are healed instead of trusted.
    */
@@ -1817,12 +1824,12 @@ CRITICAL ARCHITECTURE RULES:
       if (routePath.includes("{") || routePath.includes(":")) return null; // full-page routes can't bind params
       healed++;
       this._ensureLivewireFullPageLayout(comp.className);
-      return `Route::view('${routePath}', \\${comp.fullClass}::class)`;
+      return `Route::get('${routePath}', \\${comp.fullClass}::class)`;
     };
 
     // A) closure form: Route::get('/p', function () { return view('livewire.x'); })
     // NOTE: trailing \) consumes the OUTER Route::get(...) paren so the
-    // replacement (which already closes Route::view) stays balanced.
+    // replacement (which already closes Route::get) stays balanced.
     code = code.replace(
       /Route::get\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*(?:function\s*\([^)]*\)|fn\s*\([^)]*\))\s*\{\s*(?:return\s+)?view\(\s*(['"])livewire\.([a-z0-9_-]+)\3\s*\)\s*;?\s*\}\s*\)/gi,
       (m, q1, routePath, q3, kebab) => toFullPage(routePath, kebab) || m,
@@ -1840,9 +1847,29 @@ CRITICAL ARCHITECTURE RULES:
       (m, q1, routePath, q3, kebab) => toFullPage(routePath, kebab) || m,
     );
 
+    // D) LEGACY heal output Route::view('/p', \App\Livewire\X::class) → Route::get.
+    //    Livewire 4 full-page komponen hanya di-resolve lewat route invokable
+    //    (HandlesPageComponents::__invoke); Route::view melimpahkan class string ke
+    //    view finder → "View [App\Livewire\X] not found" (HTTP 500) — temuan
+    //    metrics harness 2026-10-14 pada url-shortener-app.
+    const byClass = new Map(
+      (existingLivewire || []).map((c) => [c.className, c]),
+    );
+    code = code.replace(
+      /Route::view\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*\\?App\\Livewire\\([A-Za-z0-9_]+)::class/gi,
+      (m, q1, routePath, cls) => {
+        const comp = byClass.get(cls);
+        if (!comp) return m; // unknown class — hard gate rejects below
+        if (routePath.includes("{") || routePath.includes(":")) return m;
+        healed++;
+        this._ensureLivewireFullPageLayout(comp.className);
+        return `Route::get('${routePath}', \\${comp.fullClass}::class`;
+      },
+    );
+
     if (healed > 0) {
       this.log(
-        `      🩹 Repaired ${healed} Livewire route(s): raw view('livewire.*') → Route::view(Component::class)`,
+        `      🩹 Repaired ${healed} Livewire route(s): raw view('livewire.*') → Route::get(Component::class)`,
         "warning",
       );
     }
@@ -1853,7 +1880,62 @@ CRITICAL ARCHITECTURE RULES:
    * True if route code still renders Livewire templates rawly (class bypass).
    */
   _hasRawLivewireViewRoutes(code) {
-    return /view\(\s*['"]livewire\./i.test(code);
+    // (1) raw Blade bypass, atau (2) Route::view(..., Class::class) yang Livewire 4
+    // tidak bisa resolve sebagai page component (view finder → "View not found").
+    return (
+      /view\(\s*['"]livewire\./i.test(code) ||
+      /Route::view\(\s*(['"])(?:(?!\1).)*\1\s*,\s*\\?[A-Za-z][A-Za-z0-9_\\]*::class/i.test(
+        code,
+      )
+    );
+  }
+
+  /**
+   * Deterministic guard: Livewire/controller class sering memanggil facade
+   * (Auth::id(), DB::table, Str::slug ...) TANPA import `use`, sehingga PHP
+   * mencarinya relatif ke namespace file — "Class App\Livewire\Auth not found"
+   * (temuan metrics harness di UrlShortenerBox::mount, 500 di semua halaman).
+   * Suntikkan import facade yang hilang; idempotent dan skip pemakaian FQCN.
+   */
+  _ensureFacadeImports(code) {
+    const FACADES = {
+      Auth: "Illuminate\\Support\\Facades\\Auth",
+      Gate: "Illuminate\\Support\\Facades\\Gate",
+      DB: "Illuminate\\Support\\Facades\\DB",
+      Schema: "Illuminate\\Support\\Facades\\Schema",
+      Hash: "Illuminate\\Support\\Facades\\Hash",
+      Http: "Illuminate\\Support\\Facades\\Http",
+      Mail: "Illuminate\\Support\\Facades\\Mail",
+      Storage: "Illuminate\\Support\\Facades\\Storage",
+      Cache: "Illuminate\\Support\\Facades\\Cache",
+      Config: "Illuminate\\Support\\Facades\\Config",
+      Log: "Illuminate\\Support\\Facades\\Log",
+      Queue: "Illuminate\\Support\\Facades\\Queue",
+      Session: "Illuminate\\Support\\Facades\\Session",
+      Validator: "Illuminate\\Support\\Facades\\Validator",
+      Str: "Illuminate\\Support\\Str",
+      Arr: "Illuminate\\Support\\Arr",
+    };
+    const missing = [];
+    for (const [alias, fqcn] of Object.entries(FACADES)) {
+      // Pemakaian bare `Alias::method` — lookbehind menolak \Alias:: (FQCN) dan
+      // App\Alias:: yang sudah benar.
+      if (!new RegExp(`(?<![\\\\\\w])${alias}::[a-zA-Z$]`).test(code)) continue;
+      // Sudah ada import (termasuk `use ...\Alias;` berapapun prefix-nya)?
+      if (new RegExp(`use\\s+[\\w\\\\]+\\\\${alias}\\s*;`).test(code)) continue;
+      missing.push([alias, fqcn]);
+    }
+    if (missing.length === 0) return code;
+    const imports = missing.map(([, fq]) => `use ${fq};`).join("\n");
+    const nsRe = /^namespace [^;]+;/m;
+    code = nsRe.test(code)
+      ? code.replace(nsRe, (m) => `${m}\n${imports}`)
+      : code.replace(/<\?php\s*/, `<?php\n${imports}\n`);
+    this.log(
+      `      🩹 Injected ${missing.length} missing facade import(s): ${missing.map(([a]) => a).join(", ")}`,
+      "warning",
+    );
+    return code;
   }
 
   /**
@@ -1944,7 +2026,7 @@ CRITICAL ARCHITECTURE RULES:
           // Full-page component route — render() actually executes.
           this._ensureLivewireFullPageLayout(lw.className);
           routeStatements.push(
-            `Route::view('${p}', \\${lw.fullClass}::class)->name('${lw.kebab}');`,
+            `Route::get('${p}', \\${lw.fullClass}::class)->name('${lw.kebab}');`,
           );
         } else {
           routeStatements.push(
@@ -1988,7 +2070,7 @@ CRITICAL ARCHITECTURE RULES:
       if (targetClass) {
         this._ensureLivewireFullPageLayout(targetClass.className);
         routeStatements.push(
-          `Route::view('${r}', \\${targetClass.fullClass}::class)->name('${cleanName}');`,
+          `Route::get('${r}', \\${targetClass.fullClass}::class)->name('${cleanName}');`,
         );
       } else if (parameterized) {
         const normalized = r.replace(/:([a-zA-Z0-9_]+)/g, "{$1}");
@@ -2385,7 +2467,9 @@ RULES:
       "build_model_migration",
     );
     if (response) {
-      const cleanCode = this.cleanLLMOutput(response);
+      const cleanCode = this._ensureFacadeImports(
+        this.cleanLLMOutput(response),
+      );
       await fs.writeFile(controllerPath, cleanCode);
       const syntaxOk = await this.validatePHPSyntax(controllerPath);
       if (!syntaxOk) {

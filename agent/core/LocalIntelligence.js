@@ -185,17 +185,36 @@ const buildSystemPrompt = (taskType) =>
 // ════════════════════════════════════════════════════════════════
 
 const stringArray = { type: "array", items: { type: "string" } };
+// Map dinamis (kunci bebas) untuk grammar GBNF blueprint. node-llama-cpp
+// mengizinkan arbitrary property key selama additionalProperties berupa schema.
+const stringMap = { type: "object", additionalProperties: { type: "string" } };
+// schema: { "<Model>": { "<column>": "<migrationCall>" } } — dua level kunci bebas.
+const blueprintSchemaMap = {
+  type: "object",
+  additionalProperties: { type: "object", additionalProperties: { type: "string" } },
+};
 
 const SCHEMAS = Object.freeze({
+  // Constrained decoding untuk generate_architecture (blueprint JSON). Bentuk
+  // harus mencerminkan template prompt di NexusEngine.blueprintApp — kunci yang
+  // TIDAK diminta ke model tidak boleh masuk `required` (mis. dulu ada `framework`
+  // fiktif). Hanya inti semantik yang diwajibkan; sisanya opsional agar grammar
+  // tidak over-constrain. Bila kompilasi grammar gagal, _resolveGrammar skip dan
+  // jalur retry+repairAndParseJson tetap berjalan (tanpa regresi).
   blueprintApp: {
     type: "object",
     properties: {
       project_name: { type: "string" },
-      framework: { type: "string" },
       description: { type: "string" },
       models: stringArray,
+      schema: blueprintSchemaMap,
+      migrations: stringArray,
       routes: stringArray,
       livewire_components: stringArray,
+      seeders: stringArray,
+      factories: stringArray,
+      pivot_tables: stringArray,
+      middleware: stringArray,
       relationships: {
         type: "array",
         items: {
@@ -208,8 +227,62 @@ const SCHEMAS = Object.freeze({
           required: ["model", "type", "target"],
         },
       },
+      api_endpoints: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            method: { type: "string" },
+            path: { type: "string" },
+            controller: { type: "string" },
+            middleware: stringArray,
+          },
+          required: ["method", "path", "controller"],
+        },
+      },
+      security_policies: {
+        type: "object",
+        properties: {
+          roles: stringArray,
+          permissions: stringArray,
+          rate_limiting: stringMap,
+          middleware_map: { type: "object", additionalProperties: stringArray },
+        },
+      },
+      async_jobs: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            queue: { type: "string" },
+            retry: { type: "integer" },
+            backoff: { type: "integer" },
+          },
+          required: ["name"],
+        },
+      },
+      ui_design_system: {
+        type: "object",
+        properties: {
+          color_palette: stringMap,
+          typography: stringMap,
+          layout: { type: "string" },
+          theme: { type: "string" },
+          component_style: { type: "string" },
+        },
+      },
     },
-    required: ["project_name", "framework", "models", "routes"],
+    required: [
+      "project_name",
+      "models",
+      "schema",
+      "routes",
+      "livewire_components",
+      "migrations",
+      "seeders",
+      "relationships",
+    ],
   },
   postMortem: {
     type: "object",
@@ -968,7 +1041,11 @@ class LocalIntelligence {
     }
 
     return this.validateOutput(responseText, taskType, {
-      expectJson: Boolean(options.schema),
+      // expectJson boleh di-override: caller bisa memasang grammar schema untuk
+      // constrained decoding TANPA mengaktifkan gerbang JSON-strict, sehingga
+      // jalur repairAndParseJson downstream tetap utuh bila model meleset.
+      expectJson:
+        options.expectJson ?? Boolean(options.schema),
     });
   }
 

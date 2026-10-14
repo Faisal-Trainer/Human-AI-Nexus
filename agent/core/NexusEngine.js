@@ -1223,6 +1223,10 @@ Output strictly JSON with this exact structure (do not add any other keys, expla
           prompt,
           "generate_architecture",
           systemPrompt,
+          // Grammar GBNF constrained-decoding (plan #5): paksakan bentuk JSON
+          // blueprint sehingga gagal-parse/truncation berkurang. expectJson:false
+          // menjaga jalur retry+repairAndParseJson bila grammar di-skip/meleset.
+          { schema: "blueprintApp", expectJson: false },
         );
         if (!response) {
           this.log(

@@ -74,6 +74,24 @@ function nullSafeViewReads(viewCode) {
   );
 }
 
+// Same philosophy as nullSafeViewReads, but for the Livewire PHP CLASS body.
+// A null-returning Eloquent call (first/find/firstWhere/findQuietly) that is
+// dereferenced right away crashes on an empty table: a fresh sandbox DB with
+// no seeded rows makes `PortfolioProject::first()->id` throw
+// "Attempt to read property \"id\" on null" at mount() -> HTTP 500. Only the
+// hops AFTER the risky call become null-safe; the call itself and the fluent
+// query builder before it are untouched. Idempoten (a `?->` hop is not
+// re-captured because group2 requires a bare `->` right after the call).
+const NULLABLE_DEREF =
+  /((?:->|::)\s*(?:first|find|firstWhere|findQuietly)\s*\([^()]*\))((?:\s*->\s*\w+(?:\([^()]*\))?)+)/g;
+function nullSafeClassReads(code) {
+  if (!code) return code;
+  return code.replace(NULLABLE_DEREF, (_m, call, chain) => {
+    const safe = chain.replace(/(?<!\?)->/g, "?->");
+    return call + safe;
+  });
+}
+
 // Supply missing render() data for the collections the view iterates:
 // a) view('livewire.x') -> view('livewire.x', [data])
 // b) view('livewire.x', [ ... ]) -> append into the existing array
@@ -435,6 +453,24 @@ const nullSafeReads = {
   },
 };
 
+// Class-body counterpart of blade-null-safe-reads: protects `Model::first()->x`
+// / `$collection->first()->x` inside mount()/actions (the observed portfolio
+// dashboard 500), which the view-only guard cannot reach.
+const nullSafeClassReadsGuard = {
+  id: "php-null-safe-class-reads",
+  fields: ["classCode"],
+  run(ctx) {
+    const next = nullSafeClassReads(ctx.classCode);
+    if (next === ctx.classCode) return { ctx, changed: false };
+    ctx.classCode = next;
+    return {
+      ctx,
+      changed: true,
+      notes: ["null-safe deref after first()/find() in class body"],
+    };
+  },
+};
+
 // Urutan PERSIS pipeline lama (0, 0.5, 2.5, 3, 3.5, 3.6, 4) — jangan diubah
 // tanpa fixture test yang membuktikan skor harness tidak turun.
 const reconcileGuards = [
@@ -445,12 +481,14 @@ const reconcileGuards = [
   propertyInit,
   actionMethods,
   nullSafeReads,
+  nullSafeClassReadsGuard,
 ];
 
 module.exports = {
   reconcileGuards,
   fixBladeLoopDirectives,
   nullSafeViewReads,
+  nullSafeClassReads,
   injectRenderData,
   injectMountInits,
   computeViewDataSets,

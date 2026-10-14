@@ -130,9 +130,10 @@ function check(name, cond) {
   const runner = new GuardRunner({ telemetryDir: tmp });
   const ids = Guards.RECONCILE_LIVEWIRE.map((g) => g.id);
   check(
-    "order preserved (blade-loop first, null-safe last)",
+    "order preserved (blade-loop first, null-safe reads last)",
     ids[0] === "blade-loop-directives" &&
-      ids[ids.length - 1] === "blade-null-safe-reads",
+      ids[ids.length - 2] === "blade-null-safe-reads" &&
+      ids[ids.length - 1] === "php-null-safe-class-reads",
   );
 
   const ctx = {
@@ -215,6 +216,42 @@ class UrlShortener extends Component
   check(
     "null-safe: idempoten",
     once === "{{ $a?->b?->c }}" && L.nullSafeViewReads(once) === once,
+  );
+
+  // class-body null-safe (php-null-safe-class-reads) — akar 500 portfolio dashboard
+  check(
+    "class null-safe: first()->id",
+    L.nullSafeClassReads("PortfolioProject::first()->id") ===
+      "PortfolioProject::first()?->id",
+  );
+  check(
+    "class null-safe: chained hops after first()",
+    L.nullSafeClassReads("PortfolioProject::first()->user->name") ===
+      "PortfolioProject::first()?->user?->name",
+  );
+  check(
+    "class null-safe: find($id)->title",
+    L.nullSafeClassReads("PortfolioProject::find($id)->title") ===
+      "PortfolioProject::find($id)?->title",
+  );
+  check(
+    "class null-safe: leaves fluent builder intact",
+    L.nullSafeClassReads("M::query()->where('a', 1)->first()->name;") ===
+      "M::query()->where('a', 1)->first()?->name;",
+  );
+  check(
+    "class null-safe: idempoten",
+    L.nullSafeClassReads("PortfolioProject::first()?->id") ===
+      "PortfolioProject::first()?->id",
+  );
+  check(
+    "class null-safe: no-op without risky deref",
+    L.nullSafeClassReads("$x = M::all(); $y = $this->count;") ===
+      "$x = M::all(); $y = $this->count;",
+  );
+  check(
+    "class null-safe guard registered in reconcile pipeline",
+    L.reconcileGuards.some((g) => g.id === "php-null-safe-class-reads"),
   );
 })();
 

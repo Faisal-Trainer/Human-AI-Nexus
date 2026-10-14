@@ -3,8 +3,59 @@ const path = require("path");
 const BasePhase = require("./BasePhase");
 const localAI = require("../LocalIntelligence");
 const NexusError = require("../NexusError");
+// 🛡️ Guards module (metrics plan #3): every deterministic artifact guard lives
+// in agent/core/guards/, is sequenced by ONE GuardRunner, and its firing
+// frequency is telemetered to logs/guard-telemetry/ (#4). The methods below
+// stay as thin same-name delegates so behavior and call sites are unchanged.
+const Guards = require("../guards");
+const GUtils = Guards.utils;
+
+// Runner + host disimpan di luar kelas (helper modul + WeakMap). Delegate TIDAK
+// boleh memanggil `this.<metodePrototipe>` (mis. this.guardRunner /
+// this._guardHost) karena harness regresi memanggil method lewat shim
+// plain-object (`IP.prototype.method.call(ctx)`), dan receiver plain-object
+// tidak mewarisi member IP.prototype — jadi this.log/this.engine tersedia tapi
+// method proto lain undefined. Helper modul selalu resolve untuk instance nyata
+// mapapun shim.
+const RUNNER_CACHE = new WeakMap();
+function resolveRunner(host) {
+  let r = host && RUNNER_CACHE.get(host);
+  if (!r) {
+    r = new Guards.GuardRunner({
+      getProject: () => {
+        try {
+          return path.basename(
+            String((host && host.engine && host.engine.rootPath) || "unknown"),
+          );
+        } catch {
+          return "unknown";
+        }
+      },
+    });
+    if (host) RUNNER_CACHE.set(host, r);
+  }
+  return r;
+}
+function buildHost(self) {
+  return {
+    log: (msg, lvl) => self.log && self.log(msg, lvl),
+    rootPath: self.engine && self.engine.rootPath,
+  };
+}
 
 class ImplementationPhase extends BasePhase {
+  // Lazily created runner — dipertahankan untuk kompatibilitas pemanggil
+  // lama (this.guardRunner); implementasi sebenarnya ada di resolveRunner().
+  get guardRunner() {
+    return resolveRunner(this);
+  }
+
+  // Host passed to guard modules: logging + sandbox root path for the few
+  // guards that touch disk (full-page Layout injection, view existence).
+  _guardHost() {
+    return buildHost(this);
+  }
+
   async run() {
     this.log(`🏗️ Phase 2.5: Implementation (Code Generation)...`, "info");
 
@@ -1132,7 +1183,7 @@ SCHEMA REFERENCE:
 ${fullSchema}
 Make sure public properties match the columns in the schema if this component manages a model.
 ${contractLine}
-    
+
 Output ONLY the raw PHP code, starting with <?php. No markdown blocks.`;
     const phpResponse = await this.getCachedOrGenerate(
       phpPrompt,
@@ -1193,7 +1244,7 @@ SCHEMA REFERENCE:
 ${fullSchema}
 Ensure your wire:model attributes match the properties corresponding to the schema.
 ${contractLine}
-    
+
 Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     const bladeResponse = await this.getCachedOrGenerate(
       bladePrompt,
@@ -1222,11 +1273,9 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   // camelCase plural of a model name -> view collection variable.
   // ShortUrl -> shortUrls, ClickStat -> clickStats, Category -> categories
+  // (extracted to guards/utils — metrics plan #3)
   _camelPlural(model) {
-    const camel = model.charAt(0).toLowerCase() + model.slice(1);
-    if (/(s|x|z|ch|sh)$/i.test(camel)) return camel + "es";
-    if (/[^aeiou]y$/i.test(camel)) return camel.slice(0, -1) + "ies";
-    return camel + "s";
+    return GUtils.camelPlural(model);
   }
 
   _safeFallbackLivewire(className, kebabName) {
@@ -1295,350 +1344,51 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
     viewCode,
     knownModels,
   ) {
-    const notes = [];
-    let changed = false;
-
-    // 0) Repair mismatched loop directives (@foreach ... @empty ... @endforelse)
-    // on disk too, so re-runs heal previously generated components.
-    const fixedView = this._fixBladeLoopDirectives(viewCode);
-    if (fixedView !== viewCode) {
-      viewCode = fixedView;
-      changed = true;
-      notes.push("repaired unbalanced Blade loop directives");
-    }
-
-    // 0.5) Add missing `use App\Models\X;` imports for Eloquent models the class
-    // references by short name (ShortUrl::all(), ClickStat::paginate(), a typed
-    // property, or `new X`). Without the import PHP resolves the bare class under
-    // the component's own namespace and throws "Class 'App\Livewire\X' not found".
-    const imp = this._ensureLivewireModelImports(classCode, knownModels);
-    if (imp.changed) {
-      classCode = imp.classCode;
-      changed = true;
-      notes.push(`imported model(s): ${imp.added.join(", ")}`);
-    }
-
-    // 1) Variables the class already provides to the view.
-    let m;
-    const publicProps = new Set();
-    const propRe = /public\s+\$(\w+)/g;
-    while ((m = propRe.exec(classCode))) publicProps.add(m[1]);
-
-    const renderBody = this._extractMethodBody(classCode, "render") || "";
-    const renderProvided = new Set();
-    const keyRe = /['"](\w+)['"]\s*=>/g;
-    while ((m = keyRe.exec(renderBody))) renderProvided.add(m[1]);
-    const compactRe = /compact\(([^)]*)\)/g;
-    let cm;
-    while ((cm = compactRe.exec(renderBody))) {
-      const nameRe = /['"](\w+)['"]/g;
-      let nm;
-      while ((nm = nameRe.exec(cm[1]))) renderProvided.add(nm[1]);
-    }
-    const withRe = /->with\(\s*['"](\w+)['"]/g;
-    while ((m = withRe.exec(renderBody))) renderProvided.add(m[1]);
-
-    // 2) Collections the view iterates.
-    const foreachVars = new Set();
-    const feRe = /@(?:foreach|forelse)\s*\(\s*\$(\w+)\s+as\s+/gi;
-    while ((m = feRe.exec(viewCode))) foreachVars.add(m[1]);
-
-    // 2.5) Drop public properties that shadow an iterated collection. Livewire's
-    // HandleComponents::getView() applies ->with($publicProperties) AFTER the
-    // render() view data, so an unassigned `public $users;` overrides
-    // `'users' => User::all()` with null and the view crashes with
-    // "foreach() argument must be of type array|object, null given".
-    for (const varName of foreachVars) {
-      if (!publicProps.has(varName)) continue;
-      if (new RegExp(`\\$this->${varName}\\b`).test(classCode)) continue; // property in use elsewhere
-      const next = classCode.replace(
-        new RegExp(
-          `[ \\t]*public\\s+\\$${varName}\\s*(?:=\\s*null)?;[ \\t]*\\r?\\n`,
-        ),
-        "",
-      );
-      if (next !== classCode) {
-        classCode = next;
-        changed = true;
-        notes.push(`removed public $${varName} shadowing render() data`);
-      }
-    }
-
-    // 3) Supply any missing collection from the matching model via render().
-    const entries = [];
-    for (const varName of foreachVars) {
-      if (renderProvided.has(varName)) continue;
-      const model = knownModels.find((md) => this._camelPlural(md) === varName);
-      const php = model ? `\\App\\Models\\${model}::all()` : "collect([])";
-      entries.push({ key: varName, php });
-    }
-    if (entries.length) {
-      const next = this._injectRenderData(classCode, kebabName, entries);
-      if (next !== classCode) {
-        classCode = next;
-        changed = true;
-        notes.push(
-          `render() supplies ${entries.map((e) => "$" + e.key).join(", ")}`,
-        );
-      }
-    }
-
-    // 3.5) Initialize typed public properties that are read before assignment.
-    // A `public SomeModel $x;` with no default and no mount() assignment makes
-    // render()/the view throw "Typed property ... must not be accessed before
-    // initialization". Model-typed props get `new Model()` in mount(); the rest
-    // get a nullable null default so the read yields null (then null-safe below).
-    const init = this._ensureLivewirePropertyInit(classCode, knownModels);
-    if (init.changed) {
-      classCode = init.classCode;
-      changed = true;
-      notes.push(...init.notes);
-    }
-
-    // 3.6) Define action methods the view invokes through Livewire event
-    // directives (wire:click="deleteShortUrl(...)", wire:submit="save", ...).
-    // When the LLM generates the Blade but omits the matching public method, the
-    // click throws "Unable to call component method" at request time. Inject a
-    // safe stub so the component never fatals; real logic comes from the prompt.
-    const actions = this._ensureLivewireActionMethods(classCode, viewCode);
-    if (actions.changed) {
-      classCode = actions.classCode;
-      changed = true;
-      notes.push(`stubbed missing action(s): ${actions.added.join(", ")}`);
-    }
-
-    // 4) Null-safe every property read so "Attempt to read property on null"
-    //    can never crash the page (a null-safe read on a real object is a no-op).
-    const nulled = this._nullSafeViewReads(viewCode);
-    if (nulled !== viewCode) {
-      viewCode = nulled;
-      changed = true;
-      notes.push("null-safe property reads");
-    }
-
-    return { classCode, viewCode, changed, notes };
+    // URUTAN kini tinggal di SATU tempat: guards/livewireGuards.js →
+    // reconcileGuards (pengganti langkah bernomor 0/0.5/2.5/3/3.5/3.6/4).
+    // Runner mencatat telemetri frekuensi menyala tiap guard (#4), dan
+    // pasangan rusak→terperbaiki ke logs/guard-telemetry/pairs.jsonl.
+    const { ctx, report } = resolveRunner(this).run(
+      "livewire-reconcile",
+      Guards.RECONCILE_LIVEWIRE,
+      {
+        className,
+        kebabName,
+        classCode,
+        viewCode,
+        knownModels: knownModels || [],
+      },
+      buildHost(this),
+    );
+    return {
+      classCode: ctx.classCode,
+      viewCode: ctx.viewCode,
+      changed: report.some((r) => r.fired),
+      notes: report.filter((r) => r.fired).flatMap((r) => r.notes),
+    };
   }
 
   _nullSafeViewReads(viewCode) {
-    // Guard EVERY hop, not just the first: `$user->shortUrls->first()->title`
-    // must become `$user?->shortUrls?->first()?->title`. A first-hop-only fix
-    // still crashes with "Call to a member function first() on null" when an
-    // intermediate relation is missing or unpopulated.
-    return viewCode.replace(/\$\w+(?:\??->[\w()]+)+/g, (chain) =>
-      chain.replace(/(?<!\?)->/g, "?->"),
-    );
+    return Guards.livewireGuards.nullSafeViewReads(viewCode);
   }
 
   _extractMethodBody(classCode, methodName) {
-    const sig = new RegExp(`function\\s+${methodName}\\s*\\([^)]*\\)\\s*\\{`);
-    const match = sig.exec(classCode);
-    if (!match) return null;
-    let i = match.index + match[0].length;
-    let depth = 1;
-    const start = i;
-    while (i < classCode.length && depth > 0) {
-      const ch = classCode[i];
-      if (ch === "{") depth++;
-      else if (ch === "}") depth--;
-      i++;
-    }
-    return depth === 0 ? classCode.slice(start, i - 1) : null;
+    return GUtils.extractMethodBody(classCode, methodName);
   }
 
   _injectRenderData(classCode, kebabName, entries) {
-    if (!entries.length) return classCode;
-    const dataLiteral = entries.map((e) => `'${e.key}' => ${e.php}`).join(", ");
-    const vn = `livewire.${kebabName}`;
-    const esc = vn.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-    // a) view('livewire.x') -> view('livewire.x', [data])
-    const noData = new RegExp(`view\\(\\s*(['"])${esc}\\1\\s*\\)`);
-    if (noData.test(classCode)) {
-      return classCode.replace(
-        noData,
-        (_m, q) => `view(${q}${vn}${q}, [${dataLiteral}])`,
-      );
-    }
-
-    // b) view('livewire.x', [ ... ]) -> append into the existing array
-    const arrRe = new RegExp(
-      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*)(\\[[\\s\\S]*?\\])`,
+    return Guards.livewireGuards.injectRenderData(
+      classCode,
+      kebabName,
+      entries,
     );
-    if (arrRe.test(classCode)) {
-      return classCode.replace(arrRe, (_m, head, _q, arr) => {
-        // Strip the brackets and any trailing comma so an existing
-        // `['k' => v,]` (trailing comma) does not become `..., , 'new' => ...`.
-        const body = arr.slice(1, -1).replace(/,\s*$/, "");
-        const sep = body.trim() ? "," : "";
-        return `${head}[${body}${sep} ${dataLiteral}]`;
-      });
-    }
-
-    // c) view('livewire.x', compact(...)) -> array_merge(compact(...), [data])
-    const compRe = new RegExp(
-      `(view\\(\\s*(['"])${esc}\\2\\s*,\\s*)(compact\\([^)]*\\))(\\s*\\)))`,
-    );
-    if (compRe.test(classCode)) {
-      return classCode.replace(
-        compRe,
-        (_m, head, _q, c, tail) =>
-          `${head}array_merge(${c}, [${dataLiteral}])${tail}`,
-      );
-    }
-
-    return classCode;
   }
 
-  _ensureLivewireActionMethods(classCode, viewCode) {
-    if (!classCode || !viewCode)
-      return { classCode, changed: false, added: [] };
-    const EVENT =
-      "(?:click|submit|change|input|keydown|keyup|keypress|focus|blur|action|request|dblclick|mouseenter|mouseleave|mousedown|mouseup)";
-    const dirRe = new RegExp(
-      `wire:${EVENT}(?:\\.[\\w-]+)*\\s*=\\s*"([^"]*)"`,
-      "g",
-    );
-    const needed = new Set();
-    let dm;
-    while ((dm = dirRe.exec(viewCode))) {
-      // The invoked component method is the leading identifier of the value.
-      // `$refresh`, `$emit(...)`, `$dispatch(...)` start with `$` and are skipped.
-      const im = /^\s*([A-Za-z_]\w*)\s*\(?/.exec(dm[1]);
-      if (!im) continue;
-      const name = im[1];
-      if (name === "if" || name === "true" || name === "false") continue;
-      needed.add(name);
-    }
-    const added = [];
-    for (const name of needed) {
-      if (new RegExp(`function\\s+${name}\\s*\\(`).test(classCode)) continue;
-      added.push(name);
-    }
-    if (!added.length) return { classCode, changed: false, added };
-    const stubs = added
-      .map(
-        (n) =>
-          `\n    public function ${n}()\n    {\n        // TODO: action invoked by a wire directive in the component view.\n    }\n`,
-      )
-      .join("");
-    const lastBrace = classCode.lastIndexOf("}");
-    if (lastBrace === -1) return { classCode, changed: false, added: [] };
-    classCode =
-      classCode.slice(0, lastBrace) + stubs + classCode.slice(lastBrace);
-    return { classCode, changed: true, added };
-  }
-
-  _ensureLivewireModelImports(classCode, knownModels = []) {
-    if (!classCode || !knownModels || !knownModels.length)
-      return { classCode, changed: false, added: [] };
-    const added = [];
-    for (const model of knownModels) {
-      if (new RegExp(`use\\s+App\\\\Models\\\\${model}\\s*;`).test(classCode))
-        continue;
-      // Bare (unqualified) reference: not preceded by a backslash or word char,
-      // followed by `::`, `(`, or a `$` (typed-property hint). FQN uses such as
-      // \App\Models\X are intentionally skipped (they need no import).
-      const used = new RegExp(
-        `(?<![\\\\\\w])${model}\\b\\s*(?:::|\\(|\\$)`,
-      ).test(classCode);
-      if (!used) continue;
-      added.push(model);
-    }
-    if (!added.length) return { classCode, changed: false, added };
-    const useLines = added.map((m) => `use App\\Models\\${m};`).join("\n");
-    const useMatches = [...classCode.matchAll(/^use\s+[^;]+;/gm)];
-    if (useMatches.length) {
-      const last = useMatches[useMatches.length - 1];
-      const idx = last.index + last[0].length;
-      classCode =
-        classCode.slice(0, idx) + "\n" + useLines + classCode.slice(idx);
-    } else {
-      classCode = classCode.replace(
-        /(namespace\s+[^;]+;)/,
-        `$1\n\n${useLines}`,
-      );
-    }
-    return { classCode, changed: true, added };
-  }
-
-  _ensureLivewirePropertyInit(classCode, knownModels = []) {
-    const notes = [];
-    let changed = false;
-    const modelInits = [];
-    // Typed public property WITHOUT a default value: `public ?SomeType $name;`.
-    // Untyped `public $x;` is intentionally skipped (already defaults to null).
-    const re =
-      /public\s+(?:static\s+)?(\?)?\s*([A-Za-z_][A-Za-z0-9_\\]*)\s+\$(\w+)\s*;/g;
-    let m;
-    while ((m = re.exec(classCode))) {
-      const type = m[2];
-      const name = m[3];
-      const shortType = type.split("\\").pop();
-      // Skip if the property is already assigned anywhere (mount/constructor/action).
-      if (new RegExp(`\\$this->${name}\\s*=`).test(classCode)) continue;
-      const isModel =
-        knownModels.includes(shortType) ||
-        new RegExp(`use\\s+App\\\\Models\\\\${shortType};`).test(classCode);
-      if (isModel) {
-        modelInits.push({ name, type: shortType });
-      } else {
-        const declRe = new RegExp(
-          `public\\s+(?:static\\s+)?\\??\\s*${type.replace(
-            /\\/g,
-            "\\\\",
-          )}\\s+\\$${name}\\s*;`,
-        );
-        const next = classCode.replace(
-          declRe,
-          `public ?${type} $${name} = null;`,
-        );
-        if (next !== classCode) {
-          classCode = next;
-          changed = true;
-          notes.push(`default null on typed $${name}`);
-        }
-      }
-    }
-    if (modelInits.length) {
-      const next = this._injectMountInits(classCode, modelInits);
-      if (next !== classCode) {
-        classCode = next;
-        changed = true;
-        notes.push(
-          `mount() initializes ${modelInits.map((i) => "$" + i.name).join(", ")}`,
-        );
-      }
-    }
-    return { classCode, changed, notes };
-  }
+  // (steps action-methods / model-imports / property-init kini hidup sebagai
+  // guard di guards/livewireGuards.js dan dijalankan oleh GuardRunner.)
 
   _injectMountInits(classCode, assignments) {
-    if (!assignments.length) return classCode;
-    const lines = assignments
-      .map((a) => `        $this->${a.name} = new \\App\\Models\\${a.type}();`)
-      .join("\n");
-    // Existing mount(): prepend the initializers into its body.
-    const mountRe = /public\s+function\s+mount\s*\([^)]*\)\s*\{/;
-    if (mountRe.test(classCode)) {
-      return classCode.replace(mountRe, (sig) => `${sig}\n${lines}`);
-    }
-    // Otherwise add a mount() just before render() (keeps lifecycle order clear).
-    const renderRe = /([ \t]*)public\s+function\s+render\s*\(/;
-    if (renderRe.test(classCode)) {
-      return classCode.replace(
-        renderRe,
-        (_m, ind) =>
-          `${ind}public function mount()\n${ind}{\n${lines}\n${ind}}\n\n${ind}public function render(`,
-      );
-    }
-    // Fallback: insert before the class closing brace.
-    const idx = classCode.lastIndexOf("}");
-    if (idx === -1) return classCode;
-    return (
-      classCode.slice(0, idx) +
-      `\n    public function mount()\n    {\n${lines}\n    }\n` +
-      classCode.slice(idx)
-    );
+    return Guards.livewireGuards.injectMountInits(classCode, assignments);
   }
 
   async generateFactory(factoryName, blueprint) {
@@ -1909,23 +1659,10 @@ CRITICAL ARCHITECTURE RULES:
    * Checks if generated code calls view('xxx') where xxx does not exist on disk.
    */
   _hasNonExistentViews(code) {
-    const viewMatches = code.match(/view\(\s*['"]([^'"]+)['"]\s*(\)|,)/g);
-    if (!viewMatches) return false;
-    const viewsDir = path.join(this.engine.rootPath, "resources", "views");
-    for (const m of viewMatches) {
-      const match = m.match(/view\(\s*['"]([^'"]+)['"]/);
-      if (!match) continue;
-      const vName = match[1];
-      if (vName === "welcome") continue;
-      const vPath = path.join(
-        viewsDir,
-        `${vName.replace(/\./g, path.sep)}.blade.php`,
-      );
-      if (!fs.existsSync(vPath)) {
-        return true; // Found a view() call to a non-existent view file!
-      }
-    }
-    return false;
+    return Guards.routeGuards.hasNonExistentViews(
+      code,
+      this.engine && this.engine.rootPath,
+    );
   }
 
   /**
@@ -1939,79 +1676,21 @@ CRITICAL ARCHITECTURE RULES:
    * were prompted with the old anti-pattern) are healed instead of trusted.
    */
   _healLivewireRoutes(code, existingLivewire) {
-    const byKebab = new Map((existingLivewire || []).map((c) => [c.kebab, c]));
-    let healed = 0;
-
-    const toFullPage = (routePath, kebab) => {
-      const comp = byKebab.get(kebab);
-      if (!comp) return null; // unknown class — hard gate will reject below
-      if (routePath.includes("{") || routePath.includes(":")) return null; // full-page routes can't bind params
-      healed++;
-      this._ensureLivewireFullPageLayout(comp.className);
-      return `Route::get('${routePath}', \\${comp.fullClass}::class)`;
-    };
-
-    // A) closure form: Route::get('/p', function () { return view('livewire.x'); })
-    // NOTE: trailing \) consumes the OUTER Route::get(...) paren so the
-    // replacement (which already closes Route::get) stays balanced.
-    code = code.replace(
-      /Route::get\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*(?:function\s*\([^)]*\)|fn\s*\([^)]*\))\s*\{\s*(?:return\s+)?view\(\s*(['"])livewire\.([a-z0-9_-]+)\3\s*\)\s*;?\s*\}\s*\)/gi,
-      (m, q1, routePath, q3, kebab) => toFullPage(routePath, kebab) || m,
+    // Guard + telemetri: frekuensi heal menyala dicatat ke guard-telemetry (#4).
+    const { ctx } = resolveRunner(this).runOne(
+      Guards.routeGuards.healLivewireRoutes,
+      { code, existingLivewire },
+      buildHost(this),
+      "route-generation",
     );
-
-    // B) arrow form: Route::get('/p', fn() => view('livewire.x'))
-    code = code.replace(
-      /Route::get\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*fn\s*\([^)]*\)\s*=>\s*view\(\s*(['"])livewire\.([a-z0-9_-]+)\3\s*\)\s*\)/gi,
-      (m, q1, routePath, q3, kebab) => toFullPage(routePath, kebab) || m,
-    );
-
-    // C) Route::view('/p', 'livewire.x') string-view form → component class
-    code = code.replace(
-      /Route::view\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*(['"])livewire\.([a-z0-9_-]+)\3\s*\)/gi,
-      (m, q1, routePath, q3, kebab) => toFullPage(routePath, kebab) || m,
-    );
-
-    // D) LEGACY heal output Route::view('/p', \App\Livewire\X::class) → Route::get.
-    //    Livewire 4 full-page komponen hanya di-resolve lewat route invokable
-    //    (HandlesPageComponents::__invoke); Route::view melimpahkan class string ke
-    //    view finder → "View [App\Livewire\X] not found" (HTTP 500) — temuan
-    //    metrics harness 2026-10-14 pada url-shortener-app.
-    const byClass = new Map(
-      (existingLivewire || []).map((c) => [c.className, c]),
-    );
-    code = code.replace(
-      /Route::view\(\s*(['"])((?:(?!\1).)*)\1\s*,\s*\\?App\\Livewire\\([A-Za-z0-9_]+)::class/gi,
-      (m, q1, routePath, cls) => {
-        const comp = byClass.get(cls);
-        if (!comp) return m; // unknown class — hard gate rejects below
-        if (routePath.includes("{") || routePath.includes(":")) return m;
-        healed++;
-        this._ensureLivewireFullPageLayout(comp.className);
-        return `Route::get('${routePath}', \\${comp.fullClass}::class`;
-      },
-    );
-
-    if (healed > 0) {
-      this.log(
-        `      🩹 Repaired ${healed} Livewire route(s): raw view('livewire.*') → Route::get(Component::class)`,
-        "warning",
-      );
-    }
-    return code;
+    return ctx.code;
   }
 
   /**
    * True if route code still renders Livewire templates rawly (class bypass).
    */
   _hasRawLivewireViewRoutes(code) {
-    // (1) raw Blade bypass, atau (2) Route::view(..., Class::class) yang Livewire 4
-    // tidak bisa resolve sebagai page component (view finder → "View not found").
-    return (
-      /view\(\s*['"]livewire\./i.test(code) ||
-      /Route::view\(\s*(['"])(?:(?!\1).)*\1\s*,\s*\\?[A-Za-z][A-Za-z0-9_\\]*::class/i.test(
-        code,
-      )
-    );
+    return Guards.routeGuards.hasRawLivewireViewRoutes(code);
   }
 
   /**
@@ -2022,44 +1701,15 @@ CRITICAL ARCHITECTURE RULES:
    * Suntikkan import facade yang hilang; idempotent dan skip pemakaian FQCN.
    */
   _ensureFacadeImports(code) {
-    const FACADES = {
-      Auth: "Illuminate\\Support\\Facades\\Auth",
-      Gate: "Illuminate\\Support\\Facades\\Gate",
-      DB: "Illuminate\\Support\\Facades\\DB",
-      Schema: "Illuminate\\Support\\Facades\\Schema",
-      Hash: "Illuminate\\Support\\Facades\\Hash",
-      Http: "Illuminate\\Support\\Facades\\Http",
-      Mail: "Illuminate\\Support\\Facades\\Mail",
-      Storage: "Illuminate\\Support\\Facades\\Storage",
-      Cache: "Illuminate\\Support\\Facades\\Cache",
-      Config: "Illuminate\\Support\\Facades\\Config",
-      Log: "Illuminate\\Support\\Facades\\Log",
-      Queue: "Illuminate\\Support\\Facades\\Queue",
-      Session: "Illuminate\\Support\\Facades\\Session",
-      Validator: "Illuminate\\Support\\Facades\\Validator",
-      Str: "Illuminate\\Support\\Str",
-      Arr: "Illuminate\\Support\\Arr",
-    };
-    const missing = [];
-    for (const [alias, fqcn] of Object.entries(FACADES)) {
-      // Pemakaian bare `Alias::method` — lookbehind menolak \Alias:: (FQCN) dan
-      // App\Alias:: yang sudah benar.
-      if (!new RegExp(`(?<![\\\\\\w])${alias}::[a-zA-Z$]`).test(code)) continue;
-      // Sudah ada import (termasuk `use ...\Alias;` berapapun prefix-nya)?
-      if (new RegExp(`use\\s+[\\w\\\\]+\\\\${alias}\\s*;`).test(code)) continue;
-      missing.push([alias, fqcn]);
-    }
-    if (missing.length === 0) return code;
-    const imports = missing.map(([, fq]) => `use ${fq};`).join("\n");
-    const nsRe = /^namespace [^;]+;/m;
-    code = nsRe.test(code)
-      ? code.replace(nsRe, (m) => `${m}\n${imports}`)
-      : code.replace(/<\?php\s*/, `<?php\n${imports}\n`);
-    this.log(
-      `      🩹 Injected ${missing.length} missing facade import(s): ${missing.map(([a]) => a).join(", ")}`,
-      "warning",
+    // Guard + telemetri (#4): guard yang menyala di hampir setiap proyek
+    // menandai akar masalah di prompt — frekuensinya tercatat per hari.
+    const { ctx } = resolveRunner(this).runOne(
+      Guards.phpGuards.facadeImports,
+      { code },
+      buildHost(this),
+      "php-class",
     );
-    return code;
+    return ctx.code;
   }
 
   /**
@@ -2068,34 +1718,7 @@ CRITICAL ARCHITECTURE RULES:
    * and the component has no Layout attribute yet. Idempotent, best-effort.
    */
   _ensureLivewireFullPageLayout(className) {
-    try {
-      const layoutExists = fs.existsSync(
-        path.join(
-          this.engine.rootPath,
-          "resources",
-          "views",
-          "layouts",
-          "app.blade.php",
-        ),
-      );
-      if (!layoutExists) return;
-      const file = path.join(
-        this.engine.rootPath,
-        "app",
-        "Livewire",
-        `${className}.php`,
-      );
-      if (!fs.existsSync(file)) return;
-      const src = fs.readFileSync(file, "utf8");
-      if (/Attributes\\Layout|\#\[\s*Layout/i.test(src)) return; // already set
-      const patched = src.replace(
-        /^(\s*(?:final\s+|abstract\s+)?class\s+[A-Za-z0-9_]+)/m,
-        "#[\\Livewire\\Attributes\\Layout('layouts.app')]\n$1",
-      );
-      if (patched !== src) fs.writeFileSync(file, patched);
-    } catch {
-      /* layout injection is best-effort — never block route generation */
-    }
+    Guards.routeGuards.ensureFullPageLayout(className, buildHost(this));
   }
 
   /**
@@ -2105,21 +1728,7 @@ CRITICAL ARCHITECTURE RULES:
    * names referenced in the code but missing on disk.
    */
   _findPhantomControllers(code, existingControllers) {
-    const known = new Set(
-      existingControllers.map((fq) => fq.split("\\").pop()),
-    );
-    const refs = new Set();
-    const patterns = [
-      /([A-Za-z0-9_\\]*Controller)::class/g,
-      /['"]([A-Za-z0-9_\\]+Controller)(?:@[A-Za-z0-9_]+)?['"]/g,
-    ];
-    for (const re of patterns) {
-      for (const m of code.matchAll(re)) {
-        const short = m[1].split("\\").pop();
-        if (short && !known.has(short)) refs.add(short);
-      }
-    }
-    return [...refs];
+    return Guards.routeGuards.findPhantomControllers(code, existingControllers);
   }
 
   /**
@@ -2233,7 +1842,7 @@ CRITICAL ARCHITECTURE RULES:
       )
       .join("\n    ");
 
-    const apiPrompt = `Write the content for routes/api.php in Laravel 12. 
+    const apiPrompt = `Write the content for routes/api.php in Laravel 12.
 
 IMPORTANT: Use EXACTLY these imports and routes. Do not change namespaces or use Model classes.
 
@@ -2875,54 +2484,9 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
   // and crashes with ParseError "unexpected token =".
   // Repairs: @foreach topped by @empty/@endforelse -> @forelse;
   //          @forelse closed by @endforeach -> @endforelse.
+  // (extracted to guards/livewireGuards — metrics plan #3)
   _fixBladeLoopDirectives(code) {
-    if (!code) return code;
-    const re = /@(foreach|forelse|endforeach|endforelse|endempty|empty)\b/g;
-    const tokens = [];
-    let m;
-    while ((m = re.exec(code)) !== null) {
-      tokens.push({ name: m[1], index: m.index, len: m[0].length });
-    }
-    if (tokens.length === 0) return code;
-
-    const renames = [];
-    const stack = [];
-    for (const t of tokens) {
-      if (t.name === "foreach" || t.name === "forelse") {
-        stack.push(t);
-      } else if (t.name === "empty") {
-        const top = stack[stack.length - 1];
-        if (top && top.name === "foreach") {
-          renames.push({ i: top.index, len: top.len, to: "forelse" });
-          top.name = "forelse";
-        }
-      } else if (t.name === "endforelse") {
-        const top = stack[stack.length - 1];
-        if (top && top.name === "foreach") {
-          renames.push({ i: top.index, len: top.len, to: "forelse" });
-          top.name = "forelse";
-        }
-        if (top) stack.pop();
-      } else if (t.name === "endforeach") {
-        const top = stack[stack.length - 1];
-        if (top && top.name === "forelse") {
-          renames.push({ i: t.index, len: t.len, to: "endforelse" });
-        }
-        if (top) stack.pop();
-      }
-      // endempty closes a standalone @empty-if; nothing to repair.
-    }
-    if (renames.length === 0) return code;
-
-    let out = code;
-    // Same-length renames (@foreach<->@forelse, @endforeach<->@endforelse),
-    // apply right-to-left so earlier offsets stay valid.
-    renames
-      .sort((a, b) => b.i - a.i)
-      .forEach((r) => {
-        out = out.slice(0, r.i) + "@" + r.to + out.slice(r.i + r.len);
-      });
-    return out;
+    return Guards.livewireGuards.fixBladeLoopDirectives(code);
   }
 
   toPascalCase(str) {
@@ -2938,28 +2502,9 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   // Convert PascalCase model name to snake_case plural table name
   // e.g. UrlShortener -> url_shorteners, ExpenseItem -> expense_items
+  // (extracted to guards/utils — metrics plan #3)
   _toSnakePlural(modelName) {
-    const snake = modelName
-      .replace(/([A-Z])/g, "_$1")
-      .toLowerCase()
-      .replace(/^_/, "");
-    // Simple pluralization: add 's', handle common irregular endings
-    if (
-      snake.endsWith("y") &&
-      !["ay", "ey", "iy", "oy", "uy"].some((e) => snake.endsWith(e))
-    ) {
-      return snake.slice(0, -1) + "ies";
-    }
-    if (
-      snake.endsWith("s") ||
-      snake.endsWith("sh") ||
-      snake.endsWith("ch") ||
-      snake.endsWith("x") ||
-      snake.endsWith("z")
-    ) {
-      return snake + "es";
-    }
-    return snake + "s";
+    return GUtils.toSnakePlural(modelName);
   }
 
   // ══════════════════════════════════════════════════════════════════════
@@ -2970,228 +2515,62 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
   // ══════════════════════════════════════════════════════════════════════
 
   // Relationship pseudo-types that are NOT real DB columns.
+  // (extracted to guards/utils — metrics plan #3)
   _isRelationType(baseType) {
-    return [
-      "hasmany",
-      "hasone",
-      "belongsto",
-      "belongstomany",
-      "morphmany",
-      "morphone",
-      "morphto",
-      "hasmanythrough",
-      "hasonethrough",
-    ].includes(baseType);
+    return GUtils.isRelationType(baseType);
   }
 
   // Parse a model's blueprint.schema object into real columns + relationships.
+  // (extracted to guards/utils — metrics plan #3)
   _parseSchemaColumns(schemaObj) {
-    const columns = [];
-    const relationships = [];
-    if (!schemaObj || typeof schemaObj !== "object") {
-      return { columns, relationships };
-    }
-    const SKIP_COLS = [
-      "id",
-      "created_at",
-      "updated_at",
-      "deleted_at",
-      "remember_token",
-    ];
-    for (const [name, rawType] of Object.entries(schemaObj)) {
-      const typeStr = String(rawType || "").trim();
-      const [baseType, ...mods] = typeStr.split(":");
-      const base = baseType.toLowerCase();
-      if (this._isRelationType(base)) {
-        relationships.push({ name, type: base, target: mods[0] || null });
-        continue;
-      }
-      if (SKIP_COLS.includes(name)) continue;
-      columns.push({ name, baseType: base, mods });
-    }
-    return { columns, relationships };
+    return GUtils.parseSchemaColumns(schemaObj);
   }
 
   // user_id -> User, short_url_id -> ShortUrl
+  // (extracted to guards/utils — metrics plan #3)
   _fkToModel(colName) {
-    const base = String(colName).replace(/_id$/, "");
-    if (!base) return null;
-    return base
-      .split("_")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join("");
+    return GUtils.fkToModel(colName);
   }
 
   // Build a Laravel migration column declaration from a parsed schema column.
+  // (extracted to guards/utils — metrics plan #3)
   _columnMigrationCall(col) {
-    const { name, baseType, mods } = col;
-    const modStr = mods.join(":");
-    let line;
-    switch (baseType) {
-      case "foreignid":
-      case "foreignuuid":
-        line =
-          name === "user_id"
-            ? "$table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()"
-            : this._fkToModel(name) === "User"
-              ? `$table->foreignId('${name}')->constrained('users')->cascadeOnDelete()`
-              : // sibling tables use HasUuids PKs — bigint foreignId would type-clash
-                `$table->foreignUuid('${name}')->constrained()`;
-        break;
-      case "text":
-      case "longtext":
-        line = `$table->text('${name}')`;
-        break;
-      case "json":
-        line = `$table->json('${name}')`;
-        break;
-      case "boolean":
-        line = `$table->boolean('${name}')->default(false)`;
-        break;
-      case "integer":
-      case "int":
-        line = `$table->integer('${name}')->default(0)`;
-        break;
-      case "biginteger":
-        line = `$table->unsignedBigInteger('${name}')->default(0)`;
-        break;
-      case "decimal":
-      case "float":
-      case "double":
-        line = `$table->decimal('${name}', 10, 2)->default(0)`;
-        break;
-      case "date":
-        line = `$table->date('${name}')->nullable()`;
-        break;
-      case "datetime":
-      case "timestamp":
-        line = `$table->timestamp('${name}')->nullable()`;
-        break;
-      case "enum":
-        line = `$table->string('${name}')->nullable()`;
-        break;
-      case "string":
-      default:
-        line = `$table->string('${name}')`;
-        break;
-    }
-    if (modStr.includes("nullable") && !line.includes("->nullable()")) {
-      line += "->nullable()";
-    }
-    if (modStr.includes("unique")) line += "->unique()";
-    const defMatch = mods.find((m) => m.startsWith("default("));
-    if (defMatch) {
-      const val = defMatch.slice(8, -1);
-      line += `->default('${val}')`;
-    }
-    if (modStr.includes("index") || modStr.includes("indexed")) {
-      line += "->index()";
-    }
-    return line + ";";
+    return GUtils.columnMigrationCall(col);
   }
 
   // Inject any real schema columns missing from a generated migration body.
   _ensureMigrationColumns(tableName, schemaObj, code) {
-    if (!code || !code.includes("Schema::create"))
-      return { code, injected: [] };
-    const { columns } = this._parseSchemaColumns(schemaObj);
-    const injected = [];
-    const lines = [];
-    for (const col of columns) {
-      const re = new RegExp(
-        `\\$table\\s*->\\s*\\w+\\s*\\(\\s*['"]${col.name}['"]`,
-      );
-      if (re.test(code)) continue;
-      lines.push("            " + this._columnMigrationCall(col));
-      injected.push(col.name);
-    }
-    if (lines.length === 0) return { code, injected };
-    const block = lines.join("\n");
-    if (/\$table->timestamps\(\);/.test(code)) {
-      code = code.replace(/([ \t]*\$table->timestamps\(\);)/, `${block}\n$1`);
-    } else {
-      code = code.replace(
-        /(\}\s*;\s*\n\s*public function down)/,
-        `\n${block}\n        $1`,
-      );
-    }
-    return { code, injected };
+    const r = Guards.schemaGuards.ensureMigrationColumns(
+      tableName,
+      schemaObj,
+      code,
+    );
+    resolveRunner(this).record(
+      "migration-generation",
+      "migration-columns-ensure",
+      {
+        fired: r.injected.length > 0,
+        notes: r.injected,
+        before: code,
+        after: r.code,
+      },
+    );
+    return r;
   }
 
   // Enforce $fillable + relationship methods on a generated model.
   _ensureModelFillable(modelName, schemaObj, knownModels, code) {
-    if (!code) return code;
-    const { columns, relationships } = this._parseSchemaColumns(schemaObj);
-    let out = code;
-
-    // 1. $fillable = every real schema column
-    const fillableNames = columns.map((c) => c.name);
-    if (fillableNames.length > 0) {
-      const body = fillableNames.map((n) => `'${n}'`).join(", ");
-      if (/protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/.test(out)) {
-        out = out.replace(
-          /protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/,
-          `protected $fillable = [${body}]`,
-        );
-      } else {
-        out = out.replace(
-          /(class\s+\w+\s+extends\s+\w+[\s\S]*?\{)/,
-          `$1\n    protected $fillable = [${body}];\n`,
-        );
-      }
-    }
-
-    // 2. Relationship methods (only when target model is known to exist)
-    const methods = [];
-    const hasMethod = (name) =>
-      new RegExp(`function\\s+${name}\\s*\\(`).test(out);
-    for (const c of columns) {
-      if (c.baseType === "foreignid" || c.baseType === "foreignuuid") {
-        const target = this._fkToModel(c.name);
-        if (target && (target === "User" || knownModels.includes(target))) {
-          const method = c.name.replace(/_id$/, "").replace(/s$/, "");
-          if (method && !hasMethod(method)) {
-            methods.push(
-              `    public function ${method}()\n    {\n        return $this->belongsTo(${target}::class);\n    }`,
-            );
-          }
-        }
-      }
-    }
-    for (const r of relationships) {
-      if (!r.target || !knownModels.includes(r.target)) continue;
-      if (hasMethod(r.name)) continue;
-      if (r.type === "hasmany") {
-        methods.push(
-          `    public function ${r.name}()\n    {\n        return $this->hasMany(${r.target}::class);\n    }`,
-        );
-      } else if (r.type === "hasone") {
-        methods.push(
-          `    public function ${r.name}()\n    {\n        return $this->hasOne(${r.target}::class);\n    }`,
-        );
-      } else if (r.type === "belongsto") {
-        methods.push(
-          `    public function ${r.name}()\n    {\n        return $this->belongsTo(${r.target}::class);\n    }`,
-        );
-      }
-    }
-
-    if (methods.length > 0) {
-      // Remove the placeholder relationship TODO comment lines (whole lines).
-      out = out.replace(
-        /[ \t]*\/\/[^\n]*(?:TODO|relationship methods|Replace this comment)[^\n]*\n/gi,
-        "",
-      );
-      const lastBrace = out.lastIndexOf("}");
-      if (lastBrace !== -1) {
-        out =
-          out.slice(0, lastBrace) +
-          "\n" +
-          methods.join("\n\n") +
-          "\n" +
-          out.slice(lastBrace);
-      }
-    }
+    const out = Guards.schemaGuards.ensureModelFillable(
+      modelName,
+      schemaObj,
+      knownModels,
+      code,
+    );
+    resolveRunner(this).record("model-generation", "model-fillable-lock", {
+      fired: out !== code,
+      before: code,
+      after: out,
+    });
     return out;
   }
 
@@ -3385,107 +2764,43 @@ Output ONLY the raw HTML/Blade code. No markdown blocks.`;
 
   // Deterministic cleanup of hallucinated Faker usage in seeders/factories.
   _sanitizeSeeder(code) {
-    if (!code) return code;
-    let out = code;
-    out = out.replace(/\$faker\s*->/g, "fake()->");
-    out = out.replace(
-      /\$faker\s*=\s*Faker(?:\\Factory)?::create\(\)\s*;?\s*\n?/gi,
-      "",
-    );
-    out = out.replace(/use\s+Faker\\Factory\s*;\s*\n/gi, "");
-    out = out.replace(/->realistic\s*\([^)]*\)/gi, "->sentence(3)");
+    const out = Guards.schemaGuards.sanitizeSeeder(code);
+    resolveRunner(this).record("seeder-generation", "seeder-sanitize", {
+      fired: out !== code,
+      before: code,
+      after: out,
+    });
     return out;
   }
 
-  // Deterministic cleanup of hallucinated migration code.
-  // Local models sometimes emit column MODIFIERS as standalone Blueprint calls
-  // (e.g. `$table->nullable();` with the bogus rationale "nullable for all
-  // columns by default"). Those methods live on the column definition, not on
-  // Illuminate\Database\Schema\Blueprint, so `php artisan migrate` throws
-  // BadMethodCallException. We strip only unambiguous zero-arg bare modifiers
-  // and never touch valid no-arg Blueprint helpers (timestamps/softDeletes/id).
+  // Deterministic cleanup of hallucinated migration code (bare Blueprint
+  // modifiers) — see guards/schemaGuards.js for the full rationale.
   _sanitizeMigration(code) {
-    if (!code || !code.includes("Schema::create")) return code;
-    const BARE_INVALID =
-      /\n[ \t]*\$table\s*->\s*(nullable|unsigned|useCurrent|after|default|comment|charset|collation|change)\s*\(\s*\)\s*;?[^\n]*/gi;
-    return code.replace(BARE_INVALID, "");
+    const out = Guards.schemaGuards.sanitizeMigration(code);
+    resolveRunner(this).record("migration-generation", "migration-sanitize", {
+      fired: out !== code,
+      before: code,
+      after: out,
+    });
+    return out;
   }
 
-  // Collapse duplicate column/helper calls inside every Schema::create(...) block.
-  // (1) An exact-duplicated `$table->...` call (e.g. timestamps() twice) is always
-  //     a migrate error, so keep only the first. (2) When timestamps() is present,
-  //     drop explicit created_at/updated_at columns; when softDeletes() is present,
-  //     drop an explicit deleted_at column — those helpers already define them.
+  // Collapse duplicate column/helper calls inside every Schema::create block
+  // (created_at/updated_at vs timestamps(), deleted_at vs softDeletes()).
   _dedupeMigrationColumns(code) {
-    if (!code || !code.includes("Schema::create")) return code;
-    const lines = code.split(/\r?\n/);
-    const CALL =
-      /^(\s*)(\$table\s*->\s*\w+\s*\([^)]*\)(?:\s*->\s*\w+\s*\([^)]*\))*\s*;)/;
-    const out = [];
-    let i = 0;
-    while (i < lines.length) {
-      out.push(lines[i]);
-      if (/Schema::create\s*\(/.test(lines[i])) {
-        let j = i + 1;
-        const block = [];
-        while (j < lines.length && !/^\s*\}\s*\)\s*;/.test(lines[j])) {
-          block.push(lines[j]);
-          j++;
-        }
-        out.push(...this._dedupeMigrationBlock(block, CALL));
-        i = j; // closing `});` line is emitted on the next loop iteration
-        continue;
-      }
-      i++;
-    }
-    return out.join("\n");
-  }
-
-  _dedupeMigrationBlock(block, CALL) {
-    const hasHelper = (name) =>
-      block.some((l) => new RegExp(`\\$table\\s*->\\s*${name}\\s*\\(`).test(l));
-    const timestamps = hasHelper("timestamps");
-    const softDeletes = hasHelper("softDeletes");
-    const seen = new Set();
-    const result = [];
-    for (const line of block) {
-      const m = line.match(CALL);
-      if (m) {
-        const call = m[2].replace(/\s+/g, "");
-        const colName = (line.match(
-          /\$table\s*->\s*\w+\s*\(\s*['"](\w+)['"]/,
-        ) || [])[1];
-        if (
-          colName &&
-          ((timestamps && /^(created_at|updated_at)$/.test(colName)) ||
-            (softDeletes && colName === "deleted_at"))
-        ) {
-          continue; // explicit column collides with a helper that defines it
-        }
-        if (seen.has(call)) continue; // exact duplicate call
-        seen.add(call);
-      }
-      result.push(line);
-    }
-    return result;
+    const out = Guards.schemaGuards.dedupeMigrationColumns(code);
+    resolveRunner(this).record("migration-generation", "migration-dedupe", {
+      fired: out !== code,
+      before: code,
+      after: out,
+    });
+    return out;
   }
 
   // Columns a blueprint declares for User that are NOT in Laravel's core
   // users table. Generic (any extra attribute), never role-specific.
   _extraUserColumns(schemaObj) {
-    const RESERVED = new Set([
-      "id",
-      "name",
-      "email",
-      "password",
-      "email_verified_at",
-      "remember_token",
-      "created_at",
-      "updated_at",
-      "deleted_at",
-    ]);
-    const { columns } = this._parseSchemaColumns(schemaObj);
-    return columns.filter((c) => !RESERVED.has(c.name));
+    return Guards.schemaGuards.extraUserColumns(schemaObj);
   }
 
   // Build an ADDITIVE migration that appends blueprint-declared User columns
@@ -3535,69 +2850,33 @@ ${drops}
   // reading `$user->shortUrls` get null and chained calls crash with
   // "Call to a member function first() on null". Generic & schema-driven:
   // any model with a *_user_id/user_id FK gets a camelPlural() relation.
+  // (extracted to guards/schemaGuards — metrics plan #3)
   _ensureUserRelations(code, blueprint) {
-    const added = [];
-    if (!code || !blueprint || !blueprint.schema) return { code, added };
-    let out = code;
-    const relMethods = [];
-    for (const modelName of Object.keys(blueprint.schema)) {
-      if (modelName === "User") continue;
-      const { columns } = this._parseSchemaColumns(blueprint.schema[modelName]);
-      const hasUserFk = columns.some(
-        (c) =>
-          (c.baseType === "foreignid" || c.baseType === "foreignuuid") &&
-          (/(^|_)user_id$/i.test(c.name) || /\buser\b/i.test(c.name)),
-      );
-      if (!hasUserFk) continue;
-      const method = this._camelPlural(modelName);
-      if (new RegExp(`function\\s+${method}\\s*\\(`).test(out)) continue;
-      relMethods.push(
-        `    public function ${method}()\n    {\n        return $this->hasMany(${modelName}::class);\n    }`,
-      );
-      added.push(`${method}() -> ${modelName}`);
-    }
-    if (relMethods.length === 0) return { code, added };
-    const lastBrace = out.lastIndexOf("}");
-    out =
-      out.slice(0, lastBrace) +
-      "\n" +
-      relMethods.join("\n\n") +
-      "\n" +
-      out.slice(lastBrace);
-    return { code: out, added };
+    const r = Guards.schemaGuards.ensureUserRelations(code, blueprint);
+    resolveRunner(this).record("user-generation", "user-relations", {
+      fired: r.added.length > 0,
+      notes: r.added,
+      before: code,
+      after: r.code,
+    });
+    return r;
   }
 
   // Additively register extra columns in the preserved User model's fillable,
   // supporting both Laravel 12 `#[Fillable([...])]` and `protected $fillable`.
+  // (extracted to guards/schemaGuards — metrics plan #3)
   _ensureUserFillable(code, extraNames) {
-    if (!code || !extraNames || extraNames.length === 0) return code;
-    const attrMatch = code.match(/#\[Fillable\(\[([^\]]*)\]\)\]/);
-    if (attrMatch) {
-      const existing = [...attrMatch[1].matchAll(/'([^']*)'/g)].map(
-        (m) => m[1],
-      );
-      const merged = [...existing];
-      for (const n of extraNames) if (!merged.includes(n)) merged.push(n);
-      const body = merged.map((n) => `'${n}'`).join(", ");
-      return code.replace(
-        /#\[Fillable\(\[[^\]]*\]\)\]/,
-        `#[Fillable([${body}])]`,
-      );
-    }
-    if (/protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/.test(code)) {
-      const block = code.match(
-        /protected\s+\$fillable\s*=\s*\[([\s\S]*?)\]/,
-      )[1];
-      const existing = [...block.matchAll(/'([^']*)'/g)].map((m) => m[1]);
-      const merged = [...existing];
-      for (const n of extraNames) if (!merged.includes(n)) merged.push(n);
-      const body = merged.map((n) => `'${n}'`).join(", ");
-      return code.replace(
-        /protected\s+\$fillable\s*=\s*\[[\s\S]*?\]/,
-        `protected $fillable = [${body}]`,
-      );
-    }
-    return code;
+    const out = Guards.schemaGuards.ensureUserFillable(code, extraNames);
+    resolveRunner(this).record("user-generation", "user-fillable-lock", {
+      fired: out !== code,
+      notes:
+        out !== code
+          ? [`registered extra fillable: ${extraNames.join(", ")}`]
+          : [],
+      before: code,
+      after: out,
+    });
+    return out;
   }
 }
 module.exports = ImplementationPhase;

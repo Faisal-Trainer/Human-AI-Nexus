@@ -1,74 +1,97 @@
-const fs = require('fs-extra');
-const path = require('path');
-const crypto = require('crypto');
-const NexusClock = require('./NexusClock');
-const SemanticEngine = require('./SemanticEngine');
+const fs = require("fs-extra");
+const path = require("path");
+const crypto = require("crypto");
+const NexusClock = require("./NexusClock");
+const SemanticEngine = require("./SemanticEngine");
 // FIX #25 — NativeBridge masih dipakai di applySemanticLinking, tapi tidak diinstansiasi di constructor
 // Import tetap ada karena diperlukan saat native binary tersedia
-const NativeBridge = require('./NativeBridge');
+const NativeBridge = require("./NativeBridge");
 
 class Distiller {
-    constructor(knowledgePath) {
-        this.knowledgePath = knowledgePath;
-        // Determine root and memory directory. In production `knowledgePath` points to the distilled folder,
-        // while the actual memory lives two levels up at <projectRoot>/memory. Tests may supply a temporary folder
-        // that contains only markdown files. If a sibling `memory` folder exists two levels up, use it;
-        // otherwise treat the supplied path as the memory directory.
-        const possibleRoot = path.resolve(knowledgePath, '..', '..');
-        const possibleMemory = path.join(possibleRoot, 'memory');
-        if (fs.pathExistsSync(possibleMemory)) {
-            this._rootPath = possibleRoot;
-            this.memoryPath = possibleMemory;
+  constructor(knowledgePath) {
+    this.knowledgePath = knowledgePath;
+    // Determine root and memory directory. In production `knowledgePath` points to
+    // <memory>/distilled, sehingga memory dir sebenarnya satu level di atasnya.
+    // Re-root ke <possibleRoot>/memory HANYA bila knowledgePath memang berada di
+    // dalam memory production itu. Untuk folder lain (mis. temp test di scratch/ yang
+    // kebetulan punya sibling <root>/memory), gunakan knowledgePath langsung -
+    // kalau tidak, getFiles() memindai memory asli dan melewatkan target test.
+    const possibleRoot = path.resolve(knowledgePath, "..", "..");
+    const possibleMemory = path.join(possibleRoot, "memory");
+    const relToMemory = path.relative(
+      possibleMemory,
+      path.resolve(knowledgePath),
+    );
+    const insideMemory =
+      relToMemory === "" ||
+      (!!relToMemory &&
+        !relToMemory.startsWith("..") &&
+        !path.isAbsolute(relToMemory));
+    if (fs.pathExistsSync(possibleMemory) && insideMemory) {
+      this._rootPath = possibleRoot;
+      this.memoryPath = possibleMemory;
+    } else {
+      // Test / standalone environment - treat the given path as the memory directory
+      this._rootPath = possibleRoot;
+      this.memoryPath = knowledgePath;
+    }
+    this.prefix = "NEXUS_";
+    this.semanticEngine = new SemanticEngine(this.memoryPath);
+  }
+
+  /**
+   * Get all knowledge files recursively
+   */
+  getFiles() {
+    const fg = require("fast-glob");
+    const normalizedPath = this.memoryPath.replace(/\\/g, "/");
+    return fg.sync("**/*.{md,MD}", {
+      cwd: normalizedPath,
+      ignore: [
+        "INDEX.md",
+        "NEXUS_HUB_INDEX.md",
+        "NEXUS_NEURAL_MAP.md",
+        "INDEX_NEURAL_MAP.md",
+        "short_term/**",
+        "cache/**",
+        "operational/indexes/**",
+        "references/**",
+      ],
+      onlyFiles: true,
+    });
+  }
+
+  /**
+   * Standardize all filenames in HUB to NEXUS_ prefix recursively
+   */
+  async standardizeNames() {
+    console.log("🏷️ Distiller: Standardizing HUB filenames recursively...");
+    const files = this.getFiles();
+
+    for (const file of files) {
+      const basename = path.basename(file);
+      if (basename === ".gitkeep") continue;
+
+      if (
+        this.activeRack &&
+        !file.replace(/\\/g, "/").includes(`distilled/${this.activeRack}/`)
+      ) {
+        continue;
+      }
+
+      if (!basename.startsWith(this.prefix)) {
+        const oldPath = path.join(this.memoryPath, file);
+        const newBasename = this.prefix + basename.toUpperCase();
+        const newPath = path.join(path.dirname(oldPath), newBasename);
+
+        if (!(await fs.pathExists(newPath))) {
+          await fs.move(oldPath, newPath);
+          console.log(`   ✅ Renamed: ${basename} ➔ ${newBasename}`);
         } else {
-            // Test environment – treat the given path as the memory directory directly
-            this._rootPath = possibleRoot;
-            this.memoryPath = knowledgePath;
-        }
-        this.prefix = 'NEXUS_';
-        this.semanticEngine = new SemanticEngine(this.memoryPath);
-    }
+          const oldContent = await fs.readFile(oldPath, "utf8");
+          const existingContent = await fs.readFile(newPath, "utf8");
 
-    /**
-     * Get all knowledge files recursively
-     */
-    getFiles() {
-        const fg = require('fast-glob');
-        const normalizedPath = this.memoryPath.replace(/\\/g, '/');
-        return fg.sync('**/*.{md,MD}', { 
-            cwd: normalizedPath, 
-            ignore: ['INDEX.md', 'NEXUS_HUB_INDEX.md', 'NEXUS_NEURAL_MAP.md', 'INDEX_NEURAL_MAP.md', 'short_term/**', 'cache/**', 'operational/indexes/**', 'references/**'],
-            onlyFiles: true 
-        });
-    }
-
-    /**
-     * Standardize all filenames in HUB to NEXUS_ prefix recursively
-     */
-    async standardizeNames() {
-        console.log('🏷️ Distiller: Standardizing HUB filenames recursively...');
-        const files = this.getFiles();
-        
-        for (const file of files) {
-            const basename = path.basename(file);
-            if (basename === '.gitkeep') continue;
-            
-            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
-                continue;
-            }
-            
-            if (!basename.startsWith(this.prefix)) {
-                const oldPath = path.join(this.memoryPath, file);
-                const newBasename = this.prefix + basename.toUpperCase();
-                const newPath = path.join(path.dirname(oldPath), newBasename);
-                
-                if (!(await fs.pathExists(newPath))) {
-                    await fs.move(oldPath, newPath);
-                    console.log(`   ✅ Renamed: ${basename} ➔ ${newBasename}`);
-                } else {
-                    const oldContent = await fs.readFile(oldPath, 'utf8');
-                    const existingContent = await fs.readFile(newPath, 'utf8');
-                    
-                    const merged = `
+          const merged = `
 # 🛠 NEXUS AUTO-MERGE: ${newBasename}
 > Gabungan otomatis antara file lama (${basename}) dan file eksisting.
 
@@ -85,505 +108,661 @@ ${oldContent.trim()}
 ---
 *Merged by Nexus Distiller | Protokol: Multi-Option | Date: ${new Date().toLocaleDateString()}*
 `;
-                    await this.updateVersionHeader(newPath, merged);
-                    await fs.remove(oldPath);
-                    console.log(`   🔄 Multi-Option Merge: ${basename} into ${newBasename}`);
-                }
-            }
+          await this.updateVersionHeader(newPath, merged);
+          await fs.remove(oldPath);
+          console.log(
+            `   🔄 Multi-Option Merge: ${basename} into ${newBasename}`,
+          );
         }
+      }
+    }
+  }
+
+  /**
+   * Distill JSON agent logs from logs/agents/ into Markdown audit reports.
+   */
+  async distillJSONLogs() {
+    console.log(
+      "📊 Distiller: Distilling JSON Agent Logs into Audit Reports...",
+    );
+    const fg = require("fast-glob");
+    const logsDir = path.join(this._rootPath, "logs", "agents");
+
+    if (!(await fs.pathExists(logsDir))) return;
+
+    const jsonFiles = fg.sync("*.json", { cwd: logsDir, onlyFiles: true });
+
+    for (const file of jsonFiles) {
+      const filePath = path.join(logsDir, file);
+      let logs;
+      try {
+        logs = await fs.readJson(filePath);
+      } catch (e) {
+        console.warn(`   ⚠️ Failed to read ${file}: ${e.message}`);
+        continue;
+      }
+
+      if (!Array.isArray(logs) || logs.length === 0) continue;
+
+      const timestamp = new Date().toLocaleDateString();
+      const dateStr = path.basename(file, ".json");
+
+      let mdContent = `# 📊 NEXUS AGENT PERFORMANCE LOG: ${dateStr}\n`;
+      mdContent += `> **Protocol**: Autonomous Log Distillation | **Source**: \`logs/agents/${file}\` | **Distilled At**: ${timestamp}\n\n`;
+
+      // Group by trace_id
+      const traces = {};
+      for (const log of logs) {
+        if (!log.trace_id) continue;
+        if (!traces[log.trace_id]) traces[log.trace_id] = [];
+        traces[log.trace_id].push(log);
+      }
+
+      let totalAgents = new Set();
+      let fastestAgent = { agent: "-", duration: Infinity };
+      let slowestAgent = { agent: "-", duration: 0 };
+      let totalDuration = 0;
+      let logCount = 0;
+
+      for (const [traceId, events] of Object.entries(traces)) {
+        mdContent += `## ⏱️ Trace: \`${traceId}\`\n`;
+        let traceDuration = 0;
+        for (const event of events) {
+          if (event.duration_ms !== undefined) {
+            mdContent += `- **${event.agent || "Unknown"}**: ${event.duration_ms}ms\n`;
+            if (event.agent) totalAgents.add(event.agent);
+            traceDuration += event.duration_ms;
+            totalDuration += event.duration_ms;
+            logCount++;
+
+            if (event.duration_ms < fastestAgent.duration)
+              fastestAgent = {
+                agent: event.agent,
+                duration: event.duration_ms,
+              };
+            if (event.duration_ms > slowestAgent.duration)
+              slowestAgent = {
+                agent: event.agent,
+                duration: event.duration_ms,
+              };
+          }
+        }
+        mdContent += `- **Total Trace Duration**: ${traceDuration}ms\n\n`;
+      }
+
+      mdContent += `## 📈 Performance Summary\n`;
+      mdContent += `- **Total Agents Involved**: ${totalAgents.size}\n`;
+      mdContent += `- **Total Log Entries Processed**: ${logCount}\n`;
+      mdContent += `- **Total Combined Execution Time**: ${totalDuration}ms\n`;
+      mdContent += `- **Fastest Agent**: ${fastestAgent.agent} (${fastestAgent.duration === Infinity ? 0 : fastestAgent.duration}ms)\n`;
+      mdContent += `- **Slowest Agent**: ${slowestAgent.agent} (${slowestAgent.duration}ms)\n\n`;
+
+      const targetPath = path.join(
+        this.knowledgePath,
+        "audit",
+        `NEXUS_DISTILLATION_LOGS_${dateStr}.md`,
+      );
+      await fs.ensureDir(path.dirname(targetPath));
+
+      const existing = (await fs.pathExists(targetPath))
+        ? await fs.readFile(targetPath, "utf8")
+        : "";
+      await this.updateVersionHeader(targetPath, mdContent);
+      if (!existing) {
+        console.log(
+          `   ✅ Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`,
+        );
+      } else {
+        console.log(
+          `   ✅ Updated Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`,
+        );
+      }
+    }
+  }
+
+  /**
+   * Distill academic papers into category-specific knowledge files.
+   */
+  async distillAcademics() {
+    console.log(
+      "📚 Distiller: Distilling academic documents into Category-Based Wisdom...",
+    );
+
+    const monolithicFile = path.join(
+      this.knowledgePath,
+      "NEXUS_ACADEMIC_DISTILLATION.md",
+    );
+    if (await fs.pathExists(monolithicFile)) await fs.remove(monolithicFile);
+
+    const academicKeywords = [
+      "paper",
+      "optimizing",
+      "experience",
+      "ux",
+      "dba2aea",
+      "artikel",
+      "journal",
+    ];
+    const files = this.getFiles();
+
+    const timestamp = new Date().toLocaleDateString();
+    const version = `v${Date.now().toString().slice(-4)}`;
+    const categoryData = {}; // { category: content }
+
+    const filteredFiles = files.filter((file) => {
+      const lowerFile = file.toLowerCase();
+      return (
+        academicKeywords.some((kw) => lowerFile.includes(kw)) &&
+        !path.basename(file).startsWith("NEXUS_DISTILLATION")
+      );
+    });
+
+    const chunkArray = (arr, size) =>
+      Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+        arr.slice(i * size, i * size + size),
+      );
+    const CONCURRENCY = 2;
+
+    for (const chunk of chunkArray(filteredFiles, CONCURRENCY)) {
+      await Promise.all(
+        chunk.map(async (file) => {
+          const filePath = path.join(this.memoryPath, file);
+          const content = await fs.readFile(filePath, "utf8");
+
+          const category = this.identifyCategory(content);
+          if (!categoryData[category]) {
+            categoryData[category] =
+              `\n\n## 🎓 ${category.toUpperCase()} WISDOM DISTILLATION [${version}] - ${timestamp}\n`;
+            categoryData[category] +=
+              `> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights\n\n`;
+          }
+
+          const headerMatch = content.match(/^#+\s+(.*)$/m);
+          const title = headerMatch
+            ? headerMatch[1]
+            : path.basename(file).replace(this.prefix, "").replace(".md", "");
+
+          let block = `### 📄 ${title}\n`;
+          block += `> **Origin**: \`${file}\` | **Distilled At**: ${timestamp}\n\n`;
+
+          // Try Python-based AI Distillation first
+          try {
+            console.log(`   🧠 AI Distilling: ${file}...`);
+            if (!this._native) this._native = new NativeBridge(this._rootPath);
+            const distillerScript = path.join(
+              this._native.binPath,
+              "distiller.py",
+            );
+            if (!(await fs.pathExists(distillerScript)))
+              throw new Error("distiller.py binary not found");
+            const aiResult = await this._native.callPython(distillerScript, [
+              filePath,
+            ]);
+            block += aiResult + "\n\n";
+          } catch (e) {
+            console.warn(
+              `   ⚠️ AI Distillation failed, falling back to Regex: ${e.message}`,
+            );
+            const insights = content.match(
+              /(?:insight|temuan|hasil|conclusion|key point)[\s\S]*?(?=\n#|\n---|\n\Z)/i,
+            );
+            const recs = content.match(
+              /(?:recommendation|saran|pembelajaran|lesson|action)[\s\S]*?(?=\n#|\n---|\n\Z)/i,
+            );
+            const body = content.replace(/^#+.*$/gm, "").trim();
+
+            if (insights)
+              block += `#### 🧐 Core Insights (Distilled):\n${insights[0].trim().substring(0, 1000)}\n\n`;
+            if (recs)
+              block += `#### 🛠 Actionable Steps:\n${recs[0].trim().substring(0, 800)}\n\n`;
+            if (!insights && !recs)
+              block += `#### 💡 Content Summary:\n${body.substring(0, 1200)}...\n\n`;
+          }
+
+          block += `#### 🔗 Traceability:\n- [Source Context](${path.basename(file)})\n- [Related Standards](NEXUS_CORE_PRINCIPLES.md)\n\n---\n`;
+
+          categoryData[category] += block;
+        }),
+      );
     }
 
-    /**
-     * Distill JSON agent logs from logs/agents/ into Markdown audit reports.
-     */
-    async distillJSONLogs() {
-        console.log('📊 Distiller: Distilling JSON Agent Logs into Audit Reports...');
-        const fg = require('fast-glob');
-        const logsDir = path.join(this._rootPath, 'logs', 'agents');
-        
-        if (!(await fs.pathExists(logsDir))) return;
-        
-        const jsonFiles = fg.sync('*.json', { cwd: logsDir, onlyFiles: true });
-        
-        for (const file of jsonFiles) {
-            const filePath = path.join(logsDir, file);
-            let logs;
-            try {
-                logs = await fs.readJson(filePath);
-            } catch (e) {
-                console.warn(`   ⚠️ Failed to read ${file}: ${e.message}`);
-                continue;
-            }
-            
-            if (!Array.isArray(logs) || logs.length === 0) continue;
-            
-            const timestamp = new Date().toLocaleDateString();
-            const dateStr = path.basename(file, '.json');
-            
-            let mdContent = `# 📊 NEXUS AGENT PERFORMANCE LOG: ${dateStr}\n`;
-            mdContent += `> **Protocol**: Autonomous Log Distillation | **Source**: \`logs/agents/${file}\` | **Distilled At**: ${timestamp}\n\n`;
-            
-            // Group by trace_id
-            const traces = {};
-            for (const log of logs) {
-                if (!log.trace_id) continue;
-                if (!traces[log.trace_id]) traces[log.trace_id] = [];
-                traces[log.trace_id].push(log);
-            }
-            
-            let totalAgents = new Set();
-            let fastestAgent = { agent: '-', duration: Infinity };
-            let slowestAgent = { agent: '-', duration: 0 };
-            let totalDuration = 0;
-            let logCount = 0;
-            
-            for (const [traceId, events] of Object.entries(traces)) {
-                mdContent += `## ⏱️ Trace: \`${traceId}\`\n`;
-                let traceDuration = 0;
-                for (const event of events) {
-                    if (event.duration_ms !== undefined) {
-                        mdContent += `- **${event.agent || 'Unknown'}**: ${event.duration_ms}ms\n`;
-                        if (event.agent) totalAgents.add(event.agent);
-                        traceDuration += event.duration_ms;
-                        totalDuration += event.duration_ms;
-                        logCount++;
-                        
-                        if (event.duration_ms < fastestAgent.duration) fastestAgent = { agent: event.agent, duration: event.duration_ms };
-                        if (event.duration_ms > slowestAgent.duration) slowestAgent = { agent: event.agent, duration: event.duration_ms };
-                    }
-                }
-                mdContent += `- **Total Trace Duration**: ${traceDuration}ms\n\n`;
-            }
-            
-            mdContent += `## 📈 Performance Summary\n`;
-            mdContent += `- **Total Agents Involved**: ${totalAgents.size}\n`;
-            mdContent += `- **Total Log Entries Processed**: ${logCount}\n`;
-            mdContent += `- **Total Combined Execution Time**: ${totalDuration}ms\n`;
-            mdContent += `- **Fastest Agent**: ${fastestAgent.agent} (${fastestAgent.duration === Infinity ? 0 : fastestAgent.duration}ms)\n`;
-            mdContent += `- **Slowest Agent**: ${slowestAgent.agent} (${slowestAgent.duration}ms)\n\n`;
-            
-            const targetPath = path.join(this.knowledgePath, 'audit', `NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
-            await fs.ensureDir(path.dirname(targetPath));
-            
-            const existing = (await fs.pathExists(targetPath)) ? await fs.readFile(targetPath, 'utf8') : '';
-            await this.updateVersionHeader(targetPath, mdContent);
-            if (!existing) {
-                console.log(`   ✅ Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
-            } else {
-                console.log(`   ✅ Updated Distilled JSON Log: ${file} ➔ audit/NEXUS_DISTILLATION_LOGS_${dateStr}.md`);
-            }
+    for (const [cat, distilled] of Object.entries(categoryData)) {
+      // Distilled files go to academics rack
+      const targetFile = path.join(
+        this.knowledgePath,
+        "academics",
+        `NEXUS_DISTILLATION_${cat.toUpperCase()}.md`,
+      );
+      await fs.ensureFile(targetFile);
+      const existing = (await fs.pathExists(targetFile))
+        ? await fs.readFile(targetFile, "utf8")
+        : "";
+      await this.updateVersionHeader(targetFile, existing + distilled);
+      console.log(
+        `   ✅ Distilled into: academics/NEXUS_DISTILLATION_${cat.toUpperCase()}.md`,
+      );
+    }
+  }
+
+  /**
+   * Identify category based on content keywords
+   */
+  identifyCategory(content) {
+    const tagScores = this.semanticEngine.extractMultiTagsWithScores(content);
+    const primary =
+      tagScores.sort((a, b) => b.score - a.score)[0]?.tag || "other";
+    return (
+      primary
+        .replace(/[<>:"/\\|?*\[\]'=$(){}@#%^&+,;]/g, "")
+        .replace(/\s+/g, "-")
+        .substring(0, 32)
+        .toLowerCase()
+        .trim() || "other"
+    );
+  }
+
+  /**
+   * Return semua tags (multi-label) — dipakai untuk semantic tagging
+   */
+  identifyCategories(content) {
+    return this.semanticEngine.extractMultiTags(content);
+  }
+
+  /**
+   * Shelve files into semantic subfolders (Phase 5)
+   */
+  async shelve() {
+    console.log("📂 Distiller: Shelving knowledge into semantic racks...");
+    const files = this.getFiles();
+
+    const VALID_RACKS = new Set([
+      "core",
+      "laravel",
+      "frontend",
+      "api",
+      "database",
+      "security",
+      "tdd",
+      "devops",
+      "performance",
+      "planning",
+      "audit",
+      "academics",
+    ]);
+
+    for (const file of files) {
+      const parts = file.replace(/\\/g, "/").split("/");
+      const rootFolder = parts[0];
+
+      if (["raw", "operational", "archived"].includes(rootFolder)) {
+        continue; // Do not shelve files that belong in raw or operational
+      }
+
+      if (
+        rootFolder === "distilled" &&
+        parts.length > 2 &&
+        VALID_RACKS.has(parts[1])
+      ) {
+        continue; // Skip files already shelved in a valid rack
+      }
+
+      const filePath = path.join(this.memoryPath, file);
+      const content = await fs.readFile(filePath, "utf8");
+
+      // Standards stay in standards rack
+      const isStandard = [
+        "PRINCIPLES",
+        "STANDARDS",
+        "LAWS",
+        "PROTOCOL",
+        "CONTRACT",
+        "ALGORITHM",
+        "WORKFLOW",
+      ].some((kw) => file.includes(kw));
+      const rawCategory = isStandard
+        ? "standards"
+        : this.identifyCategory(content);
+      const category = VALID_RACKS.has(rawCategory) ? rawCategory : "other";
+
+      if (this.activeRack && category !== this.activeRack) {
+        continue;
+      }
+
+      const targetDir = path.join(this.knowledgePath, category);
+      const targetPath = path.join(targetDir, path.basename(file));
+
+      if (filePath !== targetPath) {
+        await fs.ensureDir(targetDir);
+        await fs.move(filePath, targetPath, { overwrite: true });
+        console.log(`   📂 Shelved: ${path.basename(file)} ➔ ${category}/`);
+      }
+    }
+  }
+
+  /**
+   * Add semantic tags recursively
+   */
+  async applySemanticTagging() {
+    console.log(
+      "🏷️ Distiller: Applying Multi-Label Semantic Tagging (Vector-Enhanced)...",
+    );
+    const files = this.getFiles();
+
+    for (const file of files) {
+      if (
+        this.activeRack &&
+        !file.replace(/\\/g, "/").includes(`distilled/${this.activeRack}/`)
+      ) {
+        continue;
+      }
+
+      const filePath = path.join(this.memoryPath, file);
+      let content = await fs.readFile(filePath, "utf8");
+
+      // Gunakan multi-label detection
+      const foundTags = this.identifyCategories(content);
+
+      if (foundTags.length > 0) {
+        const tagStr = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${foundTags.join(", ")}]\n`;
+        if (!content.includes("METADATA (NEXUS SEMANTIC TAGS)")) {
+          content += tagStr;
+          await this.updateVersionHeader(filePath, content);
+          console.log(`   ✅ Tagged: ${file} with [${foundTags.join(", ")}]`);
         }
+      }
+    }
+  }
+
+  /**
+   * Optimized Semantic Linking with Native C++ Power (SSD-Aware)
+   */
+  async applySemanticLinking() {
+    console.log(
+      "🔗 Distiller: Applying Path-Aware Semantic Cross-Linking (Native C++ Optimized)...",
+    );
+    // FIX #25 — Lazy-init NativeBridge hanya saat benar-benar dibutuhkan
+    if (!this._native) {
+      this._native = new NativeBridge(this._rootPath);
+    }
+    try {
+      const ext = process.platform === "win32" ? ".exe" : "";
+      const fastLinkerBin = path.join(
+        this._native.binPath,
+        "fast_linker" + ext,
+      );
+      if (!(await fs.pathExists(fastLinkerBin)))
+        throw new Error("fast_linker binary not found");
+
+      const output = await this._native.callCpp("fast_linker", [
+        this.memoryPath,
+      ]);
+      console.log(output);
+    } catch (e) {
+      console.warn(
+        `   ⚠️ Native linking failed, falling back to JS: ${e.message}`,
+      );
+      await this.applySemanticLinkingJS();
+    }
+  }
+
+  async applySemanticLinkingJS() {
+    console.log("🔗 Distiller: Falling back to JS Semantic Linking...");
+
+    const cachePath = path.join(
+      this.memoryPath,
+      "short_term",
+      "cache",
+      "link_cache.json",
+    );
+    let cache = {};
+    if (await fs.pathExists(cachePath)) {
+      try {
+        cache = await fs.readJson(cachePath);
+      } catch (e) {
+        cache = {};
+      }
     }
 
-    /**
-     * Distill academic papers into category-specific knowledge files.
-     */
-    async distillAcademics() {
-        console.log('📚 Distiller: Distilling academic documents into Category-Based Wisdom...');
-        
-        const monolithicFile = path.join(this.knowledgePath, 'NEXUS_ACADEMIC_DISTILLATION.md');
-        if (await fs.pathExists(monolithicFile)) await fs.remove(monolithicFile);
+    const files = this.getFiles();
 
-        const academicKeywords = ['paper', 'optimizing', 'experience', 'ux', 'dba2aea', 'artikel', 'journal'];
-        const files = this.getFiles();
-        
-        const timestamp = new Date().toLocaleDateString();
-        const version = `v${Date.now().toString().slice(-4)}`;
-        const categoryData = {}; // { category: content }
+    // FIX #26 — Pre-compile keyword→file map AND keyword regexes ONCE
+    // Eliminates O(n²) by avoiding per-file regex construction
+    const linkMap = new Map();
+    files.forEach((f) => {
+      const clean = path
+        .basename(f)
+        .replace(this.prefix, "")
+        .replace(".md", "")
+        .toLowerCase();
+      if (clean.length > 3) linkMap.set(clean, f);
+    });
 
-        const filteredFiles = files.filter(file => {
-            const lowerFile = file.toLowerCase();
-            return academicKeywords.some(kw => lowerFile.includes(kw)) && !path.basename(file).startsWith('NEXUS_DISTILLATION');
-        });
-
-        const chunkArray = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (v, i) => arr.slice(i * size, i * size + size));
-        const CONCURRENCY = 2;
-
-        for (const chunk of chunkArray(filteredFiles, CONCURRENCY)) {
-            await Promise.all(chunk.map(async file => {
-                const filePath = path.join(this.memoryPath, file);
-                const content = await fs.readFile(filePath, 'utf8');
-                
-                const category = this.identifyCategory(content);
-                if (!categoryData[category]) {
-                    categoryData[category] = `\n\n## 🎓 ${category.toUpperCase()} WISDOM DISTILLATION [${version}] - ${timestamp}\n`;
-                    categoryData[category] += `> **Protocol**: Autonomous Intelligence Extraction | **Focus**: Actionable Tech Insights\n\n`;
-                }
-
-                const headerMatch = content.match(/^#+\s+(.*)$/m);
-                const title = headerMatch ? headerMatch[1] : path.basename(file).replace(this.prefix, '').replace('.md', '');
-                
-                let block = `### 📄 ${title}\n`;
-                block += `> **Origin**: \`${file}\` | **Distilled At**: ${timestamp}\n\n`;
-
-                // Try Python-based AI Distillation first
-                try {
-                    console.log(`   🧠 AI Distilling: ${file}...`);
-                    if (!this._native) this._native = new NativeBridge(this._rootPath);
-                    const distillerScript = path.join(this._native.binPath, 'distiller.py');
-                    if (!(await fs.pathExists(distillerScript))) throw new Error('distiller.py binary not found');
-                    const aiResult = await this._native.callPython(distillerScript, [filePath]);
-                    block += aiResult + '\n\n';
-                } catch (e) {
-                    console.warn(`   ⚠️ AI Distillation failed, falling back to Regex: ${e.message}`);
-                    const insights = content.match(/(?:insight|temuan|hasil|conclusion|key point)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
-                    const recs = content.match(/(?:recommendation|saran|pembelajaran|lesson|action)[\s\S]*?(?=\n#|\n---|\n\Z)/i);
-                    const body = content.replace(/^#+.*$/gm, '').trim();
-
-                    if (insights) block += `#### 🧐 Core Insights (Distilled):\n${insights[0].trim().substring(0, 1000)}\n\n`;
-                    if (recs) block += `#### 🛠 Actionable Steps:\n${recs[0].trim().substring(0, 800)}\n\n`;
-                    if (!insights && !recs) block += `#### 💡 Content Summary:\n${body.substring(0, 1200)}...\n\n`;
-                }
-
-                block += `#### 🔗 Traceability:\n- [Source Context](${path.basename(file)})\n- [Related Standards](NEXUS_CORE_PRINCIPLES.md)\n\n---\n`;
-                
-                categoryData[category] += block;
-            }));
-        }
-
-        for (const [cat, distilled] of Object.entries(categoryData)) {
-            // Distilled files go to academics rack
-            const targetFile = path.join(this.knowledgePath, 'academics', `NEXUS_DISTILLATION_${cat.toUpperCase()}.md`);
-            await fs.ensureFile(targetFile);
-            const existing = (await fs.pathExists(targetFile)) ? await fs.readFile(targetFile, 'utf8') : '';
-            await this.updateVersionHeader(targetFile, existing + distilled);
-            console.log(`   ✅ Distilled into: academics/NEXUS_DISTILLATION_${cat.toUpperCase()}.md`);
-        }
+    // Pre-compile all keyword regexes once (saves ~80% time on 500+ files)
+    const compiledKeywords = [];
+    for (const keyword of linkMap.keys()) {
+      compiledKeywords.push({
+        keyword,
+        targetRelPath: linkMap.get(keyword),
+        regex: new RegExp(
+          `(?<!\\[)\\b${this.escapeRegExp(keyword)}\\b(?![\\]\\(])`,
+          "gi",
+        ),
+      });
     }
 
-    /**
-     * Identify category based on content keywords
-     */
-    identifyCategory(content) {
-        const tagScores = this.semanticEngine.extractMultiTagsWithScores(content);
-        const primary = tagScores.sort((a, b) => b.score - a.score)[0]?.tag || 'other';
-        return primary
-            .replace(/[<>:"/\\|?*\[\]'=$(){}@#%^&+,;]/g, '')
-            .replace(/\s+/g, '-')
-            .substring(0, 32)
-            .toLowerCase()
-            .trim() || 'other';
+    // Sort by keyword length descending (longer matches first = more specific)
+    compiledKeywords.sort((a, b) => b.keyword.length - a.keyword.length);
+
+    let totalLinked = 0;
+
+    for (const file of files) {
+      if (
+        this.activeRack &&
+        !file.replace(/\\/g, "/").includes(`distilled/${this.activeRack}/`)
+      ) {
+        continue;
+      }
+
+      const filePath = path.join(this.memoryPath, file);
+      const stats = await fs.stat(filePath);
+      const lastLinked = cache[file] || 0;
+
+      if (stats.mtimeMs <= lastLinked) continue;
+
+      let content = await fs.readFile(filePath, "utf8");
+      let modified = false;
+
+      // FIX #26 — Use pre-compiled regexes instead of creating new ones per file
+      for (const { keyword, targetRelPath, regex } of compiledKeywords) {
+        if (file === targetRelPath) continue;
+
+        // Reset regex lastIndex for each use (global flag)
+        regex.lastIndex = 0;
+        if (regex.test(content)) {
+          const relativeTarget = this.getRelativePath(file, targetRelPath);
+          if (!content.includes(`](${relativeTarget})`)) {
+            regex.lastIndex = 0;
+            content = content.replace(
+              regex,
+              (match) => `[${match}](${relativeTarget})`,
+            );
+            modified = true;
+          }
+        }
+      }
+
+      if (modified) {
+        await this.updateVersionHeader(filePath, content);
+        console.log(`   🔗 Linked: ${file} ➔ modules`);
+        totalLinked++;
+      }
+      cache[file] = Date.now();
     }
 
-    /**
-     * Return semua tags (multi-label) — dipakai untuk semantic tagging
-     */
-    identifyCategories(content) {
-        return this.semanticEngine.extractMultiTags(content);
+    await fs.writeJson(cachePath, cache, { spaces: 2 });
+  }
+
+  getRelativePath(fromFile, toFile) {
+    const fromDir = path.dirname(fromFile);
+    const toDir = path.dirname(toFile);
+    if (fromDir === toDir) return path.basename(toFile);
+
+    const rel = path.relative(fromDir, toDir);
+    return path.join(rel, path.basename(toFile)).replace(/\\/g, "/");
+  }
+
+  escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  async updateVersionHeader(filePath, content) {
+    const versionRegex =
+      /> \*\*VERSION\*\*: v(\d+) \| \*\*Last Updated\*\*: .*/;
+    const timestamp = new Date().toLocaleDateString();
+
+    let newContent = content;
+    const match = content.match(versionRegex);
+
+    if (match) {
+      const currentVersion = parseInt(match[1]);
+      const newVersion = currentVersion + 1;
+      newContent = content.replace(
+        versionRegex,
+        `> **VERSION**: v${newVersion} | **Last Updated**: ${timestamp}`,
+      );
+    } else {
+      const header = `> **VERSION**: v1 | **Last Updated**: ${timestamp}\n\n`;
+      if (content.startsWith("# ")) {
+        const lines = content.split("\n");
+        lines.splice(1, 0, header);
+        newContent = lines.join("\n");
+      } else {
+        newContent = header + content;
+      }
+    }
+    await fs.writeFile(filePath, newContent);
+  }
+
+  async generateHubIndex() {
+    console.log("📚 Distiller: Generating HUB Master Index recursively...");
+    const files = this.getFiles();
+    const semanticData = [];
+
+    let indexContent = `# 🧠 NEXUS KNOWLEDGE HUB: Master Index\n`;
+    indexContent += `> **Generated At**: ${NexusClock.getLocalTimestamp()} | **Total Knowledge Nodes**: ${files.length}\n\n`;
+    indexContent += `| Rack | Knowledge Node | Size (KB) | Last Updated |\n`;
+    indexContent += `| :--- | :--- | :--- | :--- |\n`;
+
+    for (const file of files) {
+      const filePath = path.join(this.memoryPath, file);
+      const content = await fs.readFile(filePath, "utf8");
+      const stats = await fs.stat(filePath);
+      const rack =
+        path.dirname(file) === "."
+          ? "root"
+          : path.dirname(file).replace(/\\/g, "/");
+      const size = (stats.size / 1024).toFixed(1);
+      const updated = stats.mtime.toLocaleDateString();
+
+      // Extract tags for semantic index
+      const tagMatch = content.match(
+        /> \*\*Metadata \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*)\]/i,
+      );
+      const tags = tagMatch ? tagMatch[1].split(",").map((t) => t.trim()) : [];
+
+      indexContent += `| \`${rack}\` | [${path.basename(file)}](${file.replace(/\\/g, "/")}) | ${size} | ${updated} |\n`;
+
+      semanticData.push({
+        node: path.basename(file),
+        path: file,
+        rack: rack,
+        tags: tags,
+        last_updated: updated,
+        checksum: crypto.createHash("sha256").update(content).digest("hex"),
+      });
     }
 
-    /**
-     * Shelve files into semantic subfolders (Phase 5)
-     */
-    async shelve() {
-        console.log('📂 Distiller: Shelving knowledge into semantic racks...');
-        const files = this.getFiles();
-        
-        const VALID_RACKS = new Set([
-            'core', 'laravel', 'frontend', 'api', 'database', 'security', 
-            'tdd', 'devops', 'performance', 'planning', 'audit', 'academics'
-        ]);
+    const indexPath = path.join(this.memoryPath, "INDEX.md");
+    await fs.writeFile(indexPath, indexContent);
 
-        for (const file of files) {
-            const parts = file.replace(/\\/g, '/').split('/');
-            const rootFolder = parts[0];
+    const semanticPath = path.join(
+      this.memoryPath,
+      "operational",
+      "indexes",
+      "semantic_tag_index.json",
+    );
+    await fs.writeJson(semanticPath, semanticData, { spaces: 2 });
 
-            if (['raw', 'operational', 'archived'].includes(rootFolder)) {
-                continue; // Do not shelve files that belong in raw or operational
-            }
+    console.log(`   ✅ HUB Master Index & Semantic JSON generated.`);
+  }
 
-            if (rootFolder === 'distilled' && parts.length > 2 && VALID_RACKS.has(parts[1])) {
-                continue; // Skip files already shelved in a valid rack
-            }
+  async generateNeuralMap() {
+    console.log("🧠 Distiller: Generating Neural Map recursively...");
+    const files = this.getFiles();
 
-            const filePath = path.join(this.memoryPath, file);
-            const content = await fs.readFile(filePath, 'utf8');
-            
-            // Standards stay in standards rack
-            const isStandard = ['PRINCIPLES', 'STANDARDS', 'LAWS', 'PROTOCOL', 'CONTRACT', 'ALGORITHM', 'WORKFLOW'].some(kw => file.includes(kw));
-            const rawCategory = isStandard ? 'standards' : this.identifyCategory(content);
-            const category = VALID_RACKS.has(rawCategory) ? rawCategory : 'other';
-            
-            if (this.activeRack && category !== this.activeRack) {
-                continue;
-            }
-            
-            const targetDir = path.join(this.knowledgePath, category);
-            const targetPath = path.join(targetDir, path.basename(file));
-            
-            if (filePath !== targetPath) {
-                await fs.ensureDir(targetDir);
-                await fs.move(filePath, targetPath, { overwrite: true });
-                console.log(`   📂 Shelved: ${path.basename(file)} ➔ ${category}/`);
-            }
+    let mermaid = "graph TD\n";
+    let connections = 0;
+
+    for (const file of files) {
+      const filePath = path.join(this.memoryPath, file);
+      const content = await fs.readFile(filePath, "utf8");
+      const nodeName = path
+        .basename(file)
+        .replace(this.prefix, "")
+        .replace(".md", "")
+        .replace(/-/g, "_");
+
+      const linkRegex = /\[.*?\]\((.*?\.md)\)/g;
+      let match;
+      const seenLinks = new Set();
+
+      while ((match = linkRegex.exec(content)) !== null) {
+        const targetPath = match[1];
+        // Hapus pengecekan .includes('/') agar link dalam folder yang sama tetap terpetakan
+        const targetNode = path
+          .basename(targetPath)
+          .replace(this.prefix, "")
+          .replace(".md", "")
+          .replace(/-/g, "_");
+
+        if (nodeName === targetNode) continue;
+        const linkKey = `${nodeName}->${targetNode}`;
+        if (!seenLinks.has(linkKey)) {
+          mermaid += `    ${nodeName} --> ${targetNode}\n`;
+          seenLinks.add(linkKey);
+          connections++;
         }
+      }
     }
 
-    /**
-     * Add semantic tags recursively
-     */
-    async applySemanticTagging() {
-        console.log('🏷️ Distiller: Applying Multi-Label Semantic Tagging (Vector-Enhanced)...');
-        const files = this.getFiles();
+    const mapPath = path.join(this.memoryPath, "INDEX_NEURAL_MAP.md");
+    const finalContent = `# 🧠 NEXUS AI: Neural Knowledge Map\n\n\`\`\`mermaid\n${mermaid}\`\`\`\n\n> **Stats**: ${files.length} Nodes | ${connections} Connections | **Generated**: ${NexusClock.getLocalTimestamp()}\n`;
 
-        for (const file of files) {
-            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
-                continue;
-            }
-            
-            const filePath = path.join(this.memoryPath, file);
-            let content = await fs.readFile(filePath, 'utf8');
+    await fs.writeFile(mapPath, finalContent);
+  }
 
-            // Gunakan multi-label detection
-            const foundTags = this.identifyCategories(content);
+  async run(rack = null) {
+    this.activeRack = rack;
 
-            if (foundTags.length > 0) {
-                const tagStr = `\n\n---\n> **METADATA (NEXUS SEMANTIC TAGS)**: [${foundTags.join(', ')}]\n`;
-                if (!content.includes('METADATA (NEXUS SEMANTIC TAGS)')) {
-                    content += tagStr;
-                    await this.updateVersionHeader(filePath, content);
-                    console.log(`   ✅ Tagged: ${file} with [${foundTags.join(', ')}]`);
-                }
-            }
-        }
+    if (!this.activeRack || this.activeRack === "audit") {
+      await this.distillJSONLogs();
+    }
+    if (!this.activeRack || this.activeRack === "academics") {
+      await this.distillAcademics();
     }
 
-    /**
-     * Optimized Semantic Linking with Native C++ Power (SSD-Aware)
-     */
-    async applySemanticLinking() {
-        console.log('🔗 Distiller: Applying Path-Aware Semantic Cross-Linking (Native C++ Optimized)...');
-        // FIX #25 — Lazy-init NativeBridge hanya saat benar-benar dibutuhkan
-        if (!this._native) {
-            this._native = new NativeBridge(this._rootPath);
-        }
-        try {
-            const ext = process.platform === 'win32' ? '.exe' : '';
-            const fastLinkerBin = path.join(this._native.binPath, 'fast_linker' + ext);
-            if (!(await fs.pathExists(fastLinkerBin))) throw new Error('fast_linker binary not found');
-            
-            const output = await this._native.callCpp('fast_linker', [this.memoryPath]);
-            console.log(output);
-        } catch (e) {
-            console.warn(`   ⚠️ Native linking failed, falling back to JS: ${e.message}`);
-            await this.applySemanticLinkingJS();
-        }
-    }
+    await this.standardizeNames();
+    await this.applySemanticTagging();
+    await this.shelve();
+    await this.applySemanticLinking();
+    await this.generateHubIndex();
+    await this.generateNeuralMap();
 
-    async applySemanticLinkingJS() {
-        console.log('🔗 Distiller: Falling back to JS Semantic Linking...');
-        
-        const cachePath = path.join(this.memoryPath, 'short_term', 'cache', 'link_cache.json');
-        let cache = {};
-        if (await fs.pathExists(cachePath)) {
-            try { cache = await fs.readJson(cachePath); } catch (e) { cache = {}; }
-        }
-
-        const files = this.getFiles();
-        
-        // FIX #26 — Pre-compile keyword→file map AND keyword regexes ONCE
-        // Eliminates O(n²) by avoiding per-file regex construction
-        const linkMap = new Map();
-        files.forEach(f => {
-            const clean = path.basename(f).replace(this.prefix, '').replace('.md', '').toLowerCase();
-            if (clean.length > 3) linkMap.set(clean, f);
-        });
-
-        // Pre-compile all keyword regexes once (saves ~80% time on 500+ files)
-        const compiledKeywords = [];
-        for (const keyword of linkMap.keys()) {
-            compiledKeywords.push({
-                keyword,
-                targetRelPath: linkMap.get(keyword),
-                regex: new RegExp(`(?<!\\[)\\b${this.escapeRegExp(keyword)}\\b(?![\\]\\(])`, 'gi')
-            });
-        }
-
-        // Sort by keyword length descending (longer matches first = more specific)
-        compiledKeywords.sort((a, b) => b.keyword.length - a.keyword.length);
-
-        let totalLinked = 0;
-
-        for (const file of files) {
-            if (this.activeRack && !file.replace(/\\/g, '/').includes(`distilled/${this.activeRack}/`)) {
-                continue;
-            }
-            
-            const filePath = path.join(this.memoryPath, file);
-            const stats = await fs.stat(filePath);
-            const lastLinked = cache[file] || 0;
-
-            if (stats.mtimeMs <= lastLinked) continue;
-
-            let content = await fs.readFile(filePath, 'utf8');
-            let modified = false;
-
-            // FIX #26 — Use pre-compiled regexes instead of creating new ones per file
-            for (const { keyword, targetRelPath, regex } of compiledKeywords) {
-                if (file === targetRelPath) continue;
-                
-                // Reset regex lastIndex for each use (global flag)
-                regex.lastIndex = 0;
-                if (regex.test(content)) {
-                    const relativeTarget = this.getRelativePath(file, targetRelPath);
-                    if (!content.includes(`](${relativeTarget})`)) {
-                        regex.lastIndex = 0;
-                        content = content.replace(regex, (match) => `[${match}](${relativeTarget})`);
-                        modified = true;
-                    }
-                }
-            }
-
-            if (modified) {
-                await this.updateVersionHeader(filePath, content);
-                console.log(`   🔗 Linked: ${file} ➔ modules`);
-                totalLinked++;
-            }
-            cache[file] = Date.now();
-        }
-
-        await fs.writeJson(cachePath, cache, { spaces: 2 });
-    }
-    
-    getRelativePath(fromFile, toFile) {
-        const fromDir = path.dirname(fromFile);
-        const toDir = path.dirname(toFile);
-        if (fromDir === toDir) return path.basename(toFile);
-        
-        const rel = path.relative(fromDir, toDir);
-        return path.join(rel, path.basename(toFile)).replace(/\\/g, '/');
-    }
-
-    escapeRegExp(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    async updateVersionHeader(filePath, content) {
-        const versionRegex = /> \*\*VERSION\*\*: v(\d+) \| \*\*Last Updated\*\*: .*/;
-        const timestamp = new Date().toLocaleDateString();
-        
-        let newContent = content;
-        const match = content.match(versionRegex);
-
-        if (match) {
-            const currentVersion = parseInt(match[1]);
-            const newVersion = currentVersion + 1;
-            newContent = content.replace(versionRegex, `> **VERSION**: v${newVersion} | **Last Updated**: ${timestamp}`);
-        } else {
-            const header = `> **VERSION**: v1 | **Last Updated**: ${timestamp}\n\n`;
-            if (content.startsWith('# ')) {
-                const lines = content.split('\n');
-                lines.splice(1, 0, header);
-                newContent = lines.join('\n');
-            } else {
-                newContent = header + content;
-            }
-        }
-        await fs.writeFile(filePath, newContent);
-    }
-
-    async generateHubIndex() {
-        console.log('📚 Distiller: Generating HUB Master Index recursively...');
-        const files = this.getFiles();
-        const semanticData = [];
-        
-        let indexContent = `# 🧠 NEXUS KNOWLEDGE HUB: Master Index\n`;
-        indexContent += `> **Generated At**: ${NexusClock.getLocalTimestamp()} | **Total Knowledge Nodes**: ${files.length}\n\n`;
-        indexContent += `| Rack | Knowledge Node | Size (KB) | Last Updated |\n`;
-        indexContent += `| :--- | :--- | :--- | :--- |\n`;
-
-        for (const file of files) {
-            const filePath = path.join(this.memoryPath, file);
-            const content = await fs.readFile(filePath, 'utf8');
-            const stats = await fs.stat(filePath);
-            const rack = path.dirname(file) === '.' ? 'root' : path.dirname(file).replace(/\\/g, '/');
-            const size = (stats.size / 1024).toFixed(1);
-            const updated = stats.mtime.toLocaleDateString();
-
-            // Extract tags for semantic index
-            const tagMatch = content.match(/> \*\*Metadata \(NEXUS SEMANTIC TAGS\)\*\*: \[(.*)\]/i);
-            const tags = tagMatch ? tagMatch[1].split(',').map(t => t.trim()) : [];
-
-            indexContent += `| \`${rack}\` | [${path.basename(file)}](${file.replace(/\\/g, '/')}) | ${size} | ${updated} |\n`;
-            
-            semanticData.push({
-                node: path.basename(file),
-                path: file,
-                rack: rack,
-                tags: tags,
-                last_updated: updated,
-                checksum: crypto.createHash('sha256').update(content).digest('hex')
-            });
-        }
-
-        const indexPath = path.join(this.memoryPath, 'INDEX.md');
-        await fs.writeFile(indexPath, indexContent);
-
-        const semanticPath = path.join(this.memoryPath, 'operational', 'indexes', 'semantic_tag_index.json');
-        await fs.writeJson(semanticPath, semanticData, { spaces: 2 });
-
-        console.log(`   ✅ HUB Master Index & Semantic JSON generated.`);
-    }
-
-    async generateNeuralMap() {
-        console.log('🧠 Distiller: Generating Neural Map recursively...');
-        const files = this.getFiles();
-        
-        let mermaid = "graph TD\n";
-        let connections = 0;
-
-        for (const file of files) {
-            const filePath = path.join(this.memoryPath, file);
-            const content = await fs.readFile(filePath, 'utf8');
-            const nodeName = path.basename(file).replace(this.prefix, '').replace('.md', '').replace(/-/g, '_');
-            
-            const linkRegex = /\[.*?\]\((.*?\.md)\)/g;
-            let match;
-            const seenLinks = new Set();
-
-            while ((match = linkRegex.exec(content)) !== null) {
-                const targetPath = match[1];
-                // Hapus pengecekan .includes('/') agar link dalam folder yang sama tetap terpetakan
-                const targetNode = path.basename(targetPath).replace(this.prefix, '').replace('.md', '').replace(/-/g, '_');
-                
-                if (nodeName === targetNode) continue;
-                const linkKey = `${nodeName}->${targetNode}`;
-                if (!seenLinks.has(linkKey)) {
-                    mermaid += `    ${nodeName} --> ${targetNode}\n`;
-                    seenLinks.add(linkKey);
-                    connections++;
-                }
-            }
-        }
-
-        const mapPath = path.join(this.memoryPath, 'INDEX_NEURAL_MAP.md');
-        const finalContent = `# 🧠 NEXUS AI: Neural Knowledge Map\n\n\`\`\`mermaid\n${mermaid}\`\`\`\n\n> **Stats**: ${files.length} Nodes | ${connections} Connections | **Generated**: ${NexusClock.getLocalTimestamp()}\n`;
-        
-        await fs.writeFile(mapPath, finalContent);
-    }
-
-    async run(rack = null) {
-        this.activeRack = rack;
-
-        if (!this.activeRack || this.activeRack === 'audit') {
-            await this.distillJSONLogs();
-        }
-        if (!this.activeRack || this.activeRack === 'academics') {
-            await this.distillAcademics();
-        }
-
-        await this.standardizeNames();
-        await this.applySemanticTagging();
-        await this.shelve();
-        await this.applySemanticLinking();
-        await this.generateHubIndex();
-        await this.generateNeuralMap();
-
-        // BARU: Rebuild vector index setelah distillation selesai
-        await this.semanticEngine.invalidateCache();
-        await this.semanticEngine.buildIndex();
-        console.log('🧠 Vector index rebuilt after distillation.');
-    }
+    // BARU: Rebuild vector index setelah distillation selesai
+    await this.semanticEngine.invalidateCache();
+    await this.semanticEngine.buildIndex();
+    console.log("🧠 Vector index rebuilt after distillation.");
+  }
 }
 
 module.exports = Distiller;
